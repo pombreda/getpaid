@@ -1,0 +1,51 @@
+Getting Started
+
+Setting up a development environment is now easy thanks to our use of
+zc.buildout ( http://python.org/pypi/zc.buildout )
+
+To Get Started
+
+checkout the getpaid.buildout infrastructure
+
+ $ svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
+
+Run the following command from the getpaid.buildout directory:
+
+ $ python bootstrap.py
+
+This creates a few directories used by buildout. Then run:
+
+ $ bin/buildout -v
+
+The -v isn't necessary, but may make you feel better in the knowledge that
+a lot is going on.
+
+This will take a long time and use up to 200Mb of disk space. It will:
+
+ - Create the 'parts' directory
+ - Create a directory var where your Data.fs will live.
+ - Download a Zope 2 tarball into parts/zope2.
+ - Build Zope 2, using 'setup.py build_ext -i'
+ - Build a Zope 2 instance in parts/instance
+ - Install Plone 2.5's products into the Zope 2 instance
+ - Setup the GetPaid Product/Package suite for Plone
+
+If you've done this once, you can speed up the process by running
+
+ $ bin/buildout -o
+
+This tells buildout that you do not want it to go online and check for updates.
+
+To start Zope 2, you can now do:
+
+ $ bin/instance fg
+
+If you wish to have an interactive python prompt that has all the packages
+Zope is aware of, e.g. for testing purposes, you can run:
+
+ $ bin/zopepy
+
+
+
+
+
