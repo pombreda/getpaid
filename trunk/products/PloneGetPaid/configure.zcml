@@ -1,0 +1,70 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:content="http://namespaces.objectrealms.net/plone"
+	   xmlns:five="http://namespaces.zope.org/five">
+
+ 
+<include package="getpaid.core" />
+<include package="getpaid.processor.googlecheckout" />
+
+<include package="ore.member" file="meta.zcml" />
+<include package="ore.member" />
+
+<include package=".browser" />
+
+<!-- Member/User Attributes -->
+<include file="member.zcml" />
+ 
+
+<five:defaultViewable
+   class=".content_types.donation.Donation" />
+
+<!-- Make Member Data Implement Attribute Annotatable so we can store 
+     account information, easily... should reimplement -->
+  
+<five:implements 
+   class="Products.CMFCore.MemberDataTool.MemberData"
+   interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
+
+<five:implements 
+   class="Products.CMFPlone.Portal.PloneSite"
+   interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
+
+<adapter
+   for="getpaid.core.interfaces.IShoppingCart Products.Archetypes.interfaces.IBaseContent"
+   provides="getpaid.core.interfaces.IPayableLineItem"
+   factory=".content.ContentLineItemFactory" />
+
+<adapter
+   for="Products.CMFCore.interfaces.ISiteRoot"
+   provides=".interfaces.IGetPaidManagementOptions"
+   factory=".preferences.ConfigurationPreferences"
+   />
+
+<!-- Vocabularies -->
+
+<!-- Content Type Vocabulary -->
+<vocabulary
+   name="plone.content_types"
+   factory=".vocabularies.ContentTypes"
+   />
+
+<!-- Payment Methods -->
+<vocabulary
+   name="getpaid.payment_methods"
+   factory=".vocabularies.PaymentMethods"
+   />
+
+<!-- Shipping Methods -->
+<vocabulary
+   name="getpaid.shipping_methods"
+   factory=".vocabularies.ShippingMethods"
+   />
+
+<!-- Tax Schemes -->
+<vocabulary
+   name="getpaid.tax_methods"
+   factory=".vocabularies.TaxMethods" 
+   />
+
+   
+</configure>

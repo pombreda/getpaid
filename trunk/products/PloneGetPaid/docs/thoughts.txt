@@ -1,0 +1,14 @@
+
+
+ Provides a completely z3 based plugin architecture to commerce
+ systems on plone.
+
+ 
+  content
+
+  tax methods
+
+  shipping methods
+
+ Management Interface
+

@@ -1,0 +1,20 @@
+<configure
+   xmlns:zope="http://namespaces.zope.org/zope"
+   xmlns="http://namespaces.objectrealms.net/plone">
+
+  <!-- Both of these are subject to change, and possibly with multiply 
+       variants -->
+       
+  <member_schema
+     title="Billing Address"
+     description="Your Billing Address"
+     schema="getpaid.interfaces.IBillingAddress"
+     />
+
+  <member_schema
+     title="Shipping Address"
+     description="Your Shipping Address"
+     schema="getpaid.interfaces.IShippingAddress"
+     />
+
+</configure>
