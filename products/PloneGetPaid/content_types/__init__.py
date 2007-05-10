@@ -1,0 +1,8 @@
+"""
+$Id$
+"""
+
+import donation
+        
+
+

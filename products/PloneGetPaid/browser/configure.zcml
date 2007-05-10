@@ -1,0 +1,55 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
+
+  <!-- Management UI  -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid"
+     class=".admin.GetPaidAdmin"
+     permission="zope2.View"
+     />
+
+  <!-- Formlib Plone Goodness -->
+  <browser:page
+     for="*"
+     name="getpaid-form"
+     template="templates/form.pt"
+     permission="zope2.View"
+     />
+
+  <!-- Donation UI -->
+  <browser:page
+     for="getpaid.interfaces.IDonation"
+     name="view"
+     class=".donation.DonationView"
+     template="templates/donation-view.pt"
+     permission="zope2.View"
+     />
+
+  <!-- Shopping Cart UI -->
+  <!--
+  <browser:viewletManager
+     name="shopping_cart"
+     permission="zope2.View"
+     provide="..interfaces.IGetPaidCartViewletManager"
+     class=".viewlet.ShoppingCartManager" 
+     />
+  <browser:viewlet
+     name=""
+     manager=""
+     template=""
+     class=""
+     permission="zope2.View"
+     />
+   -->
+
+
+  <!-- Donation Default View -->
+  <browser:defaultView
+     for="getpaid.interfaces.IDonation"
+     name="view"
+     />
+
+
+</configure>
