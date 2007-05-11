@@ -1,6 +1,6 @@
 #summary Workflow of the checkout process and summary
 
-<<insert image here>>
+http://getpaid.googlecode.com/files/sitepaymentworkflow.jpg
 
 ==Overall Workflow==
 
