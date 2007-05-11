@@ -1,16 +1,16 @@
-= Site Administrator =
+*User Stories
 
   * AddPaymentProcessingToSite    
   * ConfigurationPanel
   * SetUpPaymentProcessor
   
-= Content Delivery Options = 
+*Content Delivery Options*
 
   * MakeContentPayable
   * AddDonationForm
   * PayToSubmitContent
 
-= End User Experience = 
+*End User Experience*
 
   * OverallCheckoutProcess
   * UserPays details of checkout process
