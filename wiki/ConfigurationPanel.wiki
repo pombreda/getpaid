@@ -1,0 +1,27 @@
+#summary Setup process and screens for GetPaid product
+
+= Introduction =
+After installing PloneGetPaid, the site admin goes to the "GetPaid Settings" in the configuration panel. The top of the page includes a portal message: "This product is currently inactive. You need to fill out required settings before you can make content in your site payable."
+
+The page has a screen for basic, required settings on the first page, and then tabs across the top of the page for different screens for more particular settings. At the bottom of each page are buttons for [next] [save] [cancel].
+
+The site admin can tab through the following screens to set account information for the system:
+
+    * Payment Settings (Required for product to be activated):
+                +      Select Payment Processor
+    *      Enter Payment Processor details (merchant ID, license key, etc.)
+    *      Select Currency
+    *      Disclaimers
+    * Shipping
+    * Tax
+    * Site-wide settings:
+         * Purchasable Content:
+         * Select Shippable Product Types
+         * Membership types
+    * Discounts
+    * Credit cards supported by the system (Visa, MC, Discover, AMEX)
+
+The hard save will cause a configuration tab for the Payment Processor to display which can then be configured to hold the required data, i.e. Merchant ID number, license key, etc. The fields on this page will differ for each Merchant vendor, depending on their API.
+
+Until the required fields are set, the product is not active in the site and the portal message mentioned above stays. Once the required fields are set, the message changes to state that "This product is now active. You can set content in your site to be "Payable" in the "actions" menu."
+
