@@ -1,0 +1,18 @@
+#summary User stories to guide the development process
+
+*Site Administration*
+
+  * AddPaymentProcessingToSite    
+  * ConfigurationPanel
+  * SetUpPaymentProcessor
+  
+*Content Delivery Options*
+
+  * MakeContentPayable
+  * AddDonationForm
+  * PayToSubmitContent
+
+*End User Experience*
+
+  * OverallCheckoutProcess
+  * UserPays details of checkout process
