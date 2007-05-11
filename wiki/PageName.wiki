@@ -1,21 +1,16 @@
-#summary User stories to guide the development process.
-
-= Introduction =
-
-This page includes the user stories for the system. 
-
-
-= Details =
-
-Site Administrator:
+= Site Administrator =
 
   * AddPaymentProcessingToSite    
   * ConfigurationPanel
   * SetUpPaymentProcessor
   
+= Content Delivery Options = 
 
+  * MakeContentPayable
+  * AddDonationForm
+  * PayToSubmitContent
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= End User Experience = 
+
+  * OverallCheckoutProcess
+  * UserPays details of checkout process
