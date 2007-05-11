@@ -1,4 +1,4 @@
-*User Stories
+*Site Administration*
 
   * AddPaymentProcessingToSite    
   * ConfigurationPanel
