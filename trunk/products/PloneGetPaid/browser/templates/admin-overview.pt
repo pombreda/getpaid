@@ -1,0 +1,6 @@
+<metal:page use-macro="context/@@manage-getpaid-template/macros/admin">
+  <metal:block fill-slot="admin_content">
+     Hello World
+  </metal:block>
+</metal:page>
+

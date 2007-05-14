@@ -18,7 +18,7 @@ def install_control_panel( self ):
     manage_ui.addAction(
         id = "getpaid",
         name = "Commerce",
-        action = "string:${portal_url}/@@manage-getpaid",
+        action = "string:${portal_url}/@@manage-getpaid-overview",
         appId = "PloneGetPaid",
 #        imageUrl = "",
         description = "Management Access to Commerce Backend",

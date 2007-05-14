@@ -5,7 +5,7 @@ $Id$
 from zope import schema
 from zope.interface import Interface
 
-import getpaid.interfaces
+import getpaid.core.interfaces as igetpaid
 import zope.viewlet.interfaces
 
 class IGetPaidManageViewletManager( zope.viewlet.interfaces.IViewletManager ):
@@ -16,7 +16,17 @@ class IGetPaidCartViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid shopping cart ui
     """
 
-class IGetPaidManagementOptions( getpaid.interfaces.IPersistentOptions ):
+class IBuyableMarker( Interface ):
+    """ marker interface added to buyable content """
+
+class IPremiumMarker( Interface ):
+    """ marker interface added to premium content """
+
+class IShippableMarker( Interface ):
+    """ shippable interface added to shippable content """
+
+
+class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
 
     payment_processor = schema.Choice( title = u"Payment Processor",
                                        source = "getpaid.payment_methods" )
@@ -37,6 +47,7 @@ class IGetPaidManagementOptions( getpaid.interfaces.IPersistentOptions ):
     buyable_types = schema.List(
         title = u"Buyable Types",
         required = False,
+        default = [],
         description = u"Buyable Content delivered through the web/virtually",
         value_type = schema.Choice( title=u"buyable_types", source="plone.content_types" )
         )
@@ -44,8 +55,17 @@ class IGetPaidManagementOptions( getpaid.interfaces.IPersistentOptions ):
     shippable_types = schema.List(
         title = u"Shippable Product Types",
         required = False,
+        default = [],
         description = u"Content Types that represent goods that can be purchased and shipped",        
         value_type = schema.Choice( title=u"shippable_types", source="plone.content_types" )
+        )
+
+    premium_types = schema.List(
+        title = u"Premium Content Types",
+        required = False,
+        default = [],
+        description = u"Content Types only available to premium memberships",
+        value_type = schema.Choice( title=u"premium_types", source="plone.content_types" )
         )
                                      
         

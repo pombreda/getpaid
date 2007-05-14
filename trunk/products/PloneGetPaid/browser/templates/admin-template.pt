@@ -1,0 +1,60 @@
+<metal:page define-macro="admin">
+  <metal:block use-macro="here/prefs_main_template/macros/master">
+    <metal:block fill-slot="prefs_configlet_content">
+
+      <div id="content"  class="documentEditable">
+
+	<ul class="contentViews"
+	    tal:define="selected python:request.URL0.rsplit('/',1)[-1]">
+			
+	  <tal:loop tal:repeat="cview context/@@view_get_menu/getpaid_admin">
+	    <li class="selected"
+		tal:condition="python:selected == cview['action']">
+              <a href=""
+		 tal:attributes="href cview/action"
+		 tal:content="cview/title"> label </a>						
+	    </li>
+	    <li tal:condition="python:selected != cview['action']">
+              <a href=""
+		 tal:attributes="href cview/action"
+		 tal:content="cview/title"> label </a>						
+	    </li>
+	  </tal:loop>
+
+	</ul>
+	
+	<div class="contentActions">
+	  &nbsp;
+	</div>
+	
+	<div id="region-content" class="documentContent">
+	  <div metal:use-macro="here/global_statusmessage/macros/portal_message">
+	    Portal status message
+	  </div> 
+	  
+	  <div class="configlet">
+	    <h1 i18n:translate="heading_getpaid_setup">GetPaid Setup</h1> 
+	    
+	    <a href=""
+	       class="link-parent"
+	       tal:attributes="href string: $portal_url/plone_control_panel"
+	       i18n:translate="label_up_to_plone_setup">
+              Up to Site Setup
+	    </a>
+	    
+	    <p i18n:translate="description_getpaid_setup">
+              GetPaid setup for Plone.
+	    </p>
+	  </div>
+	  
+	  <metal:block define-slot="admin_content" tal:content="nothing">
+	    Admini Template
+	  </metal:block>
+	</div>
+
+      </div>    
+
+    </metal:block>
+  </metal:block>
+</metal:page>
+

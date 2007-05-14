@@ -11,27 +11,50 @@ from zope import component
 from zope.formlib import form
 from zope.app.form.browser import MultiSelectWidget
 
-import getpaid.interfaces
+import getpaid.core.interfaces as igetpaid
 
-def SelectWidgetFactory( field, request ):
-    vocabulary = field.value_type.vocabulary
-    return MultiSelectWidget( field, vocabulary, request ) 
+from ore.member.browser import SchemaSelectWidget as SelectWidgetFactory
 
-class GetPaidAdmin( formbase.EditForm ):
+from base import BaseView
+
+class Overview( BrowserView ):
+    """ overview of entire system
+    """
+    
+class Core( formbase.EditForm, BaseView ):
     """
     get paid management interface
     """
-    template = ZopeTwoPageTemplateFile("templates/admin.pt")
+    template = ZopeTwoPageTemplateFile("templates/admin-settings.pt")
     form_fields = form.Fields( interfaces.IGetPaidManagementOptions )
 
     form_fields['buyable_types'].custom_widget = SelectWidgetFactory
     form_fields['shippable_types'].custom_widget = SelectWidgetFactory
+    form_fields['premium_types'].custom_widget = SelectWidgetFactory
 
     options = None
     
     def __init__( self, context, request ):
         self.context = context
         self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )
+
+
+class Processor( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    
+    template = ZopeTwoPageTemplateFile("templates/admin-processor.pt")
+    form_fields = None
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )        
         self.setupProcessorOptions()
         
     def setupProcessorOptions( self ):
@@ -42,9 +65,8 @@ class GetPaidAdmin( formbase.EditForm ):
             return
 
         processor = component.getAdapter( manage_options,
-                                          getpaid.interfaces.IPaymentProcessor,
+                                          igetpaid.IPaymentProcessor,
                                           processor_name )
-
-        form_fields = form.Fields( processor.options_interface )
-        self.form_fields = self.form_fields + form_fields
+        
+        self.form_fields = form.Fields( processor.options_interface )
 
