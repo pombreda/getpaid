@@ -8,7 +8,7 @@ from Products.Archetypes.atapi import *
 from Products.PloneGetPaid.config import *
 from Products.CMFCore import permissions
 
-from getpaid.interfaces import IDonation
+from getpaid.core.interfaces import IDonation
 from zope.interface import implements
 
 DonationSchema = ATContentTypeSchema.copy() + Schema( (
