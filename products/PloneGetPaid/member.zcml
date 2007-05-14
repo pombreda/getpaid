@@ -8,13 +8,13 @@
   <member_schema
      title="Billing Address"
      description="Your Billing Address"
-     schema="getpaid.interfaces.IBillingAddress"
+     schema="getpaid.core.interfaces.IBillingAddress"
      />
 
   <member_schema
      title="Shipping Address"
      description="Your Shipping Address"
-     schema="getpaid.interfaces.IShippingAddress"
+     schema="getpaid.core.interfaces.IShippingAddress"
      />
 
 </configure>
