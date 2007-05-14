@@ -9,8 +9,8 @@
    <!-- Working around a bug in the ca (z2.9) whereby we can't pickup 
         all the provided by an interface if we register for * -->
    <adapter
-      for="getpaid.interfaces.IPersistentOptions"
-      provides="getpaid.interfaces.IPaymentProcessor"
+      for="getpaid.core.interfaces.IPersistentOptions"
+      provides="getpaid.core.interfaces.IPaymentProcessor"
       name="Google Checkout"
       factory=".GoogleCheckoutProcessor" />
 
