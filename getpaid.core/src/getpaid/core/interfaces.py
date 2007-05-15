@@ -1,8 +1,10 @@
-from zope.interface import Interface
+"""
+$Id$
+"""
 
+from zope.interface import Interface
 from zope import schema
 from zope.app.container.interfaces import IContainer
-
 from ore.member.interfaces import IMemberSchema
 
 #################################
@@ -10,13 +12,15 @@ from ore.member.interfaces import IMemberSchema
 
 class IPayable( Interface ):
     """
-    An object which can be paid for
+    An object which can be paid for. Payables are typically gotten via adapation between
+    a context and the request, to allow for pricing / display customization on a user
+    basis.
     """
-
-    def getCost( self ):
-        """
-        get the total cost for this payable
-        """
+    name = schema.TextLine( title=u"Product Name")
+    description = schema.Text( title=u"Product Description")
+    creation_user = schema.TextLine( title=u"Created By")
+    sku = schema.TextLine( title=u"Product SKU/Code")
+    price = schema.Float( title=u"Price")
 
 class IDonation( IPayable ):
     """ Donation
@@ -34,6 +38,10 @@ class IPremiumContent( Interface ):
     """ Premium Content for Subscriptions
     """
 
+class IPhysicalPayable( IPayable ):
+    """
+    """
+
 class IShippableContent( IPayable ):
     """ Shippable Content
     """
@@ -41,6 +49,13 @@ class IShippableContent( IPayable ):
     def getShipWeight( self ):
         """ Shipping Weight
         """
+
+class IPayableAuditLog( Interface ):
+    """ ordered container of changes, most recent first, hook on events.
+    """
+    #modification_date = 
+    #changed_by =
+
 
 #################################
 # Stuff to Process Payments
@@ -60,6 +75,7 @@ class IPaymentProcessorOptions( Interface ):
     
 #################################
 # Shopping Cart Stuff
+
 class ILineItem( Interface ):
     """
     An Item in a Cart
