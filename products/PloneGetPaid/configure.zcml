@@ -12,7 +12,12 @@
 
 <!-- Member/User Attributes -->
 <include file="member.zcml" />
- 
+
+<adapter
+   for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+   provides="getpaid.core.interfaces.IPayable"
+   factory=".content.BuyableContentAdapter"
+   />
 
 <five:defaultViewable
    class=".content_types.donation.Donation" />
@@ -21,12 +26,13 @@
      account information, easily... should reimplement -->
   
 <five:implements 
-   class="Products.CMFCore.MemberDataTool.MemberData"
-   interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
-
-<five:implements 
    class="Products.CMFPlone.Portal.PloneSite"
    interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
+
+<five:implements
+   class="Products.Archetypes.public.BaseContent"
+   interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
+   
 
 <adapter
    for="getpaid.core.interfaces.IShoppingCart Products.Archetypes.interfaces.IBaseContent"
