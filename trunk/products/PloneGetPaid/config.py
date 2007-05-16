@@ -1,4 +1,4 @@
 
 PROJECTNAME = "PloneGetPaid"
 
-DEPENDENCIES = [ "ore.member" ]
+DEPENDENCIES = [ "ore.member", 'CMFonFive' ]

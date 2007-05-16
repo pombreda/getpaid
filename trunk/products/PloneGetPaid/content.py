@@ -37,6 +37,7 @@ from Products.Archetypes import atapi
 from zope import interface
 from getpaid.core.interfaces import IBuyableContent, IShippableContent, IPremiumContent
 from getpaid.core import cart
+from getpaid.core import options
 
 class ContentLineItem( cart.PayableLineItem ):
     """ A line item with a reference to an archetype content that can be placed in a cart
@@ -57,17 +58,6 @@ def ContentLineItemFactory( cart, content ):
 
 #################################
 # Buyable Content
-BuyableContentSchema = atapi.Schema( ( ) )
-    
-class BuyableContentAdapter( object ):
-
-    interface.implements( IBuyableContent )
-    
-    def __init__( self, context ):
-        self.context = context
-        
-    def getCost( self ):
-        return self.context.Schema()['getpaid_price']
 
 """
 when buyable content is deleted, we still want to be able to keep a reference to it
@@ -75,33 +65,47 @@ for those who have paid, or at least replace any shopping cart / transaction ref
 with information.
 """
 
-#################################
-# Shippable Content    
-ShippableContentSchema = atapi.Schema( () )
+BuyableContentStorage = options.PersistentOptions.wire( "BuyableContentStorage", "getpaid.content.buyable", IBuyableContent )
 
+class BuyableContentAdapter( BuyableContentStorage ):
+    """
+    Default Adapter between Content and IBuyable. This implementation stores attributes
+    of a buyable in an annotation adapter
+    """
+    interface.implements( IBuyableContent )
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+    
+
+#################################
+# Shippable Content
+"""
+shippable deletions need to track orders not shipped 
+"""
+
+ShippableContentStorage = options.PersistentOptions.wire( "ShippableContentStorage", "getpaid.content.shippable", IShippableContent )
 
 class ShippableContentAdapter( object ):
 
+    interface.implements( IShippableContent )
+    
     def __init__( self, context ):
         self.context = context
-
-    def getShipWeight( self ):
-        return self.context.Schema()['getpaid_shipping_weight']
 
 #################################
 # Premium Content    
-PremiumContentSchema = atapi.Schema( () )
 
+PremiumContentStorage = options.PersistentOptions.wire( "ShippableContentStorage", "getpaid.content.buyable", IPremiumContent )
 
 class PremiumContentAdapter( object ):
 
+    interface.implements( IPremiumContent )
+    
     def __init__( self, context ):
         self.context = context
 
-    def getSubscriptionsNeededToView( self ):
-        return self.context.Schema()['getpaid_subscriptions_needed_to_view']
-    
-    
         
     
 

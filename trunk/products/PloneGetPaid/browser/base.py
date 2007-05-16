@@ -37,7 +37,7 @@ class BaseView( object ):
             request.locale = locales.getLocale(None, None, None)
 
 
-class BaseFormView( formbase.SubPageEditForm, BaseView ):
+class BaseFormView( formbase.EditForm, BaseView ):
 
     template = ZopeTwoPageTemplateFile('templates/form.pt')
 
@@ -54,5 +54,5 @@ class BaseFormView( formbase.SubPageEditForm, BaseView ):
         # setup some compatiblity
         self.setupLocale( request )
         self.setupEnvironment( request )
-        super( EmbeddedFormView, self).__init__( context, request )
-
+        super( BaseFormView, self).__init__( context, request )
+        

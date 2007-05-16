@@ -1,0 +1,50 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
+
+  <!-- Management UI Menu -->
+  <browser:menu
+     id="getpaid_admin"
+     title="GetPaid Administration"
+     />
+
+  <!-- Management UI Template -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-template"
+     template="templates/admin-template.pt"
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- Management UI Overview -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-overview"
+     menu="getpaid_admin"
+     title="Overview"
+     class=".admin.Overview"
+     template="templates/admin-overview.pt"
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- Management Core Options Editing -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-core"
+     menu="getpaid_admin"
+     title="Settings"
+     class=".admin.Core"     
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- Management Processor Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-processor"
+     class=".admin.Processor"
+     menu="getpaid_admin"
+     title="Processor"
+     permission="cmf.ManagePortal"
+     />
+
+</configure>

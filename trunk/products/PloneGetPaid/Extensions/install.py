@@ -11,6 +11,52 @@ from StringIO import StringIO
 
 from ore.member.interfaces import ISiteSchemaManager
 
+
+coci_actions = [
+
+       ( dict(  id = 'getpaid_make_buyable',
+                name = 'Make Buyable',
+                action = 'string:$object_url/@@activate-buyable',
+                category ='object_buttons',
+                permission = "Modify portal content",
+                condition = "python:path('object/@@getpaid_control').allowChangeBuyable()",
+                visible = True ),
+         "user.gif" ),
+
+      ( dict(  id = 'getpaid_make_shippable',
+                name = 'Make Shippable Product',
+                action = 'string:$object_url/@@activate-shippable',
+                category ='object_buttons',
+                permission = "Modify portal content",
+                condition = "python:path('object/@@getpaid_control').allowChangeShippable()",
+                visible = True ),
+         "user.gif" ),
+
+      ( dict(  id = 'getpaid_make_premium',
+                name = 'Make Premium Members Only',
+                action = 'string:$object_url/@@activate-premium-content',
+                category ='object_buttons',
+                permission = "Modify portal content",
+                condition = "python:path('object/@@getpaid_control').allowChangePremiumContent()",
+                visible = True ),
+         "user.gif" ),
+
+
+        ]
+
+def setup_actions( self ):
+    actions = getToolByName( self, 'portal_actions')
+    action_icons = getToolByName( self, 'portal_actionicons')
+    
+    for action, image in coci_actions:
+        actions.addAction( **action )
+
+        if action_icons.queryActionIcon( action['category'], action['id'], None) is None:
+            action_icons.addActionIcon( action['category'],
+                                        action['id'],
+                                        image,
+                                        action['name'] )
+
 def install_control_panel( self ):
 
     manage_ui= getToolByName( self, 'portal_controlpanel')
@@ -20,7 +66,7 @@ def install_control_panel( self ):
         name = "Commerce",
         action = "string:${portal_url}/@@manage-getpaid-overview",
         appId = "PloneGetPaid",
-#        imageUrl = "",
+# TODO        imageUrl = "",
         description = "Management Access to Commerce Backend",
         permission=cmf_perms.ManagePortal
         
@@ -66,6 +112,9 @@ def install( self ):
     print >> out, "Installing Member Schemas"
     install_member_schemas( self )
 
+    print >> out, "Installing Actions"
+    setup_actions( self )
+    
     return out.getvalue()
 
 def uninstall( self ):
