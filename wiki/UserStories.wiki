@@ -7,7 +7,7 @@ Actions that take place in the site setup area.
   * AddPaymentProcessingToSite    
   * ConfigurationPanel
   * SetUpPaymentProcessor
-  * ChooseACurrency
+  * ChooseaCurrency
   * ConfigureEmails
   * ConfigurePaymentDisclaimer
   * ConfigureDiscounts
@@ -49,5 +49,4 @@ Stories about the end user's interface with the system and content
     * MemberMakesDonation to a non-profits
     * MemberPurchasesSubscription for recurring expenses
     * MemberPurchasesAccessToContent for an article or section of site
-
 
