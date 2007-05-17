@@ -1,0 +1,9 @@
+=Configure Payment Disclaimer
+
+In the Site Setup/GetPaid area, a "Disclaimer Text" tab offers ability to customize a disclaimer text that is presented during the checkout process. The box is a rich text box (so can add bold, formatting, or links). The page also includes a spot to link to the site's privacy policy. If filled out, both will show in the checkout process.
+
+
+==Suggested Topics for Disclaimer==
+
+    * Refunds: how to handle, what is policy
+    * Recurring charge: how it is handled, what to do to opt out
