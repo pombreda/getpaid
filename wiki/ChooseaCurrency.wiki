@@ -1,0 +1,12 @@
+=Choose A Currency=
+
+==Available Settings for Site Payment Settings==
+Please set the following information about how payments are handled for your site.
+
+    * Currency:
+      Please choose a currency for your site.
+      Admin can choose currency from a list of all modern currencies.  This allows you to define the way your pricing is displayed, including the correct currency symbol. 
+
+
+==Future Possibilities==
+Payment options: Specify multiple options available to site users (paypal, google, cash/check, credit card via phone, pay later...).
