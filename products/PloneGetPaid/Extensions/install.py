@@ -41,6 +41,15 @@ coci_actions = [
                 visible = True ),
          "user.gif" ),
 
+      ( dict(  id = 'getpaid_manage_cart',
+                name = 'Manage Cart',
+                action = 'string:$object_url/@@getpaid-cart',
+                category ='user',
+                permission = "View",
+                condition = "python:path('object/@@getpaid_control').showManageCart",
+                visible = True ),
+         None ),
+
 
         ]
 
@@ -51,6 +60,9 @@ def setup_actions( self ):
     for action, image in coci_actions:
         actions.addAction( **action )
 
+        if not image:
+            continue
+        
         if action_icons.queryActionIcon( action['category'], action['id'], None) is None:
             action_icons.addActionIcon( action['category'],
                                         action['id'],

@@ -91,8 +91,9 @@ class ShippableContentAdapter( object ):
 
     interface.implements( IShippableContent )
     
-    def __init__( self, context ):
+    def __init__( self, context, request ):
         self.context = context
+        self.request = request
 
 #################################
 # Premium Content    
@@ -103,8 +104,9 @@ class PremiumContentAdapter( object ):
 
     interface.implements( IPremiumContent )
     
-    def __init__( self, context ):
+    def __init__( self, context, request ):
         self.context = context
+        self.request = request
 
         
     

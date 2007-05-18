@@ -10,48 +10,41 @@
      permission="zope2.View"
      />
 
+  <!-- Create some Z3 Menus parallel to Plone actions -->
+  <browser:menu
+     id="user"
+     title="Plone User Menu"
+     />
+
+  <browser:menu
+     id="object_tabs"
+     title="Plone Object Tabs Menu"
+     />
+
   <!-- Get Paid Admin UI -->
   <include file="admin.zcml" />
 
   <!-- Get Paid Content UI -->
-  <browser:page
-     for="*"
-     name="getpaid_control"
-     class=".content.ContentControl"
-     permission="zope2.View"
-     />
+  <include file="content.zcml" />
 
-  <browser:page
-     for="*"
-     name="activate-buyable"
-     class=".content.PayableCreation"
-     permission="cmf.ModifyPortalContent"
-     />
-
-  <browser:page
-     for="*"
-     name="activate-premium-content"
-     class=".content.PayableCreation"
-     permission="cmf.ModifyPortalContent"
-     />
-
-  <browser:page
-     for="*"
-     name="activate-shippable"
-     class=".content.PayableCreation"
-     permission="cmf.ModifyPortalContent"
-     />
-
-  <!-- Donation UI -->
-  <browser:page
-     for="getpaid.core.interfaces.IDonation"
-     name="view"
-     class=".donation.DonationView"
-     template="templates/donation-view.pt"
-     permission="zope2.View"
-     />
 
   <!-- Shopping Cart UI -->
+
+  <browser:page
+     for="*"
+     name="portlet-shopping-cart"
+     class=".portlet.ShoppingCart"
+     template="templates/portlet-cart.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="getpaid-shopping-cart"
+     class=".portlet.ShoppingCart"
+     permission="zope2.View"
+     />
+
   <!--
   <browser:viewletManager
      name="shopping_cart"
@@ -69,7 +62,15 @@
    -->
 
 
-  <!-- Donation Default View -->
+  <!-- Donation UI -->
+  <browser:page
+     for="getpaid.core.interfaces.IDonation"
+     name="view"
+     class=".donation.DonationView"
+     template="templates/donation-view.pt"
+     permission="zope2.View"
+     />
+
   <browser:defaultView
      for="getpaid.core.interfaces.IDonation"
      name="view"

@@ -25,6 +25,7 @@ class IPremiumMarker( Interface ):
 class IShippableMarker( Interface ):
     """ shippable interface added to shippable content """
 
+PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker ]
 
 class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
 

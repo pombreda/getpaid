@@ -4,11 +4,12 @@ Viewlet / Formlib / zc.table Based Shopping Cart
 $Id$
 """
 
-
 from Products.Five.viewlet import manager, viewlet
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from AccessControl import getSecurityManager
 
+from getpaid.core import interfaces
+from zope import component
 from zope.formlib import form
 from zc.table import column
 from zc.table import table
@@ -31,7 +32,7 @@ CartColumns = [
     column.GetterColumn( title="Quantity", getter=LineItemColumn("quantity") )
 ]
 
-SelectionColumn = ListingColumns[0]
+SelectionColumn = CartColumns[0]
 
 class ShoppingCartListing( viewlet.ViewletBase ):
 
