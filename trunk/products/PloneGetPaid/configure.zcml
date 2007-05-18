@@ -13,18 +13,10 @@
 <!-- Member/User Attributes -->
 <include file="member.zcml" />
 
-<adapter
-   for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
-   provides="getpaid.core.interfaces.IPayable"
-   factory=".content.BuyableContentAdapter"
-   />
-
+<!-- Five -->
 <five:defaultViewable
    class=".content_types.donation.Donation" />
 
-<!-- Make Member Data Implement Attribute Annotatable so we can store 
-     account information, easily... should reimplement -->
-  
 <five:implements 
    class="Products.CMFPlone.Portal.PloneSite"
    interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
@@ -32,18 +24,43 @@
 <five:implements
    class="Products.Archetypes.public.BaseContent"
    interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
-   
 
+<!-- Content to Payable Adapters -->
+<adapter
+   for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+   provides="getpaid.core.interfaces.IBuyableContent"
+   factory=".content.BuyableContentAdapter"
+   />
+
+<adapter
+   for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+   provides="getpaid.core.interfaces.IShippableContent"
+   factory=".content.ShippableContentAdapter"
+   />
+
+<adapter
+   for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+   provides="getpaid.core.interfaces.IPremiumContent"
+   factory=".content.PremiumContentAdapter"
+   />
+   
+<!-- Content to Cart Item Adapters -->
 <adapter
    for="getpaid.core.interfaces.IShoppingCart Products.Archetypes.interfaces.IBaseContent"
    provides="getpaid.core.interfaces.IPayableLineItem"
    factory=".content.ContentLineItemFactory" />
 
+<!-- Property Storage for Web Configuration Options -->
 <adapter
    for="Products.CMFCore.interfaces.ISiteRoot"
    provides=".interfaces.IGetPaidManagementOptions"
    factory=".preferences.ConfigurationPreferences"
    />
+
+<!-- Utilities -->
+<utility
+   provides="getpaid.core.interfaces.IShoppingCartUtility"
+   factory=".cart.ShoppingCartUtility"/>
 
 <!-- Vocabularies -->
 

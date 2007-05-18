@@ -27,11 +27,12 @@ class PayableFormView( BaseFormView ):
     def update( self ):
         self.payable = component.getMultiAdapter( ( self.context, self.request ),
                                                     self.interface )
-        self.adapters = { self.interface : self.payable }
+        self.adapters = { self.interface : self.payable,
+                          igetpaid.IPayable : self.payable }
         return super( PayableFormView, self).update()
         
     def setUpWidgets( self, ignore_request=False ):
-        self.adapters = self.adapters or {}
+        self.adapters = self.adapters is not None and self.adapters or {}
         self.widgets = form.setUpEditWidgets(
             self.form_fields, self.prefix, self.context, self.request,
             adapters=self.adapters, ignore_request=ignore_request
@@ -43,9 +44,9 @@ class PayableCreation( PayableFormView, formbase.EditForm ):
     marker = None
     
     def update( self ):
-        # XXX
-        mark( self.context, self.marker )
-        return super( PayableFormView, self).update()        
+        # XXX should do this on form submit success only...
+        marker.mark( self.context, self.marker )
+        return super( PayableCreation, self).update()        
         
 class PayableEdit( PayableFormView, formbase.EditForm  ):
     
@@ -91,7 +92,8 @@ class ContentControl( BrowserView ):
     """
 
     __allow_access_to_unprotected_subobjects__ = 1
-
+    __slots__ = ( 'context', 'request', 'options' )
+    
     def __init__( self, context, request ):
         self.context = context
         self.request = request
@@ -148,5 +150,11 @@ class ContentControl( BrowserView ):
             return False
         return True
     allowChangePremiumContent.__roles__ = None
+
+
+    def showManageCart( self ):
+        utility = component.getUtility( igetpaid.IShoppingCartUtility )
+        return utility.get( self.context ) is not None
     
+    showManageCart.__roles__ = None
 

@@ -1,0 +1,67 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
+
+  <!-- Get Paid Content UI -->
+
+  <!-- This view contains action conditions that control the visibility
+       of the other activation views, based on portal settings -->
+  <browser:page
+     for="*"
+     name="getpaid_control"
+     class=".content.ContentControl"
+     permission="zope2.View"
+     />
+
+  <!-- Activation Views, turning content into payables -->
+  <browser:page
+     for="*"
+     name="activate-buyable"
+     class=".content.BuyableCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="activate-premium-content"
+     class=".content.PremiumCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="activate-shippable"
+     class=".content.PayableCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <!-- Edit Views, on payable -->
+  <browser:page
+     for="..interfaces.IBuyableMarker"
+     name="edit-buyable"
+     menu="object"
+     title="Payable"
+     class=".content.BuyableEdit"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="..interfaces.IPremiumMarker"
+     name="edit-premium"
+     menu="object"
+     title="Payable"
+     class=".content.PremiumEdit"
+     permission="cmf.ModifyPortalContent"
+     />     
+  
+  <browser:page
+     for="..interfaces.IShippableMarker"
+     name="edit-shippable"
+     menu="object"
+     title="Payable"
+     class=".content.ShippableEdit"
+     permission="cmf.ModifyPortalContent"
+     />     
+  
+
+</configure>
