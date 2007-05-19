@@ -27,40 +27,8 @@
   <!-- Get Paid Content UI -->
   <include file="content.zcml" />
 
-
   <!-- Shopping Cart UI -->
-
-  <browser:page
-     for="*"
-     name="portlet-shopping-cart"
-     class=".portlet.ShoppingCart"
-     template="templates/portlet-cart.pt"
-     permission="zope2.View"
-     />
-
-  <browser:page
-     for="*"
-     name="getpaid-shopping-cart"
-     class=".portlet.ShoppingCart"
-     permission="zope2.View"
-     />
-
-  <!--
-  <browser:viewletManager
-     name="shopping_cart"
-     permission="zope2.View"
-     provide="..interfaces.IGetPaidCartViewletManager"
-     class=".viewlet.ShoppingCartManager" 
-     />
-  <browser:viewlet
-     name=""
-     manager=""
-     template=""
-     class=""
-     permission="zope2.View"
-     />
-   -->
-
+  <include file="cart.zcml" />
 
   <!-- Donation UI -->
   <browser:page

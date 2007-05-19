@@ -1,0 +1,31 @@
+
+
+ use a multiadapter between context and request
+
+ allow for editing by stuffing into adapters of form
+
+ storing content id on the product info for resolution from a
+ relational database.
+
+
+ weighted order viewlet manager
+
+ event notifications
+
+ ---
+
+   - payable created
+
+   - payable removed
+
+   - item added to cart
+
+   - item removed from cart
+
+   - order created
+
+   - order status change
+
+   - order processed
+
+   - order completed

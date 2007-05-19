@@ -27,6 +27,14 @@ class IShippableMarker( Interface ):
 
 PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker ]
 
+PayableMarkerMap = dict(
+     (
+      (IBuyableMarker, igetpaid.IBuyableContent),
+      (IPremiumMarker, igetpaid.IPremiumContent),
+      (IShippableMarker, igetpaid.IShippableContent),
+    )
+)    
+
 class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
 
     payment_processor = schema.Choice( title = u"Payment Processor",
