@@ -1,4 +1,7 @@
 """
+
+Session Based Cart Implementation
+
 $Id$
 """
 
@@ -7,6 +10,7 @@ from zope.interface import implements
 from getpaid.core.cart import ShoppingCart
 from getpaid.core.interfaces import IShoppingCartUtility
 from Products.CMFCore.utils import getToolByName
+
 class ShoppingCartUtility( object ):
     
     implements( IShoppingCartUtility )

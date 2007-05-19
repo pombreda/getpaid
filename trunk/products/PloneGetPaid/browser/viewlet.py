@@ -7,18 +7,29 @@ import os
 
 _prefix = os.path.dirname( __file__ )
 
-GetPaidManagementTemplate = os.path.join( _prefix, "templates", "admin_viewlet.pt")
+## GetPaidManagementTemplate = os.path.join( _prefix, "templates", "admin_viewlet.pt")
 
-ManagementViewletManager = manager.ViewletManager( "ManagementViewletManager",
-                                                   interfaces.IGetPaidManageViewletManager,
-                                                   GetPaidManagementTemplate )
+## ManagementViewletManager = manager.ViewletManager( "ManagementViewletManager",
+##                                                    interfaces.IGetPaidManageViewletManager,
+##                                                    GetPaidManagementTemplate )
 
 
-GetPaidShoppingCartTemplate = os.path.join( _prefix, "templates", "shopping_cart_viewlet.pt")
+GetPaidShoppingCartTemplate = os.path.join( _prefix, "templates", "cart-viewlet-manager.pt")
 
-ShoppingCartManager = manager.ViewletManager( "ShoppingCartManager",
+class ViewletManagerDebug( object ):
+    """ mixin for debugging a viewlet manager """
+    
+    def update( self ):
+        super( ViewletManagerDebug, self ).update()
+
+        
+ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
                                               interfaces.IGetPaidCartViewletManager,
-                                              GetPaidShoppingCartTemplate )
+                                              GetPaidShoppingCartTemplate,
+                                              bases=(ViewletManagerDebug,)
+                                              )
+
+
 
 
 class FormViewlet( viewlet.SimpleAttributeViewlet, SubPageForm ):
@@ -27,7 +38,7 @@ class FormViewlet( viewlet.SimpleAttributeViewlet, SubPageForm ):
     form_template = FormBase.template    
     renderForm = FormBase.render
     
-    __page_attribute__ = template
+    __page_attribute__ = "template"
     
     def update( self ):
         super( viewlet.SimpleAttributeViewlet, self).update()
