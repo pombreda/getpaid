@@ -43,7 +43,7 @@ PayFloPro:
 
 Trust Commerce:
 
-    * Trust Commerce cmf tool: <link coming soon...> (from Tres and Chris McDonough)
+    * Trust Commerce cmf tool: https://agendaless.com/Members/tseaver/software/trustcommerce/trustcommerce-1.0/  (from Tres and Chris McDonough) This product provides a ZMI-manageable tool as a facade for the API exported by TrustCommerce's tclink Python library.
 
 PayPal
 
@@ -90,7 +90,7 @@ Zwork, who developed plonemallpayment, and Ofer shared the following information
 
 There are two main types of payment processors:
 
-   1. Standard payment processing:Â  the payment processor itself collects information from the shopper and then calls the payment service's backend. Has the advantage that the customer stays in your shop, but it is more work to develop + the merhant's shop must have https + a certificate
+   1. Standard payment processing:ï¿½  the payment processor itself collects information from the shopper and then calls the payment service's backend. Has the advantage that the customer stays in your shop, but it is more work to develop + the merhant's shop must have https + a certificate
    2. Lighweight redirecting payment processors that redirect the customer to the payment provider's site from which you then get redirected back (e.g. paypal). Processors are easily to develop, and quicker to set up for a shop
 
 Both types of payment processor consist of 3 parts:
@@ -106,5 +106,4 @@ There are currently a set of processors in plonemall:
     * authorize.net (type 1), (from 6ftup)
     * and cash on delivery.
     * Purchase Order (see 6ftup)
-
 
