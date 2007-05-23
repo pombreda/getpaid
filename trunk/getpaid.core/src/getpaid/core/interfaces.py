@@ -76,10 +76,19 @@ class IPaymentProcessorOptions( Interface ):
 #################################
 # Shopping Cart Stuff
 
+class IShoppingCartUtility( Interface ):
+
+    def get( create=False ):
+        """
+        return the user's shopping cart or none if not found.
+        if create is passed then create a new one if one isn't found
+        """
+
 class ILineItem( Interface ):
     """
     An Item in a Cart
     """
+    item_id = schema.TextLine( title= u"Unique Item Id")
     name = schema.TextLine(title = u"Name")
     description = schema.TextLine( title = u"Description")
     cost = schema.Float( title=u"Cost")
