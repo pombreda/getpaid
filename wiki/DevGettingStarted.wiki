@@ -6,7 +6,9 @@ zc.buildout ( http://python.org/pypi/zc.buildout )
 
 To Get Started
 
-checkout the getpaid.buildout infrastructure
+Get a password to check out the code (you will need to log into a google account and go to http://code.google.com/hosting/settings to get a password). 
+
+checkout the getpaid.buildout infrastructure 
 
  $ svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
 
@@ -45,7 +47,6 @@ If you wish to have an interactive python prompt that has all the packages
 Zope is aware of, e.g. for testing purposes, you can run:
 
  $ bin/zopepy
-
 
 
 
