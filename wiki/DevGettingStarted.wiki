@@ -42,6 +42,9 @@ This tells buildout that you do not want it to go online and check for updates.
 Next, remove the Zope egg files:
  $ rm -rf eggs/zope*
 
+CMFonFive is a dependency not included in the bundle (hopefully someone can fix that?):
+ $ svn co http://codespeak.net/svn/z3/CMFonFive/tag/CMFonFive-1.3.4/ develop-products/CMFonFive
+
 To start Zope 2, you can now do:
 
  $ bin/instance fg
@@ -50,6 +53,10 @@ If you wish to have an interactive python prompt that has all the packages
 Zope is aware of, e.g. for testing purposes, you can run:
 
  $ bin/zopepy
+
+By default, the ZMI adminisration username/password is admin/admin.
+
+
 
 == Troubleshooting ==
 
