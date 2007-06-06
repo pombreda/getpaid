@@ -6,7 +6,7 @@ zc.buildout ( http://python.org/pypi/zc.buildout )
 
 ==To Get Started==
 
-If you plan to contribute to the project, get a password to check out the code (you will need to log into a Google account and go to http://code.google.com/hosting/settings to get a password). Otherwise, you can use "http" instead of "https" below to check out the source.
+Get your GoogleCode password to check out the code (you will need to log into a Google account and go to http://code.google.com/hosting/settings to your SVN password).
 
 checkout the getpaid.buildout infrastructure 
 
