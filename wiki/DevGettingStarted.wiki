@@ -1,10 +1,10 @@
 #labels Featured
-Getting Started
+=Getting Started=
 
 Setting up a development environment is now easy thanks to our use of
 zc.buildout ( http://python.org/pypi/zc.buildout )
 
-To Get Started
+==To Get Started==
 
 Get a password to check out the code (you will need to log into a google account and go to http://code.google.com/hosting/settings to get a password). 
 
@@ -51,5 +51,14 @@ Zope is aware of, e.g. for testing purposes, you can run:
 
  $ bin/zopepy
 
+== Troubleshooting ==
 
+=== AccessControl/cAccessControl ===
+{{{
+internal error occured due to a bug in either zc.buildout or in a recipe being used:
+AccessControl/cAccessControl.c:2312: error: ‘PROBLEM’ undeclared (first use in this function)
+}}}
 
+Seems to be caused by using the wrong version of Python. You can correct this by providing the full path to Python2.4 when running bootstrap.py
+
+  $  /path/to/python24/python bootstrap.py
