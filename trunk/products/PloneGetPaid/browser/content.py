@@ -126,7 +126,7 @@ class ContentControl( BrowserView ):
     def allowChangeBuyable( self ):
         """  
         """
-        if not self.context.portal_type in self.options.buyable_types:
+        if self.options.buyable_types and not self.context.portal_type in self.options.buyable_types:
             return False
         elif self.isBuyable() or self.isPremium() or self.isShippable():
             return False
@@ -135,7 +135,7 @@ class ContentControl( BrowserView ):
     allowChangeBuyable.__roles__ = None
     
     def allowChangeShippable( self ):
-        if not self.context.portal_type in self.options.shippable_types:
+        if self.options.shippable_types and not self.context.portal_type in self.options.shippable_types:
             return False
         elif self.isBuyable() or self.isPremium() or self.isShippable():
             return False
@@ -144,7 +144,7 @@ class ContentControl( BrowserView ):
     allowChangeShippable.__roles__ = None
     
     def allowChangePremiumContent( self ):
-        if not self.context.portal_type in self.options.premium_types:
+        if self.options.premium_types and not self.context.portal_type in self.options.premium_types:
             return False
         elif self.isBuyable() or self.isPremium() or self.isShippable():
             return False
