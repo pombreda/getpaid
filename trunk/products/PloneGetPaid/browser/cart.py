@@ -80,7 +80,8 @@ class ShoppingCartAddItem( ShoppingCart ):
         item.price = payable.price
         item.quantity = 1
         self.cart[ item.item_id ] = item
-
+        self.cart.last_item = item.item_id
+        
         return super( ShoppingCartAddItem, self).__call__()
         
 class LineItemColumn( object ):
@@ -130,8 +131,8 @@ class ShoppingCartActions( FormViewlet ):
         print "continue shopping"
         # redirect the user to the last thing they were viewing
         last_item = self.__parent__.cart.last_item
-        payable = last_item.resolve( self.context )
-        return self.request.RESPONSE.redirect(payable.absolute_url())
+        payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
+        return self.request.RESPONSE.redirect(payable.absolute_url()+'/view')
 
     @form.action("Checkout", condition="isLoggedIn", name="AuthCheckout")
     def handle_checkout( self, action, data ):

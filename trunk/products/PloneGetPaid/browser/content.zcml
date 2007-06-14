@@ -31,7 +31,7 @@
   <browser:page
      for="*"
      name="activate-shippable"
-     class=".content.PayableCreation"
+     class=".content.ShippableCreation"
      permission="cmf.ModifyPortalContent"
      />
 

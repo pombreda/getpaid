@@ -87,7 +87,7 @@ shippable deletions need to track orders not shipped
 
 ShippableContentStorage = options.PersistentOptions.wire( "ShippableContentStorage", "getpaid.content.shippable", IShippableContent )
 
-class ShippableContentAdapter( object ):
+class ShippableContentAdapter( ShippableContentStorage ):
 
     interface.implements( IShippableContent )
     
@@ -100,7 +100,7 @@ class ShippableContentAdapter( object ):
 
 PremiumContentStorage = options.PersistentOptions.wire( "ShippableContentStorage", "getpaid.content.buyable", IPremiumContent )
 
-class PremiumContentAdapter( object ):
+class PremiumContentAdapter( PremiumContentStorage ):
 
     interface.implements( IPremiumContent )
     
