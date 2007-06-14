@@ -1,5 +1,4 @@
 """
-
 Storage Handling Details for Member Information used by getpaid, default is as annotations on
 member data objects, typically shipping and billing address.
 
