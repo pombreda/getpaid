@@ -115,6 +115,9 @@ class IShoppingCart( ILineItemContainer ):
     """ A Shopping Cart 
     """
 
+
+    
+
 #################################
 # Shipping Methods
 
@@ -186,3 +189,38 @@ class IPaymentTransaction( ILineItemContainer ):
 class IPersistentOptions( Interface ):
     """ interface
     """
+
+#################################
+# Orders
+
+class IOrderManager( Interface ):
+    """ persistent utility for storage and query of orders
+    """
+
+    def getOrdersByItem( item_id, **kw):
+        """ retrieve all orders containing item_id
+        """
+
+    def getOrdersByUser( user_id, **kw):
+        """ retrieve all orders for a given user id
+        """
+
+    def query( **kw ):
+        """ query the orders
+        """
+
+    def get( order_id ):
+        """ retrieve an order
+        """
+
+    def store( order ):
+        """ save an order
+        """
+
+class IOrder( Interface ):
+
+    shipping_address = schema.Object( IShippingAddress, required=False)
+    billing_address  = schema.Object( IBillingAddress )
+    shopping_cart = schema.Object( IShoppingCart )
+    finance_state = schema.TextLine( title=u"Finance State")
+    fufillment_state = schema.TextLine( title=u"Fufillment State")
