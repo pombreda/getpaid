@@ -4,6 +4,7 @@ from zope import schema
 from zope.interface import classImplements, implements
 import interfaces
 
+_marker = object()
 
 class PersistentOptions( object ):
 
@@ -34,6 +35,12 @@ class PersistentOptions( object ):
 
     def getProperty( self, property_name ):
         return self.storage().get( property_name )
+
+    def getFieldProperty( self, field ):
+        value = self.storage().get( field.__name__, _marker )
+        if value is _marker:
+            return field.default
+        return value
     
     def setProperty( self, property_name, property_value ):
         self.storage()[ property_name ] = property_value
@@ -47,7 +54,7 @@ class PersistentOptions( object ):
         
         for iface in interfaces:
             for field in schema.getFields( iface ).values():
-                fields[ field.__name__ ] = property( lambda self, field_name=field.__name__: self.getProperty( field_name ),
+                fields[ field.__name__ ] = property( lambda self, field=field: self.getFieldProperty( field ),
                 lambda self, value, field_name=field.__name__: self.setProperty( field_name, value ) )
         new_class = type( name, bases, fields)
         cls.annotation_key = key
