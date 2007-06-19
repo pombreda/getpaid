@@ -53,6 +53,10 @@ GoogleCheckout:
 
     * GoogleCheckout integration worked on by Kapil, in GetPaid product
 
+Protx: 
+
+    *  Zprotx (http://plone.org/products/zprotx ) is a Python framework to integrate with Protx VSP Form credit card payment service (http://www.protx.com/). It fills the gap because Protx doesn't support Python. It is build as a Zope2 product. It can be used in Plone or other Zope systems.
+
 Other stuff can be found in zwarehouse:
 
     * Great collection of processors can be used. Find them in the code.
@@ -106,4 +110,3 @@ There are currently a set of processors in plonemall:
     * authorize.net (type 1), (from 6ftup)
     * and cash on delivery.
     * Purchase Order (see 6ftup)
-
