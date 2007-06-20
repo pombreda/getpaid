@@ -8,17 +8,23 @@ zc.buildout ( http://python.org/pypi/zc.buildout )
 
 Get your GoogleCode password to check out the code (you will need to log into a Google account and go to http://code.google.com/hosting/settings to your SVN password).
 
-Checkout the getpaid.buildout infrastructure. This needs to be done from somewhere outside of your existing zope instances, as it will build its own zope environment. 
+checkout the getpaid.buildout infrastructure 
 
- $ svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
+{{{
+svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
+}}}
 
 Run the following command from the getpaid.buildout directory:
 
- $ python bootstrap.py
+{{{
+python bootstrap.py
+}}}
 
 This creates a few directories used by buildout. Then run:
 
- $ bin/buildout -v
+{{{
+bin/buildout -v
+}}}
 
 The -v isn't necessary, but may make you feel better in the knowledge that
 a lot is going on.
@@ -35,23 +41,30 @@ This will take a long time and use up to 200Mb of disk space. It will:
 
 If you've done this once, you can speed up the process by running
 
- $ bin/buildout -o
+{{{
+bin/buildout -o
+}}}
 
 This tells buildout that you do not want it to go online and check for updates.
 
 Next, remove the Zope egg files:
- $ rm -rf eggs/zope*
+
+{{{
+rm -rf eggs/zope*
+}}}
 
 To start Zope 2, you can now do:
 
- $ bin/instance fg
-
-Make sure that you have a separate port specified for this instance if you have other zope instances running. e.g. change the port from 8080 to 8090 in your zope.conf.
+{{{
+bin/instance fg
+}}}
 
 If you wish to have an interactive python prompt that has all the packages
 Zope is aware of, e.g. for testing purposes, you can run:
 
- $ bin/zopepy
+{{{
+bin/zopepy
+}}}
 
 By default, the ZMI adminisration username/password is admin/admin.
 
@@ -67,4 +80,6 @@ AccessControl/cAccessControl.c:2312: error: ‘PROBLEM’ undeclared (first use 
 
 Seems to be caused by using the wrong version of Python. You can correct this by providing the full path to Python2.4 when running bootstrap.py
 
-  $  /path/to/python24/python bootstrap.py
+{{{
+/path/to/python24/python bootstrap.py
+}}}
