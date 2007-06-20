@@ -8,7 +8,7 @@ zc.buildout ( http://python.org/pypi/zc.buildout )
 
 Get your GoogleCode password to check out the code (you will need to log into a Google account and go to http://code.google.com/hosting/settings to your SVN password).
 
-checkout the getpaid.buildout infrastructure 
+Checkout the getpaid.buildout infrastructure. This needs to be done from somewhere outside of your existing zope instances, as it will build its own zope environment. 
 
  $ svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
 
@@ -45,6 +45,8 @@ Next, remove the Zope egg files:
 To start Zope 2, you can now do:
 
  $ bin/instance fg
+
+Make sure that you have a separate port specified for this instance if you have other zope instances running. e.g. change the port from 8080 to 8090 in your zope.conf.
 
 If you wish to have an interactive python prompt that has all the packages
 Zope is aware of, e.g. for testing purposes, you can run:
