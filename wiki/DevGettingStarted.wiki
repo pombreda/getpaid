@@ -73,6 +73,21 @@ bin/zopepy
 
 By default, the ZMI adminisration username/password is admin/admin.
 
+== Updating the buildout ==
+
+The caveat is that if you try to update your buildout on subsequent
+buildouts, you'll need to either pass the -N commandline option to
+buildooout
+
+./bin/buildout -N
+
+or you'll need to remove all zope prefixed eggs from the eggs
+directory before starting zope.
+
+This is because by default it will try to pickup the latest eggs
+available satisfying some Zope dependencies (unfortunately the Zope
+2.9 libraries aren't formatted as eggs so we use those libraries
+directly to satisfy these dependencies ).
 
 
 == Troubleshooting ==
