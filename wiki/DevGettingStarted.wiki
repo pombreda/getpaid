@@ -13,7 +13,7 @@ setups an instance that's usable out of the box for development.
 
 Get your GoogleCode password to check out the code (you will need to log into a Google account and go to http://code.google.com/hosting/settings to your SVN password).
 
-checkout the getpaid.buildout infrastructure 
+Checkout the getpaid.buildout infrastructure. Make sure you check it out to a location outside of any existing Zope instances.
 
 {{{
 svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
@@ -63,6 +63,8 @@ To start Zope 2, you can now do:
 {{{
 bin/instance fg
 }}}
+
+If you have other Zope instances running, change your port from 8080 to 8090, for example, in your zope.conf so that the two do not conflict.
 
 If you wish to have an interactive python prompt that has all the packages
 Zope is aware of, e.g. for testing purposes, you can run:
