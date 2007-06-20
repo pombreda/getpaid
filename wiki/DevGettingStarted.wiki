@@ -4,6 +4,11 @@
 Setting up a development environment is now easy thanks to our use of
 zc.buildout ( http://python.org/pypi/zc.buildout )
 
+zc.buildout is a framework for creating repeatable installs, and is in
+widespread use in the Zope3 and Plone 3 communities. It installs Zope,
+Plone, all the getpaid products, the requisite python libraries, and
+setups an instance that's usable out of the box for development.
+
 ==To Get Started==
 
 Get your GoogleCode password to check out the code (you will need to log into a Google account and go to http://code.google.com/hosting/settings to your SVN password).
