@@ -105,3 +105,7 @@ Seems to be caused by using the wrong version of Python. You can correct this by
 {{{
 /path/to/python24/python bootstrap.py
 }}}
+
+You may need to install PIL to make it run:
+
+http://www.pythonware.com/products/pil/
