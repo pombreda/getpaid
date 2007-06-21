@@ -19,10 +19,11 @@ Checkout the getpaid.buildout infrastructure. Make sure you check it out to a lo
 svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
 }}}
 
-Run the following command from the getpaid.buildout directory:
+Run the buildout bootstrap script using a python interpreter that Zope likes (for example, python2.4):
 
 {{{
-python bootstrap.py
+cd getpaid.buildout
+python2.4 bootstrap.py
 }}}
 
 This creates a few directories used by buildout. Then run:
@@ -43,20 +44,9 @@ This will take a long time and use up to 200Mb of disk space. It will:
   * Build a Zope 2 instance in parts/instance
   * Install Plone 2.5's products into the Zope 2 instance
   * Setup the GetPaid Product/Package suite for Plone
+  * Remove the Zope egg files
 
-If you've done this once, you can speed up the process by running
-
-{{{
-bin/buildout -o
-}}}
-
-This tells buildout that you do not want it to go online and check for updates.
-
-Next, remove the Zope egg files:
-
-{{{
-rm -rf eggs/zope*
-}}}
+If you've done this once, see "Updating the buildout" below.
 
 To start Zope 2, you can now do:
 
@@ -64,7 +54,9 @@ To start Zope 2, you can now do:
 bin/instance fg
 }}}
 
-If you have other Zope instances running, change your port from 8080 to 8090, for example, in your zope.conf so that the two do not conflict.
+By default, the ZMI adminisration username/password is admin/admin.
+
+== Debugging and testing ==
 
 If you wish to have an interactive python prompt that has all the packages
 Zope is aware of, e.g. for testing purposes, you can run:
@@ -72,8 +64,6 @@ Zope is aware of, e.g. for testing purposes, you can run:
 {{{
 bin/zopepy
 }}}
-
-By default, the ZMI adminisration username/password is admin/admin.
 
 == Updating the buildout ==
 
