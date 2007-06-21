@@ -61,6 +61,10 @@ bin/instance fg
 
 By default, the ZMI adminisration username/password is admin/admin.
 
+== Installing the product ==
+
+Create a Plone site within your zope instance. Go to site setup. Install the GetPaid product. 
+
 == Debugging and testing ==
 
 If you wish to have an interactive python prompt that has all the packages
@@ -87,6 +91,8 @@ This is because by default it will try to pickup the latest eggs
 available satisfying some Zope dependencies (unfortunately the Zope
 2.9 libraries aren't formatted as eggs so we use those libraries
 directly to satisfy these dependencies ).
+
+Question: can the buildout be updated via svn up? TBD. 
 
 
 == Troubleshooting ==
