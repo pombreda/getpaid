@@ -84,6 +84,17 @@ directly to satisfy these dependencies ).
 
 == Troubleshooting ==
 
+=== Errors during checkout ===
+
+The initial checkout takes a long time, connects to a multitude of servers, and in general has several interesting ways it can fail. If it does, just enter the getpaid-buildout directory and do an svn up:
+
+{{{
+cd getpaid-buildout
+svn up
+}}}
+
+the svn fu will continue where it left off.
+
 === AccessControl/cAccessControl ===
 {{{
 internal error occured due to a bug in either zc.buildout or in a recipe being used:
