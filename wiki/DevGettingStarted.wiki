@@ -2,9 +2,9 @@
 =Getting Started=
 
 Setting up a development environment is now easy thanks to our use of
-zc.buildout ( http://python.org/pypi/zc.buildout )
+`zc.buildout` ( http://python.org/pypi/zc.buildout )
 
-zc.buildout is a framework for creating repeatable installs, and is in
+`zc.buildout` is a framework for creating repeatable installs, and is in
 widespread use in the Zope3 and Plone 3 communities. It installs Zope,
 Plone, all the getpaid products, the requisite python libraries, and
 setups an instance that's usable out of the box for development.
@@ -19,7 +19,7 @@ Checkout the getpaid.buildout infrastructure. Make sure you check it out to a lo
 svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
 }}}
 
-Run the buildout bootstrap script using a python interpreter that Zope likes (for example, python2.4):
+Run the buildout bootstrap script using a python interpreter that Zope likes (for example, `python2.4`):
 
 {{{
 cd getpaid.buildout
@@ -68,10 +68,12 @@ bin/zopepy
 == Updating the buildout ==
 
 The caveat is that if you try to update your buildout on subsequent
-buildouts, you'll need to either pass the -N commandline option to
-buildooout
+buildouts, you'll need to either pass the `-N` commandline option to
+buildout
 
+{{{
 ./bin/buildout -N
+}}}
 
 or you'll need to remove all zope prefixed eggs from the eggs
 directory before starting zope.
@@ -86,7 +88,7 @@ directly to satisfy these dependencies ).
 
 === Errors during checkout ===
 
-The initial checkout takes a long time, connects to a multitude of servers, and in general has several interesting ways it can fail. If it does, just enter the getpaid-buildout directory and do an svn up:
+The initial checkout takes a long time, connects to a multitude of servers, and in general has several interesting ways it can fail. If it does, just enter the `getpaid-buildout` directory and do an `svn up`:
 
 {{{
 cd getpaid-buildout
