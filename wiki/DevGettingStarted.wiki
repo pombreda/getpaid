@@ -63,7 +63,7 @@ By default, the ZMI adminisration username/password is admin/admin.
 
 == Installing the product ==
 
-Create a Plone site within your zope instance. Go to site setup. Install the GetPaid product. 
+Create a Plone site within your zope instance. Go to site setup. Install the GetPaid product and CMFonFive.
 
 == Debugging and testing ==
 
