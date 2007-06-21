@@ -28,6 +28,9 @@ cd getpaid.buildout
 python2.4 bootstrap.py
 }}}
 
+
+Before continuing, make certain you have a working C toolchain installed. In Debian and derivatives, the easiest way is to `apt-get install build-essential`.
+
 This creates a few directories used by buildout. Then run:
 
 {{{
@@ -98,6 +101,8 @@ svn up
 }}}
 
 the svn fu will continue where it left off.
+
+=== 
 
 === AccessControl/cAccessControl ===
 {{{
