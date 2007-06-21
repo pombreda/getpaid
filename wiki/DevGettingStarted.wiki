@@ -19,6 +19,8 @@ Checkout the getpaid.buildout infrastructure. Make sure you check it out to a lo
 svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
 }}}
 
+Note that we really mean the commandline `svn` client; if you use a GUI client, make sure it correctly supports svn:externals. For example, `rapidsvn` prior to 0.9.4 does *not*.
+
 Run the buildout bootstrap script using a python interpreter that Zope likes (for example, `python2.4`):
 
 {{{
