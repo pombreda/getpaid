@@ -1,4 +1,6 @@
+#summary Hopefully simple steps to get you ready to be a productive !GetPaid developer
 #labels Featured
+
 =Getting Started=
 
 Setting up a development environment is now easy thanks to our use of
