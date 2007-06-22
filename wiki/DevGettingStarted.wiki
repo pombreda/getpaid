@@ -1,4 +1,4 @@
-#summary Hopefully simple steps to get you ready to be a productive !GetPaid developer
+#summary Hopefully simple steps to get you ready to be a productive GetPaid developer
 #labels Featured
 
 =Getting Started=
@@ -134,4 +134,3 @@ Seems to be caused by using the wrong version of Python. You can correct this by
 You may need to install PIL to make it run:
 
 http://www.pythonware.com/products/pil/
-
