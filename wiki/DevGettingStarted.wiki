@@ -108,16 +108,15 @@ svn up
 
 the svn fu will continue where it left off.
 
-=== The instance hangs! ===
-
-Installation of the product may appear to hang. Try starting Zope in debug mode using ./zopectl fg. There's an installed product called PDBDebugMode that brings up a Python Debugger prompt whenever there's an error (which is why it looks like it's freezing).
-When you're running in debug mode, you'll see a prompt appear in your
-terminal window. Just hit 'r' (sometimes several times) to continue. If in doubt, stop your Zope instance and restart it.
-
 === No such file or directory while doing execfile ===
 
 We really meant it about using the commandline `svn` client; if you use a GUI client, make sure it correctly supports svn:externals. For example, `rapidsvn` prior to 0.9.4 does *not*. Do a `svn up`; make certain all externals are pulled in.
 
+=== The instance hangs! ===
+
+Installation of the !PloneGetPaid product may appear to hang. There's an installed product called PDBDebugMode that brings up a Python Debugger prompt whenever there's an error (which is why it looks like it's freezing).
+When you're running in debug mode, you'll see a prompt appear in your
+terminal window. Just hit 'r' (sometimes several times) to continue. If in doubt, stop your Zope instance and restart it.
 
 === AccessControl/cAccessControl ===
 {{{
