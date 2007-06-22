@@ -9,9 +9,18 @@ widespread use in the Zope3 and Plone 3 communities. It installs Zope,
 Plone, all the getpaid products, the requisite python libraries, and
 setups an instance that's usable out of the box for development.
 
-==To Get Started==
+==Ingredients==
 
-Get your GoogleCode password to check out the code (you will need to log into a Google account and go to http://code.google.com/hosting/settings to your SVN password).
+You'll need:
+
+  * 1 Gmail account and a !GoogleCode subversion password (you can get the latter at http://code.google.com/hosting/settings)
+  * 1 subversion commandline client, `svn`
+  * 1 zope-acceptable python interpreter, header files, and libraries.
+  * 1 working C toolchain (everything you could have used to compile the above interpreter)
+  * 2 tbsp. fair trade, organic, shade-grown tea, coffee or _yerba mate_.
+  * 254MiB of diskspace
+
+==To Get Started==
 
 Checkout the getpaid.buildout infrastructure. Make sure you check it out to a location outside of any existing Zope instances.
 
@@ -19,17 +28,12 @@ Checkout the getpaid.buildout infrastructure. Make sure you check it out to a lo
 svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
 }}}
 
-Note that we really mean the commandline `svn` client; if you use a GUI client, make sure it correctly supports svn:externals. For example, `rapidsvn` prior to 0.9.4 does *not*.
-
 Run the buildout bootstrap script using a python interpreter that Zope likes (for example, `python2.4`):
 
 {{{
 cd getpaid.buildout
 python2.4 bootstrap.py
 }}}
-
-
-Before continuing, make certain you have a working C toolchain installed. In Debian and derivatives, the easiest way is to `apt-get install build-essential`.
 
 This creates a few directories used by buildout. Then run:
 
@@ -40,7 +44,7 @@ bin/buildout -v
 The -v isn't necessary, but may make you feel better in the knowledge that
 a lot is going on.
 
-This will take a long time and use up to 200Mb of disk space. It will:
+Brew your caffeinated beverage of choice: this will take a long time and use up to 200Mb of disk space. It will:
 
   * Create the 'parts' directory
   * Create a directory var where your Data.fs will live.
@@ -48,7 +52,7 @@ This will take a long time and use up to 200Mb of disk space. It will:
   * Build Zope 2, using 'setup.py build_ext -i'
   * Build a Zope 2 instance in parts/instance
   * Install Plone 2.5's products into the Zope 2 instance
-  * Setup the GetPaid Product/Package suite for Plone
+  * Setup the !GetPaid Product/Package suite for Plone
   * Remove the Zope egg files
 
 If you've done this once, see "Updating the buildout" below.
@@ -59,11 +63,11 @@ To start Zope 2, you can now do:
 bin/instance fg
 }}}
 
-By default, the ZMI adminisration username/password is admin/admin.
+By default, the ZMI adminisration username/password is admin/admin. If the ZMI hangs, check your console: PDBDebugMode is installed by default, so you get a debugger prompt whenever there would have been a traceback.
 
 == Installing the product ==
 
-Create a Plone site within your zope instance. Go to site setup. Install the GetPaid product. It is not necessary to install the other products listed. 
+Create a Plone site within your zope instance. Go to site setup. Install the !GetPaid product. It is not necessary to install the other products listed. 
 
 == Debugging and testing ==
 
@@ -76,26 +80,20 @@ bin/zopepy
 
 == Updating the buildout ==
 
-The caveat is that if you try to update your buildout on subsequent
-buildouts, you'll need to either pass the `-N` commandline option to
-buildout
+Just do a
 
 {{{
 ./bin/buildout -N
 }}}
 
-or you'll need to remove all zope prefixed eggs from the eggs
-directory before starting zope.
-
-This is because by default it will try to pickup the latest eggs
-available satisfying some Zope dependencies (unfortunately the Zope
-2.9 libraries aren't formatted as eggs so we use those libraries
-directly to satisfy these dependencies ).
-
 Question: can the buildout be updated via svn up? TBD. 
 
 
 == Troubleshooting ==
+
+=== GoogleCode profile page doesn't show the SVN password ===
+
+It seems that it only works for Google accounts that have subscribed to Gmail.
 
 === Errors during checkout ===
 
@@ -108,11 +106,16 @@ svn up
 
 the svn fu will continue where it left off.
 
+=== The instance hangs! ===
+
 Installation of the product may appear to hang. Try starting Zope in debug mode using ./zopectl fg. There's an installed product called PDBDebugMode that brings up a Python Debugger prompt whenever there's an error (which is why it looks like it's freezing).
 When you're running in debug mode, you'll see a prompt appear in your
 terminal window. Just hit 'r' (sometimes several times) to continue. If in doubt, stop your Zope instance and restart it.
 
-=== 
+=== No such file or directory while doing execfile ===
+
+We really meant it about using the commandline `svn` client; if you use a GUI client, make sure it correctly supports svn:externals. For example, `rapidsvn` prior to 0.9.4 does *not*. Do a `svn up`; make certain all externals are pulled in.
+
 
 === AccessControl/cAccessControl ===
 {{{
@@ -129,3 +132,4 @@ Seems to be caused by using the wrong version of Python. You can correct this by
 You may need to install PIL to make it run:
 
 http://www.pythonware.com/products/pil/
+
