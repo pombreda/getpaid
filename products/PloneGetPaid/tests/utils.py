@@ -18,14 +18,13 @@ def configurationSetUp(self):
     # Also ensure the Five directives and permissions are available
     
     import Products.Five
-    import ore.member
     import Products.CMFonFive
     import Products.PloneGetPaid
     
     XMLConfig('configure.zcml', Products.Five)()
     XMLConfig('meta.zcml', Products.Five)()
     
-    XMLConfig('configure.zcml', ore.member)()
+    XMLConfig('configure.zcml', Products.CMFonFive)()
     XMLConfig('configure.zcml', Products.PloneGetPaid)()
     
 def configurationTearDown(self):
