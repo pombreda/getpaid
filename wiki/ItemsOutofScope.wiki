@@ -1,0 +1,16 @@
+#summary Just a catchall place so we can list out items that would be nice in the future but are not part of the core product.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+  * Special offer on a product page (buy $50 worth of products, get another product free)
+  * Product reviews
+  * Is item in stock? (real time)
+  * Add to favorites
+  * View favorites
+  * Multiple image views (different angles)
+  * Special offer code (checkout coupon code) -- is this out of scope??
