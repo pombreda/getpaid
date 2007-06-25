@@ -16,8 +16,6 @@ class IPayable( Interface ):
     a context and the request, to allow for pricing / display customization on a user
     basis.
     """
-    name = schema.TextLine( title=u"Product Name")
-    description = schema.Text( title=u"Product Description")
     madePayableBy = schema.TextLine( title=u"Made Payable By")
     productCode = schema.TextLine( title=u"Product Code")
     price = schema.Float( title=u"Price")
