@@ -1,4 +1,5 @@
 #summary Configure discounts for setting codes and amount of discounts.
+#labels Phase-Design,AdminUI,Deferred
 = Configure Discounts =
 
 A site manager can enter the Site Setup / GetPaid management area and click on the "Discounts" page to configure discounts. The screen has a section for "Existing Discounts", which lists the discount code, description, and discount amount, with an "edit" and "delete" button next to each row (if there are none, a message displays "No discounts configured at this time."
