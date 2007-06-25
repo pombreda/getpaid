@@ -78,7 +78,7 @@ def install_control_panel( self ):
         name = "Commerce",
         action = "string:${portal_url}/@@manage-getpaid-overview",
         appId = "PloneGetPaid",
-# TODO        imageUrl = "",
+        imageUrl = "++resource++getpaid.png",
         description = "Management Access to Commerce Backend",
         permission=cmf_perms.ManagePortal
         
@@ -96,9 +96,12 @@ def install_dependencies( self ):
 def install_cart_portlet( self ):
     portal = self.portal_url.getPortalObject()
     right_slots = portal.getProperty('right_slots')
-    right_slots = right_slots.split('\n')
+    if isinstance( right_slots, str):
+        right_slots = right_slots.split('\n')
+    else:
+        right_slots = list( right_slots )
     right_slots.append('here/@@portlet-shopping-cart/index/macros/portlet')
-    portal.setProperty( 'right_slots', '\n'.join( right_slots ) )
+    portal._updateProperty( 'right_slots', '\n'.join( right_slots ) )    
 
 def install_member_schemas( self ):
     manager = ISiteSchemaManager( self )
