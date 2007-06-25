@@ -14,7 +14,7 @@ def configurationSetUp(self):
     
     placelesssetup.setUp()
     
-    # Ensure that the ZCML registrations in membrane and borg are in effect
+    # Ensure that the ZCML registrations in CMFonFive and PloneGetPaid are in effect
     # Also ensure the Five directives and permissions are available
     
     import Products.Five
