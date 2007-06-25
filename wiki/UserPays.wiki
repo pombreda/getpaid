@@ -1,4 +1,4 @@
-
+#labels Phase-Design,EndUserUI
 =Specific Workflow=
 
 Payment / Donation screen with fields for adding an amount and pressing submit/add to cart/etc.
@@ -60,4 +60,3 @@ Redirected page will be either a receipt or a thank you page.
 If an error is received, the user will be redirected back to the Checkout form.
 
 ** If the user is not forced to leave the site by the Payment Processor, the payment will continue within the Plone workflow.
-
