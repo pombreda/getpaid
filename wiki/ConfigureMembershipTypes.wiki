@@ -1,4 +1,5 @@
 #summary Configure Membership Types for setting premium memberships and access information
+#labels Phase-Design,AdminUI
 
 =Configure Membership Types=
 
