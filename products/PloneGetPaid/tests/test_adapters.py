@@ -13,7 +13,7 @@ from Testing.ZopeTestCase import ZopeDocTestSuite
 from base import PloneGetPaidTestCase
 from utils import optionflags
 
-def test_buyable():
+def test_payable():
     """Check that we can declare an object buyable
     
     >>> from getpaid.core.interfaces import IPayable
