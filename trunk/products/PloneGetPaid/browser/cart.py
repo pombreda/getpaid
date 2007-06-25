@@ -57,11 +57,15 @@ class ShoppingCartAddItem( ShoppingCart ):
     """
     
     def __call__( self ):
+        if self.request.has_key('add_item'):
+            self.addToCart()
+        return super( ShoppingCartAddItem, self ).__call__()
+    
+    def addToCart( self ):
         item_id = self.context.UID()
         if item_id in self.cart:
             self.cart[ item_id ].quantity += 1
-            return super( ShoppingCartAddItem, self ).__call__()            
-
+            return 
         found = False
         for marker, iface in PayableMarkerMap.items():
             if marker.providedBy( self.context ):
@@ -82,7 +86,6 @@ class ShoppingCartAddItem( ShoppingCart ):
         self.cart[ item.item_id ] = item
         self.cart.last_item = item.item_id
         
-        return super( ShoppingCartAddItem, self).__call__()
         
 class LineItemColumn( object ):
     
@@ -109,7 +112,7 @@ class ShoppingCartListing( ContainerViewlet ):
     
     def __init__( self, *args, **kw):
         super( ShoppingCartListing, self ).__init__( *args, **kw )
-        
+
     def getContainerContext( self ):
         return self.__parent__.cart
     

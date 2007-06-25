@@ -1,12 +1,10 @@
 """
 Paid Content Support
 
-Premium Content can be done either for a particular content type or for any individual piece
-of content.
+Any piece of content can be integrated with getpaid, either on a content type basis or for
+any individual piece of content. [ XXX currently we only support individual pieces of content ]
 
-BuyableContent uses Content Flavors, to apply an archetypes schema and a zope 3 interface
-to content. The archetypes schema allows to use archetype widgets to create a user interface
-for the content's commerce-related information. The applied zope3 interface allows us to
+The applied zope3 interface allows us to
 use an adapter to add the component architecture to create views and adapters for the content.
 BuyableContent is delivered virtually, such as electronic PDF or simply viewing the content on
 the site.
@@ -21,18 +19,18 @@ content.  This role is granted if the consumer has a certain subscription level 
 configuration.) *** this section needs to be explained better ***
 
 To allow for per instance application of content types, we provide an action for archetypes
-under the content actions drop down to apply a (ala iterate), the condition for this action
+under the content actions drop down to apply getpaid integration, the condition for this action
 invokes a premium content control view which in turn checks the control panel configuration
 for this content, by interface or content type.
 
 content security, we want to set local roles for users who buy content, we do this via
+
 
 content view snippets.. we still need to figure out if we can override the default view
 of a content object via applying an interface to it.
 
 $Id$
 """
-from Products.Archetypes import atapi
 
 from zope import interface
 from getpaid.core.interfaces import IBuyableContent, IShippableContent, IPremiumContent
