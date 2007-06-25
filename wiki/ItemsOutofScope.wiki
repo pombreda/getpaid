@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Add your content here.
+Need to revisit these items to make sure none of these are supposed to be in scope.
 
 
 = Details =
@@ -14,3 +14,4 @@ Add your content here.
   * View favorites
   * Multiple image views (different angles)
   * Special offer code (checkout coupon code) -- is this out of scope??
+  * Collection of specialized demographics during account setup
