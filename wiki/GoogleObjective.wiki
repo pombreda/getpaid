@@ -4,6 +4,9 @@
 
 Lots of documentation, need to defer policy decisions using Zope 3 component architecture to make it pluggable. 
 
+
+= Details =
+
 *How to integrate with content?*
 * Want to reuse existing content types to make them buyable. So, not content type specific. Register a content type as payable in the admin and configure. Currently done w/ marker interface. 
 
@@ -24,13 +27,3 @@ Lots of documentation, need to defer policy decisions using Zope 3 component arc
 *Buildout Engine:* Working on this, some issues are there. Too clunky? 
 
 *Tasks:* Need to do some unit tests and fix the buildout. Lots of UI issues. Checkout wizard, cart improvements. Payment processor integration: Try not to get tied to one, get two or three in there. See issues on this site (Google code). 
-
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-
