@@ -1,4 +1,5 @@
 #summary One-sentence summary of this page.
+#labels Phase-Design,AdminUI
 
 It should be possible to set up the payment processor via the configuration configlet found in Site Setup (in the Addon Product Configuration area). Payment processor is a tab in the configuration screens. 
 
