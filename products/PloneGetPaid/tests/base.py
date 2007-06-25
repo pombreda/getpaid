@@ -6,9 +6,13 @@ products installed.
 """
 
 from Testing import ZopeTestCase
+from Products.Five import pythonproducts
 
 # Let Zope know about the products we require above-and-beyond a basic
 # Plone install (PloneTestCase takes care of these).
+ZopeTestCase.installProduct('Five')
+pythonproducts.setupPythonProducts(None)
+ZopeTestCase.installProduct('ore.member')
 ZopeTestCase.installProduct('PloneGetPaid')
 
 # Import PloneTestCase - this registers more products with Zope as a side effect
