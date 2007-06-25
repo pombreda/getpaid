@@ -12,7 +12,7 @@ def createPayableType():
 def setupCart():
     pass
 
-def test_payment():
+def test_payments():
     """Test that payments can be processed.
     
     >>> self.setRoles(('Manager',))
