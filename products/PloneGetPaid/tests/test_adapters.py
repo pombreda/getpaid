@@ -16,8 +16,7 @@ from utils import optionflags
 def test_buyable():
     """Check that we can declare an object buyable
     
-    >>> from Products.PloneGetPaid.interfaces import IPayable
-    >>> from Products.PloneGetPaid.interfaces import IBuyableContent
+    >>> from getpaid.core.interfaces import IPayable
     
     """
     
