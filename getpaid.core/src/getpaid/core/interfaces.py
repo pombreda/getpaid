@@ -43,7 +43,6 @@ class IPhysicalPayable( IPayable ):
 class IShippableContent( IPayable ):
     """ Shippable Content
     """
-    shippingFlatRate = schema.Float( title=u"Shipping Flat Rate")
     dimensions = schema.TextLine( title=u"Dimensions")
     sku = schema.TextLine( title=u"Product SKU")
     
