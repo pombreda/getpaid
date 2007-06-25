@@ -15,3 +15,6 @@ Need to revisit these items to make sure none of these are supposed to be in sco
   * Multiple image views (different angles)
   * Special offer code (checkout coupon code) -- is this out of scope??
   * Collection of specialized demographics during account setup (date of birth, etc.)
+  * Upsell items
+  * Cross sell items
+  * People who bought this also bought... 
