@@ -50,5 +50,5 @@ def test_payment():
 
 def test_suite():
     return unittest.TestSuite((
-            ZopeDocTestSuite(test_class=BorgTestCase),
+            ZopeDocTestSuite(test_class=PloneGetPaidTestCase),
         ))
