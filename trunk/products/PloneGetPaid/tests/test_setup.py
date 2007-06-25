@@ -9,6 +9,9 @@ from base import PloneGetPaidTestCase
 class TestProductInstall(PloneGetPaidTestCase):
 
     def afterSetUp(self):
+        # XXX monkey patch -- see tests/base.py for more details
+        super( TestProductInstall, self).afterSetUp()
+        self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
         self.types = ('Donation',)
 
     def testTypesInstalled(self):
