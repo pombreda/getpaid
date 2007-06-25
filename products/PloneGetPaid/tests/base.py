@@ -20,7 +20,7 @@ from Products.PloneTestCase.PloneTestCase import setupPloneSite
 # to make sure they are installed.
 
 
-setupPloneSite(extension_profiles=('PloneGetPaid:default'))
+setupPloneSite()
 
 class PloneGetPaidTestCase(PloneTestCase):
     """Base class for integration tests for the 'PloneGetPaid' product. This may
