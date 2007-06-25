@@ -1,4 +1,5 @@
 #summary Install product in Quick Installer
+#labels Phase-Design,AdminUI
 
 An authenticated site administrator goes to the "site setup" section of the site and clicks on "Add/Remove Products". The site admin selects the PloneGetPaid product, and clicks "Install". If all the dependencies were in place, the product installs successfully. If not, the product installs dependenices. If there is a problem (for example, GetPaid is not installed on the server), then an error message explaining the dependency problem is created on the error log.
 
