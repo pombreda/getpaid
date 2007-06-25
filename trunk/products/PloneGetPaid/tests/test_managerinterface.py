@@ -1,4 +1,4 @@
-"""Unit tests for setting type as shippable.
+"""Unit tests for manager interface.
 """
 
 import unittest

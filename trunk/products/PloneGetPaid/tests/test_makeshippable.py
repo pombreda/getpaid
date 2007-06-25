@@ -45,5 +45,5 @@ def test_add_to_cart():
 
 def test_suite():
     return unittest.TestSuite((
-            ZopeDocTestSuite(test_class=BorgTestCase),
+            ZopeDocTestSuite(test_class=PloneGetPaidTestCase),
         ))
