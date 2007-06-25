@@ -16,9 +16,7 @@ from Products.PloneTestCase.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.PloneTestCase import FunctionalTestCase
 from Products.PloneTestCase.PloneTestCase import setupPloneSite
 
-# Set up a Plone site, and apply the membrane and borg extension profiles
-# to make sure they are installed.
-
+# Set up a Plone site.
 
 setupPloneSite()
 
