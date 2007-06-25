@@ -10,7 +10,7 @@ from Testing import ZopeTestCase
 # Let Zope know about the two products we require above-and-beyond a basic
 # Plone install (PloneTestCase takes care of these).
 ZopeTestCase.installProduct('ore.member')
-ZopeTestCase.installProduct('CMFOnFive')
+ZopeTestCase.installProduct('CMFonFive')
 ZopeTestCase.installProduct('PloneGetPaid')
 
 
