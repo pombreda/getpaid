@@ -9,6 +9,7 @@ from Testing import ZopeTestCase
 
 # Let Zope know about the products we require above-and-beyond a basic
 # Plone install (PloneTestCase takes care of these).
+ZopeTestCase.installProduct('CMFonFive')
 ZopeTestCase.installProduct('PloneGetPaid')
 
 # Import PloneTestCase - this registers more products with Zope as a side effect
@@ -25,7 +26,12 @@ class PloneGetPaidTestCase(PloneTestCase):
     provide specific set-up and tear-down operations, or provide convenience
     methods.
     """
-    
+    def afterSetUp( self ):
+        # XXX monkey patch everytime (until we figure out the problem where
+        #   monkeypatch gets overwritten somewhere) 
+        from Products.Five import pythonproducts
+        pythonproducts.setupPythonProducts(None)
+        
 class PloneGetPaidFunctionalTestCase(FunctionalTestCase):
     """Base class for functional integration tests for the 'PloneGetPaid' product. 
     This may provide specific set-up and tear-down operations, or provide 
