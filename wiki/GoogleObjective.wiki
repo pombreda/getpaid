@@ -4,6 +4,8 @@
 
 Lots of documentation, need to defer policy decisions using Zope 3 component architecture to make it pluggable. 
 
+*Tasks:* Need to do some unit tests and fix the buildout. Lots of UI issues. Checkout wizard, cart improvements. Payment processor integration: Try not to get tied to one, get two or three in there. See issues on this site (Google code). Premium membership is in the overall scope but deferred for now.
+
 
 = Details =
 
@@ -26,4 +28,3 @@ Have an interface -- any object can have one. It's a specification of an object.
 
 *Buildout Engine:* Working on this, some issues are there. Too clunky? 
 
-*Tasks:* Need to do some unit tests and fix the buildout. Lots of UI issues. Checkout wizard, cart improvements. Payment processor integration: Try not to get tied to one, get two or three in there. See issues on this site (Google code). Premium membership is in the overall scope but deferred for now.
