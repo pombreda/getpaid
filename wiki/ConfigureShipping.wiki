@@ -1,3 +1,4 @@
+#labels Phase-Design,AdminUI
 =Configure Shipping=
 
 ==Configuring on a Content Object Basis==
@@ -192,7 +193,6 @@ For International information, see http://pe.usps.gov/text/pub51/welcome.htm.
 
 ====UPS Domestic Shipping Calculator====
 Developer documentation: http://ups.com/content/us/en/bussol/offering/technology/automated_shipping/online_tools.html
-
 
 
 
