@@ -1,4 +1,4 @@
-"""Unit test for payment processing.
+"""Unit test for premium content.
 """
 
 import unittest
@@ -9,10 +9,7 @@ from base import PloneGetPaidTestCase
 def createPayableType():
     pass
 
-def setupCart():
-    pass
-
-def test_payment():
+def test_set_premium():
     """Test that payments can be processed.
     
     >>> self.setRoles(('Manager',))
@@ -50,5 +47,5 @@ def test_payment():
 
 def test_suite():
     return unittest.TestSuite((
-            ZopeDocTestSuite(test_class=BorgTestCase),
+            ZopeDocTestSuite(test_class=PloneGetPaidTestCase),
         ))
