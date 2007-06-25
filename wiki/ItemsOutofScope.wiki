@@ -14,4 +14,4 @@ Need to revisit these items to make sure none of these are supposed to be in sco
   * View favorites
   * Multiple image views (different angles)
   * Special offer code (checkout coupon code) -- is this out of scope??
-  * Collection of specialized demographics during account setup
+  * Collection of specialized demographics during account setup (date of birth, etc.)
