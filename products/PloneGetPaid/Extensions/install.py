@@ -93,6 +93,13 @@ def install_dependencies( self ):
     for dependency in DEPENDENCIES:
         quickinstaller.installProduct( dependency )    
 
+def install_cart_portlet( self ):
+    portal = self.portal_url.getPortalObject()
+    right_slots = portal.getProperty('right_slots')
+    right_slots = right_slots.split('\n')
+    right_slots.append('here/@@portlet-shopping-cart/index/macros/portlet')
+    portal.setProperty( 'right_slots', '\n'.join( right_slots ) )
+
 def install_member_schemas( self ):
     manager = ISiteSchemaManager( self )
     schemas = manager.member_schemas
@@ -124,6 +131,9 @@ def install( self ):
     print >> out, "Installing Member Schemas"
     install_member_schemas( self )
 
+    print >> out, "Installing Cart Portlet"
+    install_cart_portlet( self )
+
     print >> out, "Installing Actions"
     setup_actions( self )
     
@@ -133,7 +143,7 @@ def uninstall( self ):
     uninstall_control_panel( self )
 
     uninstall_member_schemas( self )
-    
+
     return "Uninstalled"
         
     

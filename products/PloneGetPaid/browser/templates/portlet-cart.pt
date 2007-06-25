@@ -19,7 +19,7 @@
 	</dd>
 
 	<dd class="portletItem odd" tal:condition="view/isContextAddable">
-	  <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add">
+	  <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True">
 	     Add to Cart
 	  </a>
         </dd>
