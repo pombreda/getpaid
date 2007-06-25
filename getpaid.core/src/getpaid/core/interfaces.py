@@ -18,8 +18,8 @@ class IPayable( Interface ):
     """
     name = schema.TextLine( title=u"Product Name")
     description = schema.Text( title=u"Product Description")
-    creation_user = schema.TextLine( title=u"Created By")
-    sku = schema.TextLine( title=u"Product SKU/Code")
+    madePayableBy = schema.TextLine( title=u"Made Payable By")
+    productCode = schema.TextLine( title=u"Product Code")
     price = schema.Float( title=u"Price")
 
 class IDonation( IPayable ):
@@ -45,7 +45,10 @@ class IPhysicalPayable( IPayable ):
 class IShippableContent( IPayable ):
     """ Shippable Content
     """
-
+    shippingFlatRate = schema.Float( title=u"Shipping Flat Rate")
+    dimensions = schema.TextLine( title=u"Dimensions")
+    sku = schema.TextLine( title=u"Product SKU")
+    
     def getShipWeight( self ):
         """ Shipping Weight
         """
