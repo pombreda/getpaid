@@ -1,6 +1,7 @@
+#labels Phase-Design,AdminUI
 =Configure Checkout Header / Footer=
 
-Can add disclaimer text. In the Site Setup/GetPaid area, a "Checkout Header / Footer" tab offers ability to customize a disclaimer text that is presented during the checkout process. The box is a rich text box (so can add bold, formatting, or links). The page also includes a spot to link to the site's privacy policy. If filled out, both will show in the checkout process.
+Can add disclaimer text. In the Site Setup area, a "Checkout Header / Footer" tab offers ability to customize a disclaimer text that is presented during the checkout process. The box is a rich text box (so can add bold, formatting, or links). The page also includes a spot to link to the site's privacy policy. If filled out, both will show in the checkout process.
 
 
 ==Suggested Topics for Disclaimer==
