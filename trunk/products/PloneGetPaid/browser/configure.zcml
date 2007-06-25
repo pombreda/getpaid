@@ -21,6 +21,11 @@
      title="Plone Object Tabs Menu"
      />
 
+  <!-- Resources -->
+  <browser:resource
+      name="getpaid.png"
+      image="resources/getpaid.png" />
+  
   <!-- Get Paid Admin UI -->
   <include file="admin.zcml" />
 
