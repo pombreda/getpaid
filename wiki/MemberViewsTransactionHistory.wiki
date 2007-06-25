@@ -1,3 +1,4 @@
+#labels Phase-Design,EndUserUI
 =Member Views Transaction History=
 
 Fields:
@@ -16,4 +17,3 @@ Fields:
 See Nate's diagram for Premium Membership for existing schema.
 
 Need configlet for adding on fields such as demographics that will also update the user profile view and the user signup form.
-
