@@ -19,12 +19,13 @@ def configurationSetUp(self):
     
     import Products.Five
     import Products.CMFonFive
+    import ore.member
     import Products.PloneGetPaid
     
     XMLConfig('configure.zcml', Products.Five)()
     XMLConfig('meta.zcml', Products.Five)()
     
-    XMLConfig('configure.zcml', Products.CMFonFive)()
+    XMLConfig('configure.zcml', ore.member)()
     XMLConfig('configure.zcml', Products.PloneGetPaid)()
     
 def configurationTearDown(self):
