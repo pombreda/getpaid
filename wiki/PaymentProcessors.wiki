@@ -48,6 +48,7 @@ Trust Commerce:
 PayPal
 
     * Paypal tool from 6ftup to post the paypal transaction data to Plone site: https://svn.sixfeetup.com/svn/public/PaypalManager/trunk/
+    * Note from a friend who recently implemented Paypal on a major ecommerce site: "akamai is a caching server that serves up pages if your down, but they have had less than stellar performance, so we've been having to tweak things here and there because of our old backend." Not sure if this might be something we will have to think about. (Veda)
 
 GoogleCheckout:
 
