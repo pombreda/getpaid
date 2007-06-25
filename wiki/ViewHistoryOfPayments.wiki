@@ -1,4 +1,5 @@
-=View History of Payments=
+#labels Phase-Design,AdminUI
+=Admin View History of Payments=
 
 The Admin can view a History screen, that presents the transactions from the site in a table. The table includes:
 
@@ -20,4 +21,3 @@ Options from the screen:
     * Sort table by the fields
     * Export table to CSV
     * Future: Export to popular accounting packages: You can specify a date range for your orders and export them as a single file that can then be imported into accounting packages such as MYOB and Quicken/Quickbooks.
-
