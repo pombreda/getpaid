@@ -1,4 +1,5 @@
 #summary Donation forms are a simple payable content object that can be added anywhere in the site.
+#labels Phase-Design,AdminUI
 
 Site Manager can go anywhere in the site and add a donation form. To do so, they click on the "add item to folder" button and select "Donation Form". [do we need to just provide a form that is payable? is this a custom content type?]
 
