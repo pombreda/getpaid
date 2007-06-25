@@ -18,14 +18,15 @@ def configurationSetUp(self):
     # Also ensure the Five directives and permissions are available
     
     import Products.Five
-    import Products.membrane
-    import Products.borg
+    import ore.member
+    import Products.CMFonFive
+    import Products.PloneGetPaid
     
     XMLConfig('configure.zcml', Products.Five)()
     XMLConfig('meta.zcml', Products.Five)()
     
-    XMLConfig('configure.zcml', Products.membrane)()
-    XMLConfig('configure.zcml', Products.borg)()
+    XMLConfig('configure.zcml', ore.member)()
+    XMLConfig('configure.zcml', Products.PloneGetPaid)()
     
 def configurationTearDown(self):
     """Tear down Zope 3 test environment
