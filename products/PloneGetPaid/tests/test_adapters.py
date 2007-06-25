@@ -24,16 +24,16 @@ def test_donation():
     """Check that we can declare an object buyable
 
     >>> from getpaid.core.interfaces import IDonation
-    
+
     Create a content object to work from.
-    
+
     >>> self.setRoles(('Manager'),)
     >>> self.portal.invokeFactory('Donation', 'dona')
     'dona'
     >>> dona = self.portal.dona
-    
+
     IDonation interface present on this Donation instance.
-    
+
     >>> IDonation(dona)
     <Products.PloneGetPaid.content_types.donation.Donation object at ...>
 
