@@ -77,7 +77,7 @@ class ShoppingCartAddItem( ShoppingCart ):
         item.item_id = self.context.UID()
         item.name = payable.name
         item.description = payable.description
-        item.price = payable.price
+        item.cost = payable.price
         item.quantity = 1
         self.cart[ item.item_id ] = item
         self.cart.last_item = item.item_id
