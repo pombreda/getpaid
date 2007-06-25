@@ -18,10 +18,11 @@ def test_buyable():
     
     >>> from Products.PloneGetPaid.interfaces import IPayable
     >>> from Products.PloneGetPaid.interfaces import IBuyableContent
+    
     """
     
 def test_suite():
     return unittest.TestSuite((
-            ZopeDocTestSuite(test_class=BorgTestCase,
+            ZopeDocTestSuite(test_class=PloneGetPaidTestCase,
                              optionflags=optionflags),
         ))
