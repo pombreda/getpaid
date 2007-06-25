@@ -1,3 +1,4 @@
+#labels Phase-Design,AdminUI
 =Configure Emails=
 	
 ==Transaction notification options==
@@ -20,6 +21,11 @@
 
 
 
+=Payee and Merchant Receive Email Confirmation=
+
+Upon completion of an order / subscription, customers will receive an email confirming their order. Similarly, the merchant will receive an email, according to the preferences set in the configuration panel. The emails can also be customized in that area.
+
+Payment details will be included in the email (i.e. what the user purchased, what they paid, what their login name is). Credit card information will obviously not be included.
 
 
 
