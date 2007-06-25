@@ -8,11 +8,11 @@ Lots of documentation, need to defer policy decisions using Zope 3 component arc
 = Details =
 
 *How to integrate with content?*
-* Want to reuse existing content types to make them buyable. So, not content type specific. Register a content type as payable in the admin and configure. Currently done w/ marker interface. 
+Want to reuse existing content types to make them buyable. So, not content type specific. Register a content type as payable in the admin and configure. Currently done w/ marker interface. 
 
 *How the architecture works:*
 
-* Have an interface -- any object can have one. It's a specification of an object. Can move from that one object to another based on its interface. Register an adapter to connect the two. Adapters are connectors. Other people can override the adapters w/o touching the codebase. 
+Have an interface -- any object can have one. It's a specification of an object. Can move from that one object to another based on its interface. Register an adapter to connect the two. Adapters are connectors. Other people can override the adapters w/o touching the codebase. 
 
 *Getpaid:* notion of iPayable object needs an adapter. Register default adapters for iContentish. iBuyable, iShippable also exist for an iPayable item. Enable these on any given piece of content by defining an adapter between iPayable items and iContentish. 
 
