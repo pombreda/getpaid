@@ -3,11 +3,12 @@
 $Id$
 """
 
+from workflow import MultiWorkflowInfo, MultiWorkflowState
+
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-from workflow import MultiWorkflowInfo, MultiWorkflowState
-
+from getpaid.core.interfaces import finance_states, fulfillment_states
 
 def create_fulfillment_workflow( ):
 
@@ -32,14 +33,14 @@ def create_fulfillment_workflow( ):
                               source = fs.PROCESSING,
                               destination = fs.DELIVERED ) )
     
-    add( workflow.Transition( transition_id = 'cancel-order'
+    add( workflow.Transition( transition_id = 'cancel-order',
                               title = 'Will Not Deliver',
                               source = fs.PROCESSING,
                               trigger = iworkflow.SYSTEM,
                               destination = fs.WILL_NOT_DELIVER ) )
 
 
-    add( workflow.Transition( transition_id = 'cancel-new-order' ,
+    add( workflow.Transition( transition_id = 'cancel-new-order',
                               title = 'Will Not Deliver',
                               source = fs.NEW,
                               destination = fs.WILL_NOT_DELIVER,
@@ -68,7 +69,7 @@ def create_finance_workflow( ):
 
     add( workflow.Transition( transition_id = 'cancel-chargeable',
                               title = 'Cancel Order',
-                              source = fs.CHARGABLE,
+                              source = fs.CHARGEABLE,
                               destination = fs.CANCELLED ) )
 
     add( workflow.Transition( transition_id = 'authorize-chargeable',
@@ -115,7 +116,7 @@ def create_finance_workflow( ):
 class FulfillmentWorkflow( workflow.Workflow ):
 
     def __init__( self ):
-        super( FufillmentWorkflow, self).__init__( create_fulfilliment_workflow() )
+        super( FulfillmentWorkflow, self).__init__( create_fulfillment_workflow( ))
 
 class FinanceWorkflow( workflow.Workflow ):
 
@@ -132,7 +133,7 @@ class FinanceState( MultiWorkflowState ):
     state_key = 'getpaid.finance.state'
     id_key = 'getpaid.finance.id'
 
-class FufillmentInfo( MultiWorkflowInfo ):
+class FulfillmentInfo( MultiWorkflowInfo ):
     
     state_name = "getpaid.fulfillment"
     workflow_name = "getpaid.fulfillment.workflow"
@@ -142,7 +143,11 @@ class FinanceInfo( MultiWorkflowInfo ):
     state_name = "getpaid.finance"
     workflow_name = "getpaid.finance.workflow"
 
-    
+
+
+if __name__ == '__main__':
+    wk = FinanceWorkflow()
+    wk = FulfillmentWorkflow()
          
     
                                   

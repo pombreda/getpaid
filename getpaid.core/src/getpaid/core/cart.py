@@ -3,7 +3,6 @@ $Id$
 """
 
 from zope.app.container.ordered import OrderedContainer
-
 #from zope.app.container.btree import BTreeContainer
 from zope.interface import implements
 from persistent import Persistent

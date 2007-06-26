@@ -1,0 +1,16 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <!-- Order Workflows -->
+  <utility
+     provides="hurry.workflow.interfaces.IWorkflow"
+     name="getpaid.fulfillment.workflow"
+     factory=".order_workflow.FulfillmentWorkflow"
+     />
+
+  <utility
+     provides="hurry.workflow.interfaces.IWorkflow"
+     name="getpaid.finance.workflow"
+     factory=".order_workflow.FinanceWorkflow"
+     />
+
+</configure>

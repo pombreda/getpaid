@@ -5,16 +5,19 @@ extensions to hurry.workflow to allow for multiple workflows on an object
 $Id$
 """
 
+from zope.app import annotation
+from zope.app.annotation.interfaces import IAnnotations
+
+from zope import component
+
+from zope.app.event.objectevent import ObjectEvent, ObjectModifiedEvent
+from zope.event import notify
+
+from zope.security.management import getInteraction, NoInteraction
+from zope.security.interfaces import Unauthorized
 
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
-
-from zope import component
-from zope.component.interfaces import ObjectEvent
-from zope.event import notify
-from zope.lifecycleevent import ObjectModifiedEvent
-from zope.security.management import getInteraction, NoInteraction
-from zope.security.interfaces import Unauthorized
 from hurry.workflow.interfaces import\
      InvalidTransitionError, ConditionFailedError
 
