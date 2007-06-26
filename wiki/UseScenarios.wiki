@@ -1,6 +1,7 @@
 Use Scenarios
 
-   1. EVENTS: Plone manages information great, including event information. But people who run events have to be able to handle registrations. Registration is about information collection, connecting that to payment processing, and having a real-time record that can be used to manage registration (ie see how many people are registered at any given time, who has paid, etc).
+
    2. NGO: Non-profit use of Plone has exploded over the last few years. All non-profits have a common need - raising money. Non-profits need to be able to use the web site to handle donation processing, as well as gathering information about donors and providing them information they need (ie in case of tax deductible donation in US, a letter for IRS). Jon Stahl has written up some detail on this in the ((Wish List)).
-   3. STORE: Beyond having a simple single item payment processing, site owners with many objects need to be able to handle store functions. They need to be able to let users browse shopping areas, collect items in a cart, assign relevant taxes and shipping charges, collect and manage billing information, and handle payment processing and reporting.
+
+   3. 
    4. PREMIUM CONTENT REPOSITORIES: Users need to be able to purchase subscriptions to access premium content, i.e. articles. This scenario follows a similar process as purchasing a tangible good, except that it sets special permissions for subscribed users to allow them to access the premium content.
