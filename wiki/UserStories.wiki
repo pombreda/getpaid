@@ -4,7 +4,6 @@
 =Site Administration=
 Actions that take place in the site setup area. 
 
-  * ChooseaCurrency
   * ConfigureEmails
   * ConfigurePaymentDisclaimer
   * ConfigureDiscounts
