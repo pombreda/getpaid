@@ -8,13 +8,14 @@ from base import PloneGetPaidTestCase
 
 class TestProductInstall(PloneGetPaidTestCase):
 
-    def afterSetUp(self):
-        # XXX monkey patch -- see tests/base.py for more details
-        super( TestProductInstall, self).afterSetUp()
-        self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
-        self.types = ('Donation',)
+    # XXX MOVED THIS TO THE BASE 'PloneGetPaidTestCase' to simplify things
+    #def afterSetUp(self):
+    #    # XXX monkey patch -- see tests/base.py for more details
+    #    super( TestProductInstall, self).afterSetUp()
+    #    self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
 
     def testTypesInstalled(self):
+        self.types = ('Donation',)
         for t in self.types:
             self.failUnless(t in self.portal.portal_types.objectIds(),
                             '%s content type not installed' % t)
