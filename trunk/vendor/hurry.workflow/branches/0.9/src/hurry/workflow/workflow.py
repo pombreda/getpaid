@@ -8,7 +8,11 @@ from zope.security.interfaces import Unauthorized
 from zope.security.checker import CheckerPublic
 
 from zope.app import zapi
-from zope.annotation.interfaces import IAnnotations
+try:
+    from zope.annotation.interfaces import IAnnotations
+except:
+    from zope.app.annotation.interfaces import IAnnotations
+    
 from zope.app.container.contained import Contained
 
 try:
