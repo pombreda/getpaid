@@ -1,24 +1,9 @@
 #summary User stories to guide the development process
 
-=Site Administration=
-Actions that take place in the site setup area. 
-
-=Content Management=
-
-  ==Content Delivery Options==
-  This takes place on the content itself
-
-  * SettingMeansOfDelivery
-  * MakeContentPayable
-  * AddDonationForm
-  * MakePremiumContent
-  * MakeContentPayToSubmit
 
 =End User Experience=
 Stories about the end user's interface with the system and content
 
-  * OverallCheckoutProcess
-  * UserPays details of checkout process
   * PayeeAndMerchantReceiveEmailConfirmation of order
   * MemberViewsTransactionHistory
   * MemberUpdatesProfile
