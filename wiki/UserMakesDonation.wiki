@@ -22,7 +22,6 @@ Rich text field
 Quantity in basket
 Buy Now button
 Add to Basket button
-Variants? (doubtful)
 
 
 Payable items can be shippable, donateable, subscribeable, ie. they can have delivery options. - A donateable item must also be payable. 
@@ -32,6 +31,7 @@ Payable items can be shippable, donateable, subscribeable, ie. they can have del
 
 Will talk to PFG
 User goes to donate -- either to a portlet or to a page. 
+Will utilize variants
 
 dropdown list with amounts listed plus additional item or write-in
 
