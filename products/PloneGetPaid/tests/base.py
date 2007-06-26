@@ -41,3 +41,11 @@ class PloneGetPaidFunctionalTestCase(FunctionalTestCase):
     This may provide specific set-up and tear-down operations, or provide 
     convenience methods.
     """
+    
+    class Session(dict):
+        def set(self, key, value):
+            self[key] = value
+
+    def _setup(self):
+        FunctionalTestCase._setup(self)
+        self.app.REQUEST['SESSION'] = self.Session()

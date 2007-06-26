@@ -54,10 +54,8 @@ class TestMakePayable(PloneGetPaidTestCase):
         >>> interfaces.IBuyableMarker.providedBy(doc)
         True
         
-        Check for new fields
-
         """
-    
+
 def test_suite():
     return unittest.TestSuite((
             ZopeDocTestSuite(test_class=PloneGetPaidTestCase,
