@@ -20,9 +20,10 @@ class IPayable( Interface ):
     productCode = schema.TextLine( title=u"Product Code")
     price = schema.Float( title=u"Price")
 
-class IDonation( IPayable ):
+class IDonationContent( IPayable ):
     """ Donation
     """
+    donationText = schema.TextLine( title=u"Donation Description")
 
 class ISubscription( IPayable ):
     """ Subscription
