@@ -1,4 +1,4 @@
-#labels Phase-Design,Featured
+#labels Phase-Design
 Plone Ecommerce and Payment Process Current State
 
 In a word: sad. There is no "state of the art", but instead a few points of light in a vacuum. However, momentum is building and we will be changing that! The following page is designed to give a greater background on commerce in Plone. These notes were first started based on the "Plone e-commerce BOF" at Plone Conference 2006.
