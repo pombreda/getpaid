@@ -7,7 +7,9 @@ Lots of documentation has been done, need it more practical.
 
 = Tasks=
 
-Need to do some unit tests and fix the buildout / do tarball install. Lots of UI issues. Checkout wizard, cart improvements. Payment processor integration: Try not to get tied to one, get two or three in there. Documentation on SSL (session-based cart). Donations piece. Authorize.net and GoogleCheckout. i18n. Premium membership is in the overall scope but deferred for now. See issues on this site (Google code) for more information. 
+  * Get everyone set up to work on the project: Gmail account and adding to the project list (contact cjj or hazmat), getting on dev mailing list, getting on #getpaid, and getting a buildout downloaded and installed (see DevGettingStarted). 
+
+  * Notes about other tasks: Need to do some unit tests and fix the buildout / do tarball install. Lots of UI issues. Checkout wizard, cart improvements. Payment processor integration: Try not to get tied to one, get two or three in there. Documentation on SSL (session-based cart). Donations piece. Authorize.net and GoogleCheckout. i18n. Premium membership is in the overall scope but deferred for now. See issues on this site (Google code) for more information. 
 
 
 = Details =
