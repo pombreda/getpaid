@@ -2,7 +2,7 @@ New Stuff
 
     * ((Components Mindmap))
     * ((Nate Premium Membership Product))
-    * Get the code to start working abstracting the premiummembership product, bundled here:Â  https://svn.plone.org/svn/collective/premiummembership/bundles/trunk/
+
 
 
 Goals
