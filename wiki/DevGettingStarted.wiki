@@ -88,7 +88,7 @@ Just do a
 ./bin/buildout -N
 }}}
 
-Question: can the buildout be updated via svn up? TBD. 
+Run svn up to update the buildout. Once this is done, reinstall the GetPaid product and go to portal_types and make Donation implicitly addable.
 
 
 == Troubleshooting ==
