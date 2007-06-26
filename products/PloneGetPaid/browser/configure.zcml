@@ -35,4 +35,12 @@
   <!-- Shopping Cart UI -->
   <include file="cart.zcml" />
 
+
+  <browser:page
+     for="*"
+     name="getpaid-checkout"
+     class=".checkout.CheckoutBillingCollection"
+     permission="zope2.View"
+     />
+
 </configure>
