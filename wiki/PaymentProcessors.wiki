@@ -1,4 +1,4 @@
-#labels Phase-Implementation
+#labels Phase-Implementation,Developerdocumentation
 Related Information
 See the user story for site admins setting up payment processor: http://www.openplans.org/projects/plonecommerce/set-up-payment-processor
 
