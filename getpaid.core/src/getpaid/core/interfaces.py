@@ -222,5 +222,24 @@ class IOrder( Interface ):
     shipping_address = schema.Object( IShippingAddress, required=False)
     billing_address  = schema.Object( IBillingAddress )
     shopping_cart = schema.Object( IShoppingCart )
-    finance_state = schema.TextLine( title=u"Finance State")
-    fufillment_state = schema.TextLine( title=u"Fufillment State")
+    finance_state = schema.TextLine( title=u"Finance State", readonly=True)
+    fufillment_state = schema.TextLine( title=u"Fufillment State", readonly=True)
+
+
+class finance_states:
+
+    REVIEWING = 'REVIEWING'
+    CHARGEABLE = 'CHARGEABLE'
+    CHARGING = 'CHARGING'
+    CHARGED = 'CHARGED'
+    REFUNDED = 'REFUNDED'
+    PAYMENT_DECLINED = 'PAYMENT_DECLINED'
+    CANCELLED = 'CANCELLED'
+    CANCELLED_BY_PROCESSOR = 'CANCELLED_BY_PROCESSOR'
+
+class fulfillment_states:
+
+    NEW = 'NEW'
+    PROCESSING = 'PROCESSING'
+    DELIVERED = 'DELIVERED'
+    WILL_NOT_DELIVER = 'WILL_NOT_DELIVER'
