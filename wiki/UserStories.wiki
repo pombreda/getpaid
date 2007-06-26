@@ -1,4 +1,4 @@
 #summary User stories to guide the development process
 
-    * MemberPurchasesSubscription for recurring expenses
+    * UserPurchasesSubscription for recurring expenses
     * MemberPurchasesAccessToContent for an article or section of site
