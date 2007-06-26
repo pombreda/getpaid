@@ -31,6 +31,7 @@ class Core( formbase.EditForm, BaseView ):
     form_fields['buyable_types'].custom_widget = SelectWidgetFactory
     form_fields['shippable_types'].custom_widget = SelectWidgetFactory
     form_fields['premium_types'].custom_widget = SelectWidgetFactory
+    form_fields['donate_types'].custom_widget = SelectWidgetFactory
 
     options = None
     

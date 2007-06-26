@@ -18,6 +18,8 @@ PremiumContent implies that the consumer of the content has a local role of Prem
 content.  This role is granted if the consumer has a certain subscription level (set in the product
 configuration.) *** this section needs to be explained better ***
 
+DonateContent implies that the content is a donation.
+
 To allow for per instance application of content types, we provide an action for archetypes
 under the content actions drop down to apply getpaid integration, the condition for this action
 invokes a premium content control view which in turn checks the control panel configuration
@@ -33,7 +35,7 @@ $Id$
 """
 
 from zope import interface
-from getpaid.core.interfaces import IBuyableContent, IShippableContent, IPremiumContent
+from getpaid.core.interfaces import IBuyableContent, IShippableContent, IPremiumContent, IDonationContent
 from getpaid.core import cart
 from getpaid.core import options
 
@@ -106,7 +108,25 @@ class PremiumContentAdapter( PremiumContentStorage ):
         self.context = context
         self.request = request
 
-        
+#################################
+# Donatable Content
+
+"""
+"""
+
+DonatableContentStorage = options.PersistentOptions.wire( "DonatableContentStorage", "getpaid.content.donate", IDonationContent )
+
+class DonatableContentAdapter( DonatableContentStorage ):
+    """
+    Default Adapter between Content and IDonatable. This implementation stores attributes
+    of a buyable in an annotation adapter
+    """
+    interface.implements( IDonationContent )
+
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+
     
 
 

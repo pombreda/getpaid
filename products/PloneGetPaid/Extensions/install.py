@@ -41,6 +41,15 @@ coci_actions = [
                 visible = True ),
          "user.gif" ),
 
+     ( dict(  id = 'getpaid_make_donatable',
+              name = 'Make this a Donation',
+              action = 'string:$object_url/@@activate-donate',
+              category ='object_buttons',
+              permission = "Modify portal content",
+              condition = "python:path('object/@@getpaid_control').allowChangeDonatable()",
+              visible = True ),
+       "user.gif" ),
+
       ( dict(  id = 'getpaid_manage_cart',
                 name = 'Manage Cart',
                 action = 'string:$object_url/@@getpaid-cart',

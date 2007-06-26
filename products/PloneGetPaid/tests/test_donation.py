@@ -7,19 +7,19 @@ from Testing.ZopeTestCase import ZopeDocTestSuite
 from base import PloneGetPaidTestCase
 from utils import optionflags
 
+
 def test_creation():
     """Test that donations can be created and initiated.
     
     >>> self.setRoles(('Manager',))
-    >>> id = self.portal.invokeFactory('Donation', 'donation')
-    >>> donation = self.portal.donation
+    >>> id = self.portal.invokeFactory('Document', 'page-to-donate')
+    >>> donation = self.portal.restrictedTraverse('page-to-donate')
     
-    Set roles.
+    Let's make it Donation-able
     
-    >>> donation.setRoles(('Reviewer',))
-    >>> tuple(donation.getRoles())
-    ('Reviewer',)
-        
+    >>> from Products.Five.utilities.marker import mark
+    >>> from Products.PloneGetPaid.interfaces import IDonatableMarker
+    >>> mark( donation, IDonatableMarker)
     """
 
 def test_suite():
