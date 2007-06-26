@@ -8,21 +8,20 @@ from Products.Archetypes.atapi import *
 from Products.PloneGetPaid.config import *
 from Products.CMFCore import permissions
 
-from getpaid.core.interfaces import IDonation
 from zope.interface import implements
 
 DonationSchema = ATContentTypeSchema.copy() + Schema( (
 
- TextField(
+    TextField(
         name='donationText',
         allowable_content_types=('text/plain', 
-				 'text/structured', 
-				 'text/html', 
-				 'application/msword',),
+            'text/structured', 
+            'text/html', 
+            'application/msword',),
         widget=RichWidget(
             label       = "Donation Description Text",
-	    description = """Describe the purpose of the donation.  
-			     Include any information the donor would need to understand their donation.""",
+            description = """Describe the purpose of the donation.  
+                Include any information the donor would need to understand their donation.""",
             label_msgid = 'PloneGetPaid_label_donationText',
             i18n_domain = 'PloneGetPaid',
         ),
@@ -47,9 +46,8 @@ class Donation( ATCTContent ):
 
     meta_type = portal_type = archetype_name = "Donation"
     schema = DonationSchema
+    global_allow = False    # XXX DEPRECATING NEED FOR A SEPARATE DONATION OBJECT, SO DON'T ALLOW ONE TO ADD
 
-    implements( IDonation )
-    
     actions = (
         {'id':'view',
          'name' : 'view',

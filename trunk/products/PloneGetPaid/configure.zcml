@@ -43,6 +43,12 @@
    provides="getpaid.core.interfaces.IPremiumContent"
    factory=".content.PremiumContentAdapter"
    />
+
+<adapter
+  for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+  provides="getpaid.core.interfaces.IDonationContent"
+  factory=".content.DonatableContentAdapter"
+  />
    
 <!-- Content to Cart Item Adapters -->
 <adapter

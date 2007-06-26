@@ -35,6 +35,13 @@
      permission="cmf.ModifyPortalContent"
      />
 
+  <browser:page
+     for="*"
+     name="activate-donate"
+     class=".content.DonateCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+
   <!-- Edit Views, on payable -->
   <browser:page
      for="..interfaces.IBuyableMarker"
@@ -62,6 +69,13 @@
      class=".content.ShippableEdit"
      permission="cmf.ModifyPortalContent"
      />     
-  
 
+  <browser:page
+    for="..interfaces.IDonatableMarker"
+    name="edit-donate"
+    menu="object"
+    title="Payable"
+    class=".content.DonateEdit"
+    permission="cmf.ModifyPortalContent"
+    />
 </configure>

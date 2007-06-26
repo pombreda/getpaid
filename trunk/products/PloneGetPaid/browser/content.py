@@ -83,7 +83,19 @@ class PremiumCreation( PayableCreation ):
 class PremiumEdit( PayableEdit ):
     
     form_fields = form.Fields( igetpaid.IPremiumContent )
-    interface = igetpaid.IPremiumContent    
+    interface = igetpaid.IPremiumContent
+    
+class DonateCreation( PayableCreation ):
+
+    form_fields = form.Fields( igetpaid.IDonationContent )
+    interface = igetpaid.IDonationContent
+    marker = interfaces.IDonatableMarker
+
+class DonateEdit( PayableEdit ):
+
+    form_fields = form.Fields( igetpaid.IDonationContent )    
+    interface = igetpaid.IDonationContent 
+    
 
 
 
@@ -122,13 +134,20 @@ class ContentControl( BrowserView ):
         return interfaces.IShippableMarker.providedBy( self.context )
         
     isShippable.__roles__ = None
+
+    def isDonatable( self ):
+        """
+        """
+        return interfaces.IDonatableMarker.providedBy( self.context )
+        
+    isDonatable.__roles__ = None
         
     def allowChangeBuyable( self ):
         """  
         """
         if self.options.buyable_types and not self.context.portal_type in self.options.buyable_types:
             return False
-        elif self.isBuyable() or self.isPremium() or self.isShippable():
+        elif self.isBuyable() or self.isPremium() or self.isShippable() or self.isDonatable():
             return False
         return True
 
@@ -137,7 +156,7 @@ class ContentControl( BrowserView ):
     def allowChangeShippable( self ):
         if self.options.shippable_types and not self.context.portal_type in self.options.shippable_types:
             return False
-        elif self.isBuyable() or self.isPremium() or self.isShippable():
+        elif self.isBuyable() or self.isPremium() or self.isShippable() or self.isDonatable():
             return False
         return True
     
@@ -146,10 +165,20 @@ class ContentControl( BrowserView ):
     def allowChangePremiumContent( self ):
         if self.options.premium_types and not self.context.portal_type in self.options.premium_types:
             return False
-        elif self.isBuyable() or self.isPremium() or self.isShippable():
+        elif self.isBuyable() or self.isPremium() or self.isShippable() or self.isDonatable():
             return False
         return True
+
     allowChangePremiumContent.__roles__ = None
+
+    def allowChangeDonatable( self ):
+        if self.options.donate_types and not self.context.portal_type in self.options.donate_types:
+            return False
+        elif self.isBuyable() or self.isPremium() or self.isShippable() or self.isDonatable():
+            return False
+        return True
+
+    allowChangeDonatable.__roles__ = None
 
 
     def showManageCart( self ):

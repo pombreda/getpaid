@@ -35,19 +35,4 @@
   <!-- Shopping Cart UI -->
   <include file="cart.zcml" />
 
-  <!-- Donation UI -->
-  <browser:page
-     for="getpaid.core.interfaces.IDonation"
-     name="view"
-     class=".donation.DonationView"
-     template="templates/donation-view.pt"
-     permission="zope2.View"
-     />
-
-  <browser:defaultView
-     for="getpaid.core.interfaces.IDonation"
-     name="view"
-     />
-
-
 </configure>

@@ -25,13 +25,17 @@ class IPremiumMarker( Interface ):
 class IShippableMarker( Interface ):
     """ shippable interface added to shippable content """
 
-PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker ]
+class IDonatableMarker( Interface ):
+    """ donate-able interface added to shippable content """
+
+PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker, IDonatableMarker ]
 
 PayableMarkerMap = dict(
      (
       (IBuyableMarker, igetpaid.IBuyableContent),
       (IPremiumMarker, igetpaid.IPremiumContent),
       (IShippableMarker, igetpaid.IShippableContent),
+      (IDonatableMarker, igetpaid.IDonationContent),
     )
 )    
 
@@ -77,6 +81,13 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
         value_type = schema.Choice( title=u"premium_types", source="plone.content_types" )
         )
                                      
+    donate_types = schema.List(
+        title = u"Donatable Content Types",
+        required = False,
+        default = [],
+        description = u"Content Types available for Donation",
+        value_type = schema.Choice( title=u"donate_types", source="plone.content_types" )
+        )
         
 
     
