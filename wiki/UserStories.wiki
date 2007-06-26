@@ -1,15 +1,7 @@
 #summary User stories to guide the development process
-#labels Featured
 
 =Site Administration=
 Actions that take place in the site setup area. 
-
-  ==Payment Delivery Options Configuration==
-    * ConfigurePayToSubmitContent
-
-  ==Financial Management==
-
-    * ViewHistoryOfPayments
 
 =Content Management=
 
