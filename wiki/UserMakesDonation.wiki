@@ -3,12 +3,64 @@
 
 = Introduction =
 
-Add your content here.
+This will be addressed in two phases. First phase will be a base implementation using generic forms. Phase two will utilize PloneFormGen to work with an adapter to hook into the shopping cart and payment processor. 
 
 
-= Details =
+== Present Implementation ==
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+Will follow existing workflow for regular products, except that the add product object will have some slightly different fields.
+
+Fields: 
+
+Product Name
+Product Code
+Product Description
+Price
+Free text field for amount
+Rich text field
+Quantity in basket
+Buy Now button
+Add to Basket button
+Variants? (doubtful)
+
+
+Payable items can be shippable, donateable, subscribeable, ie. they can have delivery options. - A donateable item must also be payable. 
+
+
+==Future Implementation==
+
+Will talk to PFG
+User goes to donate -- either to a portlet or to a page. 
+
+dropdown list with amounts listed plus additional item or write-in
+
+continue to register or login form
+
+go to review cart step, gives option to choose a payment processor,
+modify / update cart / continue shopping / submit
+
+go to cc information page -- will be dynamic based on payment processor
+chosen
+
+sends payment information to GC or Paypal, etc. (onsite or offsite)
+
+returns user to plone confirmation page (receipt) or error notice
+
+if there is an error, return to the cc page. do not save the cc info on
+the roundtrip. do not charge twice. only click once!!! warning, room
+for disclaimer.
+
+
+
+
+for onsite payments, we pass out the cc data but don't store it. 
+on page where they enter their cc info show the cart contents. 
+change/update. send cc info via https.
+
+for offsite payments, users get rerouted to plone.
+
+if you are doing a donation and choose more than one donation 
+item to add to your cart, you must actually create a cart and
+send the info to the order management system; if you are doing a donation
+that is just one donation item, it still creates a cart
