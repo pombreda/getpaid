@@ -51,7 +51,7 @@ class TestMakePayable(PloneGetPaidTestCase):
         
         Mark the test document as buyable
         >>> mark(doc, interfaces.IBuyableMarker)
-        >>> interfaces.IBuyableMarker.implementedBy(doc)
+        >>> interfaces.IBuyableMarker.providedBy(doc)
         True
         
         Check for new fields
