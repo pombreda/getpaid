@@ -21,3 +21,4 @@ Need to revisit these items to make sure none of these are supposed to be in sco
   * People who bought this also bought... 
   * Request return of an item
   * Order tracking
+  *EVENTS: Plone manages information great, including event information. But people who run events have to be able to handle registrations. Registration is about information collection, connecting that to payment processing, and having a real-time record that can be used to manage registration (ie see how many people are registered at any given time, who has paid, etc).
