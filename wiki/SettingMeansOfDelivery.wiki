@@ -1,4 +1,5 @@
 #summary Setting Means of Delivery to be web, shipping, or subscription-based, on a particular content object
+#labels Phase-Design,AdminUI
 
 = Setting Means of Delivery =
 
@@ -16,5 +17,4 @@ After making something "payable", set delivery method:
     * Make Premium Content; replace default view of content to check user's security and display teaser for content if don't have access.
     * Make Purchaseable; display shopping cart portlet
     * Make Shippable; display shopping cart portlet
-
 
