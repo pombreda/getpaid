@@ -9,7 +9,7 @@ We started the DocComm sprint at Google June 25. This is an update of notes. Fin
 
 On site sprinters: 
   * Kapil: Checkout wizard
-  * Brian G, David S, Eric S: 
+  * Brian G, David S, Eric S: Unit tests, donation handling, functional tests
   * Bill, Steve: payment processors
   * Veda, Donna: admin and end user UI specification and wireframes
 Remote sprinters: 
@@ -76,4 +76,3 @@ GetPaid has an icon!
 
 User interface:
 - End user specs created and half way implemented in css/html (being uploaded at
-
