@@ -131,10 +131,11 @@ class ShoppingCartActions( FormViewlet ):
         return self.template()
 
     def isLoggedIn( self, *args ):
-        return getSecurityManager().getUser().getId() != 'Anonymous'
+        return getSecurityManager().getUser().getId() is not None
     
     def isAnonymous( self, *args ):
-        return getSecurityManager().getUser().getId() == 'Anonymous'
+        return getSecurityManager().getUser().getId() is None
+
 
     @form.action("Continue Shopping")
     def handle_continue_shopping( self, action, data ):
@@ -146,7 +147,6 @@ class ShoppingCartActions( FormViewlet ):
 
     @form.action("Checkout", condition="isLoggedIn", name="AuthCheckout")
     def handle_checkout( self, action, data ):
-        print "continue checkout"        
         # go to order-create
         # force ssl? redirect host? options
         portal = getToolByName( self.context, 'portal_url').getPortalObject()
@@ -155,7 +155,6 @@ class ShoppingCartActions( FormViewlet ):
 
     @form.action("Checkout", condition="isAnonymous", name="AnonCheckout")
     def handle_login_checkout( self, action, data ):
-        print "continue login checkout"                
         # go to sign in with redirect url to checkout
         portal = getToolByName( self.context, 'portal_url').getPortalObject()
         url = portal.absolute_url()

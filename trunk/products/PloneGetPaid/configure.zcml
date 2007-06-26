@@ -2,7 +2,7 @@
 	   xmlns:content="http://namespaces.objectrealms.net/plone"
 	   xmlns:five="http://namespaces.zope.org/five">
 
- 
+<include package="getpaid.core" />
 <include package="getpaid.processor.googlecheckout" />
 
 <include package="ore.member" file="meta.zcml" />
