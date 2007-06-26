@@ -102,7 +102,7 @@ def lineItemURL( item, formatter ):
     return '<a href="reference_catalog/lookupObject?uuid=%s">%s</a>'  % (item.item_id, item.name)
 
 def lineItemTotal( item, formatter ):
-    return item.quantity * item.cost
+    return "%0.2f" % (item.quantity * item.cost)
 
 class ShoppingCartListing( ContainerViewlet ):
 
