@@ -14,7 +14,49 @@ from utils import optionflags
 class TestMakePayable(PloneGetPaidTestCase):
     
     def test_mark_object_payable(self):
-        pass
+        """Test that objects can be marked as payable
+        
+        >>> from Products.PloneGetPaid import interfaces
+        >>> from getpaid.core import interfaces as coreInterfaces 
+
+        Create a document object.    
+        >>> self.setRoles(('Manager',))
+        >>> id = self.portal.invokeFactory('Document', 'doc')
+        >>> doc = self.portal.doc
+        
+        Check make sure it doesn't have the IBuyableMarker set already.
+        >>> interfaces.IBuyableMarker.implementedBy(doc)
+        False
+        
+        Make sure the Document class is not marked as Buyable Content yet.
+        >>> from Acquisition import aq_base
+        >>> docClass = aq_base(doc).__class__
+        >>> coreInterfaces.IBuyableContent.providedBy(docClass)
+        False
+        
+        >>> options = interfaces.IGetPaidManagementOptions(self.portal)
+        >>> options.buyable_types
+        []
+        
+        >>> options.buyable_types = ['Document']
+        >>> options.buyable_types
+        ['Document']
+        
+        >>> from Products.Five.utilities.marker import mark
+        
+        Mark the document class as buyable content
+        >>> mark(docClass, coreInterfaces.IBuyableContent)
+        >>> coreInterfaces.IBuyableContent.providedBy(docClass)
+        True
+        
+        Mark the test document as buyable
+        >>> mark(doc, interfaces.IBuyableMarker)
+        >>> interfaces.IBuyableMarker.implementedBy(doc)
+        True
+        
+        Check for new fields
+
+        """
     
 def test_suite():
     return unittest.TestSuite((
