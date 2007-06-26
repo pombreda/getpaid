@@ -101,13 +101,17 @@ class LineItemColumn( object ):
 def lineItemURL( item, formatter ):
     return '<a href="reference_catalog/lookupObject?uuid=%s">%s</a>'  % (item.item_id, item.name)
 
+def lineItemTotal( item, formatter ):
+    return item.quantity * item.cost
+
 class ShoppingCartListing( ContainerViewlet ):
 
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
         column.GetterColumn( title="Quantity", getter=LineItemColumn("quantity") ),
         column.GetterColumn( title="Name", getter=lineItemURL ),
-        column.GetterColumn( title="Price", getter=LineItemColumn("cost") ),    
+        column.GetterColumn( title="Price", getter=LineItemColumn("cost") ),
+        column.GetterColumn( title="Total", getter=lineItemTotal ),
        ]
     
     selection_column = columns[0]
