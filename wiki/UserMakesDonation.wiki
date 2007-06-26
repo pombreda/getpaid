@@ -5,62 +5,48 @@
 
 This will be addressed in two phases. First phase will be a base implementation using generic forms. Phase two will utilize PloneFormGen to work with an adapter to hook into the shopping cart and payment processor. 
 
+== Assumptions ==
+
+Payable items can be shippable, donateable, subscribeable, ie. they can have delivery options. A donateable item MUST also be payable. 
+
 
 == Present Implementation ==
 
+User can add any content object to the site. Once the content object is added, a user can mark it as "make this a donation". 
 
-Will follow existing workflow for regular products, except that the add product object will have some slightly different fields.
-
-Fields: 
+The user will see a form that will contain the following fields:
 
 Product Name
 Product Code
 Product Description
-Price
+Price (dropdown with initial defaults)
 Free text field for amount
 Rich text field
 Quantity in basket
 Buy Now button
 Add to Basket button
-
-
-Payable items can be shippable, donateable, subscribeable, ie. they can have delivery options. - A donateable item must also be payable. 
-
+Who marked this as donateable (this should be tied to the logged in user, not be a freeform field).  
 
 ==Future Implementation==
 
 Will talk to PFG
-User goes to donate -- either to a portlet or to a page. 
-Will utilize variants
+User donations can appear either inline in a page template or in a portlet. 
+Will utilize variants. 
 
-dropdown list with amounts listed plus additional item or write-in
+== Workflow ==
 
-continue to register or login form
+User adds a donateable item to their cart. Press continue to register. It will also be possible to login from this page.
 
-go to review cart step, gives option to choose a payment processor,
-modify / update cart / continue shopping / submit
+Next, go to review cart step. The user will be given the option to choose a payment processor, modify / update cart / continue shopping / checkout. 
 
-go to cc information page -- will be dynamic based on payment processor
-chosen
+Next, go to credit card information page. This page will be dynamic based on payment processor chosen. On page where they enter their cc info show the cart contents.
 
-sends payment information to GC or Paypal, etc. (onsite or offsite)
+Pressing "finalize payment" sends payment information to GC or Paypal, etc. (onsite or offsite). For payments made onsite, use https to send out the data.
 
-returns user to plone confirmation page (receipt) or error notice
+When the transaction is completed, the user will be returned to plone confirmation page (receipt) or an error will be returned to the Plone interface.
 
-if there is an error, return to the cc page. do not save the cc info on
-the roundtrip. do not charge twice. only click once!!! warning, room
-for disclaimer.
+== Storage of credit card information: ==
 
+If there is an error during the transaction, return to the cc page. do not save the credit card data on the roundtrip. 
 
-
-
-for onsite payments, we pass out the cc data but don't store it. 
-on page where they enter their cc info show the cart contents. 
-change/update. send cc info via https.
-
-for offsite payments, users get rerouted to plone.
-
-if you are doing a donation and choose more than one donation 
-item to add to your cart, you must actually create a cart and
-send the info to the order management system; if you are doing a donation
-that is just one donation item, it still creates a cart
+Need to include a disclaimer that advises users not to click the finalize payment button twice to avoid double-charges.
