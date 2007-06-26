@@ -10,6 +10,9 @@ Lots of documentation has been done, need it more practical.
 
 = Details =
 
+*What is GetPaid?*
+Includes the following components: membership, shopping cart, payment processor, content integration, admin interface (config), order management, build.
+
 *How to integrate with content?*
 Need to defer policy decisions using Zope 3 component architecture to make it pluggable. Want to reuse existing content types to make them buyable. So, not content type specific. Register a content type as payable in the admin and configure. Currently done w/ marker interface. 
 
