@@ -13,7 +13,7 @@ PREMIUM CONTENT REPOSITORIES: Users need to be able to purchase subscriptions to
 
 EVENTS: Plone manages information great, including event information. But people who run events have to be able to handle registrations. Registration is about information collection, connecting that to payment processing, and having a real-time record that can be used to manage registration (ie see how many people are registered at any given time, who has paid, etc).  (Deferred)
 
-Attempting Plone Solutions
+==Attempting Plone Solutions==
 
 Some attempts at making payment processing and commerce possible in Plone have taken place. Most of these are either buggy, not maintained, or not very useful. But better than nothing! A quick synopsis:
 
@@ -31,7 +31,7 @@ http://plone.org/products/letspay
 http://plone.org/products/plonemall
 http://sourceforge.net/mailarchive/forum.php?thread_id=31628908&forum_id=33456
 
-Other Ways to Make Money with Plone
+==Other Ways to Make Money with Plone==
 
 Though direct payment integration is difficult, other opportunities exist for making money in Plone.
 
@@ -57,7 +57,7 @@ Opportunities from current products or features that could also be used include
 
 http://www.jobthread.com/
 
-Non-Plone, but Related, Examples
+==Non-Plone, but Related, Examples==
 
     * Zope: Bizar shop is a hosted zope-based ecommerce shop. Looks like decent marketing info (video of features). Any chance we can get pieces of that for processing? I think we can also check out the video to get ideas for our interfaces.
     * Django: Satchmo is a django-based open source ecommerce shop system. Maybe we can get payment processor libraries??? See trac page also.
@@ -67,7 +67,7 @@ http://www.bizarsoftware.com.au/resource_centre/tour.html
 http://www.satchmoproject.com/
 http://satchmo.python-hosting.com/wiki
 
-How People Really Did It
+==How People Really Did It==
 
 Some people get around the problem by re-evaluating its priority. For example, use a form that collects and encrypts data that is sent to a staff member securely for processing (ie non-real-time).
 
