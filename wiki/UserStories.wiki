@@ -1,8 +1,4 @@
 #summary User stories to guide the development process
 
-  ==Specific Content Processes==
-
-    * PayToSubmitContent
-    * MemberMakesDonation to a non-profits
     * MemberPurchasesSubscription for recurring expenses
     * MemberPurchasesAccessToContent for an article or section of site
