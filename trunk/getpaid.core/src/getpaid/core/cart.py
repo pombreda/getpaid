@@ -2,7 +2,9 @@
 $Id$
 """
 
-from zope.app.container.btree import BTreeContainer
+from zope.app.container.ordered import OrderedContainer
+
+#from zope.app.container.btree import BTreeContainer
 from zope.interface import implements
 from persistent import Persistent
 
@@ -25,7 +27,7 @@ class PayableLineItem( Persistent ):
     """
     implements( interfaces.IPayableLineItem )
 
-class ShoppingCart( BTreeContainer ):
+class ShoppingCart( OrderedContainer ):
     """
     A shopping cart
     """
