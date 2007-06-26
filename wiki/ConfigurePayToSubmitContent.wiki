@@ -1,4 +1,5 @@
 #summary Configuration form for setting up site to allow users to pay to submit to the site (i.e. subscribe to the site to add classified ads?) Ask cjj.
+#labels Phase-Design,AdminUI
 
 = Introduction =
 
