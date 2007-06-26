@@ -7,8 +7,8 @@ This will be tied to the specific payment processor that is used, and should als
 
 
 = Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Site views will include: 
+*Edit an order
+*Archive / Batch an order
+*Refund an Order
+*Process an Order.
