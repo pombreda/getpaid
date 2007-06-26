@@ -1,4 +1,5 @@
 #summary Google Sprint (DocComm) updates re GetPaid
+#labels Featured
 
 = Introduction =
 
