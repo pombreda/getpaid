@@ -21,7 +21,9 @@ Remote sprinters:
 ==Day 2==
 
 2:36pm
-Kapil moves on from workflow (integrating hurry.workflow, by backporting to Zope 3.2) for finance and fulfillment, orders (now checked in). 
+  * Kapil moves on from workflow (integrating hurry.workflow, by backporting to Zope 3.2) for finance and fulfillment, orders (now checked in). 
+  * Brian made a checkin of the donation form changes. Now donation behaves like the other payable object options (ie you can make something "donateable". 
+  * Eric is nearly complete on a functional test of adding an object and making it payable. 
 
 ==Day 1==
 
@@ -70,3 +72,5 @@ GetPaid has an icon!
 
 User interface:
 - End user specs created and half way implemented in css/html (being uploaded at
+
+
