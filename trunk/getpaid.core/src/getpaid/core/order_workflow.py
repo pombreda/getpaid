@@ -8,24 +8,6 @@ from hurry.workflow import workflow
 
 from workflow import MultiWorkflowInfo, MultiWorkflowState
 
-class finance_states:
-
-    REVIEWING = 'REVIEWING'
-    CHARGEABLE = 'CHARGEABLE'
-    CHARGING = 'CHARGING'
-    CHARGED = 'CHARGED'
-    REFUNDED = 'REFUNDED'
-    PAYMENT_DECLINED = 'PAYMENT_DECLINED'
-    CANCELLED = 'CANCELLED'
-    CANCELLED_BY_PROCESSOR = 'CANCELLED_BY_PROCESSOR'
-
-class fulfillment_states:
-
-    NEW = 'NEW'
-    PROCESSING = 'PROCESSING'
-    DELIVERED = 'DELIVERED'
-    WILL_NOT_DELIVER = 'WILL_NOT_DELIVER'
-
 
 def create_fulfillment_workflow( ):
 
