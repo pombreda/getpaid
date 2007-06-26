@@ -1,0 +1,71 @@
+#summary Google Sprint (DocComm) updates re GetPaid
+
+= Introduction =
+
+We started the DocComm sprint at Google June 25. This is an update of notes. Find us in #getpaid during the sprint and use the dev mailing list. 
+
+= Current Work = 
+
+On site sprinters: 
+  * Kapil: Checkout wizard
+  * Brian G, David S, Eric S: 
+  * Bill, Steve: payment processors
+  * Veda, Donna: admin and end user UI specification and wireframes
+Remote sprinters: 
+  * John L: order management UI
+  * Ken W: 
+
+= Daily News =
+
+==Day 2==
+
+2:36pm
+Kapil moves on from workflow (integrating hurry.workflow, by backporting to Zope 3.2) for finance and fulfillment, orders (now checked in). 
+
+==Day 1==
+
+
+9:30am
+Google is open for DocComm sprinters! Breakfast begins, a huge spread of Guayaki yerba mate products are set out, along with Divine fair trade chocolates :)
+
+11:05am
+The mate is kicking in. Everyone has a gmail account and now the project has 12 members and 2 managers. We covered the architecture and philosophy of GetPaid and the user stories.
+
+"...before I retreat to the doc [dark] side." says Eric Rose, holding a glass of organic milk.
+
+1:09pm: 19 people in #getpaid
+5 people around a single table (mac laptops glowing), working on unit tests for GetPaid
+Veda and Donna are refining the user stories and building css code for the UI
+Bill and Steve are fixing the shopping cart portlet
+Kapil is working on checkout wizard
+The first blog post hits the net: Post w mate: http://advice.cio.com/esther_schindler/the_sprint_experience
+
+1:54pm: 19 people in #getpaid
+Jon Stahl drops in to let us know he is with us in spirit, if not in sprint :)
+
+2:00pm: 20 people in #getpaid
+
+3:00pm:
+Google Snack Attack (ie more food shows up)
+
+4:59pm : 18 people in #getpaid
+
+GetPaid Day 1 Checkin
+
+Unit tests:
+- Now available for all major aspects of the code tests desired for
+- Mostly stubs
+- 5 people working on this used it as a chance to understand the product
+- Some changes made to interfaces
+- Tomorrow: advance unit tests more and then get to features!
+
+Shopping cart:
+- You can now add multiple items
+- Price and link to item are shown
+- Cart portlet is created in install
+- Tomorrow: checkout wizard and workflow
+
+GetPaid has an icon!
+
+User interface:
+- End user specs created and half way implemented in css/html (being uploaded at
