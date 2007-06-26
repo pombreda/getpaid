@@ -1,4 +1,5 @@
 #summary User Purchases Access to Content
+#labels Phase-Design,EndUserUI
 
 = Introduction =
 
