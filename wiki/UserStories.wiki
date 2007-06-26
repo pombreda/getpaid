@@ -6,7 +6,6 @@ Actions that take place in the site setup area.
 
   ==Payment Delivery Options Configuration==
 
-    * ConfigureShipping
     * ConfigureMembershipTypes
     * ConfigurePricing
     * ConfigurePayToSubmitTypes
