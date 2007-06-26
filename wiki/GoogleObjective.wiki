@@ -5,7 +5,7 @@
 
 Lots of documentation has been done, need it more practical.
 
-*Tasks:* Need to do some unit tests and fix the buildout. Lots of UI issues. Checkout wizard, cart improvements. Payment processor integration: Try not to get tied to one, get two or three in there. See issues on this site (Google code). Premium membership is in the overall scope but deferred for now.
+*Tasks:* Need to do some unit tests and fix the buildout. Lots of UI issues. Checkout wizard, cart improvements. Payment processor integration: Try not to get tied to one, get two or three in there. See issues on this site (Google code). Premium membership is in the overall scope but deferred for now. Tarball install. 
 
 
 = Details =
