@@ -1,51 +1,41 @@
-"""Unit tests for setting type as shippable.
+"""Test of make payable functionality
+
+These tests verify that content classes can be marked as payable
+and that they receive the payable functlionality when they are 
+marked as such
 """
 
 import unittest
 from Testing.ZopeTestCase import ZopeDocTestSuite
-from utils import optionflags
 
 from base import PloneGetPaidTestCase
-
-def test_add_to_cart():
-    """Test that payments can be processed.
+from utils import optionflags
+from Products.PloneGetPaid import interfaces
     
-    >>> self.setRoles(('Manager',))
-    >>> id = self.portal.invokeFactory('Department', 'dept')
-    >>> id = self.portal.dept.invokeFactory('Employee', 'emp')
-    >>> emp = self.portal.dept.emp
+def test_mark_object_shippable(self):
+    """ test that we can designate a page as shippable
     
-    Set a title.
+    >>> from Products.PloneGetPaid import interfaces
+    >>> options = interfaces.IGetPaidManagementOptions(portal)
+    >>> options.shippable_types = ['Document']
     
-    >>> emp.setTitle('E. M. Ployee')
-    >>> emp.Title()
-    'E. M. Ployee'
+    Create a page to mark payable
     
-    Set a password (note that the password cannot be read back directly.)
+    >>> self.setRoles(('Manager'),)
+    >>> self.portal.invokeFactory('Document', 'testpage')
+    'testpage'
     
-    >>> emp.setPassword('secret')
-    >>> emp.getPassword()
-    Traceback (most recent call last):
-    ...
-    AttributeError: getPassword
-    
-    >>> emp.setConfirmPassword('secret')
-    >>> emp.getConfirmPassword()
-    Traceback (most recent call last):
-    ...
-    AttributeError: getConfirmPassword
-    
-    Set roles.
-    
-    >>> emp.setRoles(('Reviewer',))
-    >>> emp.getRoles()
-    ('Reviewer',)
+    >>> testpage = self.portal.testpage
+    >>> IShippableMarker = interfaces.IShippableMarker
+    >>> from Products.Five.utilities.marker import mark
+    >>> mark(testpage, IShippableMarker)
+    >>> IShippableMarker(testpage)
+    <ATDocument at ...>
     """
-
-
-
+    
 def test_suite():
     return unittest.TestSuite((
             ZopeDocTestSuite(test_class=PloneGetPaidTestCase,
                              optionflags=optionflags),
         ))
+
