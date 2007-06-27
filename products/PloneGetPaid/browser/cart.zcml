@@ -40,16 +40,18 @@
      class=".viewlet.ShoppingCartManager" 
      />
 
+  <!-- number prefix on 'name' determines the order they show up in the cart -->
   <browser:viewlet
-     name="cart-listing"
+     name="10cart-listing"
      manager="..interfaces.IGetPaidCartViewletManager"
      template="templates/cart-listing.pt"
      class=".cart.ShoppingCartListing"
      permission="zope2.View"
      />
 
-  <browser:viewlet
-     name="cart-actions"
+  <!-- number prefix on 'name' determines the order they show up in the cart -->
+  <browser:viewlet  
+     name="20cart-actions"
      manager="..interfaces.IGetPaidCartViewletManager"
      template="templates/cart-actions.pt"
      class=".cart.ShoppingCartActions"
