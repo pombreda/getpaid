@@ -1,8 +1,8 @@
-#summary Setup process and screens for GetPaid product
+#summary Setup process and screens for GetPaid product administration
 #labels Phase-Design,AdminUI
 
 = Introduction =
-After installing PloneGetPaid, the site admin goes to the GetPaid Settings in the configuration panel. The top of the page includes a portal message: "This product is currently inactive. You need to fill out required settings before you can make content in your site payable."
+After installing PloneGetPaid the site admin goes to the GetPaid Settings in the configuration panel. The top of the page includes a portal message: "This product is currently inactive. You need to fill out required settings before you can make content in your site payable."
 
 The site admin can tab through the following screens to set account information for the 
 system:
