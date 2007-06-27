@@ -30,15 +30,15 @@ TABS: identification, configure, currency, maintenance mode, emails, header / fo
     ** Unit of measurement (weight)
     ** Session (basket) timeout -- default 60 minutes
     ** Sales tax calculation (this needs discussion)
-      *** State-based
-      *** Canadian VAT
-      *** German VAT
-      *** Shopper selected 
-      *** Generic VAT (non-European)
-      *** Default encryption key
-      *** Require shipping (boolean)
-      *** Require tax (boolean)
-      *** Select a state tax? (dropdown list)
+      ** State-based
+      ** Canadian VAT
+      ** German VAT
+      ** Shopper selected 
+      ** Generic VAT (non-European)
+      ** Default encryption key
+      ** Require shipping (boolean)
+      ** Require tax (boolean)
+      ** Select a state tax? (dropdown list)
 
   * Currency
     ** If European:
