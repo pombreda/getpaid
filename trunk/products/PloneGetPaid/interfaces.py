@@ -106,4 +106,8 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
         )
         
 
+class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
+
+    payment_processor = schema.Choice( title = u"Payment Processor",
+                                       source = "getpaid.payment_methods" )
     
