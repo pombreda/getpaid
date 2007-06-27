@@ -2,12 +2,19 @@
 	   xmlns:content="http://namespaces.objectrealms.net/plone"
 	   xmlns:five="http://namespaces.zope.org/five">
 
+<!-- Dependencies -->
 <include package="getpaid.core" />
 <include package="getpaid.processor.googlecheckout" />
 
 <include package="ore.member" file="meta.zcml" />
 <include package="ore.member" />
 
+<!-- Turn Plone Into A Local Site Manager -->
+<five:localsite
+   class="Products.CMFPlone.Portal.PloneSite"
+   />
+
+<!-- UI -->
 <include package=".browser" />
 
 <!-- Member/User Attributes -->

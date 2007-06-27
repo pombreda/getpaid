@@ -9,6 +9,14 @@ from Products.CMFCore import permissions as cmf_perms
 from Products.PloneGetPaid.config import *
 from StringIO import StringIO
 
+
+from zope.component.interfaces import ISiteManager
+from zope.app.component.hooks import setSite, getSite
+from zope.app.component.interfaces import ISite, IPossibleSite
+from Products.Five.site.localsite import enableLocalSiteHook
+
+from getpaid.core.interfaces import IOrderManager
+from getpaid.core.order import OrderManager
 from ore.member.interfaces import ISiteSchemaManager
 
 
@@ -77,6 +85,20 @@ def setup_actions( self ):
                                         action['id'],
                                         image,
                                         action['name'] )
+
+def setup_site( self ):
+    portal = getToolByName( self, 'portal_url').getPortalObject()
+    
+    if ISite.providedBy( portal ):
+        setSite( portal )
+        return
+    enableLocalSiteHook( portal )
+    setSite( portal )
+
+def setup_order_manager( self ):
+    portal = getToolByName( self, 'portal_url').getPortalObject()
+    sm = portal.getSiteManager()
+    sm.registerUtility( IOrderManager, OrderManager() )
 
 def install_control_panel( self ):
 
@@ -148,6 +170,12 @@ def install( self ):
 
     print >> out, "Installing Actions"
     setup_actions( self )
+
+    print >> out, "Installing Local Site"
+    setup_site( self )
+
+    print >> out, "Installing Order Local Utility"
+    setup_order_manager( self )
     
     return out.getvalue()
 

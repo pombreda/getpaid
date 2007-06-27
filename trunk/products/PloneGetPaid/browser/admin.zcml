@@ -47,4 +47,16 @@
      permission="cmf.ManagePortal"
      />
 
+
+  <!-- Order Management -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-orders"
+     class=".order.OrderAdminListing"
+     menu="getpaid_admin"
+     title="Orders"
+     permission="cmf.ManagePortal"
+     template="templates/admin-order-listing.pt"
+     />
+
 </configure>
