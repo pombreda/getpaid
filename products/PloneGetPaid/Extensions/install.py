@@ -106,11 +106,12 @@ def install_control_panel( self ):
 
     manage_ui.addAction(
         id = "getpaid",
-        name = "Commerce",
+        name = "GetPaid",
         action = "string:${portal_url}/@@manage-getpaid-overview",
         appId = "PloneGetPaid",
         imageUrl = "++resource++getpaid.png",
         description = "Management Access to Commerce Backend",
+        category = "Products",
         permission=cmf_perms.ManagePortal
         
         )
