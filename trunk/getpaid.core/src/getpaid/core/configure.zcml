@@ -1,8 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
 
-  <!-- Orders Annotatable -->
-
   <!-- Order Workflows -->
 
   <adapter
@@ -31,6 +29,12 @@
      provides="hurry.workflow.interfaces.IWorkflowInfo"
      name="getpaid.fulfillment.info"
      factory=".order_workflow.FulfillmentInfo"
+     />
+
+  <adapter
+     for=".interfaces.IOrder"
+     provides="hurry.workflow.interfaces.IWorkflowVersions"
+     factory=".order_workflow.OrderVersions"
      />
 
   <utility
