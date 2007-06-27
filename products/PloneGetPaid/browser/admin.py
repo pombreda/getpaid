@@ -15,6 +15,7 @@ import getpaid.core.interfaces as igetpaid
 
 from ore.member.browser import SchemaSelectWidget as SelectWidgetFactory
 
+
 from base import BaseView
 
 class Overview( BrowserView ):
@@ -32,6 +33,8 @@ class Core( formbase.EditForm, BaseView ):
     form_fields['shippable_types'].custom_widget = SelectWidgetFactory
     form_fields['premium_types'].custom_widget = SelectWidgetFactory
     form_fields['donate_types'].custom_widget = SelectWidgetFactory
+    form_fields['accepted_credit_cards'].custom_widget = SelectWidgetFactory
+    
 
     options = None
     
