@@ -58,16 +58,26 @@ TABS: identification, configure, currency, maintenance mode, emails, header / fo
     ** Store message
 
   * Emails
-    ** 
+    ** Email preferences
+      ** Do not send notification of transactions (boolean)
+      ** Send notification when a transaction happens 
+      ** Send the transaction details in an encrypted email 
 
+    Admin can choose to receive encrypted notification of orders on site, to receive a notification that an order was placed (but no data), or no notification. Single select only on the list. 
+    ** Customer Order Confirmation Email
+      ** email address of the sender
+      ** cc address
+      ** subject field
+      ** name of the sender, i.e. the name of the store
+      ** thank you text
+    ** Merchant Notification Email
+      ** email address of the customer or a freetext email address (i.e. customerservice@)
+      ** a subject field ("an order has been placed")
+      ** text field
     
 
 
-
-
-
-
-
+================
 
 
     * Payment Settings (Required for product to be activated):
