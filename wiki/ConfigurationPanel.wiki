@@ -8,6 +8,10 @@ The page has a screen for basic, required settings on the first page, and then t
 
 The site admin can tab through the following screens to set account information for the system:
 
+TABS: identification, configure, currency, maintenance mode, emails, header / footer, order management
+
+
+
   * Identification
     ** Store name
     ** Owner name
@@ -45,6 +49,16 @@ The site admin can tab through the following screens to set account information 
       *** Conversion rate to Euros
       *** Primacy currency (only one option for now)
 
+  * Maintenance mode? 
+    ** Maintenance message
+    ** Store online (radio button)
+    ** Store offline at (date / time)
+    ** No new customer x minutes before store goes offline
+    ** Warning message
+    ** Store message
+
+  * Emails
+    ** 
 
     
 
