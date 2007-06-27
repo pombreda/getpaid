@@ -103,11 +103,13 @@ You need to re-run the build-out to get the latest .cfg file.  Try:
 
 === M2Crypto errors ===
 
-Authorize.net requires some new crypto libraries.
+Authorize.net requires some new crypto libraries.  We removed this from buildout.cfg so that dependencies aren't needed at this point for a general audience.
 
-On OSX: It looks like we need to install SWIG via DarwinPorts: sudo apt-get install swig
+[future] Steps to install:
 
-(brianfive: but that doesn't work on mine yet... still investigating)
+* On OSX: It looks like we need to install SWIG via DarwinPorts: sudo apt-get install swig
+
+* M2Crytpo had some additional dependencies that still need to be worked out for the buildout...
 
 === GoogleCode profile page doesn't show the SVN password ===
 
