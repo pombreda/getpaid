@@ -119,18 +119,11 @@ DonatableContentStorage = options.PersistentOptions.wire( "DonatableContentStora
 
 class DonatableContentAdapter( DonatableContentStorage ):
     """
-    Default Adapter between Content and IDonatable. This implementation stores attributes
-    of a buyable in an annotation adapter
+    Default Adapter between Content and IDonationContent. This implementation stores attributes
+    of a donate-able in an annotation adapter
     """
     interface.implements( IDonationContent )
 
     def __init__( self, context, request ):
         self.context = context
         self.request = request
-
-    
-
-
-    
-    
-
