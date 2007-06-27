@@ -126,8 +126,6 @@ Refer to these mockups for possible site layout:
               ** Identification
                   ** Login
                   ** Email address
-                  ** Password
-                  ** Confirm password
                   ** Update/ delete / reset
               ** Shipping / Billing Information
                   ** Shipping address
