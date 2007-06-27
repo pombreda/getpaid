@@ -82,7 +82,7 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
         )
                                      
     donate_types = schema.List(
-        title = u"Donatable Content Types",
+        title = u"Donate Content Types",
         required = False,
         default = [],
         description = u"Content Types available for Donation",
