@@ -93,6 +93,22 @@ Run svn up to update the buildout. Once this is done, reinstall the GetPaid prod
 
 == Troubleshooting ==
 
+=== hurry.workflow errors ===
+
+You need to re-run the build-out to get the latest .cfg file.  Try:
+
+{{{
+~/getpaid.buildout/bin/buildout -v -N
+}}}
+
+=== M2Crypto errors ===
+
+Authorize.net requires some new crypto libraries.
+
+On OSX: It looks like we need to install SWIG via DarwinPorts: sudo apt-get install swig
+
+(brianfive: but that doesn't work on mine yet... still investigating)
+
 === GoogleCode profile page doesn't show the SVN password ===
 
 It seems that it only works for Google accounts that have subscribed to Gmail.
