@@ -131,6 +131,15 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
             ** First Name
             ** Last Name
             ** Edit / Add Customer (?)
+              ** Identification
+                  ** Login
+                  ** Email address
+                  ** Password
+                  ** Confirm password
+                  ** Update/ delete / reset
+              ** Shipping / Billing Information
+                  ** Shipping address
+                  ** Billing address
           ** Order Information (ship to / bill to information)
               ** Product Code
               ** Product Description
