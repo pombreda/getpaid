@@ -24,7 +24,7 @@ Refer to these mockups for possible site layout:
 [http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png Admin Edit Product]
 
 
-  * Identification
+==Identification==
     ** Store name
     ** Owner name
     ** Contact email
@@ -38,37 +38,35 @@ Refer to these mockups for possible site layout:
     ** Phone
     ** Fax
 
-  * Configure (shippable types, shipping options, payment settings, unit of measurement, session timeout, sales tax)
+==Configure (shippable types, shipping options, payment settings, unit of measurement, session timeout, sales tax)==
 
-      ** Shippable Types
+    ===Shippable Types===
 
-      ** Shipping options
-        ** Require shipping (boolean)
-        ** Flat rate shipping
+    ===Shipping options===
+      ** Require shipping (boolean)
+      ** Flat rate shipping
 
-      ** Payment Settings
-        ** Select Payment Processor
-        ** Enter Payment Processor details (merchant ID, license key, etc.)
-        ** Credit cards supported by the system (Visa, MC, Discover, AMEX)
-        ** Once the required fields are set, the message changes to state that "This product is now active. You can set content in your site to be "Payable" in the "actions" menu."
+    ===Payment Settings===
+      ** Select Payment Processor
+      ** Enter Payment Processor details (merchant ID, license key, etc.)
+      ** Credit cards supported by the system (Visa, MC, Discover, AMEX)
+      ** Once the required fields are set, the message changes to state that "This product is now active. You can set content in your site to be "Payable" in the "actions" menu."
 
-      ** Unit of measurement (weight)
+    ===Unit of measurement (weight)===
 
-      ** Session (basket) timeout -- default 60 minutes - possible in this version?
+    ===Session (basket) timeout -- default 60 minutes - possible in this version?===
 
-      ** Sales tax configuration (this needs discussion)
-        ** Require tax (boolean)
-        ** State-based (Select a state?)
-        ** Canadian VAT
-        ** German VAT
-        ** Shopper selected 
-        ** Generic VAT (non-European)
-        ** Default encryption key
-
-
+    ===Sales tax configuration (this needs discussion)===
+      ** Require tax (boolean)
+      ** State-based (Select a state?)
+      ** Canadian VAT
+      ** German VAT
+      ** Shopper selected 
+      ** Generic VAT (non-European)
+      ** Default encryption key
 
 
-  * Currency
+==Currency==
     ** If European:
       ** Currency symbol
       ** Before amount or after amount (where to place currency symbol)
@@ -77,13 +75,7 @@ Refer to these mockups for possible site layout:
       ** Conversion rate to Euros
       ** Primacy currency (only one option for now)
 
-  * Maintenance mode? 
-    ** Maintenance message
-    ** Store online (radio button)
-    ** Store offline at (date / time)
-    ** No new customer x minutes before store goes offline
-    ** Warning message
-    ** Store message
+
 
   * Emails
     ** Email preferences
@@ -170,3 +162,11 @@ Deferred items for Order Management:
           ** Total
           ** Method (GC / Auth.net)
         ** Delete batch
+
+==Maintenance mode?==
+    ** Maintenance message
+    ** Store online (radio button)
+    ** Store offline at (date / time)
+    ** No new customer x minutes before store goes offline
+    ** Warning message
+    ** Store message
