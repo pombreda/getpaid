@@ -31,7 +31,19 @@ class ShoppingCartUtility( object ):
                 return None
         return session['getpaid.cart']
         
+    def destroy( self, context ):
+        # delete the current shopping cart
+        session_manager = getToolByName( context, 'session_data_manager')
+        if not session_manager.hasSessionData(): #nothing to destroy
+            return None
+        session = session_manager.getSessionData()
+        if not session.has_key('getpaid.cart'):
+            return
+        del session['getpaid.cart']
+
         
+        
+
         
 
         

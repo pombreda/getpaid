@@ -45,37 +45,69 @@ carry hidden to force transition to required, allow linear links to be used thou
 """
 
 from zope.formlib import form
-from getpaid.core.interfaces import IUserPaymentInformation
+from zope import component
+from getpaid.core import interfaces
+from getpaid.core.order import Order
 
 from base import BaseFormView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from zope.schema import getFieldsInOrder
-
+import random, sys
+from cPickle import loads, dumps
 from ore.member.browser import MemberContextEdit
 
 class PropertyBag(object):
 
-    schema = IUserPaymentInformation
+    schema = interfaces.IUserPaymentInformation
     title = "Payment Details"
     description = ""
     
     def initclass( cls ):
-        for field_name, field in getFieldsInOrder( IUserPaymentInformation ):
+        for field_name, field in getFieldsInOrder( interfaces.IUserPaymentInformation ):
             setattr( cls, field_name, field.default )
-
+    
     initclass = classmethod( initclass )
 
 PropertyBag.initclass()
 
+class ImmutableBag( object ):
+
+    def initfrom( self, other, iface ):
+        for field_name, field in getFieldsInOrder( iface ):
+            setattr( self, field_name, field.get( other ) )
+        return self
+            
+
+    
 class CheckoutBillingCollection( MemberContextEdit ):
 
     form_fields = None
     template = ZopeTwoPageTemplateFile("templates/checkout-billing-info.pt")
 
+    @form.action("Make Payment")
+    def makePayment( self, action, data ):
+        order_manager = component.getUtility( interfaces.IOrderManager )
+        order = Order()
+
+        shopping_cart = component.getUtility( interfaces.IShoppingCartUtility ).get( self.context )
+        # shopping cart is attached to the session, but we want to switch the storage to the persistent
+        # zodb, we pickle to get a clean copy to store.
+        order.shopping_cart = loads( dumps( shopping_cart ) )
+        order.shipping_address = ImmutableBag().initfrom( self.adapters[ interfaces.IShippingAddress ],
+                                                          interfaces.IShippingAddress ) 
+        order.billing_address = ImmutableBag().initfrom( self.adapters[ interfaces.IBillingAddress ],
+                                                         interfaces.IBillingAddress )
+        while 1:
+            order_id =  str( random.randint( 0, sys.maxint ) )
+            if order_manager.get( order_id ) is None:
+                break
+        order.order_id = order_id
+        order_manager.store( order )
+
     def getFormFields( self, user ):
         form_fields = super( CheckoutBillingCollection, self).getFormFields(user)
-        self.adapters[ IUserPaymentInformation ] = self.billing_info
-        return form_fields + form.Fields( IUserPaymentInformation )
+        self.adapters[ interfaces.IUserPaymentInformation ] = self.billing_info
+        return form_fields + form.Fields( interfaces.IUserPaymentInformation )
 
     def __call__( self ):
         self.billing_info = PropertyBag()        

@@ -3,7 +3,7 @@ Order Admin and Customer History
 
 $Id$
 """
-
+from Products.Five.browser import BrowserView
 from base import BaseView
 from zope import component
 from getpaid.core.interfaces import IOrderManager
@@ -17,8 +17,11 @@ class UserOrderHistory( BaseView ):
         orders = order_manager.getOrdersByUser( uid )
         return orders
 
-class OrderAdminListing( BaseView ):
+class OrderAdminListing( BrowserView ):
 
-    pass
+    def getOrders( self ):
+        order_manager = component.getUtility( IOrderManager )
+        return list( order_manager.storage.values() )
+    
 
         
