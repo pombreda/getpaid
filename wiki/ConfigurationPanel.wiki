@@ -92,8 +92,47 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
       ** Batched orders
         ** Run report
         ** Process orders
+          ** Batch ID
+          ** Date
+          ** Total
+          ** Method (GC / Auth.net)
+          ** Order Information
+              ** Product Code
+              ** Product Description
+              ** Product Variants
+              ** Quantity
+              ** Price/ea
+              ** Line item total
+              ** Shipping cost
+              ** Sales tax
+              ** Total
+              ** Update / delete / reset
         ** Delete batch
+        ** Order listing (order number, date, name)
       ** Unbatched orders
+        ** Order listing (order number, date)
+          ** Customer information
+          ** Order Information (ship to / bill to information)
+              ** Product Code
+              ** Product Description
+              ** Product Variants
+              ** Quantity
+              ** Price/ea
+              ** Line item total
+              ** Shipping cost
+              ** Sales tax
+              ** Total
+              ** Update / delete / reset
+          ** Payment Processing
+            ** Method (credit card)
+            ** Name on Card
+            ** Card Number
+            ** Expiration Date
+            ** AVS Code (?)
+            ** Transaction ID
+            ** Response Reason Text (approved / rejected)
+            ** Authorization Code
+            ** Authorization Date / Time
       ** View / process orders 
       ** Refund an order
 
