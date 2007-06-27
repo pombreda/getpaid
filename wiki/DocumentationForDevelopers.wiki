@@ -1,0 +1,6 @@
+#summary Documentation that would be useful for developers adding on to the GetPaid product.
+#labels Phase-Support,Documentation
+
+= Introduction =
+
+Add your content here.
