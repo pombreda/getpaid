@@ -77,36 +77,36 @@ Refer to these mockups for possible site layout:
 
 
 
-  * Emails
-    ** Email preferences
+==Emails==
+    ===Email preferences===
       ** Do not send notification of transactions (boolean)
       ** Send notification when a transaction happens 
       ** Send the transaction details in an encrypted email 
       ** Receive encrypted notification of orders on site (radio)
       ** Receive a notification that an order was placed (but no data) (radio)
       ** Receive no notification (radio)
-    ** Customer Order Confirmation Email
+    ===Customer Order Confirmation Email===
       ** email address of the sender
       ** cc address
       ** subject field
       ** name of the sender, i.e. the name of the store
       ** thank you text
-    ** Merchant Notification Email
+    ===Merchant Notification Email===
       ** email address of the customer or a freetext email address (i.e. customerservice@)
       ** a subject field ("an order has been placed")
       ** text field
     
-  * Header / Footer 
+==Header / Footer==
     ** Rich text box for header.
     ** Rich text for footer.
     ** Instructions for adding disclaimer text, links to order information and privacy policy. 
 
 
 
-  * Order Management
-    ** Order Listing is the entry page. Contains tabs for Customer Information, Order Information, Payment Processing, displays a list of all recent orders, sorted by most recent). Click through from an order to the customer's information page.
+==Order Management==
+Order Listing is the entry page. Contains tabs for Customer Information, Order Information, Payment Processing, displays a list of all recent orders, sorted by most recent). Click through from an order to the customer's information page.
 
-          ** Customer information page
+          ===Customer information page===
             ** Order number (click through to see order details and more detailed info)
             ** Username (click through to see order details and more detailed info)
             ** Email address
@@ -119,7 +119,7 @@ Refer to these mockups for possible site layout:
             ** Amount Paid
       
 
-          ** Order Information (ship to / bill to information)
+          ===Order Information (ship to / bill to information)===
             ** Product Code
             ** Product Description
             ** Product Variants
@@ -133,7 +133,7 @@ Refer to these mockups for possible site layout:
             ** Update / refund / export to CSV / delete / reset 
 
 
-          ** Payment Processing
+          ===Payment Processing===
             ** Method (credit card)
             ** Name on Card
             ** Card Number
@@ -144,15 +144,14 @@ Refer to these mockups for possible site layout:
             ** Authorization Code
             ** Authorization Date / Time
 
+
+
 =====================================
 
-Deferred item for configuration:
+Deferred items:
 
     ** Discounts (deferred)
     ** Membership Types
-
-
-Deferred items for Order Management: 
 
       ** Batched & unbatched orders listing
         ** Run report
@@ -163,7 +162,7 @@ Deferred items for Order Management:
           ** Method (GC / Auth.net)
         ** Delete batch
 
-==Maintenance mode?==
+Maintenance mode
     ** Maintenance message
     ** Store online (radio button)
     ** Store offline at (date / time)
