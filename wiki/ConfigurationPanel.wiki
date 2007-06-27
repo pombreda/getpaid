@@ -42,12 +42,12 @@ TABS: identification, configure, currency, maintenance mode, emails, header / fo
 
   * Currency
     ** If European:
-      *** Currency symbol
-      *** Before amount or after amount (where to place currency symbol)
-      *** Thousands separator symbol
-      *** Decimal symbol
-      *** Conversion rate to Euros
-      *** Primacy currency (only one option for now)
+      ** Currency symbol
+      ** Before amount or after amount (where to place currency symbol)
+      ** Thousands separator symbol
+      ** Decimal symbol
+      ** Conversion rate to Euros
+      ** Primacy currency (only one option for now)
 
   * Maintenance mode? 
     ** Maintenance message
