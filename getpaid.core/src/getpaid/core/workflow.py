@@ -58,8 +58,9 @@ class MultiWorkflowInfo( workflow.WorkflowInfo ):
     def fireTransition(self, transition_id, comment=None, side_effect=None,
                        check_security=True):
 
+#        import pdb; pdb.set_trace()
         state = component.getAdapter( self.context, iworkflow.IWorkflowState, self.state_name)
-        wf = component.getUtility(IWorkflow, self.workflow_name)
+        wf = component.getUtility(iworkflow.IWorkflow, self.workflow_name)
         
         # this raises InvalidTransitionError if id is invalid for current state
         transition = wf.getTransition(state.getState(), transition_id)

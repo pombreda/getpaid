@@ -135,14 +135,19 @@ class FinanceState( MultiWorkflowState ):
 
 class FulfillmentInfo( MultiWorkflowInfo ):
     
-    state_name = "getpaid.fulfillment"
+    state_name = "getpaid.fulfillment.state"
     workflow_name = "getpaid.fulfillment.workflow"
 
 class FinanceInfo( MultiWorkflowInfo ):
     
-    state_name = "getpaid.finance"
+    state_name = "getpaid.finance.state"
     workflow_name = "getpaid.finance.workflow"
 
+class FulfillmentVersions( workflow.WorkflowVersions ):
+    pass
+
+class OrderVersions( workflow.WorkflowVersions ):
+    pass
 
 
 if __name__ == '__main__':
