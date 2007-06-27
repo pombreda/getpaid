@@ -3,8 +3,8 @@
 
 = Introduction =
 
-** How do I add a donation to the site? **
-** How do I make a donation appear in a portlet or within the page content? **
-** How do I create a category and add products to the category? **
-** How do I set up my cart with the basic settings so that an order can be processed? **
-** How do I manage my orders and process them through a payment processor? **
+  * How do I add a donation to the site? 
+  * How do I make a donation appear in a portlet or within the page content? 
+  * How do I create a category and add products to the category? 
+  * How do I set up my cart with the basic settings so that an order can be processed? 
+  * How do I manage my orders and process them through a payment processor? 
