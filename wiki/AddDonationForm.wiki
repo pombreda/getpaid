@@ -1,5 +1,5 @@
 #summary Donation forms are a simple payable content object that can be added anywhere in the site.
-#labels Phase-Design,EndUserUI
+#labels Phase-Design,AdminUI
 
 Site Manager can go anywhere in the site and select a piece of content. Using the actions menu, choose "Make this a donation". Any piece of content can be a donation. Flagging an object as a donation object will add on a schema to allow users to enter the following information:
 
