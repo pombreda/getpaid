@@ -25,3 +25,4 @@ Need to revisit these items to make sure none of these are supposed to be in sco
   * Upon completion of an order, provide a way to email an order confirmation to a user.
   * Need a way to have an area for defining product catalogs and then adding products to those catalogs. Product categories and subcategory definition will be needed to minimize the risk of scattering products throughout the site. 
   * Import / export product catalog
+  * Ability to ship orders partially
