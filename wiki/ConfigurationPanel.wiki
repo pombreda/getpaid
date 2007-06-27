@@ -40,30 +40,30 @@ Refer to these mockups for possible site layout:
 
   * Configure (shippable types, shipping options, payment settings, unit of measurement, session timeout, sales tax)
 
-    ** Shippable Types
+      ** Shippable Types
 
-    ** Shipping options
-      ** Require shipping (boolean)
-      ** Flat rate shipping
+      ** Shipping options
+        ** Require shipping (boolean)
+        ** Flat rate shipping
 
-    ** Payment Settings
-      ** Select Payment Processor
-      ** Enter Payment Processor details (merchant ID, license key, etc.)
-      ** Credit cards supported by the system (Visa, MC, Discover, AMEX)
-      ** Once the required fields are set, the message changes to state that "This product is now active. You can set content in your site to be "Payable" in the "actions" menu."
+      ** Payment Settings
+        ** Select Payment Processor
+        ** Enter Payment Processor details (merchant ID, license key, etc.)
+        ** Credit cards supported by the system (Visa, MC, Discover, AMEX)
+        ** Once the required fields are set, the message changes to state that "This product is now active. You can set content in your site to be "Payable" in the "actions" menu."
 
-    ** Unit of measurement (weight)
+      ** Unit of measurement (weight)
 
-    ** Session (basket) timeout -- default 60 minutes - possible in this version?
+      ** Session (basket) timeout -- default 60 minutes - possible in this version?
 
-    ** Sales tax configuration (this needs discussion)
-      ** Require tax (boolean)
-      ** State-based (Select a state?)
-      ** Canadian VAT
-      ** German VAT
-      ** Shopper selected 
-      ** Generic VAT (non-European)
-      ** Default encryption key
+      ** Sales tax configuration (this needs discussion)
+        ** Require tax (boolean)
+        ** State-based (Select a state?)
+        ** Canadian VAT
+        ** German VAT
+        ** Shopper selected 
+        ** Generic VAT (non-European)
+        ** Default encryption key
 
 
 
