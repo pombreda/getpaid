@@ -117,13 +117,24 @@ class IShoppingCart( ILineItemContainer ):
     """
 
 
-    
-
 #################################
-# Shipping Methods
+# Shipping Method Utility
 
 class IShippingMethod( Interface ):
-    pass
+
+    def getCost( order ):
+        """ get the shipping cost for an order
+        """
+
+#################################
+# Tax Utility
+
+class ITaxUtility( Interface ):
+
+    def getCost( order ):
+        """ return the tax amount for an order
+        """
+        
 
 #################################
 # Payment Information Details

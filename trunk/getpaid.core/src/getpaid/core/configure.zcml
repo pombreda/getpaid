@@ -13,4 +13,16 @@
      factory=".order_workflow.FinanceWorkflow"
      />
 
+  <!-- Taxes -->
+
+  <utility
+     provides=".interfaces.ITaxUtility"
+     factory=".tax.TaxUtility"
+     />
+
+  <utility
+     provides=".interfaces.IShippingMethod"
+     factory=".shipping.ShippingMethod"
+     />
+
 </configure>
