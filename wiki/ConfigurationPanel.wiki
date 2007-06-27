@@ -46,6 +46,10 @@ Refer to these mockups for possible site layout:
           ** Price
           ** Type of payment (dropdown of: "One-time", "Annual", "Monthly"), i.e. the price would be charged each period. Indefinite would imply a one-time fee for the membership/subscription. 
           ** Disclaimer to let user know which pay processors are supported for recurring charges.
+        ** Configure membership
+          ** Add membership level
+          ** Add membership benefits
+          ** Add membership pricing
       ** Add / Update / Delete
     ** Payment Settings
       ** Select Payment Processor
