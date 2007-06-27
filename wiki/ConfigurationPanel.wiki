@@ -66,13 +66,29 @@ Refer to these mockups for possible site layout:
       ** Default encryption key
 
 ==Currency==
-    ** If European:
+
+Select the appropriate currency formatting option from the drop-down list. The choices are European, generic, and U.S. currency formatting. 
+
+    ===European Currency Formatting===
       ** Currency symbol
       ** Before amount or after amount (where to place currency symbol)
       ** Thousands separator symbol
       ** Decimal symbol
       ** Conversion rate to Euros
       ** Primacy currency (only one option for now)
+
+    ===Generic Currency Formatting===
+It would be impossible to catalog (and anticipate) the formatting for all the world's currencies. Select this option to customize all aspects of displaying your currency.
+
+      ** Currency symbol
+      ** Positive currency format
+      ** Negative currency format
+      ** Digit grouping symbol
+      ** Number of digits in group
+      ** Decimal symbol
+      ** Number of digits after decimal
+      ** US currency formatting
+
 
 ==Emails==
     ===Email preferences===
