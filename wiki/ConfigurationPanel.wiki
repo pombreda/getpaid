@@ -86,10 +86,16 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
     ** Instructions for adding disclaimer text, links to order information and privacy policy. 
 
   * Order Management
-    **  Edit an Order
-
-
-Site views will include: Edit an order Archive / Batch an order Refund an Order Process an Order.
+      ** Create batch
+        ** Batch name
+        ** 
+      ** Batched orders
+        ** Run report
+        ** Process orders
+        ** Delete batch
+      ** Unbatched orders
+      ** View / process orders 
+      ** Refund an order
 
 
 ================
