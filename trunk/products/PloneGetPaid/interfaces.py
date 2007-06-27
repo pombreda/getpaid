@@ -72,8 +72,7 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
     									 description = u"Shopping cart session timeout (in seconds)",
     									 default = 3600,
     								   )
-    									 
-    
+
     buyable_types = schema.List(
         title = u"Buyable Types",
         required = False,
