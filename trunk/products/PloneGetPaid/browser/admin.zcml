@@ -52,11 +52,11 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-orders"
-     class=".order.OrderAdminListing"
      menu="getpaid_admin"
      title="Orders"
-     permission="cmf.ManagePortal"
+     class=".order.OrderAdminListing"
      template="templates/admin-order-listing.pt"
+     permission="cmf.ManagePortal"
      />
 
 </configure>
