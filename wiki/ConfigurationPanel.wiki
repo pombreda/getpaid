@@ -15,7 +15,6 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_products_menu.png
 http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
 
 
-
   * Identification
     ** Store name
     ** Owner name
@@ -31,7 +30,16 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
     ** Fax
 
   * Configure
+    ** Select Shippable Product Types
+    ** Select Membership types (?)
+    ** Payment Settings
+      ** Select Payment Processor
+      ** Enter Payment Processor details (merchant ID, license key, etc.)
+      ** Credit cards supported by the system (Visa, MC, Discover, AMEX)
+      ** Once the required fields are set, the message changes to state that "This product is now active. You can set content in your site to be "Payable" in the "actions" menu."
     ** Unit of measurement (weight)
+    ** Shipping options
+      ** Flat rate shipping
     ** Session (basket) timeout -- default 60 minutes
     ** Sales tax calculation (this needs discussion)
       ** State-based
@@ -43,6 +51,7 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
       ** Require shipping (boolean)
       ** Require tax (boolean)
       ** Select a state tax? (dropdown list)
+    ** Discounts (deferred)
 
   * Currency
     ** If European:
@@ -86,6 +95,7 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
     ** Instructions for adding disclaimer text, links to order information and privacy policy. 
 
   * Order Management
+      ** Encryption (?)
       ** Create batch
         ** Batch name
         ** 
@@ -122,6 +132,7 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
               ** Shipping cost
               ** Sales tax
               ** Total
+              ** Status (processed, refunded)
               ** Update / delete / reset
           ** Payment Processing
             ** Method (credit card)
@@ -135,25 +146,3 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
             ** Authorization Date / Time
       ** View / process orders 
       ** Refund an order
-
-
-================
-
-
-    * Payment Settings (Required for product to be activated):
-                +      Select Payment Processor
-    *      Enter Payment Processor details (merchant ID, license key, etc.)
-    *      Select Currency
-    *      Disclaimers
-    * Shipping
-    * Tax
-    * Site-wide settings:
-         * Purchasable Content:
-         * Select Shippable Product Types
-         * Membership types
-    * Discounts
-    * Credit cards supported by the system (Visa, MC, Discover, AMEX)
-
-The hard save will cause a configuration tab for the Payment Processor to display which can then be configured to hold the required data, i.e. Merchant ID number, license key, etc. The fields on this page will differ for each Merchant vendor, depending on their API.
-
-Until the required fields are set, the product is not active in the site and the portal message mentioned above stays. Once the required fields are set, the message changes to state that "This product is now active. You can set content in your site to be "Payable" in the "actions" menu."
