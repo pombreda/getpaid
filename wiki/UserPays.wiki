@@ -30,6 +30,10 @@ Please provide the following information ("Billing Information" indicated now in
 
 Screen that summarizes the billing information and the item(s) to be ordered, their prices, and the total to be billed. Allows user to edit cart, enter a discount code, continue shopping, or finalize payment.
 
+See for screenshot: 
+
+http://dev.zwarehouse.org/attachment/wiki/ScreenShots/shopping_cart_status.png
+
 ==Finalize Payment==
 
     * Proceed to checkout form with billing information and credit card fields. Billing fields will be filled in by default with the user's account information.
