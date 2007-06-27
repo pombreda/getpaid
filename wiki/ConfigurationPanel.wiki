@@ -25,8 +25,8 @@ Refer to these mockups for possible site layout:
 
 
 ==Identification==
-    ** Store name
-    ** Owner name
+    ** Store / Organization name
+    ** Contact name
     ** Contact email
     ** Company
     ** Address
