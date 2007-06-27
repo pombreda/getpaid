@@ -8,7 +8,11 @@ The page has a screen for basic, required settings on the first page, and then t
 
 The site admin can tab through the following screens to set account information for the system:
 
-TABS: identification, configure, currency, maintenance mode, emails, header / footer, order management
+Sections: identification, configure, currency, maintenance mode, emails, header / footer, order management
+
+Refer to this site for possible site layout: http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_main_screen.png
+http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_products_menu.png
+http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
 
 
 
@@ -82,7 +86,11 @@ TABS: identification, configure, currency, maintenance mode, emails, header / fo
     ** Instructions for adding disclaimer text, links to order information and privacy policy. 
 
   * Order Management
-    **  
+    **  Edit an Order
+
+
+Site views will include: Edit an order Archive / Batch an order Refund an Order Process an Order.
+
 
 ================
 
