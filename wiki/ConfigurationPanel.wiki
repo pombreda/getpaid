@@ -65,7 +65,6 @@ Refer to these mockups for possible site layout:
       ** Generic VAT (non-European)
       ** Default encryption key
 
-
 ==Currency==
     ** If European:
       ** Currency symbol
@@ -74,8 +73,6 @@ Refer to these mockups for possible site layout:
       ** Decimal symbol
       ** Conversion rate to Euros
       ** Primacy currency (only one option for now)
-
-
 
 ==Emails==
     ===Email preferences===
