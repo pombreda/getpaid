@@ -13,12 +13,14 @@ The site admin can tab through the following screens to set account information 
   * header / footer
   * order management
 
-Refer to this site for possible site layout: http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_main_screen.png
+Refer to this site for possible site layout: 
+
+http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_main_screen.png
 http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_products_menu.png
 http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
 
 
-  *Identification
+  * Identification
     ** Store name
     ** Owner name
     ** Contact email
@@ -32,7 +34,7 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
     ** Phone
     ** Fax
 
-  *Configure
+  * Configure
     ** Shippable Types
     ** Membership Types
       ** List of current membership types
