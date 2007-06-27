@@ -126,6 +126,7 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
         ** Order listing (order number, date)
           ** Customer information
             ** Remove checkbox
+            ** Order number
             ** Login
             ** Password Recovery Email
             ** First Name
@@ -140,6 +141,7 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
               ** Shipping / Billing Information
                   ** Shipping address
                   ** Billing address
+            ** Amount Paid
           ** Order Information (ship to / bill to information)
               ** Product Code
               ** Product Description
@@ -162,4 +164,3 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
             ** Response Reason Text (approved / rejected)
             ** Authorization Code
             ** Authorization Date / Time
-      ** View / process orders 
