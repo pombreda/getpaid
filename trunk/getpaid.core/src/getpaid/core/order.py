@@ -9,6 +9,7 @@ from zope import component
 from zope.index.field import FieldIndex
 from zope.index.keyword  import KeywordIndex
 from persistent import Persistent
+from zope.app.annotation.interfaces import IAttributeAnnotatable
 
 from BTrees.IFBTree import weightedIntersection
 from hurry.workflow.interfaces import IWorkflowState
@@ -19,7 +20,7 @@ from getpaid.core import interfaces
 
 class Order( Persistent ):
 
-    implements( interfaces.IOrder )
+    implements( interfaces.IOrder, IAttributeAnnotatable )
 
     order_id = None
     shipping_address = None
@@ -43,7 +44,7 @@ class Order( Persistent ):
             return 0
 
         total = 0
-        for item in self.shopping_cart:
+        for item in self.shopping_cart.values():
             d = decimal.Decimal ( str(item.cost ) ) * item.quantity
             total += d
 
@@ -70,13 +71,13 @@ class OrderManager( Persistent ):
         return self.query( user_id = user_id, **kw )
 
     def store( self, order ):
-        self.storage[ order ] = order
+        self.storage[ order.order_id ] = order
     
     def query( self, **kw ):
         return self.storage.query( **kw )
 
     def get( self, order_id ):
-        return self.storage[ order_id ] 
+        return self.storage.get( order_id )
 
     #################################
     # junk for z2.9 / f 1.4
