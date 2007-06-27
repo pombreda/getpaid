@@ -4,13 +4,16 @@
 = Introduction =
 
   * How do I add a donation to the site? 
-  * How do I make a donation appear in a portlet or within the page content? 
+  * How do I make a donation appear in a portlet vs within the page content? 
   * How do I create a category and add products to the category? 
   * What is the difference between adding a donation to a site versus adding a product?
-
   * How do I manage my orders and process them through a payment processor? 
+  * What happens when a user places an order on my site (offline vs online order completion)?
+
 
 = Configuration = 
 
   * How do I set up my cart with the basic settings so that an order can be processed? 
   * How do I write an adapter for a new payment processor? 
+  * What is the header / footer configuration area for?
+  * How do I configure my currency?
