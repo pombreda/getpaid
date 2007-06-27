@@ -7,13 +7,13 @@ After installing PloneGetPaid the site admin goes to the GetPaid Settings in the
 The site admin can tab through the following screens to set account information for the 
 system:
 
-  ** identification
+  * identification
   * configure
   * currency
   * maintenance mode
   * emails
   * header / footer
-  * order management **
+  * order management
 
 Refer to these mockups for possible site layout: 
 
