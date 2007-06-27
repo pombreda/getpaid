@@ -16,17 +16,20 @@ _prefix = os.path.dirname( __file__ )
 
 GetPaidShoppingCartTemplate = os.path.join( _prefix, "templates", "cart-viewlet-manager.pt")
 
-class ViewletManagerDebug( object ):
-    """ mixin for debugging a viewlet manager """
-    
-    def update( self ):
-        super( ViewletManagerDebug, self ).update()
+class ViewletManagerShoppingCart( object ):
+    """ Shopping Cart Viewlet Manager """
 
+    # for debugging
+    #def update( self ):
+    #    super( ViewletManagerShoppingCart, self ).update()
+
+    def sort (self, viewlets ):
+        return sorted(viewlets)
         
 ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
                                               interfaces.IGetPaidCartViewletManager,
                                               GetPaidShoppingCartTemplate,
-                                              bases=(ViewletManagerDebug,)
+                                              bases=(ViewletManagerShoppingCart,)
                                               )
 
 
