@@ -15,7 +15,6 @@ import getpaid.core.interfaces as igetpaid
 
 from ore.member.browser import SchemaSelectWidget as SelectWidgetFactory
 
-
 from base import BaseView
 
 class Overview( BrowserView ):
@@ -44,6 +43,35 @@ class Core( formbase.EditForm, BaseView ):
         self.setupLocale( request )
         self.setupEnvironment( request )
 
+class Identification( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-identification.pt")
+    form_fields = []
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )    
+        
+
+class Currency( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-currency.pt")
+    form_fields = []
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )    
+        
 
 class Processor( formbase.EditForm, BaseView ):
     """
@@ -74,3 +102,45 @@ class Processor( formbase.EditForm, BaseView ):
         
         self.form_fields = form.Fields( processor.options_interface )
 
+class Maintenance( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-maintenance.pt")
+    form_fields = []
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        
+class Email( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-email.pt")
+    form_fields = []
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )            
+        self.setupEnvironment( request )    
+
+class HeaderFooter( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-headerfooter.pt")
+    form_fields = []
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )    
+       

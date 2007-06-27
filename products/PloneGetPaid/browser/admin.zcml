@@ -27,15 +27,36 @@
      permission="cmf.ManagePortal"
      />
 
+  <!-- Management UI Identification Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-identification"
+     menu="getpaid_admin"
+     title="Identification"
+     class=".admin.Identification"
+     template="templates/admin-identification.pt"
+     permission="cmf.ManagePortal"
+     />
+
   <!-- Management Core Options Editing -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-core"
      menu="getpaid_admin"
-     title="Settings"
+     title="Configure"
      class=".admin.Core"     
      permission="cmf.ManagePortal"
      />
+     
+  <!-- Management Currency Options Editing -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-currency"
+     menu="getpaid_admin"
+     title="Currency"
+     class=".admin.Currency"     
+     permission="cmf.ManagePortal"
+     />     
 
   <!-- Management Processor Options -->
   <browser:page
@@ -47,13 +68,42 @@
      permission="cmf.ManagePortal"
      />
 
+  <!-- Management Maintenance Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-maintenance"
+     menu="getpaid_admin"
+     title="Maintenance"
+     class=".admin.Maintenance"     
+     permission="cmf.ManagePortal"
+     /> 
+
+  <!-- Management Email Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-email"
+     menu="getpaid_admin"
+     title="Email"
+     class=".admin.Email"     
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- Management Email Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-headerfooter"
+     menu="getpaid_admin"
+     title="Header/Footer"
+     class=".admin.HeaderFooter"     
+     permission="cmf.ManagePortal"
+     />       
 
   <!-- Order Management -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-orders"
      menu="getpaid_admin"
-     title="Orders"
+     title="Order Management"
      class=".order.OrderAdminListing"
      template="templates/admin-order-listing.pt"
      permission="cmf.ManagePortal"
