@@ -34,7 +34,12 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
 
   * Configure
     ** Select Shippable Product Types
-    ** Select Membership types (?)
+    ** Membership types
+      ** Type Name
+      ** Description
+      ** Price
+      ** Type of payment (dropdown of: "One-time", "Annual", "Monthly"), i.e. the price would be charged each period. Indefinite would imply a one-time fee for the membership/subscription. 
+      ** Disclaimer to let user know which pay processors are supported for recurring charges.
     ** Payment Settings
       ** Select Payment Processor
       ** Enter Payment Processor details (merchant ID, license key, etc.)
