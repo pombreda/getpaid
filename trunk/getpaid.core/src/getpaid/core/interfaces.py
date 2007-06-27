@@ -23,7 +23,7 @@ class IPayable( Interface ):
 class IDonationContent( IPayable ):
     """ Donation
     """
-    donationText = schema.TextLine( title=u"Donation Description")
+    donationText = schema.Text( title=u"Donation Description")
 
 class ISubscription( IPayable ):
     """ Subscription
