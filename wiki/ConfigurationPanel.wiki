@@ -114,31 +114,6 @@ Refer to these mockups for possible site layout:
     ** Instructions for adding disclaimer text, links to order information and privacy policy. 
 
   * Order Management
-      ** Encryption (?)
-      ** Create batch
-        ** Batch name
-        ** 
-      ** Batched orders
-        ** Run report
-        ** Process orders
-          ** Batch ID
-          ** Date
-          ** Total
-          ** Method (GC / Auth.net)
-          ** Order Information
-              ** Product Code
-              ** Product Description
-              ** Product Variants
-              ** Quantity
-              ** Price/ea
-              ** Line item total
-              ** Shipping cost
-              ** Sales tax
-              ** Total
-              ** Update / refund / export to CSV / delete / reset 
-        ** Delete batch
-        ** Order listing (order number, date, name)
-      ** Unbatched orders
         ** Order listing (order number, date)
           ** Customer information
             ** Remove checkbox
@@ -180,3 +155,31 @@ Refer to these mockups for possible site layout:
             ** Response Reason Text (approved / rejected)
             ** Authorization Code
             ** Authorization Date / Time
+
+Deferred items for Order Management: 
+      ** Encryption (?)
+
+      ** Create batch
+        ** Batch name
+        ** 
+      ** Batched orders
+        ** Run report
+        ** Process orders
+          ** Batch ID
+          ** Date
+          ** Total
+          ** Method (GC / Auth.net)
+          ** Order Information
+              ** Product Code
+              ** Product Description
+              ** Product Variants
+              ** Quantity
+              ** Price/ea
+              ** Line item total
+              ** Shipping cost
+              ** Sales tax
+              ** Total
+              ** Update / refund / export to CSV / delete / reset 
+        ** Delete batch
+        ** Order listing (order number, date, name)
+      ** Unbatched orders
