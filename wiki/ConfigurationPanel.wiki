@@ -76,7 +76,13 @@ TABS: identification, configure, currency, maintenance mode, emails, header / fo
       ** a subject field ("an order has been placed")
       ** text field
     
+  * Header / Footer 
+    ** Rich text box for header.
+    ** Rich text for footer.
+    ** Instructions for adding disclaimer text, links to order information and privacy policy. 
 
+  * Order Management
+    **  
 
 ================
 
