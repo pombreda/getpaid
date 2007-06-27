@@ -62,8 +62,9 @@ TABS: identification, configure, currency, maintenance mode, emails, header / fo
       ** Do not send notification of transactions (boolean)
       ** Send notification when a transaction happens 
       ** Send the transaction details in an encrypted email 
-
-    Admin can choose to receive encrypted notification of orders on site, to receive a notification that an order was placed (but no data), or no notification. Single select only on the list. 
+      ** Receive encrypted notification of orders on site (radio)
+      ** Receive a notification that an order was placed (but no data) (radio)
+      ** Receive no notification (radio)
     ** Customer Order Confirmation Email
       ** email address of the sender
       ** cc address
