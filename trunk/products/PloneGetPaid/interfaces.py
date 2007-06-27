@@ -44,18 +44,35 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
     payment_processor = schema.Choice( title = u"Payment Processor",
                                        source = "getpaid.payment_methods" )
 
-    currency = schema.Choice(
-        title = u"Currency",
-        values = ( u"US", ) )
+    currency = schema.Choice( title = u"Currency",
+    						  required = True,
+					          source = "getpaid.currencies" )
 
-
+    accepted_credit_cards = schema.List( title = u"Accepted Credit Cards",
+     									 required = False,
+    									 default = [],
+    									 description = u"Credit cards accepted for payment",
+                                         value_type = schema.Choice( title=u"accepted_credit_cards", source="getpaid.credit_cards" )
+                                       )    
+   
     shipping_method = schema.Choice( title = u"Shipping Method",
-                                     required = False,
+                                     required = True,
                                      source = "getpaid.shipping_methods" )
+                                     
+    weight_units = schema.Choice( title = u"Weight Units",
+                                  required = True,
+                                  source = "getpaid.weight_units" )
 
     tax_method = schema.Choice( title = u"Tax Method",
-                                required = False,
+                                required = True,
                                 source = "getpaid.tax_methods" )
+           
+    cart_session_timeout = schema.Int( title = u"Session Timeout",
+    									 required = True,
+    									 description = u"Shopping cart session timeout (in seconds)",
+    									 default = 3600,
+    								   )
+    									 
     
     buyable_types = schema.List(
         title = u"Buyable Types",
@@ -85,7 +102,7 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
         title = u"Donate Content Types",
         required = False,
         default = [],
-        description = u"Content Types available for Donation",
+        description = u"Content Types available for donation",
         value_type = schema.Choice( title=u"donate_types", source="plone.content_types" )
         )
         

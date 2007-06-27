@@ -101,5 +101,21 @@
    factory=".vocabularies.TaxMethods" 
    />
 
+<!-- Currencies -->
+<vocabulary
+   name="getpaid.currencies"
+   factory=".vocabularies.Currencies"
+   />
    
+<!-- Credit Cards -->
+<vocabulary
+   name="getpaid.credit_cards"
+   factory=".vocabularies.CreditCards"
+   />   
+   
+<!-- Payment Methods -->
+<vocabulary
+   name="getpaid.weight_units"
+   factory=".vocabularies.WeightUnits"
+   />   
 </configure>
