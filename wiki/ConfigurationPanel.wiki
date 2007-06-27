@@ -13,10 +13,12 @@ The site admin can tab through the following screens to set account information 
   * header / footer
   * order management
 
-Refer to this site for possible site layout: 
+Refer to these mockups for possible site layout: 
 
 [http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_main_screen.png Admin Main Page]
+
 [http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_products_menu.png Admin Products Menu]
+
 [http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png Admin Edit Product]
 
 
