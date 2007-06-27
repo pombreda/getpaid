@@ -4,11 +4,14 @@
 = Introduction =
 After installing PloneGetPaid, the site admin goes to the GetPaid Settings in the configuration panel. The top of the page includes a portal message: "This product is currently inactive. You need to fill out required settings before you can make content in your site payable."
 
-The page has a screen for basic, required settings on the first page, and then tabs across the top of the page for different screens for more particular settings. At the bottom of each page are buttons for [next] [save] [cancel].
-
 The site admin can tab through the following screens to set account information for the system:
-
-Sections: identification, configure, currency, maintenance mode, emails, header / footer, order management
+  * identification
+  * configure
+  * currency
+  * maintenance mode
+  * emails
+  * header / footer
+  * order management
 
 Refer to this site for possible site layout: http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_main_screen.png
 http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_products_menu.png
@@ -116,12 +119,18 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
               ** Shipping cost
               ** Sales tax
               ** Total
-              ** Update / delete / reset
+              ** Update / refund / delete / reset
         ** Delete batch
         ** Order listing (order number, date, name)
       ** Unbatched orders
         ** Order listing (order number, date)
           ** Customer information
+            ** Remove checkbox
+            ** Login
+            ** Password Recovery Email
+            ** First Name
+            ** Last Name
+            ** Edit / Add Customer (?)
           ** Order Information (ship to / bill to information)
               ** Product Code
               ** Product Description
@@ -133,7 +142,7 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
               ** Sales tax
               ** Total
               ** Status (processed, refunded)
-              ** Update / delete / reset
+              ** Update / refund / delete / reset
           ** Payment Processing
             ** Method (credit card)
             ** Name on Card
@@ -145,4 +154,3 @@ http://dev.zwarehouse.org/attachment/wiki/ScreenShots/admin_edit_product.png
             ** Authorization Code
             ** Authorization Date / Time
       ** View / process orders 
-      ** Refund an order
