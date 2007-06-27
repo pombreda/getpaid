@@ -20,11 +20,31 @@ Remote sprinters:
 
 ==Day 2==
 
+A day for many good things! Food was good :) 
+
+Day 2 Checkin: 
+
+  * Kapil set up workflow for finance and fulfillment, orders (now checked in) (integrating hurry.workflow, by backporting to Zope 3.2). Easy to hook into. 
+  * Kapil started experimenting with a checkout wizard, paired with Eric, and you can now collect user info to pass off to pay processor
+  * Rudimentary zope 3 local utility set up to store and index the orders (to enable nice admin interfaces on top of that). Now part of install
+  * Brian focused on donation today. Change made to make it like the other content. Now any item can be made "donateable" and can be added to a cart. Noted that it took 14 file changes to incorporate this; Kapil suggests considering consolidating the donation files in one place (separate from rest of product).  The old donation content object (addable from "add to folder") is still there...Next is UI! (and more unit tests)
+  * Eric worked on Doctests, trying out interfaces to set as buyable, shippable and premium. Basic doctests now in place. Started functional test to make content type buyable and walk through the checkout process. 
+  * Veda and Donna: mockups of user interface in very general way. Tomorrow tackling the admin UI. Now available are review cart, product page, etc etc. Check out the download area and adapt to dev process. 
+  * Steve working on Google Checkout library...breaking so far. Note that we will need proxy for demo/testing site.  
+  * Bill: started looking on Gchecky and then went to Authorize.net. Decided processors are going to be *utilities*. Worked at some of workflow and now will have first pass at authnet processor tomorrow morning. 
+  * David S: tests written for marking objects and started some against getpaid.core (doctests). 
+  * Dave F: had first day of class today :)
+  * Task (for testers): make notes on wiki about how to run the tests!
+
+
+5:01pm
+  * GetPaid team heads to sunny hill outside for checkin
+
 3:06pm
   * 23 people in #getpaid!
 
 2:36pm
-  * Kapil moves on from workflow (integrating hurry.workflow, by backporting to Zope 3.2) for finance and fulfillment, orders (now checked in). 
+  * Kapil set up workflow for finance and fulfillment, orders (now checked in) (integrating hurry.workflow, by backporting to Zope 3.2). 
   * Brian made a checkin of the donation form changes. Now donation behaves like the other payable object options (ie you can make something "donateable". 
   * Eric is nearly complete on a functional test of adding an object and making it payable. 
   * Chris is ready to bash quills with a baseball bat (after learning that archived posts are not publicly accessible). 
