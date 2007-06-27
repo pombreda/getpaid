@@ -3,7 +3,7 @@
 
 ==Configuring on a Content Object Basis==
 
-Any content object that is marked as Payable will also be able to be Shippable via ((Setting Means of Delivery)).
+Any content object that is marked as Payable will also be able to be Shippable. See Setting Means of Delivery.
 
 ==Configuring Site-Wide==
 
@@ -193,7 +193,6 @@ For International information, see http://pe.usps.gov/text/pub51/welcome.htm.
 
 ====UPS Domestic Shipping Calculator====
 Developer documentation: http://ups.com/content/us/en/bussol/offering/technology/automated_shipping/online_tools.html
-
 
 
 
