@@ -85,6 +85,11 @@ class IShoppingCartUtility( Interface ):
         if create is passed then create a new one if one isn't found
         """
 
+    def destroy( ):
+        """
+        remove the current's users cart from the session if it exists
+        """
+
 class ILineItem( Interface ):
     """
     An Item in a Cart
@@ -236,7 +241,7 @@ class IOrder( Interface ):
     shopping_cart = schema.Object( IShoppingCart )
     finance_state = schema.TextLine( title=u"Finance State", readonly=True)
     fufillment_state = schema.TextLine( title=u"Fufillment State", readonly=True)
-
+    processor_order_id = schema.ASCIILine( title=u"Processor Order Id" )
 
 class finance_states:
 
