@@ -4,7 +4,9 @@
 = Introduction =
 After installing PloneGetPaid, the site admin goes to the GetPaid Settings in the configuration panel. The top of the page includes a portal message: "This product is currently inactive. You need to fill out required settings before you can make content in your site payable."
 
-The site admin can tab through the following screens to set account information for the system:
+The site admin can tab through the following screens to set account information for the 
+system:
+
   * identification
   * configure
   * currency
@@ -36,41 +38,35 @@ Refer to these mockups for possible site layout:
     ** Phone
     ** Fax
 
-  * Configure
+  * Configure (shippable types, shipping options, payment settings, unit of measurement, session timeout, sales tax)
+
     ** Shippable Types
-    ** Membership Types
-      ** List of current membership types
-        ** Add new      
-          ** Type Name
-          ** Description
-          ** Price
-          ** Type of payment (dropdown of: "One-time", "Annual", "Monthly"), i.e. the price would be charged each period. Indefinite would imply a one-time fee for the membership/subscription. 
-          ** Disclaimer to let user know which pay processors are supported for recurring charges.
-        ** Configure membership
-          ** Add membership level
-          ** Add membership benefits
-          ** Add membership pricing
-      ** Add / Update / Delete
+
+    ** Shipping options
+      ** Require shipping (boolean)
+      ** Flat rate shipping
+
     ** Payment Settings
       ** Select Payment Processor
       ** Enter Payment Processor details (merchant ID, license key, etc.)
       ** Credit cards supported by the system (Visa, MC, Discover, AMEX)
       ** Once the required fields are set, the message changes to state that "This product is now active. You can set content in your site to be "Payable" in the "actions" menu."
+
     ** Unit of measurement (weight)
-    ** Shipping options
-      ** Flat rate shipping
-    ** Session (basket) timeout -- default 60 minutes
-    ** Sales tax calculation (this needs discussion)
-      ** State-based
+
+    ** Session (basket) timeout -- default 60 minutes - possible in this version?
+
+    ** Sales tax configuration (this needs discussion)
+      ** Require tax (boolean)
+      ** State-based (Select a state?)
       ** Canadian VAT
       ** German VAT
       ** Shopper selected 
       ** Generic VAT (non-European)
       ** Default encryption key
-      ** Require shipping (boolean)
-      ** Require tax (boolean)
-      ** Select a state tax? (dropdown list)
-    ** Discounts (deferred)
+
+
+
 
   * Currency
     ** If European:
@@ -113,36 +109,38 @@ Refer to these mockups for possible site layout:
     ** Rich text for footer.
     ** Instructions for adding disclaimer text, links to order information and privacy policy. 
 
+
+
   * Order Management
-        ** Order listing (order number, date)
-          ** Customer information
-            ** Remove checkbox
-            ** Order number
-            ** Login
-            ** Password Recovery Email
+    ** Order Listing is the entry page. Contains tabs for Customer Information, Order Information, Payment Processing, displays a list of all recent orders, sorted by most recent). Click through from an order to the customer's information page.
+
+          ** Customer information page
+            ** Order number (click through to see order details and more detailed info)
+            ** Username (click through to see order details and more detailed info)
+            ** Email address
             ** First Name
             ** Last Name
-            ** Edit / Add Customer (?)
-              ** Identification
-                  ** Login
-                  ** Email address
-                  ** Update/ delete / reset
-              ** Shipping / Billing Information
-                  ** Shipping address
-                  ** Billing address
+            ** Shipping / Billing Information
+            ** Shipping address
+            ** Billing address
+            ** Order history
             ** Amount Paid
+      
+
           ** Order Information (ship to / bill to information)
-              ** Product Code
-              ** Product Description
-              ** Product Variants
-              ** Quantity
-              ** Price/ea
-              ** Line item total
-              ** Shipping cost
-              ** Sales tax
-              ** Total
-              ** Status (processed, refunded)
-              ** Update / refund / export to CSV / delete / reset 
+            ** Product Code
+            ** Product Description
+            ** Product Variants
+            ** Quantity
+            ** Price/ea
+            ** Line item total
+            ** Shipping cost
+            ** Sales tax
+            ** Total
+            ** Status (processed, refunded)
+            ** Update / refund / export to CSV / delete / reset 
+
+
           ** Payment Processing
             ** Method (credit card)
             ** Name on Card
@@ -154,30 +152,21 @@ Refer to these mockups for possible site layout:
             ** Authorization Code
             ** Authorization Date / Time
 
-Deferred items for Order Management: 
-      ** Encryption (?)
+=====================================
 
-      ** Create batch
-        ** Batch name
-        ** 
-      ** Batched orders
+Deferred item for configuration:
+
+    ** Discounts (deferred)
+    ** Membership Types
+
+
+Deferred items for Order Management: 
+
+      ** Batched & unbatched orders listing
         ** Run report
         ** Process orders
           ** Batch ID
           ** Date
           ** Total
           ** Method (GC / Auth.net)
-          ** Order Information
-              ** Product Code
-              ** Product Description
-              ** Product Variants
-              ** Quantity
-              ** Price/ea
-              ** Line item total
-              ** Shipping cost
-              ** Sales tax
-              ** Total
-              ** Update / refund / export to CSV / delete / reset 
         ** Delete batch
-        ** Order listing (order number, date, name)
-      ** Unbatched orders
