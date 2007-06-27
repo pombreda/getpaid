@@ -5,6 +5,7 @@ order utility implementation
 from zope.interface import implements
 from zope.app.container.btree import BTreeContainer
 
+from zope import component
 from zope.index.field import FieldIndex
 from zope.index.keyword  import KeywordIndex
 from persistent import Persistent
@@ -12,15 +13,19 @@ from persistent import Persistent
 from BTrees.IFBTree import weightedIntersection
 from hurry.workflow.interfaces import IWorkflowState
 
-from getpaid.core.interfaces import IOrderManager, IOrder, finance_states, fulfillment_states
+import decimal
+
+from getpaid.core import interfaces
 
 class Order( Persistent ):
 
-    implements( IOrder )
+    implements( interfaces.IOrder )
 
+    order_id = None
     shipping_address = None
     billing_address = None
     shopping_cart = None
+    processor_order_id = None
 
     def getFinanceState( self ):
         return component.getAdapter( self, IWorkflowState, "getpaid.finance.state").getState()
@@ -32,10 +37,28 @@ class Order( Persistent ):
 
     fulfillment_state = property( getFulfillmentState )
 
+
+    def getTotalPrice( self ):
+        if not self.shopping_cart:
+            return 0
+
+        total = 0
+        for item in self.shopping_cart:
+            d = decimal.Decimal ( str(item.cost ) ) * item.quantity
+            total += d
+
+        shipping_method = component.getUtility( interfaces.IShippingMethod )
+        total += shipping_method.getCost( self )
+
+        tax_utility = component.getUtility( interfaces.ITaxUtility )
+        total += tax_utility.getCost( self )
+        
+        return float( str( total ) )
+
     
 class OrderManager( Persistent ):
 
-    implements( IOrderManager )
+    implements( interfaces.IOrderManager )
     
     def __init__( self ):
         self.storage = OrderStorage()
@@ -55,6 +78,14 @@ class OrderManager( Persistent ):
     def get( self, order_id ):
         return self.storage[ order_id ] 
 
+    #################################
+    # junk for z2.9 / f 1.4
+    def manage_fixupOwnershipAfterAdd(self, *args):
+        return
+
+    def manage_setLocalRoles( self, *args ):
+        return 
+
 
 class ResultSet:
     """Lazily accessed set of objects."""
@@ -73,13 +104,15 @@ class ResultSet:
 class OrderStorage( BTreeContainer ):
 
     def __init__( self ):
-        super( OrderStorager, self).__init__()
-        self.indexes = dict(
+        super( OrderStorage, self).__init__()
+        self.indexes = {
             'order_id' : FieldIndex(),
             'products' : KeywordIndex(),
             'user_id'  : FieldIndex(),
-            'status'   : FieldIndex()
-            )
+            'processor_order_id' : FieldIndex(),
+            'finance_state'   : FieldIndex(),
+            'fufillment_state' : FieldIndex()
+            }
         
     def query( self, **args ):
         results = self.apply( args )
@@ -126,6 +159,5 @@ class OrderStorage( BTreeContainer ):
         doc_id = int( key )
         for index in self.indexes.values():
             index.unindex_doc( doc_id )
-        
-        
+
 
