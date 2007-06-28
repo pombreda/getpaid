@@ -2,14 +2,14 @@
            xmlns:browser="http://namespaces.zope.org/browser">
 
    <adapter
-      for="*"
+      for="Products.CMFCore.interfaces.ISiteRoot"
       provides=".interfaces.IGoogleCheckoutOptions"
       factory=".GoogleCheckoutOptions" />
 
    <!-- Working around a bug in the ca (z2.9) whereby we can't pickup 
         all the provided by an interface if we register for * -->
    <adapter
-      for="getpaid.core.interfaces.IPersistentOptions"
+      for="Products.CMFCore.interfaces.ISiteRoot"
       provides="getpaid.core.interfaces.IPaymentProcessor"
       name="Google Checkout"
       factory=".GoogleCheckoutProcessor" />
