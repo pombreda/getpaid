@@ -70,6 +70,12 @@
    factory=".preferences.ConfigurationPreferences"
    />
 
+<adapter
+   for="Products.CMFCore.interfaces.ISiteRoot"
+   provides=".interfaces.IGetPaidManagementIdentificationOptions"
+   factory=".preferences.IdentificationPreferences"
+   />
+
 <!-- Utilities -->
 <utility
    provides="getpaid.core.interfaces.IShoppingCartUtility"

@@ -48,13 +48,13 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
                                        source = "getpaid.payment_methods" )
 
     currency = schema.Choice( title = u"Currency",
-    						  required = True,
-					          source = "getpaid.currencies" )
+                              required = True,
+                              source = "getpaid.currencies" )
 
     accepted_credit_cards = schema.List( title = u"Accepted Credit Cards",
-     									 required = False,
-    									 default = [],
-    									 description = u"Credit cards accepted for payment",
+                                         required = False,
+                                         default = [],
+                                         description = u"Credit cards accepted for payment",
                                          value_type = schema.Choice( title=u"accepted_credit_cards", source="getpaid.credit_cards" )
                                        )    
    
@@ -71,10 +71,10 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
                                 source = "getpaid.tax_methods" )
            
     cart_session_timeout = schema.Int( title = u"Session Timeout",
-    									 required = True,
-    									 description = u"Shopping cart session timeout (in seconds)",
-    									 default = 3600,
-    								   )
+                                         required = True,
+                                         description = u"Shopping cart session timeout (in seconds)",
+                                         default = 3600,
+                                       )
 
     buyable_types = schema.List(
         title = u"Buyable Types",
@@ -111,62 +111,62 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
 
 class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
 
-	store_name = schema.TextLine( title = u"Store/Organization Name",
-								  required = True,
-								  default = u""
-								)
+    store_name = schema.TextLine( title = u"Store/Organization Name",
+                                  required = True,
+                                  default = u""
+                                )
 
-	contact_name = schema.TextLine( title = u"Contact Name",
-								  required = False,
-								  default = u""
-								)
+    contact_name = schema.TextLine( title = u"Contact Name",
+                                  required = False,
+                                  default = u""
+                                )
 
-	contact_email = schema.TextLine( title = u"Contact Email",
-								  required = False,
-								  default = u""
-								)
-								
-	contact_company = schema.TextLine( title = u"Contact Company",
-							  required = False,
-							  default = u""
-							)
+    contact_email = schema.TextLine( title = u"Contact Email",
+                                  required = False,
+                                  default = u""
+                                )
+                                
+    contact_company = schema.TextLine( title = u"Contact Company",
+                              required = False,
+                              default = u""
+                            )
 
-	contact_address = schema.TextLine( title = u"Contact Address",
-								       required = False,
-								       default = u""
-								     )
-								
-	contact_address2 = schema.TextLine( title = u"Contact Address2",
-								        required = False,
-								        default = u""
-								      )
+    contact_address = schema.TextLine( title = u"Contact Address",
+                                       required = False,
+                                       default = u""
+                                     )
+                                
+    contact_address2 = schema.TextLine( title = u"Contact Address2",
+                                        required = False,
+                                        default = u""
+                                      )
 
-	contact_city = schema.TextLine( title = u"Contact City",
-								    required = False,
-								    default = u""
-								  )
-								
-	contact_state = schema.TextLine( title = u"Contact State/Province",
-								     required = False,
-								     default = u""
-								   )
+    contact_city = schema.TextLine( title = u"Contact City",
+                                    required = False,
+                                    default = u""
+                                  )
+                                
+    contact_state = schema.TextLine( title = u"Contact State/Province",
+                                     required = False,
+                                     default = u""
+                                   )
 
-	contact_postalcode = schema.TextLine( title = u"Contact Zip/Postal Code",
-								          required = False,
-								          default = u""
-								        )
+    contact_postalcode = schema.TextLine( title = u"Contact Zip/Postal Code",
+                                          required = False,
+                                          default = u""
+                                        )
 
-	contact_country = schema.TextLine( title = u"Contact Country",
-								       required = False,
-								       default = u""
-								     )	
+    contact_country = schema.TextLine( title = u"Contact Country",
+                                       required = False,
+                                       default = u""
+                                     )  
 
-	contact_phone = schema.TextLine( title = u"Contact Phone",
-								     required = False,
-								     default = u""
-								   )
-								
-	contact_fax = schema.TextLine( title = u"Contact Fax",
-								   required = False,
-								   default = u""
-								 )
+    contact_phone = schema.TextLine( title = u"Contact Phone",
+                                     required = False,
+                                     default = u""
+                                   )
+                                
+    contact_fax = schema.TextLine( title = u"Contact Fax",
+                                   required = False,
+                                   default = u""
+                                 )
