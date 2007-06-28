@@ -11,9 +11,9 @@ from getpaid.core import interfaces, cart
 
 from Products.CMFCore.utils import getToolByName
 
-
 def PaymentMethods( context ):
-    adapters = component.getAdapters( (context,), interfaces.IPaymentProcessor )
+    # context is the portal config options, whose context is the portal
+    adapters = component.getAdapters( (context.context,), interfaces.IPaymentProcessor )
     payment_names = set( [ n for n,a in adapters] )
     return vocabulary.SimpleVocabulary.fromValues( payment_names )    
 

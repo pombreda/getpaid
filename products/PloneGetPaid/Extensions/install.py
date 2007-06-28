@@ -9,7 +9,6 @@ from Products.CMFCore import permissions as cmf_perms
 from Products.PloneGetPaid.config import *
 from StringIO import StringIO
 
-
 from zope.component.interfaces import ISiteManager
 from zope.app.component.hooks import setSite, getSite
 from zope.app.component.interfaces import ISite, IPossibleSite
