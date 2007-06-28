@@ -20,8 +20,6 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-overview"
-     menu="getpaid_admin"
-     title="Overview"
      class=".admin.Overview"
      template="templates/admin-overview.pt"
      permission="cmf.ManagePortal"
@@ -31,8 +29,6 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-identification"
-     menu="getpaid_admin"
-     title="Identification"
      class=".admin.Identification"
      template="templates/admin-identification.pt"
      permission="cmf.ManagePortal"
@@ -42,8 +38,6 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-core"
-     menu="getpaid_admin"
-     title="Configure"
      class=".admin.Core"     
      permission="cmf.ManagePortal"
      />
@@ -52,8 +46,6 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-currency"
-     menu="getpaid_admin"
-     title="Currency"
      class=".admin.Currency"     
      permission="cmf.ManagePortal"
      />     
@@ -63,8 +55,6 @@
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-processor"
      class=".admin.Processor"
-     menu="getpaid_admin"
-     title="Processor"
      permission="cmf.ManagePortal"
      />
 
@@ -72,8 +62,6 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-maintenance"
-     menu="getpaid_admin"
-     title="Maintenance"
      class=".admin.Maintenance"     
      permission="cmf.ManagePortal"
      /> 
@@ -82,8 +70,6 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-email"
-     menu="getpaid_admin"
-     title="Email"
      class=".admin.Email"     
      permission="cmf.ManagePortal"
      />
@@ -92,8 +78,6 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-headerfooter"
-     menu="getpaid_admin"
-     title="Header/Footer"
      class=".admin.HeaderFooter"     
      permission="cmf.ManagePortal"
      />       
@@ -102,8 +86,6 @@
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-orders"
-     menu="getpaid_admin"
-     title="Order Management"
      class=".order.OrderAdminListing"
      template="templates/admin-order-listing.pt"
      permission="cmf.ManagePortal"

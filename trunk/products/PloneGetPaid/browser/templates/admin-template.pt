@@ -35,12 +35,14 @@
 	  <div class="configlet">
 	    <h1 i18n:translate="heading_getpaid_setup">GetPaid Setup</h1> 
 	    
-	    <a href=""
-	       class="link-parent"
-	       tal:attributes="href string: $portal_url/plone_control_panel"
-	       i18n:translate="label_up_to_plone_setup">
-              Up to Site Setup
-	    </a>
+        <metal:block define-slot="up_to_parent">
+            <a href=""
+               class="link-parent"
+               tal:attributes="href string: $portal_url/@@manage-getpaid-overview"
+               i18n:translate="label_up_to_getpaid_setup">
+                  Up to GetPaid Setup
+            </a>
+	    </metal:block>
 	    
 	    <p i18n:translate="description_getpaid_setup">
               GetPaid setup for Plone.
@@ -48,7 +50,7 @@
 	  </div>
 	  
 	  <metal:block define-slot="admin_content" tal:content="nothing">
-	    Admini Template
+	    Admin Template
 	  </metal:block>
 	</div>
 

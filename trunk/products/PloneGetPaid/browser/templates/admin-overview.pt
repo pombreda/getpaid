@@ -1,6 +1,26 @@
 <metal:page use-macro="context/@@manage-getpaid-template/macros/admin">
+  <metal:block fill-slot="up_to_parent"> 	    
+	    <a href=""
+	       class="link-parent"
+	       tal:attributes="href string: $portal_url/plone_control_panel"
+	       i18n:translate="label_up_to_plone_setup">
+              Up to Site Setup
+	    </a>
+  </metal:block>
   <metal:block fill-slot="admin_content">
-     Hello World
+
+<div>
+    <ul>
+        <li><a href="@@manage-getpaid-identification">Identification</a></li>
+        <li><a href="@@manage-getpaid-core">Configure</a></li>
+        <li><a href="@@manage-getpaid-currency">Currency</a></li>
+        <li><a href="@@manage-getpaid-maintenance">Maintenance</a></li>
+        <li><a href="@@manage-getpaid-email">Emails</a></li>
+        <li><a href="@@manage-getpaid-headerfooter">Header/Footer</a></li>
+        <li><a href="@@manage-getpaid-orders">Order Management</a></li>
+    </ul>    
+</div>
+
   </metal:block>
 </metal:page>
 
