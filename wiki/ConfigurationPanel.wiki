@@ -84,12 +84,11 @@ It would be impossible to catalog (and anticipate) the formatting for all the wo
 
 ==Emails==
     ===Email preferences===
-      ** Do not send merchant email notification of a completed transaction (radio)
-      ** Send merchant email notification when a transaction happens (radio)
-      ** Send merchant encrypted email notification when a transaction happens (radio)
-
-      ** Do not send customer email notification of a completed transaction (radio)
-      ** Send customer email notification of a completed transaction (radio)
+      ** Do not send merchant email notification of a completed transaction (radio1)
+      ** Send merchant email notification when a transaction happens (radio1)
+      ** Send merchant encrypted email notification when a transaction happens (radio1)
+      ** Do not send customer email notification of a completed transaction (radio2)
+      ** Send customer email notification of a completed transaction (radio2)
     ===Customer Order Confirmation Email===
       ** email address of the sender
       ** cc address
