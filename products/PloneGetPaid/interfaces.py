@@ -111,6 +111,62 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
 
 class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
 
-    payment_processor = schema.Choice( title = u"Payment Processor",
-                                       source = "getpaid.payment_methods" )
-    
+	store_name = schema.TextLine( title = u"Store/Organization Name",
+								  required = True,
+								  default = u""
+								)
+
+	contact_name = schema.TextLine( title = u"Contact Name",
+								  required = False,
+								  default = u""
+								)
+
+	contact_email = schema.TextLine( title = u"Contact Email",
+								  required = False,
+								  default = u""
+								)
+								
+	contact_company = schema.TextLine( title = u"Contact Company",
+							  required = False,
+							  default = u""
+							)
+
+	contact_address = schema.TextLine( title = u"Contact Address",
+								       required = False,
+								       default = u""
+								     )
+								
+	contact_address2 = schema.TextLine( title = u"Contact Address2",
+								        required = False,
+								        default = u""
+								      )
+
+	contact_city = schema.TextLine( title = u"Contact City",
+								    required = False,
+								    default = u""
+								  )
+								
+	contact_state = schema.TextLine( title = u"Contact State/Province",
+								     required = False,
+								     default = u""
+								   )
+
+	contact_postalcode = schema.TextLine( title = u"Contact Zip/Postal Code",
+								          required = False,
+								          default = u""
+								        )
+
+	contact_country = schema.TextLine( title = u"Contact Country",
+								       required = False,
+								       default = u""
+								     )	
+
+	contact_phone = schema.TextLine( title = u"Contact Phone",
+								     required = False,
+								     default = u""
+								   )
+								
+	contact_fax = schema.TextLine( title = u"Contact Fax",
+								   required = False,
+								   default = u""
+								 )
