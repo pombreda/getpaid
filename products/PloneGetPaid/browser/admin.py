@@ -48,7 +48,7 @@ class Identification( formbase.EditForm, BaseView ):
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-identification.pt")
-    form_fields = []
+    form_fields = form.Fields(interfaces.IGetPaidManagementIdentificationOptions)
     options = None
     
     def __init__( self, context, request ):
