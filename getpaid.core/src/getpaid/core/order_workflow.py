@@ -61,6 +61,12 @@ def create_finance_workflow( ):
                               source = None,
                               destination = fs.REVIEWING ) )
 
+    add( workflow.Transition( transition_id = 'authorize',
+                              title = 'Authorize',
+                              trigger = iworkflow.SYSTEM,
+                              source = fs.REVIEWING,
+                              destination = fs.CHARGEABLE ) )
+
     # CHARGEABLE TRANSITIONS
     add( workflow.Transition( transition_id = 'charge-chargeable',
                               title = 'Charge Order',
@@ -143,11 +149,9 @@ class FinanceInfo( MultiWorkflowInfo ):
     state_name = "getpaid.finance.state"
     workflow_name = "getpaid.finance.workflow"
 
-class FulfillmentVersions( workflow.WorkflowVersions ):
-    pass
-
 class OrderVersions( workflow.WorkflowVersions ):
-    pass
+
+    def hasVersionId( self, id): return False
 
 
 if __name__ == '__main__':
