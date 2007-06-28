@@ -63,7 +63,7 @@ class Currency( formbase.EditForm, BaseView ):
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-currency.pt")
-    form_fields = []
+    form_fields = form.Fields(interfaces.IGetPaidManagementCurrencyOptions)
     options = None
     
     def __init__( self, context, request ):
@@ -120,7 +120,7 @@ class Email( formbase.EditForm, BaseView ):
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-email.pt")
-    form_fields = []
+    form_fields = form.Fields(interfaces.IGetPaidManagementEmailOptions)
     options = None
     
     def __init__( self, context, request ):
@@ -135,7 +135,7 @@ class HeaderFooter( formbase.EditForm, BaseView ):
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-headerfooter.pt")
-    form_fields = []
+    form_fields = form.Fields(interfaces.IGetPaidManagementHeaderFooterOptions)
     options = None
     
     def __init__( self, context, request ):

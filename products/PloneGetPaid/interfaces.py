@@ -170,3 +170,26 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                    required = False,
                                    default = u""
                                  )
+
+class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
+    currency_symbol = schema.TextLine( title = u"Currency Symbol",
+                                   required = True,
+                                   default = u"$"
+                                 )
+                                 
+class IGetPaidManagementMaintenanceOptions( igetpaid.IPersistentOptions ):
+    pass
+                                 
+class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
+    contact_fax = schema.Bool( title = u"Send notifications of transactions.",
+                               default = True
+                             )
+                                 
+class IGetPaidManagementHeaderFooterOptions( igetpaid.IPersistentOptions ):
+    header = schema.Text( title = u"Header",
+                                   required = False,
+                                 )
+                                 
+    footer = schema.Text( title = u"Footer",
+                                   required = False,
+                                 )                                 
