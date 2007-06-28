@@ -1,0 +1,15 @@
+<fieldset>
+
+  <legend> Donation Fields </legend>
+
+  <div><i>GetPaid Content Widget Fields go here (for content marked as Donatable)</i></div>
+  
+  <br />
+  
+  <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True">
+     Add to Cart
+  </a>
+  
+  <br />
+
+</fieldset>

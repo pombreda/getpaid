@@ -78,4 +78,20 @@
     class=".content.DonateEdit"
     permission="cmf.ModifyPortalContent"
     />
+    
+  <browser:viewletManager
+       name="content_widget_manager"
+       permission="zope2.View"
+       provides="..interfaces.IGetPaidContentViewletManager"
+       class=".viewlet.ContentWidgetManager"
+       />
+
+  <browser:viewlet  
+       name="donatable_contentwidget_viewlet"
+       manager="..interfaces.IGetPaidContentViewletManager"
+       template="templates/donatable-content-viewlet.pt"
+       permission="zope2.View"
+       for="..interfaces.IDonatableMarker"
+       />
+
 </configure>

@@ -24,6 +24,7 @@ class ViewletManagerShoppingCart( object ):
     #    super( ViewletManagerShoppingCart, self ).update()
 
     def sort (self, viewlets ):
+        """ sort by name """
         return sorted(viewlets)
         
 ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
@@ -32,8 +33,20 @@ ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
                                               bases=(ViewletManagerShoppingCart,)
                                               )
 
+GetPaidContentWidgetsTemplate = os.path.join( _prefix, "templates", "contentwidget-viewlet-manager.pt")
 
+class ViewletManagerContent( object ):
+    """ Content Widget Viewlet Manager """
 
+    def sort (self, viewlets ):
+        """ sort by name """
+        return sorted(viewlets)
+
+ContentWidgetManager = manager.ViewletManager( "ContentViewManager",
+                                              interfaces.IGetPaidContentViewletManager,
+                                              GetPaidContentWidgetsTemplate,
+                                              bases=(ViewletManagerContent,)
+                                              )
 
 class FormViewlet( viewlet.SimpleAttributeViewlet, SubPageForm ):
     """ a viewlet which utilize formlib
