@@ -9,17 +9,62 @@
   </metal:block>
   <metal:block fill-slot="admin_content">
 
-<div>
-    <ul>
-        <li><a href="@@manage-getpaid-identification">Identification</a></li>
-        <li><a href="@@manage-getpaid-core">Configure</a></li>
-        <li><a href="@@manage-getpaid-currency">Currency</a></li>
-        <li><a href="@@manage-getpaid-maintenance">Maintenance</a></li>
-        <li><a href="@@manage-getpaid-email">Emails</a></li>
-        <li><a href="@@manage-getpaid-headerfooter">Header/Footer</a></li>
-        <li><a href="@@manage-getpaid-orders">Order Management</a></li>
-    </ul>    
+<div id="gpAdminColumn1">
+    <h3>Profile</h3>
+        <ul>
+            <li><a href="@@manage-getpaid-identification">Identification</a></li>
+        </ul>
+    
+    <h3>Configure</h3>
+        <ul>
+            <a href="@@manage-getpaid-core">Configure</a>
+            <li>Shippable Types</li>
+            <li>Shipping Options</li>
+            <li>Payment Settings</li>
+        </ul>
+    
+    <h3>Order Management</h3>
+        <ul>
+            <li>Customer Information page</li>
+            <li><a href="@@manage-getpaid-orders">Order Information</a></li>
+            <li>Payment Processing</li>
+            <li>Unit of measurement (weight)</li>
+            <li>Session (basket) timeout</li>
+            <li>Sales tax configuration</li>      
+        </ul>
 </div>
+
+<div id="gpAdminColumn2">
+    <h3>Currency</h3>
+        <ul>
+            <li><a href="@@manage-getpaid-currency">Generic Currency Formatting</a></li>
+        </ul>
+        
+    <h3>Emails</h3>
+        <ul>
+            <li><a href="@@manage-getpaid-email">Email Preferences</a></li>
+            <li>Customer Order Confirmation Email</li>
+            <li>Merchant Notification Email</li>
+        </ul>
+        
+    <h3>Customize Header/Footer</h3>
+        <ul>
+            <li><a href="@@manage-getpaid-headerfooter">Header/Footer</a></li>
+        </ul>
+</div>        
+
+<div id="gpAdminColumn3">
+    <h3>General Information</h3>
+    <dl>
+        <dt>GetPaid Version:</dt>
+        <dt>Store/Organization Name:</dt>
+        <dt>Default Language:</dt>
+        <dt>Default Currency:</dt>
+        <dt>Number of Categories:</dt>
+        <dt>Orders/Donations:</dt>
+    </dl>
+</div>
+  		  
 
   </metal:block>
 </metal:page>
