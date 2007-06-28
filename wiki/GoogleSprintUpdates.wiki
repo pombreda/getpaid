@@ -20,6 +20,15 @@ Remote sprinters:
 
 ==Day 3==
 
+  * Kapil: Now save orders! Workflow for orders is improved. Admin screen that shows you the orders placed on the system. (to use relational db, integrators can write a storage adapter for the order management). 
+  * Eric: Admin screens progress. All tabs done, most of form fields entered in forms (and being stored). Problem of having one Interface all the field, which will be split out into multiple ones (but still have a central way to query). 
+  * DaveF: UPS integration (choosing shipping rates with live lookup at UPS). Later would be internationalization. About half way - probably done Friday. 
+  * Brian: Working on shopping cart. Lots of learning! API for generating tables and . Working to convert quantity to text box. Working, but not saving/updating price. About another hour of work on that. Planning to work with Siebo tonight on integrating the view of payable info + "add to cart" button to the view of content. 
+  * Steve: GoogleCheckout will have to wait till we can get live data from Google. Sample messages don't parse with Gchecky. ie we need to know what Google gives back...need demo site. 
+  * Chris: dev.plonegetpaid.com now points to Kapil's server so we can do real testing. New issues being filed, see the tracker: http://code.google.com/p/getpaid/issues/list
+  * Donna: All wireframes done and now being updated, cleaning up downloads area. 
+  * Bill: Authnet processor is loading and is connected to PGP, but the adapters have been changed, so PGP is not seeing Authorize.net in admin area. Need to get zcml to agree on how it is loaded. Close to being able to use it...but workflow not complete in places. 
+
 1:02pm: Doccom tag on flickr. Issue #15 assigned to jlenton. 
 
 12:36pm
