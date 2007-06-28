@@ -16,16 +16,19 @@ class IGetPaidCartViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid shopping cart ui
     """
 
-class IBuyableMarker( Interface ):
+class IPayableMarker( Interface ):
+    """ marker interface added to any payable content """
+
+class IBuyableMarker( IPayableMarker ):
     """ marker interface added to buyable content """
 
-class IPremiumMarker( Interface ):
+class IPremiumMarker( IPayableMarker ):
     """ marker interface added to premium content """
 
-class IShippableMarker( Interface ):
+class IShippableMarker( IPayableMarker ):
     """ shippable interface added to shippable content """
 
-class IDonatableMarker( Interface ):
+class IDonatableMarker( IPayableMarker ):
     """ donate-able interface added to shippable content """
 
 PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker, IDonatableMarker ]
