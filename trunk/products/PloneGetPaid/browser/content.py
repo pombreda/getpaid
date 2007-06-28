@@ -46,8 +46,8 @@ class PayableCreation( PayableFormView, formbase.EditForm ):
     def update( self ):
         # XXX should do this on form submit success only...
         marker.mark( self.context, self.marker )
-        return super( PayableCreation, self).update()        
-        
+        return super( PayableCreation, self).update()
+
 class PayableEdit( PayableFormView, formbase.EditForm  ):
     
     form_fields = form.Fields( igetpaid.IPayable )
@@ -149,44 +149,63 @@ class ContentControl( BrowserView ):
         
     isDonatable.__roles__ = None
         
-    def allowChangeBuyable( self ):
+    def allowChangePayable( self, types ):
+        """
+        """
+        return not (types and not self.context.portal_type in types)
+    allowChangePayable.__roles__ = None
+    
+    def allowMakeBuyable( self ):
         """  
         """
-        if self.options.buyable_types and not self.context.portal_type in self.options.buyable_types:
-            return False
-        elif self.isPayable():
-            return False
-        return True
+        return self.allowChangePayable(self.options.buyable_types) \
+               and not self.isPayable()
+    allowMakeBuyable.__roles__ = None
+    def allowMakeNotBuyable( self ):
+        """  
+        """
+        return self.allowChangePayable(self.options.buyable_types) \
+               and self.isBuyable()
+    allowMakeNotBuyable.__roles__ = None
 
-    allowChangeBuyable.__roles__ = None
-    
-    def allowChangeShippable( self ):
-        if self.options.shippable_types and not self.context.portal_type in self.options.shippable_types:
-            return False
-        elif self.isPayable():
-            return False
-        return True
-    
-    allowChangeShippable.__roles__ = None
-    
-    def allowChangePremiumContent( self ):
-        if self.options.premium_types and not self.context.portal_type in self.options.premium_types:
-            return False
-        elif self.isPayable():
-            return False
-        return True
+    def allowMakeShippable( self ):
+        """  
+        """
+        return self.allowChangePayable(self.options.shippable_types) \
+               and not self.isPayable()
+    allowMakeShippable.__roles__ = None
+    def allowMakeNotShippable( self ):
+        """  
+        """
+        return self.allowChangePayable(self.options.shippable_types) \
+               and self.isShippable()
+    allowMakeNotShippable.__roles__ = None
 
-    allowChangePremiumContent.__roles__ = None
+    def allowMakePremiumContent( self ):
+        """  
+        """
+        return self.allowChangePayable(self.options.premium_types) \
+               and not self.isPayable()
+    allowMakePremiumContent.__roles__ = None
+    def allowMakeNotPremiumContent( self ):
+        """  
+        """
+        return self.allowChangePayable(self.options.premium_types) \
+               and self.isPremium()
+    allowMakeNotPremiumContent.__roles__ = None
 
-    def allowChangeDonatable( self ):
-        if self.options.donate_types and not self.context.portal_type in self.options.donate_types:
-            return False
-        elif self.isPayable():
-            return False
-        return True
-
-    allowChangeDonatable.__roles__ = None
-
+    def allowMakeDonatable( self ):
+        """  
+        """
+        return self.allowChangePayable(self.options.donate_types) \
+               and not self.isPayable()
+    allowMakeDonatable.__roles__ = None
+    def allowMakeNotDonatable( self ):
+        """  
+        """
+        return self.allowChangePayable(self.options.donate_types) \
+               and self.isDonatable()
+    allowMakeNotDonatable.__roles__ = None
 
     def showManageCart( self ):
         utility = component.getUtility( igetpaid.IShoppingCartUtility )
