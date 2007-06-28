@@ -2,24 +2,33 @@
 #labels Phase-Support,Documentation
 
 
+== General Questions ==
+
+  * What functionality does GetPaid offer?
+  * What will the next release do and when will it be released?
+  * How does a session-based cart work?
+
+
 == Integration and Configuration ==
 
   * How do I add a donation to the site? 
+  * How do I add a product to the site?
+  * What is the difference between adding a donation to a site versus adding a product?
   * How do I make a donation appear in a portlet vs within the page content? 
   * How do I create a category and add products to the category? 
-  * What is the difference between adding a donation to a site versus adding a product?
-  * How do I manage my orders and process them through a payment processor? 
+  * How do I manage my orders?
+  * How do I set up a payment processor? 
   * What happens when a user places an order on my site (offline vs online order completion)?
   * How do I make a content object payable? Not payable?
   * What are the steps for installing and uninstalling the product?
   * What basic settings must be configured so that an order can be processed? 
-  * How do I write an adapter for a new payment processor? 
   * What is the header / footer configuration area for?
   * How do I configure my currency?
+  * How do I set up my shipping information? 
+
 
 == Developer Concerns ==
   
   * What are the dependencies for GetPaid?
   * What unit tests are available?
-
-
+  * How do I write an adapter for a new payment processor? 
