@@ -86,8 +86,11 @@ class Processor( formbase.EditForm, BaseView ):
         self.context = context
         self.request = request
         self.setupLocale( request )
-        self.setupEnvironment( request )        
+        self.setupEnvironment( request )
+
+    def __call__( self ):
         self.setupProcessorOptions()
+        return super( Processor, self).__call__()
         
     def setupProcessorOptions( self ):
         manage_options = interfaces.IGetPaidManagementOptions( self.context )
@@ -96,7 +99,7 @@ class Processor( formbase.EditForm, BaseView ):
         if not processor_name:
             return
 
-        processor = component.getAdapter( manage_options,
+        processor = component.getAdapter( self.context,
                                           igetpaid.IPaymentProcessor,
                                           processor_name )
         

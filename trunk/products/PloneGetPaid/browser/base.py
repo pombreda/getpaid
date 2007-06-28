@@ -8,7 +8,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.formlib import formbase
 
 class BaseView( object ):
-    
+
     def setupEnvironment( self, request ):
         if not hasattr( request, 'debug'): request.debug = False
         

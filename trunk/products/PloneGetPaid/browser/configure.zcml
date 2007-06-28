@@ -39,7 +39,7 @@
   <browser:page
      for="*"
      name="getpaid-checkout"
-     class=".checkout.CheckoutBillingCollection"
+     class=".checkout.CheckoutPayment"
      permission="zope2.View"
      />
 
