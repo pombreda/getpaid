@@ -16,6 +16,10 @@ class IGetPaidCartViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid shopping cart ui
     """
 
+class IGetPaidContentViewletManager( zope.viewlet.interfaces.IViewletManager ):
+    """ viewlet manager for content that is marked with one of the getpaid Marker interfaces
+    """
+
 class IPayableMarker( Interface ):
     """ marker interface added to any payable content """
 
@@ -192,4 +196,4 @@ class IGetPaidManagementHeaderFooterOptions( igetpaid.IPersistentOptions ):
                                  
     footer = schema.Text( title = u"Footer",
                                    required = False,
-                                 )                                 
+                                 )
