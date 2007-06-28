@@ -12,7 +12,7 @@ from persistent import Persistent
 from zope.app.annotation.interfaces import IAttributeAnnotatable
 
 from BTrees.IFBTree import weightedIntersection
-from hurry.workflow.interfaces import IWorkflowState
+from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
 
 import decimal
 
@@ -38,6 +38,10 @@ class Order( Persistent ):
 
     fulfillment_state = property( getFulfillmentState )
 
+    def getFinanceWorkflow( self ):
+        return component.getAdapter( self, IWorkflowInfo, "getpaid.finance.info")
+    
+    finance_workflow = property( getFinanceWorkflow )
 
     def getTotalPrice( self ):
         if not self.shopping_cart:

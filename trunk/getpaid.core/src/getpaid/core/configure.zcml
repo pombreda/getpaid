@@ -31,8 +31,7 @@
      factory=".order_workflow.FulfillmentInfo"
      />
 
-  <adapter
-     for=".interfaces.IOrder"
+  <utility
      provides="hurry.workflow.interfaces.IWorkflowVersions"
      factory=".order_workflow.OrderVersions"
      />
