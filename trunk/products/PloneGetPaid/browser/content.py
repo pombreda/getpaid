@@ -114,6 +114,13 @@ class ContentControl( BrowserView ):
         options = interfaces.IGetPaidManagementOptions( portal )
         self.options = options
 
+    def isPayable( self ):
+        """ 
+        """
+        return interfaces.IPayableMarker.providedBy( self.context )
+
+    isPayable.__roles__ = None
+
     def isBuyable( self ):
         """ 
         """
@@ -147,7 +154,7 @@ class ContentControl( BrowserView ):
         """
         if self.options.buyable_types and not self.context.portal_type in self.options.buyable_types:
             return False
-        elif self.isBuyable() or self.isPremium() or self.isShippable() or self.isDonatable():
+        elif self.isPayable():
             return False
         return True
 
@@ -156,7 +163,7 @@ class ContentControl( BrowserView ):
     def allowChangeShippable( self ):
         if self.options.shippable_types and not self.context.portal_type in self.options.shippable_types:
             return False
-        elif self.isBuyable() or self.isPremium() or self.isShippable() or self.isDonatable():
+        elif self.isPayable():
             return False
         return True
     
@@ -165,7 +172,7 @@ class ContentControl( BrowserView ):
     def allowChangePremiumContent( self ):
         if self.options.premium_types and not self.context.portal_type in self.options.premium_types:
             return False
-        elif self.isBuyable() or self.isPremium() or self.isShippable() or self.isDonatable():
+        elif self.isPayable():
             return False
         return True
 
@@ -174,7 +181,7 @@ class ContentControl( BrowserView ):
     def allowChangeDonatable( self ):
         if self.options.donate_types and not self.context.portal_type in self.options.donate_types:
             return False
-        elif self.isBuyable() or self.isPremium() or self.isShippable() or self.isDonatable():
+        elif self.isPayable():
             return False
         return True
 
