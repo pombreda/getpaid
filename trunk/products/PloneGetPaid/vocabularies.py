@@ -47,3 +47,15 @@ def WeightUnits( context ):
 
 def Currencies( context ):
     return vocabulary.SimpleVocabulary.fromValues( ("US Dollars",) )
+
+def MerchantNotificationChoices( context ):
+    return vocabulary.SimpleVocabulary.fromItems( [("Do not send merchant email notification of a completed transaction","no_notification"),
+                                                   ("Send merchant email notification when a transaction happens", "notification"),
+                                                   ("Send merchant encrypted email notification when a transaction happens", "encrypted_notification")]
+                                                )
+
+def CustomerNotificationChoices( context ):
+    return vocabulary.SimpleVocabulary.fromItems( [("Do not send customer email notification of a completed transaction", "no_notification"), 
+                                                   ("Send customer email notification of a completed transaction", "notification")    
+                                                  ]
+                                                )                                                

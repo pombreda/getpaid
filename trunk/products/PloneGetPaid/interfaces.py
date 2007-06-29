@@ -206,20 +206,63 @@ class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
                                    required = True,
                                    default = u"$"
                                  )
+                                 
+    positive_currency_format = schema.TextLine( title = u"Positive Currency Format",
+                                   required = False,
+                                   default = u""
+                                 )                                 
+                                   
+    negative_currency_format = schema.TextLine( title = u"Negative Currency Format",
+                                   required = False,
+                                   default = u""
+                                 )   
+                                   
+    digit_grouping_symbol = schema.TextLine( title = u"Digit Grouping Symbol",
+                                   required = False,
+                                   default = u""
+                                 )   
+                                   
+    digit_grouping_symbol = schema.TextLine( title = u"Number of Digits in Group",
+                                   required = False,
+                                   default = u""
+                                 )   
+                                   
+    digit_grouping_symbol = schema.TextLine( title = u"Decimal Symbol",
+                                   required = False,
+                                   default = u""
+                                 )   
+                                   
+    digits_after_decimal = schema.TextLine( title = u"Number of Digits After Decimal",
+                                   required = False,
+                                   default = u""
+                                 )   
+                                   
+    us_currency_formatting = schema.TextLine( title = u"US Currency Formatting",
+                                   required = False,
+                                   default = u""
+                                 ) 
 
 # Emails
 class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
     """
     """
 
+
 class IGetPaidManagementMerchantNotificationOptions( igetpaid.IPersistentOptions ):     
     """
     """
+    merchant_email_notification = schema.Choice( title = u"Merchant Email Notifications",
+                                  source = "getpaid.merchant_notification_choices" )
+    
+    
+
 
 class IGetPaidManagementCustomerNotificationOptions( igetpaid.IPersistentOptions ):     
     """
-    """
-    
+    """    
+    merchant_email_notification = schema.Choice( title = u"Customer Email Notifications",
+                                                 source = "getpaid.customer_notification_choices" )
+
 # Customize Header/Footer
 class IGetPaidManagementLegalDisclaimerOptions( igetpaid.IPersistentOptions ):
     """
