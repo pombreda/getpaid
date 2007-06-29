@@ -177,6 +177,22 @@ def install_cart_portlet( self, uninstall=False ):
             right_slots.append( slot )
     portal._updateProperty( 'right_slots', '\n'.join( right_slots ) )    
 
+def install_contentwidget_portlet( self, uninstall=False ):
+    slot = 'here/@@portlet-contentwidget'
+    portal = self.portal_url.getPortalObject()
+    right_slots = portal.getProperty('right_slots')
+    if isinstance( right_slots, str):
+        right_slots = right_slots.split('\n')
+    else:
+        right_slots = list( right_slots )
+    if uninstall:
+        if slot in right_slots:
+            right_slots.remove( slot )
+    else:
+        if slot not in right_slots:
+            right_slots.append( slot )
+    portal._updateProperty( 'right_slots', '\n'.join( right_slots ) )    
+
 def uninstall_cart_portlet( self ):
     install_cart_portlet( self, True )
 
@@ -213,6 +229,9 @@ def install( self ):
 
     print >> out, "Installing Cart Portlet"
     install_cart_portlet( self )
+
+    print >> out, "Installing Content Widget Portlet"
+    install_contentwidget_portlet( self )
 
     print >> out, "Installing Actions"
     setup_actions( self )

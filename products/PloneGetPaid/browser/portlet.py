@@ -30,4 +30,11 @@ class ShoppingCart( BrowserView ):
         if self.cart is None:
             return 0
         return len( self.cart )
+
+class ContentWidget( BrowserView ):
+    """Content Widget Portlet"""
     
+    def isPayable( self ):
+        addable = filter( lambda x, s=self.context: x.providedBy(s), interfaces.PayableMarkers )
+        return not not addable 
+
