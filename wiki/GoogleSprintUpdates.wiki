@@ -24,6 +24,19 @@ Remote sprinters:
 
 = Daily News =
 
+==Day 5==
+
+  * Kapil: Authorize.net can connect, authorize, and store order (though is not part of buildout because of dependency). Still pending is workflow/processor integration and exposing workflow management to admin. Also made a script to generate orders (for testing). 
+  * Db: User order history view and link integrated to UI. 
+  * Bill: GoogleCheckout has button and view (note: not in the buildout yet, will require Kapil updating products). Framed out PayPal processor integration (does html for button, but no view yet)
+  * Dave: UPS communication, and now being parsed. All functionality there, needs to be put into utility, but is modular. 
+  * Eric: Admin UI work. 
+  * Brian: product details portlet. 
+  * John: Closed issue 15 (can now un-mark payable objects). 
+  * David S: More tests: workflow and order
+  * Donna: Will be working to integrate wireframes with AdminUI next week. 
+  * Veda: Howto document structured on wiki
+
 ==Day 3==
 
   * Kapil: Now save orders! Workflow for orders is improved. Admin screen that shows you the orders placed on the system. (to use relational db, integrators can write a storage adapter for the order management). 
