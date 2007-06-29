@@ -143,7 +143,9 @@ def setup_site( self ):
 def setup_order_manager( self ):
     portal = getToolByName( self, 'portal_url').getPortalObject()
     sm = portal.getSiteManager()
-    sm.registerUtility( IOrderManager, OrderManager() )
+    is_already_registered = [u for u in sm.getUtilitiesFor(IOrderManager)]
+    if not len(is_already_registered):
+        sm.registerUtility( IOrderManager, OrderManager() )
 
 def install_control_panel( self ):
 
