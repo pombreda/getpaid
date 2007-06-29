@@ -28,7 +28,7 @@ in the REVIEWING state
    >>> testorder.finance_workflow.fireTransition('create')
    >>> state = testorder.finance_state
    >>> print state
-   'REVIEWING'
+   REVIEWING
    
 Firing the 'create' transition in the fulfillment workflow should put us 
 in the REVIEWING state
@@ -36,4 +36,4 @@ in the REVIEWING state
    >>> testorder.fulfillment_workflow.fireTransition('create')
    >>> state = testorder.fulfillment_state
    >>> print state
-   'NEW'
+   NEW
