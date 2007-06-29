@@ -16,6 +16,10 @@ class IGetPaidCartViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid shopping cart ui
     """
 
+class IOrdersAdminManager( zope.viewlet.interfaces.IViewletManager ):
+    """ viewlet manager for collections of orders admin management
+    """
+
 class IGetPaidContentViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for content that is marked with one of the getpaid Marker interfaces
     """

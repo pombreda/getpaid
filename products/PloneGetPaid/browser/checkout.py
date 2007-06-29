@@ -108,6 +108,7 @@ class CheckoutPayment( MemberContextEdit ):
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         """
+        import pdb; pdb.set_trace()
         manage_options = IGetPaidManagementOptions( self.context )
         processor_name = manage_options.payment_processor
         

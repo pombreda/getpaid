@@ -15,7 +15,7 @@ _prefix = os.path.dirname( __file__ )
 ##                                                    GetPaidManagementTemplate )
 
 
-GetPaidShoppingCartTemplate = os.path.join( _prefix, "templates", "cart-viewlet-manager.pt")
+GetPaidShoppingCartTemplate = os.path.join( _prefix, "templates", "viewlet-manager.pt")
 
 class ViewletManagerShoppingCart( object ):
     """ Shopping Cart Viewlet Manager """

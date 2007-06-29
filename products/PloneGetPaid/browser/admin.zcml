@@ -79,15 +79,6 @@
      permission="cmf.ManagePortal"
      />  
 
-  <!-- Order Management -->
-  <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
-     name="manage-getpaid-orders"
-     class=".order.OrderAdminListing"
-     template="templates/admin-order-listing.pt"
-     permission="cmf.ManagePortal"
-     />  
-  
   <!-- Payment Processing Options -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
@@ -166,6 +157,46 @@
      permission="cmf.ManagePortal"
      />       
 
+
+  <!-- Order Management -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-orders"
+     class=".admin_order.ManageOrders"
+     template="templates/orders-manage.pt"
+     permission="cmf.ManagePortal"
+     />
+
+  <browser:viewletManager
+     name="orders_admin"
+     permission="zope2.View"
+     provides="..interfaces.IOrdersAdminManager"
+     class=".admin_order.OrdersAdminManager" 
+     />
+
+  <browser:viewlet
+     name="order-listing"
+     manager="..interfaces.IOrdersAdminManager"
+     template="templates/orders-listing.pt"
+     class=".admin_order.OrderListingComponent"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="orders-search"
+     manager="..interfaces.IOrdersAdminManager"
+     template="templates/orders-search-filter.pt"
+     class=".admin_order.OrderSearchComponent"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="orders-export-csv"
+     manager="..interfaces.IOrdersAdminManager"
+     template="templates/orders-export-csv.pt"
+     class=".admin_order.OrderCSVComponent"
+     permission="zope2.View"
+     />
 
 
 </configure>
