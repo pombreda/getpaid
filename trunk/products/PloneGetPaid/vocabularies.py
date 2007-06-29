@@ -34,28 +34,28 @@ def ContentTypes( context ):
     return vocabulary.SimpleVocabulary( terms )
 
 def TaxMethods( context ):
-    return vocabulary.SimpleVocabulary.fromValues( ("None",) )
+    return vocabulary.SimpleVocabulary.fromValues( (u"None",) )
 
 def ShippingMethods( context ):
-    return vocabulary.SimpleVocabulary.fromValues( ("None", "Flat Rate Shipping") )
+    return vocabulary.SimpleVocabulary.fromValues( (u"None", u"Flat Rate Shipping") )
 
 def CreditCards( context ):
-    return vocabulary.SimpleVocabulary.fromValues( ("Visa", "Mastercard", "Discover", "American Express") )
+    return vocabulary.SimpleVocabulary.fromValues( (u"Visa", u"Mastercard", u"Discover", u"American Express") )
 
 def WeightUnits( context ):
-    return vocabulary.SimpleVocabulary.fromValues( ("Pounds",) )
+    return vocabulary.SimpleVocabulary.fromValues( (u"Pounds",) )
 
 def Currencies( context ):
-    return vocabulary.SimpleVocabulary.fromValues( ("US Dollars",) )
+    return vocabulary.SimpleVocabulary.fromValues( (u"US Dollars",) )
 
 def MerchantNotificationChoices( context ):
-    return vocabulary.SimpleVocabulary.fromItems( [("Do not send merchant email notification of a completed transaction","no_notification"),
-                                                   ("Send merchant email notification when a transaction happens", "notification"),
-                                                   ("Send merchant encrypted email notification when a transaction happens", "encrypted_notification")]
+    return vocabulary.SimpleVocabulary.fromItems( [("Do not send merchant email notification of a completed transaction" ,u"no_notification"),
+                                                   ("Send merchant email notification when a transaction happens", u"notification"),
+                                                   ("Send merchant encrypted email notification when a transaction happens", u"encrypted_notification")]
                                                 )
 
 def CustomerNotificationChoices( context ):
-    return vocabulary.SimpleVocabulary.fromItems( [("Do not send customer email notification of a completed transaction", "no_notification"), 
-                                                   ("Send customer email notification of a completed transaction", "notification")    
+    return vocabulary.SimpleVocabulary.fromItems( [(u"Do not send customer email notification of a completed transaction", u"no_notification"), 
+                                                   (u"Send customer email notification of a completed transaction", u"notification")    
                                                   ]
                                                 )                                                
