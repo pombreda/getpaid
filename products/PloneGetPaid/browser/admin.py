@@ -21,25 +21,7 @@ class Overview( BrowserView ):
     """ overview of entire system
     """
     
-class Core( formbase.EditForm, BaseView ):
-    """
-    get paid management interface
-    """
-    template = ZopeTwoPageTemplateFile("templates/admin-settings.pt")
-    form_fields = form.Fields( interfaces.IGetPaidManagementConfigOptions )
 
-    form_fields['buyable_types'].custom_widget = SelectWidgetFactory
-    form_fields['premium_types'].custom_widget = SelectWidgetFactory
-    form_fields['donate_types'].custom_widget = SelectWidgetFactory
-    form_fields['accepted_credit_cards'].custom_widget = SelectWidgetFactory
-
-    options = None
-    
-    def __init__( self, context, request ):
-        self.context = context
-        self.request = request
-        self.setupLocale( request )
-        self.setupEnvironment( request )
 
 # Profile
 class Identification( formbase.EditForm, BaseView ):
@@ -58,29 +40,31 @@ class Identification( formbase.EditForm, BaseView ):
         
 
 #Configure
-class ShippableTypes( formbase.EditForm, BaseView ):
+class ContentTypes( formbase.EditForm, BaseView ):
     """
     get paid management interface
     """
-    template = ZopeTwoPageTemplateFile("templates/admin-shippable-types.pt")
-    form_fields = form.Fields(interfaces.IGetPaidManagementShippableTypes)
-    
+    template = ZopeTwoPageTemplateFile("templates/admin-content-types.pt")
+    form_fields = form.Fields( interfaces.IGetPaidManagementContentTypes )
+
+    form_fields['buyable_types'].custom_widget = SelectWidgetFactory
+    form_fields['premium_types'].custom_widget = SelectWidgetFactory
+    form_fields['donate_types'].custom_widget = SelectWidgetFactory
     form_fields['shippable_types'].custom_widget = SelectWidgetFactory
-    
+
     options = None
     
     def __init__( self, context, request ):
         self.context = context
         self.request = request
         self.setupLocale( request )
-        self.setupEnvironment( request )   
+        self.setupEnvironment( request )
 
 class ShippingOptions( formbase.EditForm, BaseView ):
     """
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-shipping-options.pt")
-    form_fields = form.Fields(interfaces.IGetPaidManagementShippingOptions)
     
     options = None
     
@@ -96,6 +80,7 @@ class PaymentProcessor( formbase.EditForm, BaseView ):
     """
     
     template = ZopeTwoPageTemplateFile("templates/admin-payment-processor.pt")
+
     form_fields = None
     options = None
     
@@ -114,13 +99,15 @@ class PaymentProcessor( formbase.EditForm, BaseView ):
         
         processor_name = manage_options.payment_processor
         if not processor_name:
-            return
+            form_fields = form.Fields(interfaces.IGetPaidManagementPaymentProcessor)
+
 
         processor = component.getAdapter( self.context,
                                           igetpaid.IPaymentProcessor,
                                           processor_name )
         
         self.form_fields = form.Fields( processor.options_interface )
+        
 # Order Management
 class CustomerInformation( formbase.EditForm, BaseView ):
     """
@@ -142,8 +129,7 @@ class PaymentProcessing( formbase.EditForm, BaseView ):
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-payment-processing.pt")
-    form_fields = form.Fields(interfaces.IGetPaidManagementPaymentProcessing)
-    
+
     options = None
     
     def __init__( self, context, request ):
