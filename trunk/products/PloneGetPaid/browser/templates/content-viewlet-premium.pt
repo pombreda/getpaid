@@ -1,1 +1,15 @@
-<div><i>Premium product fields go here</i></div>
+<div>
+
+  <p tal:define="field context/Title"
+     tal:condition="field"
+     tal:content="field"
+     />
+  
+  <p tal:define="field context/Description"
+     tal:condition="field">
+     <i tal:content="field" />
+  </p>
+  
+  <i>Premium not implemented yet</i>
+
+</div>
