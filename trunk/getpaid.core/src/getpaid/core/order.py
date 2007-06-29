@@ -40,8 +40,13 @@ class Order( Persistent ):
 
     def getFinanceWorkflow( self ):
         return component.getAdapter( self, IWorkflowInfo, "getpaid.finance.info")
-    
+
     finance_workflow = property( getFinanceWorkflow )
+
+    def getFulfillmentWorkflow( self ):
+        return component.getAdapter( self, IWorkflowInfo, "getpaid.fulfillment.info")
+
+    fulfillment_workflow = property( getFulfillmentWorkflow )
 
     def getTotalPrice( self ):
         if not self.shopping_cart:
