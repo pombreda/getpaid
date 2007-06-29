@@ -147,8 +147,6 @@ class OrderQuery( object ):
     
     @staticmethod
     def finance_state( value ):
-        if value is sys.maxint:
-            return 
         manager = component.getUtility( interfaces.IOrderManager )
         return manager.storage.apply( { 'finance_state':( value, value ) } )
     
@@ -176,11 +174,10 @@ class OrderManager( Persistent ):
     def __init__( self ):
         self.storage = OrderStorage()
 
-    def getOrdersByItem( self, item_id, **kw):
-        return self.query( products = item_id, **kw )
-
     def getOrdersByUser( self, user_id, **kw):
-        return self.query( user_id = user_id, **kw )
+        return query.search(
+            dict( user_id = user_id )
+            )
 
     def store( self, order ):
         self.storage[ order.order_id ] = order
