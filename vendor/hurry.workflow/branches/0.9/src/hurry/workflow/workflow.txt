@@ -11,7 +11,7 @@ Let's first make a content object that can go into a workflow::
 
    >>> from zope.interface import implements, Attribute
  
-   >>> from zope.annotation.interfaces import IAttributeAnnotatable
+   >>> from zope.app.annotation.interfaces import IAttributeAnnotatable
    >>> class IDocument(IAttributeAnnotatable):
    ...    title = Attribute('Title')
    >>> class Document(object):
