@@ -79,6 +79,36 @@
     permission="cmf.ModifyPortalContent"
     />
 
+  <!-- Deactivation Views, turning paybles back into content -->
+  <browser:page
+     for="*"
+     name="deactivate-buyable"
+     class=".content.BuyableDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="deactivate-premium-content"
+     class=".content.PremiumDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="deactivate-shippable"
+     class=".content.ShippableDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="deactivate-donate"
+     class=".content.DonateDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <!--  -->
   <browser:page
         for="*"
         name="portlet-contentwidget"
