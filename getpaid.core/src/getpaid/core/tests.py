@@ -53,8 +53,8 @@ def workflowSetUp(doctest):
                         
     ztapi.provideUtility(interfaces.IWorkflow,
                         oworkflow.FinanceWorkflow(),
-                        'getpaid.finance.workflow')                        
-   
+                        'getpaid.finance.workflow')
+
     ztapi.provideUtility(interfaces.IWorkflowVersions,
                          oworkflow.OrderVersions())
 
