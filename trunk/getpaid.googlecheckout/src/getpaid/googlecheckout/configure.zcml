@@ -11,5 +11,12 @@
       provides="getpaid.core.interfaces.IPaymentProcessor"
       name="Google Checkout"
       factory=".googlecheckout.GoogleCheckoutProcessor" />
+
+    <browser:page
+      for="*"
+      name="checkout_link"
+      class=".browser.GoogleCheckoutLink"
+      permission="zope2.View"
+      />
      
 </configure>
