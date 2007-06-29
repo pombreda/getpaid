@@ -165,7 +165,7 @@ class OrderQuery( object ):
     @staticmethod
     def user_id( value ):
         manager = component.getUtility( interfaces.IOrderManager )
-        return manager.storage.apply( {'user':( value, value ) } )                
+        return manager.storage.apply( {'user_id':( value, value ) } )                
 
 query = OrderQuery
 
