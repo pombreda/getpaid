@@ -5,8 +5,6 @@
 <!-- Dependencies -->
 <include package="getpaid.core" />
 <include package="getpaid.processor.googlecheckout" />
-<include package="getpaid.authorizedotnet" />
-
 
 <include package="ore.member" file="meta.zcml" />
 <include package="ore.member" />
