@@ -14,9 +14,8 @@ class IPaypalStandardOptions( interfaces.IPaymentProcessorOptions ):
     Paypal Standard Options
     """
     server_url = schema.Choice(
-        title = u"Paypal Website Payments Server URL",
+        title = u"Paypal Website Payments Server",
         values = ( "Sandbox", "Production" ),
         )
 
-    merchant_id = schema.ASCIILine( title = u"Merchant Id")
-    merchant_key = schema.ASCIILine( title = u"Merchant Key")
+    merchant_id = schema.ASCIILine( title = u"Paypal Id")
