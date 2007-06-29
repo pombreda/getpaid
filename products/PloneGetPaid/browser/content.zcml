@@ -112,7 +112,7 @@
     name="portlet-contentwidget"
     for="..interfaces.IDonatableMarker"
     class=".content.ContentPortlet"
-    template="templates/content-viewlet-donatable.pt"
+    template="templates/portlet-content-donatable.pt"
     permission="zope2.View"
     />
     
@@ -120,7 +120,7 @@
     name="portlet-contentwidget"
     for="..interfaces.IBuyableMarker"
     class=".content.ContentPortlet"
-    template="templates/content-viewlet-buyable.pt"
+    template="templates/portlet-content-buyable.pt"
     permission="zope2.View"
     />
 
@@ -128,7 +128,7 @@
     name="portlet-contentwidget"
     for="..interfaces.IShippableMarker"
     class=".content.ContentPortlet"
-    template="templates/content-viewlet-shippable.pt"
+    template="templates/portlet-content-shippable.pt"
     permission="zope2.View"
     />
 
@@ -136,7 +136,7 @@
     name="portlet-contentwidget"
     for="..interfaces.IPremiumMarker"
     class=".content.ContentPortlet"
-    template="templates/content-viewlet-premium.pt"
+    template="templates/portlet-content-premium.pt"
     permission="zope2.View"
     />
 
