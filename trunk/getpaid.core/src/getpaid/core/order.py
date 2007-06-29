@@ -9,12 +9,13 @@ from zope import component
 from zope.index.field import FieldIndex
 from zope.index.keyword  import KeywordIndex
 from persistent import Persistent
+from persistent.dict import PersistentDict
 from zope.app.annotation.interfaces import IAttributeAnnotatable
 
-from BTrees.IFBTree import weightedIntersection
+from BTrees.IFBTree import weightedIntersection, intersection
 from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
 
-import decimal
+import decimal, datetime
 
 from getpaid.core import interfaces
 
@@ -22,11 +23,28 @@ class Order( Persistent ):
 
     implements( interfaces.IOrder, IAttributeAnnotatable )
 
-    order_id = None
+    _order_id = None
     shipping_address = None
     billing_address = None
     shopping_cart = None
     processor_order_id = None
+    user_id = None
+    creation_date = None
+
+    def __init__( self ):
+        self.creation_date = datetime.datetime.now()
+
+    def getOrderId( self ):
+        return self._order_id
+
+    def setOrderId( self, order_id):
+        if self._order_id is not None:
+            raise SyntaxError("Order Id already set")
+        if not order_id:
+            raise TypeError("Invalid Order Id")
+        self._order_id = order_id
+
+    order = property( getOrderId, setOrderId )
 
     def getFinanceState( self ):
         return component.getAdapter( self, IWorkflowState, "getpaid.finance.state").getState()
@@ -65,7 +83,93 @@ class Order( Persistent ):
         
         return float( str( total ) )
 
+class OrderQuery( object ):
+    """
+    simple query construction.. it might be problematic for other storages without collapsing
+    sort clauses where possible. best to minimize any query combinations in the released product.
+    """
+
+    @staticmethod
+    def search( data ):
+        """ take a dictionary of key, value pairs, and based on available queries/indexes
+        construct query and return results """
+        results = None
+        for term in [ 'creation_date',
+                      'finance_state',
+                      'fulfillment_state',
+                      'user_id',
+                      'creation_date' ]:
+            term_value = data.get( term )
+            if term_value is None:
+                continue
+
+            term_results = getattr( query, term )( term_value )
+            if term_results is None: # short circuit .. default and intersection
+                return []
+            if results is None:
+                results = term_results
+            else:
+                results = query.merge( results, term_results )
+
+        # actualize to order objects
+        results = query.generate( results )
+        
+        # reverse sort on creation date
+        return query.sort( results, 'creation_date', reverse=True )
     
+    @staticmethod
+    def generate( results ):
+        """ used to actualize results from ifsets to 
+        """
+        manager = component.getUtility( interfaces.IOrderManager )
+        return ResultSet( results, manager.storage )
+
+    @staticmethod
+    def sort( results, attribute, reverse=False ):
+        results = list( results )
+        results.sort( lambda x,y: cmp( getattr( x, attribute ), getattr( y, attribute ) ) )
+        if reverse:
+            results.reverse()
+        return results
+
+    @staticmethod
+    def merge( *results  ):
+        return reduce( intersection, [res for res in results if res is not None] )
+    
+    @staticmethod
+    def latest( delta = None ):
+        if not delta:
+            delta = datetime.timedelta(7) 
+        manager = component.getUtility( interfaces.IOrderManager )
+        now = datetime.datetime.now()
+        return manager.storage.apply( { 'creation_date':( now-delta, now ) } )
+
+    creation_date = latest
+    
+    @staticmethod
+    def finance_state( value ):
+        if value is sys.maxint:
+            return 
+        manager = component.getUtility( interfaces.IOrderManager )
+        return manager.storage.apply( { 'finance_state':( value, value ) } )
+    
+    @staticmethod
+    def fufillment_state( value ):
+        manager = component.getUtility( interfaces.IOrderManager )
+        return manager.storage.apply( {'fufillment_state':( value, value ) } )        
+
+    @staticmethod
+    def products( *products ):
+        manager = component.getUtility( interfaces.IOrderManager )
+        return manager.storage.apply( {'products':products } )
+    
+    @staticmethod
+    def user_id( value ):
+        manager = component.getUtility( interfaces.IOrderManager )
+        return manager.storage.apply( {'user':( value, value ) } )                
+
+query = OrderQuery
+
 class OrderManager( Persistent ):
 
     implements( interfaces.IOrderManager )
@@ -115,14 +219,14 @@ class OrderStorage( BTreeContainer ):
 
     def __init__( self ):
         super( OrderStorage, self).__init__()
-        self.indexes = {
-            'order_id' : FieldIndex(),
+        self.indexes = PersistentDict( {
             'products' : KeywordIndex(),
             'user_id'  : FieldIndex(),
             'processor_order_id' : FieldIndex(),
             'finance_state'   : FieldIndex(),
-            'fufillment_state' : FieldIndex()
-            }
+            'fufillment_state' : FieldIndex(),
+            'creation_date' : FieldIndex() 
+            } )
         
     def query( self, **args ):
         results = self.apply( args )
