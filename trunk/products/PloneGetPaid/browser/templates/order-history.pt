@@ -8,17 +8,22 @@
       >
 <body>
 <div metal:fill-slot="main">
+    <div tal:define="orders view/getUserOrders">
+	
+	 <ul>
+     <li tal:repeat="order orders">
+	 	<b tal:content="order/order_id"></b>
+	 	<b tal:content="order/getTotalPrice"></b>
+	 	<b tal:content="order/fulfillment_state"></b>
+	 	<b tal:content="order/finance_state"></b>
+	 </li>
+	</ul>
 
-    <ul>
-      <li tal:repeat="order view/getUserOrders">
-	 <b tal:content="order/order_id"> </b> 
-	 <b tal:content="order/getTotalPrice"></b>
+     <div tal:condition="python:not orders">
+	 <p>You Have Not Yet Placed Any Orders</p>
+	 </div>
 
-	 <b tal:content="order/fulfillment_state"></b>
-	 <b tal:content="order/finance_state"></b> 
-
-      </li>
-    </ul>
+    </div>
 
 </div>
 </html>
