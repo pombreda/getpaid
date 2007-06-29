@@ -6,6 +6,8 @@ from zope import interface
 from gchecky.controller import Controller
 from gchecky import model as gmodel
 
+import interfaces
+
 class GController(gbase.Controller):
     pass
 
@@ -37,7 +39,7 @@ class GCartAdapter(object):
 
 class GoogleCheckoutProcessor( object ):
    
-    implements( interfaces.IGoogleCheckoutProcessor )
+    interface.implements( interfaces.IGoogleCheckoutProcessor )
 
     options_interface = interfaces.IGoogleCheckoutOptions
 
