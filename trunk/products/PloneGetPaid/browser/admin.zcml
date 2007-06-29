@@ -53,6 +53,14 @@
      permission="cmf.ManagePortal"
      />
 
+  <!-- Management Payment Options Editing -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-payment-options"
+     class=".admin.PaymentOptions"     
+     permission="cmf.ManagePortal"
+     />
+
   <!-- Management Payment Processor Editing -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"

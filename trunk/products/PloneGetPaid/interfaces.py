@@ -149,6 +149,8 @@ class IGetPaidManagementShippingOptions( igetpaid.IPersistentOptions ):
                                      required = True,
                                      source = "getpaid.shipping_methods" )
 
+
+
 class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
