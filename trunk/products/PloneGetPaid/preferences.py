@@ -70,7 +70,7 @@ MerchantNotificationPreferences = PersistentOptions.wire("MerchantNotificationPr
                                                          "getpaid.configuration",
                                                          interfaces.IGetPaidManagementMerchantNotificationOptions )   
 #Customize Header/Footer 
-HeaderFooterPreferences = PersistentOptions.wire("HeaderFooterPreferences",
+LegalDisclaimerPreferences = PersistentOptions.wire("LegalDisclaimerPreferences",
                                                   "getpaid.configuration",
-                                                  interfaces.IGetPaidManagementHeaderFooterOptions )    
+                                                  interfaces.IGetPaidManagementLegalDisclaimerOptions )    
   

@@ -156,13 +156,13 @@
      permission="cmf.ManagePortal"
      />
      
-  <!-- Customize Header/Footer -->   
+  <!-- Customize Legal Disclaimers -->   
      
-  <!-- Management Header/Footer Options -->
+  <!-- Management Legal Disclaimer Options -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
-     name="manage-getpaid-headerfooter"
-     class=".admin.HeaderFooter"     
+     name="manage-getpaid-legal-disclaimers"
+     class=".admin.LegalDisclaimers"     
      permission="cmf.ManagePortal"
      />       
 
