@@ -2,6 +2,7 @@
 from Products.Five.viewlet import manager, viewlet
 from Products.Five.formlib.formbase import FormBase, SubPageForm
 from Products.PloneGetPaid import interfaces
+from zope import component
 
 import os
 
@@ -38,9 +39,28 @@ GetPaidContentWidgetsTemplate = os.path.join( _prefix, "templates", "contentwidg
 class ViewletManagerContent( object ):
     """ Content Widget Viewlet Manager """
 
+    def __init__( self, *args, **kw):
+        super( ViewletManagerContent, self).__init__( *args, **kw)
+        
+        item_id = self.context.UID()
+
+        found = False
+        for marker, iface in interfaces.PayableMarkerMap.items():
+            if marker.providedBy( self.context ):
+                found = True
+                break
+
+        if not found:
+            raise RuntimeError("Invalid Context For Cart Add")
+        
+        self.payable = component.getMultiAdapter( ( self.context, self.request ), iface )
+
     def sort (self, viewlets ):
         """ sort by name """
         return sorted(viewlets)
+    
+    def payableFields(self):
+        return self.payable
 
 ContentWidgetManager = manager.ViewletManager( "ContentViewManager",
                                               interfaces.IGetPaidContentViewletManager,

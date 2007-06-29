@@ -10,18 +10,12 @@
 
         <dt class="portletHeader">
             <span class="portletTopLeft"></span>
-	    Your Cart
+              Your Cart
             <span class="portletTopRight"></span>
         </dt>
 
         <dd class="portletItem even"> 
-	  Contains <span tal:content="view/size"> 5 </span> Items
-	</dd>
-
-	<dd class="portletItem odd" tal:condition="view/isContextAddable">
-	  <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True">
-	     Add to Cart
-	  </a>
+            Contains <span tal:content="view/size"> 5 </span> Items
         </dd>
 
         <dd class="portletFooter">

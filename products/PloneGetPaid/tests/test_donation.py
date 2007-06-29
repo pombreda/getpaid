@@ -1,9 +1,28 @@
 """Integration tests for donations.
 """
 from base import PloneGetPaidTestCase
+import getpaid.core.interfaces as igetpaid
+from zope.schema import getFieldNames, getFields
+from zope.schema import Field, Set, Int
+
+from zope.schema.interfaces import NotAContainer, RequiredMissing
+from zope.schema.interfaces import WrongContainedType, WrongType, NotUnique
+from zope.schema.interfaces import TooShort, TooLong
+
+from zope import component
 
 class TestCreateDonation(PloneGetPaidTestCase):
 
+    def testHaveFields(self):
+        """ Set and check IDonatableMarker schema """
+        for f in ('productCode', 'price', 'donationText', 'madePayableBy'):
+            self.failUnless(f in getFieldNames(igetpaid.IDonationContent))
+
+        #sample for one field
+        donatable_fields = getFields(igetpaid.IDonationContent)        
+        fieldDonationText = donatable_fields['donationText']
+        self.assertRaises(RequiredMissing, fieldDonationText.validate, None)
+        
     def testDonationProcess(self):
         from Products.Five.utilities.marker import mark
         from Products.PloneGetPaid.interfaces import IDonatableMarker
@@ -15,13 +34,11 @@ class TestCreateDonation(PloneGetPaidTestCase):
         donation = self.portal.restrictedTraverse('page-to-donate')
         
         mark( donation, IDonatableMarker)
-        
-        #XXX needs lots of tests - held up debugging the IDonationContent adapter:
-        
+
+        #XXX tests to be continued...
         #request = TestRequest()
-        #d = IDonationContent(donation, request)
-        #import pdb; pdb.set_trace()
-        #print d.values()
+        #payable = component.getMultiAdapter( ( donation, request ), IDonatableMarker )
+        #print payable.donationText()        
         
 def test_suite():
     from unittest import TestSuite, makeSuite

@@ -1,1 +1,18 @@
-<div><i>Shippable product fields go here</i></div>
+<div>
+
+  <p tal:define="field context/Title"
+     tal:condition="field"
+     tal:content="field"
+     />
+  
+  <p tal:define="field context/Description"
+     tal:condition="field">
+     <i tal:content="field" />
+  </p>
+
+  <p tal:define="field python: view.manager.payableFields().price"
+     tal:condition="field">
+       Price: $<span tal:content="field" />
+  </p>
+
+</div>
