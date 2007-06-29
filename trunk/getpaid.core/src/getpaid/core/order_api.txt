@@ -1,0 +1,39 @@
+GetPaid Core Order API
+==============
+
+Basic workflow
+--------------
+
+Let's first create an Order object to work with:
+
+   >>> from getpaid.core.order import Order
+   >>> testorder = Order()
+   
+Now we'll test the order workflow...
+
+Before we fire the 'create' transition we don't have a workflow states
+for finance and fulfillment
+
+   >>> state = testorder.fulfillment_state
+   >>> print state
+   None
+
+   >>> state = testorder.finance_state
+   >>> print state
+   None
+
+Firing the 'create' transition in the finance workflow should put us 
+in the REVIEWING state
+ 
+   >>> testorder.finance_workflow.fireTransition('create')
+   >>> state = testorder.finance_state
+   >>> print state
+   'REVIEWING'
+   
+Firing the 'create' transition in the fulfillment workflow should put us 
+in the REVIEWING state
+ 
+   >>> testorder.fulfillment_workflow.fireTransition('create')
+   >>> state = testorder.fulfillment_state
+   >>> print state
+   'NEW'
