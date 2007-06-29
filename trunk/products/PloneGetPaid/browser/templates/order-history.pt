@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      >
+<body>
+<div metal:fill-slot="main">
+
+    <ul>
+      <li tal:repeat="order view/getUserOrders">
+	 <b tal:content="order/order_id"> </b> 
+	 <b tal:content="order/getTotalPrice"></b>
+
+	 <b tal:content="order/fulfillment_state"></b>
+	 <b tal:content="order/finance_state"></b> 
+
+      </li>
+    </ul>
+
+</div>
+</html>
