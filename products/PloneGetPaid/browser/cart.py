@@ -122,6 +122,10 @@ class ShoppingCartListing( ContainerViewlet ):
 
     def getContainerContext( self ):
         return self.__parent__.cart
+        
+    def isOrdered( self, *args ):
+        # shopping cart should not be ordered, so override this with False
+        return False
     
 class ShoppingCartActions( FormViewlet ):
 
