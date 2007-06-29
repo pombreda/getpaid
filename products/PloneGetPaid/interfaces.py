@@ -46,8 +46,8 @@ PayableMarkerMap = dict(
     )
 )    
 
-class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
-
+    
+class IGetPaidManagementConfigOptions( igetpaid.IPersistentOptions ):
     payment_processor = schema.Choice( title = u"Payment Processor",
                                        source = "getpaid.payment_methods" )
 
@@ -88,13 +88,6 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
         value_type = schema.Choice( title=u"buyable_types", source="plone.content_types" )
         )
         
-    shippable_types = schema.List(
-        title = u"Shippable Product Types",
-        required = False,
-        default = [],
-        description = u"Content Types that represent goods that can be purchased and shipped",        
-        value_type = schema.Choice( title=u"shippable_types", source="plone.content_types" )
-        )
 
     premium_types = schema.List(
         title = u"Premium Content Types",
@@ -112,6 +105,7 @@ class IGetPaidManagementOptions( igetpaid.IPersistentOptions ):
         value_type = schema.Choice( title=u"donate_types", source="plone.content_types" )
         )
         
+
 
 class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
 
@@ -174,26 +168,102 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                    required = False,
                                    default = u""
                                  )
+# Configure
+class IGetPaidManagementShippableTypes( igetpaid.IPersistentOptions ):
+    """
+    """
+    shippable_types = schema.List(
+        title = u"Shippable Product Types",
+        required = False,
+        default = [],
+        description = u"Content Types that represent goods that can be purchased and shipped",        
+        value_type = schema.Choice( title=u"shippable_types", source="plone.content_types" )
+        )
 
+class IGetPaidManagementShippingOptions( igetpaid.IPersistentOptions ):
+    """
+    """
+
+class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
+    """
+    """
+
+
+# Order Management
+class IGetPaidManagementCustomerInformation( igetpaid.IPersistentOptions ):
+    """
+    """
+    
+class IGetPaidManagementOrderInformation( igetpaid.IPersistentOptions ):
+    """
+    """
+
+class IGetPaidManagementPaymentProcessing( igetpaid.IPersistentOptions ):
+    """
+    """
+
+class IGetPaidManagementWeightUnits( igetpaid.IPersistentOptions ):
+    """
+    """
+
+class IGetPaidManagementSessionTimeout( igetpaid.IPersistentOptions ):
+    """
+    """
+
+class IGetPaidManagementSalesTaxOptions( igetpaid.IPersistentOptions ):
+    """
+    """
+
+# Currency    
 class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
+    """
+    """
     currency_symbol = schema.TextLine( title = u"Currency Symbol",
                                    required = True,
                                    default = u"$"
                                  )
-                                 
-class IGetPaidManagementMaintenanceOptions( igetpaid.IPersistentOptions ):
-    pass
-                                 
+
+# Emails
 class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
-    contact_fax = schema.Bool( title = u"Send notifications of transactions.",
-                               default = True
-                             )
-                                 
+    """
+    """
+
+class IGetPaidManagementMerchantNotificationOptions( igetpaid.IPersistentOptions ):     
+    """
+    """
+
+class IGetPaidManagementCustomerNotificationOptions( igetpaid.IPersistentOptions ):     
+    """
+    """
+    
+# Customize Header/Footer
 class IGetPaidManagementHeaderFooterOptions( igetpaid.IPersistentOptions ):
+    """
+    """
     header = schema.Text( title = u"Header",
-                                   required = False,
-                                 )
+                          required = False,
+                        )
                                  
     footer = schema.Text( title = u"Footer",
-                                   required = False,
-                                 )
+                          required = False,
+                        )                                 
+
+class IGetPaidManagementOptions( IGetPaidManagementConfigOptions, 
+                                 IGetPaidManagementIdentificationOptions,
+                                 IGetPaidManagementShippableTypes,
+                                 IGetPaidManagementShippingOptions,
+                                 IGetPaidManagementPaymentOptions,
+                                 IGetPaidManagementCustomerInformation,
+                                 IGetPaidManagementOrderInformation,
+                                 IGetPaidManagementPaymentProcessing,
+                                 IGetPaidManagementWeightUnits,
+                                 IGetPaidManagementSessionTimeout,
+                                 IGetPaidManagementSalesTaxOptions,                                 
+                                 IGetPaidManagementCurrencyOptions,
+                                 IGetPaidManagementEmailOptions,
+                                 IGetPaidManagementMerchantNotificationOptions,
+                                 IGetPaidManagementCustomerNotificationOptions,
+                                 IGetPaidManagementHeaderFooterOptions
+                                ):
+    """
+    """

@@ -82,12 +82,6 @@
    provides=".interfaces.IGetPaidManagementCurrencyOptions"
    factory=".preferences.CurrencyPreferences"
    />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementMaintenanceOptions"
-   factory=".preferences.MaintenancePreferences"
-   />
    
 <adapter
    for="Products.CMFCore.interfaces.ISiteRoot"

@@ -26,14 +26,12 @@ class Core( formbase.EditForm, BaseView ):
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-settings.pt")
-    form_fields = form.Fields( interfaces.IGetPaidManagementOptions )
+    form_fields = form.Fields( interfaces.IGetPaidManagementConfigOptions )
 
     form_fields['buyable_types'].custom_widget = SelectWidgetFactory
-    form_fields['shippable_types'].custom_widget = SelectWidgetFactory
     form_fields['premium_types'].custom_widget = SelectWidgetFactory
     form_fields['donate_types'].custom_widget = SelectWidgetFactory
     form_fields['accepted_credit_cards'].custom_widget = SelectWidgetFactory
-    
 
     options = None
     
@@ -43,6 +41,7 @@ class Core( formbase.EditForm, BaseView ):
         self.setupLocale( request )
         self.setupEnvironment( request )
 
+# Profile
 class Identification( formbase.EditForm, BaseView ):
     """
     get paid management interface
@@ -58,27 +57,45 @@ class Identification( formbase.EditForm, BaseView ):
         self.setupEnvironment( request )    
         
 
-class Currency( formbase.EditForm, BaseView ):
+#Configure
+class ShippableTypes( formbase.EditForm, BaseView ):
     """
     get paid management interface
     """
-    template = ZopeTwoPageTemplateFile("templates/admin-currency.pt")
-    form_fields = form.Fields(interfaces.IGetPaidManagementCurrencyOptions)
+    template = ZopeTwoPageTemplateFile("templates/admin-shippable-types.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementShippableTypes)
+    
+    form_fields['shippable_types'].custom_widget = SelectWidgetFactory
+    
     options = None
     
     def __init__( self, context, request ):
         self.context = context
         self.request = request
         self.setupLocale( request )
-        self.setupEnvironment( request )    
-        
+        self.setupEnvironment( request )   
 
-class Processor( formbase.EditForm, BaseView ):
+class ShippingOptions( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-shipping-options.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementShippingOptions)
+    
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request ) 
+
+class PaymentProcessor( formbase.EditForm, BaseView ):
     """
     get paid management interface
     """
     
-    template = ZopeTwoPageTemplateFile("templates/admin-processor.pt")
+    template = ZopeTwoPageTemplateFile("templates/admin-payment-processor.pt")
     form_fields = None
     options = None
     
@@ -104,20 +121,97 @@ class Processor( formbase.EditForm, BaseView ):
                                           processor_name )
         
         self.form_fields = form.Fields( processor.options_interface )
-
-class Maintenance( formbase.EditForm, BaseView ):
+# Order Management
+class CustomerInformation( formbase.EditForm, BaseView ):
     """
     get paid management interface
     """
-    template = ZopeTwoPageTemplateFile("templates/admin-maintenance.pt")
-    form_fields = []
+    template = ZopeTwoPageTemplateFile("templates/admin-customer-information.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementCustomerInformation)
+    
     options = None
     
     def __init__( self, context, request ):
         self.context = context
         self.request = request
         self.setupLocale( request )
+        self.setupEnvironment( request )
+
+class PaymentProcessing( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-payment-processing.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementPaymentProcessing)
+    
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )
         
+class WeightUnits( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-weight-units.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementWeightUnits)
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )    
+        
+class SessionTimeout( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-session-timeout.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementSessionTimeout)
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )    
+
+class SalesTax( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-sales-tax.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementSalesTaxOptions)
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )  
+                
+#Currency        
+class Currency( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-currency.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementCurrencyOptions)
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )    
+        
+
+
+#Emails
 class Email( formbase.EditForm, BaseView ):
     """
     get paid management interface
@@ -133,6 +227,37 @@ class Email( formbase.EditForm, BaseView ):
         self.setupEnvironment( request )            
         self.setupEnvironment( request )    
 
+class MerchantNotification( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-merchant-notification.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementMerchantNotificationOptions)
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )            
+        self.setupEnvironment( request )
+
+class CustomerNotification( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-customer-notification.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementCustomerNotificationOptions)
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )            
+        self.setupEnvironment( request )
+
+#Customize Header/Footer        
 class HeaderFooter( formbase.EditForm, BaseView ):
     """
     get paid management interface
