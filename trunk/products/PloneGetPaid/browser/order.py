@@ -9,13 +9,23 @@ from zope import component
 from getpaid.core.interfaces import IOrderManager
 from AccessControl import getSecurityManager
 
-class UserOrderHistory( BaseView ):
+class UserOrderHistory( BrowserView ):
 
+    def __call__( self ):
+        uid = getSecurityManager().getUser().getId()
+        if not uid:
+            self.request.response.redirect("login_form?came_from=@@getpaid-order-history")
+            return ""
+        return super(UserOrderHistory, self).__call__()
+        
     def getUserOrders( self ):
         uid = getSecurityManager().getUser().getId()
         order_manager  = component.getUtility( IOrderManager )
         orders = order_manager.getOrdersByUser( uid )
-        return orders
+        if orders:
+            return orders
+        else:
+            return "You Have Not Yet Placed Any Orders"
 
 class OrderAdminListing( BrowserView ):
 
@@ -24,4 +34,3 @@ class OrderAdminListing( BrowserView ):
         return list( order_manager.storage.values() )
     
 
-        
