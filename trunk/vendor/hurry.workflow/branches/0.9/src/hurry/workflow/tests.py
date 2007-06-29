@@ -2,8 +2,8 @@ import unittest
 
 from zope.testing import doctest
 from zope.app.testing import placelesssetup, ztapi
-from zope.annotation import interfaces as annotation_interfaces
-from zope.annotation import attribute
+from zope.app.annotation import interfaces as annotation_interfaces
+from zope.app.annotation import attribute
 from hurry.workflow import interfaces, workflow
 
 class WorkflowVersions(workflow.WorkflowVersions):
