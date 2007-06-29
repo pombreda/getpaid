@@ -196,6 +196,9 @@ def install_contentwidget_portlet( self, uninstall=False ):
 def uninstall_cart_portlet( self ):
     install_cart_portlet( self, True )
 
+def uninstall_contentwidget_portlet( self ):
+    install_contentwidget_portlet (self, True )
+    
 def install_member_schemas( self ):
     manager = ISiteSchemaManager( self )
     schemas = manager.member_schemas
@@ -250,5 +253,7 @@ def uninstall( self ):
     uninstall_member_schemas( self )
 
     uninstall_cart_portlet( self )
+    
+    uninstall_contentwidget_portlet( self )
 
     return "Uninstalled"
