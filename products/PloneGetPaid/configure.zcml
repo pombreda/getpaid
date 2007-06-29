@@ -191,4 +191,14 @@
    name="getpaid.weight_units"
    factory=".vocabularies.WeightUnits"
    />   
+ 
+<vocabulary
+   name="getpaid.merchant_notification_choices"
+   factory=".vocabularies.MerchantNotificationChoices"
+   />   
+   
+<vocabulary
+   name="getpaid.customer_notification_choices"
+   factory=".vocabularies.CustomerNotificationChoices"
+   />  
 </configure>

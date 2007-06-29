@@ -109,7 +109,7 @@ class PaymentProcessor( formbase.EditForm, BaseView ):
 
     def __call__( self ):
         self.setupProcessorOptions()
-        return super( Processor, self).__call__()
+        return super( PaymentProcessor, self).__call__()
         
     def setupProcessorOptions( self ):
         manage_options = interfaces.IGetPaidManagementOptions( self.context )
@@ -273,4 +273,9 @@ class LegalDisclaimers( formbase.EditForm, BaseView ):
         self.request = request
         self.setupLocale( request )
         self.setupEnvironment( request )    
+        
+        
+        
+        
+        
        
