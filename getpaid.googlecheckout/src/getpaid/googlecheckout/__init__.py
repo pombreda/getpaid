@@ -8,9 +8,3 @@ GoogleCheckoutOptions = PersistentOptions.wire("GoogleCheckoutOptions",
                                                "getpaid.googlecheckout",
                                                interfaces.IGoogleCheckoutOptions )
 
-
-                 
-
-        
-        
-
