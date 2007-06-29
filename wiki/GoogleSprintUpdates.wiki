@@ -10,9 +10,11 @@ We started the DocComm sprint at Google June 25. This is an update of notes. Fin
 On site sprinters: 
   * Kapil: pay processor / workflow integration
   * Brian G: Product details portlet
+  * David S: 
+  * DB: user order history
   * Eric S: Admin UI
   * Dave F: UPS (shipping utility) integration
-  * Bill: GoogleCheckout
+  * Bill: GoogleCheckout, Paypal
   * Veda: 
   * Donna: 
 
