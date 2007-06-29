@@ -18,10 +18,10 @@ IdentificationPreferences = PersistentOptions.wire("IdentificationPreferences",
                                                   "getpaid.configuration",
                                                   interfaces.IGetPaidManagementIdentificationOptions)
 #Configure
-ShippableTypesPreferences = PersistentOptions.wire("ShippableTypesPreferences",
+ContentTypesPreferences = PersistentOptions.wire("ContentTypesPreferences",
                                                   "getpaid.configuration",
-                                                  interfaces.IGetPaidManagementShippableTypes )
-    
+                                                  interfaces.IGetPaidManagementContentTypes )
+   
 ShippingOptionsPreferences = PersistentOptions.wire("ShippingOptionsPreferences",
                                                   "getpaid.configuration",
                                                   interfaces.IGetPaidManagementShippingOptions )

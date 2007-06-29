@@ -37,12 +37,11 @@
      />
 
   <!-- Configure -->
-
-  <!-- Management Shippable Types Editing -->
+  <!-- Management Content Types Editing -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
-     name="manage-getpaid-shippable-types"
-     class=".admin.ShippableTypes"     
+     name="manage-getpaid-content-types"
+     class=".admin.ContentTypes"     
      permission="cmf.ManagePortal"
      />
 
@@ -59,14 +58,6 @@
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-payment-processor"
      class=".admin.PaymentProcessor"     
-     permission="cmf.ManagePortal"
-     />
-     
-  <!-- Management Core Options Editing -->
-  <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
-     name="manage-getpaid-core"
-     class=".admin.Core"     
      permission="cmf.ManagePortal"
      />
      
