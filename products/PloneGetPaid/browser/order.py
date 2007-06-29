@@ -22,10 +22,7 @@ class UserOrderHistory( BrowserView ):
         uid = getSecurityManager().getUser().getId()
         order_manager  = component.getUtility( IOrderManager )
         orders = order_manager.getOrdersByUser( uid )
-        if orders:
-            return orders
-        else:
-            return "You Have Not Yet Placed Any Orders"
+        return orders or []
 
 class OrderAdminListing( BrowserView ):
 
