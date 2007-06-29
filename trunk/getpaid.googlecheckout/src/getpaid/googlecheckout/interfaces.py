@@ -16,8 +16,8 @@ class IGoogleCheckoutOptions( interfaces.IPaymentProcessorOptions ):
     """
     server_url = schema.Choice(
         title = u"Google Checkout Server URL",
-        values = ( "Test", "Production" ),
+        values = ( "Sandbox", "Production" ),
         )
 
-    merchant_id = schema.TextLine( title = u"Merchant Id")
-    merchant_key = schema.ASCII( title = u"Merchant Key")
+    merchant_id = schema.ASCIILine( title = u"Merchant Id")
+    merchant_key = schema.ASCIILine( title = u"Merchant Key")
