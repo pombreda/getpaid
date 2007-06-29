@@ -151,7 +151,7 @@ class OrderQuery( object ):
         return manager.storage.apply( { 'finance_state':( value, value ) } )
     
     @staticmethod
-    def fufillment_state( value ):
+    def fulfillment_state( value ):
         manager = component.getUtility( interfaces.IOrderManager )
         return manager.storage.apply( {'fufillment_state':( value, value ) } )        
 
@@ -254,7 +254,6 @@ class OrderStorage( BTreeContainer ):
     
     def __setitem__( self, key, object):
         super( OrderStorage, self ).__setitem__( key, object )
-        doc_id = int( key )
         self.index( object )
 
     def reset_index( self ):
@@ -264,8 +263,8 @@ class OrderStorage( BTreeContainer ):
             order = self[ oid ]
             self.index( order )
             
-    def index( self, order ):
-        doc_id = int( order.order_id )
+    def index( self, object ):
+        doc_id = int( object.order_id )
         for attr, index in self.indexes.items():
             value = getattr( object, attr, None)
             if callable( value ):
