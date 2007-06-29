@@ -3,6 +3,7 @@
 $Id$
 """
 
+from zope.interface import implements
 from workflow import MultiWorkflowInfo, MultiWorkflowState
 
 from hurry.workflow import interfaces as iworkflow
@@ -120,11 +121,12 @@ def create_finance_workflow( ):
 
 
 class FulfillmentWorkflow( workflow.Workflow ):
-
+    implements( iworkflow.IWorkflow )
     def __init__( self ):
-        super( FulfillmentWorkflow, self).__init__( create_fulfillment_workflow( ))
+        super( FulfillmentWorkflow, self).__init__( create_fulfillment_workflow())
 
 class FinanceWorkflow( workflow.Workflow ):
+    implements( iworkflow.IWorkflow )
 
     def __init__( self ):
         super( FinanceWorkflow, self).__init__( create_finance_workflow() )
@@ -157,7 +159,6 @@ class OrderVersions( workflow.WorkflowVersions ):
 if __name__ == '__main__':
     wk = FinanceWorkflow()
     wk = FulfillmentWorkflow()
-         
-    
-                                  
-        
+
+
+
