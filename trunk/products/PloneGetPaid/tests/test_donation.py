@@ -35,11 +35,17 @@ class TestCreateDonation(PloneGetPaidTestCase):
         
         mark( donation, IDonatableMarker)
 
-        #XXX tests to be continued...
-        #request = TestRequest()
-        #payable = component.getMultiAdapter( ( donation, request ), IDonatableMarker )
-        #print payable.donationText()        
-        
+        request = TestRequest()
+        payable = component.getMultiAdapter( ( donation, request ), IDonationContent )
+
+        payable.setProperty('donationText','description')
+        self.failUnless(payable.donationText == 'description')
+
+        # XXX how do we test validation and required?
+        #   for example, price should only accept a float
+        payable.setProperty('price','description')
+        self.failUnless(payable.donationText == 'description')
+
 def test_suite():
     from unittest import TestSuite, makeSuite
     suite = TestSuite()
