@@ -43,4 +43,13 @@
      permission="zope2.View"
      />
 
+  <!-- User's Order History -->
+  <browser:page
+     for="*"
+     name="getpaid-order-history"
+     class=".order.UserOrderHistory"
+     template="templates/order-history.pt"
+     permission="zope2.View"
+     />
+
 </configure>
