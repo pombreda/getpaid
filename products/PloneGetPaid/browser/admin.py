@@ -65,7 +65,8 @@ class ShippingOptions( formbase.EditForm, BaseView ):
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-shipping-options.pt")
-    
+    form_fields = form.Fields(interfaces.IGetPaidManagementShippingOptions)
+
     options = None
     
     def __init__( self, context, request ):
@@ -80,6 +81,7 @@ class PaymentOptions( formbase.EditForm, BaseView ):
     """
     template = ZopeTwoPageTemplateFile("templates/admin-payment-options.pt")
     form_fields = form.Fields(interfaces.IGetPaidManagementPaymentOptions)
+    form_fields['accepted_credit_cards'].custom_widget = SelectWidgetFactory
 
     options = None
     
@@ -258,12 +260,12 @@ class CustomerNotification( formbase.EditForm, BaseView ):
         self.setupEnvironment( request )
 
 #Customize Header/Footer        
-class HeaderFooter( formbase.EditForm, BaseView ):
+class LegalDisclaimers( formbase.EditForm, BaseView ):
     """
     get paid management interface
     """
-    template = ZopeTwoPageTemplateFile("templates/admin-headerfooter.pt")
-    form_fields = form.Fields(interfaces.IGetPaidManagementHeaderFooterOptions)
+    template = ZopeTwoPageTemplateFile("templates/admin-legal-disclaimers.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementLegalDisclaimerOptions)
     options = None
     
     def __init__( self, context, request ):

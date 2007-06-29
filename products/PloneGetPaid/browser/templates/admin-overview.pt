@@ -48,9 +48,9 @@
             <li><a href="@@manage-getpaid-merchant-notification">Merchant Notification Email</a></li>
         </ul>
         
-    <h3>Customize Header/Footer</h3>
+    <h3>Customize Legal Disclaimers</h3>
         <ul>
-            <li><a href="@@manage-getpaid-headerfooter">Header/Footer</a></li>
+            <li><a href="@@manage-getpaid-legal-disclaimers">Legal Disclaimers</a></li>
         </ul>
 </div>        
 

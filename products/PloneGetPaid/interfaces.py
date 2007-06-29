@@ -149,8 +149,6 @@ class IGetPaidManagementShippingOptions( igetpaid.IPersistentOptions ):
                                      required = True,
                                      source = "getpaid.shipping_methods" )
 
-
-
 class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
@@ -163,7 +161,6 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
                                          description = u"Credit cards accepted for payment",
                                          value_type = schema.Choice( title=u"accepted_credit_cards", source="getpaid.credit_cards" )
                                        )    
-
 
 # Order Management
 class IGetPaidManagementCustomerInformation( igetpaid.IPersistentOptions ):
@@ -224,14 +221,14 @@ class IGetPaidManagementCustomerNotificationOptions( igetpaid.IPersistentOptions
     """
     
 # Customize Header/Footer
-class IGetPaidManagementHeaderFooterOptions( igetpaid.IPersistentOptions ):
+class IGetPaidManagementLegalDisclaimerOptions( igetpaid.IPersistentOptions ):
     """
     """
-    header = schema.Text( title = u"Header",
+    disclaimer = schema.Text( title = u"Disclaimer",
                           required = False,
                         )
                                  
-    footer = schema.Text( title = u"Footer",
+    privacy_policy = schema.Text( title = u"Privacy Policy",
                           required = False,
                         )                                 
 
@@ -249,7 +246,7 @@ class IGetPaidManagementOptions( IGetPaidManagementIdentificationOptions,
                                  IGetPaidManagementEmailOptions,
                                  IGetPaidManagementMerchantNotificationOptions,
                                  IGetPaidManagementCustomerNotificationOptions,
-                                 IGetPaidManagementHeaderFooterOptions
+                                 IGetPaidManagementLegalDisclaimerOptions
                                 ):
-    """
+    """ One-stop config variable access
     """
