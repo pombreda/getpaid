@@ -94,15 +94,14 @@ class OrderQuery( object ):
         """ take a dictionary of key, value pairs, and based on available queries/indexes
         construct query and return results """
         results = None
-        for term in [ 'creation_date',
-                      'finance_state',
+        for term in [ 'finance_state',
                       'fulfillment_state',
                       'user_id',
                       'creation_date' ]:
             term_value = data.get( term )
             if term_value is None:
                 continue
-
+            
             term_results = getattr( query, term )( term_value )
             if term_results is None: # short circuit .. default and intersection
                 return []
@@ -259,7 +258,17 @@ class OrderStorage( BTreeContainer ):
     def __setitem__( self, key, object):
         super( OrderStorage, self ).__setitem__( key, object )
         doc_id = int( key )
-        
+        self.index( doc_id, object )
+
+    def reset_index( self ):
+        # reindex all orders
+        for oid in self.keys():
+            self.unindex( oid )
+            order = self[ oid ]
+            self.index( order )
+            
+    def index( self, order ):
+        doc_id = int( order.order_id )
         for attr, index in self.indexes.items():
             value = getattr( object, attr, None)
             if callable( value ):
@@ -267,11 +276,14 @@ class OrderStorage( BTreeContainer ):
             if value is None:
                 continue
             index.index_doc( doc_id, value )
+
+    def unindex( self, order_id ):
+        for index in self.indexes.values():
+            index.unindex_doc( int(doc_id) )        
         
     def __delitem__( self, key ):
         super( OrderStorage, self).__delitem__( key )
         doc_id = int( key )
-        for index in self.indexes.values():
-            index.unindex_doc( doc_id )
+        self.unindex( doc_id )
 
 
