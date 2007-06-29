@@ -74,6 +74,21 @@ class ShippingOptions( formbase.EditForm, BaseView ):
         self.setupLocale( request )
         self.setupEnvironment( request ) 
 
+class PaymentOptions( formbase.EditForm, BaseView ):
+    """
+    get paid management interface
+    """
+    template = ZopeTwoPageTemplateFile("templates/admin-payment-options.pt")
+    form_fields = form.Fields(interfaces.IGetPaidManagementPaymentOptions)
+
+    options = None
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request ) 
+
 class PaymentProcessor( formbase.EditForm, BaseView ):
     """
     get paid management interface
@@ -99,8 +114,7 @@ class PaymentProcessor( formbase.EditForm, BaseView ):
         
         processor_name = manage_options.payment_processor
         if not processor_name:
-            form_fields = form.Fields(interfaces.IGetPaidManagementPaymentProcessor)
-
+            return
 
         processor = component.getAdapter( self.context,
                                           igetpaid.IPaymentProcessor,

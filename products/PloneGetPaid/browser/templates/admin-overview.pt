@@ -19,7 +19,9 @@
         <ul>
             <li><a href="@@manage-getpaid-content-types">Content Types</a></li>
             <li><a href="@@manage-getpaid-shipping-options">Shipping Options</a></li>
-            <li><a href="@@manage-getpaid-payment-processor">Payment Settings</a></li>
+            <li><a href="@@manage-getpaid-payment-options">Payment Settings</a></li>
+            <li><a href="@@manage-getpaid-payment-processor">Payment Processor</a></li>
+
         </ul>
     
     <h3>Order Management</h3>
