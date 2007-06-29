@@ -143,7 +143,7 @@ class PaymentProcessing( formbase.EditForm, BaseView ):
     get paid management interface
     """
     template = ZopeTwoPageTemplateFile("templates/admin-payment-processing.pt")
-
+    form_fields = form.Fields(interfaces.IGetPaidManagementPaymentProcessing)
     options = None
     
     def __init__( self, context, request ):
