@@ -233,3 +233,30 @@ class ContentControl( BrowserView ):
     
     showManageCart.__roles__ = None
 
+class ContentPortlet( BrowserView ):
+    """ View methods for the ContentPortlet """
+
+    def __init__( self, *args, **kw):
+        super( BrowserView, self).__init__( *args, **kw)
+        
+        item_id = self.context.UID()
+
+        found = False
+        for marker, iface in interfaces.PayableMarkerMap.items():
+            if marker.providedBy( self.context ):
+                found = True
+                break
+
+        if not found:
+            self.interface_found = False
+            self.payable = None
+        else:
+            self.interface_found = True
+            self.payable = component.getMultiAdapter( ( self.context, self.request ), iface )        
+
+    def isPayable(self):
+        return self.interface_found
+        
+    def payableFields(self):
+        if self.isPayable():
+            return self.payable

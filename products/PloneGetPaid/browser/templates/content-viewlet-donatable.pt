@@ -1,18 +1,47 @@
-<div>
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
 
-  <p tal:define="field context/Title"
-     tal:condition="field"
-     tal:content="field"
-     />
-  
-  <p tal:define="field python: view.manager.payableFields().donationText"
-     tal:condition="field">
-     <i tal:content="field" />
-  </p>
+<body>
+<div metal:define-macro="portlet" tal:condition="view/isPayable">
+         
+    <dl class="portlet" id="portlet-cart">
 
-  <p tal:define="field python: view.manager.payableFields().price"
-     tal:condition="field">
-       Price: $<span tal:content="field" />
-  </p>
+        <dt class="portletHeader">
+            <span class="portletTopLeft"></span>
+        Product Details
+            <span class="portletTopRight"></span>
+        </dt>
+
+        <dd class="portletItem odd"> 
+          <div>
+
+            <p tal:define="field context/Title"
+               tal:condition="field"
+               tal:content="field"
+               />
+
+            <p tal:define="field python: view.payableFields().donationText"
+               tal:condition="field">
+               <i tal:content="field" />
+            </p>
+
+            <p tal:define="field python: view.payableFields().price"
+               tal:condition="field">
+                 Price: $<span tal:content="field" />
+            </p>
+
+          </div>
+        </dd>
+
+        <dd class="portletFooter">
+            <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True">
+               Add to Cart
+            </a>
+            <span class="portletBottomLeft"></span>
+            <span class="portletBottomRight"></span>
+        </dd>
+    </dl>
 
 </div>
+</body>
+</html>

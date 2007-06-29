@@ -19,11 +19,4 @@ For example, in main_template.pt after this snippet:
 
 add:
 
-    <tal:plonegetpaid_view_manager tal:define="
-            global plone_view context/@@plone;
-            global view nocall:view | nocall:plone_view;
-            foo plone_view/globalize;">
-            
-      <div tal:replace="structure provider:content_widget_manager" />
-      
-    </tal:plonegetpaid_view_manager>
+    <div tal:replace="structure context/@@portlet-contentwidget" />

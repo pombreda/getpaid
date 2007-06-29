@@ -108,52 +108,44 @@
      permission="cmf.ModifyPortalContent"
      />
 
-  <!--  -->
   <browser:page
-        for="*"
-        name="portlet-contentwidget"
-        class=".portlet.ContentWidget"
-        permission="zope2.View"
-        template="templates/portlet-contentwidget.pt"
-        />
-    
-  <browser:viewletManager
-       name="content_widget_manager"
-       permission="zope2.View"
-       provides="..interfaces.IGetPaidContentViewletManager"
-       class=".viewlet.ContentWidgetManager"
-       />
-
-  <browser:viewlet
-     name="viewlet_contentwidget_premium"
-     manager="..interfaces.IGetPaidContentViewletManager"
-     template="templates/content-viewlet-premium.pt"
-     permission="zope2.View"
-     for="..interfaces.IPremiumMarker"
-     />
-
-  <browser:viewlet
-    name="viewlet_contentwidget_shippable"
-    manager="..interfaces.IGetPaidContentViewletManager"
-    template="templates/content-viewlet-shippable.pt"
+    name="portlet-contentwidget"
+    for="..interfaces.IDonatableMarker"
+    class=".content.ContentPortlet"
+    template="templates/content-viewlet-donatable.pt"
     permission="zope2.View"
-    for="..interfaces.IShippableMarker"
     />
-
-  <browser:viewlet
-    name="viewlet_contentwidget_buyable"
-    manager="..interfaces.IGetPaidContentViewletManager"
+    
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IBuyableMarker"
+    class=".content.ContentPortlet"
     template="templates/content-viewlet-buyable.pt"
     permission="zope2.View"
-    for="..interfaces.IBuyableMarker"
     />
 
-  <browser:viewlet
-       name="viewlet_contentwidget_donatable"
-       manager="..interfaces.IGetPaidContentViewletManager"
-       template="templates/content-viewlet-donatable.pt"
-       permission="zope2.View"
-       for="..interfaces.IDonatableMarker"
-       />
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IShippableMarker"
+    class=".content.ContentPortlet"
+    template="templates/content-viewlet-shippable.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="portlet-contentwidget"
+    for="..interfaces.IPremiumMarker"
+    class=".content.ContentPortlet"
+    template="templates/content-viewlet-premium.pt"
+    permission="zope2.View"
+    />
+
+  <!-- null portlet for displaying for non getpaid content without blowing up -->
+  <browser:page
+    name="portlet-contentwidget"
+    for="*"
+    class=".content.ContentPortlet"
+    permission="zope2.View"
+    />
 
 </configure>
