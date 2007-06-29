@@ -1,0 +1,8 @@
+<fieldset>
+  <legend> Orders </legend>
+
+   <div tal:replace="structure view/listing"> 
+   </div>
+
+   <br />
+</fieldset>
