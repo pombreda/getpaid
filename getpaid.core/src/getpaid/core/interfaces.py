@@ -16,14 +16,23 @@ class IPayable( Interface ):
     a context and the request, to allow for pricing / display customization on a user
     basis.
     """
-    madePayableBy = schema.TextLine( title=u"Made Payable By")
-    productCode = schema.TextLine( title=u"Product Code")
-    price = schema.Float( title=u"Price")
+    madePayableBy = schema.TextLine( title=u"Made Payable By",
+                        description=u"(eventually will be id of logged-in user)",
+                        required=False
+                        )
+    productCode = schema.TextLine( title=u"Product Code",
+                        description=u"An organization's unique product identifier (not required since shopping cart uses content UID internally)",
+                        required=False
+                        )
+    price = schema.Float( title=u"Price", required=True)
 
 class IDonationContent( IPayable ):
     """ Donation
     """
-    donationText = schema.Text( title=u"Donation Description")
+    donationText = schema.TextLine( title=u"Donation Description",
+                        description=u"Very brief 50 character text (that shows up in portlet)",
+                        required=True,
+                        max_length=50)
 
 class ISubscription( IPayable ):
     """ Subscription
