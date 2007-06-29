@@ -99,6 +99,30 @@ class Workflow(Persistent, Contained):
     def getTransitionById(self, transition_id):
         return self._id_transitions[transition_id]
 
+    def dot(self):
+        """
+        Return the 'GraphViz Dot Language' representation of the workflow
+        """
+        states = [None]
+        visited = set()
+        num_transitions = 0
+        out = ["digraph g {",
+               "None [shape=doublecircle]"]
+        while states:
+            state = states.pop()
+            for transition in self.getTransitions(state):
+                num_transitions += 1
+                dest = transition.destination
+                if dest not in visited:
+                    states.append(dest)
+                    visited.add(dest)
+                out.append('t%d [shape=none, label="%s"]' % (num_transitions,
+                                                             transition.title))
+                out.append('"%s" -> t%d -> "%s"' % (state, num_transitions, dest))
+        out.append("}")
+
+        return "\n".join(out)
+        
 class WorkflowState(object):
     implements(IWorkflowState)
 
