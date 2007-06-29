@@ -57,7 +57,7 @@ class GoogleCheckoutProcessor( object ):
 
     def cart_post_button( self, cart ):
         prepared = self.controller.prepare_order(GCartAdapter(cart))
-        return prepared
+        return prepared.html
 
     def authorize( self, order, payment ):
         pass
