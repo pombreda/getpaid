@@ -103,6 +103,15 @@ coci_actions = [
                 visible = True ),
          None ),
 
+     ( dict(  id = 'getpaid_order_history',
+               name = 'Order History',
+               action = 'string:$object_url/@@getpaid-order-history',
+               category ='user',
+               permission = "View",
+               condition = "python:path('object/@@getpaid_control').showManageCart",
+               visible = True ),
+        None ),
+
 
         ]
 
