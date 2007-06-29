@@ -10,6 +10,6 @@
       for="Products.CMFCore.interfaces.ISiteRoot"
       provides="getpaid.core.interfaces.IPaymentProcessor"
       name="Google Checkout"
-      factory=".GoogleCheckoutProcessor" />
+      factory=".googlecheckout.GoogleCheckoutProcessor" />
      
 </configure>
