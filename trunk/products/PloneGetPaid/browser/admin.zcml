@@ -25,6 +25,8 @@
      permission="cmf.ManagePortal"
      />
 
+  <!-- Profile -->
+
   <!-- Management UI Identification Options -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
@@ -34,6 +36,32 @@
      permission="cmf.ManagePortal"
      />
 
+  <!-- Configure -->
+
+  <!-- Management Shippable Types Editing -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-shippable-types"
+     class=".admin.ShippableTypes"     
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- Management Shipping Options Editing -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-shipping-options"
+     class=".admin.ShippingOptions"     
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- Management Payment Processor Editing -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-payment-processor"
+     class=".admin.PaymentProcessor"     
+     permission="cmf.ManagePortal"
+     />
+     
   <!-- Management Core Options Editing -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
@@ -42,6 +70,59 @@
      permission="cmf.ManagePortal"
      />
      
+  <!-- Order Management -->
+  
+  <!-- Customer Information -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-customer-information"
+     class=".admin.CustomerInformation"
+     permission="cmf.ManagePortal"
+     />  
+
+  <!-- Order Management -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-orders"
+     class=".order.OrderAdminListing"
+     template="templates/admin-order-listing.pt"
+     permission="cmf.ManagePortal"
+     />  
+  
+  <!-- Payment Processing Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-payment-processing"
+     class=".admin.PaymentProcessing"
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- Weight Measurement Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-weight-units"
+     class=".admin.WeightUnits"
+     permission="cmf.ManagePortal"
+     />
+     
+  <!-- Session Timeout Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-session-timeout"
+     class=".admin.SessionTimeout"
+     permission="cmf.ManagePortal"
+     />  
+     
+  <!-- Sales Tax Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-sales-tax"
+     class=".admin.SalesTax"
+     permission="cmf.ManagePortal"
+     />
+     
+  <!-- Currency -->
+  
   <!-- Management Currency Options Editing -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
@@ -50,21 +131,7 @@
      permission="cmf.ManagePortal"
      />     
 
-  <!-- Management Processor Options -->
-  <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
-     name="manage-getpaid-processor"
-     class=".admin.Processor"
-     permission="cmf.ManagePortal"
-     />
-
-  <!-- Management Maintenance Options -->
-  <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
-     name="manage-getpaid-maintenance"
-     class=".admin.Maintenance"     
-     permission="cmf.ManagePortal"
-     /> 
+  <!-- Emails -->
 
   <!-- Management Email Options -->
   <browser:page
@@ -74,7 +141,25 @@
      permission="cmf.ManagePortal"
      />
 
-  <!-- Management Email Options -->
+  <!-- Management Merchant Notification Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-merchant-notification"
+     class=".admin.MerchantNotification"     
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- Management Customer Notification Options -->
+  <browser:page
+     for="Products.CMFCore.interfaces.ISiteRoot"
+     name="manage-getpaid-customer-notification"
+     class=".admin.CustomerNotification"     
+     permission="cmf.ManagePortal"
+     />
+     
+  <!-- Customize Header/Footer -->   
+     
+  <!-- Management Header/Footer Options -->
   <browser:page
      for="Products.CMFCore.interfaces.ISiteRoot"
      name="manage-getpaid-headerfooter"
@@ -82,13 +167,6 @@
      permission="cmf.ManagePortal"
      />       
 
-  <!-- Order Management -->
-  <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
-     name="manage-getpaid-orders"
-     class=".order.OrderAdminListing"
-     template="templates/admin-order-listing.pt"
-     permission="cmf.ManagePortal"
-     />
+
 
 </configure>

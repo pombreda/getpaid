@@ -17,20 +17,20 @@
     
     <h3>Configure</h3>
         <ul>
-            <a href="@@manage-getpaid-core">Configure</a>
-            <li>Shippable Types</li>
-            <li>Shipping Options</li>
-            <li>Payment Settings</li>
+            (<a href="@@manage-getpaid-core">Configure</a>)
+            <li><a href="@@manage-getpaid-shippable-types">Shippable Types</a></li>
+            <li><a href="@@manage-getpaid-shipping-options">Shipping Options</a></li>
+            <li><a href="@@manage-getpaid-payment-processor">Payment Settings</a></li>
         </ul>
     
     <h3>Order Management</h3>
         <ul>
-            <li>Customer Information page</li>
+            <li><a href="@@manage-getpaid-customer-information">Customer Information page</a></li>
             <li><a href="@@manage-getpaid-orders">Order Information</a></li>
-            <li>Payment Processing</li>
-            <li>Unit of measurement (weight)</li>
-            <li>Session (basket) timeout</li>
-            <li>Sales tax configuration</li>      
+            <li><a href="@@manage-getpaid-payment-processing">Payment Processing</a></li>
+            <li><a href="@@manage-getpaid-weight-units">Unit of measurement (weight)</a></li>
+            <li><a href="@@manage-getpaid-session-timeout">Session (basket) timeout</a></li>
+            <li><a href="@@manage-getpaid-sales-tax">Sales tax configuration</a></li>      
         </ul>
 </div>
 
@@ -43,8 +43,8 @@
     <h3>Emails</h3>
         <ul>
             <li><a href="@@manage-getpaid-email">Email Preferences</a></li>
-            <li>Customer Order Confirmation Email</li>
-            <li>Merchant Notification Email</li>
+            <li><a href="@@manage-getpaid-customer-notification">Customer Order Confirmation Email</a></li>
+            <li><a href="@@manage-getpaid-merchant-notification">Merchant Notification Email</a></li>
         </ul>
         
     <h3>Customize Header/Footer</h3>
