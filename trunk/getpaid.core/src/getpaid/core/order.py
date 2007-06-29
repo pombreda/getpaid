@@ -255,7 +255,7 @@ class OrderStorage( BTreeContainer ):
     def __setitem__( self, key, object):
         super( OrderStorage, self ).__setitem__( key, object )
         doc_id = int( key )
-        self.index( doc_id, object )
+        self.index( object )
 
     def reset_index( self ):
         # reindex all orders
