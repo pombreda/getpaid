@@ -38,64 +38,84 @@ class PayableFormView( BaseFormView ):
             adapters=self.adapters, ignore_request=ignore_request
             )
 
-class PayableCreation( PayableFormView, formbase.EditForm ):
-
+class PayableMixin:
     form_fields = form.Fields( igetpaid.IPayable )
+    interface = None
     marker = None
     
+class PayableCreation( PayableMixin, PayableFormView, formbase.EditForm ):
     def update( self ):
         # XXX should do this on form submit success only...
         marker.mark( self.context, self.marker )
         return super( PayableCreation, self).update()
 
-class PayableEdit( PayableFormView, formbase.EditForm  ):
-    
-    form_fields = form.Fields( igetpaid.IPayable )
+class PayableEdit( PayableMixin, PayableFormView, formbase.EditForm  ):
+    pass
 
-class BuyableCreation( PayableCreation ):
+class PayableDestruction( PayableMixin ):
+    def __call__(self):
+        marker.erase( self.context, self.marker )
+        self.context.REQUEST.RESPONSE.redirect( self.context.absolute_url() )
 
+class BuyableMixin:
     form_fields = form.Fields( igetpaid.IBuyableContent )
     interface = igetpaid.IBuyableContent
     marker = interfaces.IBuyableMarker
-
-class BuyableEdit( PayableEdit ):
-
-    form_fields = form.Fields( igetpaid.IBuyableContent )    
-    interface = igetpaid.IBuyableContent    
     
-class ShippableCreation( PayableCreation ):
-
+class BuyableCreation( BuyableMixin, PayableCreation ):
+    """
+    """
+class BuyableEdit( BuyableMixin, PayableEdit ):
+    """
+    """
+class BuyableDestruction( BuyableMixin, PayableDestruction ):
+    """
+    """
+    
+class ShippableMixin:
     form_fields = form.Fields( igetpaid.IShippableContent )
     interface = igetpaid.IShippableContent
     marker = interfaces.IShippableMarker
     
-class ShippableEdit( PayableEdit ):
-
-    form_fields = form.Fields( igetpaid.IShippableContent )
-    interface = igetpaid.IShippableContent
-
-class PremiumCreation( PayableCreation ):
-
+class ShippableCreation( ShippableMixin, PayableCreation ):
+    """
+    """
+class ShippableEdit( ShippableMixin, PayableEdit ):
+    """
+    """
+class ShippableDestruction( ShippableMixin, PayableDestruction ):
+    """
+    """
+    
+class PremiumMixin:
     form_fields = form.Fields( igetpaid.IPremiumContent )
     interface = igetpaid.IPremiumContent
     marker = interfaces.IPremiumMarker
-    
-class PremiumEdit( PayableEdit ):
-    
-    form_fields = form.Fields( igetpaid.IPremiumContent )
-    interface = igetpaid.IPremiumContent
-    
-class DonateCreation( PayableCreation ):
 
+class PremiumCreation( PayableMixin, PayableCreation ):
+    """
+    """
+class PremiumEdit( PayableMixin, PayableEdit ):
+    """
+    """
+class PremiumDestruction( PremiumMixin, PayableDestruction ):
+    """
+    """
+    
+class DonateMixin:
     form_fields = form.Fields( igetpaid.IDonationContent )
     interface = igetpaid.IDonationContent
     marker = interfaces.IDonatableMarker
 
-class DonateEdit( PayableEdit ):
-
-    form_fields = form.Fields( igetpaid.IDonationContent )    
-    interface = igetpaid.IDonationContent 
-    
+class DonateCreation( DonateMixin, PayableCreation ):
+    """
+    """
+class DonateEdit( DonateMixin, PayableEdit ):
+    """
+    """
+class DonateDestruction( DonateMixin, PayableDestruction ):
+    """
+    """
 
 
 
