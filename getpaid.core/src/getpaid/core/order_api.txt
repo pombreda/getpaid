@@ -89,10 +89,18 @@ the testorder object as we cannot transition back from DELIVERED state.
    >>> print state
    PROCESSING
 
-   >>> testorder2.fulfillment_workflow.fireTransition('cancel-order')
+   >>> testorder2.fulfilteslment_workflow.fireTransition('cancel-order')
    >>> state = testorder2.fulfillment_state
    >>> print state
    WILL_NOT_DELIVER
+
+ Now let's store things in the order manager.
+
+   >>> manager = component.getUtility( IOrderManager )
+   >>> manager.store( testorder )
+   >>> manager.store( testorder2 )
+
+
 
 
    
