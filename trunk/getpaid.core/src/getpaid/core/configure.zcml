@@ -48,6 +48,13 @@
      factory=".order_workflow.FinanceWorkflow"
      />
 
+  <!-- Per Order Log of Worklow Events -->
+  <subscriber
+     handler=".order.recordOrderWorkflow"
+     for=".interfaces.IOrder
+	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
+     />
+  
   <!-- Taxes -->
 
   <utility

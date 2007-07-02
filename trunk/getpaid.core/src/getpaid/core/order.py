@@ -6,9 +6,12 @@ from zope.interface import implements
 from zope.app.container.btree import BTreeContainer
 
 from zope import component
+from zope.schema.fieldproperty import FieldProperty
+
 from zope.index.field import FieldIndex
 from zope.index.keyword  import KeywordIndex
 from persistent import Persistent
+from persistent.list import PersistentList
 from persistent.dict import PersistentDict
 from zope.app.annotation.interfaces import IAttributeAnnotatable
 
@@ -18,6 +21,11 @@ from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
 import decimal, datetime
 
 from getpaid.core import interfaces
+
+try:
+    from AccessControl import getSecurityManager
+except ImportError:
+    getSecurityManager = None
 
 class Order( Persistent ):
 
@@ -83,17 +91,62 @@ class Order( Persistent ):
         
         return float( str( total ) )
 
+class OrderManager( Persistent ):
+
+    implements( interfaces.IOrderManager )
+    
+    def __init__( self ):
+        self.storage = OrderStorage()
+
+    def getOrdersByUser( self, user_id, **kw):
+        return query.search(
+            dict( user_id = user_id )
+            )
+
+    def store( self, order ):
+        self.storage[ order.order_id ] = order
+    
+    def query( self, **kw ):
+        return query.search( **kw )
+
+    def get( self, order_id ):
+        return self.storage.get( order_id )
+
+    #################################
+    # junk for z2.9 / f 1.4
+    def manage_fixupOwnershipAfterAdd(self, *args):
+        return
+
+    def manage_setLocalRoles( self, *args ):
+        return 
+
+
 class OrderQuery( object ):
     """
     simple query construction.. it might be problematic for other storages without collapsing
     sort clauses where possible. best to minimize any query combinations in the released product.
+
+    main interface to searching is the search method
+
+    from getpaid.core.order import query
+    from datetime import timedelta
+    
+    # find orders from the last week
+    results = query.search( creation_date = timedelta(7) )
+
     """
 
     @staticmethod
-    def search( data ):
+    def search( data=None, **kw ):
         """ take a dictionary of key, value pairs, and based on available queries/indexes
         construct query and return results """
+        
         results = None
+        if data is None:
+            data = kw
+        elif data and kw:
+            data.update( kw )
+            
         for term in [ 'finance_state',
                       'fulfillment_state',
                       'user_id',
@@ -137,11 +190,19 @@ class OrderQuery( object ):
     
     @staticmethod
     def latest( delta = None ):
-        if not delta:
-            delta = datetime.timedelta(7) 
+        """ query by creation date, pass in either a delta to be used from the current time
+            or a tuple of start date, end date to return orders from.
+        """
+        if not delta:  # default to one last week ?
+            delta = datetime.timedelta(7)
+
+        if isinstance( delta, tuple ):
+            value = delta
+        else:
+            now = datetime.datetime.now()
+            value = ( now-delta, now )
         manager = component.getUtility( interfaces.IOrderManager )
-        now = datetime.datetime.now()
-        return manager.storage.apply( { 'creation_date':( now-delta, now ) } )
+        return manager.storage.apply( { 'creation_date': value } )
 
     creation_date = latest
     
@@ -166,36 +227,6 @@ class OrderQuery( object ):
         return manager.storage.apply( {'user_id':( value, value ) } )                
 
 query = OrderQuery
-
-class OrderManager( Persistent ):
-
-    implements( interfaces.IOrderManager )
-    
-    def __init__( self ):
-        self.storage = OrderStorage()
-
-    def getOrdersByUser( self, user_id, **kw):
-        return query.search(
-            dict( user_id = user_id )
-            )
-
-    def store( self, order ):
-        self.storage[ order.order_id ] = order
-    
-    def query( self, **kw ):
-        return self.storage.query( **kw )
-
-    def get( self, order_id ):
-        return self.storage.get( order_id )
-
-    #################################
-    # junk for z2.9 / f 1.4
-    def manage_fixupOwnershipAfterAdd(self, *args):
-        return
-
-    def manage_setLocalRoles( self, *args ):
-        return 
-
 
 class ResultSet:
     """Lazily accessed set of objects."""
@@ -262,6 +293,10 @@ class OrderStorage( BTreeContainer ):
             self.unindex( oid )
             order = self[ oid ]
             self.index( order )
+
+    def reindex( self, object ):
+        self.unindex( object.order_id )
+        self.index( object )
             
     def index( self, object ):
         doc_id = int( object.order_id )
@@ -275,11 +310,69 @@ class OrderStorage( BTreeContainer ):
 
     def unindex( self, order_id ):
         for index in self.indexes.values():
-            index.unindex_doc( int(doc_id) )        
+            index.unindex_doc( int( order_id ) )
         
     def __delitem__( self, key ):
         super( OrderStorage, self).__delitem__( key )
         doc_id = int( key )
         self.unindex( doc_id )
+
+class OrderWorkflowRecord( Persistent ):
+
+    I = interfaces.IOrderWorkflowEntry
+    FP = FieldProperty
+
+    implements( interfaces.IOrderWorkflowEntry )
+
+    changed_by = FP( I['changed_by'] )
+    change_date = FP( I['change_date'] )
+    comment = FP( I['comment'] )
+    new_state = FP( I['new_state'] )
+    previous_state = FP( I['previous_state'] )
+
+class OrderWorkflowLog( object ):
+
+    implements( interfaces.IOrderWorkflowLog )
+
+    _store = None
+    _key = "getpaid.order.auditlog"
+    
+    def __init__( self, context ):
+        self.context = context
+        
+    def add( self, record ):
+        self._storage().append( record )
+        
+    def _storage( self ):
+        if self._store:
+            return self._store
+        
+        annotation = IAnnotations( self.context )
+        if annotation.has_key( self._key ):
+            self._store = annotation[ self._key ]
+        else:
+            annotation[ self._key ] = self._store = PersistentList()
+        return self._store
+    
+    def __iter__( self ):
+        for record in self._storage():
+            yield record
+        
+
+def recordOrderWorkflow( order, event ):
+
+    data = {}
+
+    if getSecurityManager is not None:
+        data['changed_by'] = getSecurityManager().getUser().getId()
+
+    data['change_data'] = datetime.datetime.now()
+    data['new_state'] = event.destination
+    data['previous_state'] = event.source
+    data['transition'] = event.transition
+    data['comment'] = event.comment
+
+    audit_log = interfaces.IOrderWorkflowLog( event.object )
+    audit_log.add( OrderWorkflowRecord( **data ) )
 
 

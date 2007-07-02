@@ -11,6 +11,7 @@ from hurry.workflow import workflow
 
 from getpaid.core.interfaces import finance_states, fulfillment_states
 
+
 def create_fulfillment_workflow( ):
 
     fs = fulfillment_states
@@ -72,7 +73,7 @@ def create_finance_workflow( ):
     add( workflow.Transition( transition_id = 'charge-chargeable',
                               title = 'Charge Order',
                               source = fs.CHARGEABLE,
-                              destination = fs.CHARGING ) )
+                              destination = fs.CHARGED ) )
 
     add( workflow.Transition( transition_id = 'cancel-chargeable',
                               title = 'Cancel Order',
@@ -159,6 +160,5 @@ class OrderVersions( workflow.WorkflowVersions ):
 if __name__ == '__main__':
     wk = FinanceWorkflow()
     wk = FulfillmentWorkflow()
-
-
+    
 

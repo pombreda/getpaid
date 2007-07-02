@@ -73,6 +73,26 @@ class IPaymentProcessor( Interface ):
     """ A Payment Processor
     """ 
 
+    def authorize( order, payment_information ):
+        """
+        authorize an order, using payment information.
+
+        (XXX - processors should decorate orders with processor name )
+        """
+
+    def capture( order, amount ):
+        """
+        capture amount from order.
+        """
+
+    def refund( order, amount ):
+        """
+        """
+    
+class IRecurringPaymentProcessor( IPaymentProcessor ):
+    """ a payment processor that can handle recurring line items
+    """
+    
 class IPaymentProcessorOptions( Interface ):
     """ Options for a Processor
 
@@ -81,8 +101,41 @@ class IPaymentProcessorOptions( Interface ):
 #################################
 # Info needed for payment processing
 
-
     
+class ILineItem( Interface ):
+    """
+    An Item in a Cart
+    """
+    item_id = schema.TextLine( title= u"Unique Item Id")
+    name = schema.TextLine(title = u"Name")
+    description = schema.TextLine( title = u"Description")
+    cost = schema.Float( title=u"Cost")
+    quantity = schema.Int( title = u"Quantity")
+
+
+class ILineItemContainer( IContainer ):
+    """ A container for line items
+    """
+    
+class IPayableLineItem( ILineItem ):
+    """
+    A line item linked to a payable
+    """
+
+    def resolve( context ):
+        """ return the payable object
+        """
+
+class IRecurringLineItem( IPayableLineItem ):
+
+    period = schema.Int( title=u"Period as a timedelta")
+    
+
+class IGiftCertificate( ILineItem ):
+    """ A Gift Certificate
+    """
+
+
 #################################
 # Shopping Cart Stuff
 
@@ -98,41 +151,18 @@ class IShoppingCartUtility( Interface ):
         """
         remove the current's users cart from the session if it exists
         """
-
-class ILineItem( Interface ):
-    """
-    An Item in a Cart
-    """
-    item_id = schema.TextLine( title= u"Unique Item Id")
-    name = schema.TextLine(title = u"Name")
-    description = schema.TextLine( title = u"Description")
-    cost = schema.Float( title=u"Cost")
-    quantity = schema.Int( title = u"Quantity")
-    
-class IPayableLineItem( ILineItem ):
-    """
-    A line item linked to a payable
-    """
-
-    def resolve( context ):
-        """ return the payable object
-        """
-
-class IGiftCertificate( ILineItem ):
-    """ A Gift Certificate
-    """
-
-class ILineItemContainer( IContainer ):
-    """ A container for line items
-    """
-
+        
 class IShoppingCart( ILineItemContainer ):
     """ A Shopping Cart 
     """
 
 
 #################################
-# Shipping Method Utility
+# Shipping
+
+class IShipment( ILineItemContainer ):
+    """ 
+    """
 
 class IShippingMethod( Interface ):
 
@@ -223,14 +253,6 @@ class IOrderManager( Interface ):
     """ persistent utility for storage and query of orders
     """
 
-    def getOrdersByItem( item_id, **kw):
-        """ retrieve all orders containing item_id
-        """
-
-    def getOrdersByUser( user_id, **kw):
-        """ retrieve all orders for a given user id
-        """
-
     def query( **kw ):
         """ query the orders
         """
@@ -252,6 +274,26 @@ class IOrder( Interface ):
     fufillment_state = schema.TextLine( title=u"Fufillment State", readonly=True)
     processor_order_id = schema.ASCIILine( title=u"Processor Order Id" )
 
+class IOrderWorkflowLog( Interface ):
+
+    def __iter__( ):
+        """ iterate through records of the order's history
+        """
+
+    def last( ):
+        """ get the last change to the order
+        """
+
+class IOrderWorkflowEntry( Interface ):
+
+    changed_by = schema.ASCIILine( title=u"Changed By", readonly = True )
+    change_date = schema.ASCIILine( title=u"Change Date", readonly = True)
+    comment = schema.ASCIILine( title=u"Comment", readonly = True )
+    new_state = schema.ASCIILine( title=u"New State", readonly = True)
+    previous_state = schema.ASCIILine( title=u"Previous State", readonly = True )
+    transition = schema.ASCIILine( title=u"", readonly = True)
+    # change type?? (workflow, user
+    
 class finance_states:
 
     REVIEWING = 'REVIEWING'
@@ -269,3 +311,13 @@ class fulfillment_states:
     PROCESSING = 'PROCESSING'
     DELIVERED = 'DELIVERED'
     WILL_NOT_DELIVER = 'WILL_NOT_DELIVER'
+
+
+class shipment_states:
+    
+    NEW = 'NEW'
+    CHARGNING = 'CHARGING'
+    DECLINED = 'DECLINED'
+    DELIVERED = 'DELIVERED'
+    SHIPPED = 'SHIPPED'
+    CHARGED = 'CHARGED'
