@@ -22,9 +22,11 @@ def toDot( self ):
             states.add(  t.destination )
             if t.destination not in self._sources:
                 end_states.add( t.destination )
-            if t.trigger in ( interfaces.SYSTEM, interfaces.AUTOMATIC ):
+            if t.trigger is interfaces.AUTOMATIC:
+                option.append( 'color=green' )
+            elif t.trigger is interfaces.SYSTEM:
                 if not t.condition in (None, workflow.NullCondition):
-                    option.append( 'color=green' )
+                    option.append( 'color=yellow' )
                 else:
                     option.append('color=blue')
             elif not t.condition in ( None, workflow.NullCondition):
