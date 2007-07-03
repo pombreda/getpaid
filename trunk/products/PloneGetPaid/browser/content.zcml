@@ -140,11 +140,11 @@
     permission="zope2.View"
     />
 
-  <!-- null portlet for displaying for non getpaid content without blowing up -->
+  <!-- null portlet for displaying blank portlet-contentwidget for non-getpaid content without blowing up -->
   <browser:page
     name="portlet-contentwidget"
     for="*"
-    class=".content.ContentPortlet"
+    template="templates/portlet-content-none.pt"
     permission="zope2.View"
     />
 
