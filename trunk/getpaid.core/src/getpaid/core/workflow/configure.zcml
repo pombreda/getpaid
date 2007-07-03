@@ -4,28 +4,28 @@
   <!-- Order Workflows -->
 
   <adapter
-     for=".interfaces.IOrder"
+     for="..interfaces.IOrder"
      provides="hurry.workflow.interfaces.IWorkflowState"
      name="getpaid.finance.state"
      factory=".order.FinanceState"
      />
 
   <adapter
-     for=".interfaces.IOrder"
+     for="..interfaces.IOrder"
      provides="hurry.workflow.interfaces.IWorkflowState"
      name="getpaid.fulfillment.state"
      factory=".order.FulfillmentState"
      />
 
   <adapter
-     for=".interfaces.IOrder"
+     for="..interfaces.IOrder"
      provides="hurry.workflow.interfaces.IWorkflowInfo"
      name="getpaid.finance.info"
      factory=".order.FinanceInfo"
      />
 
   <adapter
-     for=".interfaces.IOrder"
+     for="..interfaces.IOrder"
      provides="hurry.workflow.interfaces.IWorkflowInfo"
      name="getpaid.fulfillment.info"
      factory=".order.FulfillmentInfo"
