@@ -1,7 +1,8 @@
 """
 
-the capture model
-
+note we should potentially expand this workflow to show typical elements from the physical shipment
+workflow, waiting for pickup, delivery.. hmm.. actually better is just have a shipment status
+field, which can be dynamically looked up via the shipping provider.
 
  transition : create
     state - new
@@ -36,16 +37,21 @@ $Id$
 """
 
 from zope.interface import implements
-from getpaid.core.workflow import MultiWorkflowInfo, MultiWorkflowState
 
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-from getpaid.core.interfaces import shippment_states
+from getpaid.core.interfaces import shipment_states
+
+def CheckAuthorized( wf, context ):
+    return True
+
+def CheckCharged( wf, context ):
+    return True
 
 def create_shippment_workflow( ):
 
-    ss = shippment_states
+    ss = shipment_states
 
     transitions = []
     add = transitions.append
@@ -60,34 +66,47 @@ def create_shippment_workflow( ):
     add( workflow.Transition(
         transition_id = 'charge',
         title="Charge",
-        source = ss.NEW
-        target = ss.CHARGING
+        source = ss.NEW,
+        destination = ss.CHARGING
         ) )
 
     add( workflow.Transition(
         transition_id = 'declined',
+        title = 'Declined',
         source = ss.CHARGING,
-        target = ss.DECLINED
+        destination = ss.DECLINED,
+        trigger = iworkflow.SYSTEM
         ) )
         
-
     add( workflow.Transition(
         transition_id = 'charge',
+        title = 'Charged',
         source = ss.CHARGING,
-        target = ss.CHARGED,
+        destination = ss.CHARGED,
         trigger = iworkflow.SYSTEM
         ) )
 
     add( workflow.Transition(
-        transition_id = 'ship-new',
+        transition_id = 'already-charged-order',
+        title = 'Order Charged',
+        condition = CheckCharged,
+        trigger = iworkflow.AUTOMATIC,
         source = ss.NEW,
-        target = ss.SHIPPED,
+        destination = ss.CHARGED
         ) )
 
     add( workflow.Transition(
+        transition_id = 'ship-charged',
+        title = 'Ship',
+        source = ss.CHARGED,
+        destination = ss.SHIPPED,
+        ) )    
+
+    add( workflow.Transition(
         transition_id = 'delivered',
+        title = 'Delivered',
         source = ss.SHIPPED,
-        target = ss.DELIVERED,
+        destination = ss.DELIVERED,
         trigger = iworkflow.SYSTEM
         ) )
 
@@ -99,7 +118,7 @@ class ShipmentWorkflow( workflow.Workflow ):
         super( ShipmentWorkflow, self).__init__( create_shippment_workflow() )
          
 if __name__ == '__main__':
-    wf = ShippmentWorkflow()
+    wf = ShipmentWorkflow()
     print wf.toDot()
     
 
