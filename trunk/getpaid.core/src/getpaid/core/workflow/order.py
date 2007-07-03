@@ -11,6 +11,7 @@ from hurry.workflow import workflow
 from getpaid.core.workflow.base import MultiWorkflowInfo, MultiWorkflowState
 from getpaid.core.interfaces import finance_states, fulfillment_states
 
+
 def create_fulfillment_workflow( ):
 
     fs = fulfillment_states
@@ -30,22 +31,21 @@ def create_fulfillment_workflow( ):
                               destination = fs.PROCESSING ) )
 
     add( workflow.Transition( transition_id = 'deliver-processing-order',
-                              title = 'Process Order',
+                              title = 'Order Processed',
+                              trigger = iworkflow.SYSTEM,
                               source = fs.PROCESSING,
                               destination = fs.DELIVERED ) )
     
     add( workflow.Transition( transition_id = 'cancel-order',
                               title = 'Will Not Deliver',
-                              source = fs.PROCESSING,
-                              trigger = iworkflow.SYSTEM,
-                              destination = fs.WILL_NOT_DELIVER ) )
-
+                              destination = fs.WILL_NOT_DELIVER,
+                              source = fs.PROCESSING ) )
 
     add( workflow.Transition( transition_id = 'cancel-new-order',
                               title = 'Will Not Deliver',
                               source = fs.NEW,
-                              destination = fs.WILL_NOT_DELIVER,
-                              trigger = iworkflow.SYSTEM) )
+                              destination = fs.WILL_NOT_DELIVER
+                              ) )
 
     return transitions
 
@@ -62,12 +62,21 @@ def create_finance_workflow( ):
                               source = None,
                               destination = fs.REVIEWING ) )
 
+
+    add( workflow.Transition( transition_id = 'reviewing-declined',
+                              title='Payment Declined',
+                              trigger = iworkflow.SYSTEM,
+                              source = fs.REVIEWING,
+                              destination = fs.PAYMENT_DECLINED ) )
+
+
     add( workflow.Transition( transition_id = 'authorize',
                               title = 'Authorize',
                               trigger = iworkflow.SYSTEM,
                               source = fs.REVIEWING,
                               destination = fs.CHARGEABLE ) )
 
+    
     # CHARGEABLE TRANSITIONS
     add( workflow.Transition( transition_id = 'charge-chargeable',
                               title = 'Charge Order',
@@ -159,7 +168,7 @@ class OrderVersions( workflow.WorkflowVersions ):
 if __name__ == '__main__':
     wk = FinanceWorkflow()
     print wk.toDot()
-    wk = FulfillmentWorkflow()
-    print wk.toDot()
+    #wk = FulfillmentWorkflow()
+    #print wk.toDot()
 
 

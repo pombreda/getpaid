@@ -8,6 +8,13 @@ from zope.app.container.interfaces import IContainer
 from ore.member.interfaces import IMemberSchema
 
 #################################
+# Where to Buy Stuff
+
+class IStore( Interface ):
+    """ objects that are IStores need to be a local site.
+    """
+
+#################################
 # Stuff To Buy
 
 class IPayable( Interface ):
@@ -16,10 +23,12 @@ class IPayable( Interface ):
     a context and the request, to allow for pricing / display customization on a user
     basis.
     """
+    
     madePayableBy = schema.TextLine( title=u"Made Payable By",
                         description=u"(eventually will be id of logged-in user)",
                         required=False
                         )
+    
     productCode = schema.TextLine( title=u"Product Code",
                         description=u"An organization's unique product identifier (not required since shopping cart uses content UID internally)",
                         required=False
@@ -312,6 +321,18 @@ class fulfillment_states:
     DELIVERED = 'DELIVERED'
     WILL_NOT_DELIVER = 'WILL_NOT_DELIVER'
 
+class item_states:
+
+    NEW = 'NEW'
+    PROCESSING = 'PROCESSING'
+    DELIVER_VIRTUAL = 'DELIVERVIRTUAL'
+    CANCELLED = 'CANCELLED'
+    SHIPPED = 'SHIPPED'
+    
+    #RETURNING = 'RETURNING'
+    #RETURNED = 'RETURNED'
+    REFUNDING = 'REFUNDING'
+    REFUNDED = 'REFUNDED'
 
 class shipment_states:
     
@@ -320,4 +341,5 @@ class shipment_states:
     DECLINED = 'DECLINED'
     DELIVERED = 'DELIVERED'
     SHIPPED = 'SHIPPED'
+    SHIPPABLE = 'SHIPPABLE'
     CHARGED = 'CHARGED'

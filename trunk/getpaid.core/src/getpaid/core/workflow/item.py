@@ -1,6 +1,6 @@
 """
 
-order line item fulfillment
+order line item fulfillment, we defer full implementation of shippable fulfillment workflows
 
 transition : create
 
@@ -29,10 +29,10 @@ transition : cancel - processing
    state - cancelled
    condition - shipment not authorized
     
-transition :  system - shipped
+transition :  shipment-authorized
 
    source - processing
-   state - shipped
+   state - shipppable
 
 transition : process return
 
@@ -67,14 +67,20 @@ $Id$
 
 from zope.interface import implements
 
+
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-from getpaid.core.interfaces import item_states
+import getpaid.core.workflow
+from getpaid.core.interfaces import item_states, IShippableContent
 
-def create_item_fulfillment_workflow( ):
+def VirtualDeliverable( wf, context ):
+    # XXX need to import marker interfaces as well, refactor to getpaid.core
+    return not not IShippableContent.providedBy( context )
 
-    ss = shippment_states
+def create_item_workflow( ):
+
+    its = item_states
 
     transitions = []
     add = transitions.append
@@ -83,11 +89,61 @@ def create_item_fulfillment_workflow( ):
         transition_id = 'create',
         title='Create',
         source = None,
-        destination = ss.NEW
+        destination = its.NEW
         ) )
 
+    add( workflow.Transition(
+        transition_id = 'deliver-virtual',
+        title='Electronic Delivery',
+        condition = VirtualDeliverable,
+        trigger = iworkflow.SYSTEM,
+        source = its.NEW,
+        destination = its.DELIVER_VIRTUAL
+        ) )    
+
+    add( workflow.Transition(
+        transition_id = 'cancel',
+        title='Cancel',
+        source = its.NEW,
+        destination = its.CANCELLED
+        ) )    
+
+
+    add( workflow.Transition(
+        transition_id = 'refund',
+        title='Refund',
+        source = its.DELIVER_VIRTUAL,
+        destination = its.REFUNDING
+        ) )
+
+    add( workflow.Transition(
+        transition_id = 'refund-processed',
+        title='Refund Processed',
+        source = its.REFUNDING,
+        trigger = iworkflow.SYSTEM,
+        destination = its.REFUNDED
+        ) )
+
+
+    add( workflow.Transition(
+        transition_id = 'ship',
+        title='Ship',
+        source = its.NEW,
+        trigger = iworkflow.SYSTEM,
+        destination = its.SHIPPED
+        ) )
+    
+    return transitions
+
 class ItemWorkflow( workflow.Workflow ):
-    pass
+
+    def __init__( self ):
+        super( ItemWorkflow, self).__init__( create_item_workflow())
+
+
+if __name__ == '__main__':
+    wf = ItemWorkflow()
+    print wf.toDot()
 
 
     
