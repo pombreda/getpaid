@@ -1,52 +1,7 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
 
-  <!-- Order Workflows -->
-
-  <adapter
-     for=".interfaces.IOrder"
-     provides="hurry.workflow.interfaces.IWorkflowState"
-     name="getpaid.finance.state"
-     factory=".order_workflow.FinanceState"
-     />
-
-  <adapter
-     for=".interfaces.IOrder"
-     provides="hurry.workflow.interfaces.IWorkflowState"
-     name="getpaid.fulfillment.state"
-     factory=".order_workflow.FulfillmentState"
-     />
-
-  <adapter
-     for=".interfaces.IOrder"
-     provides="hurry.workflow.interfaces.IWorkflowInfo"
-     name="getpaid.finance.info"
-     factory=".order_workflow.FinanceInfo"
-     />
-
-  <adapter
-     for=".interfaces.IOrder"
-     provides="hurry.workflow.interfaces.IWorkflowInfo"
-     name="getpaid.fulfillment.info"
-     factory=".order_workflow.FulfillmentInfo"
-     />
-
-  <utility
-     provides="hurry.workflow.interfaces.IWorkflowVersions"
-     factory=".order_workflow.OrderVersions"
-     />
-
-  <utility
-     provides="hurry.workflow.interfaces.IWorkflow"
-     name="getpaid.fulfillment.workflow"
-     factory=".order_workflow.FulfillmentWorkflow"
-     />
-
-  <utility
-     provides="hurry.workflow.interfaces.IWorkflow"
-     name="getpaid.finance.workflow"
-     factory=".order_workflow.FinanceWorkflow"
-     />
+  <include package=".workflow" />
 
   <!-- Per Order Log of Worklow Events -->
   <subscriber

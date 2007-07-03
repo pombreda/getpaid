@@ -4,13 +4,12 @@ $Id$
 """
 
 from zope.interface import implements
-from workflow import MultiWorkflowInfo, MultiWorkflowState
 
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
+from getpaid.core.workflow.base import MultiWorkflowInfo, MultiWorkflowState
 from getpaid.core.interfaces import finance_states, fulfillment_states
-
 
 def create_fulfillment_workflow( ):
 
@@ -159,6 +158,8 @@ class OrderVersions( workflow.WorkflowVersions ):
 
 if __name__ == '__main__':
     wk = FinanceWorkflow()
+    print wk.toDot()
     wk = FulfillmentWorkflow()
-    
+    print wk.toDot()
+
 
