@@ -2,7 +2,7 @@
 $Id$
 """
 
-from hurry.workflow import workflow
+from hurry.workflow import workflow, interfaces
 from cStringIO import StringIO
 
 def toDot( self ):
@@ -11,15 +11,32 @@ def toDot( self ):
     """
     io = StringIO()
     states = set()
+    end_states = set()
     print >> io, "digraph workflow {"
+
     for state, transitions in self._sources.items():
         states.add( state )
+
         for tid, t in transitions.items():
+            option = []
             states.add(  t.destination )
-            print >> io, '  %s -> %s [label="%s", color=red, labeldistance=5];'%(t.source, t.destination, t.transition_id )
+            if t.destination not in self._sources:
+                end_states.add( t.destination )
+            if t.trigger in ( interfaces.SYSTEM, interfaces.AUTOMATIC ):
+                if not t.condition in (None, workflow.NullCondition):
+                    option.append( 'color=green' )
+                else:
+                    option.append('color=blue')
+            elif not t.condition in ( None, workflow.NullCondition):
+                option.append( 'color=red' )
+                 
+            print >> io, '  %s -> %s [label="%s", %s];'%(t.source, t.destination, t.transition_id, ', '.join( option ) )
             
     for state in states:
-        print >> io, "  %s [shape=box ]; "%state
+        if state in end_states:
+            print >> io, " %s [color=red];"%state
+        else:
+            print >> io, "  %s [shape=box ]; "%state
     print >> io, " }"
 
     return io.getvalue()
