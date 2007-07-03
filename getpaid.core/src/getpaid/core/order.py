@@ -232,7 +232,7 @@ class ResultSet:
     """Lazily accessed set of objects."""
 
     def __init__(self, uids, storage):
-        self.uids = uids
+        self.uids = uids or []
         self.storage = storage
 
     def __len__(self):

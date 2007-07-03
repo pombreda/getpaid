@@ -66,17 +66,17 @@ $Id$
 """
 
 from zope.interface import implements
-
+from zope import component
 
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-import getpaid.core.workflow
 from getpaid.core.interfaces import item_states, IShippableContent
 
+import getpaid.core.workflow
+
 def VirtualDeliverable( wf, context ):
-    # XXX need to import marker interfaces as well, refactor to getpaid.core
-    return not not IShippableContent.providedBy( context )
+    return not component.queryAdapter( IShippableContent, context ) is None
 
 def create_item_workflow( ):
 
