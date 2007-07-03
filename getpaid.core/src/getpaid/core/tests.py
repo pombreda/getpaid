@@ -18,7 +18,7 @@ from zope import component
 
 from getpaid.core.interfaces import IOrder, IOrderManager, finance_states
 from getpaid.core import order, cart
-from getpaid.core import order_workflow as oworkflow
+from getpaid.core.workflow import order as oworkflow
 
 def setUp(test):
     return
@@ -156,11 +156,11 @@ def workflowSetUp(doctest):
 
 def test_suite():
     return unittest.TestSuite((
-        #DocFileSuite('order_api.txt',
-        #             setUp=workflowSetUp,
-        #             tearDown=tearDown,
-        #             optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
-        #             ),
+        DocFileSuite('order.txt',
+                     setUp=workflowSetUp,
+                     tearDown=tearDown,
+                     optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
+                     ),
         unittest.makeSuite( OrderQueryTests ),
         ))
 
