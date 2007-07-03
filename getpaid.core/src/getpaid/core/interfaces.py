@@ -337,7 +337,7 @@ class item_states:
 class shipment_states:
     
     NEW = 'NEW'
-    CHARGNING = 'CHARGING'
+    CHARGING = 'CHARGING'
     DECLINED = 'DECLINED'
     DELIVERED = 'DELIVERED'
     SHIPPED = 'SHIPPED'
