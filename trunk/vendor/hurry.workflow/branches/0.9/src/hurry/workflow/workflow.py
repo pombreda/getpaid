@@ -25,10 +25,12 @@ try:
 except ImportError:
     from zope.app.event.objectevent import ObjectEvent
 
+from zope import component
 from hurry.workflow import interfaces
 from hurry.workflow.interfaces import MANUAL, AUTOMATIC, SYSTEM
 from hurry.workflow.interfaces import\
-     IWorkflow, IWorkflowState, IWorkflowInfo, IWorkflowVersions
+     IWorkflow, IWorkflowState, IWorkflowInfo, IWorkflowVersions, \
+     IAdaptedWorkflow
 from hurry.workflow.interfaces import\
      InvalidTransitionError, ConditionFailedError
 
@@ -124,8 +126,12 @@ class Workflow(Persistent, Contained):
         return "\n".join(out)
         
 class WorkflowState(object):
+    
     implements(IWorkflowState)
 
+    workflow_state_key = "hurry.workflow.state"
+    workflow_id_key  = "hurry.workflow.id"
+    
     def __init__(self, context):
         # XXX okay, I'm tired of it not being able to set annotations, so
         # we'll do this. Ugh.
@@ -138,35 +144,48 @@ class WorkflowState(object):
         
     def setState(self, state):
         if state != self.getState():
-            IAnnotations(self.context)[
-                'hurry.workflow.state'] = state
+            IAnnotations(self.context)[ self.workflow_state_key ] = state
             
     def setId(self, id):
         # XXX catalog should be informed (or should it?)
-        IAnnotations(self.context)['hurry.workflow.id'] = id
+        IAnnotations(self.context)[ self.workflow_id_key ] = id
         
     def getState(self):
         try:
-            return IAnnotations(self.context)['hurry.workflow.state']
+            return IAnnotations(self.context)[ self.workflow_state_key ]
         except KeyError:
             return None
 
     def getId(self):
         try:
-            return IAnnotations(self.context)['hurry.workflow.id']
+            return IAnnotations(self.context)[ self.workflow_id_key ]
         except KeyError:
             return None
             
 class WorkflowInfo(object):
+
     implements(IWorkflowInfo)
-    
+
     def __init__(self, context):
         self.context = context
-                
+
+    def info( self, context = None ):
+        if context is None:
+            return IWorkflowInfo( self.context )
+        return IWorkflowInfo( context )
+
+    def state( self, context = None ):
+        if context is None:
+            return IWorkflowState( self.context )
+        return IWorkflowState( context )
+    
+    def workflow( self ):
+        return zapi.queryAdapter(self.context, IWorkflow) or zapi.getUtility(IWorkflow)
+    
     def fireTransition(self, transition_id, comment=None, side_effect=None,
                        check_security=True):
-        state = IWorkflowState(self.context)
-        wf = zapi.getUtility(IWorkflow)
+        state = self.state()
+        wf = self.workflow()
         # this raises InvalidTransitionError if id is invalid for current state
         transition = wf.getTransition(state.getState(), transition_id)
         # check whether we may execute this workflow transition
@@ -191,10 +210,11 @@ class WorkflowInfo(object):
         result = transition.action(self, self.context)
         if result is not None:
             if transition.source is None:
-                IWorkflowState(result).initialize()
+                self.state(result).initialize()
             # stamp it with version
-            state = IWorkflowState(result)
-            state.setId(IWorkflowState(self.context).getId())
+            state = self.state( result )
+            state.setId( self.state().getId() )
+
             # execute any side effect:
             if side_effect is not None:
                 side_effect(result)
@@ -204,7 +224,7 @@ class WorkflowInfo(object):
                                                    transition, comment)
         else:
             if transition.source is None:
-                IWorkflowState(self.context).initialize()
+                self.state().initialize()
             # execute any side effect
             if side_effect is not None:
                 side_effect(self.context)
@@ -233,12 +253,12 @@ class WorkflowInfo(object):
                                    comment, side_effect, check_security)
         
     def fireTransitionForVersions(self, state, transition_id):
-        id = IWorkflowState(self.context).getId()
+        id = self.state().getId()
         wf_versions = zapi.getUtility(IWorkflowVersions)
         for version in wf_versions.getVersions(state, id):
             if version is self.context:
                 continue
-            IWorkflowInfo(version).fireTransition(transition_id)
+            self.info( version ).fireTransition(transition_id)
 
     def fireAutomatic(self):
         for transition_id in self.getAutomaticTransitionIds():
@@ -255,7 +275,7 @@ class WorkflowInfo(object):
             
     def hasVersion(self, state):
         wf_versions = zapi.getUtility(IWorkflowVersions)
-        id = IWorkflowState(self.context).getId()
+        id = self.state().getId()
         return wf_versions.hasVersion(state, id)
     
     def getManualTransitionIds(self):
@@ -278,7 +298,7 @@ class WorkflowInfo(object):
         return self.getManualTransitionIds() + self.getSystemTransitionIds()
     
     def getFireableTransitionIdsToward(self, state):
-        wf = zapi.getUtility(IWorkflow)
+        wf = self.workflow()
         result = []
         for transition_id in self.getFireableTransitionIds():
             transition = wf.getTransitionById(transition_id)
@@ -295,15 +315,92 @@ class WorkflowInfo(object):
         return bool(self.getAutomaticTransitionIds())
 
     def _getTransitions(self, trigger):
-        # retrieve all possible transitions from workflow utility
-        wf = zapi.getUtility(IWorkflow)
-        transitions = wf.getTransitions(
-            IWorkflowState(self.context).getState())
+        # retrieve all possible transitions from workflow
+        wf = self.workflow()
+        transitions = wf.getTransitions( self.state().getState() )
         # now filter these transitions to retrieve all possible
         # transitions in this context, and return their ids
         return [transition for transition in transitions if
                 transition.trigger == trigger]
+
+class AdaptedWorkflowBase( object ):
+
+    implements( IAdaptedWorkflow )
+    
+def AdaptedWorkflow( workflow ):
+    """
+    wraps a IWorkflow utility into an adapter for use as an adapted workflow
+    """
+    class AdaptedWorkflow( AdaptedWorkflowBase ):
             
+        def __init__( self, context):
+            self.context = context
+            self.workflow = workflow
+
+            for m in IWorkflow.names():
+                setattr( self, m, getattr( workflow, m ) ) 
+            
+    return AdaptedWorkflow
+
+def ParallelWorkflow( workflow, wf_name, register_for=None):
+    """
+    wraps an IWorkflow and constructs IWorkflowState and IWorkflowInfo
+    adapters, if register_for is specified registers them with the component
+    architecture. else registration needs to be done by hand for the given
+    name for all three.
+
+    workflow is assumed to be a utility unless it implements IAdaptedWorkflow
+    """
+    class _ParallelWorkflowState( WorkflowState ):
+        workflow_state_key = "%s.state"%(wf_name)
+        workflow_id_key = "%s.id"%(wf_name)
+
+    class _ParallelWorkflowInfo( ParallelWorkflowInfo ):
+        name = wf_name
+        
+    if not register_for:
+        return [ workflow, _ParallelWorkflowState, _ParallelWorkflowInfo ]
+
+    # when you have a few these, zcml registration can be tedious, try to optionally
+    # automate some of the pain, even if only for the global site manager
+    
+    if IAdaptedWorkflow.providedBy( workflow ):
+        component.provideAdapter( workflow, (register_for,), IWorkflow, wf_name )
+    else:
+        component.provideUtility( workflow, IWorkflow, wf_name )
+
+    component.provideAdapter( _ParallelWorkflowInfo,
+                              (register_for, ),
+                              IWorkflowInfo,
+                              wf_name )
+    
+    component.provideAdapter( _ParallelWorkflowState,
+                              (register_for, ),
+                              IWorkflowState,
+                              wf_name )
+
+    return [ workflow, _ParallelWorkflowState, _ParallelWorkflowInfo ]
+
+class ParallelWorkflowInfo( WorkflowInfo ):
+
+    name = "hurry"
+    
+    def info( self, context = None ):
+        if context is None:
+            return zapi.getAdapter( self.context, IWorkflowInfo, self.name )
+        return zapi.getAdapter( context, IWorkflowInfo, self.name )        
+
+    def state( self, context = None ):
+        if context is None:
+            return zapi.getAdapter( self.context, IWorkflowState, self.name )
+        return zapi.getAdapter( context, IWorkflowState, self.name )
+    
+    def workflow( self ):
+        return zapi.queryAdapter( self.context, IWorkflow, self.name ) \
+               or zapi.getUtility(IWorkflow, self.name )
+
+        
+                    
 class WorkflowVersions(object):
     implements(IWorkflowVersions)
 

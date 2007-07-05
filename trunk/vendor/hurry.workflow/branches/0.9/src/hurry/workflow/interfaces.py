@@ -47,6 +47,10 @@ class IWorkflow(Interface):
         """Get transition with transition_id.
         """
 
+class IAdaptedWorkflow( IWorkflow ):
+    """ workflow defined as an adapter
+    """
+
 class IWorkflowState(Interface):
     """Store state on workflowed objects.
 
