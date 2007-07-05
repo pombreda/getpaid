@@ -188,7 +188,91 @@ And we have another event that was fired::
     'b'
     >>> events[-1].destination is None
     True
-   
+
+
+Adapation based workflow
+------------------------
+
+we can also define adaptation based workflows with workflows
+registered as adapters. 
+
+   >>> class IInvoiceDocument(IDocument):
+   ...    title = Attribute('Title')
+
+   >>> class InvoiceDocument(object):
+   ...    implements(IInvoiceDocument) 
+   ...    def __init__(self, title, amount):
+   ...        self.title = title
+   ...        self.amount = amount
+
+we define a class where our workflow will be applied to and then 
+define our workflow.
+
+    >>> invoice_init = workflow.Transition( 
+    ...     transition_id='init_invoice', 
+    ...     title='Invoice Received', 
+    ...     source=None, 
+    ...     destination='received')
+    >>>
+    >>> invoice_paid = workflow.Transition(
+    ...     transition_id='invoice_paid', 
+    ...     title='Invoice Paid', 
+    ...     source='received', 
+    ...     destination='paid')
+
+    >>> invoice_wf = workflow.Workflow( [ invoice_init, invoice_paid ] )
+
+we convert our utility workflow to an adapter and register it.
+
+    >>> adapted_workflow = workflow.AdaptedWorkflow( invoice_wf )
+    >>> ztapi.provideAdapter( (IInvoiceDocument,), interfaces.IWorkflow, adapted_workflow )
+
+now we can utilize the workflow.
+ 
+    >>> invoice = InvoiceDocument('abc', 22)
+    >>> isinstance( interfaces.IWorkflow( invoice ), workflow.AdaptedWorkflowBase )
+    True
+    
+    >>> interfaces.IWorkflowInfo( invoice ).fireTransition('init_invoice')
+    >>> interfaces.IWorkflowState( invoice ).getState()
+    'received'
+    >>> interfaces.IWorkflowInfo( invoice ).fireTransition('invoice_paid')
+    >>> interfaces.IWorkflowState( invoice ).getState()
+    'paid'
+
+Parallel Workflows
+------------------
+
+Another interesting feature is the ability to have multiple workflows
+active on a single object. Each of the workflows is setup as a set of
+named adapters for IWorkflow, IWorkflowInfo, and IWorkflowState
+respectively. It does mean however that we need to qualify getting the
+workflow adapters with the workflow name. 
+
+Let's utlize our two workflows already defined as an example. As a
+convience the ParallelWorkflow constructor will register the three
+workflow components as appropriate named adapters if passed in an
+Interface that their applicable for.
+
+   >>> class IWorkDocument(IDocument):
+   ...    title = Attribute('Title')
+   >>> class WorkDocument( Document ):
+   ...    implements( IWorkDocument )
+
+   >>> invoice_adapters = workflow.ParallelWorkflow( invoice_wf, "invoice", IWorkDocument )
+   >>> doc_adapters = workflow.ParallelWorkflow( wf, "doc", IWorkDocument )    
+
+   >>> wdoc = WorkDocument('text')
+   >>> from zope.app import zapi
+   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowInfo, "doc").fireTransition('to_a')
+   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowState, "doc").getState()
+   'a'
+   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowInfo, "invoice").fireTransition('init_invoice')
+   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowState, "invoice").getState()
+   'received'
+   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowState, "doc").getState()
+   'a'
+
 Multi-version workflow
 ----------------------
 
@@ -316,7 +400,7 @@ Now let's build and provide the workflow utility::
 Let's get the workflow_versions utility which we can use to track
 versions and come up with a new unique id::
 
-   >>> from zope.app import zapi
+
    >>> workflow_versions = zapi.getUtility(interfaces.IWorkflowVersions)
 
 And let's start with a document::
@@ -782,3 +866,4 @@ The events list we set up before should contain two events::
    2
    >>> events[1].object.title[-1] == '!'
    True
+
