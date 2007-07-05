@@ -1,7 +1,7 @@
 import random, sys
 
 from persistent import Persistent
-from zope.interface import implements
+from zope import interface 
 from zope.event import notify
 from zope.security.management import getInteraction, NoInteraction
 from zope.security.interfaces import Unauthorized
@@ -69,7 +69,7 @@ class Transition(object):
         return cmp(self.order, other.order)
     
 class Workflow(Persistent, Contained):
-    implements(IWorkflow)
+    interface.implements(IWorkflow)
     
     def __init__(self, transitions):
         self.refresh(transitions)
@@ -127,7 +127,7 @@ class Workflow(Persistent, Contained):
         
 class WorkflowState(object):
     
-    implements(IWorkflowState)
+    interface.implements(IWorkflowState)
 
     workflow_state_key = "hurry.workflow.state"
     workflow_id_key  = "hurry.workflow.id"
@@ -164,7 +164,7 @@ class WorkflowState(object):
             
 class WorkflowInfo(object):
 
-    implements(IWorkflowInfo)
+    interface.implements(IWorkflowInfo)
 
     def __init__(self, context):
         self.context = context
@@ -324,22 +324,27 @@ class WorkflowInfo(object):
                 transition.trigger == trigger]
 
 class AdaptedWorkflowBase( object ):
-
-    implements( IAdaptedWorkflow )
+    pass
     
 def AdaptedWorkflow( workflow ):
     """
     wraps a IWorkflow utility into an adapter for use as an adapted workflow
     """
+
+    assert IWorkflow.providedBy( workflow )
+    
     class AdaptedWorkflow( AdaptedWorkflowBase ):
-            
+
         def __init__( self, context):
             self.context = context
             self.workflow = workflow
 
             for m in IWorkflow.names():
                 setattr( self, m, getattr( workflow, m ) ) 
-            
+
+    interface.classImplements( AdaptedWorkflow, IWorkflow )
+    interface.directlyProvides( AdaptedWorkflow,
+                                interface.directlyProvidedBy( AdaptedWorkflow ) + IAdaptedWorkflow )
     return AdaptedWorkflow
 
 def ParallelWorkflow( workflow, wf_name, register_for=None):
@@ -351,6 +356,9 @@ def ParallelWorkflow( workflow, wf_name, register_for=None):
 
     workflow is assumed to be a utility unless it implements IAdaptedWorkflow
     """
+
+    assert IWorkflow.providedBy( workflow )
+    
     class _ParallelWorkflowState( WorkflowState ):
         workflow_state_key = "%s.state"%(wf_name)
         workflow_id_key = "%s.id"%(wf_name)
@@ -402,7 +410,7 @@ class ParallelWorkflowInfo( WorkflowInfo ):
         
                     
 class WorkflowVersions(object):
-    implements(IWorkflowVersions)
+    interface.implements(IWorkflowVersions)
 
     def getVersions(self, state, id):
         raise NotImplementedError
@@ -428,7 +436,7 @@ class WorkflowVersions(object):
             IWorkflowInfo(version).fireAutomatic()
 
 class WorkflowTransitionEvent(ObjectEvent):
-    implements(interfaces.IWorkflowTransitionEvent)
+    interface.implements(interfaces.IWorkflowTransitionEvent)
 
     def __init__(self, object, source, destination, transition, comment):
         super(WorkflowTransitionEvent, self).__init__(object)
@@ -438,7 +446,7 @@ class WorkflowTransitionEvent(ObjectEvent):
         self.comment = comment
 
 class WorkflowVersionTransitionEvent(WorkflowTransitionEvent):
-    implements(interfaces.IWorkflowVersionTransitionEvent)
+    interface.implements(interfaces.IWorkflowVersionTransitionEvent)
 
     def __init__(self, object, old_object, source, destination,
                  transition, comment):
