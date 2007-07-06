@@ -71,7 +71,7 @@ from zope import component
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-from getpaid.core.interfaces import item_states, IShippableContent
+from getpaid.core.interfaces import workflow_states, IShippableContent
 
 import getpaid.core.workflow
 
@@ -80,7 +80,7 @@ def VirtualDeliverable( wf, context ):
 
 def create_item_workflow( ):
 
-    its = item_states
+    its = workflow_states.item
 
     transitions = []
     add = transitions.append
@@ -140,6 +140,7 @@ class ItemWorkflow( workflow.Workflow ):
     def __init__( self ):
         super( ItemWorkflow, self).__init__( create_item_workflow())
 
+ItemWorkflowAdapter = workflow.AdaptedWorkflow( ItemWorkflow() )
 
 if __name__ == '__main__':
     wf = ItemWorkflow()

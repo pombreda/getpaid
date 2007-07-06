@@ -303,43 +303,51 @@ class IOrderWorkflowEntry( Interface ):
     transition = schema.ASCIILine( title=u"", readonly = True)
     # change type?? (workflow, user
     
-class finance_states:
 
-    REVIEWING = 'REVIEWING'
-    CHARGEABLE = 'CHARGEABLE'
-    CHARGING = 'CHARGING'
-    CHARGED = 'CHARGED'
-    REFUNDED = 'REFUNDED'
-    PAYMENT_DECLINED = 'PAYMENT_DECLINED'
-    CANCELLED = 'CANCELLED'
-    CANCELLED_BY_PROCESSOR = 'CANCELLED_BY_PROCESSOR'
+class workflow_states:
 
-class fulfillment_states:
+    class order:
+        # order workflows are executed in parallel
 
-    NEW = 'NEW'
-    PROCESSING = 'PROCESSING'
-    DELIVERED = 'DELIVERED'
-    WILL_NOT_DELIVER = 'WILL_NOT_DELIVER'
+        class finance:
+            # name of parallel workflow            
+            name = "order.finance"
 
-class item_states:
+            REVIEWING = 'REVIEWING'
+            CHARGEABLE = 'CHARGEABLE'
+            CHARGING = 'CHARGING'
+            CHARGED = 'CHARGED'
+            REFUNDED = 'REFUNDED'
+            PAYMENT_DECLINED = 'PAYMENT_DECLINED'
+            CANCELLED = 'CANCELLED'
+            CANCELLED_BY_PROCESSOR = 'CANCELLED_BY_PROCESSOR'
+            
+        class fulfillment:
+            # name of parallel workflow
+            name = "order.fulfillment"            
 
-    NEW = 'NEW'
-    PROCESSING = 'PROCESSING'
-    DELIVER_VIRTUAL = 'DELIVERVIRTUAL'
-    CANCELLED = 'CANCELLED'
-    SHIPPED = 'SHIPPED'
-    
-    #RETURNING = 'RETURNING'
-    #RETURNED = 'RETURNED'
-    REFUNDING = 'REFUNDING'
-    REFUNDED = 'REFUNDED'
+            NEW = 'NEW'
+            PROCESSING = 'PROCESSING'
+            DELIVERED = 'DELIVERED'
+            WILL_NOT_DELIVER = 'WILL_NOT_DELIVER'
+            
+    class item:
+        NEW = 'NEW'
+        PROCESSING = 'PROCESSING'
+        DELIVER_VIRTUAL = 'DELIVERVIRTUAL'
+        CANCELLED = 'CANCELLED'
+        SHIPPED = 'SHIPPED'
+        #RETURNING = 'RETURNING'
+        #RETURNED = 'RETURNED'
+        REFUNDING = 'REFUNDING'
+        REFUNDED = 'REFUNDED'
 
-class shipment_states:
-    
-    NEW = 'NEW'
-    CHARGING = 'CHARGING'
-    DECLINED = 'DECLINED'
-    DELIVERED = 'DELIVERED'
-    SHIPPED = 'SHIPPED'
-    SHIPPABLE = 'SHIPPABLE'
-    CHARGED = 'CHARGED'
+    class shipment:
+        NEW = 'NEW'
+        CHARGING = 'CHARGING'
+        DECLINED = 'DECLINED'
+        DELIVERED = 'DELIVERED'
+        SHIPPED = 'SHIPPED'
+        SHIPPABLE = 'SHIPPABLE'
+        CHARGED = 'CHARGED'
+            

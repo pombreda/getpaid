@@ -54,25 +54,21 @@ class Order( Persistent ):
 
     order = property( getOrderId, setOrderId )
 
-    def getFinanceState( self ):
-        return component.getAdapter( self, IWorkflowState, "getpaid.finance.state").getState()
+    @property
+    def finance_state( self ):
+        return component.getAdapter( self, IWorkflowState, "order.finance").getState()
 
-    finance_state = property( getFinanceState )
-    
-    def getFulfillmentState( self ):
-        return component.getAdapter( self, IWorkflowState, "getpaid.fulfillment.state").getState()
+    @property
+    def fulfillment_state( self ):
+        return component.getAdapter( self, IWorkflowState, "order.fulfillment").getState()
 
-    fulfillment_state = property( getFulfillmentState )
+    @property
+    def finance_workflow( self ):
+        return component.getAdapter( self, IWorkflowInfo, "order.finance")
 
-    def getFinanceWorkflow( self ):
-        return component.getAdapter( self, IWorkflowInfo, "getpaid.finance.info")
-
-    finance_workflow = property( getFinanceWorkflow )
-
-    def getFulfillmentWorkflow( self ):
-        return component.getAdapter( self, IWorkflowInfo, "getpaid.fulfillment.info")
-
-    fulfillment_workflow = property( getFulfillmentWorkflow )
+    @property
+    def fulfillment_workflow( self ):
+        return component.getAdapter( self, IWorkflowInfo, "order.fulfillment")
 
     def getTotalPrice( self ):
         if not self.shopping_cart:
