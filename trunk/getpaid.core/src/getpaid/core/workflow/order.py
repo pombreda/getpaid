@@ -8,13 +8,11 @@ from zope.interface import implements
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-from getpaid.core.workflow.base import MultiWorkflowInfo, MultiWorkflowState
-from getpaid.core.interfaces import finance_states, fulfillment_states
-
+from getpaid.core.interfaces import workflow_states, IOrder
 
 def create_fulfillment_workflow( ):
 
-    fs = fulfillment_states
+    fs = workflow_states.order.fulfillment
 
     transitions = []
     add = transitions.append
@@ -51,7 +49,7 @@ def create_fulfillment_workflow( ):
 
 def create_finance_workflow( ):
 
-    fs = finance_states
+    fs = workflow_states.order.finance
 
     transitions = []
     add = transitions.append
@@ -136,39 +134,22 @@ class FulfillmentWorkflow( workflow.Workflow ):
 
 class FinanceWorkflow( workflow.Workflow ):
     implements( iworkflow.IWorkflow )
-
     def __init__( self ):
         super( FinanceWorkflow, self).__init__( create_finance_workflow() )
 
-class FulfillmentState( MultiWorkflowState ):
+# if we passed in IOrder we could have all of these registered for us, but
+# to make it easier to change these, we plugin them in via zcml.
+FulfillmentWorkflowAdapter, FulfillmentState, FulfillmentInfo = workflow.ParallelWorkflow(
+    workflow.AdaptedWorkflow( FulfillmentWorkflow() ),
+    workflow_states.order.fulfillment.name,
+    )
 
-    state_key = 'getpaid.fulfillment.state'
-    id_key = 'getpaid.fulfillment.id'
-
-class FinanceState( MultiWorkflowState ):
-
-    state_key = 'getpaid.finance.state'
-    id_key = 'getpaid.finance.id'
-
-class FulfillmentInfo( MultiWorkflowInfo ):
-    
-    state_name = "getpaid.fulfillment.state"
-    workflow_name = "getpaid.fulfillment.workflow"
-
-class FinanceInfo( MultiWorkflowInfo ):
-    
-    state_name = "getpaid.finance.state"
-    workflow_name = "getpaid.finance.workflow"
-
-class OrderVersions( workflow.WorkflowVersions ):
-
-    def hasVersionId( self, id): return False
-
+FinanceWorkflowAdapter, FinanceState, FinanceInfo = workflow.ParallelWorkflow(
+    workflow.AdaptedWorkflow( FinanceWorkflow() ),
+    workflow_states.order.finance.name,
+    )
 
 if __name__ == '__main__':
-    wk = FinanceWorkflow()
-    print wk.toDot()
-    #wk = FulfillmentWorkflow()
-    #print wk.toDot()
+    wk = FinanceWorkflow(None)        
 
 

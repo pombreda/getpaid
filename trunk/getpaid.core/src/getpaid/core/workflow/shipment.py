@@ -41,7 +41,7 @@ from zope.interface import implements
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-from getpaid.core.interfaces import shipment_states
+from getpaid.core.interfaces import workflow_states
 
 def CheckAuthorized( wf, context ):
     return True
@@ -51,7 +51,7 @@ def CheckCharged( wf, context ):
 
 def create_shippment_workflow( ):
 
-    ss = shipment_states
+    ss = workflow_states.shipment
 
     transitions = []
     add = transitions.append
@@ -116,7 +116,9 @@ class ShipmentWorkflow( workflow.Workflow ):
 
     def __init__( self ):
         super( ShipmentWorkflow, self).__init__( create_shippment_workflow() )
-         
+
+ShipmentWorkflowAdapter = workflow.AdaptedWorkflow( ShipmentWorkflow() )
+
 if __name__ == '__main__':
     wf = ShipmentWorkflow()
     print wf.toDot()
