@@ -7,21 +7,20 @@ Milestone 1 - Red Ochre
 
 = Status =
 
-See Remaining [http://code.google.com/p/getpaid/issues/list?can=2&q=milestone:M1&sort=priority+milestone&colspec=ID%20Type%20Status%20Priority%20Milestone%20Owner%20Summary%20Component Issues]
+*See Remaining* [http://code.google.com/p/getpaid/issues/list?can=2&q=milestone:M1&sort=priority+milestone&colspec=ID%20Type%20Status%20Priority%20Milestone%20Owner%20Summary%20Component Issues]
 
 =Screenshots=
 
-order collection administration
+===order collection administration===
 http://getpaid.googlecode.com/files/order-collection-admin-screenshot.png
 
-order administration
+===order administration===
 http://getpaid.googlecode.com/files/order-admin-screenshot.png
 
 =Workflows=
 
-order finance
+===order finance===
 http://getpaid.googlecode.com/files/workflow-finance.png
 
-order fulfillment
+===order fulfillment===
 http://getpaid.googlecode.com/files/workflow-fulfillment.png
-
