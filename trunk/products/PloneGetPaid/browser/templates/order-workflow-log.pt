@@ -1,0 +1,16 @@
+<fieldset>
+  <legend> Order Log </legend>
+  <ul>
+    <div tal:omit-tag tal:repeat="record view/iterRecords">
+      <li>
+	On <span tal:content="record/change_date"> July 14th, 2007 </span>
+	By <span tal:content="record/changed_by"> JohnSmith </span>
+	Previous <span tal:content="record/previous_state"> Created </span>
+	New <span tal:content="record/new_state"> Delivered </span>
+	<span tal:condition="record/comment" tal:content="record/comment"> Comment </span>
+      </li>
+    </div>
+  </ul>
+    
+</fieldset>
+
