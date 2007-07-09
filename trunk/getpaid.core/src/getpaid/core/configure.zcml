@@ -9,7 +9,13 @@
      for=".interfaces.IOrder
 	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
      />
-  
+
+  <adapter
+     for=".interfaces.IOrder"
+     provides=".interfaces.IOrderWorkflowLog"
+     factory=".order.OrderWorkflowLog"
+     />
+
   <!-- Taxes -->
 
   <utility
@@ -17,6 +23,7 @@
      factory=".tax.TaxUtility"
      />
 
+  <!-- Shipping -->
   <utility
      provides=".interfaces.IShippingMethod"
      factory=".shipping.ShippingMethod"

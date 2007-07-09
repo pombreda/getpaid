@@ -16,9 +16,9 @@ import random, string, datetime
 
 from zope import component
 
-from getpaid.core.interfaces import IOrder, IOrderManager, finance_states
+from getpaid.core.interfaces import IOrder, IOrderManager, IOrderWorkflowLog, workflow_states
 from getpaid.core import order, cart
-from getpaid.core.workflow import order as oworkflow
+from getpaid.core.workflow import store, order as oworkflow
 
 def setUp(test):
     return
@@ -54,6 +54,32 @@ def createOrders( how_many=10 ):
 
         yield o
 
+class OrderLogTests( unittest.TestCase ):
+
+    def setUp( self ):
+        placelesssetup.setUp()
+        workflowSetUp( None )
+        ztapi.provideAdapter( IOrder, IOrderWorkflowLog, order.OrderWorkflowLog )
+        
+    def testLog():
+        self.orders = list( createOrders() )
+        order1 = self.orders[0]
+        order1.finance_workflow.fireTransition('create')
+
+        olog = IOrderWorkflowLog( order1 )
+        history = list( iter( olog ) )
+        self.assertEqual( len( history ), 1 )
+        entry = history[0]
+        self.assertEqual( entry.transition, 'create')
+        self.assertEqual( entry.new_state, workflow_states.order.finance.REVIEWING)
+        
+    def testLogSimpleImmutable( self ):
+        # just check that we can't do attribute sets on records
+        pass
+    
+    def tearDown( self ):
+        placelesssetup.tearDown()
+
 class OrderQueryTests( unittest.TestCase ):
 
     def setUp( self ):
@@ -83,8 +109,8 @@ class OrderQueryTests( unittest.TestCase ):
         end_date = now - datetime.timedelta( 7 )
         results = order.query.search( creation_date = ( start_date, end_date ) )
         self.assertEqual( len(results), 2 )
-        
 
+        
     def testStateQuery( self ):
         self.orders[0].finance_workflow.fireTransition('authorize')
         self.manager.storage.reindex( self.orders[0] )        
@@ -97,15 +123,15 @@ class OrderQueryTests( unittest.TestCase ):
         self.orders[2].finance_workflow.fireTransition('charge-chargeable') 
         self.manager.storage.reindex( self.orders[2] )
         
-        self.assertEqual( len( order.query.search( finance_state = finance_states.CHARGEABLE ) ), 1 )
-        self.assertEqual( len( order.query.search( finance_state = finance_states.CANCELLED ) ), 1 )
-        self.assertEqual( len( order.query.search( finance_state = finance_states.CHARGED ) ), 1 )                
+        self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CHARGEABLE ) ), 1 )
+        self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CANCELLED ) ), 1 )
+        self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CHARGED ) ), 1 )                
 
     def testCombinedQuery( self ):
         self.orders[0].finance_workflow.fireTransition('authorize')
         self.orders[0].creation_date = created = datetime.datetime.now() - datetime.timedelta( 30 )
         self.manager.storage.reindex( self.orders[0] )
-        self.assertEqual( len( order.query.search( finance_state = finance_states.CHARGEABLE,
+        self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CHARGEABLE,
                                                    creation_date = ( created - datetime.timedelta(1),
                                                                      created + datetime.timedelta(1) )
                                                    )),
@@ -119,22 +145,22 @@ def workflowSetUp(doctest):
     ztapi.provideAdapter( IOrder,
                           interfaces.IWorkflowState,
                           oworkflow.FinanceState,
-                         'getpaid.finance.state')
+                          'order.finance')
 
     ztapi.provideAdapter( IOrder,
-                       interfaces.IWorkflowState,
-                       oworkflow.FulfillmentState,
-                      'getpaid.fulfillment.state')
+                          interfaces.IWorkflowState,
+                          oworkflow.FulfillmentState,
+                          'order.fulfillment')
 
     ztapi.provideAdapter( IOrder,
-                     interfaces.IWorkflowInfo,
-                     oworkflow.FinanceInfo,
-                    'getpaid.finance.info')
+                          interfaces.IWorkflowInfo,
+                          oworkflow.FinanceInfo,
+                          'order.finance')
 
     ztapi.provideAdapter( IOrder,
                      interfaces.IWorkflowInfo,
                      oworkflow.FulfillmentInfo,
-                    'getpaid.fulfillment.info')
+                    'order.fulfillment')
                     
     ztapi.provideAdapter(annotation_interfaces.IAttributeAnnotatable,
                          annotation_interfaces.IAnnotations,
@@ -142,14 +168,14 @@ def workflowSetUp(doctest):
 
     ztapi.provideUtility(interfaces.IWorkflow,
                          oworkflow.FulfillmentWorkflow(),
-                        'getpaid.fulfillment.workflow')
+                        'order.fulfillment')
                         
     ztapi.provideUtility(interfaces.IWorkflow,
                         oworkflow.FinanceWorkflow(),
-                        'getpaid.finance.workflow')
+                        'order.finance')
 
     ztapi.provideUtility(interfaces.IWorkflowVersions,
-                         oworkflow.OrderVersions())
+                         store.StoreVersions())
     
     ztapi.provideUtility( IOrderManager, order.OrderManager() )
     
