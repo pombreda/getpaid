@@ -15,7 +15,7 @@
     <browser:page
       for="*"
       name="checkout_link"
-      class=".browser.GoogleCheckoutLink"
+      class=".browser.GoogleCheckoutButton"
       permission="zope2.View"
       />
      
