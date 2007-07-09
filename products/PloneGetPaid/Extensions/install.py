@@ -13,8 +13,8 @@ from zope.component.interfaces import ISiteManager
 from zope.app.component.hooks import setSite, getSite
 from zope.app.component.interfaces import ISite, IPossibleSite
 from Products.Five.site.localsite import enableLocalSiteHook
-
-from getpaid.core.interfaces import IOrderManager
+from Products.Five.utilities import marker
+from getpaid.core.interfaces import IOrderManager, IStore
 from getpaid.core.order import OrderManager
 from ore.member.interfaces import ISiteSchemaManager
 
@@ -132,13 +132,21 @@ def setup_actions( self ):
                                         action['name'] )
 
 def setup_site( self ):
-    portal = getToolByName( self, 'portal_url').getPortalObject()
+    portal = getToolByName( self, 'portal_url').getPortalObject()    
     
     if ISite.providedBy( portal ):
         setSite( portal )
         return
     enableLocalSiteHook( portal )
     setSite( portal )
+
+def setup_store( self ):
+    portal = getToolByName( self, 'portal_url').getPortalObject()
+    marker.mark( portal, IStore )
+
+def teardown_store( self ):
+    portal = getToolByName( self, 'portal_url').getPortalObject()
+    marker.erase( portal, IStore )    
 
 def setup_order_manager( self ):
     portal = getToolByName( self, 'portal_url').getPortalObject()
@@ -253,6 +261,9 @@ def install( self ):
     print >> out, "Installing Local Site"
     setup_site( self )
 
+    print >> out, "Installing Store Marker Interface"
+    setup_store( self )
+    
     print >> out, "Installing Order Local Utility"
     setup_order_manager( self )
     
@@ -266,5 +277,7 @@ def uninstall( self ):
     uninstall_cart_portlet( self )
     
     uninstall_contentwidget_portlet( self )
+
+    teardown_store( self )
 
     return "Uninstalled"

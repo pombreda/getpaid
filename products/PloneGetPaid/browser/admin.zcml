@@ -10,7 +10,7 @@
 
   <!-- Management UI Template -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-template"
      template="templates/admin-template.pt"
      permission="cmf.ManagePortal"
@@ -18,7 +18,7 @@
 
   <!-- Management UI Overview -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-overview"
      class=".admin.Overview"
      template="templates/admin-overview.pt"
@@ -29,7 +29,7 @@
 
   <!-- Management UI Identification Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-identification"
      class=".admin.Identification"
      template="templates/admin-identification.pt"
@@ -39,7 +39,7 @@
   <!-- Configure -->
   <!-- Management Content Types Editing -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-content-types"
      class=".admin.ContentTypes"     
      permission="cmf.ManagePortal"
@@ -47,7 +47,7 @@
 
   <!-- Management Shipping Options Editing -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-shipping-options"
      class=".admin.ShippingOptions"     
      permission="cmf.ManagePortal"
@@ -55,7 +55,7 @@
 
   <!-- Management Payment Options Editing -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-options"
      class=".admin.PaymentOptions"     
      permission="cmf.ManagePortal"
@@ -63,7 +63,7 @@
 
   <!-- Management Payment Processor Editing -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-processor"
      class=".admin.PaymentProcessor"     
      permission="cmf.ManagePortal"
@@ -73,7 +73,7 @@
   
   <!-- Customer Information -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-customer-information"
      class=".admin.CustomerInformation"
      permission="cmf.ManagePortal"
@@ -81,7 +81,7 @@
 
   <!-- Payment Processing Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-processing"
      class=".admin.PaymentProcessing"
      permission="cmf.ManagePortal"
@@ -89,7 +89,7 @@
 
   <!-- Weight Measurement Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-weight-units"
      class=".admin.WeightUnits"
      permission="cmf.ManagePortal"
@@ -97,7 +97,7 @@
      
   <!-- Session Timeout Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-session-timeout"
      class=".admin.SessionTimeout"
      permission="cmf.ManagePortal"
@@ -105,7 +105,7 @@
      
   <!-- Sales Tax Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-sales-tax"
      class=".admin.SalesTax"
      permission="cmf.ManagePortal"
@@ -115,7 +115,7 @@
   
   <!-- Management Currency Options Editing -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-currency"
      class=".admin.Currency"     
      permission="cmf.ManagePortal"
@@ -125,7 +125,7 @@
 
   <!-- Management Email Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-email"
      class=".admin.Email"     
      permission="cmf.ManagePortal"
@@ -133,7 +133,7 @@
 
   <!-- Management Merchant Notification Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-merchant-notification"
      class=".admin.MerchantNotification"     
      permission="cmf.ManagePortal"
@@ -141,7 +141,7 @@
 
   <!-- Management Customer Notification Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-customer-notification"
      class=".admin.CustomerNotification"     
      permission="cmf.ManagePortal"
@@ -151,7 +151,7 @@
      
   <!-- Management Legal Disclaimer Options -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-legal-disclaimers"
      class=".admin.LegalDisclaimers"     
      permission="cmf.ManagePortal"
@@ -160,7 +160,7 @@
 
   <!-- Order Management -->
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-orders"
      class=".admin_order.ManageOrders"
      template="templates/orders-manage.pt"
@@ -168,7 +168,7 @@
      />
 
   <browser:page
-     for="Products.CMFCore.interfaces.ISiteRoot"
+     for="getpaid.core.interfaces.IStore"
      name="admin-manage-order"
      class=".admin_order.AdminOrderRoot"
      template="templates/order-manage.pt"
@@ -191,6 +191,8 @@
      permission="cmf.ManagePortal"
      />
 
+
+  <!-- Viewlets for Order Collections -->
   <browser:viewletManager
      name="orders_admin"
      permission="zope2.View"
@@ -221,6 +223,58 @@
      class=".admin_order.OrderCSVComponent"
      permission="zope2.View"
      />
+
+  <!-- Viewlets for an Order -->
+  <browser:viewletManager
+     name="order_admin"
+     permission="zope2.View"
+     provides="..interfaces.IAdminOrderManager"
+     class=".admin_order.AdminOrderManager" 
+     />
+
+  <browser:viewlet
+     name="order-finance"
+     manager="..interfaces.IAdminOrderManager"
+     template="templates/order-finance.pt"
+     class=".admin_order.OrderFinanceComponent"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-fulfillment"
+     manager="..interfaces.IAdminOrderManager"
+     template="templates/order-fulfillment.pt"
+     class=".admin_order.OrderFulfillmentComponent"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-all-items"
+     manager="..interfaces.IAdminOrderManager"
+     template="templates/order-item-listing.pt"
+     class=".admin_order.AllItems"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-workflow-log"
+     manager="..interfaces.IAdminOrderManager"
+     class=".admin_order.OrderWorkflowLog"
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- 
+
+  item fulfillment example for m2
+
+  <browser:viewlet
+     name="order-new-items"
+     manager="..interfaces.IAdminOrderManager"
+     template="templates/order-item-listing.pt"
+     class=".admin_order.NewItems"
+     permission="zope2.View"
+     />
+  -->
 
 
 </configure>

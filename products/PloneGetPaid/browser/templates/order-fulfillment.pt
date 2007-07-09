@@ -1,0 +1,20 @@
+<fieldset>
+
+  <legend> Fulfillment </legend>
+
+  <span> Current Status </span>  - <span tal:content="view/fulfillment_status"> Processing </span>  
+  
+  <form action="."
+        tal:attributes="action request/URL" method="post"
+        class="edit-form" enctype="multipart/form-data"
+        id="getpaid.cart.actions">
+
+    <div class="form-controls" tal:condition="view/availableActions">
+      <input tal:repeat="action view/actions"
+             tal:replace="structure action/render"
+             />
+    </div>
+  </form>
+    
+</fieldset>
+

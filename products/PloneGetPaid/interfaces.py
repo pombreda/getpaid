@@ -20,6 +20,10 @@ class IOrdersAdminManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for collections of orders admin management
     """
 
+class IAdminOrderManager( zope.viewlet.interfaces.IViewletManager ):
+    """ viewlet manager for a single order
+    """ 
+
 class IGetPaidContentViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for content that is marked with one of the getpaid Marker interfaces
     """
