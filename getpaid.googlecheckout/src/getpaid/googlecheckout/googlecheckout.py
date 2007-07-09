@@ -8,7 +8,7 @@ from gchecky import model as gmodel
 
 import interfaces
 
-class GController(gbase.Controller):
+class GController(Controller):
     pass
 
 def gcart_item(entry):
