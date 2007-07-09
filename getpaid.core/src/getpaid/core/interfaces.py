@@ -297,7 +297,7 @@ class IOrderWorkflowEntry( Interface ):
 
     changed_by = schema.ASCIILine( title=u"Changed By", readonly = True )
     change_date = schema.ASCIILine( title=u"Change Date", readonly = True)
-    comment = schema.ASCIILine( title=u"Comment", readonly = True )
+    comment = schema.ASCIILine( title=u"Comment", readonly = True, required=False )
     new_state = schema.ASCIILine( title=u"New State", readonly = True)
     previous_state = schema.ASCIILine( title=u"Previous State", readonly = True )
     transition = schema.ASCIILine( title=u"", readonly = True)

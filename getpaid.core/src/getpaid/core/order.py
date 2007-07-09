@@ -13,7 +13,7 @@ from zope.index.keyword  import KeywordIndex
 from persistent import Persistent
 from persistent.list import PersistentList
 from persistent.dict import PersistentDict
-from zope.app.annotation.interfaces import IAttributeAnnotatable
+from zope.app.annotation.interfaces import IAttributeAnnotatable, IAnnotations
 
 from BTrees.IFBTree import weightedIntersection, intersection
 from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
@@ -326,6 +326,12 @@ class OrderWorkflowRecord( Persistent ):
     new_state = FP( I['new_state'] )
     previous_state = FP( I['previous_state'] )
 
+    def __init__( self, **kw ):
+        names = interfaces.IOrderWorkflowEntry.names()
+        for k,v in kw.items():
+            if k in names:
+                self.__dict__[ k ] = v
+
 class OrderWorkflowLog( object ):
 
     implements( interfaces.IOrderWorkflowLog )
@@ -362,10 +368,10 @@ def recordOrderWorkflow( order, event ):
     if getSecurityManager is not None:
         data['changed_by'] = getSecurityManager().getUser().getId()
 
-    data['change_data'] = datetime.datetime.now()
+    data['change_date'] = datetime.datetime.now()
     data['new_state'] = event.destination
     data['previous_state'] = event.source
-    data['transition'] = event.transition
+    data['transition'] = event.transition.transition_id
     data['comment'] = event.comment
 
     audit_log = interfaces.IOrderWorkflowLog( event.object )
