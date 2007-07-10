@@ -4,7 +4,7 @@ $Id$
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore import permissions as cmf_perms
-from Products.PloneGetPaid.config import *
+from Products.PloneGetPaid import _GETPAID_DEPENDENCIES_
 from StringIO import StringIO
 
 from zope.component.interfaces import ISiteManager
@@ -175,7 +175,7 @@ def uninstall_control_panel( self ):
 
 def install_dependencies( self ):
     quickinstaller = self.portal_quickinstaller
-    for dependency in DEPENDENCIES:
+    for dependency in _GETPAID_DEPENDENCIES_:
         quickinstaller.installProduct( dependency )    
 
 def install_cart_portlet( self, uninstall=False ):

@@ -2,6 +2,5 @@
 $Id$
 """
 
-import config
-
+_GETPAID_DEPENDENCIES_ = [ "ore.member", 'CMFonFive' ]
     

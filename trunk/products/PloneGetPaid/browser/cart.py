@@ -4,15 +4,8 @@ Viewlet / Formlib / zc.table Based Shopping Cart
 $Id$
 """
 
-from AccessControl import getSecurityManager
+import os
 
-from Products.Five.viewlet import viewlet
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from Products.PloneGetPaid.interfaces import PayableMarkers, PayableMarkerMap
-from Products.CMFCore.utils import getToolByName
-
-from getpaid.core import interfaces, item as litem
 from zope import component
 from zope.formlib import form
 from zc.table import column
@@ -21,7 +14,18 @@ from zc.table import table
 from ore.viewlet.container import ContainerViewlet
 from ore.viewlet.core import FormViewlet
 
-from viewlet import ShoppingCartManager
+from getpaid.core import interfaces, item as litem
+
+from AccessControl import getSecurityManager
+
+from Products.Five.viewlet import viewlet, manager
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from Products.PloneGetPaid.interfaces import PayableMarkers, PayableMarkerMap, IGetPaidCartViewletManager
+from Products.CMFCore.utils import getToolByName
+
+#################################
+# Shopping Cart Views
 
 class ShoppingCart( BrowserView ):
 
@@ -85,7 +89,30 @@ class ShoppingCartAddItem( ShoppingCart ):
         self.cart[ item.item_id ] = item
         self.cart.last_item = item.item_id
         
+
+#################################
+# Shopping Cart Viewlet Manager
+
+_prefix = os.path.dirname( __file__ )
+
+GetPaidShoppingCartTemplate = os.path.join( _prefix, "templates", "viewlet-manager.pt")
+
+class ViewletManagerShoppingCart( object ):
+    """ Shopping Cart Viewlet Manager """
+
+    def sort (self, viewlets ):
+        """ sort by name """
+        return sorted(viewlets)
         
+ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
+                                              IGetPaidCartViewletManager,
+                                              GetPaidShoppingCartTemplate,
+                                              bases=(ViewletManagerShoppingCart,)
+                                              )
+
+#################################
+# Shopping Cart Viewlets
+
 class LineItemColumn( object ):
     
     def __init__(self, name):

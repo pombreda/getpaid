@@ -4,8 +4,22 @@ $Id$
 
 from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.i18n.locales import locales
+
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.formlib import formbase
+from Products.Five.viewlet import viewlet
+
+class FormViewlet( viewlet.SimpleAttributeViewlet, formbase.SubPageForm ):
+    """ a viewlet which utilize formlib
+    """
+    form_template = formbase.FormBase.template    
+    renderForm = formbase.FormBase.render
+    
+    __page_attribute__ = "template"
+    
+    def update( self ):
+        super( viewlet.SimpleAttributeViewlet, self).update()
+        super( formbase.SubPageForm, self).update()
 
 class BaseView( object ):
 

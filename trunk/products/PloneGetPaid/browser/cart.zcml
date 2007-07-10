@@ -37,7 +37,7 @@
      name="shopping_cart"
      permission="zope2.View"
      provides="..interfaces.IGetPaidCartViewletManager"
-     class=".viewlet.ShoppingCartManager" 
+     class=".cart.ShoppingCartManager" 
      />
 
   <!-- number prefix on 'name' determines the order they show up in the cart -->
