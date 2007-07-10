@@ -24,7 +24,7 @@ class Overview( BrowserView ):
 class BaseSettingsForm( formbase.EditForm, BaseView ):
 
     options = None
-    template = ZopeTwoPageTemplateFile("templates/settings-form.pt")
+    template = ZopeTwoPageTemplateFile("templates/settings-page.pt")
     
     def __init__( self, context, request ):
         self.context = context
