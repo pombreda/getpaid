@@ -8,7 +8,9 @@ from zope.interface import implements
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-from getpaid.core.interfaces import workflow_states, IOrder
+from getpaid.core.interfaces import workflow_states, IOrder, IPaymentProcessor
+from zope import component
+    
 
 def create_fulfillment_workflow( ):
 

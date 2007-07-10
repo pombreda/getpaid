@@ -11,7 +11,7 @@ from ore.member.interfaces import IMemberSchema
 # Where to Buy Stuff
 
 class IStore( Interface ):
-    """ objects that are IStores need to be a local site.
+    """ represents a getpaid installation, should be a local site w/ getpaid local components installed
     """
 
 #################################
@@ -24,10 +24,11 @@ class IPayable( Interface ):
     basis.
     """
     
-    madePayableBy = schema.TextLine( title=u"Made Payable By",
-                        description=u"(eventually will be id of logged-in user)",
-                        required=False
-                        )
+    madePayableBy = schema.TextLine(
+        title = u"Made Payable By",
+        readonly = True,
+        required = False
+        )
     
     productCode = schema.TextLine( title=u"Product Code",
                         description=u"An organization's unique product identifier (not required since shopping cart uses content UID internally)",
@@ -69,6 +70,11 @@ class IShippableContent( IPayable ):
         """ Shipping Weight
         """
 
+#################################
+# Events
+
+
+
 class IPayableAuditLog( Interface ):
     """ ordered container of changes, most recent first, hook on events.
     """
@@ -78,8 +84,12 @@ class IPayableAuditLog( Interface ):
 
 #################################
 # Stuff to Process Payments
+
 class IPaymentProcessor( Interface ):
     """ A Payment Processor
+
+    a processor can keep processor specific information on an orders
+    annotations. 
     """ 
 
     def authorize( order, payment_information ):
@@ -96,6 +106,7 @@ class IPaymentProcessor( Interface ):
 
     def refund( order, amount ):
         """
+        reset
         """
     
 class IRecurringPaymentProcessor( IPaymentProcessor ):
@@ -144,7 +155,6 @@ class IGiftCertificate( ILineItem ):
     """ A Gift Certificate
     """
 
-
 #################################
 # Shopping Cart Stuff
 
@@ -169,8 +179,12 @@ class IShoppingCart( ILineItemContainer ):
 #################################
 # Shipping
 
+class IShipmentContainer(  IContainer ):
+    """ a container for shipments
+    """
+
 class IShipment( ILineItemContainer ):
-    """ 
+    """ a (partial|complete) shipment of ishippable line items of an order
     """
 
 class IShippingMethod( Interface ):
@@ -229,7 +243,7 @@ class IUserPaymentInformation( Interface ):
 
     name_on_card = schema.TextLine( title=u"Card Holder Name")
     phone_number = schema.TextLine( title=u"Phone Number")    
-    # NOT STORED PERSISTENTLY
+    # DONT STORED PERSISTENTLY
     credit_card_type = schema.Choice( title = u"Credit Card Type",
                                       values = ( u"Visa",
                                                  u"MasterCard",
@@ -263,7 +277,7 @@ class IOrderManager( Interface ):
     """
 
     def query( **kw ):
-        """ query the orders
+        """ query the orders, XXX extract order query interface
         """
 
     def get( order_id ):
@@ -275,18 +289,21 @@ class IOrderManager( Interface ):
         """
 
 class IOrder( Interface ):
-
+    """ captures information, and is a container to multiple workflows
+    """
     shipping_address = schema.Object( IShippingAddress, required=False)
     billing_address  = schema.Object( IBillingAddress )
     shopping_cart = schema.Object( IShoppingCart )
     finance_state = schema.TextLine( title=u"Finance State", readonly=True)
     fufillment_state = schema.TextLine( title=u"Fufillment State", readonly=True)
     processor_order_id = schema.ASCIILine( title=u"Processor Order Id" )
-
+    processor_id = schema.ASCIILine( readonly=True )
+    
 class IOrderWorkflowLog( Interface ):
-
+    """ an event log based history of an order's workflow
+    """
     def __iter__( ):
-        """ iterate through records of the order's history
+        """ iterate through records of the order's history, latest to oldest.
         """
 
     def last( ):
@@ -294,7 +311,8 @@ class IOrderWorkflowLog( Interface ):
         """
 
 class IOrderWorkflowEntry( Interface ):
-
+    """ a record describing a change in an order's workflow history
+    """
     changed_by = schema.ASCIILine( title=u"Changed By", readonly = True )
     change_date = schema.ASCIILine( title=u"Change Date", readonly = True)
     comment = schema.ASCIILine( title=u"Comment", readonly = True, required=False )
@@ -302,8 +320,25 @@ class IOrderWorkflowEntry( Interface ):
     previous_state = schema.ASCIILine( title=u"Previous State", readonly = True )
     transition = schema.ASCIILine( title=u"", readonly = True)
     # change type?? (workflow, user
-    
 
+
+class keys:
+    """ public annotation keys and static variables
+    """
+
+    # how much of the order have we charged
+    capture_amount= 'getpaid.capture_amount'
+    
+    # processor specific txn id for an order
+    processor_txn_id = 'getpaid.processor.uid'
+    
+    # name of processor adapter
+    processor_name = 'getpaid.processor.name'
+
+    # sucessful call to a processor
+    results_success = 1
+    results_async = 1
+    
 class workflow_states:
 
     class order:
