@@ -2,7 +2,7 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal">
 
 <body>
-<div metal:define-macro="portlet" tal:condition="view/isPayable">
+<div metal:define-macro="portlet" tal:condition="view/payable">
          
     <dl class="portlet" id="portlet-cart">
 
@@ -20,12 +20,12 @@
                tal:content="field"
                />
 
-            <p tal:define="field python: view.payableFields().donationText"
+            <p tal:define="field view/payable/donationText">
                tal:condition="field">
                <i tal:content="field" />
             </p>
 
-            <p tal:define="field python: view.payableFields().price"
+            <p tal:define="field view/payable/price"
                tal:condition="field">
                  Price: $<span tal:content="field" />
             </p>

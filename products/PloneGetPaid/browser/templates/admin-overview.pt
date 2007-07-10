@@ -18,36 +18,46 @@
     <h3>Configure</h3>
         <ul>
             <li><a href="@@manage-getpaid-content-types">Content Types</a></li>
-            <li><a href="@@manage-getpaid-shipping-options">Shipping Options</a></li>
+
             <li><a href="@@manage-getpaid-payment-options">Payment Settings</a></li>
             <li><a href="@@manage-getpaid-payment-processor">Payment Processor</a></li>
+            <li><a href="@@manage-getpaid-sales-tax">Sales Tax Configuration</a></li>      
 
-        </ul>
+<!--
+            <li><a href="@@manage-getpaid-shipping-options">Shipping Options</a></li>
+            <li><a href="@@manage-getpaid-session-timeout">Session (basket) Timeout</a></li>
+--> 
+     </ul>
     
     <h3>Order Management</h3>
+
+
         <ul>
-            <li><a href="@@manage-getpaid-customer-information">Customer Information</a></li>
-            <li><a href="@@manage-getpaid-orders">Order Information</a></li>
-            <li><a href="@@manage-getpaid-payment-processing">Payment Processing</a></li>
+            
+            <li><a href="@@manage-getpaid-orders">Order Information</a></li>    
+		
+<!--
+	    <li><a href="@@manage-getpaid-customer-information">Customer Information</a></li>
+            <li><a href="@@manage-getpaid-payment-processing">Payment Processing</a></li> 
             <li><a href="@@manage-getpaid-weight-units">Unit of Measurement (weight)</a></li>
-            <li><a href="@@manage-getpaid-session-timeout">Session (basket) Timeout</a></li>
-            <li><a href="@@manage-getpaid-sales-tax">Sales Tax Configuration</a></li>      
+-->
         </ul>
 </div>
 
 <div id="gpAdminColumn2" style="width:20em; margin:0 .5em; float: left;">
+  <!--
     <h3>Currency</h3>
         <ul>
             <li><a href="@@manage-getpaid-currency">Generic Currency Formatting</a></li>
         </ul>
-        
+
     <h3>Emails</h3>
         <ul>
             <li><a href="@@manage-getpaid-email">Email Preferences</a></li>
             <li><a href="@@manage-getpaid-customer-notification">Customer Order Confirmation Email</a></li>
             <li><a href="@@manage-getpaid-merchant-notification">Merchant Notification Email</a></li>
         </ul>
-        
+    -->        
     <h3>Customize Legal Disclaimers</h3>
         <ul>
             <li><a href="@@manage-getpaid-legal-disclaimers">Legal Disclaimers</a></li>

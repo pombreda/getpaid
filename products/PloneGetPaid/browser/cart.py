@@ -12,8 +12,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.PloneGetPaid.interfaces import PayableMarkers, PayableMarkerMap
 from Products.CMFCore.utils import getToolByName
 
-from getpaid.core import interfaces
-from getpaid.core import cart
+from getpaid.core import interfaces, item as litem
 from zope import component
 from zope.formlib import form
 from zc.table import column
@@ -75,9 +74,9 @@ class ShoppingCartAddItem( ShoppingCart ):
         if not found:
             raise RuntimeError("Invalid Context For Cart Add")
         
-        payable = component.getMultiAdapter( ( self.context, self.request ), iface )
+        payable = iface( self.context )
         
-        item = cart.PayableLineItem()
+        item = litem.PayableLineItem()
         item.item_id = self.context.UID()
         item.name = self.context.Title()
         item.description = self.context.Description()
@@ -143,7 +142,6 @@ class ShoppingCartActions( FormViewlet ):
 
     @form.action("Continue Shopping")
     def handle_continue_shopping( self, action, data ):
-        print "continue shopping"
         # redirect the user to the last thing they were viewing
         last_item = self.__parent__.cart.last_item
         payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
