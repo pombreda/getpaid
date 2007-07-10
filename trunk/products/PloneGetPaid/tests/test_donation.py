@@ -34,9 +34,8 @@ class TestCreateDonation(PloneGetPaidTestCase):
         donation = self.portal.restrictedTraverse('page-to-donate')
         
         mark( donation, IDonatableMarker)
-
-        request = TestRequest()
-        payable = component.getMultiAdapter( ( donation, request ), IDonationContent )
+        #request = TestRequest()
+        payable = IDonation( donation ) 
 
         payable.setProperty('donationText','description')
         self.failUnless(payable.donationText == 'description')

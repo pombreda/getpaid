@@ -7,7 +7,7 @@ $Id$
 import getpaid.core.interfaces as igetpaid
 
 from zope.formlib import form
-from zope import component
+from zope import component, event
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -20,103 +20,83 @@ from base import BaseView, BaseFormView
 class PayableFormView( BaseFormView ):
 
     adapters = None
-    interface = igetpaid.IPayable
-
-    template = ZopeTwoPageTemplateFile('templates/content-template.pt')
-
-    def update( self ):
-        self.payable = component.getMultiAdapter( ( self.context, self.request ),
-                                                    self.interface )
-        self.adapters = { self.interface : self.payable,
-                          igetpaid.IPayable : self.payable }
-        return super( PayableFormView, self).update()
-        
-    def setUpWidgets( self, ignore_request=False ):
-        self.adapters = self.adapters is not None and self.adapters or {}
-        self.widgets = form.setUpEditWidgets(
-            self.form_fields, self.prefix, self.context, self.request,
-            adapters=self.adapters, ignore_request=ignore_request
-            )
-
-class PayableMixin:
-    form_fields = form.Fields( igetpaid.IPayable )
     interface = None
     marker = None
+    form_fields = form.FormFields()
+    template = ZopeTwoPageTemplateFile('templates/content-template.pt')
+
+class PayableForm( PayableFormView, PayableFormView, formbase.EditForm ): pass
+
+class PayableCreation( PayableForm ): 
+
+    _keep_marker = False
     
-class PayableCreation( PayableMixin, PayableFormView, formbase.EditForm ):
+    @form.action("Activate", condition=form.haveInputWidgets)
+    def activate_payable( self, action, data):
+        self.handle_edit_action( action, data )
+        self._keep_marker = True
+    
+    @form.action("Cancel")
+    def handle_cancel( self, action, data):
+        marker.erase( self.context, self.marker )
+        self.request.RESPONSE.redirect( self.context.absolute_url() ) 
+
     def update( self ):
-        # XXX should do this on form submit success only...
-        marker.mark( self.context, self.marker )
-        return super( PayableCreation, self).update()
+        marker.mark( self.context, self.marker)
+        try:
+            return super( PayableCreation, self).update()
+        finally:
+            if not self._keep_marker:
+                marker.erase( self.context, self.marker )
 
-class PayableEdit( PayableMixin, PayableFormView, formbase.EditForm  ):
-    pass
-
-class PayableDestruction( PayableMixin ):
+class PayableDestruction( BrowserView ):
+    
     def __call__(self):
         marker.erase( self.context, self.marker )
-        self.context.REQUEST.RESPONSE.redirect( self.context.absolute_url() )
+        self.request.RESPONSE.redirect( self.context.absolute_url() )
 
-class BuyableMixin:
+
+class BuyableForm( PayableForm ):
     form_fields = form.Fields( igetpaid.IBuyableContent )
     interface = igetpaid.IBuyableContent
     marker = interfaces.IBuyableMarker
     
-class BuyableCreation( BuyableMixin, PayableCreation ):
-    """
-    """
-class BuyableEdit( BuyableMixin, PayableEdit ):
-    """
-    """
-class BuyableDestruction( BuyableMixin, PayableDestruction ):
-    """
-    """
+class BuyableCreation( BuyableForm ): pass
+class BuyableEdit( BuyableForm ): pass
+class BuyableDestruction( PayableDestruction ): pass
+
     
-class ShippableMixin:
+class ShippableForm( PayableForm ):
+    """ shippable content operations """
     form_fields = form.Fields( igetpaid.IShippableContent )
     interface = igetpaid.IShippableContent
     marker = interfaces.IShippableMarker
     
-class ShippableCreation( ShippableMixin, PayableCreation ):
-    """
-    """
-class ShippableEdit( ShippableMixin, PayableEdit ):
-    """
-    """
-class ShippableDestruction( ShippableMixin, PayableDestruction ):
-    """
-    """
+class ShippableCreation( ShippableForm ): pass
+class ShippableEdit( ShippableForm ): pass
+class ShippableDestruction( PayableDestruction ): pass
+
     
-class PremiumMixin:
+class PremiumForm( PayableForm ):
+    """ premium content operations """
     form_fields = form.Fields( igetpaid.IPremiumContent )
     interface = igetpaid.IPremiumContent
     marker = interfaces.IPremiumMarker
 
-class PremiumCreation( PayableMixin, PayableCreation ):
-    """
-    """
-class PremiumEdit( PayableMixin, PayableEdit ):
-    """
-    """
-class PremiumDestruction( PremiumMixin, PayableDestruction ):
-    """
-    """
+class PremiumCreation( PremiumForm ): pass
+class PremiumEdit( PremiumForm ): pass
+class PremiumDestruction( PayableDestruction ): pass
+
     
-class DonateMixin:
+class DonateForm( object ):
+    """ donation operations """
     form_fields = form.Fields( igetpaid.IDonationContent )
     interface = igetpaid.IDonationContent
     marker = interfaces.IDonatableMarker
 
-class DonateCreation( DonateMixin, PayableCreation ):
-    """
-    """
-class DonateEdit( DonateMixin, PayableEdit ):
-    """
-    """
-class DonateDestruction( DonateMixin, PayableDestruction ):
-    """
-    """
-
+class DonateCreation( DonateForm ): pass
+class DonateEdit( DonateForm ): pass
+class DonateDestruction( PayableDestruction ): pass
 
 
 class ContentControl( BrowserView ):
@@ -181,6 +161,7 @@ class ContentControl( BrowserView ):
         return self.allowChangePayable(self.options.buyable_types) \
                and not self.isPayable()
     allowMakeBuyable.__roles__ = None
+    
     def allowMakeNotBuyable( self ):
         """  
         """
@@ -194,6 +175,7 @@ class ContentControl( BrowserView ):
         return self.allowChangePayable(self.options.shippable_types) \
                and not self.isPayable()
     allowMakeShippable.__roles__ = None
+    
     def allowMakeNotShippable( self ):
         """  
         """
@@ -207,6 +189,7 @@ class ContentControl( BrowserView ):
         return self.allowChangePayable(self.options.premium_types) \
                and not self.isPayable()
     allowMakePremiumContent.__roles__ = None
+    
     def allowMakeNotPremiumContent( self ):
         """  
         """
@@ -220,6 +203,7 @@ class ContentControl( BrowserView ):
         return self.allowChangePayable(self.options.donate_types) \
                and not self.isPayable()
     allowMakeDonatable.__roles__ = None
+    
     def allowMakeNotDonatable( self ):
         """  
         """
@@ -230,16 +214,14 @@ class ContentControl( BrowserView ):
     def showManageCart( self ):
         utility = component.getUtility( igetpaid.IShoppingCartUtility )
         return utility.get( self.context ) is not None
-    
     showManageCart.__roles__ = None
 
 class ContentPortlet( BrowserView ):
     """ View methods for the ContentPortlet """
 
+    payable = None
     def __init__( self, *args, **kw):
         super( BrowserView, self).__init__( *args, **kw)
-        
-        item_id = self.context.UID()
 
         found = False
         for marker, iface in interfaces.PayableMarkerMap.items():
@@ -247,16 +229,11 @@ class ContentPortlet( BrowserView ):
                 found = True
                 break
 
-        if not found:
-            self.interface_found = False
-            self.payable = None
-        else:
-            self.interface_found = True
-            self.payable = component.getMultiAdapter( ( self.context, self.request ), iface )        
+        if found:
+            self.payable = iface( self.context )
 
     def isPayable(self):
-        return self.interface_found
+        return self.payable is not None
         
     def payableFields(self):
-        if self.isPayable():
-            return self.payable
+        return self.payable

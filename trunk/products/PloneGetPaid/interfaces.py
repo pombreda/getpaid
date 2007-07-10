@@ -276,12 +276,12 @@ class IGetPaidManagementLegalDisclaimerOptions( igetpaid.IPersistentOptions ):
     """
     """
     disclaimer = schema.Text( title = u"Disclaimer",
-                          required = False,
-                        )
+                              required = False, )
+                        
                                  
     privacy_policy = schema.Text( title = u"Privacy Policy",
-                          required = False,
-                        )                                 
+                                  required = False )
+                                  
 
 class IGetPaidManagementOptions( IGetPaidManagementIdentificationOptions,
                                  IGetPaidManagementContentTypes,

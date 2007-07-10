@@ -4,10 +4,9 @@ Paid Content Support
 Any piece of content can be integrated with getpaid, either on a content type basis or for
 any individual piece of content. [ XXX currently we only support individual pieces of content ]
 
-The applied zope3 interface allows us to
-use an adapter to add the component architecture to create views and adapters for the content.
-BuyableContent is delivered virtually, such as electronic PDF or simply viewing the content on
-the site.
+The applied zope3 interface allows us to use an adapter to add the component architecture to
+create views and adapters for the content. BuyableContent is delivered virtually, such as
+electronic PDF or simply viewing the content on the site.
 
 ShippableContent describes a physical, tangible item that must be shipped to an address. 
 Gift cards, products like T-Shirts, or paper-based content that goes into an envelope are 
@@ -26,7 +25,6 @@ invokes a premium content control view which in turn checks the control panel co
 for this content, by interface or content type.
 
 content security, we want to set local roles for users who buy content, we do this via
-
 
 content view snippets.. we still need to figure out if we can override the default view
 of a content object via applying an interface to it.
@@ -76,9 +74,8 @@ class BuyableContentAdapter( BuyableContentStorage ):
     """
     interface.implements( IBuyableContent )
     
-    def __init__( self, context, request ):
+    def __init__( self, context ):
         self.context = context
-        self.request = request
     
 
 #################################
@@ -93,22 +90,20 @@ class ShippableContentAdapter( ShippableContentStorage ):
 
     interface.implements( IShippableContent )
     
-    def __init__( self, context, request ):
+    def __init__( self, context ):
         self.context = context
-        self.request = request
 
 #################################
 # Premium Content    
 
-PremiumContentStorage = options.PersistentOptions.wire( "ShippableContentStorage", "getpaid.content.buyable", IPremiumContent )
+PremiumContentStorage = options.PersistentOptions.wire( "PremiumContentStorage", "getpaid.content.buyable", IPremiumContent )
 
 class PremiumContentAdapter( PremiumContentStorage ):
 
     interface.implements( IPremiumContent )
     
-    def __init__( self, context, request ):
+    def __init__( self, context ):
         self.context = context
-        self.request = request
 
 #################################
 # Donatable Content
@@ -125,6 +120,6 @@ class DonatableContentAdapter( DonatableContentStorage ):
     """
     interface.implements( IDonationContent )
 
-    def __init__( self, context, request ):
+    def __init__( self, context ):
         self.context = context
-        self.request = request
+

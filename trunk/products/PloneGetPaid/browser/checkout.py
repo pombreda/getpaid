@@ -62,8 +62,6 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from base import BaseFormView, BaseView
 
-
-
 class PropertyBag(object):
 
     schema = interfaces.IUserPaymentInformation
@@ -107,8 +105,8 @@ class CheckoutPayment( MemberContextEdit ):
     @form.action("Make Payment")
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
+        for async processors we never even got here.???
         """
-        import pdb; pdb.set_trace()
         manage_options = IGetPaidManagementOptions( self.context )
         processor_name = manage_options.payment_processor
         
@@ -119,8 +117,27 @@ class CheckoutPayment( MemberContextEdit ):
                                           interfaces.IPaymentProcessor,
                                           processor_name )
         order = self.createOrder()
+        order.processor_id = processor_name
+        order.finance_workflow.fireTransition( "create" )
         
-        processor.authorize( order, self.adapters[ interfaces.IUserPaymentInformation ]  )
+        result = processor.authorize( order, self.billing_info )
+        if result is interfaces.keys.results_async:
+            # shouldn't ever happen..
+            # XXX
+            # huh.. we don't ever get here on async, we get async notified
+            #
+            # for async notified..
+            # redirect to async, thank you for order, being reviewed, email confirmation sent, further
+            # correspondence by email ?
+            # 
+            pass
+        elif result is interfaces.keys.results_success:
+            order.finance_workflow.fireTransition("authorize")
+        else:
+            order.finance_workflow.fireTransition('reviewing-declined')
+            self.status = result
+            self.form_reset = False
+            
         self._next_url = self.getNextURL( order )
 
     def createOrder( self ):
@@ -136,27 +153,27 @@ class CheckoutPayment( MemberContextEdit ):
         order.billing_address = ImmutableBag().initfrom( self.adapters[ interfaces.IBillingAddress ],
                                                          interfaces.IBillingAddress )
         while 1:
-            order_id =  str( random.randint( 0, sys.maxint ) )
+            order_id = str( random.randint( 0, sys.maxint ) )
             if order_manager.get( order_id ) is None:
                 break
         order.order_id = order_id
-        order.finance_workflow.fireTransition( "create" )
         order_manager.store( order )
         return order
 
     def getNextURL( self, order ):
         state = order.finance_state
-        f_states = interfaces.finance_states
+        f_states = interfaces.workflow_states.order.finance
         base_url = self.context.absolute_url()
         
-        if state in ( f_states.CANCELLED,
-                      f_states.CANCELLED_BY_PROCESSOR,
-                      f_states.PAYMENT_DECLINED ):
-            return base_url + '@@checkout-error'
+##         if state in ( f_states.CANCELLED,
+##                       f_states.CANCELLED_BY_PROCESSOR,
+##                       f_states.PAYMENT_DECLINED ):
+##             return base_url + '/@@checkout-error'
 
-        elif state in ( f_states.CHARGEABLE,
-                        f_states.CHARGED ):
-            return base_url + '@@checkout-confirmed'
+        if state in ( f_states.CHARGEABLE,
+                      f_states.REVIEWING,
+                      f_states.CHARGED ):
+            return base_url + '/@@checkout-confirmed'
             
 
     def getFormFields( self, user ):

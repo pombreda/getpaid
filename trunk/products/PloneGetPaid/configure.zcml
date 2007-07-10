@@ -1,29 +1,21 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-	   xmlns:content="http://namespaces.objectrealms.net/plone"
 	   xmlns:five="http://namespaces.zope.org/five">
 
 <!-- Dependencies -->
 <include package="getpaid.core" />
-<include package="getpaid.processor.googlecheckout" />
+<include package="getpaid.googlecheckout" />
+<include package="getpaid.authorizedotnet" />
+<include package="getpaid.paypal" />
 
 <include package="ore.member" file="meta.zcml" />
 <include package="ore.member" />
 
 
-<!-- Turn Plone Into A Local Site Manager -->
+<!-- Inject Plone with the nesc interfaces / local site -->
+
 <five:localsite
    class="Products.CMFPlone.Portal.PloneSite"
    />
-
-<!-- UI -->
-<include package=".browser" />
-
-<!-- Member/User Attributes -->
-<include file="member.zcml" />
-
-<!-- Five -->
-<five:defaultViewable
-   class=".content_types.donation.Donation" />
 
 <five:implements 
    class="Products.CMFPlone.Portal.PloneSite"
@@ -33,172 +25,61 @@
    class="Products.Archetypes.public.BaseContent"
    interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
 
+
+<!-- UI -->
+<include package=".browser" />
+
+<!-- Member/User Attributes -->
+<include file="member.zcml" />
+
+<!-- Vocabularies -->
+<include file="vocabularies.zcml" />
+
+<!-- Five -->
+<five:defaultViewable
+   class=".content_types.donation.Donation" />
+
 <!-- Content to Payable Adapters -->
 <adapter
-   for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+   for="Products.CMFCore.interfaces.IContentish"
    provides="getpaid.core.interfaces.IBuyableContent"
    factory=".content.BuyableContentAdapter"
    />
 
 <adapter
-   for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+   for="Products.CMFCore.interfaces.IContentish"
    provides="getpaid.core.interfaces.IShippableContent"
    factory=".content.ShippableContentAdapter"
    />
 
 <adapter
-   for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+   for="Products.CMFCore.interfaces.IContentish"
    provides="getpaid.core.interfaces.IPremiumContent"
    factory=".content.PremiumContentAdapter"
    />
 
 <adapter
-  for="Products.CMFCore.interfaces.IContentish zope.publisher.interfaces.browser.IBrowserRequest"
+  for="Products.CMFCore.interfaces.IContentish"
   provides="getpaid.core.interfaces.IDonationContent"
   factory=".content.DonatableContentAdapter"
   />
    
 <!-- Content to Cart Item Adapters -->
 <adapter
-   for="getpaid.core.interfaces.IShoppingCart Products.Archetypes.interfaces.IBaseContent"
+   for="getpaid.core.interfaces.IShoppingCart"
    provides="getpaid.core.interfaces.IPayableLineItem"
    factory=".content.ContentLineItemFactory" />
 
-<!-- Property Storage for Web Configuration Options -->
+<!-- Property Storage for Configuration Options -->
 <adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
+   for="getpaid.core.interfaces.IStore"
    provides=".interfaces.IGetPaidManagementOptions"
    factory=".preferences.ConfigurationPreferences"
    />
 
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementIdentificationOptions"
-   factory=".preferences.IdentificationPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementContentTypes"
-   factory=".preferences.ContentTypesPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementShippingOptions"
-   factory=".preferences.ShippingOptionsPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementCustomerInformation"
-   factory=".preferences.PaymentOptionsPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementOrderInformation"
-   factory=".preferences.OrderInformationPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementPaymentProcessing"
-   factory=".preferences.PaymentProcessingPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementSalesTaxOptions"
-   factory=".preferences.SalesTaxPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementCurrencyOptions"
-   factory=".preferences.CurrencyPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementEmailOptions"
-   factory=".preferences.EmailPreferences"
-   />
-   
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementCustomerNotificationOptions"
-   factory=".preferences.CustomerNotificationPreferences"
-   />
-   
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementMerchantNotificationOptions"
-   factory=".preferences.MerchantNotificationPreferences"
-   />
-
-<adapter
-   for="Products.CMFCore.interfaces.ISiteRoot"
-   provides=".interfaces.IGetPaidManagementLegalDisclaimerOptions"
-   factory=".preferences.LegalDisclaimerPreferences"
-   />  
-   
 <!-- Utilities -->
 <utility
    provides="getpaid.core.interfaces.IShoppingCartUtility"
    factory=".cart.ShoppingCartUtility"/>
 
-<!-- Vocabularies -->
-
-<!-- Content Type Vocabulary -->
-<vocabulary
-   name="plone.content_types"
-   factory=".vocabularies.ContentTypes"
-   />
-
-<!-- Payment Methods -->
-<vocabulary
-   name="getpaid.payment_methods"
-   factory=".vocabularies.PaymentMethods"
-   />
-
-<!-- Shipping Methods -->
-<vocabulary
-   name="getpaid.shipping_methods"
-   factory=".vocabularies.ShippingMethods"
-   />
-
-<!-- Tax Schemes -->
-<vocabulary
-   name="getpaid.tax_methods"
-   factory=".vocabularies.TaxMethods" 
-   />
-
-<!-- Currencies -->
-<vocabulary
-   name="getpaid.currencies"
-   factory=".vocabularies.Currencies"
-   />
-   
-<!-- Credit Cards -->
-<vocabulary
-   name="getpaid.credit_cards"
-   factory=".vocabularies.CreditCards"
-   />   
-   
-<!-- Payment Methods -->
-<vocabulary
-   name="getpaid.weight_units"
-   factory=".vocabularies.WeightUnits"
-   />   
- 
-<vocabulary
-   name="getpaid.merchant_notification_choices"
-   factory=".vocabularies.MerchantNotificationChoices"
-   />   
-   
-<vocabulary
-   name="getpaid.customer_notification_choices"
-   factory=".vocabularies.CustomerNotificationChoices"
-   />  
 </configure>
