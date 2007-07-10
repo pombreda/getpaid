@@ -11,35 +11,17 @@ _sites = {
     "Production": "www.paypal.com",
     }
 
-_button_form = """\
-<form action="https://%(site)s/cgi-bin/webscr" method="post">
-<input type="hidden" name="cmd" value="_cart"/>
-<input type="hidden" name="business" value="%(merchant_id)s"/>
-<input type="hidden" name="currency_code" value="USD"/>
-<input type="hidden" name="invoice" value="%(order_number)s"/>
-%(cart)s
-<input type="image" src="http://%(site)s/en_US/i/btn/x-click-but01.gif"
-       name="submit"
-       alt="Make payments with PayPal - it's fast, free and secure!"/>
-</form>"""
-
-_button_cart = """
-<input type="hidden" name="item_name_%(idx)s" value="%(itemname)s"/>
-<input type="hidden" name="amount_%(idx)s" value="%(amount)s"/>
-<input type="hidden" name="quantity_%(idx)s" value="%(quantity)s"/>
-"""
-
 class PaypalStandardProcessor( object ):
    
     interface.implements( IPaypalStandardProcessor )
 
-    options_interface = interfaces.IPaypalStandardOptions
+    options_interface = IPaypalStandardOptions
 
     def __init__( self, context ):
         self.context = context
 
     def cart_post_button( self, cart ):
-        options = interfaces.IPaypalStandardOptions( self.context )
+        options = IPaypalStandardOptions( self.context )
         cartitems = []
         idx = 1
         for item in cart.values():
@@ -58,3 +40,22 @@ class PaypalStandardProcessor( object ):
 
     def authorize( self, order, payment ):
         pass
+
+_button_form = """\
+<form action="https://%(site)s/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_cart"/>
+<input type="hidden" name="business" value="%(merchant_id)s"/>
+<input type="hidden" name="currency_code" value="USD"/>
+<input type="hidden" name="invoice" value="%(order_number)s"/>
+%(cart)s
+<input type="image" src="http://%(site)s/en_US/i/btn/x-click-but01.gif"
+       name="submit"
+       alt="Make payments with PayPal - it's fast, free and secure!"/>
+</form>"""
+
+_button_cart = """
+<input type="hidden" name="item_name_%(idx)s" value="%(itemname)s"/>
+<input type="hidden" name="amount_%(idx)s" value="%(amount)s"/>
+<input type="hidden" name="quantity_%(idx)s" value="%(quantity)s"/>
+"""
+
