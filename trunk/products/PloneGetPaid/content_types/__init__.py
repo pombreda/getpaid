@@ -1,8 +1,0 @@
-"""
-$Id$
-"""
-
-import donation
-        
-
-

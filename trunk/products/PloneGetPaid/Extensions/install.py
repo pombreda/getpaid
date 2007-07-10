@@ -2,8 +2,6 @@
 $Id$
 """
 
-from Products.Archetypes.Extensions.utils import installTypes
-from Products.Archetypes.atapi import listTypes
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore import permissions as cmf_perms
 from Products.PloneGetPaid.config import *
@@ -242,9 +240,6 @@ def install( self ):
     
     print >> out, "Installing Control Panel"
     install_control_panel( self  )
-
-    print >> out, "Installing Types"
-    installTypes( self, out, listTypes( PROJECTNAME), PROJECTNAME )
 
     print >> out, "Installing Member Schemas"
     install_member_schemas( self )

@@ -1,4 +1,0 @@
-
-
- - replacing named template for a given formlib instance / class
-   seems to be global replacement by name
