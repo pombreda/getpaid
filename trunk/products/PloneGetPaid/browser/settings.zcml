@@ -9,6 +9,8 @@
      class=".admin.Overview"
      template="templates/admin-overview.pt"
      permission="cmf.ManagePortal"
+     menu="getpaid_admin"
+     title="Settings"
      />
 
   <!-- Profile -->
@@ -19,6 +21,8 @@
      name="manage-getpaid-identification"
      class=".admin.Identification"
      permission="cmf.ManagePortal"
+     menu="getpaid_admin"
+     title="Settings"
      />
 
   <!-- Configure -->

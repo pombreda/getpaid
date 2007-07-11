@@ -22,6 +22,8 @@
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-orders"
+     menu="getpaid_admin"
+     title="Orders"
      class=".admin_order.ManageOrders"
      template="templates/orders-manage.pt"
      permission="cmf.ManagePortal"

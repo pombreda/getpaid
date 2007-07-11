@@ -1,15 +1,22 @@
 <configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:zcml="http://namespaces.zope.org/zcml"
 	   xmlns:five="http://namespaces.zope.org/five">
 
 <!-- Dependencies -->
 <include package="getpaid.core" />
-<include package="getpaid.googlecheckout" />
-<include package="getpaid.authorizedotnet" />
-<include package="getpaid.paypal" />
 
 <include package="ore.member" file="meta.zcml" />
 <include package="ore.member" />
 
+<!-- Optional Payment Processors -->
+<include zcml:condition="installed getpaid.googlecheckout" 
+	 package="getpaid.googlecheckout" />
+
+<include zcml:condition="installed getpaid.authorizedotnet"
+	 package="getpaid.authorizedotnet" />
+
+<include zcml:condition="installed getpaid.paypal"
+	 package="getpaid.paypal" />
 
 <!-- Inject Plone with the nesc interfaces / local site -->
 
