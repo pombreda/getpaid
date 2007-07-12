@@ -151,3 +151,7 @@ Seems to be caused by using the wrong version of Python. You can correct this by
 You may need to install PIL to make it run:
 
 http://www.pythonware.com/products/pil/
+
+=== AttributeError: ore.member ===
+
+If you got that error trying to install PloneGetPaid on your plone site, please restart the zope instance and try again. Now ore.member should exist and you should have no problems for finishing the PloneGetPaid installation.
