@@ -9,10 +9,11 @@ for generating test order data.
 To create this test data, In the ZMI of the plone portal where getpaid is installed, 
 and an external method with the following values:
 
+{{{
 id : generate_orders
 module : PloneGetPaid.gen_order
 function : createOrders
-
+}}}
 
 if you test this function, it will return sayings its created 20 orders.
 
