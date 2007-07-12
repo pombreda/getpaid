@@ -88,7 +88,7 @@ class PremiumEdit( PremiumForm ): pass
 class PremiumDestruction( PayableDestruction ): pass
 
     
-class DonateForm( object ):
+class DonateForm( PayableForm ):
     """ donation operations """
     form_fields = form.Fields( igetpaid.IDonationContent )
     interface = igetpaid.IDonationContent
