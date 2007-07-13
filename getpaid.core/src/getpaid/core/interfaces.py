@@ -2,8 +2,9 @@
 $Id$
 """
 
-from zope.interface import Interface
+from zope.interface import Interface, Attribute
 from zope import schema
+from zope.app.event.interfaces import IObjectEvent    
 from zope.app.container.interfaces import IContainer
 from ore.member.interfaces import IMemberSchema
 
@@ -73,13 +74,18 @@ class IShippableContent( IPayable ):
 #################################
 # Events
 
+class IPayableCreationEvent( IObjectEvent ):
+    """ sent out when a payable is created
+    """
+
+    payable = Attribute("object implementing payable interface")
+    
+    payable_interface = Attribute("payable interface the object implements")
 
 
 class IPayableAuditLog( Interface ):
     """ ordered container of changes, most recent first, hook on events.
     """
-    #modification_date = 
-    #changed_by =
 
 
 #################################
@@ -298,6 +304,20 @@ class IOrder( Interface ):
     fufillment_state = schema.TextLine( title=u"Fufillment State", readonly=True)
     processor_order_id = schema.ASCIILine( title=u"Processor Order Id" )
     processor_id = schema.ASCIILine( readonly=True )
+
+
+class IShippableOrder( Interface ):
+    """ marker interface for orders which need shipping """
+
+class IRecurringOrder( Interface ):
+    """ marker interface for orders containing recurring line items """
+
+class IVirtualOrder( Interface ):
+    """ marker inteface for orders which are delivered virtually """
+
+class IDonationOrder( Interface ):
+    """ marker interface for orders which contain donations"""
+
     
 class IOrderWorkflowLog( Interface ):
     """ an event log based history of an order's workflow
