@@ -25,10 +25,16 @@ def ContentTypes( context ):
     # hmmm..
     types = filter( lambda x: x.global_allow, portal_types.objectValues() )
 
+    properties = getToolByName( context.context, 'portal_properties')
+    types_not_searched = set( properties.site_properties.types_not_searched )
+
     for type in portal_types.objectValues():
+        if type.getId() in types_not_searched:
+            continue
         terms.append(
             vocabulary.SimpleTerm( type.getId(), title=type.title_or_id() )
             )
+
     terms.sort( lambda x,y: cmp( x.title, y.title ) )
 
     return vocabulary.SimpleVocabulary( terms )
