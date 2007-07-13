@@ -5,10 +5,11 @@ $Id$
 """
 
 import getpaid.core.interfaces as igetpaid
-from getpaid.core import options
+from getpaid.core import options, event
 
 from zope.formlib import form
-from zope import component, event
+from zope import component
+from zope.event import notify
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -38,7 +39,7 @@ class PayableForm( PayableFormView, formbase.EditForm ):
             self.form_fields, self.prefix, self.context, self.request,
             adapters=self.adapters, ignore_request=ignore_request
             )
-
+        
 class PayableCreation( PayableForm ): 
 
     actions = form.Actions()
@@ -56,7 +57,10 @@ class PayableCreation( PayableForm ):
     def activate_payable( self, action, data):
         self.adapters = {}
         marker.mark( self.context, self.marker)
-        self.handle_edit_action.success_handler( self, action, data )        
+        self.handle_edit_action.success_handler( self, action, data )
+        notify(
+            event.PayableCreationEvent( self.context, self.adapters[ self.interface ], self.interface )
+            )
 
 ##     # formlib has serious issues do something as simple as a cancel button in our version of zope
 ##     # lame, seriously lame - kapilt
