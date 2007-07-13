@@ -1,7 +1,11 @@
+"""
+$Id$
+"""
 from zope.app.annotation import IAnnotations
 from persistent.dict import PersistentDict
 from zope import schema
 from zope.interface import classImplements, implements
+
 import interfaces
 
 _marker = object()
