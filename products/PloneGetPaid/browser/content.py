@@ -28,6 +28,10 @@ class PayableFormView( BaseFormView ):
 
 class PayableForm( PayableFormView, formbase.EditForm ):
 
+    def allowed( self ):
+        adapter = component.queryAdapter( self.context, igetpaid.IBuyableContent)
+        return not ( adapter is None )
+        
     def setUpWidgets( self, ignore_request=False ):
         self.adapters = self.adapters is not None and self.adapters or {}
         self.widgets = form.setUpEditWidgets(
@@ -43,7 +47,9 @@ class PayableCreation( PayableForm ):
         # create a temporary object so we don't have to modify context until we're ready to activate
         # it.. this creates some odd behavior on remarking though, where the user is always filling
         # in new values even though previously values are present in the underlying contxt annotation.
-        self.adapters = { self.interface : options.PropertyBag.makeinstance( self.interface ) }
+        self.adapters = { self.interface : options.PropertyBag.makeinstance( self.interface ),
+                          igetpaid.IPayable : options.PropertyBag.makeinstance( igetpaid.IPayable ) }
+        
         return super( PayableForm, self).update()
 
     @form.action("Activate", condition=form.haveInputWidgets)
