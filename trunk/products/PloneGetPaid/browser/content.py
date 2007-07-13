@@ -5,6 +5,7 @@ $Id$
 """
 
 import getpaid.core.interfaces as igetpaid
+from getpaid.core import options
 
 from zope.formlib import form
 from zope import component, event
@@ -25,29 +26,38 @@ class PayableFormView( BaseFormView ):
     form_fields = form.FormFields()
     template = ZopeTwoPageTemplateFile('templates/content-template.pt')
 
-class PayableForm( PayableFormView, PayableFormView, formbase.EditForm ): pass
+class PayableForm( PayableFormView, formbase.EditForm ):
+
+    def setUpWidgets( self, ignore_request=False ):
+        self.adapters = self.adapters is not None and self.adapters or {}
+        self.widgets = form.setUpEditWidgets(
+            self.form_fields, self.prefix, self.context, self.request,
+            adapters=self.adapters, ignore_request=ignore_request
+            )
 
 class PayableCreation( PayableForm ): 
 
-    _keep_marker = False
-    
-    @form.action("Activate", condition=form.haveInputWidgets)
-    def activate_payable( self, action, data):
-        self.handle_edit_action( action, data )
-        self._keep_marker = True
-    
-    @form.action("Cancel")
-    def handle_cancel( self, action, data):
-        marker.erase( self.context, self.marker )
-        self.request.RESPONSE.redirect( self.context.absolute_url() ) 
+    actions = form.Actions()
 
     def update( self ):
+        # create a temporary object so we don't have to modify context until we're ready to activate
+        # it.. this creates some odd behavior on remarking though, where the user is always filling
+        # in new values even though previously values are present in the underlying contxt annotation.
+        self.adapters = { self.interface : options.PropertyBag.makeinstance( self.interface ) }
+        return super( PayableForm, self).update()
+
+    @form.action("Activate", condition=form.haveInputWidgets)
+    def activate_payable( self, action, data):
+        self.adapters = {}
         marker.mark( self.context, self.marker)
-        try:
-            return super( PayableCreation, self).update()
-        finally:
-            if not self._keep_marker:
-                marker.erase( self.context, self.marker )
+        self.handle_edit_action.success_handler( self, action, data )        
+
+##     # formlib has serious issues do something as simple as a cancel button in our version of zope
+##     # lame, seriously lame - kapilt
+##     @form.action("Cancel")
+##     def handle_cancel( self, action, data):
+##         marker.erase( self.context, self.marker )
+##         self.request.RESPONSE.redirect( self.context.absolute_url() ) 
 
 class PayableDestruction( BrowserView ):
     
@@ -61,9 +71,13 @@ class BuyableForm( PayableForm ):
     interface = igetpaid.IBuyableContent
     marker = interfaces.IBuyableMarker
     
-class BuyableCreation( BuyableForm ): pass
+class BuyableCreation( BuyableForm, PayableCreation ):
+    actions = PayableCreation.actions
+    update  = PayableCreation.update
+    
 class BuyableEdit( BuyableForm ): pass
-class BuyableDestruction( PayableDestruction ): pass
+class BuyableDestruction( PayableDestruction ):
+    marker = interfaces.IBuyableMarker    
 
     
 class ShippableForm( PayableForm ):
@@ -72,10 +86,13 @@ class ShippableForm( PayableForm ):
     interface = igetpaid.IShippableContent
     marker = interfaces.IShippableMarker
     
-class ShippableCreation( ShippableForm ): pass
+class ShippableCreation( ShippableForm, PayableCreation ):
+    actions = PayableCreation.actions
+    update  = PayableCreation.update
+    
 class ShippableEdit( ShippableForm ): pass
-class ShippableDestruction( PayableDestruction ): pass
-
+class ShippableDestruction( PayableDestruction ):
+    marker = interfaces.IShippableMarker
     
 class PremiumForm( PayableForm ):
     """ premium content operations """
@@ -83,9 +100,13 @@ class PremiumForm( PayableForm ):
     interface = igetpaid.IPremiumContent
     marker = interfaces.IPremiumMarker
 
-class PremiumCreation( PremiumForm ): pass
+class PremiumCreation( PremiumForm, PayableCreation ):
+    actions = PayableCreation.actions
+    update  = PayableCreation.update
+    
 class PremiumEdit( PremiumForm ): pass
-class PremiumDestruction( PayableDestruction ): pass
+class PremiumDestruction( PayableDestruction ):
+    marker = interfaces.IPremiumMarker
 
     
 class DonateForm( PayableForm ):
@@ -94,9 +115,13 @@ class DonateForm( PayableForm ):
     interface = igetpaid.IDonationContent
     marker = interfaces.IDonatableMarker
 
-class DonateCreation( DonateForm ): pass
+class DonateCreation( DonateForm, PayableCreation ):
+    actions = PayableCreation.actions
+    update  = PayableCreation.update
+    
 class DonateEdit( DonateForm ): pass
-class DonateDestruction( PayableDestruction ): pass
+class DonateDestruction( PayableDestruction ):
+    marker = interfaces.IDonatableMarker    
 
 
 class ContentControl( BrowserView ):
@@ -115,99 +140,104 @@ class ContentControl( BrowserView ):
         self.options = options
 
     def isPayable( self ):
-        """ 
+        """  does the context implement the IPayable interface
         """
         return interfaces.IPayableMarker.providedBy( self.context )
 
     isPayable.__roles__ = None
 
     def isBuyable( self ):
-        """ 
+        """  
         """
         return interfaces.IBuyableMarker.providedBy( self.context )
 
     isBuyable.__roles__ = None
 
     def isPremium( self ):
-        """
+        """ 
         """
         return interfaces.IPremiumMarker.providedBy( self.context )
 
     isPremium.__roles__ = None
 
     def isShippable( self ):
-        """
+        """ 
         """
         return interfaces.IShippableMarker.providedBy( self.context )
         
     isShippable.__roles__ = None
 
     def isDonatable( self ):
-        """
+        """ 
         """
         return interfaces.IDonatableMarker.providedBy( self.context )
         
     isDonatable.__roles__ = None
         
-    def allowChangePayable( self, types ):
+    def _allowChangePayable( self, types ):
+        """ 
         """
-        """
-        return not (types and not self.context.portal_type in types)
-    allowChangePayable.__roles__ = None
+        return self.context.portal_type in types
     
     def allowMakeBuyable( self ):
         """  
         """
-        return self.allowChangePayable(self.options.buyable_types) \
-               and not self.isPayable()
+        return self._allowChangePayable(self.options.buyable_types) \
+               and not self.isBuyable() and not self.request.URL0.endswith('@@activate-buyable')
+
     allowMakeBuyable.__roles__ = None
     
     def allowMakeNotBuyable( self ):
         """  
         """
-        return self.allowChangePayable(self.options.buyable_types) \
+        return self._allowChangePayable(self.options.buyable_types) \
                and self.isBuyable()
+    
     allowMakeNotBuyable.__roles__ = None
 
     def allowMakeShippable( self ):
         """  
         """
-        return self.allowChangePayable(self.options.shippable_types) \
-               and not self.isPayable()
+        return self._allowChangePayable(self.options.shippable_types) \
+               and not self.isPayable() and not self.request.URL0.endswith('@@activate-shippable')
+    
     allowMakeShippable.__roles__ = None
     
     def allowMakeNotShippable( self ):
         """  
         """
-        return self.allowChangePayable(self.options.shippable_types) \
+        return self._allowChangePayable(self.options.shippable_types) \
                and self.isShippable()
     allowMakeNotShippable.__roles__ = None
 
     def allowMakePremiumContent( self ):
         """  
         """
-        return self.allowChangePayable(self.options.premium_types) \
-               and not self.isPayable()
+        return self._allowChangePayable(self.options.premium_types) \
+               and not self.isPayable() and not self.request.URL0.endswith('@@activate-premium-content')
+    
     allowMakePremiumContent.__roles__ = None
     
     def allowMakeNotPremiumContent( self ):
         """  
         """
-        return self.allowChangePayable(self.options.premium_types) \
+        return self._allowChangePayable(self.options.premium_types) \
                and self.isPremium()
+    
     allowMakeNotPremiumContent.__roles__ = None
-
+    
     def allowMakeDonatable( self ):
         """  
         """
-        return self.allowChangePayable(self.options.donate_types) \
-               and not self.isPayable()
+        return self._allowChangePayable(self.options.donate_types) \
+               and not self.isPayable() and not self.request.URL0.endswith('@@activate-donate')
+    
     allowMakeDonatable.__roles__ = None
     
     def allowMakeNotDonatable( self ):
         """  
         """
-        return self.allowChangePayable(self.options.donate_types) \
+        return self._allowChangePayable(self.options.donate_types) \
                and self.isDonatable()
     allowMakeNotDonatable.__roles__ = None
 

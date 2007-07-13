@@ -51,7 +51,7 @@ from zope.formlib import form
 from zope.schema import getFieldsInOrder
 from zope import component
 
-from getpaid.core import interfaces
+from getpaid.core import interfaces, options
 from getpaid.core.order import Order
 
 from ore.member.browser import MemberContextEdit
@@ -62,19 +62,12 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from base import BaseFormView, BaseView
 
-class PropertyBag(object):
+class BillingInfo( options.PropertyBag ):
 
-    schema = interfaces.IUserPaymentInformation
     title = "Payment Details"
     description = ""
-    
-    def initclass( cls ):
-        for field_name, field in getFieldsInOrder( interfaces.IUserPaymentInformation ):
-            setattr( cls, field_name, field.default )
-    
-    initclass = classmethod( initclass )
 
-PropertyBag.initclass()
+BillingInfo.initclass( interfaces.IUserPaymentInformation )
 
 class ImmutableBag( object ):
 
@@ -182,7 +175,7 @@ class CheckoutPayment( MemberContextEdit ):
         return form_fields + form.Fields( interfaces.IUserPaymentInformation )
 
     def __call__( self ):
-        self.billing_info = PropertyBag()
+        self.billing_info = BillingInfo()
         try:
             return super( CheckoutPayment, self).__call__()
         except:
