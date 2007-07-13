@@ -8,12 +8,17 @@
 <include package="ore.member" file="meta.zcml" />
 <include package="ore.member" />
 
-<!-- Optional Payment Processors -->
-<include zcml:condition="installed getpaid.googlecheckout" 
-	 package="getpaid.googlecheckout" />
+<!-- Optional Payment Processors and Dependency Checks-->
 
-<include zcml:condition="installed getpaid.authorizedotnet"
-	 package="getpaid.authorizedotnet" />
+<check zcml:condition="installed gchecky"
+ <include zcml:condition="installed getpaid.googlecheckout" 
+	  package="getpaid.googlecheckout" />
+</check>
+
+<check zcml:condition="installed M2Crypto">
+  <include zcml:condition="installed getpaid.authorizedotnet"
+	   package="getpaid.authorizedotnet" />
+</check>
 
 <include zcml:condition="installed getpaid.paypal"
 	 package="getpaid.paypal" />
