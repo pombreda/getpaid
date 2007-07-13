@@ -210,7 +210,7 @@ class IAddress( Interface ):
     """ a physical address
     """
     first_line = schema.TextLine( title = u"First Line")
-    second_line = schema.TextLine( title = u"Second Line" )
+    second_line = schema.TextLine( title = u"Second Line", required=False )
     state = schema.TextLine( title = u"State ")
     city = schema.TextLine( title = u"City" )
     country = schema.TextLine( title = u"Country")
@@ -220,8 +220,8 @@ class IShippingAddress( IMemberSchema ):
     """ where to send goods
     """
     ship_first_line = schema.TextLine( title = u"First Line")
-    ship_second_line = schema.TextLine( title = u"Second Line" )
-    ship_state = schema.TextLine( title = u"State ")
+    ship_second_line = schema.TextLine( title = u"Second Line", required=False )
+    ship_state = schema.TextLine( title = u"State" )
     ship_city = schema.TextLine( title = u"City" )
     ship_country = schema.TextLine( title = u"Country")
     ship_postal_code = schema.TextLine( title = u"Zip Code")
@@ -230,7 +230,7 @@ class IBillingAddress( IMemberSchema ):
     """ where to bill 
     """
     bill_first_line = schema.TextLine( title = u"First Line")
-    bill_second_line = schema.TextLine( title = u"Second Line" )
+    bill_second_line = schema.TextLine( title = u"Second Line", required=False )
     bill_state = schema.TextLine( title = u"State ")
     bill_city = schema.TextLine( title = u"City" )
     bill_country = schema.TextLine( title = u"Country")
