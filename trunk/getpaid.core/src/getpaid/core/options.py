@@ -6,6 +6,30 @@ import interfaces
 
 _marker = object()
 
+class PropertyBag( object ):
+    """ you can subclass and init to a particular schema, meant for transient adapter bags
+    """
+    def __init__( self, **kw ):
+        for field_name, field in schema.getFieldsInOrder( self.schema ):
+            if field_name in kw:
+                field.set( self, kw[ field_name ] )
+
+    @classmethod
+    def initclass( cls, iface ):
+        cls.schema = iface
+        for field_name, field in schema.getFieldsInOrder( iface ):
+            setattr( cls, field_name, field.default )
+
+    @classmethod
+    def makeclass( cls, schema ):
+        klass = type( "transientbag", ( cls, ), {} )
+        klass.initclass( schema )
+        return klass
+
+    @classmethod
+    def makeinstance( cls, schema ):
+        return cls.makeclass( schema )()
+
 class PersistentOptions( object ):
 
     implements( interfaces.IPersistentOptions )
