@@ -11,8 +11,8 @@
 <!-- Optional Payment Processors and Dependency Checks-->
 
 <configure zcml:condition="installed gchecky">
- <include zcml:condition="installed getpaid.googlecheckout" 
-	  package="getpaid.googlecheckout" />
+  <include zcml:condition="installed getpaid.googlecheckout" 
+	   package="getpaid.googlecheckout" />
 </configure>
 
 <configure zcml:condition="installed M2Crypto">
