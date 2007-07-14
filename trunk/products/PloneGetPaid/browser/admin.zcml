@@ -2,25 +2,44 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:five="http://namespaces.zope.org/five">
 
-  <!-- Management UI Menu -->
-  <browser:menu
+  <!-- Admin Menus -->
+  <browser:menu 
      id="getpaid_admin"
      title="GetPaid Administration"
      />
 
-  <!-- Management UI Template -->
+  <browser:menu
+     id="getpaid_settings"
+     title="Settings"
+     />
+
+  <browser:menu
+     id="getpaid_orders"
+     title="Orders"
+     />
+
+  <!-- Settings Master Template -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
-     name="manage-getpaid-template"
-     template="templates/admin-template.pt"
+     name="manage-getpaid-settings-template"
+     template="templates/settings-template.pt"
      permission="cmf.ManagePortal"
      />
 
+  <!-- Orders Master Template -->
+  <browser:page
+     for="*"
+     name="manage-getpaid-order-template"
+     template="templates/orders-template.pt"
+     permission="cmf.ManagePortal"
+     />
+
+  <!-- <include file="menu.zcml" /> -->
   <include file="settings.zcml" />
 
   <!-- Order Management -->
   <browser:page
-     for="getpaid.core.interfaces.IStore"
+     for="*"
      name="manage-getpaid-orders"
      menu="getpaid_admin"
      title="Orders"
@@ -126,7 +145,6 @@
      />
 
   <!-- 
-
   item fulfillment example for m2
 
   <browser:viewlet

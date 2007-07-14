@@ -1,4 +1,4 @@
-<metal:page use-macro="context/@@manage-getpaid-template/macros/admin">
+<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
   <metal:block fill-slot="up_to_parent"> 	    
 	    <a href=""
 	       class="link-parent"
@@ -10,61 +10,19 @@
   <metal:block fill-slot="admin_content">
 
 <div id="gpAdminColumn1" style="width:20em; margin:0 .5em; float: left;">
-    <h3>Profile</h3>
-        <ul>
-            <li><a href="@@manage-getpaid-identification">Identification</a></li>
-        </ul>
-    
+
     <h3>Configure</h3>
         <ul>
-            <li><a href="@@manage-getpaid-content-types">Content Types</a></li>
-
-            <li><a href="@@manage-getpaid-payment-options">Payment Settings</a></li>
-            <li><a href="@@manage-getpaid-payment-processor">Payment Processor</a></li>
-            <li><a href="@@manage-getpaid-sales-tax">Sales Tax Configuration</a></li>      
-
-<!--
-            <li><a href="@@manage-getpaid-shipping-options">Shipping Options</a></li>
-            <li><a href="@@manage-getpaid-session-timeout">Session (basket) Timeout</a></li>
---> 
-     </ul>
-    
-    <h3>Order Management</h3>
-
-
-        <ul>
-            
-            <li><a href="@@manage-getpaid-orders">Order Information</a></li>    
-		
-<!--
-	    <li><a href="@@manage-getpaid-customer-information">Customer Information</a></li>
-            <li><a href="@@manage-getpaid-payment-processing">Payment Processing</a></li> 
-            <li><a href="@@manage-getpaid-weight-units">Unit of Measurement (weight)</a></li>
--->
-        </ul>
+            <li tal:repeat="aview
+			    context/@@view_get_menu/getpaid_settings">
+	      <a href="" tal:attributes="href aview/action"
+		         tal:content="aview/title"> label </a>
+	    </li>
+	</ul>
 </div>
 
-<div id="gpAdminColumn2" style="width:20em; margin:0 .5em; float: left;">
-  <!--
-    <h3>Currency</h3>
-        <ul>
-            <li><a href="@@manage-getpaid-currency">Generic Currency Formatting</a></li>
-        </ul>
 
-    <h3>Emails</h3>
-        <ul>
-            <li><a href="@@manage-getpaid-email">Email Preferences</a></li>
-            <li><a href="@@manage-getpaid-customer-notification">Customer Order Confirmation Email</a></li>
-            <li><a href="@@manage-getpaid-merchant-notification">Merchant Notification Email</a></li>
-        </ul>
-    -->        
-    <h3>Customize Legal Disclaimers</h3>
-        <ul>
-            <li><a href="@@manage-getpaid-legal-disclaimers">Legal Disclaimers</a></li>
-        </ul>
-</div>        
-
-<div id="gpAdminColumn3" style="width:20em; margin:0 1em; float: left; border:1px solid #BBB; padding: .5em; background:#EEE;">
+<div id="gpAdminColumn2" style="width:20em; margin:0 1em; float: left; border:1px solid #BBB; padding: .5em; background:#EEE;">
     <h3>General Information</h3>
     <dl>
         <dt>GetPaid Version:</dt>
