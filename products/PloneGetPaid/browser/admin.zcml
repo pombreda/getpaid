@@ -114,6 +114,14 @@
      />
 
   <browser:viewlet
+     name="order-summary"
+     manager="..interfaces.IAdminOrderManager"
+     template="templates/order-summary.pt"
+     class=".admin_order.OrderSummaryComponent"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
      name="order-finance"
      manager="..interfaces.IAdminOrderManager"
      template="templates/order-finance.pt"

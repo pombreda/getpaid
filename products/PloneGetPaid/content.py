@@ -94,7 +94,7 @@ class ShippableContentAdapter( ShippableContentStorage ):
         self.context = context
 
 #################################
-# Premium Content    
+# Premium Content
 
 PremiumContentStorage = options.PersistentOptions.wire( "PremiumContentStorage", "getpaid.content.buyable", IPremiumContent )
 
