@@ -297,6 +297,7 @@ class IOrderManager( Interface ):
 class IOrder( Interface ):
     """ captures information, and is a container to multiple workflows
     """
+    user_id = schema.ASCIILine( title=u"Customer Id", readonly=True )
     shipping_address = schema.Object( IShippingAddress, required=False)
     billing_address  = schema.Object( IBillingAddress )
     shopping_cart = schema.Object( IShoppingCart )
