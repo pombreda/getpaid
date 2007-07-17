@@ -146,18 +146,6 @@ class Email( BaseSettingsForm ):
     """
     form_fields = form.Fields(interfaces.IGetPaidManagementEmailOptions)
 
-class MerchantNotification( BaseSettingsForm ):
-    """
-    get paid management interface
-    """
-    form_fields = form.Fields(interfaces.IGetPaidManagementMerchantNotificationOptions)
-
-class CustomerNotification( BaseSettingsForm ):
-    """
-    get paid management interface
-    """
-    form_fields = form.Fields(interfaces.IGetPaidManagementCustomerNotificationOptions)
-
 #Customize Header/Footer        
 class LegalDisclaimers( BaseSettingsForm ):
     """

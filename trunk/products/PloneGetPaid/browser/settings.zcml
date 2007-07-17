@@ -139,24 +139,6 @@
      />  
   -->
 
-  <!-- Management Merchant Notification Options 
-  <browser:page
-     for="getpaid.core.interfaces.IStore"
-     name="manage-getpaid-merchant-notification"
-     class=".admin.MerchantNotification"     
-     permission="cmf.ManagePortal"
-     />
-  -->
-
-  <!-- Management Customer Notification Options 
-  <browser:page
-     for="getpaid.core.interfaces.IStore"
-     name="manage-getpaid-customer-notification"
-     class=".admin.CustomerNotification"     
-     permission="cmf.ManagePortal"
-     />
-  -->
-
   <!-- Currency -->
   
   <!-- Management Currency Options Editing 

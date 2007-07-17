@@ -55,13 +55,18 @@ def Currencies( context ):
     return vocabulary.SimpleVocabulary.fromValues( (u"US Dollars",) )
 
 def MerchantNotificationChoices( context ):
-    return vocabulary.SimpleVocabulary.fromItems( [("Do not send merchant email notification of a completed transaction" ,u"no_notification"),
-                                                   ("Send merchant email notification when a transaction happens", u"notification"),
-                                                   ("Send merchant encrypted email notification when a transaction happens", u"encrypted_notification")]
-                                                )
+    return vocabulary.SimpleVocabulary.fromItems(
+        [
+        ("Do not send merchant email notification of a completed transaction" ,u"no_notification"),
+        ("Send merchant email notification when a transaction happens", u"notification"),
+        #("Send merchant encrypted email notification when a transaction happens", u"encrypted_notification")]
+        ]
+        )
 
 def CustomerNotificationChoices( context ):
-    return vocabulary.SimpleVocabulary.fromItems( [(u"Do not send customer email notification of a completed transaction", u"no_notification"), 
-                                                   (u"Send customer email notification of a completed transaction", u"notification")    
-                                                  ]
-                                                )                                                
+    return vocabulary.SimpleVocabulary.fromItems(
+        [
+        (u"Do not send customer email notification of a completed transaction", u"no_notification"), 
+        (u"Send customer email notification of a completed transaction", u"notification")    
+        ]
+        )                                                

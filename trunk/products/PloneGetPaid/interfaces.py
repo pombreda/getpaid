@@ -252,23 +252,12 @@ class IGetPaidManagementCurrencyOptions( igetpaid.IPersistentOptions ):
 
 # Emails
 class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
-    """
-    """
-
-
-class IGetPaidManagementMerchantNotificationOptions( igetpaid.IPersistentOptions ):     
-    """
+    """ Email Notification Options
     """
     merchant_email_notification = schema.Choice( title = u"Merchant Email Notifications",
                                   source = "getpaid.merchant_notification_choices" )
-    
-    
 
-
-class IGetPaidManagementCustomerNotificationOptions( igetpaid.IPersistentOptions ):     
-    """
-    """    
-    merchant_email_notification = schema.Choice( title = u"Customer Email Notifications",
+    customer_email_notification = schema.Choice( title = u"Customer Email Notifications",
                                                  source = "getpaid.customer_notification_choices" )
 
 # Customize Header/Footer
@@ -295,9 +284,7 @@ class IGetPaidManagementOptions( IGetPaidManagementIdentificationOptions,
                                  IGetPaidManagementSalesTaxOptions,                                 
                                  IGetPaidManagementCurrencyOptions,
                                  IGetPaidManagementEmailOptions,
-                                 IGetPaidManagementMerchantNotificationOptions,
-                                 IGetPaidManagementCustomerNotificationOptions,
                                  IGetPaidManagementLegalDisclaimerOptions
                                 ):
-    """ One-stop config variable access
+    """ One-stop configuration access from a single interface 
     """
