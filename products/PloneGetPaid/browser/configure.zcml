@@ -55,6 +55,13 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     for="*"
+     template="templates/checkout-thank-you.pt"
+     name="getpaid-thank-you"
+     permission="zope2.View"
+     />
+
   <!-- User's Order History -->
   <browser:page
      for="*"
