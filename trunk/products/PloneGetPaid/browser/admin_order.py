@@ -65,7 +65,7 @@ class OrderListingComponent( core.EventViewlet ):
     
     columns = [
         column.GetterColumn( title="Order Id", getter=renderOrderId ),
-        column.GetterColumn( title="User Id", getter=AttrColumn("user_id" ) ),        
+        column.GetterColumn( title="Customer Id", getter=AttrColumn("user_id" ) ),        
         column.GetterColumn( title="Status", getter=AttrColumn("finance_state") ),
         column.GetterColumn( title="Fufillment", getter=AttrColumn("fulfillment_state") ),
         column.GetterColumn( title="Price", getter=PriceColumn("getTotalPrice") ),
@@ -100,7 +100,7 @@ class OrderCSVComponent( core.ComponentViewlet ):
         return self.template()
     
     @form.action("Export Search")
-    def export_search( self ):
+    def export_search( self, action, data ):
         
         search = self.manager.get('order-search')
         listing = self.manager.get('order-listing')

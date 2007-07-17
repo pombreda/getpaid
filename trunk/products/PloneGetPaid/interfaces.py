@@ -255,9 +255,11 @@ class IGetPaidManagementEmailOptions( igetpaid.IPersistentOptions ):
     """ Email Notification Options
     """
     merchant_email_notification = schema.Choice( title = u"Merchant Email Notifications",
-                                  source = "getpaid.merchant_notification_choices" )
+                                                 default = u'notification',
+                                                 source = "getpaid.merchant_notification_choices" )
 
     customer_email_notification = schema.Choice( title = u"Customer Email Notifications",
+                                                 default = u'notification',
                                                  source = "getpaid.customer_notification_choices" )
 
 # Customize Header/Footer
