@@ -163,12 +163,12 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     payment_processor = schema.Choice( title = u"Payment Processor",
                                        source = "getpaid.payment_methods" )
 
-    accepted_credit_cards = schema.List( title = u"Accepted Credit Cards",
-                                         required = False,
-                                         default = [],
-                                         description = u"Credit cards accepted for payment",
-                                         value_type = schema.Choice( title=u"accepted_credit_cards", source="getpaid.credit_cards" )
-                                       )    
+##     accepted_credit_cards = schema.List( title = u"Accepted Credit Cards",
+##                                          required = False,
+##                                          default = [],
+##                                          description = u"Credit cards accepted for payment",
+##                                          value_type = schema.Choice( title=u"accepted_credit_cards", source="getpaid.credit_cards" )
+##                                        )    
 
 # Order Management
 class IGetPaidManagementCustomerInformation( igetpaid.IPersistentOptions ):

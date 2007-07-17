@@ -26,6 +26,9 @@
 <include zcml:condition="installed getpaid.paypal"
 	 package="getpaid.paypal" />
 
+<include zcml:condition="installed getpaid.nullpayment"
+	 package="getpaid.nullpayment" />
+
 <!-- Inject Plone with the nesc interfaces / local site -->
 
 <five:localsite

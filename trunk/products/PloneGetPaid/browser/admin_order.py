@@ -6,7 +6,7 @@ or better split admin.py into getpaid.admin
 order administration
 """
 
-import datetime, os, inspect
+import datetime, os, inspect, StringIO
 
 from zope.app.traversing.interfaces import ITraversable, TraversalError
 from zope import component, schema, interface
@@ -105,7 +105,7 @@ class OrderCSVComponent( core.ComponentViewlet ):
         search = self.manager.get('order-search')
         listing = self.manager.get('order-listing')
         
-        io = StringIO()
+        io = StringIO.StringIO()
         writer = csv.writer( io )
         writer.writerow( [c.name for c in listing.columns ] )
 
