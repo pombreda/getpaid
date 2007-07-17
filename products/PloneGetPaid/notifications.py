@@ -11,7 +11,7 @@ from DocumentTemplate.DT_HTML import HTML
 
 customer_new_order_template = HTML('''\
 To: <dtml-var to_email>
-From: "<dtml-var store_name>" <dtml-var from_email>
+From: "<dtml-var store_name>" <<dtml-var from_email>>
 Subject: New Order Notification
 
 Thank you for you order.
@@ -26,7 +26,7 @@ You can view the status of your order here
 
 merchant_new_order_template = HTML('''\
 To: <dtml-var to_email>
-From: "<dtml-var store_name>" <dtml-var from_email>
+From: "<dtml-var store_name>" <<dtml-var from_email>>
 Subject: New Order Notification
 
 A New Order has been created
@@ -44,12 +44,11 @@ def sendNotification( order, event ):
 
     for now we only send out notifications when an order initially becomes chargeable
     """
-    
     site = component.getSiteManager()
     portal = site.context
     mailer = portal.MailHost
     
-    if event.destination != workflow_states.order.finance.CHARGING:
+    if event.destination != workflow_states.order.finance.CHARGEABLE:
         return
     
     if not event.source in ( workflow_states.order.finance.REVIEWING,
@@ -65,19 +64,23 @@ def sendNotification( order, event ):
 
         message = merchant_new_order_template( to_email = settings.contact_email,
                                                from_email = settings.contact_email,
+                                               store_name = settings.store_name,
                                                store_url = store_url,
                                                order = order)
-        mailer.send( message )
+        mailer.send( str(message) )
 
     if settings.customer_email_notification == 'notification' \
        and order.user_id:
         
-        member = site.portal_membership.getMemberById( order.user_id )
-        message = customer_new_order_template( to_email = member.getProperty('email'),
-                                               from_email = settings.contact_email,
-                                               store_url = store_url,
-                                               order = order )
-        mailer.send( message )
+        member = portal.portal_membership.getMemberById( order.user_id )
+
+        if member.getProperty('email'):
+            message = customer_new_order_template( to_email = member.getProperty('email'),
+                                                   from_email = settings.contact_email,
+                                                   store_name = settings.store_name,                                               
+                                                   store_url = store_url,
+                                                   order = order )
+            mailer.send( str(message) )
 
     
     
