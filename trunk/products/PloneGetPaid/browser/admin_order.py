@@ -40,7 +40,7 @@ class AttrColumn( object ):
 
     def __init__(self, name):
         self.name = name
-        
+
     def __call__( self, item, formatter ):
         value = getattr( item, self.name, '')
         if callable( value ):
@@ -95,16 +95,16 @@ class OrderCSVComponent( core.ComponentViewlet ):
     template = ZopeTwoPageTemplateFile('templates/orders-export-csv.pt')
     
     order = 3
-    
+
     def render( self ):
         return self.template()
-    
+
     @form.action("Export Search")
     def export_search( self, action, data ):
-        
+
         search = self.manager.get('order-search')
         listing = self.manager.get('order-listing')
-        
+
         io = StringIO.StringIO()
         writer = csv.writer( io )
         writer.writerow( [c.name for c in listing.columns ] )
@@ -115,7 +115,7 @@ class OrderCSVComponent( core.ComponentViewlet ):
                 field_getters.append( column.getter )
             else:
                 field_getters.append( AttrColumn( c.name ) )
-            
+
         for order in search.results:
             writer.writerow( [getter( order, None ) for getter in field_getters ] )
 
@@ -124,7 +124,7 @@ class OrderCSVComponent( core.ComponentViewlet ):
 
 def define( **kw ):
     kw['required'] = False
-    return kw        
+    return kw
 
 class OrderSearchComponent( core.ComponentViewlet ):
 
@@ -132,7 +132,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
     template = ZopeTwoPageTemplateFile('templates/orders-search-filter.pt')
 
     order = 1
-    
+
     date_search_order = (
         ("last 7 days", datetime.timedelta( 7 )),
         ("last month", datetime.timedelta( 30 )),
@@ -187,7 +187,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
 class OrderAdminManagerBase( object ):
 
     viewlets_map = ()
-    
+
     def sort (self, viewlets ):
         viewlets.sort( lambda x, y: cmp(x[1].order, y[1].order ) )
         return viewlets
@@ -209,13 +209,13 @@ class OrderAdminManagerBase( object ):
         viewlets = self.filter(viewlets)
         viewlets = self.sort(viewlets)
         self.viewlets_map = dict( viewlets )
-        
+
         # Just use the viewlets from now on
         self.viewlets = [viewlet for name, viewlet in viewlets]
 
         # Update all viewlets
         [viewlet.update() for viewlet in self.viewlets]
-        
+
 
 OrdersAdminManager = viewlet_manager.ViewletManager(
     "OrdersAdmin",
@@ -225,7 +225,7 @@ OrdersAdminManager = viewlet_manager.ViewletManager(
                   "viewlet-manager.pt"),
     bases=( OrderAdminManagerBase, )
     )
-    
+
 
 class ManageOrders( BrowserView ):
     # admin the collection of orders
@@ -347,14 +347,14 @@ class TransitionHandler( object ):
 
     def __call__( self, form, action, data ):
         context = getattr( form.context, '_object', form.context )
-        
+
         if self.wf_name:
             info = component.getAdapter( context, IWorkflowInfo, self.wf_name )
         else:
             info = IWorkflowInfo( context )
         info.fireTransition( self.transition_id )
         form.setupActions()
-        
+
 class CollectionTransitionHandler( object ):
 
     def __init__( self, transition_id ):
@@ -365,7 +365,7 @@ class CollectionTransitionHandler( object ):
         for n in nodes:
             IWorkflowInfo( n ).fireTransition( self.transition_id )
             form.line_items.remove( n )
-            
+
         # reset the form manager cache,
         # XXX we really need to broadcast a message to invalidate any states already stored
         form.__parent__.manager.items_by_state = None
@@ -389,25 +389,25 @@ def bindTransitions( form_instance, transitions, wf_name=None, collection=False 
             d['success'] = success_factory( tid )
         action = form.Action( tid, **d )
         action.form = form_instance
-        action.__name__ = "%s.%s"%(form_instance.prefix, action.__name__)        
+        action.__name__ = "%s.%s"%(form_instance.prefix, action.__name__)
         actions.append( action )
     return actions
-        
-                     
+
+
 class OrderFinanceComponent( core.ComponentViewlet ):
     """ workflow actions and details on order finance status
     """
-    order = 1
+    order = 2
 
     template = ZopeTwoPageTemplateFile('templates/order-finance.pt')
     prefix = "orderfinance"
-    
+
     def render( self ):
-        return self.__of__( self.__parent__ ).template()         
+        return self.__of__( self.__parent__ ).template()
 
     def show( self, **kw):
         return True
-    
+
     def update( self ):
         self.setupActions()
         return super(OrderFinanceComponent, self).update()
@@ -415,7 +415,7 @@ class OrderFinanceComponent( core.ComponentViewlet ):
     def setupActions( self ):
         transitions = self.__parent__.context.fulfillment_workflow.getManualTransitionIds()
         self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment' )
-        
+
     def finance_status( self ):
         return self.__parent__.context.finance_state
 
@@ -425,30 +425,50 @@ class OrderFulfillmentComponent( core.ComponentViewlet ):
     """
 
     order = 5
-    
+
     template = ZopeTwoPageTemplateFile('templates/order-fulfillment.pt')
     prefix = "orderfulfillment"
-    
+
     def render( self ):
-        return self.__of__( self.__parent__ ).template() 
+        return self.__of__( self.__parent__ ).template()
 
     def show( self, **kw):
         return True
-    
+
     def update( self ):
         self.setupActions()
         return super( OrderFulfillmentComponent, self).update()
-    
+
     def setupActions( self ):
         transitions = self.__parent__.context.fulfillment_workflow.getManualTransitionIds()
         self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment' )
 
     def fulfillment_status( self ):
         return self.__parent__.context.fulfillment_state
-    
+
+
+class OrderSummaryComponent( OrderFinanceComponent, OrderFulfillmentComponent):
+    """ workflow actions and details on order summary
+    """
+    order = 1
+
+    template = ZopeTwoPageTemplateFile('templates/order-summary.pt')
+    prefix = "ordersummary"
+
+    def getTotalPrice( self ):
+        return self.__parent__.context.getTotalPrice()
+
+    def getOrderId( self ):
+        return self.__parent__.context.order_id
+
+    def getUserId( self ):
+        return self.__parent__.context.user_id
+
+    def getCreationDate( self ):
+        return self.__parent__.context.creation_date
 
 ###############################################
-# context vocabularies for workflow transitions    
+# context vocabularies for workflow transitions
 
 def AvailableOrderFinanceTransitions( context ):
     info = component.getAdapter( (context,), IWorkflowInfo, "order.finance")
