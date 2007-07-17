@@ -10,6 +10,14 @@
      permission="zope2.View"
      />
 
+  <!-- Generic Content Space which hides context actions -->
+  <browser:page
+     for="*"
+     name="getpaid-content-template"
+     template="templates/content-space-template.pt"
+     permission="zope2.View"
+     />
+
   <!-- Create some Z3 Menus parallel to Plone actions -->
   <browser:menu
      id="user"
@@ -33,12 +41,12 @@
   <!-- Get Paid Admin UI -->
   <include file="admin.zcml" />
 
+
   <!-- Get Paid Content UI -->
   <include file="content.zcml" />
 
   <!-- Shopping Cart UI -->
   <include file="cart.zcml" />
-
 
   <browser:page
      for="*"
