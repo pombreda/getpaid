@@ -8,6 +8,9 @@
 <include package="ore.member" file="meta.zcml" />
 <include package="ore.member" />
 
+<include package="five.intid" file="base.zcml" />
+
+
 <!-- Optional Payment Processors and Dependency Checks-->
 
 <configure zcml:condition="installed gchecky">

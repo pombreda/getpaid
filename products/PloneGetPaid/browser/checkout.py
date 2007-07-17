@@ -140,6 +140,7 @@ class CheckoutPayment( MemberContextEdit ):
         shopping_cart = component.getUtility( interfaces.IShoppingCartUtility ).get( self.context )
         # shopping cart is attached to the session, but we want to switch the storage to the persistent
         # zodb, we pickle to get a clean copy to store.
+            
         order.shopping_cart = loads( dumps( shopping_cart ) )
         order.shipping_address = ImmutableBag().initfrom( self.adapters[ interfaces.IShippingAddress ],
                                                           interfaces.IShippingAddress ) 
@@ -157,7 +158,8 @@ class CheckoutPayment( MemberContextEdit ):
         state = order.finance_state
         f_states = interfaces.workflow_states.order.finance
         base_url = self.context.absolute_url()
-        
+
+## we display errors inline on the checkout form, so don't redirect        
 ##         if state in ( f_states.CANCELLED,
 ##                       f_states.CANCELLED_BY_PROCESSOR,
 ##                       f_states.PAYMENT_DECLINED ):
