@@ -20,7 +20,7 @@
                tal:content="field"
                />
 
-            <p tal:define="field view/payable/donationText">
+            <p tal:define="field view/payable/donation_text">
                tal:condition="field">
                <i tal:content="field" />
             </p>

@@ -25,7 +25,7 @@
                <i tal:content="field" />
             </p>
 
-            <p tal:define="field python: view.payableFields().price"
+            <p tal:define="field python: view/payable/price"
                tal:condition="field">
                  Price: $<span tal:content="field" />
             </p>
