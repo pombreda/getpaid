@@ -56,6 +56,8 @@ from getpaid.core.order import Order
 
 from ore.member.browser import MemberContextEdit
 
+from AccessControl import getSecurityManager
+
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
@@ -151,6 +153,8 @@ class CheckoutPayment( MemberContextEdit ):
             if order_manager.get( order_id ) is None:
                 break
         order.order_id = order_id
+        order.user_id = getSecurityManager().getUser().getId()
+        
         order_manager.store( order )
         return order
 

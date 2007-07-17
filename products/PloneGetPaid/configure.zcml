@@ -92,12 +92,12 @@
    provides="getpaid.core.interfaces.IShoppingCartUtility"
    factory=".cart.ShoppingCartUtility"/>
 
-<!-- Notifications -->
+<!-- Notifications 
 <subscriber
    for="getpaid.core.interfaces.IOrder
 	hurry.workflow.interfaces.IWorkflowTransitionEvent"
    handler=".notifications.sendNotification"
    />
-
+-->
 
 </configure>
