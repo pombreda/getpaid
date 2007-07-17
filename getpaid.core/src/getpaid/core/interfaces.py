@@ -25,13 +25,13 @@ class IPayable( Interface ):
     basis.
     """
     
-    madePayableBy = schema.TextLine(
+    made_payable_by = schema.TextLine(
         title = u"Made Payable By",
         readonly = True,
         required = False
         )
     
-    productCode = schema.TextLine( title=u"Product Code",
+    product_code = schema.TextLine( title=u"Product Code",
                         description=u"An organization's unique product identifier (not required since shopping cart uses content UID internally)",
                         required=False
                         )
@@ -40,7 +40,7 @@ class IPayable( Interface ):
 class IDonationContent( IPayable ):
     """ Donation
     """
-    donationText = schema.TextLine( title=u"Donation Description",
+    donation_text = schema.TextLine( title=u"Donation Description",
                         description=u"Very brief 50 character text (that shows up in portlet)",
                         required=True,
                         max_length=50)
