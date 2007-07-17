@@ -9,7 +9,7 @@
   </metal:block>
   <metal:block fill-slot="admin_content">
 
-<div id="gpAdminColumn1" style="width:20em; margin:0 .5em; float: left;">
+<div id="getpaid-admin-column-1" style="width:20em; margin:0 .5em; float: left;">
 
     <h3>Configure</h3>
         <ul>
@@ -22,21 +22,13 @@
 </div>
 
 
-<div id="gpAdminColumn2" style="width:20em; margin:0 1em; float: left; border:1px solid #BBB; padding: .5em; background:#EEE;">
+<div id="getpaid-admin-column-2" style="width:20em; margin:0 1em; float: left; border:1px solid #BBB; padding: .5em; background:#EEE;">
     <h3>General Information</h3>
     <dl>
-        <dt>GetPaid Version:</dt>
-        <dd></dd>
+        <dt>GetPaid Version: </dt>
+        <dd tal:content="view/getVersion"></dd>
         <dt>Store/Organization Name:</dt>
-        <dd></dd>
-        <dt>Default Language:</dt>
-        <dd></dd>
-        <dt>Default Currency:</dt>
-        <dd></dd>
-        <dt>Number of Categories:</dt>
-        <dd></dd>
-        <dt>Orders/Donations:</dt>
-        <dd></dd>
+        <dd tal:content="view/settings/store_name"></dd>
     </dl>
 </div>
 <div style="clear:both;"></div>  		  

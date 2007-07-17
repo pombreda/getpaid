@@ -2,10 +2,12 @@
 $Id$
 """
 
+import os
+
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.browser import BrowserView
 from Products.Five.formlib import formbase
-from Products.PloneGetPaid import interfaces
+from Products.PloneGetPaid import interfaces, pkg_home
 
 from zope import component
 from zope.formlib import form
@@ -20,6 +22,15 @@ from base import BaseView
 class Overview( BrowserView ):
     """ overview of entire system
     """
+    def __call__( self ):
+        self.settings = interfaces.IGetPaidManagementOptions( self.context )
+        return super( Overview, self).__call__()
+    
+    def getVersion( self ):
+        fh = open( os.path.join( pkg_home, 'version.txt') )
+        version_string = fh.read()
+        fh.close()
+        return version_string
 
 class BaseSettingsForm( formbase.EditForm, BaseView ):
 
