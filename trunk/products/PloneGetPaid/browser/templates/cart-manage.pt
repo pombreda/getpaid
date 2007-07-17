@@ -7,11 +7,19 @@
       metal:use-macro="context/main_template/macros/master"
       >
 <body>
-<div metal:fill-slot="main">
+<div metal:fill-slot="content">
 
-  <h3>Your Shopping Cart</h3>
-  <div>
-    <tal:block tal:replace="structure  view/manager/render"/>
+  <div id="content" class="documentEditable">
+
+    <div id="region-content" class="documentContent">
+
+      <h3>Your Shopping Cart</h3>
+      <div>
+	<tal:block tal:replace="structure  view/manager/render"/>
+      </div>
+      
+    </div>
+    
   </div>
 
 </div>
