@@ -11,6 +11,7 @@ from zope.formlib import form
 from zope import component
 from zope.event import notify
 
+from AccessControl import getSecurityManager
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -58,8 +59,9 @@ class PayableCreation( PayableForm ):
         self.adapters = {}
         marker.mark( self.context, self.marker)
         self.handle_edit_action.success_handler( self, action, data )
+        self.adapters[ igetpaid.IPayable ].made_payable_by = getSecurityManager().getUser().getId()
         notify(
-            event.PayableCreationEvent( self.context, self.adapters[ self.interface ], self.interface )
+            event.PayableCreationEvent( self.context, self.adapters[ igetpaid.IPayable ], self.interface )
             )
 
 ##     # formlib has serious issues do something as simple as a cancel button in our version of zope
@@ -275,5 +277,3 @@ class ContentPortlet( BrowserView ):
     def isPayable(self):
         return self.payable is not None
         
-    def payableFields(self):
-        return self.payable
