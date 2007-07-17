@@ -413,7 +413,7 @@ class OrderFinanceComponent( core.ComponentViewlet ):
         return super(OrderFinanceComponent, self).update()
 
     def setupActions( self ):
-        transitions = self.__parent__.context.fulfillment_workflow.getManualTransitionIds()
+        transitions = self.__parent__.context.finance_workflow.getManualTransitionIds()
         self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment' )
 
     def finance_status( self ):
@@ -446,8 +446,7 @@ class OrderFulfillmentComponent( core.ComponentViewlet ):
     def fulfillment_status( self ):
         return self.__parent__.context.fulfillment_state
 
-
-class OrderSummaryComponent( OrderFinanceComponent, OrderFulfillmentComponent):
+class OrderSummaryComponent( core.ComponentViewlet ):
     """ workflow actions and details on order summary
     """
     order = 1
@@ -466,6 +465,12 @@ class OrderSummaryComponent( OrderFinanceComponent, OrderFulfillmentComponent):
 
     def getCreationDate( self ):
         return self.__parent__.context.creation_date
+
+    def fulfillment_status( self ):
+        return self.__parent__.context.fulfillment_state
+
+    def finance_status( self ):
+        return self.__parent__.context.finance_state
 
 ###############################################
 # context vocabularies for workflow transitions
