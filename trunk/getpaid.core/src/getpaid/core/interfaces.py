@@ -358,7 +358,7 @@ class keys:
 
     # sucessful call to a processor
     results_success = 1
-    results_async = 1
+    results_async = 2
     
 class workflow_states:
 

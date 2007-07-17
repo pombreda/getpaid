@@ -52,7 +52,7 @@ class Order( Persistent ):
             raise TypeError("Invalid Order Id")
         self._order_id = order_id
 
-    order = property( getOrderId, setOrderId )
+    order_id = property( getOrderId, setOrderId )
 
     @property
     def finance_state( self ):
