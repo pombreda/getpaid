@@ -156,6 +156,10 @@ class CheckoutPayment( MemberContextEdit ):
         order.user_id = getSecurityManager().getUser().getId()
         
         order_manager.store( order )
+        
+        # kill the cart after we create the order
+        component.getUtility( interfaces.IShoppingCartUtility ).destroy( self.context )
+        
         return order
 
     def getNextURL( self, order ):
@@ -172,7 +176,7 @@ class CheckoutPayment( MemberContextEdit ):
         if state in ( f_states.CHARGEABLE,
                       f_states.REVIEWING,
                       f_states.CHARGED ):
-            return base_url + '/@@checkout-confirmed'
+            return base_url + '/@@getpaid-thank-you'
             
 
     def getFormFields( self, user ):
