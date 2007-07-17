@@ -26,7 +26,7 @@ class PayableFormView( BaseFormView ):
     interface = None
     marker = None
     form_fields = form.FormFields()
-    template = ZopeTwoPageTemplateFile('templates/content-template.pt')
+    template = ZopeTwoPageTemplateFile('templates/payable-form.pt')
 
 class PayableForm( PayableFormView, formbase.EditForm ):
 
