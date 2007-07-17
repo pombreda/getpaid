@@ -1,17 +1,19 @@
 """
 $Id$
 """
+from StringIO import StringIO
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore import permissions as cmf_perms
 from Products.PloneGetPaid import _GETPAID_DEPENDENCIES_
-from StringIO import StringIO
+from Products.Five.site.localsite import enableLocalSiteHook
+from Products.Five.utilities import marker
 
 from zope.component.interfaces import ISiteManager
 from zope.app.component.hooks import setSite, getSite
 from zope.app.component.interfaces import ISite, IPossibleSite
-from Products.Five.site.localsite import enableLocalSiteHook
-from Products.Five.utilities import marker
+from zope.app.intid.interfaces import IIntIds
+from five.intid.site import add_intids
 from getpaid.core.interfaces import IOrderManager, IStore
 from getpaid.core.order import OrderManager
 from ore.member.interfaces import ISiteSchemaManager
@@ -153,6 +155,10 @@ def setup_order_manager( self ):
     if not len(is_already_registered):
         sm.registerUtility( IOrderManager, OrderManager() )
 
+def setup_intid( self ):
+    portal = getToolByName( self, 'portal_url').getPortalObject()
+    add_initids( portal ) 
+
 def install_control_panel( self ):
 
     manage_ui= getToolByName( self, 'portal_controlpanel')
@@ -261,18 +267,29 @@ def install( self ):
     
     print >> out, "Installing Order Local Utility"
     setup_order_manager( self )
+
+    print >> out, "Installing IntId Utility"
+    add_intids( self )
     
     return out.getvalue()
 
 def uninstall( self ):
+    out = StringIO()
+
+    print >> out, "Removing GetPaid"
+
+    print >> out, "Uninstalling Control Panels Actions"
     uninstall_control_panel( self )
 
+    print >> out, "Uninstalling Control Panels Actions"
     uninstall_member_schemas( self )
 
+    print >> out, "Uninstalling Cart Portlets"
     uninstall_cart_portlet( self )
-    
+
+    print >> out, "Uninstalling Content Portlets"    
     uninstall_contentwidget_portlet( self )
 
     teardown_store( self )
 
-    return "Uninstalled"
+    return out.getvalue()
