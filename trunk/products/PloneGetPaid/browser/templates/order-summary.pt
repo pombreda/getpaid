@@ -1,0 +1,32 @@
+<fieldset>
+
+    <legend> Summary </legend>
+    <ul>
+        <li>
+            <span> Order Id</span> -
+            <span tal:content="view/getOrderId"> order id </span>
+        </li>
+        <li>
+            <span> Customer Id</span> -
+            <span tal:content="view/getUserId"> user_id </span>
+        </li>
+        <li>
+            <span> Creation Date</span> -
+            <span tal:content="view/getCreationDate"> creation_date </span>
+        </li>
+        <li>
+            <span> Finance Status </span> -
+            <span tal:content="view/finance_status"> finance_status </span>
+        </li>
+        <li>
+            <span> Fulfillment Status </span> -
+            <span tal:content="view/fulfillment_status"> finance_status </span>
+        </li>
+        <li>
+            <span> Total Price </span> -
+            <span tal:content="view/getTotalPrice"> total price </span>
+        </li>
+    </ul>
+
+</fieldset>
+

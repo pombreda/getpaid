@@ -454,6 +454,20 @@ class OrderSummaryComponent( core.ComponentViewlet ):
     template = ZopeTwoPageTemplateFile('templates/order-summary.pt')
     prefix = "ordersummary"
 
+    def render( self ):
+        return self.__of__( self.__parent__ ).template()
+
+    def show( self, **kw):
+        return True
+
+    # I got AttributeError: actions if this 2 methods are omited
+    def update( self ):
+        self.setupActions()
+        return super( OrderSummaryComponent, self).update()
+    def setupActions( self ):
+        transitions = self.__parent__.context.fulfillment_workflow.getManualTransitionIds()
+        self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment' )
+
     def getTotalPrice( self ):
         return self.__parent__.context.getTotalPrice()
 
