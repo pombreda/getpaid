@@ -1,0 +1,43 @@
+<table>
+  <tal:block repeat="order view/history">
+    <tr>
+      <th>order id</th>
+      <th>created</th>
+      <th>financial state</th>
+      <th>fulfillment state</th>
+    </tr>
+    <tr>
+      <td tal:content="order/id"></td>
+      <td tal:content="order/date"></td>
+      <td tal:content="order/finance_state"></td>
+      <td tal:content="order/fulfillment_state"></td>
+    </tr>
+    <tr>
+      <th colspan="4">Order Workflow Log</th>
+    </tr>
+    <tr style="font-size: smaller">
+      <td colspan="4">
+        <table>
+          <tr>
+            <th>workflow</th>
+            <th>changed by</th>
+            <th>change date</th>
+            <th>previous state</th>
+            <th>transition</th>
+            <th>new state</th>
+            <th>comment</th>
+          </tr>
+          <tr tal:repeat="logitem order/log">
+            <td>???</td>
+            <td tal:content="logitem/changed_by"></td>
+            <td tal:content="logitem/change_date"></td>
+            <td tal:content="python:logitem.previous_state or '-'"></td>
+            <td tal:content="logitem/transition"></td>
+            <td tal:content="logitem/new_state"></td>
+            <td tal:content="logitem/comment"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tal:block>
+</table>
