@@ -28,6 +28,10 @@ class IGetPaidContentViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for content that is marked with one of the getpaid Marker interfaces
     """
 
+class IOrderHistoryManager( zope.viewlet.interfaces.IViewletManager ):
+    """ viewlet manager for user order history
+    """
+
 class IPayableMarker( Interface ):
     """ marker interface added to any payable content """
 

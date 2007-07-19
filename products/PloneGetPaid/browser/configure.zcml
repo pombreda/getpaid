@@ -71,4 +71,19 @@
      permission="zope2.View"
      />
 
+  <browser:viewletManager
+      name="orders_history"
+      permission="zope2.View"
+      provides="..interfaces.IOrderHistoryManager"
+      class=".order.OrderHistoryManager"
+      />
+
+  <browser:viewlet
+      name="order-history"
+      manager="..interfaces.IOrderHistoryManager"
+      template="templates/order-history-viewlet.pt"
+      class=".order.UserOrderHistoryComponent"
+      permission="zope2.View"
+      />
+
 </configure>
