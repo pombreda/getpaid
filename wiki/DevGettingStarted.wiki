@@ -91,7 +91,7 @@ Just do a
 svn up
 }}}
 
-to update the buildout. Then run the buildout again: 
+from your getpaid.buildout folder to update the buildout. Then run the buildout again: 
 
 {{{
 ./bin/buildout -N
