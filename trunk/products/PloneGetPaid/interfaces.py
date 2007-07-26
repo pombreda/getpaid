@@ -4,6 +4,7 @@ $Id$
 
 from zope import schema
 from zope.interface import Interface
+from zope.schema import Iterable
 
 import getpaid.core.interfaces as igetpaid
 import zope.viewlet.interfaces
@@ -95,20 +96,22 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                     default = u""
                                   )
                                 
-    contact_state = schema.TextLine( title = u"Contact State/Province",
-                                     required = False,
-                                     default = u""
-                                   )
+    contact_state = schema.Choice( title = u"Contact State/Province",
+                                   required = False,
+                                   default = u"",
+                                   vocabulary = "getpaid.states"
+                                 )
 
     contact_postalcode = schema.TextLine( title = u"Contact Zip/Postal Code",
                                           required = False,
                                           default = u""
                                         )
 
-    contact_country = schema.TextLine( title = u"Contact Country",
-                                       required = False,
-                                       default = u""
-                                     )  
+    contact_country = schema.Choice( title = u"Contact Country",
+                                     required = False,
+                                     default = u"",
+                                     vocabulary = "getpaid.countries"
+                                   )
 
     contact_phone = schema.TextLine( title = u"Contact Phone",
                                      required = False,
@@ -294,3 +297,13 @@ class IGetPaidManagementOptions( IGetPaidManagementIdentificationOptions,
                                 ):
     """ One-stop configuration access from a single interface 
     """
+
+class ICountriesStates(Interface):
+    countries = Iterable(
+        title=u"countries",
+        description=u"A list of countries"
+        )
+    states = Iterable(
+        title=u"states",
+        description=u"A list of states"
+        )

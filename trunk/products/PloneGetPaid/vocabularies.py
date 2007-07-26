@@ -5,9 +5,15 @@ vocabularies for getpaid
 """
 
 from zope import component
+from zope.interface import implements
+from zope.app import zapi
+from os import path
 
 from zope.schema import vocabulary
 from getpaid.core import interfaces, cart
+
+from Products.PloneGetPaid.CountriesStatesParser import CountriesStatesParser
+from Products.PloneGetPaid.interfaces import ICountriesStates
 
 from Products.CMFCore.utils import getToolByName
 
@@ -70,3 +76,53 @@ def CustomerNotificationChoices( context ):
         (u"Send customer email notification of a completed transaction", u"notification")    
         ]
         )                                                
+
+class TitledVocabulary(vocabulary.SimpleVocabulary):
+    def fromTitles(cls, items, *interfaces):
+        """Construct a vocabulary from a list of (value,title) pairs.
+
+        The order of the items is preserved as the order of the terms
+        in the vocabulary.  Terms are created by calling the class
+        method createTerm() with the pair (value, title).
+
+        One or more interfaces may also be provided so that alternate
+        widgets may be bound without subclassing.
+        """
+        terms = [cls.createTerm(value,value,title) for (value,title) in items]
+        return cls(terms, *interfaces)
+    fromTitles = classmethod(fromTitles)
+
+class CountriesStatesFromFile(object):
+    """Countries utility that reads data from a file
+    """
+    implements(ICountriesStates)
+    def __init__(self):
+        iso3166_path = path.join(path.dirname(__file__), 'iso3166')
+        self.csparser = CountriesStatesParser(iso3166_path)
+        self.csparser.parse()
+
+    def countries(self):
+        return self.csparser.getCountriesNameOrdered()
+
+    countries = property(countries)
+
+    def states(self,context):
+        countryAttrs = [attr for attr in dir(context) if 'country' in attr.lower()]
+        print countryAttrs
+        noValues = {u'no values':u'no values'}
+        if len(countryAttrs) != 1:
+            return noValues.items()
+        print getattr(context,countryAttrs[0])
+        states = self.csparser.getStatesOf(getattr(context,countryAttrs[0]))
+        if not len(states):
+            states = noValues
+        return states.items()
+
+def Countries( context ):
+    utility = zapi.getUtility(ICountriesStates)
+    return TitledVocabulary.fromTitles(utility.countries)
+
+def States( context ):
+    utility = zapi.getUtility(ICountriesStates)
+    return TitledVocabulary.fromTitles(utility.states(context))
+
