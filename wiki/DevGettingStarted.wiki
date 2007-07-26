@@ -19,6 +19,7 @@ You'll need:
   * 1 subversion commandline client, `svn`
   * 1 zope-acceptable python interpreter, header files, and libraries.
   * 1 working C toolchain (everything you could have used to compile the above interpreter)
+  * for testing authorized.net with buildout, you'll also need libssl-dev and swig
   * 2 tbsp. fair trade, organic, shade-grown tea, coffee or _yerba mate_.
   * 254MiB of diskspace
 
@@ -29,6 +30,8 @@ Checkout the getpaid.buildout infrastructure. Make sure you check it out to a lo
 {{{
 svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
 }}}
+
+For using authorize.net payment processor, uncomment zc.authorizeddotnetet and getpaid.authorizenet in buildout.cfg
 
 Run the buildout bootstrap script using a python interpreter that Zope likes (for example, `python2.4`):
 
@@ -85,10 +88,18 @@ bin/zopepy
 Just do a
 
 {{{
+svn up
+}}}
+
+to update the buildout. Then run the buildout again: 
+
+{{{
 ./bin/buildout -N
 }}}
 
-Run svn up to update the buildout. Once this is done, reinstall the GetPaid product and go to portal_types and make Donation implicitly addable.
+Once this is done, reinstall the GetPaid product.
+
+
 
 
 == Troubleshooting ==
