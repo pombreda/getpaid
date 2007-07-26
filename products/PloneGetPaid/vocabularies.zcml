@@ -55,4 +55,14 @@
    factory=".vocabularies.CustomerNotificationChoices"
    />  
 
+<vocabulary
+    name="getpaid.countries"
+    factory=".vocabularies.Countries"
+    />
+
+<vocabulary
+    name="getpaid.states"
+    factory=".vocabularies.States"
+    />
+
 </configure>
