@@ -15,6 +15,7 @@
   * How do I add a product to the site?
   * What is the difference between adding a donation to a site versus adding a product?
   * How do I make a donation appear in a portlet vs within the page content? 
+  * How do I make an "Add to Cart" button appear in the body of the content on my site?
   * How do I create a category and add products to the category? 
   * How do I manage my orders?
   * How do I set up a payment processor? 
