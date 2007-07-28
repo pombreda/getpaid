@@ -11,19 +11,19 @@
 
 == Integration and Configuration ==
 
-  * How do I add a donation to the site? 
+  * How do I add a donation to the site? [AddDonationDoc Answer]
   * How do I add a product to the site?
   * What is the difference between adding a donation to a site versus adding a product?
   * How do I make a donation appear in a portlet vs within the page content? 
   * How do I make an "Add to Cart" button appear in the body of the content on my site?
   * How do I create a category and add products to the category? 
-  * How do I manage my orders?
-  * How do I set up a payment processor? 
+  * How do I manage my orders? 
+  * How do I set up a payment processor? [SetUpPaymentProcessorDoc Answer]
   * What happens when a user places an order on my site (offline vs online order completion)?
-  * How do I make a content object payable? Not payable?
-  * What are the steps for installing and uninstalling the product?
-  * What basic settings must be configured so that an order can be processed? 
-  * What is the header / footer configuration area for?
+  * How do I make a content object payable? Not payable? [MakeObjectPayableDoc Answer]
+  * What are the steps for installing and uninstalling the product? [InstallProductDoc Answer]
+  * What basic settings must be configured so that an order can be processed? [ConfigureProductDoc Answer]
+  * What is the header / footer configuration area for? 
   * How do I configure my currency?
   * How do I set up my shipping information? 
 
@@ -33,6 +33,7 @@
   * When will payment processor <my favorite processor> be supported?
   * Authorize.net: 
     * How do I get a test or dev account? [http://developer.authorize.net/support/ Submit request form]
+    * Are there test credit card numbers I can use? [http://developer.authorize.net/faqs/#7429 See authnet doc]
     * How do I get an authorize.net account? 
     * How do I get my merchant ID and transaction key? [http://developer.authorize.net/faqs/#7423 See authnet doc]
 
