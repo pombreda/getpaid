@@ -1,4 +1,5 @@
 #summary How to add a "donation" to your site
+#labels Phase-Support,Phase-Deploy
 
 = Introduction =
 
@@ -17,4 +18,3 @@ To add a donation to your site:
 To de-activate the donation: 
   * While viewing the content that is a donation, click on the "Actions" menu
   * Click "make this not a donation" from the dropdown
-
