@@ -27,6 +27,14 @@
   * How do I configure my currency?
   * How do I set up my shipping information? 
 
+== Payment Processor Questions ==
+
+  * What payment processors are supported now? 
+  * When will payment processor <my favorite processor> be supported?
+  * Authorize.net: 
+    * How do I get a test or dev account? [http://developer.authorize.net/support/ Submit request form]
+    * How do I get an authorize.net account? 
+    * How do I get my merchant ID and transaction key? [http://developer.authorize.net/faqs/#7423 See authnet doc]
 
 == Developer Concerns ==
   
