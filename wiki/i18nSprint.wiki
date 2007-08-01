@@ -5,20 +5,44 @@
 
 The Plone Conosur community will be holding an i18n sprint during the [http://jornadas.grulic.org.ar/7/ Jornadas Regionales de Software Libre] en Cordoba, Argentina. This page has more information on the sprint for those interested in attending.
 
-= What =
+*What* [Lab FacCsEc Plone i18n Sprint on GetPaid]
 
-  * Plone i18n Sprint on GetPaid
+*When* 9am - 5pm, August 9, 2007
+
+*Where* Lab FacCsEc, Universidad Nacional de Cordoba, Cordoba, Argentina
+  
 
 = Be Prepared! = 
 
-  * Please either: 
+Please either: 
 
-    * Attend the Plone training (August 8), where there will be a section on i18n, or
-    * Learn Plone i18n on your own (**?)
-
-  * Show up on time and be ready to learn and have fun :)
+    * Attend the [http://jornadas.grulic.org.ar/7/contenido/programa/taller-python-zope-plone Plone training] (August 8), where there will be a section on i18n, or
+    * Learn Plone i18n on your own (see [http://plone.org/documentation/how-to/i18n-for-developers/ Plone i18n for developers] or this [http://plone.org/products/archgenxml/documentation/how-to/handling-i18n-translation-files-with-archgenxml-and-i18ndude/ short course])
 
   * Check out GetPaid by either using the [http://dev.plonegetpaid.com Dev site], trying the [http://code.google.com/p/getpaid/downloads/list latest tarball of the products] on your own Plone, or setting up the products with buildout (see DevGettingStarted). 
 
+  * Sign up on the [http://groups.google.com/group/getpaid-dev GetPaid-dev mailing list]
+
+  * Read about the project at www.plonegetpaid.com 
+
+  * Show up on time and be ready to learn and have fun :)
+
+= Who will be there = 
+
+  * John Lenton (sprint leader, chipaca)
+
+  * Kapil Thangavelu (GetPaid architect, hazmat)
+
+  * Chris Johnson (GetPaid organizer, cjj)
+
+  * Emanuel Sartor (emanuel)
+
+  * Javier Mansilla (javimansilla)
+ 
+  * Matias B (matiasb)
+
+  * Franco (frapell)
+
+  * (let us know via the getpaid-dev list if you plan to attend)
 
 
