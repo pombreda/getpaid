@@ -1,0 +1,24 @@
+#summary Information page for the i18n Sprint, August 9, in Cordoba, Argentina
+#labels Featured
+
+= Introduction =
+
+The Plone Conosur community will be holding an i18n sprint during the [http://jornadas.grulic.org.ar/7/ Jornadas Regionales de Software Libre] en Cordoba, Argentina. This page has more information on the sprint for those interested in attending.
+
+= What =
+
+  * Plone i18n Sprint on GetPaid
+
+= Be Prepared! = 
+
+  * Please either: 
+
+    * Attend the Plone training (August 8), where there will be a section on i18n, or
+    * Learn Plone i18n on your own (**?)
+
+  * Show up on time and be ready to learn and have fun :)
+
+  * Check out GetPaid by either using the [http://dev.plonegetpaid.com Dev site], trying the [http://code.google.com/p/getpaid/downloads/list latest tarball of the products] on your own Plone, or setting up the products with buildout (see DevGettingStarted). 
+
+
+
