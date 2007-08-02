@@ -9,7 +9,7 @@ The Plone Conosur community will be holding an i18n sprint during the [http://jo
 
 *When* 9am - 5pm, August 9, 2007
 
-*Where* Lab FacCsEc, Universidad Nacional de Cordoba, Cordoba, Argentina
+*Where* Lab FacCsEc, Universidad Nacional de Cordoba, Cordoba, Argentina  AND in #getpaid (irc.freenode.net)
   
 
 = Be Prepared! = 
@@ -48,4 +48,3 @@ Please either:
   * JPN (rcom_jpn)
 
   * (let us know via the getpaid-dev list if you plan to attend)
-
