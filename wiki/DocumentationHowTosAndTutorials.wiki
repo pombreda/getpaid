@@ -1,5 +1,5 @@
 #summary A listing of How-Tos and Tutorials that will be needed for end users
-#labels Phase-Support,Documentation
+#labels Phase-Support,Documentation,Featured
 
 
 == General Questions ==
