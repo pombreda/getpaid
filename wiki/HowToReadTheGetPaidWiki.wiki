@@ -1,5 +1,4 @@
 #summary How to Read the Wiki
-#labels Featured
 
 = Introduction =
 
