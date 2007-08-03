@@ -112,7 +112,7 @@ You need to re-run the build-out to get the latest .cfg file.  Try:
 ~/getpaid.buildout/bin/buildout -v -N
 }}}
 
-=== M2Crypto errors ===
+=== M2Crypto errors and Authorize.net===
 
 Authorize.net requires some new crypto libraries.  We removed this from buildout.cfg so that dependencies aren't needed at this point for a general audience.
 
