@@ -1,5 +1,4 @@
 #summary Why We're Here
-#labels Featured
 
 = Introduction =
 
