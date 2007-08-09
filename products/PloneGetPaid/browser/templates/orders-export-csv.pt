@@ -1,6 +1,6 @@
-<fieldset>
+<fieldset i18n:domain="plonegetpaid">
 
-  <legend> Export to CSV </legend>
+  <legend i18n:translate="legend_csv_export"> Export to CSV </legend>
 
   <form action="."
         tal:attributes="action request/URL" method="post"

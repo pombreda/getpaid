@@ -1,10 +1,11 @@
-<table>
+<table
+     i18n:domain="plonegetpaid">
   <tal:block repeat="order view/history">
     <tr>
-      <th>order id</th>
-      <th>created</th>
-      <th>financial state</th>
-      <th>fulfillment state</th>
+      <th i18n:translate="heading_order_id">order id</th>
+      <th i18n:translate="heading_created">created</th>
+      <th i18n:translate="heading_financial_state">financial state</th>
+      <th i18n:translate="heading_fulfillment_state">fulfillment state</th>
     </tr>
     <tr>
       <td tal:content="order/id"></td>
@@ -13,19 +14,19 @@
       <td tal:content="order/fulfillment_state"></td>
     </tr>
     <tr>
-      <th colspan="4">Order Workflow Log</th>
+      <th colspan="4" i18n:translate="heading_order_workflow_log">Order Workflow Log</th>
     </tr>
     <tr style="font-size: smaller">
       <td colspan="4">
         <table>
           <tr>
-            <th>workflow</th>
-            <th>changed by</th>
-            <th>change date</th>
-            <th>previous state</th>
-            <th>transition</th>
-            <th>new state</th>
-            <th>comment</th>
+            <th i18n:translate="heading_workflow">workflow</th>
+            <th i18n:translate="heading_changed_by">changed by</th>
+            <th i18n:translate="heading_change_date">change date</th>
+            <th i18n:translate="heading_previous_state">previous state</th>
+            <th i18n:translate="heading_transition">transition</th>
+            <th i18n:translate="heading_new_state">new state</th>
+            <th i18n:translate="heading_comment">comment</th>
           </tr>
           <tr tal:repeat="logitem order/log">
             <td>???</td>

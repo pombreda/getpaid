@@ -17,6 +17,10 @@ class IGetPaidCartViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid shopping cart ui
     """
 
+class IGetPaidOrderHistoryViewletManager( zope.viewlet.interfaces.IViewletManager ):
+    """ viewlet manager for get paid order history ui
+    """
+
 class IOrdersAdminManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for collections of orders admin management
     """

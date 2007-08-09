@@ -1,8 +1,8 @@
-<fieldset>
+<fieldset i18n:domain="plonegetpaid">
 
-  <legend> Fulfillment </legend>
+  <legend i18n:translate="legend_order_fulfillment"> Fulfillment </legend>
 
-  <span> Current Status </span>  - <span tal:content="view/fulfillment_status"> Processing </span>  
+  <span i18n:translate="text_current_status"> Current Status </span>  - <span tal:content="view/fulfillment_status" i18n:translate=""> Processing </span>  
   
   <form action="."
         tal:attributes="action request/URL" method="post"

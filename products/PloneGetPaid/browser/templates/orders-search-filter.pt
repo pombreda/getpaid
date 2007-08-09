@@ -1,6 +1,6 @@
-<fieldset>
+<fieldset i18n:domain="plonegetpaid">
 
-  <legend> Search Orders </legend>
+  <legend i18n:translate="legend_search_orders"> Search Orders </legend>
   <div tal:replace="structure view/renderSearch" />   
 
 </fieldset>

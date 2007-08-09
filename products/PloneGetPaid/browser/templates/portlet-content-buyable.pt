@@ -1,5 +1,6 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal">
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plonegetpaid">
 
 <body>
 <div metal:define-macro="portlet" tal:condition="view/isPayable">
@@ -8,7 +9,8 @@
 
         <dt class="portletHeader">
             <span class="portletTopLeft"></span>
-        Product Details
+        <span class="portletTopMiddle"
+              i18n:translate="text_product_details">Product Details</span>
             <span class="portletTopRight"></span>
         </dt>
 
@@ -26,7 +28,8 @@
             </p>
 
             <p tal:define="field python: '%.2f' % view.payable.price"
-               tal:condition="field">
+               tal:condition="field"
+	       i18n:translate="text_price">
                  Price: $<span tal:content="field" />
             </p>
 
@@ -34,7 +37,8 @@
         </dd>
 
         <dd class="portletFooter">
-            <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True">
+            <a href="" tal:attributes="href string:${context/absolute_url}/@@getpaid-cart-add?add_item=True"
+               i18n:translate="label_add_to_cart">
                Add to Cart
             </a>
             <span class="portletBottomLeft"></span>
