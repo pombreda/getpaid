@@ -20,29 +20,29 @@ def create_fulfillment_workflow( ):
     add = transitions.append
 
     add( workflow.Transition( transition_id = 'create',
-                              title= 'Create',
+                              title= _(u'Create'),
                               source = None,
                               destination = fs.NEW ) )
 
     # needs condition on charged finance state..
     add( workflow.Transition( transition_id = 'process-order',
-                              title = 'Process Order',
+                              title = _(u'Process Order'),
                               source = fs.NEW,
                               destination = fs.PROCESSING ) )
 
     add( workflow.Transition( transition_id = 'deliver-processing-order',
-                              title = 'Order Processed',
+                              title = _(u'Order Processed'),
                               trigger = iworkflow.SYSTEM,
                               source = fs.PROCESSING,
                               destination = fs.DELIVERED ) )
     
     add( workflow.Transition( transition_id = 'cancel-order',
-                              title = 'Will Not Deliver',
+                              title = _(u'Will Not Deliver'),
                               destination = fs.WILL_NOT_DELIVER,
                               source = fs.PROCESSING ) )
 
     add( workflow.Transition( transition_id = 'cancel-new-order',
-                              title = 'Will Not Deliver',
+                              title = _(u'Will Not Deliver'),
                               source = fs.NEW,
                               destination = fs.WILL_NOT_DELIVER
                               ) )
@@ -58,20 +58,20 @@ def create_finance_workflow( ):
 
     # REVIEWING
     add( workflow.Transition( transition_id = 'create',
-                              title = 'Create',
+                              title = _(u'Create'),
                               source = None,
                               destination = fs.REVIEWING ) )
 
 
     add( workflow.Transition( transition_id = 'reviewing-declined',
-                              title='Payment Declined',
+                              title=_(u'Payment Declined'),
                               trigger = iworkflow.SYSTEM,
                               source = fs.REVIEWING,
                               destination = fs.PAYMENT_DECLINED ) )
 
 
     add( workflow.Transition( transition_id = 'authorize',
-                              title = 'Authorize',
+                              title = _(u'Authorize'),
                               trigger = iworkflow.SYSTEM,
                               source = fs.REVIEWING,
                               destination = fs.CHARGEABLE ) )
@@ -79,33 +79,33 @@ def create_finance_workflow( ):
     
     # CHARGEABLE TRANSITIONS
     add( workflow.Transition( transition_id = 'charge-chargeable',
-                              title = 'Charge Order',
+                              title = _(u'Charge Order'),
                               source = fs.CHARGEABLE,
                               destination = fs.CHARGED ) )
 
     add( workflow.Transition( transition_id = 'cancel-chargeable',
-                              title = 'Cancel Order',
+                              title = _(u'Cancel Order'),
                               source = fs.CHARGEABLE,
                               destination = fs.CANCELLED ) )
 
     add( workflow.Transition( transition_id = 'authorize-chargeable',
-                              title = 'Authorize Order',
+                              title = _(u'Authorize Order'),
                               source = fs.CHARGEABLE,
                               destination = fs.CHARGEABLE ) )
 
     # CHARGED TRANSITIONS
     add( workflow.Transition( transition_id = 'authorize-charged',
-                              title = 'Authorize Order',
+                              title = _(u'Authorize Order'),
                               source = fs.CHARGED,
                               destination = fs.CHARGED ) )
 
     add( workflow.Transition( transition_id = 'refund-order',
-                              title = 'Refund Order',
+                              title = _(u'Refund Order'),
                               source = fs.CHARGED,
                               destination = fs.REFUNDED ) )
 
     add( workflow.Transition( transition_id = 'charge-charged',
-                              title = 'Charge Order',
+                              title = _(u'Charge Order'),
                               source = fs.CHARGED,
                               destination = fs.CHARGED ) )
 
@@ -113,14 +113,14 @@ def create_finance_workflow( ):
     # PAYMENT DECLINED TRANSITIONS
 
     add( workflow.Transition( transition_id = 'cancel-declined',
-                              title='Cancel Order',
+                              title=_(u'Cancel Order'),
                               source = fs.PAYMENT_DECLINED,
                               destination = fs.CANCELLED ) )
 
     # SYSTEM TRANSITIONS
     
     add( workflow.Transition( transition_id = 'processor-cancelled',
-                              title = 'Processor Cancel',
+                              title = _(u'Processor Cancel'),
                               source = fs.REVIEWING,
                               destination = fs.CANCELLED_BY_PROCESSOR,
                               trigger = iworkflow.SYSTEM, ) )
@@ -152,6 +152,6 @@ FinanceWorkflowAdapter, FinanceState, FinanceInfo = workflow.ParallelWorkflow(
     )
 
 if __name__ == '__main__':
-    wk = FinanceWorkflow(None)        
+    wk = FinanceWorkflow(None)
 
 
