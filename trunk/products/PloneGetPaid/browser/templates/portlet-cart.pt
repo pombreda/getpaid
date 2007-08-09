@@ -1,5 +1,6 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal">
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plonegetpaid">
 
 <body>
 <div metal:define-macro="portlet"
@@ -10,16 +11,17 @@
 
         <dt class="portletHeader">
             <span class="portletTopLeft"></span>
-              Your Cart
+            <span class="portletTopMiddle" i18n:translate="text_your_cart">Your Cart</span>
             <span class="portletTopRight"></span>
         </dt>
 
         <dd class="portletItem even"> 
-            Contains <span tal:content="view/size"> 5 </span> Items
+            <span i18n:translate="text_contains_items">Contains <span tal:content="view/size" i18n:name="size"> 5 </span> Items</span>
         </dd>
 
         <dd class="portletFooter">
-            <a href="" tal:attributes="href string:${context/portal_url}/@@getpaid-cart">
+            <a href="" tal:attributes="href string:${context/portal_url}/@@getpaid-cart"
+               i18n:translate="label_manage_cart">
               Manage Cart
             </a>
             <span class="portletBottomLeft"></span>

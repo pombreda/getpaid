@@ -1,0 +1,294 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2007-08-09 15:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plonegetpaid\n"
+
+#: ./lib/ore/member/browser.py:152
+msgid "Edit"
+msgstr ""
+
+#: ./lib/yoma/batching/__init__.py:112
+msgid "Next"
+msgstr ""
+
+#: ./lib/ore/member/browser.py:166
+msgid "No changes"
+msgstr ""
+
+#: ./lib/yoma/batching/__init__.py:94
+msgid "Prev"
+msgstr ""
+
+#: ./lib/ore/member/browser.py:161
+msgid "Updated on ${date_time}"
+msgstr ""
+
+#. Default: "You can check the status of your order ${status_url}"
+#: ./browser/templates/checkout-thank-you.pt:10
+msgid "box_order_status_url_description"
+msgstr ""
+
+#. Default: "Your Shopping Cart"
+#: ./browser/templates/cart-manage.pt:4
+msgid "heading_cart_manage"
+msgstr ""
+
+#. Default: "change date"
+#: ./browser/templates/order-history-viewlet.pt:25
+msgid "heading_change_date"
+msgstr ""
+
+#. Default: "changed by"
+#: ./browser/templates/order-history-viewlet.pt:24
+msgid "heading_changed_by"
+msgstr ""
+
+#. Default: "Checkout"
+#: ./browser/templates/checkout-billing-info.pt:4
+msgid "heading_checkout"
+msgstr ""
+
+#. Default: "Thank you for you Order"
+#: ./browser/templates/checkout-thank-you.pt:5
+msgid "heading_checkout_thank_you"
+msgstr ""
+
+#. Default: "comment"
+#: ./browser/templates/order-history-viewlet.pt:29
+msgid "heading_comment"
+msgstr ""
+
+#. Default: "Configure"
+#: ./browser/templates/admin-overview.pt:16
+msgid "heading_configure"
+msgstr ""
+
+#. Default: "created"
+#: ./browser/templates/order-history-viewlet.pt:6
+msgid "heading_created"
+msgstr ""
+
+#. Default: "financial state"
+#: ./browser/templates/order-history-viewlet.pt:7
+msgid "heading_financial_state"
+msgstr ""
+
+#. Default: "fulfillment state"
+#: ./browser/templates/order-history-viewlet.pt:8
+msgid "heading_fulfillment_state"
+msgstr ""
+
+#. Default: "General Information"
+#: ./browser/templates/admin-overview.pt:28
+msgid "heading_general_information"
+msgstr ""
+
+#. Default: "Site Orders"
+#: ./browser/templates/orders-template.pt:38
+msgid "heading_getpaid_setup"
+msgstr ""
+
+#. Default: "new state"
+#: ./browser/templates/order-history-viewlet.pt:28
+msgid "heading_new_state"
+msgstr ""
+
+#. Default: "Order"
+#: ./browser/templates/order-manage.pt:5
+msgid "heading_order"
+msgstr ""
+
+#. Default: "Order Administration"
+#: ./browser/templates/orders-manage.pt:5
+msgid "heading_order_administration"
+msgstr ""
+
+#. Default: "order id"
+#: ./browser/templates/order-history-viewlet.pt:5
+msgid "heading_order_id"
+msgstr ""
+
+#. Default: "Order Workflow Log"
+#: ./browser/templates/order-history-viewlet.pt:17
+msgid "heading_order_workflow_log"
+msgstr ""
+
+#. Default: "previous state"
+#: ./browser/templates/order-history-viewlet.pt:26
+msgid "heading_previous_state"
+msgstr ""
+
+#. Default: "transition"
+#: ./browser/templates/order-history-viewlet.pt:27
+msgid "heading_transition"
+msgstr ""
+
+#. Default: "workflow"
+#: ./browser/templates/order-history-viewlet.pt:23
+msgid "heading_workflow"
+msgstr ""
+
+#. Default: "Your Orders"
+#: ./browser/templates/order-history.pt:4
+msgid "heading_your_orders"
+msgstr ""
+
+#. Default: "Add to Cart"
+#: ./browser/templates/portlet-content-buyable.pt:40
+msgid "label_add_to_cart"
+msgstr ""
+
+#. Default: "GetPaid Version:"
+#: ./browser/templates/admin-overview.pt:30
+msgid "label_getpaid_version"
+msgstr ""
+
+#. Default: "Manage Cart"
+#: ./browser/templates/portlet-cart.pt:23
+msgid "label_manage_cart"
+msgstr ""
+
+#. Default: "here"
+#: ./browser/templates/checkout-thank-you.pt:10
+msgid "label_order_status_link_text"
+msgstr ""
+
+#. Default: "Store/Organization Name:"
+#: ./browser/templates/admin-overview.pt:32
+msgid "label_organization_name"
+msgstr ""
+
+#. Default: "Up to Order Management"
+#: ./browser/templates/orders-template.pt:41
+msgid "label_up_to_getpaid_setup"
+msgstr ""
+
+#. Default: "Your Cart Contents"
+#: ./browser/templates/cart-listing.pt:4
+msgid "legend_cart_contents"
+msgstr ""
+
+#. Default: "Contents"
+#: ./browser/templates/order-item-listing.pt:2
+msgid "legend_contents"
+msgstr ""
+
+#. Default: "Export to CSV"
+#: ./browser/templates/orders-export-csv.pt:3
+msgid "legend_csv_export"
+msgstr ""
+
+#. Default: "Next Steps"
+#: ./browser/templates/cart-actions.pt:3
+msgid "legend_next_steps"
+msgstr ""
+
+#. Default: "Finance"
+#: ./browser/templates/order-finance.pt:3
+msgid "legend_order_finance"
+msgstr ""
+
+#. Default: "Fulfillment"
+#: ./browser/templates/order-fulfillment.pt:3
+msgid "legend_order_fulfillment"
+msgstr ""
+
+#. Default: "Order Log"
+#: ./browser/templates/order-workflow-log.pt:2
+msgid "legend_order_log"
+msgstr ""
+
+#. Default: "Orders"
+#: ./browser/templates/orders-listing.pt:2
+msgid "legend_orders"
+msgstr ""
+
+#. Default: "Search Orders"
+#: ./browser/templates/orders-search-filter.pt:3
+msgid "legend_search_orders"
+msgstr ""
+
+#. Default: "Summary"
+#: ./browser/templates/order-summary.pt:3
+msgid "legend_summary"
+msgstr ""
+
+#. Default: "Contains ${size} Items"
+#: ./browser/templates/portlet-cart.pt:19
+msgid "text_contains_items"
+msgstr ""
+
+#. Default: "The Context ${portal} Does Not Support this Operation."
+#: ./browser/templates/payable-form.pt:25
+msgid "text_context_does_not_support_operation"
+msgstr ""
+
+#. Default: "Creation Date"
+#: ./browser/templates/order-summary.pt:14
+msgid "text_creation_date"
+msgstr ""
+
+#. Default: "Current Status"
+#: ./browser/templates/order-finance.pt:5
+msgid "text_current_status"
+msgstr ""
+
+#. Default: "Customer Id"
+#: ./browser/templates/order-summary.pt:10
+msgid "text_customer_id"
+msgstr ""
+
+#. Default: "Finance Status"
+#: ./browser/templates/order-summary.pt:18
+msgid "text_finance_status"
+msgstr ""
+
+#. Default: "Fulfillment Status"
+#: ./browser/templates/order-summary.pt:22
+msgid "text_fulfillment_status"
+msgstr ""
+
+#. Default: "Order Id"
+#: ./browser/templates/order-summary.pt:6
+msgid "text_order_id"
+msgstr ""
+
+#. Default: "On ${change_date} By ${changed_by} Previous ${previous_state} New ${new_state} ${comment}"
+#: ./browser/templates/order-workflow-log.pt:10
+msgid "text_order_record"
+msgstr ""
+
+#. Default: "Price: $<span>${DYNAMIC_CONTENT}</span>"
+#: ./browser/templates/portlet-content-buyable.pt:33
+msgid "text_price"
+msgstr ""
+
+#. Default: "Product Details"
+#: ./browser/templates/portlet-content-buyable.pt:12
+msgid "text_product_details"
+msgstr ""
+
+#. Default: "Total Price"
+#: ./browser/templates/order-summary.pt:26
+msgid "text_total_price"
+msgstr ""
+
+#. Default: "Your Cart"
+#: ./browser/templates/portlet-cart.pt:14
+msgid "text_your_cart"
+msgstr ""
+

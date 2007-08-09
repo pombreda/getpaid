@@ -12,12 +12,12 @@
 		tal:condition="python:selected == cview['action']">
               <a href=""
 		 tal:attributes="href cview/action"
-		 tal:content="cview/title"> label </a>						
+		 tal:content="cview/title" i18n:translate=""> label </a>						
 	    </li>
 	    <li tal:condition="python:selected != cview['action']">
               <a href=""
 		 tal:attributes="href cview/action"
-		 tal:content="cview/title"> label </a>						
+		 tal:content="cview/title" i18n:translate=""> label </a>						
 	    </li>
 	  </tal:loop>
 
@@ -49,7 +49,7 @@
 	    </p>
 	  </div>
 	  
-	  <metal:block define-slot="admin_content" tal:content="nothing">
+	  <metal:block define-slot="admin_content" tal:content="nothing" i18n:translate="">
 	    Admin Template
 	  </metal:block>
 	</div>

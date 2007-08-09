@@ -1,12 +1,15 @@
-<metal:page use-macro="context/@@getpaid-content-template/macros/content_space">
+<metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
+            i18n:domain="plonegetpaid">
   <metal:block fill-slot="getpaid_content">
 
-    <h3> Thank you for you Order </h3>
+    <h3 i18n:translate="heading_checkout_thank_you"> Thank you for you Order </h3>
 
-    <div>
+    <div i18n:translate="box_order_status_url_description">
       You can check the status of your order 
 
-      <a href=""
+      <a i18n:name="status_url"
+         i18n:translate="label_order_status_link_text"
+         href=""
 	 tal:attributes="href
 	 string:${context/portal_url}/@@getpaid-order-history"> here </a>
 
