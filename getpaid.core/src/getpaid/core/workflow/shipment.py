@@ -42,6 +42,8 @@ from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
 from getpaid.core.interfaces import workflow_states
+from zope.i18nmessageid import MessageIDFactory
+_ = MessageIDFactory('getpaid')
 
 def CheckAuthorized( wf, context ):
     return True
