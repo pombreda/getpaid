@@ -10,7 +10,8 @@ from hurry.workflow import workflow
 
 from getpaid.core.interfaces import workflow_states, IOrder, IPaymentProcessor
 from zope import component
-    
+from zope.i18nmessageid import MessageIDFactory
+_ = MessageIDFactory('getpaid')
 
 def create_fulfillment_workflow( ):
 
