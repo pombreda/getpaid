@@ -254,7 +254,7 @@ msgstr ""
 #. Default: "Order"
 #: ./browser/templates/order-manage.pt:5
 msgid "heading_order"
-msgstr ""
+msgstr "Orden"
 
 #. Default: "Order Administration"
 #: ./browser/templates/orders-manage.pt:5
@@ -264,7 +264,7 @@ msgstr ""
 #. Default: "order id"
 #: ./browser/templates/order-history-viewlet.pt:5
 msgid "heading_order_id"
-msgstr ""
+msgstr "identificador de la orden"
 
 #. Default: "Order Workflow Log"
 #: ./browser/templates/order-history-viewlet.pt:17
@@ -274,7 +274,7 @@ msgstr ""
 #. Default: "previous state"
 #: ./browser/templates/order-history-viewlet.pt:26
 msgid "heading_previous_state"
-msgstr ""
+msgstr "estado previo"
 
 #. Default: "transition"
 #: ./browser/templates/order-history-viewlet.pt:27
@@ -294,17 +294,17 @@ msgstr ""
 #. Default: "Add to Cart"
 #: ./browser/templates/portlet-content-buyable.pt:40
 msgid "label_add_to_cart"
-msgstr ""
+msgstr "Agregar al Carrito"
 
 #. Default: "GetPaid Version:"
 #: ./browser/templates/admin-overview.pt:30
 msgid "label_getpaid_version"
-msgstr ""
+msgstr "Versión de GetPaid"
 
 #. Default: "Manage Cart"
 #: ./browser/templates/portlet-cart.pt:23
 msgid "label_manage_cart"
-msgstr ""
+msgstr "Administrar el Carrito"
 
 #. Default: "here"
 #: ./browser/templates/checkout-thank-you.pt:10
