@@ -11,6 +11,17 @@ The Plone Conosur community will be holding an i18n sprint during the [http://jo
 
 *Where* Lab FacCsEc, Universidad Nacional de Cordoba, Cordoba, Argentina  AND in #getpaid (irc.freenode.net)
   
+= Goal = 
+
+Internationalize the GetPaid products! 
+
+= How? = 
+
+ - Edit the templates to insert the necessary i18n tags. 
+
+ - We are using the Plone [http://plone.org/development/teams/i18n/translators-guidelines Guidelines for Translators] "Guide to Prefixes" to choose IDs for the tagged areas of the templates. 
+
+ - We are using two domains: "plonegetpaid" (for all Plone-specific templates) and "getpaid" (for non-Plone, ie Zope-specific, templates)
 
 = Be Prepared! = 
 
