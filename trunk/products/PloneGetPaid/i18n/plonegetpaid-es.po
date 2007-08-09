@@ -1,0 +1,442 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# JAVIER MANSILLA <javier@except.com.ar>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2007-08-09 17:53+0000\n"
+"PO-Revision-Date: 2007-08-09 HO:MI +ZONE\n"
+"Last-Translator: JAVIER MANSILLA <javier@except.com.ar>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: es\n"
+"Language-Name: Español\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plonegetpaid\n"
+
+#: ./interfaces.py:311
+msgid "A list of countries"
+msgstr "Lista de países"
+
+#: ./interfaces.py:315
+msgid "A list of states"
+msgstr "Lista de estados"
+
+#: ./interfaces.py:139
+msgid "Buyable Content delivered through the web/virtually"
+msgstr "Contenido adquirible a través de la web/virtualmente"
+
+#: ./interfaces.py:136
+msgid "Buyable Types"
+msgstr "Tipos Adquiribles"
+
+#: ./interfaces.py:91
+msgid "Contact Address"
+msgstr "Dirección del Contacto"
+
+#: ./interfaces.py:96
+msgid "Contact Address2"
+msgstr "Segunda Dirección del Contacto"
+
+#: ./interfaces.py:101
+msgid "Contact City"
+msgstr "Ciudad del Contacto"
+
+#: ./interfaces.py:86
+msgid "Contact Company"
+msgstr "Compañía del Contacto"
+
+#: ./interfaces.py:117
+msgid "Contact Country"
+msgstr "País del Contacto"
+
+#: ./interfaces.py:81
+msgid "Contact Email"
+msgstr "Email del Contacto"
+
+#: ./interfaces.py:128
+msgid "Contact Fax"
+msgstr "Fax del Contacto"
+
+#: ./interfaces.py:76
+msgid "Contact Name"
+msgstr "Nombre del Contacto"
+
+#: ./interfaces.py:123
+msgid "Contact Phone"
+msgstr "Teléfono del Contacto"
+
+#: ./interfaces.py:106
+msgid "Contact State/Province"
+msgstr "Estado/Provincia del Contacto"
+
+#: ./interfaces.py:112
+msgid "Contact Zip/Postal Code"
+msgstr "Código Postal del Contacto"
+
+#: ./interfaces.py:155
+msgid "Content Types available for donation"
+msgstr "Tipos de Contenido disponibles para donaciones"
+
+#: ./interfaces.py:147
+msgid "Content Types only available to premium memberships"
+msgstr "Tipos de Contenido sólo disponibles para membresías pagas"
+
+#: ./interfaces.py:163
+msgid "Content Types that represent goods that can be purchased and shipped"
+msgstr "Tipos de Contenido que representan bienes que pueden ser vendidos y enviados"
+
+#: ./interfaces.py:227
+msgid "Currency Symbol"
+msgstr "Símbolo de la moneda"
+
+#: ./interfaces.py:275
+msgid "Customer Email Notifications"
+msgstr "Alertas al Cliente por Email"
+
+#: ./interfaces.py:252
+msgid "Decimal Symbol"
+msgstr "Símbolo decimal"
+
+#: ./interfaces.py:242
+msgid "Digit Grouping Symbol"
+msgstr "Símbolo Agrupador de Dígitos"
+
+#: ./interfaces.py:283
+msgid "Disclaimer"
+msgstr "Salvedad"
+
+#: ./interfaces.py:152
+msgid "Donatable Content Types"
+msgstr "Tipos de Contenido Donables"
+
+#: ./interfaces.py:271
+msgid "Merchant Email Notifications"
+msgstr "Alertas al Vendedor por Email"
+
+#: ./interfaces.py:237
+msgid "Negative Currency Format"
+msgstr "Formato de Moneda Negativa"
+
+#: ./interfaces.py:257
+msgid "Number of Digits After Decimal"
+msgstr "Número de Dígitos Después de la Coma"
+
+#: ./interfaces.py:247
+msgid "Number of Digits in Group"
+msgstr "Número de Dígitos en un Grupo"
+
+#: ./interfaces.py:177
+msgid "Payment Processor"
+msgstr "Procesador de Pagos"
+
+#: ./interfaces.py:232
+msgid "Positive Currency Format"
+msgstr "Formato de Moneda Positiva"
+
+#: ./interfaces.py:144
+msgid "Premium Content Types"
+msgstr "Tipos de Contenido Pagos"
+
+#: ./interfaces.py:287
+msgid "Privacy Policy"
+msgstr "Política de Privacidad"
+
+#: ./interfaces.py:210
+msgid "Session Timeout"
+msgstr "Tiempo Límite para la Sesión"
+
+#: ./interfaces.py:160
+msgid "Shippable Product Types"
+msgstr "Tipos de Contenido Enviables"
+
+#: ./interfaces.py:170
+msgid "Shipping Method"
+msgstr "Método de Envío"
+
+#: ./interfaces.py:212
+msgid "Shopping cart session timeout (in seconds)"
+msgstr "Tiempo límite de la sesión del carrito de compras (en segundos)"
+
+#: ./interfaces.py:71
+msgid "Store/Organization Name"
+msgstr "Nombre de la Organización/Tienda"
+
+#: ./interfaces.py:219
+msgid "Tax Method"
+msgstr "Método Impositivo"
+
+#: ./interfaces.py:262
+msgid "US Currency Formatting"
+msgstr "Formato de Moneda Estadounidense"
+
+#: ./interfaces.py:203
+msgid "Weight Units"
+msgstr "Unidades de Peso"
+
+#. Default: "You can check the status of your order ${status_url}"
+#: ./browser/templates/checkout-thank-you.pt:10
+msgid "box_order_status_url_description"
+msgstr "Puede verificar el estado de su orden ${status_url}"
+
+#: ./interfaces.py:310
+msgid "countries"
+msgstr "países"
+
+#. Default: "Your Shopping Cart"
+#: ./browser/templates/cart-manage.pt:4
+msgid "heading_cart_manage"
+msgstr "Tu Carrito de Compras"
+
+#. Default: "change date"
+#: ./browser/templates/order-history-viewlet.pt:25
+msgid "heading_change_date"
+msgstr "fecha modificación"
+
+#. Default: "changed by"
+#: ./browser/templates/order-history-viewlet.pt:24
+msgid "heading_changed_by"
+msgstr "modificado por"
+
+#. Default: "Checkout"
+#: ./browser/templates/checkout-billing-info.pt:4
+msgid "heading_checkout"
+msgstr ""
+
+#. Default: "Thank you for you Order"
+#: ./browser/templates/checkout-thank-you.pt:5
+msgid "heading_checkout_thank_you"
+msgstr "Gracias por su Orden"
+
+#. Default: "comment"
+#: ./browser/templates/order-history-viewlet.pt:29
+msgid "heading_comment"
+msgstr "comentario"
+
+#. Default: "Configure"
+#: ./browser/templates/admin-overview.pt:16
+msgid "heading_configure"
+msgstr "Configurar"
+
+#. Default: "created"
+#: ./browser/templates/order-history-viewlet.pt:6
+msgid "heading_created"
+msgstr "creado"
+
+#. Default: "financial state"
+#: ./browser/templates/order-history-viewlet.pt:7
+msgid "heading_financial_state"
+msgstr "estado financiero"
+
+#. Default: "fulfillment state"
+#: ./browser/templates/order-history-viewlet.pt:8
+msgid "heading_fulfillment_state"
+msgstr "estado del envío"
+
+#. Default: "General Information"
+#: ./browser/templates/admin-overview.pt:28
+msgid "heading_general_information"
+msgstr "Información General"
+
+#. Default: "Site Orders"
+#: ./browser/templates/orders-template.pt:38
+msgid "heading_getpaid_setup"
+msgstr ""
+
+#. Default: "new state"
+#: ./browser/templates/order-history-viewlet.pt:28
+msgid "heading_new_state"
+msgstr ""
+
+#. Default: "Order"
+#: ./browser/templates/order-manage.pt:5
+msgid "heading_order"
+msgstr ""
+
+#. Default: "Order Administration"
+#: ./browser/templates/orders-manage.pt:5
+msgid "heading_order_administration"
+msgstr ""
+
+#. Default: "order id"
+#: ./browser/templates/order-history-viewlet.pt:5
+msgid "heading_order_id"
+msgstr ""
+
+#. Default: "Order Workflow Log"
+#: ./browser/templates/order-history-viewlet.pt:17
+msgid "heading_order_workflow_log"
+msgstr ""
+
+#. Default: "previous state"
+#: ./browser/templates/order-history-viewlet.pt:26
+msgid "heading_previous_state"
+msgstr ""
+
+#. Default: "transition"
+#: ./browser/templates/order-history-viewlet.pt:27
+msgid "heading_transition"
+msgstr ""
+
+#. Default: "workflow"
+#: ./browser/templates/order-history-viewlet.pt:23
+msgid "heading_workflow"
+msgstr ""
+
+#. Default: "Your Orders"
+#: ./browser/templates/order-history.pt:4
+msgid "heading_your_orders"
+msgstr ""
+
+#. Default: "Add to Cart"
+#: ./browser/templates/portlet-content-buyable.pt:40
+msgid "label_add_to_cart"
+msgstr ""
+
+#. Default: "GetPaid Version:"
+#: ./browser/templates/admin-overview.pt:30
+msgid "label_getpaid_version"
+msgstr ""
+
+#. Default: "Manage Cart"
+#: ./browser/templates/portlet-cart.pt:23
+msgid "label_manage_cart"
+msgstr ""
+
+#. Default: "here"
+#: ./browser/templates/checkout-thank-you.pt:10
+msgid "label_order_status_link_text"
+msgstr ""
+
+#. Default: "Store/Organization Name:"
+#: ./browser/templates/admin-overview.pt:32
+msgid "label_organization_name"
+msgstr ""
+
+#. Default: "Up to Order Management"
+#: ./browser/templates/orders-template.pt:41
+msgid "label_up_to_getpaid_setup"
+msgstr ""
+
+#. Default: "Your Cart Contents"
+#: ./browser/templates/cart-listing.pt:4
+msgid "legend_cart_contents"
+msgstr ""
+
+#. Default: "Contents"
+#: ./browser/templates/order-item-listing.pt:2
+msgid "legend_contents"
+msgstr ""
+
+#. Default: "Export to CSV"
+#: ./browser/templates/orders-export-csv.pt:3
+msgid "legend_csv_export"
+msgstr ""
+
+#. Default: "Next Steps"
+#: ./browser/templates/cart-actions.pt:3
+msgid "legend_next_steps"
+msgstr ""
+
+#. Default: "Finance"
+#: ./browser/templates/order-finance.pt:3
+msgid "legend_order_finance"
+msgstr ""
+
+#. Default: "Fulfillment"
+#: ./browser/templates/order-fulfillment.pt:3
+msgid "legend_order_fulfillment"
+msgstr ""
+
+#. Default: "Order Log"
+#: ./browser/templates/order-workflow-log.pt:2
+msgid "legend_order_log"
+msgstr ""
+
+#. Default: "Orders"
+#: ./browser/templates/orders-listing.pt:2
+msgid "legend_orders"
+msgstr ""
+
+#. Default: "Search Orders"
+#: ./browser/templates/orders-search-filter.pt:3
+msgid "legend_search_orders"
+msgstr ""
+
+#. Default: "Summary"
+#: ./browser/templates/order-summary.pt:3
+msgid "legend_summary"
+msgstr ""
+
+#: ./interfaces.py:314
+msgid "states"
+msgstr ""
+
+#. Default: "Contains ${size} Items"
+#: ./browser/templates/portlet-cart.pt:19
+msgid "text_contains_items"
+msgstr ""
+
+#. Default: "The Context ${portal} Does Not Support this Operation."
+#: ./browser/templates/payable-form.pt:25
+msgid "text_context_does_not_support_operation"
+msgstr ""
+
+#. Default: "Creation Date"
+#: ./browser/templates/order-summary.pt:14
+msgid "text_creation_date"
+msgstr ""
+
+#. Default: "Current Status"
+#: ./browser/templates/order-finance.pt:5
+msgid "text_current_status"
+msgstr ""
+
+#. Default: "Customer Id"
+#: ./browser/templates/order-summary.pt:10
+msgid "text_customer_id"
+msgstr ""
+
+#. Default: "Finance Status"
+#: ./browser/templates/order-summary.pt:18
+msgid "text_finance_status"
+msgstr ""
+
+#. Default: "Fulfillment Status"
+#: ./browser/templates/order-summary.pt:22
+msgid "text_fulfillment_status"
+msgstr ""
+
+#. Default: "Order Id"
+#: ./browser/templates/order-summary.pt:6
+msgid "text_order_id"
+msgstr ""
+
+#. Default: "On ${change_date} By ${changed_by} Previous ${previous_state} New ${new_state} ${comment}"
+#: ./browser/templates/order-workflow-log.pt:10
+msgid "text_order_record"
+msgstr ""
+
+#. Default: "Price: $<span>${DYNAMIC_CONTENT}</span>"
+#: ./browser/templates/portlet-content-buyable.pt:33
+msgid "text_price"
+msgstr ""
+
+#. Default: "Product Details"
+#: ./browser/templates/portlet-content-buyable.pt:12
+msgid "text_product_details"
+msgstr ""
+
+#. Default: "Total Price"
+#: ./browser/templates/order-summary.pt:26
+msgid "text_total_price"
+msgstr ""
+
+#. Default: "Your Cart"
+#: ./browser/templates/portlet-cart.pt:14
+msgid "text_your_cart"
+msgstr ""
+
