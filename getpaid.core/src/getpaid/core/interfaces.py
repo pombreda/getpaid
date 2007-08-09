@@ -7,6 +7,9 @@ from zope import schema
 from zope.app.event.interfaces import IObjectEvent    
 from zope.app.container.interfaces import IContainer
 from ore.member.interfaces import IMemberSchema
+from zope.i18nmessageid import MessageIDFactory
+_ = MessageIDFactory('getpaid')
+
 
 #################################
 # Where to Buy Stuff
@@ -26,22 +29,22 @@ class IPayable( Interface ):
     """
     
     made_payable_by = schema.TextLine(
-        title = u"Made Payable By",
+        title = _(u"Made Payable By"),
         readonly = True,
         required = False
         )
     
-    product_code = schema.TextLine( title=u"Product Code",
-                        description=u"An organization's unique product identifier (not required since shopping cart uses content UID internally)",
+    product_code = schema.TextLine( title = _(u"Product Code"),
+                        description=_(u"An organization's unique product identifier (not required since shopping cart uses content UID internally)"),
                         required=False
                         )
-    price = schema.Float( title=u"Price", required=True)
+    price = schema.Float( title = _(u"Price"), required=True)
 
 class IDonationContent( IPayable ):
     """ Donation
     """
-    donation_text = schema.TextLine( title=u"Donation Description",
-                        description=u"Very brief 50 character text (that shows up in portlet)",
+    donation_text = schema.TextLine( title = _(u"Donation Description"),
+                        description=_(u"Very brief 50 character text (that shows up in portlet)"),
                         required=True,
                         max_length=50)
 
@@ -64,8 +67,8 @@ class IPhysicalPayable( IPayable ):
 class IShippableContent( IPayable ):
     """ Shippable Content
     """
-    dimensions = schema.TextLine( title=u"Dimensions")
-    sku = schema.TextLine( title=u"Product SKU")
+    dimensions = schema.TextLine( title = _(u"Dimensions"))
+    sku = schema.TextLine( title = _(u"Product SKU"))
     
     def getShipWeight( self ):
         """ Shipping Weight
@@ -132,11 +135,11 @@ class ILineItem( Interface ):
     """
     An Item in a Cart
     """
-    item_id = schema.TextLine( title= u"Unique Item Id")
-    name = schema.TextLine(title = u"Name")
-    description = schema.TextLine( title = u"Description")
-    cost = schema.Float( title=u"Cost")
-    quantity = schema.Int( title = u"Quantity")
+    item_id = schema.TextLine( title = _(u"Unique Item Id"))
+    name = schema.TextLine(title = _(u"Name"))
+    description = schema.TextLine( title = _(u"Description"))
+    cost = schema.Float( title = _(u"Cost"))
+    quantity = schema.Int( title = _(u"Quantity"))
 
 
 class ILineItemContainer( IContainer ):
@@ -154,7 +157,7 @@ class IPayableLineItem( ILineItem ):
 
 class IRecurringLineItem( IPayableLineItem ):
 
-    period = schema.Int( title=u"Period as a timedelta")
+    period = schema.Int( title = _(u"Period as a timedelta"))
     
 
 class IGiftCertificate( ILineItem ):
@@ -215,59 +218,56 @@ class ITaxUtility( Interface ):
 class IAddress( Interface ):
     """ a physical address
     """
-    first_line = schema.TextLine( title = u"First Line")
-    second_line = schema.TextLine( title = u"Second Line", required=False )
-    city = schema.TextLine( title = u"City" )
-    state = schema.Choice( title = u"State",
-                           vocabulary="getpaid.states")
-    country = schema.Choice( title = u"Country",
-                             vocabulary = "getpaid.countries")
-    postal_code = schema.TextLine( title = u"Zip Code")
+    first_line = schema.TextLine( title = _(u"First Line"))
+    second_line = schema.TextLine( title = _(u"Second Line"), required=False )
+    city = schema.TextLine( title = _(u"City") )
+    state = schema.TextLine( title = _(u"State "),
+                             vocabulary="getpaid.states")
+    country = schema.TextLine( title = _(u"Country"),
+                               vocabulary = "getpaid.countries")
+    postal_code = schema.TextLine( title = _(u"Zip Code"))
 
 class IShippingAddress( IMemberSchema ):
     """ where to send goods
     """
-    ship_first_line = schema.TextLine( title = u"First Line")
-    ship_second_line = schema.TextLine( title = u"Second Line", required=False )
-    ship_city = schema.TextLine( title = u"City" )
-    ship_state = schema.Choice( title = u"State",
-                                vocabulary="getpaid.states" )
-    ship_country = schema.Choice( title = u"Country",
-                                       vocabulary = "getpaid.countries")
-    #ship_country = ChoiceWithSubField( title = u"Country",
-                                       #vocabulary = "getpaid.countries",
-                                       #subFieldName = "ship_state" )
-    ship_postal_code = schema.TextLine( title = u"Zip Code")
+    ship_first_line = schema.TextLine( title = _(u"First Line"))
+    ship_second_line = schema.TextLine( title = _(u"Second Line"), required=False )
+    ship_city = schema.TextLine( title = _(u"City") )
+    ship_state = schema.TextLine( title = _(u"State"),
+                                  vocabulary="getpaid.states" )
+    ship_country = schema.TextLine( title = _(u"Country"),
+                                    vocabulary = "getpaid.countries")
+    ship_postal_code = schema.TextLine( title = _(u"Zip Code"))
 
 class IBillingAddress( IMemberSchema ):
     """ where to bill 
     """
-    bill_first_line = schema.TextLine( title = u"First Line")
-    bill_second_line = schema.TextLine( title = u"Second Line", required=False )
-    bill_city = schema.TextLine( title = u"City" )
-    bill_state = schema.Choice( title = u"State",
-                                vocabulary="getpaid.states" )
-    bill_country = schema.Choice( title = u"Country",
-                                  vocabulary = "getpaid.countries")
-    bill_postal_code = schema.TextLine( title = u"Zip Code")    
+    bill_first_line = schema.TextLine( title = _(u"First Line"))
+    bill_second_line = schema.TextLine( title = _(u"Second Line"), required=False )
+    bill_city = schema.TextLine( title = _(u"City") )
+    bill_state = schema.TextLine( title = _(u"State"),
+                                  vocabulary="getpaid.states" )
+    bill_country = schema.TextLine( title = _(u"Country"),
+                                    vocabulary = "getpaid.countries")
+    bill_postal_code = schema.TextLine( title = _(u"Zip Code"))
 
 class IUserPaymentInformation( Interface ):
     """ A User's payment information to be optionally collected by the
     payment processor view.
     """
 
-    name_on_card = schema.TextLine( title=u"Card Holder Name")
-    phone_number = schema.TextLine( title=u"Phone Number")    
+    name_on_card = schema.TextLine( title = _(u"Card Holder Name"))
+    phone_number = schema.TextLine( title = _(u"Phone Number"))    
     # DONT STORED PERSISTENTLY
-    credit_card_type = schema.Choice( title = u"Credit Card Type",
+    credit_card_type = schema.Choice( title = _(u"Credit Card Type"),
                                       values = ( u"Visa",
                                                  u"MasterCard",
                                                  u"Discover",
                                                  u"American Express" ) )
     
-    credit_card = schema.TextLine( title = u"Credit Card Number")
-    cc_expiration = schema.TextLine( title = u"Credit Card Expiration Date")
-    cc_cvc = schema.TextLine(title = u"Credit Card Verfication Number")
+    credit_card = schema.TextLine( title = _(u"Credit Card Number"))
+    cc_expiration = schema.TextLine( title = _(u"Credit Card Expiration Date"))
+    cc_cvc = schema.TextLine(title = _(u"Credit Card Verfication Number"))
 
 
     
@@ -275,10 +275,10 @@ class IPaymentTransaction( ILineItemContainer ):
     """  A Payment that's been applied
     """
 
-    status = schema.Choice( title = u"Payment Status",
-                            values = ( u"Accepted",
-                                       u"Declined",
-                                       u"Refunded" ) )
+    status = schema.Choice( title = _(u"Payment Status"),
+                            values = ( _(u"Accepted"),
+                                       _(u"Declined"),
+                                       _(u"Refunded") ) )
     
 class IPersistentOptions( Interface ):
     """ interface
@@ -306,13 +306,13 @@ class IOrderManager( Interface ):
 class IOrder( Interface ):
     """ captures information, and is a container to multiple workflows
     """
-    user_id = schema.ASCIILine( title=u"Customer Id", readonly=True )
+    user_id = schema.ASCIILine( title = _(u"Customer Id"), readonly=True )
     shipping_address = schema.Object( IShippingAddress, required=False)
     billing_address  = schema.Object( IBillingAddress )
     shopping_cart = schema.Object( IShoppingCart )
-    finance_state = schema.TextLine( title=u"Finance State", readonly=True)
-    fufillment_state = schema.TextLine( title=u"Fufillment State", readonly=True)
-    processor_order_id = schema.ASCIILine( title=u"Processor Order Id" )
+    finance_state = schema.TextLine( title = _(u"Finance State"), readonly=True)
+    fufillment_state = schema.TextLine( title = _(u"Fufillment State"), readonly=True)
+    processor_order_id = schema.ASCIILine( title = _(u"Processor Order Id") )
     processor_id = schema.ASCIILine( readonly=True )
 
 
@@ -343,12 +343,12 @@ class IOrderWorkflowLog( Interface ):
 class IOrderWorkflowEntry( Interface ):
     """ a record describing a change in an order's workflow history
     """
-    changed_by = schema.ASCIILine( title=u"Changed By", readonly = True )
-    change_date = schema.ASCIILine( title=u"Change Date", readonly = True)
-    comment = schema.ASCIILine( title=u"Comment", readonly = True, required=False )
-    new_state = schema.ASCIILine( title=u"New State", readonly = True)
-    previous_state = schema.ASCIILine( title=u"Previous State", readonly = True )
-    transition = schema.ASCIILine( title=u"", readonly = True)
+    changed_by = schema.ASCIILine( title = _(u"Changed By"), readonly = True )
+    change_date = schema.ASCIILine( title = _(u"Change Date"), readonly = True)
+    comment = schema.ASCIILine( title = _(u"Comment"), readonly = True, required=False )
+    new_state = schema.ASCIILine( title = _(u"New State"), readonly = True)
+    previous_state = schema.ASCIILine( title = _(u"Previous State"), readonly = True )
+    transition = schema.ASCIILine( title = _(u""), readonly = True)
     # change type?? (workflow, user
 
 

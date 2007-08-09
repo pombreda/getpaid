@@ -58,21 +58,21 @@ def create_shippment_workflow( ):
     
     add( workflow.Transition(
         transition_id = 'create',
-        title='Create',
+        title=_(u'Create'),
         source = None,
         destination = ss.NEW
         ) )
 
     add( workflow.Transition(
         transition_id = 'charge',
-        title="Charge",
+        title=_(u"Charge"),
         source = ss.NEW,
         destination = ss.CHARGING
         ) )
 
     add( workflow.Transition(
         transition_id = 'declined',
-        title = 'Declined',
+        title = _(u'Declined'),
         source = ss.CHARGING,
         destination = ss.DECLINED,
         trigger = iworkflow.SYSTEM
@@ -80,7 +80,7 @@ def create_shippment_workflow( ):
         
     add( workflow.Transition(
         transition_id = 'charge',
-        title = 'Charged',
+        title = _(u'Charged'),
         source = ss.CHARGING,
         destination = ss.CHARGED,
         trigger = iworkflow.SYSTEM
@@ -88,7 +88,7 @@ def create_shippment_workflow( ):
 
     add( workflow.Transition(
         transition_id = 'already-charged-order',
-        title = 'Order Charged',
+        title = _(u'Order Charged'),
         condition = CheckCharged,
         trigger = iworkflow.AUTOMATIC,
         source = ss.NEW,
@@ -97,14 +97,14 @@ def create_shippment_workflow( ):
 
     add( workflow.Transition(
         transition_id = 'ship-charged',
-        title = 'Ship',
+        title = _(u'Ship'),
         source = ss.CHARGED,
         destination = ss.SHIPPED,
         ) )    
 
     add( workflow.Transition(
         transition_id = 'delivered',
-        title = 'Delivered',
+        title = _(u'Delivered'),
         source = ss.SHIPPED,
         destination = ss.DELIVERED,
         trigger = iworkflow.SYSTEM
@@ -122,8 +122,4 @@ ShipmentWorkflowAdapter = workflow.AdaptedWorkflow( ShipmentWorkflow() )
 if __name__ == '__main__':
     wf = ShipmentWorkflow()
     print wf.toDot()
-    
 
-    
-
-    

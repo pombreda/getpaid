@@ -21,6 +21,9 @@ from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
 import decimal, datetime
 
 from getpaid.core import interfaces
+from zope.i18nmessageid import MessageIDFactory
+_ = MessageIDFactory('getpaid')
+
 
 try:
     from AccessControl import getSecurityManager
@@ -47,9 +50,9 @@ class Order( Persistent ):
 
     def setOrderId( self, order_id):
         if self._order_id is not None:
-            raise SyntaxError("Order Id already set")
+            raise SyntaxError(_(u"Order Id already set"))
         if not order_id:
-            raise TypeError("Invalid Order Id")
+            raise TypeError(_(u"Invalid Order Id"))
         self._order_id = order_id
 
     order_id = property( getOrderId, setOrderId )
@@ -84,7 +87,7 @@ class Order( Persistent ):
 
         tax_utility = component.getUtility( interfaces.ITaxUtility )
         total += tax_utility.getCost( self )
-        
+
         return float( str( total ) )
 
 class OrderManager( Persistent ):
@@ -338,28 +341,28 @@ class OrderWorkflowLog( object ):
 
     _store = None
     _key = "getpaid.order.auditlog"
-    
+
     def __init__( self, context ):
         self.context = context
-        
+
     def add( self, record ):
         self._storage().append( record )
-        
+
     def _storage( self ):
         if self._store:
             return self._store
-        
+
         annotation = IAnnotations( self.context )
         if annotation.has_key( self._key ):
             self._store = annotation[ self._key ]
         else:
             annotation[ self._key ] = self._store = PersistentList()
         return self._store
-    
+
     def __iter__( self ):
         for record in self._storage():
             yield record
-        
+
 
 def recordOrderWorkflow( order, event ):
 

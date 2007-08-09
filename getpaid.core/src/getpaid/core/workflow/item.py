@@ -75,6 +75,9 @@ from getpaid.core.interfaces import workflow_states, IShippableContent
 
 import getpaid.core.workflow
 
+from zope.i18nmessageid import MessageIDFactory
+_ = MessageIDFactory('getpaid')
+
 def VirtualDeliverable( wf, context ):
     return not component.queryAdapter( IShippableContent, context ) is None
 
@@ -94,7 +97,7 @@ def create_item_workflow( ):
 
     add( workflow.Transition(
         transition_id = 'deliver-virtual',
-        title='Electronic Delivery',
+        title=_(u'Electronic Delivery'),
         condition = VirtualDeliverable,
         trigger = iworkflow.SYSTEM,
         source = its.NEW,
@@ -103,7 +106,7 @@ def create_item_workflow( ):
 
     add( workflow.Transition(
         transition_id = 'cancel',
-        title='Cancel',
+        title=_(u'Cancel'),
         source = its.NEW,
         destination = its.CANCELLED
         ) )    
@@ -111,14 +114,14 @@ def create_item_workflow( ):
 
     add( workflow.Transition(
         transition_id = 'refund',
-        title='Refund',
+        title=_(u'Refund'),
         source = its.DELIVER_VIRTUAL,
         destination = its.REFUNDING
         ) )
 
     add( workflow.Transition(
         transition_id = 'refund-processed',
-        title='Refund Processed',
+        title=_(u'Refund Processed'),
         source = its.REFUNDING,
         trigger = iworkflow.SYSTEM,
         destination = its.REFUNDED
@@ -127,7 +130,7 @@ def create_item_workflow( ):
 
     add( workflow.Transition(
         transition_id = 'ship',
-        title='Ship',
+        title=_(u'Ship'),
         source = its.NEW,
         trigger = iworkflow.SYSTEM,
         destination = its.SHIPPED
