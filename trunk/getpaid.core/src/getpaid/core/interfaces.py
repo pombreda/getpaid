@@ -221,9 +221,9 @@ class IAddress( Interface ):
     first_line = schema.TextLine( title = _(u"First Line"))
     second_line = schema.TextLine( title = _(u"Second Line"), required=False )
     city = schema.TextLine( title = _(u"City") )
-    state = schema.TextLine( title = _(u"State "),
+    state = schema.Choice( title = _(u"State "),
                              vocabulary="getpaid.states")
-    country = schema.TextLine( title = _(u"Country"),
+    country = schema.Choice( title = _(u"Country"),
                                vocabulary = "getpaid.countries")
     postal_code = schema.TextLine( title = _(u"Zip Code"))
 
@@ -233,9 +233,9 @@ class IShippingAddress( IMemberSchema ):
     ship_first_line = schema.TextLine( title = _(u"First Line"))
     ship_second_line = schema.TextLine( title = _(u"Second Line"), required=False )
     ship_city = schema.TextLine( title = _(u"City") )
-    ship_state = schema.TextLine( title = _(u"State"),
+    ship_state = schema.Choice( title = _(u"State"),
                                   vocabulary="getpaid.states" )
-    ship_country = schema.TextLine( title = _(u"Country"),
+    ship_country = schema.Choice( title = _(u"Country"),
                                     vocabulary = "getpaid.countries")
     ship_postal_code = schema.TextLine( title = _(u"Zip Code"))
 
@@ -245,9 +245,9 @@ class IBillingAddress( IMemberSchema ):
     bill_first_line = schema.TextLine( title = _(u"First Line"))
     bill_second_line = schema.TextLine( title = _(u"Second Line"), required=False )
     bill_city = schema.TextLine( title = _(u"City") )
-    bill_state = schema.TextLine( title = _(u"State"),
+    bill_state = schema.Choice( title = _(u"State"),
                                   vocabulary="getpaid.states" )
-    bill_country = schema.TextLine( title = _(u"Country"),
+    bill_country = schema.Choice( title = _(u"Country"),
                                     vocabulary = "getpaid.countries")
     bill_postal_code = schema.TextLine( title = _(u"Zip Code"))
 
