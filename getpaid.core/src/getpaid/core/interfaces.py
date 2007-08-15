@@ -7,8 +7,8 @@ from zope import schema
 from zope.app.event.interfaces import IObjectEvent    
 from zope.app.container.interfaces import IContainer
 from ore.member.interfaces import IMemberSchema
-from zope.i18nmessageid import MessageIDFactory
-_ = MessageIDFactory('getpaid')
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid')
 
 
 #################################

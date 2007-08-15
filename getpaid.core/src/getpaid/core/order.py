@@ -21,8 +21,8 @@ from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
 import decimal, datetime
 
 from getpaid.core import interfaces
-from zope.i18nmessageid import MessageIDFactory
-_ = MessageIDFactory('getpaid')
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid')
 
 
 try:

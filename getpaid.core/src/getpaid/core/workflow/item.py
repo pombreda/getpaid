@@ -75,8 +75,8 @@ from getpaid.core.interfaces import workflow_states, IShippableContent
 
 import getpaid.core.workflow
 
-from zope.i18nmessageid import MessageIDFactory
-_ = MessageIDFactory('getpaid')
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid')
 
 def VirtualDeliverable( wf, context ):
     return not component.queryAdapter( IShippableContent, context ) is None
