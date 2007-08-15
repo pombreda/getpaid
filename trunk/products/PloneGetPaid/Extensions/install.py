@@ -99,7 +99,7 @@ coci_actions = [
                 action = 'string:$object_url/@@getpaid-cart',
                 category ='user',
                 permission = "View",
-                condition = "python:path('object/@@getpaid_control').showManageCart",
+                condition = "python:path('object/@@getpaid_control').showManageCart()",
                 visible = True ),
          None ),
 
@@ -108,7 +108,7 @@ coci_actions = [
                action = 'string:$object_url/@@getpaid-order-history',
                category ='user',
                permission = "View",
-               condition = "python:path('object/@@getpaid_control').showManageCart",
+               condition = "python:path('object/@@getpaid_control').showManageCart()",
                visible = True ),
         None ),
 
