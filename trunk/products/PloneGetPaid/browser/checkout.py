@@ -108,12 +108,18 @@ class CheckoutPayment( MemberContextEdit ):
         if not processor_name:
             raise RuntimeError( "No Payment Processor Specified" )
 
+        import pdb; pdb.set_trace()
         processor = component.getAdapter( self.context,
                                           interfaces.IPaymentProcessor,
                                           processor_name )
+        self.extractData( data )
+        
         order = self.createOrder()
         order.processor_id = processor_name
         order.finance_workflow.fireTransition( "create" )
+
+        # extract data to our adapters
+
         
         result = processor.authorize( order, self.billing_info )
         if result is interfaces.keys.results_async:
@@ -134,6 +140,12 @@ class CheckoutPayment( MemberContextEdit ):
             self.form_reset = False
             
         self._next_url = self.getNextURL( order )
+
+    def extractData( self, data ):
+        for iface, adapter in self.adapters.items():
+            for name, field in getFieldsInOrder( iface ):
+                if name in data:
+                    field.set( adapter, data[ name ] )
 
     def createOrder( self ):
         order_manager = component.getUtility( interfaces.IOrderManager )

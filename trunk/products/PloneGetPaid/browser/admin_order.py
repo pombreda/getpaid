@@ -414,7 +414,7 @@ class OrderFinanceComponent( core.ComponentViewlet ):
 
     def setupActions( self ):
         transitions = self.__parent__.context.finance_workflow.getManualTransitionIds()
-        self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment' )
+        self.actions = bindTransitions( self, transitions, wf_name='order.finance' )
 
     def finance_status( self ):
         return self.__parent__.context.finance_state
@@ -446,7 +446,7 @@ class OrderFulfillmentComponent( core.ComponentViewlet ):
     def fulfillment_status( self ):
         return self.__parent__.context.fulfillment_state
 
-class OrderSummaryComponent( core.ComponentViewlet ):
+class OrderSummaryComponent( viewlet.ViewletBase ):
     """ workflow actions and details on order summary
     """
     order = 1
@@ -459,14 +459,6 @@ class OrderSummaryComponent( core.ComponentViewlet ):
 
     def show( self, **kw):
         return True
-
-    # I got AttributeError: actions if this 2 methods are omited
-    def update( self ):
-        self.setupActions()
-        return super( OrderSummaryComponent, self).update()
-    def setupActions( self ):
-        transitions = self.__parent__.context.fulfillment_workflow.getManualTransitionIds()
-        self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment' )
 
     def getTotalPrice( self ):
         return self.__parent__.context.getTotalPrice()
