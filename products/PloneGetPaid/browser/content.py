@@ -5,7 +5,7 @@ $Id$
 """
 
 import getpaid.core.interfaces as igetpaid
-from getpaid.core import options, event
+from getpaid.core import options, event, order
 
 from zope.formlib import form
 from zope import component
@@ -254,9 +254,21 @@ class ContentControl( BrowserView ):
     allowMakeNotDonatable.__roles__ = None
 
     def showManageCart( self ):
+        """
+        show the manage cart link if there is something in it..
+        """
         utility = component.getUtility( igetpaid.IShoppingCartUtility )
         return utility.get( self.context ) is not None
+    
     showManageCart.__roles__ = None
+
+    def showOrderHistory( self ):
+        """
+        show the order history link if the user has an order
+        """
+        user_id = getSecurityManager().getUser().getId()
+        user_order_count =  len( order.query.search( user_id = user_id, no_sort=True ) )
+        return user_order_count
 
 class ContentPortlet( BrowserView ):
     """ View methods for the ContentPortlet """
