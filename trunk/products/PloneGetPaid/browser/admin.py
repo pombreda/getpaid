@@ -9,15 +9,21 @@ from Products.Five.browser import BrowserView
 from Products.Five.formlib import formbase
 from Products.PloneGetPaid import interfaces, pkg_home
 
+
+
 from zope import component
 from zope.formlib import form
 from zope.app.form.browser import MultiSelectWidget
+from zope.i18nmessageid import MessageFactory
 
 import getpaid.core.interfaces as igetpaid
 
 from ore.member.browser import SchemaSelectWidget as SelectWidgetFactory
 
 from base import BaseView
+
+_ = MessageFactory('plonegetpaid')
+
 
 class Overview( BrowserView ):
     """ overview of entire system
@@ -103,7 +109,7 @@ class PaymentProcessor( BaseSettingsForm ):
         
         processor_name = manage_options.payment_processor
         if not processor_name:
-            self.status = "Please Select Payment Processor in Payment Options Settings"
+            self.status = _("Please Select Payment Processor in Payment Options Settings")
             return
 
         processor = component.getAdapter( self.context,
