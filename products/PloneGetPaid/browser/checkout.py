@@ -108,7 +108,6 @@ class CheckoutPayment( MemberContextEdit ):
         if not processor_name:
             raise RuntimeError( "No Payment Processor Specified" )
 
-        import pdb; pdb.set_trace()
         processor = component.getAdapter( self.context,
                                           interfaces.IPaymentProcessor,
                                           processor_name )
