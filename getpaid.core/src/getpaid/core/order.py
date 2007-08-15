@@ -164,6 +164,9 @@ class OrderQuery( object ):
 
         # actualize to order objects
         results = query.generate( results )
+
+        if 'no_sort' in kw:
+            return results
         
         # reverse sort on creation date
         return query.sort( results, 'creation_date', reverse=True )
