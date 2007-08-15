@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-08-15 02:01+0000\n"
+"POT-Creation-Date: 2007-08-15 02:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -369,6 +369,22 @@ msgstr ""
 #. Default: "Summary"
 #: ./browser/templates/order-summary.pt:3
 msgid "legend_summary"
+msgstr ""
+
+#: ./browser/cart.py:138
+msgid "listingheader_Name"
+msgstr ""
+
+#: ./browser/cart.py:139
+msgid "listingheader_Price"
+msgstr ""
+
+#: ./browser/cart.py:137
+msgid "listingheader_Quantity"
+msgstr ""
+
+#: ./browser/cart.py:140
+msgid "listingheader_Total"
 msgstr ""
 
 #: ./interfaces.py:314
