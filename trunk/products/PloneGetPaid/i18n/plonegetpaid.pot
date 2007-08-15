@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-08-09 17:53+0000\n"
+"POT-Creation-Date: 2007-08-15 02:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,7 +110,7 @@ msgid "Disclaimer"
 msgstr ""
 
 #: ./interfaces.py:152
-msgid "Donate Content Types"
+msgid "Donatable Content Types"
 msgstr ""
 
 #: ./interfaces.py:271

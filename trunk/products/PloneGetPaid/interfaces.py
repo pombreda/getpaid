@@ -9,8 +9,8 @@ from zope.schema import Iterable
 import getpaid.core.interfaces as igetpaid
 import zope.viewlet.interfaces
 
-from zope.i18nmessageid import MessageIDFactory
-_ = MessageIDFactory('getpaid')
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('plonegetpaid')
 
 class IGetPaidManageViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid management ui
