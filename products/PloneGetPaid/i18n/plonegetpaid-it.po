@@ -118,7 +118,7 @@ msgstr "Notifiche al venditore via email"
 
 #: ./browser/cart.py:143
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: ./interfaces.py:237
 msgid "Negative Currency Format"
@@ -150,7 +150,7 @@ msgstr "Tipi di contenuto a pagamento"
 
 #: ./browser/cart.py:144
 msgid "Price"
-msgstr ""
+msgstr "Prezzo"
 
 #: ./interfaces.py:287
 msgid "Privacy Policy"
@@ -158,7 +158,7 @@ msgstr "Informazioni relative al trattamento dei dati personali"
 
 #: ./browser/cart.py:142
 msgid "Quantity"
-msgstr ""
+msgstr "Quantitả"
 
 #: ./interfaces.py:210
 msgid "Session Timeout"
@@ -186,7 +186,7 @@ msgstr "Metodo di tassazione"
 
 #: ./browser/cart.py:145
 msgid "Total"
-msgstr ""
+msgstr "Totale"
 
 #: ./interfaces.py:262
 msgid "US Currency Formatting"
@@ -203,7 +203,7 @@ msgstr "Puoi verificare lo stato del tuo ordine all'indirizzo ${status_url}"
 
 #: ./interfaces.py:310
 msgid "countries"
-msgstr "países"
+msgstr "nazioni"
 
 #. Default: "Your Shopping Cart"
 #: ./browser/templates/cart-manage.pt:4
@@ -358,7 +358,7 @@ msgstr "Esporta in formato CSV"
 #. Default: "Next Steps"
 #: ./browser/templates/cart-actions.pt:3
 msgid "legend_next_steps"
-msgstr ""
+msgstr "Azioni"
 
 #. Default: "Finance"
 #: ./browser/templates/order-finance.pt:3
