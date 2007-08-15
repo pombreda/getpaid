@@ -180,7 +180,7 @@ msgstr "Unidades de Peso"
 #. Default: "You can check the status of your order ${status_url}"
 #: ./browser/templates/checkout-thank-you.pt:10
 msgid "box_order_status_url_description"
-msgstr "Puede verificar el estado de su orden ${status_url}"
+msgstr "Puede verificar el estado de tu orden ${status_url}"
 
 #: ./interfaces.py:310
 msgid "countries"
@@ -209,7 +209,7 @@ msgstr ""
 #. Default: "Thank you for you Order"
 #: ./browser/templates/checkout-thank-you.pt:5
 msgid "heading_checkout_thank_you"
-msgstr "Gracias por su Orden"
+msgstr "Gracias por tu Orden"
 
 #. Default: "comment"
 #: ./browser/templates/order-history-viewlet.pt:29
@@ -234,7 +234,7 @@ msgstr "estado financiero"
 #. Default: "fulfillment state"
 #: ./browser/templates/order-history-viewlet.pt:8
 msgid "heading_fulfillment_state"
-msgstr "estado del envío"
+msgstr "estado del despacho"
 
 #. Default: "General Information"
 #: ./browser/templates/admin-overview.pt:28
@@ -244,7 +244,7 @@ msgstr "Información General"
 #. Default: "Site Orders"
 #: ./browser/templates/orders-template.pt:38
 msgid "heading_getpaid_setup"
-msgstr ""
+msgstr "Las Ordenes del Sitio"
 
 #. Default: "new state"
 #: ./browser/templates/order-history-viewlet.pt:28
@@ -259,7 +259,7 @@ msgstr "Orden"
 #. Default: "Order Administration"
 #: ./browser/templates/orders-manage.pt:5
 msgid "heading_order_administration"
-msgstr ""
+msgstr "Administración de Ordenes"
 
 #. Default: "order id"
 #: ./browser/templates/order-history-viewlet.pt:5
@@ -289,7 +289,7 @@ msgstr ""
 #. Default: "Your Orders"
 #: ./browser/templates/order-history.pt:4
 msgid "heading_your_orders"
-msgstr ""
+msgstr "Tus Ordenes"
 
 #. Default: "Add to Cart"
 #: ./browser/templates/portlet-content-buyable.pt:40
@@ -304,72 +304,72 @@ msgstr "Versión de GetPaid"
 #. Default: "Manage Cart"
 #: ./browser/templates/portlet-cart.pt:23
 msgid "label_manage_cart"
-msgstr "Administrar el Carrito"
+msgstr "Ver el Carrito"
 
 #. Default: "here"
 #: ./browser/templates/checkout-thank-you.pt:10
 msgid "label_order_status_link_text"
-msgstr ""
+msgstr "aquí"
 
 #. Default: "Store/Organization Name:"
 #: ./browser/templates/admin-overview.pt:32
 msgid "label_organization_name"
-msgstr ""
+msgstr "Nombre de Tienda y/u Organización"
 
 #. Default: "Up to Order Management"
 #: ./browser/templates/orders-template.pt:41
 msgid "label_up_to_getpaid_setup"
-msgstr ""
+msgstr "Subir a Gestión de Ordenes"
 
 #. Default: "Your Cart Contents"
 #: ./browser/templates/cart-listing.pt:4
 msgid "legend_cart_contents"
-msgstr ""
+msgstr "Los Contenidos de Tu Carrito"
 
 #. Default: "Contents"
 #: ./browser/templates/order-item-listing.pt:2
 msgid "legend_contents"
-msgstr ""
+msgstr "Contenidos"
 
 #. Default: "Export to CSV"
 #: ./browser/templates/orders-export-csv.pt:3
 msgid "legend_csv_export"
-msgstr ""
+msgstr "Exportar a CSV"
 
 #. Default: "Next Steps"
 #: ./browser/templates/cart-actions.pt:3
 msgid "legend_next_steps"
-msgstr ""
+msgstr "Opciones"
 
 #. Default: "Finance"
 #: ./browser/templates/order-finance.pt:3
 msgid "legend_order_finance"
-msgstr ""
+msgstr "Finanzas"
 
 #. Default: "Fulfillment"
 #: ./browser/templates/order-fulfillment.pt:3
 msgid "legend_order_fulfillment"
-msgstr ""
+msgstr "Despacho"
 
 #. Default: "Order Log"
 #: ./browser/templates/order-workflow-log.pt:2
 msgid "legend_order_log"
-msgstr ""
+msgstr "História de Ordenes"
 
 #. Default: "Orders"
 #: ./browser/templates/orders-listing.pt:2
 msgid "legend_orders"
-msgstr ""
+msgstr "Ordenes"
 
 #. Default: "Search Orders"
 #: ./browser/templates/orders-search-filter.pt:3
 msgid "legend_search_orders"
-msgstr ""
+msgstr "Buscador de Ordenes"
 
 #. Default: "Summary"
 #: ./browser/templates/order-summary.pt:3
 msgid "legend_summary"
-msgstr ""
+msgstr "Resúmen"
 
 #: ./interfaces.py:314
 msgid "states"
@@ -378,7 +378,7 @@ msgstr ""
 #. Default: "Contains ${size} Items"
 #: ./browser/templates/portlet-cart.pt:19
 msgid "text_contains_items"
-msgstr ""
+msgstr "Contiene ${size} Items"
 
 #. Default: "The Context ${portal} Does Not Support this Operation."
 #: ./browser/templates/payable-form.pt:25
@@ -388,55 +388,55 @@ msgstr ""
 #. Default: "Creation Date"
 #: ./browser/templates/order-summary.pt:14
 msgid "text_creation_date"
-msgstr ""
+msgstr "Fecha de Creación"
 
 #. Default: "Current Status"
 #: ./browser/templates/order-finance.pt:5
 msgid "text_current_status"
-msgstr ""
+msgstr "Estado Actual"
 
 #. Default: "Customer Id"
 #: ./browser/templates/order-summary.pt:10
 msgid "text_customer_id"
-msgstr ""
+msgstr "Número del Cliente"
 
 #. Default: "Finance Status"
 #: ./browser/templates/order-summary.pt:18
 msgid "text_finance_status"
-msgstr ""
+msgstr "Estado Financiero"
 
 #. Default: "Fulfillment Status"
 #: ./browser/templates/order-summary.pt:22
 msgid "text_fulfillment_status"
-msgstr ""
+msgstr "Estado del Despacho"
 
 #. Default: "Order Id"
 #: ./browser/templates/order-summary.pt:6
 msgid "text_order_id"
-msgstr ""
+msgstr "Número de Orden"
 
 #. Default: "On ${change_date} By ${changed_by} Previous ${previous_state} New ${new_state} ${comment}"
 #: ./browser/templates/order-workflow-log.pt:10
 msgid "text_order_record"
-msgstr ""
+msgstr "En ${change_date} Por ${changed_by} Previo ${previous_state} Nuevo ${new_state} ${comment}"
 
 #. Default: "Price: $<span>${DYNAMIC_CONTENT}</span>"
 #: ./browser/templates/portlet-content-buyable.pt:33
 msgid "text_price"
-msgstr ""
+msgstr "Precio: $<span>${DYNAMIC_CONTENT}</span>"
 
 #. Default: "Product Details"
 #: ./browser/templates/portlet-content-buyable.pt:12
 msgid "text_product_details"
-msgstr ""
+msgstr "Detalles del Producto"
 
 #. Default: "Total Price"
 #: ./browser/templates/order-summary.pt:26
 msgid "text_total_price"
-msgstr ""
+msgstr "Precio Total"
 
 #. Default: "Your Cart"
 #: ./browser/templates/portlet-cart.pt:14
 msgid "text_your_cart"
-msgstr ""
+msgstr "Tu Carrito"
 
