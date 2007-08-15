@@ -16,6 +16,24 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
+msgid "Make Buyable"
+msgstr "Marca come acquistabile"
+
+msgid "Make Not Buyable"
+msgstr "Marca come non acquistabile"
+
+msgid "Make Not Premium Members Only"
+msgstr "Marca come disponibile agli utenti non paganti"
+
+msgid "Make Not Shippable Product"
+msgstr "Marca come non spedibile"
+
+msgid "Make this a Donation"
+msgstr "Marca come donazione"
+
+msgid "Make this not a Donation"
+msgstr "Annulla donazione"
+
 msgid "Manage Cart"
 msgstr "Modifica Carrello"
 
