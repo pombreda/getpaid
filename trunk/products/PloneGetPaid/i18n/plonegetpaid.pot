@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-08-15 02:14+0000\n"
+"POT-Creation-Date: 2007-08-15 02:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,6 +117,10 @@ msgstr ""
 msgid "Merchant Email Notifications"
 msgstr ""
 
+#: ./browser/cart.py:143
+msgid "Name"
+msgstr ""
+
 #: ./interfaces.py:237
 msgid "Negative Currency Format"
 msgstr ""
@@ -133,6 +137,10 @@ msgstr ""
 msgid "Payment Processor"
 msgstr ""
 
+#: ./browser/admin.py:116
+msgid "Please Select Payment Processor in Payment Options Settings"
+msgstr ""
+
 #: ./interfaces.py:232
 msgid "Positive Currency Format"
 msgstr ""
@@ -141,8 +149,16 @@ msgstr ""
 msgid "Premium Content Types"
 msgstr ""
 
+#: ./browser/cart.py:144
+msgid "Price"
+msgstr ""
+
 #: ./interfaces.py:287
 msgid "Privacy Policy"
+msgstr ""
+
+#: ./browser/cart.py:142
+msgid "Quantity"
 msgstr ""
 
 #: ./interfaces.py:210
@@ -167,6 +183,10 @@ msgstr ""
 
 #: ./interfaces.py:219
 msgid "Tax Method"
+msgstr ""
+
+#: ./browser/cart.py:145
+msgid "Total"
 msgstr ""
 
 #: ./interfaces.py:262
@@ -369,22 +389,6 @@ msgstr ""
 #. Default: "Summary"
 #: ./browser/templates/order-summary.pt:3
 msgid "legend_summary"
-msgstr ""
-
-#: ./browser/cart.py:138
-msgid "listingheader_Name"
-msgstr ""
-
-#: ./browser/cart.py:139
-msgid "listingheader_Price"
-msgstr ""
-
-#: ./browser/cart.py:137
-msgid "listingheader_Quantity"
-msgstr ""
-
-#: ./browser/cart.py:140
-msgid "listingheader_Total"
 msgstr ""
 
 #: ./interfaces.py:314
