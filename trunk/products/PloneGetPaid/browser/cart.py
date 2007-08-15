@@ -139,10 +139,10 @@ class ShoppingCartListing( ContainerViewlet ):
 
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
-        column.GetterColumn( title=_(u"listingheader_Quantity"), getter=LineItemColumn("quantity") ),
-        column.GetterColumn( title=_(u"listingheader_Name"), getter=lineItemURL ),
-        column.GetterColumn( title=_(u"listingheader_Price"), getter=LineItemColumn("cost") ),
-        column.GetterColumn( title=_(u"listingheader_Total"), getter=lineItemTotal ),
+        column.GetterColumn( title=_(u"Quantity"), getter=LineItemColumn("quantity") ),
+        column.GetterColumn( title=_(u"Name"), getter=lineItemURL ),
+        column.GetterColumn( title=_(u"Price"), getter=LineItemColumn("cost") ),
+        column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
        ]
     
     selection_column = columns[0]
