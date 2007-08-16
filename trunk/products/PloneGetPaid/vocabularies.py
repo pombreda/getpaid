@@ -106,17 +106,20 @@ class CountriesStatesFromFile(object):
 
     countries = property(countries)
 
-    def states(self,context):
-        countryAttrs = [attr for attr in dir(context) if 'country' in attr.lower()]
-        print countryAttrs
-        noValues = {u'no values':u'no values'}
-        if len(countryAttrs) != 1:
-            return noValues.items()
-        print getattr(context,countryAttrs[0])
-        states = self.csparser.getStatesOf(getattr(context,countryAttrs[0]))
+    def states(self,context=None, country=None):
+        noValues = {u'(no values)':u'(no values)'}
+        if country is None:
+            countryAttrs = [attr for attr in dir(context) if 'country' in attr.lower()]
+            print countryAttrs
+            if len(countryAttrs) != 1:
+                return noValues.items()
+            country = getattr(context,countryAttrs[0])
+        print country
+        states = self.csparser.getStatesOf(country)
         if not len(states):
             states = noValues
         return states.items()
+
 
 def Countries( context ):
     utility = zapi.getUtility(ICountriesStates)

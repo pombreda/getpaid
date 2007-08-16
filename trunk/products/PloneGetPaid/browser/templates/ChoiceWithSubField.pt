@@ -1,8 +1,7 @@
 <div xmls:tal="http://xml.zpope.org/namespaces/tal">
 
-<!--<script type="text/javascript" src="sequence.js"
-        tal:attributes="src context/++resources++sequence.js">
-</script>-->
+<script type="text/javascript" src="++resource++sequence.js">
+</script>
 
 
 <!--<p tal:define="form_value view/_getFormValue">
@@ -29,9 +28,9 @@
     <input type="text" size="20" value="none" name="none" />
 </p>-->
 
-<select tal:attributes="id python:view.name" onchange="update_sequence(this)">
+<select tal:attributes="id python:view.name; name python:view.name" onchange="get_states_from_country(this, 'country', 'state')">
 <tal:loop tal:repeat="i python: view.getVocabulary()">
-        <option tal:attributes="value i" tal:content="i"/>
+        <option tal:attributes="value python: i.value" tal:content="python: i.title"/>
 </tal:loop>
 </select>
 

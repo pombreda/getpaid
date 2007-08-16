@@ -198,6 +198,7 @@ class CheckoutPayment( MemberContextEdit, BaseView ):
         form_fields = form_fields + form.Fields( interfaces.IUserPaymentInformation )
 
         form_fields['ship_country'].custom_widget = ChoiceWithSubField
+        form_fields['bill_country'].custom_widget = ChoiceWithSubField
 
         return form_fields
 

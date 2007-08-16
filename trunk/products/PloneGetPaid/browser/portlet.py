@@ -5,7 +5,17 @@ $Id$
 from Products.Five.browser import BrowserView
 from Products.PloneGetPaid import interfaces
 from getpaid.core.interfaces import IShoppingCartUtility
+from Products.PloneGetPaid.interfaces import ICountriesStates
 from zope import component
+from zope.app import zapi
+from simplejson import JSONEncoder
+
+class StatesAjax(BrowserView):
+    def __call__(self):
+        country = self.request.get('country')
+        utility = zapi.getUtility(ICountriesStates)
+        jsonEncoder = JSONEncoder()
+        return jsonEncoder.encode(utility.states(country=country))
 
 class ShoppingCart( BrowserView ):
 
