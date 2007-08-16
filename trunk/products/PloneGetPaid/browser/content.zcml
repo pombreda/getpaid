@@ -48,10 +48,20 @@
   <browser:page
      for="..interfaces.IBuyableMarker"
      name="edit-buyable"
-     menu="object"
-     title="Payable"
      class=".content.BuyableEdit"
      permission="cmf.ModifyPortalContent"
+     />
+
+  <!-- We need to add this here because the permission directive is not working as expected,
+       so we add a menuItem to use the filter directive and check permissions using
+       portal_membership.
+  -->
+  <browser:menuItem
+     for="..interfaces.IBuyableMarker"
+     menu="object"
+     title="Payable"
+     action="edit-buyable"
+     filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
      />
 
   <browser:page
@@ -61,8 +71,8 @@
      title="Payable"
      class=".content.PremiumEdit"
      permission="cmf.ModifyPortalContent"
-     />     
-  
+     />
+
   <browser:page
      for="..interfaces.IShippableMarker"
      name="edit-shippable"
@@ -75,11 +85,17 @@
   <browser:page
     for="..interfaces.IDonatableMarker"
     name="edit-donate"
-    menu="object"
-    title="Payable"
     class=".content.DonateEdit"
     permission="cmf.ModifyPortalContent"
     />
+
+  <browser:menuItem
+     for="..interfaces.IDonatableMarker"
+     menu="object"
+     title="Payable"
+     action="edit-donate"
+     filter="python:object.portal_membership.checkPermission('Modify portal content', object)"
+     />
 
   <!-- Deactivation Views, turning paybles back into content -->
   <browser:page
