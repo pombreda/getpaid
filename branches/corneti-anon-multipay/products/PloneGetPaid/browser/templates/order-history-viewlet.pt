@@ -1,0 +1,44 @@
+<table
+     i18n:domain="plonegetpaid">
+  <tal:block repeat="order view/history">
+    <tr>
+      <th i18n:translate="heading_order_id">order id</th>
+      <th i18n:translate="heading_created">created</th>
+      <th i18n:translate="heading_financial_state">financial state</th>
+      <th i18n:translate="heading_fulfillment_state">fulfillment state</th>
+    </tr>
+    <tr>
+      <td tal:content="order/id"></td>
+      <td tal:content="order/date"></td>
+      <td tal:content="order/finance_state"></td>
+      <td tal:content="order/fulfillment_state"></td>
+    </tr>
+    <tr>
+      <th colspan="4" i18n:translate="heading_order_workflow_log">Order Workflow Log</th>
+    </tr>
+    <tr style="font-size: smaller">
+      <td colspan="4">
+        <table>
+          <tr>
+            <th i18n:translate="heading_workflow">workflow</th>
+            <th i18n:translate="heading_changed_by">changed by</th>
+            <th i18n:translate="heading_change_date">change date</th>
+            <th i18n:translate="heading_previous_state">previous state</th>
+            <th i18n:translate="heading_transition">transition</th>
+            <th i18n:translate="heading_new_state">new state</th>
+            <th i18n:translate="heading_comment">comment</th>
+          </tr>
+          <tr tal:repeat="logitem order/log">
+            <td>???</td>
+            <td tal:content="logitem/changed_by"></td>
+            <td tal:content="logitem/change_date"></td>
+            <td tal:content="python:logitem.previous_state or '-'"></td>
+            <td tal:content="logitem/transition"></td>
+            <td tal:content="logitem/new_state"></td>
+            <td tal:content="logitem/comment"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tal:block>
+</table>

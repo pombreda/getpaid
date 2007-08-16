@@ -1,0 +1,110 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:zcml="http://namespaces.zope.org/zcml"
+	   xmlns:five="http://namespaces.zope.org/five">
+
+<!-- Dependencies -->
+<include package="getpaid.core" />
+
+<include package="ore.member" file="meta.zcml" />
+<include package="ore.member" />
+
+<include package="five.intid" file="base.zcml" />
+
+
+<!-- Optional Payment Processors and Dependency Checks-->
+
+<configure zcml:condition="installed gchecky">
+  <include zcml:condition="installed getpaid.googlecheckout" 
+	   package="getpaid.googlecheckout" />
+</configure>
+
+<configure zcml:condition="installed M2Crypto">
+  <include zcml:condition="installed getpaid.authorizedotnet"
+	   package="getpaid.authorizedotnet" />
+</configure>
+
+<include zcml:condition="installed getpaid.paypal"
+	 package="getpaid.paypal" />
+
+<include zcml:condition="installed getpaid.nullpayment"
+	 package="getpaid.nullpayment" />
+
+<!-- Inject Plone with the nesc interfaces / local site -->
+
+<five:localsite
+   class="Products.CMFPlone.Portal.PloneSite"
+   />
+
+<five:implements 
+   class="Products.CMFPlone.Portal.PloneSite"
+   interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
+
+<five:implements
+   class="Products.Archetypes.public.BaseContent"
+   interface="zope.app.annotation.interfaces.IAttributeAnnotatable" />
+
+<!-- UI -->
+<include package=".browser" />
+
+<!-- Member/User Attributes -->
+<include file="member.zcml" />
+
+<!-- Vocabularies -->
+<include file="vocabularies.zcml" />
+
+<!-- Content to Payable Adapters -->
+<adapter
+   for="Products.CMFCore.interfaces.IContentish"
+   provides="getpaid.core.interfaces.IBuyableContent"
+   factory=".content.BuyableContentAdapter"
+   />
+
+<adapter
+   for="Products.CMFCore.interfaces.IContentish"
+   provides="getpaid.core.interfaces.IShippableContent"
+   factory=".content.ShippableContentAdapter"
+   />
+
+<adapter
+   for="Products.CMFCore.interfaces.IContentish"
+   provides="getpaid.core.interfaces.IPremiumContent"
+   factory=".content.PremiumContentAdapter"
+   />
+
+<adapter
+  for="Products.CMFCore.interfaces.IContentish"
+  provides="getpaid.core.interfaces.IDonationContent"
+  factory=".content.DonatableContentAdapter"
+  />
+   
+<!-- Content to Cart Item Adapters -->
+<adapter
+   for="getpaid.core.interfaces.IShoppingCart"
+   provides="getpaid.core.interfaces.IPayableLineItem"
+   factory=".content.ContentLineItemFactory" />
+
+<!-- Property Storage for Configuration Options -->
+<adapter
+   for="getpaid.core.interfaces.IStore"
+   provides=".interfaces.IGetPaidManagementOptions"
+   factory=".preferences.ConfigurationPreferences"
+   />
+
+<!-- Utilities -->
+<utility
+   provides="getpaid.core.interfaces.IShoppingCartUtility"
+   factory=".cart.ShoppingCartUtility"/>
+
+<utility
+    provides=".interfaces.ICountriesStates"
+    factory=".vocabularies.CountriesStatesFromFile"/>
+
+<!-- Notifications -->
+<subscriber
+   for="getpaid.core.interfaces.IOrder
+	hurry.workflow.interfaces.IWorkflowTransitionEvent"
+   handler=".notifications.sendNotification"
+   />
+
+
+</configure>
