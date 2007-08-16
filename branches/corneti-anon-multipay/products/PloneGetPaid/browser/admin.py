@@ -9,8 +9,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.formlib import formbase
 from Products.PloneGetPaid import interfaces, pkg_home
 
-
-
+import urllib
 from zope import component
 from zope.formlib import form
 from zope.app.form.browser import MultiSelectWidget
@@ -90,6 +89,7 @@ class PaymentOptions( BaseSettingsForm ):
     get paid management interface
     """
     form_fields = form.Fields(interfaces.IGetPaidManagementPaymentOptions)
+    form_fields['payment_processors'].custom_widget = SelectWidgetFactory
 #    form_fields['accepted_credit_cards'].custom_widget = SelectWidgetFactory
 
 class PaymentProcessor( BaseSettingsForm ):
@@ -97,26 +97,56 @@ class PaymentProcessor( BaseSettingsForm ):
     get paid management interface, slightly different because our form fields
     are dynamically set based on the store's setting for a payment processor.
     """
-    
+    template = ZopeTwoPageTemplateFile("templates/payment-settings-page.pt")
     form_fields = form.Fields()
+    _edited_processor_name = None
 
-    def __call__( self ):
-        self.setupProcessorOptions()
+    def __call__( self, processor_name=None ):
+        self._edited_processor_name = None
+        self.setupProcessorOptions(processor_name)
         return super( PaymentProcessor, self).__call__()
         
-    def setupProcessorOptions( self ):
+    def setupProcessorOptions( self, processor_name=None ):
+        """
+        Setup form fields for the specified payment processor; 
+        if a payment processor is not specified in the request, configure the first one available.
+        """
         manage_options = interfaces.IGetPaidManagementOptions( self.context )
         
-        processor_name = manage_options.payment_processor
-        if not processor_name:
-            self.status = _("Please Select Payment Processor in Payment Options Settings")
+        processor_names = manage_options.payment_processors
+        if len(processor_names) == 0:
+            self.status = _(u"Please Select at least a Payment Processor in Payment Options Settings")
             return
-
+        
+        if processor_name is not None and processor_name not in processor_names:
+            self.status = _(u"Unknown processor")
+            return
+        
+        if processor_name is None:
+            processor_name = processor_names[0]
+        
+        self._edited_processor_name = processor_name
+        
         processor = component.getAdapter( self.context,
                                           igetpaid.IPaymentProcessor,
                                           processor_name )
         
         self.form_fields = form.Fields( processor.options_interface )
+    
+    @property
+    def editedProcessorName(self):
+        """
+        Returns the currenly edited processor name
+        """
+        return self._edited_processor_name
+        
+    @property
+    def activeProcessorNames( self ):
+        """Returns the active payment processors names for the store as dictionaries (url quoted, plain)
+        """
+        manage_options = interfaces.IGetPaidManagementOptions( self.context )
+        processor_names = [{'urlquoted' : urllib.quote(processor_name), 'plain' : processor_name} for processor_name in manage_options.payment_processors]
+        return processor_names
         
 # Order Management
 class CustomerInformation( BaseSettingsForm ):
