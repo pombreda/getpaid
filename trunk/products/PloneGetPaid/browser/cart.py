@@ -40,20 +40,20 @@ class ShoppingCart( BrowserView ):
         self.manager = ShoppingCartManager( self.context, self.request, self )
         self.manager.update()
         return super( ShoppingCart, self ).__call__()
-    
+
     def getCart( self ):
         if self._cart is not None:
             return self._cart
         cart_manager = component.getUtility( interfaces.IShoppingCartUtility )
         self._cart = cart = cart_manager.get( self.context, create=True )
         return cart
-    
+
     cart = property( getCart )
 
     def isContextAddable( self ):
         addable = filter( lambda x, s=self.context: x.providedBy(s), PayableMarkers )
-        return not not addable 
-    
+        return not not addable
+
     def size( self ):
         if self.cart is None:
             return 0
@@ -61,19 +61,19 @@ class ShoppingCart( BrowserView ):
 
 class ShoppingCartAddItem( ShoppingCart ):
     """
-    item we're adding is the context 
+    item we're adding is the context
     """
-    
+
     def __call__( self ):
         if self.request.has_key('add_item'):
             self.addToCart()
         return super( ShoppingCartAddItem, self ).__call__()
-    
+
     def addToCart( self ):
         item_id = self.context.UID()
         if item_id in self.cart:
             self.cart[ item_id ].quantity += 1
-            return 
+            return
         found = False
         for marker, iface in PayableMarkerMap.items():
             if marker.providedBy( self.context ):
@@ -82,9 +82,9 @@ class ShoppingCartAddItem( ShoppingCart ):
 
         if not found:
             raise RuntimeError("Invalid Context For Cart Add")
-        
+
         payable = iface( self.context )
-        
+
         item = litem.PayableLineItem()
         item.item_id = self.context.UID()
         item.name = self.context.Title()
@@ -93,7 +93,7 @@ class ShoppingCartAddItem( ShoppingCart ):
         item.quantity = 1
         self.cart[ item.item_id ] = item
         self.cart.last_item = item.item_id
-        
+
 
 #################################
 # Shopping Cart Viewlet Manager
@@ -108,7 +108,7 @@ class ViewletManagerShoppingCart( object ):
     def sort (self, viewlets ):
         """ sort by name """
         return sorted(viewlets)
-        
+
 ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
                                               IGetPaidCartViewletManager,
                                               GetPaidShoppingCartTemplate,
@@ -119,10 +119,10 @@ ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
 # Shopping Cart Viewlets
 
 class LineItemColumn( object ):
-    
+
     def __init__(self, name):
         self.name = name
-        
+
     def __call__( self, item, formatter ):
         value = getattr( item, self.name, '')
         if callable( value ):
@@ -144,20 +144,20 @@ class ShoppingCartListing( ContainerViewlet ):
         column.GetterColumn( title=_(u"Price"), getter=LineItemColumn("cost") ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
        ]
-    
+
     selection_column = columns[0]
     template = ZopeTwoPageTemplateFile('templates/cart-listing.pt')
-    
+
     def __init__( self, *args, **kw):
         super( ShoppingCartListing, self ).__init__( *args, **kw )
 
     def getContainerContext( self ):
         return self.__parent__.cart
-        
+
     def isOrdered( self, *args ):
         # shopping cart should not be ordered, so override this with False
         return False
-    
+
 class ShoppingCartActions( FormViewlet ):
 
     template = ZopeTwoPageTemplateFile('templates/cart-actions.pt')
@@ -167,10 +167,16 @@ class ShoppingCartActions( FormViewlet ):
 
     def isLoggedIn( self, *args ):
         return getSecurityManager().getUser().getId() is not None
-    
+
+    def isLoggedInAndHasItems(self, *args):
+        itemsize = len( self.__parent__.cart )
+        if itemsize !=0 and getSecurityManager().getUser().getId() is not None:
+            return True
+        else:
+            return False
+
     def isAnonymous( self, *args ):
         return getSecurityManager().getUser().getId() is None
-
 
     @form.action("Continue Shopping")
     def handle_continue_shopping( self, action, data ):
@@ -184,7 +190,8 @@ class ShoppingCartActions( FormViewlet ):
             payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
         return self.request.RESPONSE.redirect(payable.absolute_url()+'/view')
 
-    @form.action("Checkout", condition="isLoggedIn", name="AuthCheckout")
+
+    @form.action("Checkout", condition="isLoggedInAndHasItems", name="AuthCheckout")
     def handle_checkout( self, action, data ):
         # go to order-create
         # force ssl? redirect host? options
@@ -202,6 +209,6 @@ class ShoppingCartActions( FormViewlet ):
                                  'came_from',
                                  url,
                                  '@@getpaid-checkout' )
-        return self.request.RESPONSE.redirect( url )         
+        return self.request.RESPONSE.redirect( url )
 
 
