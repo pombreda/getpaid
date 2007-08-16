@@ -45,7 +45,7 @@
 	    </metal:block>
 	    
 	    <p i18n:translate="description_getpaid_setup">
-              GetPaid setup for Plone.
+              Use the links below to configure GetPaid. Documentation on GetPaid can be found at <a href="http://plone.org/products/plonegetpaid/documentation">http://plone.org/products/plonegetpaid/documentation</a> . To view and manage orders in the site, click on the Orders tab above. 
 	    </p>
 	  </div>
 	  
