@@ -4,7 +4,8 @@
         tal:attributes="src context/++resources++sequence.js">
 </script>-->
 
-<p tal:define="form_value view/_getFormValue">
+
+<!--<p tal:define="form_value view/_getFormValue">
     <input type="hidden" name="foo.marker" id="foo.marker"
            tal:define="marker string:{view/name}.marker"
            tal:attributes="name marker; id marker" />
@@ -26,10 +27,12 @@
         </tal:loop>
     </select>
     <input type="text" size="20" value="none" name="none" />
-</p>
+</p>-->
 
-<p>
-    <input value="javito" type="button" onclick="javascript:alert('hola'); return false;" />
-</p>
+<select tal:attributes="id python:view.name" onchange="update_sequence(this)">
+<tal:loop tal:repeat="i python: view.getVocabulary()">
+        <option tal:attributes="value i" tal:content="i"/>
+</tal:loop>
+</select>
 
 </div>

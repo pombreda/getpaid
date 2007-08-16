@@ -1,10 +1,31 @@
-from zope.app.form.browser import DropdownWidget
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.app.form.browser.widget import SimpleInputWidget
+from zope.app.form.browser.itemswidgets import OrderedMultiSelectWidget as BaseSelection
+from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
-print 'cargando mis widgets\n\n\n'
-class ChoiceWithSubField(DropdownWidget):
+#from Acquisition import Explicit
 
-    __cal__ = ViewPageTemplateFile('ChoiceWithSubField.pt')
+class ChoiceWithSubField(SimpleInputWidget):
+
+    template = ViewPageTemplateFile('templates/ChoiceWithSubField.pt')
+    
+    def test( self ):
+        """Test"""
+        return "<br/>test"
+    
+    def __call__( self ):
+        #return self.render()
+        return self.template()
+
+    def getVocabulary(self):
+        return [i.title for i in self.context.vocabulary]
+
+    #def render(self):
+        #result = """<div xmls:tal="http://xml.zpope.org/namespaces/tal">
+#<select>"""
+        #for i in self.getVocabulary():
+            #result += '<option value="%s">%s</option>' % (i.title,i.title)
+        #result += '</select> </div>'
+        #return result
 
     #def __init__(self,**kw):
         #print 'asi como vine, me voy'

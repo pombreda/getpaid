@@ -22,6 +22,10 @@ class FormViewlet( viewlet.SimpleAttributeViewlet, formbase.SubPageForm ):
         super( formbase.SubPageForm, self).update()
 
 class BaseView( object ):
+    # so this mixin fixes some issues with doing zope3 in zope2 for views
+    # specifically it puts a debug attribute on the request which some view machinery checks for
+    # secondly it lookups the user locale, and attaches it as an attribute on the request
+    # where the i10n widget machinery expects to find it.
 
     def setupEnvironment( self, request ):
         if not hasattr( request, 'debug'): request.debug = False
