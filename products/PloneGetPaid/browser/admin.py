@@ -3,13 +3,15 @@ $Id$
 """
 
 import os
+import urllib
+
+from ZTUtils import make_hidden_input
 
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.browser import BrowserView
 from Products.Five.formlib import formbase
 from Products.PloneGetPaid import interfaces, pkg_home
 
-import urllib
 from zope import component
 from zope.formlib import form
 from zope.app.form.browser import MultiSelectWidget
@@ -36,11 +38,18 @@ class Overview( BrowserView ):
         version_string = fh.read()
         fh.close()
         return version_string
-
+                
 class BaseSettingsForm( formbase.EditForm, BaseView ):
 
     options = None
     template = ZopeTwoPageTemplateFile("templates/settings-page.pt")
+    hidden_form_vars = None # mapping of hidden variables to pass through on the form
+
+    def hidden_inputs( self ):
+        if not self.hidden_form_vars: return ''
+        return make_hidden_input( **self.hidden_form_vars )
+
+    hidden_inputs = property( hidden_inputs )
     
     def __init__( self, context, request ):
         self.context = context
@@ -117,7 +126,7 @@ class PaymentProcessor( BaseSettingsForm ):
         if len(processor_names) == 0:
             self.status = _(u"Please Select at least a Payment Processor in Payment Options Settings")
             return
-        
+
         if processor_name is not None and processor_name not in processor_names:
             self.status = _(u"Unknown processor")
             return
@@ -126,11 +135,19 @@ class PaymentProcessor( BaseSettingsForm ):
             processor_name = processor_names[0]
         
         self._edited_processor_name = processor_name
+
+        #TODO: if a processor name is saved in the configuration and the corresponding payment method packages
+        # doesn't exists anymore, processor_name in processor_names will be true but the configuration page will fail.
+        processor = None
+        try:        
+            processor = component.getAdapter( self.context,
+                                              igetpaid.IPaymentProcessor,
+                                              processor_name )
+        except:
+            self.status = _(u"The specified processor name is available in the configuration but has been uninstalled; please reinstall the payment method package or adjust the available payment options.")
+            return
         
-        processor = component.getAdapter( self.context,
-                                          igetpaid.IPaymentProcessor,
-                                          processor_name )
-        
+        self.hidden_form_vars = {'processor_name' : self._edited_processor_name}
         self.form_fields = form.Fields( processor.options_interface )
     
     @property
