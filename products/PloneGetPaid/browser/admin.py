@@ -109,12 +109,18 @@ class PaymentProcessor( BaseSettingsForm ):
         
         processor_name = manage_options.payment_processor
         if not processor_name:
-            self.status = _("Please Select Payment Processor in Payment Options Settings")
+            self.status = _(u"Please Select Payment Processor in Payment Options Settings")
             return
 
-        processor = component.getAdapter( self.context,
-                                          igetpaid.IPaymentProcessor,
-                                          processor_name )
+        #NOTE: if a processor name is saved in the configuration but the corresponding payment method package
+        # doesn't exist anymore, a corresponding adapter will not be found.
+        try:
+            processor = component.getAdapter( self.context,
+                                              igetpaid.IPaymentProcessor,
+                                              processor_name )
+        except:
+            self.status = _(u"The currenly configured Payment Processor cannot be found; please check if the corresponding package is installed correctly.")
+            return
         
         self.form_fields = form.Fields( processor.options_interface )
         
