@@ -1,0 +1,35 @@
+<div xmls:tal="http://xml.zpope.org/namespaces/tal">
+
+<!--<script type="text/javascript" src="sequence.js"
+        tal:attributes="src context/++resources++sequence.js">
+</script>-->
+
+<p tal:define="form_value view/_getFormValue">
+    <input type="hidden" name="foo.marker" id="foo.marker"
+           tal:define="marker string:{view/name}.marker"
+           tal:attributes="name marker; id marker" />
+    <tal:loop tal:repeat="item form_value">
+        <input type="hidden" name="foo" id="value.0.foo" value="items"
+               tal:condition="item"
+               tal:attributes="name string:${view/name};
+                               id string:value.${repeat/item/index}.${view/name};
+                               value item" />
+    </tal:loop>
+
+    <input type="hidden" id="foo" tal:attributes="i view/name" />
+    <select id="elect.foo" size="5"
+            tal:attributes="id string:select.${view/name};
+                            size python:min(max(len(form_value),5),12)">
+        <tal:loop tal:repeat="item form_value">
+            <option tal:condition="item" tal:content="item"
+                    tal:attributes="value item">item</option>
+        </tal:loop>
+    </select>
+    <input type="text" size="20" value="none" name="none" />
+</p>
+
+<p>
+    <input value="javito" type="button" onclick="javascript:alert('hola'); return false;" />
+</p>
+
+</div>
