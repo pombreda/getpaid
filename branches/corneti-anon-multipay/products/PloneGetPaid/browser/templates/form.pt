@@ -6,6 +6,7 @@
     
     <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
 
+    <div class="hidden_fields" tal:condition="view/hidden_inputs" tal:content="structure view/hidden_inputs"> </div>
   
 <metal:block define-macro="form-body">
 
