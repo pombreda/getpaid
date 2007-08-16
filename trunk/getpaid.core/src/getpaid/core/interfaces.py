@@ -221,7 +221,7 @@ class IAddress( Interface ):
     first_line = schema.TextLine( title = _(u"First Line"))
     second_line = schema.TextLine( title = _(u"Second Line"), required=False )
     city = schema.TextLine( title = _(u"City") )
-    state = schema.Choice( title = _(u"State "),
+    state = schema.Choice( title = _(u"State"),
                              vocabulary="getpaid.states")
     country = schema.Choice( title = _(u"Country"),
                                vocabulary = "getpaid.countries")
@@ -348,7 +348,7 @@ class IOrderWorkflowEntry( Interface ):
     comment = schema.ASCIILine( title = _(u"Comment"), readonly = True, required=False )
     new_state = schema.ASCIILine( title = _(u"New State"), readonly = True)
     previous_state = schema.ASCIILine( title = _(u"Previous State"), readonly = True )
-    transition = schema.ASCIILine( title = _(u""), readonly = True)
+    transition = schema.ASCIILine( title = u"", readonly = True)
     # change type?? (workflow, user
 
 
