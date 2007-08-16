@@ -1,0 +1,15 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+   <adapter
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      provides=".interfaces.IMoneyTranferStandardOptions"
+      factory=".MoneyTransferStandardOptions" />
+
+   <adapter
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      provides="getpaid.core.interfaces.IPaymentProcessor"
+      name="Standard payment processor for money transfers"
+      factory=".moneytransfer.MoneyTransferStandardProcessor" />
+     
+</configure>
