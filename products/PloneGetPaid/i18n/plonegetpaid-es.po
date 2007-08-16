@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2007-08-15 02:32+0000\n"
-"PO-Revision-Date: 2007-08-09 HO:MI +ZONE\n"
+"PO-Revision-Date: 2007-08-16 12:44-0300\n"
 "Last-Translator: JAVIER MANSILLA <javier@except.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -229,7 +229,7 @@ msgstr ""
 #. Default: "Thank you for you Order"
 #: ./browser/templates/checkout-thank-you.pt:5
 msgid "heading_checkout_thank_you"
-msgstr "Gracias por tu Orden"
+msgstr "Gracias por tu Pedido"
 
 #. Default: "comment"
 #: ./browser/templates/order-history-viewlet.pt:29
@@ -264,7 +264,7 @@ msgstr "Información General"
 #. Default: "Site Orders"
 #: ./browser/templates/orders-template.pt:38
 msgid "heading_getpaid_setup"
-msgstr "Las Ordenes del Sitio"
+msgstr "Los Pedidos del Sitio"
 
 #. Default: "new state"
 #: ./browser/templates/order-history-viewlet.pt:28
@@ -274,12 +274,12 @@ msgstr ""
 #. Default: "Order"
 #: ./browser/templates/order-manage.pt:5
 msgid "heading_order"
-msgstr "Orden"
+msgstr "Pedido"
 
 #. Default: "Order Administration"
 #: ./browser/templates/orders-manage.pt:5
 msgid "heading_order_administration"
-msgstr "Administración de Ordenes"
+msgstr "Administración de Pedidos"
 
 #. Default: "order id"
 #: ./browser/templates/order-history-viewlet.pt:5
@@ -309,7 +309,7 @@ msgstr ""
 #. Default: "Your Orders"
 #: ./browser/templates/order-history.pt:4
 msgid "heading_your_orders"
-msgstr "Tus Ordenes"
+msgstr "Tus Pedidos"
 
 #. Default: "Add to Cart"
 #: ./browser/templates/portlet-content-buyable.pt:40
@@ -339,7 +339,7 @@ msgstr "Nombre de Tienda y/u Organización"
 #. Default: "Up to Order Management"
 #: ./browser/templates/orders-template.pt:41
 msgid "label_up_to_getpaid_setup"
-msgstr "Subir a Gestión de Ordenes"
+msgstr "Subir a Gestión de Pedidos"
 
 #. Default: "Your Cart Contents"
 #: ./browser/templates/cart-listing.pt:4
@@ -374,17 +374,17 @@ msgstr "Despacho"
 #. Default: "Order Log"
 #: ./browser/templates/order-workflow-log.pt:2
 msgid "legend_order_log"
-msgstr "História de Ordenes"
+msgstr "Historia de Pedidos"
 
 #. Default: "Orders"
 #: ./browser/templates/orders-listing.pt:2
 msgid "legend_orders"
-msgstr "Ordenes"
+msgstr "Pedidos"
 
 #. Default: "Search Orders"
 #: ./browser/templates/orders-search-filter.pt:3
 msgid "legend_search_orders"
-msgstr "Buscador de Ordenes"
+msgstr "Buscador de Pedidos"
 
 #. Default: "Summary"
 #: ./browser/templates/order-summary.pt:3
@@ -433,7 +433,7 @@ msgstr "Estado del Despacho"
 #. Default: "Order Id"
 #: ./browser/templates/order-summary.pt:6
 msgid "text_order_id"
-msgstr "Número de Orden"
+msgstr "Número de Pedido"
 
 #. Default: "On ${change_date} By ${changed_by} Previous ${previous_state} New ${new_state} ${comment}"
 #: ./browser/templates/order-workflow-log.pt:10
