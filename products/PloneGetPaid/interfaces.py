@@ -174,8 +174,12 @@ class IGetPaidManagementShippingOptions( igetpaid.IPersistentOptions ):
 class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
-    payment_processor = schema.Choice( title = _(u"Payment Processor"),
-                                       source = "getpaid.payment_methods" )
+    payment_processors = schema.List( 
+        title = _(u"Payment Processors"),
+        default = [],
+        description = _(u"The payment processors available for checkout."),
+        value_type = schema.Choice( title=_(u"payment_methods"), source= "getpaid.payment_methods" )
+        )
 
 ##     accepted_credit_cards = schema.List( title = _(u"Accepted Credit Cards"),
 ##                                          required = False,

@@ -1,0 +1,20 @@
+<metal:page use-macro="context/@@manage-getpaid-settings-template/macros/admin">
+  <metal:block fill-slot="admin_content">
+    <h4 i18n:translate="heading_active_payment_processors">Configurable payment processors</h4>
+    <tal:comment tal:replace="nothing">
+      TODO: better to urllib.quote the hrefs?
+    </tal:comment>    
+    <ul>
+      <li tal:repeat="processor_name view/activeProcessorNames">
+        <a href="" tal:attributes="href string:${portal_url}/@@manage-getpaid-payment-processor?processor_name=${processor_name/urlquoted}"
+           tal:content="processor_name/plain" i18n:translate="">processor name</a>
+      </li>
+    </ul>
+    <h3>
+      <span tal:content="view/editedProcessorName" tal:omit-tag="" i18n:translate=""/> 
+      <span tal:omit-tag="" i18n:translate="heading_options">configuration</span></h3>
+    <metal:block use-macro="context/@@getpaid-form/form">
+    </metal:block>
+  </metal:block>
+</metal:page>
+
