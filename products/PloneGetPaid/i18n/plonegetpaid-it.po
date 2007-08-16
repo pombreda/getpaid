@@ -178,7 +178,7 @@ msgstr "Tempo massimo di conservazione del carrello in memoria (in secondi)"
 
 #: ./interfaces.py:71
 msgid "Store/Organization Name"
-msgstr "Nome del negozio/societả"
+msgstr "Nome del negozio/società"
 
 #: ./interfaces.py:219
 msgid "Tax Method"
@@ -333,7 +333,7 @@ msgstr "qui"
 #. Default: "Store/Organization Name:"
 #: ./browser/templates/admin-overview.pt:32
 msgid "label_organization_name"
-msgstr "Nome del negozio/societả:"
+msgstr "Nome del negozio/società:"
 
 #. Default: "Up to Order Management"
 #: ./browser/templates/orders-template.pt:41
