@@ -1,0 +1,18 @@
+#summary Documentation about how to translate GetPaid to another language.
+
+= Introduction =
+
+
+
+
+= Details =
+
+  
+
+  * We are using two domains: "plonegetpaid" (for all Plone-specific templates) and "getpaid" (for non-Plone, ie Zope-specific, templates)
+
+  * We are using the Plone Guidelines for Translators "Guide to Prefixes" to choose IDs for the tagged areas of the templates.
+
+
+
+draft...
