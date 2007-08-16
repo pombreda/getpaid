@@ -1,6 +1,8 @@
+from zope.app.form.browser import FloatWidget
 from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.form.browser.itemswidgets import OrderedMultiSelectWidget as BaseSelection
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+
 
 #from Acquisition import Explicit
 
@@ -58,3 +60,20 @@ class ChoiceWithSubField(SimpleInputWidget):
         #contents.append(self._emptyMarker())
         #return self._div(self.cssClass, "\n".join(contents))
 
+
+class PriceWidget(FloatWidget):
+    """ This is a widget for rendering the price.
+    """
+    def _toFormValue(self, value):
+        """Converts a field value to a string used as an HTML form value.
+
+        This method is used in the default rendering of widgets that can
+        represent their values in a single HTML form value. Widgets whose
+        fields have more complex data structures should disregard this
+        method and override the default rendering method (__call__).
+        """
+        if value == self.context.missing_value:
+            return self._missing
+        else:
+            #import pdb; pdb.set_trace()
+            return '%.2f' % value

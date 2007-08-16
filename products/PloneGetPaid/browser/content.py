@@ -19,6 +19,7 @@ from Products.Five.formlib import formbase
 from Products.Five.utilities import marker
 from Products.PloneGetPaid import interfaces
 from base import BaseView, BaseFormView
+from widgets import PriceWidget
 
 class PayableFormView( BaseFormView ):
 
@@ -80,6 +81,7 @@ class PayableDestruction( BrowserView ):
 
 class BuyableForm( PayableForm ):
     form_fields = form.Fields( igetpaid.IBuyableContent )
+    form_fields['price'].custom_widget = PriceWidget
     interface = igetpaid.IBuyableContent
     marker = interfaces.IBuyableMarker
     
@@ -95,6 +97,7 @@ class BuyableDestruction( PayableDestruction ):
 class ShippableForm( PayableForm ):
     """ shippable content operations """
     form_fields = form.Fields( igetpaid.IShippableContent )
+    form_fields['price'].custom_widget = PriceWidget
     interface = igetpaid.IShippableContent
     marker = interfaces.IShippableMarker
     
@@ -124,6 +127,7 @@ class PremiumDestruction( PayableDestruction ):
 class DonateForm( PayableForm ):
     """ donation operations """
     form_fields = form.Fields( igetpaid.IDonationContent )
+    form_fields['price'].custom_widget = PriceWidget
     interface = igetpaid.IDonationContent
     marker = interfaces.IDonatableMarker
 
