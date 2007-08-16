@@ -92,4 +92,11 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="*"
+      name="states-ajax"
+      class=".portlet.StatesAjax"
+      permission="zope2.View"
+  />
+
 </configure>

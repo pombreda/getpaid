@@ -12,14 +12,14 @@ class ChoiceWithSubField(SimpleInputWidget):
     
     def test( self ):
         """Test"""
-        return "<br/>test"
+        return "test"
     
     def __call__( self ):
         #return self.render()
         return self.template()
 
     def getVocabulary(self):
-        return [i.title for i in self.context.vocabulary]
+        return self.context.vocabulary
 
     #def render(self):
         #result = """<div xmls:tal="http://xml.zpope.org/namespaces/tal">
