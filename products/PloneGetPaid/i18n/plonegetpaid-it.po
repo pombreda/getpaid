@@ -46,7 +46,7 @@ msgstr "Città"
 
 #: ./interfaces.py:86
 msgid "Contact Company"
-msgstr "Societả"
+msgstr "Società"
 
 #: ./interfaces.py:117
 msgid "Contact Country"
