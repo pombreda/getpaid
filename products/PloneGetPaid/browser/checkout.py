@@ -64,6 +64,8 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from base import BaseFormView, BaseView
 
+from Products.PloneGetPaid.browser.widgets import ChoiceWithSubField
+
 class BillingInfo( options.PropertyBag ):
 
     title = "Payment Details"
@@ -81,7 +83,7 @@ class ImmutableBag( object ):
 class CheckoutConfirmed( BrowserView, BaseView ):
     pass
     
-class CheckoutPayment( MemberContextEdit ):
+class CheckoutPayment( MemberContextEdit, BaseView ):
     """
     browser view for collecting credit card information and submitting it to
     a processor.
@@ -193,10 +195,16 @@ class CheckoutPayment( MemberContextEdit ):
     def getFormFields( self, user ):
         form_fields = super( CheckoutPayment, self).getFormFields(user)
         self.adapters[ interfaces.IUserPaymentInformation ] = self.billing_info
-        return form_fields + form.Fields( interfaces.IUserPaymentInformation )
+        form_fields = form_fields + form.Fields( interfaces.IUserPaymentInformation )
+
+        form_fields['ship_country'].custom_widget = ChoiceWithSubField
+
+        return form_fields
 
     def __call__( self ):
         self.billing_info = BillingInfo()
+        self.setupEnvironment( self.request )
+        self.setupLocale( self.request )
         try:
             return super( CheckoutPayment, self).__call__()
         except:
