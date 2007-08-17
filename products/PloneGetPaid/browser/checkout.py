@@ -103,11 +103,12 @@ class CheckoutLayouts:
 
     credit_card_layout = GridLayout(
         ).addText('Credit Card', 0, 0
-        ).addWidget('credit_card_type', 1, 0
-        ).addWidget('credit_card', 2, 0
-        ).addWidget('cc_expiration', 3, 0
-        ).addWidget('cc_cvc', 4, 0
-        ).addWidget('phone_number', 5, 0                                        
+        ).addWidget('name_on_card', 1, 0                                                          
+        ).addWidget('credit_card_type', 2, 0
+        ).addWidget('credit_card', 3, 0
+        ).addWidget('cc_expiration', 4, 0
+        ).addWidget('cc_cvc', 5, 0
+        ).addWidget('phone_number', 6, 0                                        
         )
 
     bill_address_layout = GridLayout(
@@ -207,7 +208,7 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
             return ""
         return super( CheckoutPayment, self).render()
 
-    
+
     @form.action(u"Make Payment", name="make-payment", condition=form.haveInputWidgets )
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
@@ -231,7 +232,7 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
         # extract data to our adapters
 
         
-        result = processor.authorize( order, self.billing_info )
+        result = processor.authorize( order, self.adapters[ interfaces.IUserPaymentInformation ] )
         if result is interfaces.keys.results_async:
             # shouldn't ever happen..
             # XXX
