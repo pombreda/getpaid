@@ -5,6 +5,7 @@ $Id$
 from zope import schema
 from zope.interface import Interface
 from zope.schema import Iterable
+from getpaid.core.fields import PhoneNumber
 
 import getpaid.core.interfaces as igetpaid
 import zope.viewlet.interfaces
@@ -102,7 +103,7 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                     required = False,
                                     default = u""
                                   )
-                                
+
     contact_state = schema.Choice( title = _(u"Contact State/Province"),
                                    required = False,
                                    default = u"",
@@ -120,11 +121,12 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                      vocabulary = "getpaid.countries"
                                    )
 
-    contact_phone = schema.TextLine( title = _(u"Contact Phone"),
+    contact_phone = PhoneNumber( title = _(u"Contact Phone"),
+                                 description = _(u"Only digits allowed"),
                                      required = False,
                                      default = u""
                                    )
-                                
+
     contact_fax = schema.TextLine( title = _(u"Contact Fax"),
                                    required = False,
                                    default = u""
