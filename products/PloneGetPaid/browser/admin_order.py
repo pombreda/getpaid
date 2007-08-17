@@ -30,6 +30,7 @@ from Products.Five.viewlet import viewlet, manager as viewlet_manager
 from Products.Five.traversable import FiveTraversable
 
 from Products.PloneGetPaid import interfaces as ipgp
+from yoma.batching import BatchingMixin
 
 from base import BaseView
 
@@ -59,6 +60,9 @@ class PriceColumn( AttrColumn ):
         value = super( PriceColumn, self).__call__( item, formatter )
         return "%0.2f"%value
 
+class BatchingFormatter( BatchingMixin, table.StandaloneFullFormatter ):
+    pass
+
 class OrderListingComponent( core.EventViewlet ):
 
     template = ZopeTwoPageTemplateFile('templates/orders-listing.pt')
@@ -80,13 +84,16 @@ class OrderListingComponent( core.EventViewlet ):
     def listing( self ):
         columns = self.columns
         values = self.manager.get('orders-search').results
-        formatter = table.StandaloneFullFormatter( self.context,
-                                                   self.request,
-                                                   values,
-                                                   prefix="form",
-                                                   visible_column_names = [c.name for c in columns],
-                                                   #sort_on = ( ('name', False)
-                                                   columns = columns )
+        
+        formatter = BatchingFormatter( self.context,
+                                      self.request,
+                                      values,
+                                      prefix="form",
+                                      batch_size=5,
+                                      visible_column_names = [c.name for c in columns],
+                                      #sort_on = ( ('name', False)
+                                      columns = columns )
+        
         formatter.cssClasses['table'] = 'listing'
         return formatter()
     
