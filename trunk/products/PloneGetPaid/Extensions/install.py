@@ -16,7 +16,6 @@ from zope.app.intid.interfaces import IIntIds
 from five.intid.site import add_intids
 from getpaid.core.interfaces import IOrderManager, IStore
 from getpaid.core.order import OrderManager
-from ore.member.interfaces import ISiteSchemaManager
 
 
 coci_actions = [
