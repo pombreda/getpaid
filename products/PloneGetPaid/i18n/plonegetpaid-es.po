@@ -187,7 +187,7 @@ msgstr "Método Impositivo"
 
 #: ./browser/cart.py:145
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: ./interfaces.py:262
 msgid "US Currency Formatting"
@@ -269,7 +269,7 @@ msgstr "Los Pedidos del Sitio"
 #. Default: "new state"
 #: ./browser/templates/order-history-viewlet.pt:28
 msgid "heading_new_state"
-msgstr ""
+msgstr "nuevo estado"
 
 #. Default: "Order"
 #: ./browser/templates/order-manage.pt:5
@@ -289,7 +289,7 @@ msgstr "identificador de la orden"
 #. Default: "Order Workflow Log"
 #: ./browser/templates/order-history-viewlet.pt:17
 msgid "heading_order_workflow_log"
-msgstr ""
+msgstr "Historia del Workflow de la Orden"
 
 #. Default: "previous state"
 #: ./browser/templates/order-history-viewlet.pt:26
@@ -299,7 +299,7 @@ msgstr "estado previo"
 #. Default: "transition"
 #: ./browser/templates/order-history-viewlet.pt:27
 msgid "heading_transition"
-msgstr ""
+msgstr "transición"
 
 #. Default: "workflow"
 #: ./browser/templates/order-history-viewlet.pt:23
@@ -393,7 +393,7 @@ msgstr "Resúmen"
 
 #: ./interfaces.py:314
 msgid "states"
-msgstr ""
+msgstr "estados"
 
 #. Default: "Contains ${size} Items"
 #: ./browser/templates/portlet-cart.pt:19
@@ -403,7 +403,7 @@ msgstr "Contiene ${size} Items"
 #. Default: "The Context ${portal} Does Not Support this Operation."
 #: ./browser/templates/payable-form.pt:25
 msgid "text_context_does_not_support_operation"
-msgstr ""
+msgstr "Esta Operación no es soportada en el contexto ${portal}"
 
 #. Default: "Creation Date"
 #: ./browser/templates/order-summary.pt:14
