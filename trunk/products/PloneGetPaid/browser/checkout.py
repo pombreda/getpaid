@@ -49,6 +49,8 @@ from cPickle import loads, dumps
 
 from zope.formlib import form
 from zope.schema import getFieldsInOrder
+from zope.app.event.objectevent import ObjectCreatedEvent
+from zope.event import notify
 from zope import component
 
 from yoma.layout import LayoutMixin
@@ -281,7 +283,7 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
                 break
         order.order_id = order_id
         order.user_id = getSecurityManager().getUser().getId()
-        
+        notify( ObjectCreatedEvent( order ) )
         
         return order
 
