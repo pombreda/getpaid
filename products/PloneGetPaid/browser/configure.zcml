@@ -77,6 +77,53 @@
      permission="zope2.View"
      />
 
+  <!-- User's Order View -->
+  <browser:page
+      for="getpaid.core.interfaces.IStore"
+      name="getpaid-order"
+      class=".order.OrderRoot"
+      permission="zope2.View"
+      />
+
+  <five:traversable class=".order.TraversableWrapper" />
+  <five:defaultViewable class=".order.TraversableWrapper"/>
+
+  <browser:defaultView
+     for="getpaid.core.interfaces.IOrder"
+     name="details"
+     />
+
+  <browser:page
+     for="getpaid.core.interfaces.IOrder"
+     name="details"
+     class=".order.OrderDetails"
+     template="templates/order-history.pt"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-summary"
+     manager="..interfaces.IOrderDetailsManager"
+     template="templates/order-summary.pt"
+     class=".admin_order.OrderSummaryComponent"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-all-items"
+     manager="..interfaces.IOrderDetailsManager"
+     template="templates/order-item-listing.pt"
+     class=".admin_order.AllItems"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-workflow-log"
+     manager="..interfaces.IOrderDetailsManager"
+     class=".admin_order.OrderWorkflowLog"
+     permission="zope2.View"
+     />
+
   <!-- User's Order History -->
   <browser:page
      for="*"

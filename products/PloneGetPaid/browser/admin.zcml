@@ -54,17 +54,9 @@
      for="getpaid.core.interfaces.IStore"
      name="admin-manage-order"
      class=".admin_order.AdminOrderRoot"
-     template="templates/order-manage.pt"
      permission="cmf.ManagePortal"
      />
 
-  <five:traversable class=".admin_order.TraversableWrapper" />
-  <five:defaultViewable class=".admin_order.TraversableWrapper"/>
-
-  <browser:defaultView
-     for="getpaid.core.interfaces.IOrder"
-     name="admin"
-     />
 
   <browser:page
      for="getpaid.core.interfaces.IOrder"
