@@ -19,44 +19,20 @@ from zope.app.traversing.interfaces import ITraversable
 from getpaid.core.order import query
 from getpaid.core import interfaces as igpc
 
+from Products.PloneGetPaid.i18n import _
+
 # from getpaid.core.interfaces import IOrderManager
 from AccessControl import getSecurityManager
 
-class OrderHistoryManagerBase( object ):
 
-    viewlets_map = ()
-
-    def sort( self, viewlets ):
-        return viewlets
-
-    def get( self, name ):
-        if name in self.viewlets_map:
-            return self.viewlets_map[ name ]
-        return None
-
-    def update( self ):
-        self.__updated = True
-        # Find all content providers for the region
-        viewlets = component.getAdapters(
-            (self.context, self.request, self.__parent__, self),
-            IViewlet)
-
-        viewlets = self.filter(viewlets)
-        viewlets = self.sort(viewlets)
-        self.viewlets_map = dict( viewlets )
-
-        # Just use the viewlets from now on
-        self.viewlets = [viewlet for name, viewlet in viewlets]
-
-        # Update all viewlets
-        [viewlet.update() for viewlet in self.viewlets]
 
 OrderHistoryManager = ViewletManager("OrderHistory",
                                      ipgp.IOrderHistoryManager,
                                      os.path.join( os.path.dirname( __file__ ),
                                                    "templates",
-                                                   "viewlet-manager.pt"),
-                                     bases=( OrderHistoryManagerBase, ))
+                                                   "viewlet-manager.pt")
+                                     )
+
 
 class UserOrderHistory( BrowserView ):
     def __call__( self ):
@@ -171,6 +147,11 @@ class TraversableWrapper( SimpleItem ):
     """
     
     interface.implements( igpc.IOrder )
+
+    id = title = _(u"Order Details")
+    
+    def Title( self ):
+        return self.title
     
     def __init__( self, object ):
         self._object = object
