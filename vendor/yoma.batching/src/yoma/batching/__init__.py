@@ -11,7 +11,7 @@ $Id$
 import sys
 from StringIO import StringIO
 
-from zope.traversing.browser import absoluteURL
+from zope.app.traversing.browser import AbsoluteURL
 from zope.i18nmessageid import MessageFactory
 
 _=MessageFactory('yoma')
