@@ -2,10 +2,12 @@
 $Id$
 """
 
-from zope.interface import Interface, Attribute
+from zope.interface import Interface, Attribute, classImplements
 from zope import schema
-from zope.app.event.interfaces import IObjectEvent    
+from zope.app.event.interfaces import IObjectEvent
 from zope.app.container.interfaces import IContainer
+from zope.schema.interfaces import ITextLine
+from fields import PhoneNumber, CreditCardNumber
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid')
 
@@ -265,15 +267,17 @@ class IUserPaymentInformation( Interface ):
     """
 
     name_on_card = schema.TextLine( title = _(u"Card Holder Name"))
-    phone_number = schema.TextLine( title = _(u"Phone Number"))    
+    phone_number = PhoneNumber( title = _(u"Phone Number"),
+                                description = _(u"Only digits allowed"))
     # DONT STORED PERSISTENTLY
     credit_card_type = schema.Choice( title = _(u"Credit Card Type"),
                                       values = ( u"Visa",
                                                  u"MasterCard",
                                                  u"Discover",
                                                  u"American Express" ) )
-    
-    credit_card = schema.TextLine( title = _(u"Credit Card Number"))
+
+    credit_card = CreditCardNumber( title = _(u"Credit Card Number"),
+                                    description = _(u"Only digits allowed"))
     cc_expiration = schema.TextLine( title = _(u"Credit Card Expiration Date"))
     cc_cvc = schema.TextLine(title = _(u"Credit Card Verfication Number"))
 
@@ -367,6 +371,16 @@ class IOrderWorkflowEntry( Interface ):
     previous_state = schema.ASCIILine( title = _(u"Previous State"), readonly = True )
     transition = schema.ASCIILine( title = u"", readonly = True)
     # change type?? (workflow, user
+
+
+class IPhoneNumber(ITextLine):
+    """A Text line field that handles phone number input."""
+classImplements(PhoneNumber,IPhoneNumber)
+
+
+class ICreditCardNumber(ITextLine):
+    """A Text line field that handles credit card input."""
+classImplements(CreditCardNumber,ICreditCardNumber)
 
 
 class keys:
