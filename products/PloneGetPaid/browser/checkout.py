@@ -51,27 +51,43 @@ from zope.formlib import form
 from zope.schema import getFieldsInOrder
 from zope import component
 
+from yoma.layout import LayoutMixin
+
 from getpaid.core import interfaces, options
 from getpaid.core.order import Order
-
-from ore.member.browser import MemberContextEdit
 
 from AccessControl import getSecurityManager
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from Products.Five.formlib import formbase
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
-from base import BaseFormView, BaseView
 
-from Products.PloneGetPaid.browser.widgets import ChoiceWithSubField
+from base import BaseView, GridLayout
+from widgets import ChoiceWithSubField
 
-class BillingInfo( options.PropertyBag ):
+class BaseCheckoutForm( formbase.EditForm, BaseView ):
 
-    title = "Payment Details"
-    description = ""
+    template = ZopeTwoPageTemplateFile("templates/checkout-billing-info.pt")
+    
+    def __init__( self, context, request ):
+        self.context = context
+        self.request = request
+        self.setupLocale( request )
+        self.setupEnvironment( request )   
+
+
+##############################
+# Some Property Bags - transient adapters
+
+class BillingInfo( options.PropertyBag ): pass
+class ShipAddressInfo( options.PropertyBag ): pass
+class BillAddressInfo( options.PropertyBag ): pass
 
 BillingInfo.initclass( interfaces.IUserPaymentInformation )
+ShipAddressInfo.initclass( interfaces.IShippingAddress )
+BillAddressInfo.initclass( interfaces.IBillingAddress )
 
 class ImmutableBag( object ):
 
@@ -82,24 +98,117 @@ class ImmutableBag( object ):
 
 class CheckoutConfirmed( BrowserView, BaseView ):
     pass
-    
-class CheckoutPayment( MemberContextEdit, BaseView ):
+
+class CheckoutLayouts:
+
+    credit_card_layout = GridLayout(
+        ).addText('Credit Card', 0, 0
+        ).addWidget('credit_card_type', 1, 0
+        ).addWidget('credit_card', 2, 0
+        ).addWidget('cc_expiration', 3, 0
+        ).addWidget('cc_cvc', 4, 0
+        ).addWidget('phone_number', 5, 0                                        
+        )
+
+    bill_address_layout = GridLayout(
+        ).addText('Billing Address', 0, 1, colspan=2 
+        ).addWidget('bill_first_line', 1, 0
+        ).addWidget('bill_second_line', 2, 0
+        ).addWidget('bill_city', 3, 0
+        ).addWidget('bill_state', 4, 0
+        ).addWidget('bill_country', 5, 0
+        ).addWidget('bill_postal_code', 6, 0
+# use same shipping as billing address
+#        ).addWidget('bill_postal_code', 7, 0                                    
+        )
+        
+    shipping_address_layout = GridLayout(
+
+        ).addText(u'Mailing Address', 0, 1, colspan=2 
+        ).addWidget('ship_first_line', 1, 0
+        ).addWidget('ship_second_line', 2, 0
+        ).addWidget('ship_city', 3, 0
+        ).addWidget('ship_state', 4, 0
+        ).addWidget('ship_country', 5, 0
+        ).addWidget('ship_postal_code', 6, 0                            
+        )
+        
+class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
     """
     browser view for collecting credit card information and submitting it to
     a processor.
     """
-    form_fields = None
-    template = ZopeTwoPageTemplateFile("templates/checkout-billing-info.pt")
+    form_fields = form.Fields( interfaces.IBillingAddress,
+                               interfaces.IShippingAddress,
+                               interfaces.IUserPaymentInformation )
+    
+    form_fields['ship_country'].custom_widget = ChoiceWithSubField
+    form_fields['bill_country'].custom_widget = ChoiceWithSubField
+    
+    form_layout = GridLayout(
+        ).addLayout(
+           # Billing Address
+           CheckoutLayouts.bill_address_layout,
+           0, 0
+        ).addLayout(
+           # Shipping Address
+           CheckoutLayouts.shipping_address_layout,           
+           0, 1
+        ).addLayout(
+           # credit card information
+           CheckoutLayouts.credit_card_layout,
+           1, 1, colspan=2
+        ).addAction("make-payment", 2, 1, colspan=2)
+
+    # style it
+    form_layout.setCSS( 0, 0, "fieldset")
+    form_layout.setStyle( 0, 0, "border:1px solid black;")
+    form_layout.setId( 0, 0, "billing")
+    
+    form_layout.setCSS( 0, 1, "fieldset")
+    form_layout.setStyle( 0, 1, "border:1px solid black;")
+    form_layout.setId( 0, 1, "shipping")
+
+    form_layout.setCSS( 1, 1, "fieldset")
+    form_layout.setStyle( 1, 1, "border:1px solid black;")
+    form_layout.setId( 1, 1, "credit_card")
+
+
 
     _next_url = None
+
+    def setupDataAdapters( self ):
+	self.adapters = {}
+        self.adapters[ interfaces.IBillingAddress ] = BillAddressInfo()
+        self.adapters[ interfaces.IShippingAddress ] = ShipAddressInfo()
+        self.adapters[ interfaces.IUserPaymentInformation ] = BillingInfo()
+	return
+
+    def __call__( self ):
+        try:
+            self.setupDataAdapters()
+            return super( CheckoutPayment, self).__call__()
+        except:
+            import sys,pdb,traceback
+            traceback.print_exc()
+            pdb.post_mortem( sys.exc_info()[-1] )
+            raise
+
+    def setUpWidgets( self, ignore_request=False ):
+        self.adapters = self.adapters is not None and self.adapters or {}
+        self.widgets = form.setUpEditWidgets(
+            self.form_fields, self.prefix, self.context, self.request,
+            adapters=self.adapters, ignore_request=ignore_request
+            )
 
     def render( self ):
         if self._next_url:
             self.request.RESPONSE.redirect( self._next_url )
             return ""
         return super( CheckoutPayment, self).render()
+
     
-    @form.action("Make Payment")
+    @form.action(u"Make Payment", name="make-payment", condition=form.haveInputWidgets )
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         for async processors we never even got here.???
@@ -192,35 +301,3 @@ class CheckoutPayment( MemberContextEdit, BaseView ):
             return base_url + '/@@getpaid-thank-you'
             
 
-    def getFormFields( self, user ):
-        form_fields = super( CheckoutPayment, self).getFormFields(user)
-        self.adapters[ interfaces.IUserPaymentInformation ] = self.billing_info
-        form_fields = form_fields + form.Fields( interfaces.IUserPaymentInformation )
-
-        form_fields['ship_country'].custom_widget = ChoiceWithSubField
-        form_fields['bill_country'].custom_widget = ChoiceWithSubField
-
-        return form_fields
-
-    def __call__( self ):
-        self.billing_info = BillingInfo()
-        self.setupEnvironment( self.request )
-        self.setupLocale( self.request )
-        try:
-            return super( CheckoutPayment, self).__call__()
-        except:
-            import sys,pdb,traceback
-            traceback.print_exc()
-            pdb.post_mortem( sys.exc_info()[-1] )
-            raise
-
-    def setUpWidgets( self, ignore_request=False ):
-        self.adapters = self.adapters is not None and self.adapters or {}
-        self.widgets = form.setUpEditWidgets(
-            self.form_fields, self.prefix, self.context, self.request,
-            adapters=self.adapters, ignore_request=ignore_request
-            )
-    
-
-
-    

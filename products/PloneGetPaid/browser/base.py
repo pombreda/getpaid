@@ -2,12 +2,55 @@
 $Id$
 """
 
-from zope.i18n.interfaces import IUserPreferredLanguages
-from zope.i18n.locales import locales
 
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from zope.i18n.interfaces import IUserPreferredLanguages
+from zope.i18n.locales import locales, LoadLocaleError
+
+from ZTUtils import make_hidden_input
+
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.formlib import formbase
 from Products.Five.viewlet import viewlet
+
+from yoma.layout.layout import TableFormatter, GridLayout as BaseLayout
+
+class LayoutTemplate( object ): pass
+
+class GridLayout( BaseLayout ):
+
+    def setDesign( self, row, col, **kw ):
+        for n in ('id', 'class', 'style'):
+            if not n in kw:
+                continue
+            setattr( self.grid.get( row, col ), n, kw[n] )
+            
+    def setId( self, row, col, id ):
+        setattr( self.grid.get( row, col), 'id', id )
+
+    def setCSS( self, row, col, css_class ):
+        setattr( self.grid.get( row, col), 'class', css_class )
+
+    def setStyle( self, row, col, style ):
+        setattr( self.grid.get( row, col), 'style', style )
+        
+    def render( self, form ):
+        formatter = LayoutTableFormatter( self.grid, form )
+        return formatter()
+
+class LayoutTableFormatter( TableFormatter ):
+    
+    def renderCell( self, cell ):
+        attr = u''
+        for n in ('style', 'class', 'id'):
+            value = getattr( cell, n, '' )
+            if value:
+                attr += u' %s="%s"'%(n, value )
+        if cell.width > 1:
+            attr += (u' colspan="%s"' % cell.width)
+        if cell.height > 1:
+            attr += (u' rowspan="%s"' % cell.height)
+        print>>self.out, u'<td%s>%s</td>' % (attr, cell.render(self.form))        
+        
 
 class FormViewlet( viewlet.SimpleAttributeViewlet, formbase.SubPageForm ):
     """ a viewlet which utilize formlib
@@ -57,7 +100,7 @@ class BaseView( object ):
 
 class BaseFormView( formbase.EditForm, BaseView ):
 
-    template = ZopeTwoPageTemplateFile('templates/form.pt')
+    template = ViewPageTemplateFile('templates/form.pt')
 
     action_url = "" # NEEDED
     hidden_form_vars = None # mapping of hidden variables to pass through on the form
