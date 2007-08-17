@@ -18,7 +18,8 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.formlib import formbase
 from Products.Five.utilities import marker
 from Products.PloneGetPaid import interfaces
-from base import BaseView, BaseFormView
+
+from base import BaseFormView
 from widgets import PriceWidget
 
 class PayableFormView( BaseFormView ):

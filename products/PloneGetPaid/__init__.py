@@ -2,7 +2,7 @@
 $Id$
 """
 
-_GETPAID_DEPENDENCIES_ = [ "ore.member", 'CMFonFive' ]
+_GETPAID_DEPENDENCIES_ = [ 'CMFonFive' ]
 
 import os, sys
 from Globals import package_home

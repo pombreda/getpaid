@@ -10,10 +10,8 @@ from Products.Five.viewlet.manager import ViewletManager
 
 from Products.PloneGetPaid import interfaces as ipgp
 
-# from base import BaseView
 from zope import component
 from zope.viewlet.interfaces import IViewlet
-from zc.table import table, column
 
 from getpaid.core.order import query
 from getpaid.core import interfaces as igpc

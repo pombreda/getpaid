@@ -86,3 +86,33 @@ class PriceWidget(FloatWidget):
         else:
             #import pdb; pdb.set_trace()
             return '%.2f' % value
+
+
+
+def SelectWidgetFactory( field, request ):
+    vocabulary = field.value_type.vocabulary
+    return OrderedMultiSelectionWidget( field, vocabulary, request ) 
+
+class OrderedMultiSelectionWidget(BaseSelection):
+    template = ViewPageTemplateFile('templates/ordered-selection.pt')
+
+    def __call__( self ):
+
+	value = super( OrderedMultiSelectionWidget, self).__call__()
+        setPageEncoding( self.request )
+	return value
+
+    def selected(self):
+        """Return a list of tuples (text, value) that are selected."""
+        # Get form values
+        values = self._getFormValue()
+        # Not all content objects must necessarily support the attributes
+        if hasattr(self.context.context, self.context.__name__):
+            # merge in values from content 
+            for value in self.context.get(self.context.context):
+                if value not in values:
+                    values.append(value)
+        terms = [self.vocabulary.getTerm(value)
+                 for value in values if value in self.vocabulary ]
+        return [{'text': self.textForValue(term), 'value': term.token}
+                for term in terms]
