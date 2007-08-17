@@ -8,7 +8,6 @@ order administration
 
 import datetime, os, inspect, StringIO
 
-from zope.app.traversing.interfaces import ITraversable, TraversalError
 from zope import component, schema, interface
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema import vocabulary
@@ -23,19 +22,18 @@ from getpaid.core import interfaces
 from getpaid.core.order import OrderQuery as query
 from hurry.workflow.interfaces import IWorkflowInfo
 
-from OFS.SimpleItem import SimpleItem
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.viewlet import viewlet, manager as viewlet_manager
-from Products.Five.traversable import FiveTraversable
 
 from Products.PloneGetPaid import interfaces as ipgp
 from yoma.batching import BatchingMixin
 
 from base import BaseView
+from order import OrderRoot
 
 def renderOrderId( order, formatter ):
-    return '<a href="@@admin-manage-order/%s">%s</a>'%( order.order_id, order.order_id )
+    return '<a href="@@admin-manage-order/%s/@@admin">%s</a>'%( order.order_id, order.order_id )
 
 class AttrColumn( object ):
 
@@ -241,47 +239,8 @@ class ManageOrders( BrowserView ):
         self.manager.update()
         return super( ManageOrders, self).__call__()
 
-_marker = object()
-
-#################################
-# Views for looking at a single order, we do some traversal tricks to make the
-# the orders exposeable ttw.
-
-class AdminOrderRoot( BrowserView, FiveTraversable ):
-    """ a view against the store which allow us to expose individual order objects
-    """
-    interface.implements( ITraversable )
-    
-    def __init__( self, context, request ):
-        self.context = context
-        self.request = request
-
-    def __bobo_traverse__( self, request, name ):
-        value = getattr( self, name, _marker )
-        if value is not _marker:
-            return value
-        manager = component.getUtility( interfaces.IOrderManager )
-        order = manager.get( name )
-        if order is None:
-            raise AttributeError( name )
-        return TraversableWrapper( order ).__of__( self.context )
-
-
-class TraversableWrapper( SimpleItem ):
-    """ simple indeed, a zope2 transient wrapper around a persistent order so we can
-    publish them ttw.
-    """
-    
-    interface.implements( interfaces.IOrder )
-    
-    def __init__( self, object ):
-        self._object = object
-
-    def __getattr__( self, name ):
-        value =  getattr( self._object, name, _marker )
-        if value is not _marker:
-            return value
-        return super( TraversableWrapper, self).__getattr__( name )
+class AdminOrderRoot ( OrderRoot ):
+    pass
 
 class AdminOrderManagerBase( OrderAdminManagerBase ):
     

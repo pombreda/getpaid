@@ -30,6 +30,10 @@ class IOrdersAdminManager( zope.viewlet.interfaces.IViewletManager ):
     """
 
 class IAdminOrderManager( zope.viewlet.interfaces.IViewletManager ):
+    """ viewlet manager for admin of a single order
+    """ 
+
+class IOrderDetailsManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for a single order
     """ 
 
