@@ -96,6 +96,9 @@ class CountriesStatesFromFile(object):
     """Countries utility that reads data from a file
     """
     implements(ICountriesStates)
+
+    _noValues = [(u'(no values)',u'(no values)')]
+
     def __init__(self):
         iso3166_path = path.join(path.dirname(__file__), 'iso3166')
         self.csparser = CountriesStatesParser(iso3166_path)
@@ -105,21 +108,16 @@ class CountriesStatesFromFile(object):
         return self.csparser.getCountriesNameOrdered()
     countries = property(countries)
 
-    def states(self,context=None, country=None):
-        noValues = [(u'(no values)',u'(no values)')]
+    def states(self, country=None):
         if country is None:
-            countryAttrs = [attr for attr in dir(context) if 'country' in attr.lower()]
-            if len(countryAttrs) != 1:
-                return noValues
-            country = getattr(context,countryAttrs[0])
+            return self.allStates()
         states = self.csparser.getStatesOf(country)
-        if not len(states):
-            states = noValues
+        if len(states) == 0:
+            return self._noValues
         return states
 
     def allStates(self):
-        return self.csparser.getStatesOfAllCountries()
-    allStates = property(allStates)
+        return self.csparser.getStatesOfAllCountries() + self._noValues
 
 def Countries( context ):
     utility = zapi.getUtility(ICountriesStates)
@@ -127,5 +125,5 @@ def Countries( context ):
 
 def States( context ):
     utility = zapi.getUtility(ICountriesStates)
-    return TitledVocabulary.fromTitles(utility.allStates)
+    return TitledVocabulary.fromTitles(utility.states())
 

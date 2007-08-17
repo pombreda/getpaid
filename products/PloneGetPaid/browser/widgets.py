@@ -6,68 +6,34 @@ from zope.i18n.interfaces import IUserPreferredCharsets
 
 from Products.Five.browser.decode import setPageEncoding
 
-#from Acquisition import Explicit
+class CountrySelectionWidget(SimpleInputWidget):
 
-class ChoiceWithSubField(SimpleInputWidget):
-
-    template = ViewPageTemplateFile('templates/ChoiceWithSubField.pt')
-    
-    def test( self ):
-        """Test"""
-        return "test"
+    template = ViewPageTemplateFile('templates/country-selection-widget.pt')
 
     def __call__( self ):
-        
         # XXX dirty hack to make the values coming out of here encoded properly
         # please fix me.
         envadapter = IUserPreferredCharsets( self.request)
-        charsets = envadapter.getPreferredCharsets() or ['utf-8']            
+        charsets = envadapter.getPreferredCharsets() or ['utf-8']
         value = unicode( self.template(), charsets[0] )
         # we reset the page encoding thg thats get set by our template
         setPageEncoding( self.request )
         return value
-    
+
     def getVocabulary(self):
         return self.context.vocabulary
 
-    #def render(self):
-        #result = """<div xmls:tal="http://xml.zpope.org/namespaces/tal">
-#<select>"""
-        #for i in self.getVocabulary():
-            #result += '<option value="%s">%s</option>' % (i.title,i.title)
-        #result += '</select> </div>'
-        #return result
+class StateSelectionWidget(SimpleInputWidget):
 
-    #def __init__(self,**kw):
-        #print 'asi como vine, me voy'
-        #super(ChoiceWithSubField,self).__init__(**kw)
-
-    #def renderValue(self, value):
-        #rendered_items = self.renderItems(value)
-        #contents = "\n%s\n" %"\n".join(rendered_items)
-        #print '*'*80
-        #print 'yes'
-        #print '*'*80
-        #return renderElement('select',
-                             #name=self.name+'jota',
-                             #id=self.name,
-                             #contents=contents,
-                             #size=self.size,
-                             #extra=self.extra,
-                             #onchange="javascript:alert('alarma!');")
-
-    #def __call__(self):
-        #"""See IBrowserWidget."""
-        #print '*'*80
-        #print 'mi __call__'
-        #print '*'*80
-        #value = self._getFormValue()
-        #contents = []
-        #have_results = False
-
-        #contents.append(self._div('value', self.renderValue(value)))
-        #contents.append(self._emptyMarker())
-        #return self._div(self.cssClass, "\n".join(contents))
+    def __call__( self ):
+        value = ''
+        if self.hasInput():
+            value = self.getInputValue()
+        return """<div id="%s_container">
+                  <select name="%s" id="%s">
+                    <option value="%s" selected="selected">Selected</option>
+                  </select>
+                  </div>""" % (self.name, self.name, self.name, value)
 
 
 class PriceWidget(FloatWidget):

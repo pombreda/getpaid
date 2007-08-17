@@ -1,6 +1,6 @@
 <div xmls:tal="http://xml.zpope.org/namespaces/tal">
 
-<script type="text/javascript" src="++resource++sequence.js">
+<script type="text/javascript" src="++resource++country-states-selection.js">
 </script>
 
 <tal:widget tal:define="name python:view.name;">
@@ -18,9 +18,7 @@
 </select>
 
     <script type="text/javascript" tal:content="string:country_select = document.getElementById('${name}');
-                                                    widget_init = function(){get_states_from_country(country_select, 'country', 'state')};
-                                                    addInit(widget_init);
-                                                    window.onload = processInits();"/>
+                                                       get_states_from_country(country_select, 'country', 'state');"/>
 
 </tal:widget>
 

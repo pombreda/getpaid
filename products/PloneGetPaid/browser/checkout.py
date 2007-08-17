@@ -67,7 +67,7 @@ from Products.Five.formlib import formbase
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 
 from base import BaseView, GridLayout
-from widgets import ChoiceWithSubField
+from widgets import CountrySelectionWidget, StateSelectionWidget
 
 class BaseCheckoutForm( formbase.EditForm, BaseView ):
 
@@ -145,8 +145,10 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
                                interfaces.IShippingAddress,
                                interfaces.IUserPaymentInformation )
     
-    form_fields['ship_country'].custom_widget = ChoiceWithSubField
-    form_fields['bill_country'].custom_widget = ChoiceWithSubField
+    form_fields['ship_country'].custom_widget = CountrySelectionWidget
+    form_fields['bill_country'].custom_widget = CountrySelectionWidget
+    form_fields['ship_state'].custom_widget = StateSelectionWidget
+    form_fields['bill_state'].custom_widget = StateSelectionWidget
     
     form_layout = GridLayout(
         ).addLayout(
