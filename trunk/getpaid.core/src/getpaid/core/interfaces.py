@@ -6,7 +6,6 @@ from zope.interface import Interface, Attribute
 from zope import schema
 from zope.app.event.interfaces import IObjectEvent    
 from zope.app.container.interfaces import IContainer
-from ore.member.interfaces import IMemberSchema
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid')
 
@@ -142,6 +141,15 @@ class ILineItem( Interface ):
     quantity = schema.Int( title = _(u"Quantity"))
 
 
+class ILineItemFactory( Interface ):
+    """
+    """
+    
+    def create( payable ):
+        """
+        create a payable from a line item
+        """
+
 class ILineItemContainer( IContainer ):
     """ A container for line items
     """
@@ -151,7 +159,7 @@ class IPayableLineItem( ILineItem ):
     A line item linked to a payable
     """
 
-    def resolve( context ):
+    def resolve( ine):
         """ return the payable object
         """
 
@@ -227,7 +235,7 @@ class IAddress( Interface ):
                                vocabulary = "getpaid.countries")
     postal_code = schema.TextLine( title = _(u"Zip Code"))
 
-class IShippingAddress( IMemberSchema ):
+class IShippingAddress( Interface ):
     """ where to send goods
     """
     ship_first_line = schema.TextLine( title = _(u"First Line"))
@@ -239,7 +247,7 @@ class IShippingAddress( IMemberSchema ):
                                     vocabulary = "getpaid.countries")
     ship_postal_code = schema.TextLine( title = _(u"Zip Code"))
 
-class IBillingAddress( IMemberSchema ):
+class IBillingAddress( Interface ):
     """ where to bill 
     """
     bill_first_line = schema.TextLine( title = _(u"First Line"))
@@ -316,6 +324,14 @@ class IOrder( Interface ):
     processor_id = schema.ASCIILine( readonly=True )
 
 
+# Various Order Classification Markers..
+# a shippable order for exmaple contains something an ishippable,
+# virtual order contains only ttw deliverables
+# donation orders contain donations
+# recurrence for not yet implement contains recurring line items
+# the only mutual exclusive we have at the moment we these is shippable/virtual
+
+
 class IShippableOrder( Interface ):
     """ marker interface for orders which need shipping """
 
@@ -327,6 +343,7 @@ class IVirtualOrder( Interface ):
 
 class IDonationOrder( Interface ):
     """ marker interface for orders which contain donations"""
+
 
     
 class IOrderWorkflowLog( Interface ):
