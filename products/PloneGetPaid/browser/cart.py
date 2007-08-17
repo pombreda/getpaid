@@ -5,6 +5,7 @@ $Id$
 """
 
 import os
+from urllib import urlencode
 
 from zope import component
 from zope.formlib import form
@@ -93,6 +94,23 @@ class ShoppingCartAddItem( ShoppingCart ):
         item.quantity = 1
         self.cart[ item.item_id ] = item
         self.cart.last_item = item.item_id
+
+class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
+    def addToCart( self ):
+        # XXX this duplicates functionality available elsewhere
+        #     (in the name of simplicity -- pah)
+        super(ShoppingCartAddItemAndGoToCheckout, self).addToCart()
+        portal = getToolByName( self.context, 'portal_url').getPortalObject()
+        url = portal.absolute_url()
+        if getSecurityManager().getUser().getId() is not None:
+            url = url + '/@@getpaid-checkout'
+        else:
+            url = "%s/%s?%s"%( url,
+                               'login_form',
+                               urlencode([('came_from',
+                                           url + '/@@getpaid-checkout')]))
+        return self.request.RESPONSE.redirect( url )
+        
 
 
 #################################
