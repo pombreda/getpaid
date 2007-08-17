@@ -17,7 +17,7 @@ from zope.i18nmessageid import MessageFactory
 import getpaid.core.interfaces as igetpaid
 
 from base import BaseView
-from widgets import SelectWidgetFactory
+from widgets import SelectWidgetFactory, CountrySelectionWidget, StateSelectionWidget
 
 _ = MessageFactory('plonegetpaid')
 
@@ -63,7 +63,8 @@ class Identification( BaseSettingsForm ):
     get paid management interface
     """
     form_fields = form.Fields(interfaces.IGetPaidManagementIdentificationOptions)
-    
+    form_fields['contact_country'].custom_widget = CountrySelectionWidget
+    form_fields['contact_state'].custom_widget = StateSelectionWidget
 
 #Configure
 class ContentTypes( BaseSettingsForm ):
