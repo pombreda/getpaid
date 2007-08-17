@@ -1,4 +1,3 @@
-
 from os.path import join
 
 class CountriesStatesParser:
@@ -23,14 +22,18 @@ class CountriesStatesParser:
 
     def _parseStatesOf(self,countryCode):
         statesFile = file(join(self._path,'iso.%s.txt' % countryCode))
-        statesOf = {}
+        statesOf = []
+        codes = [] # for avoiding duplicated codes (which exist in iso3166!!)
         for line in statesFile.readlines():
             if ':' not in line:
                 continue
             code,name = line.split(':')
-            statesOf[code.strip()] = name.strip().decode('ISO-8859-1')
-
-        return statesOf
+            code = code.strip()
+            if code not in codes:
+                codes.append(code)
+                statesOf.append((name.strip().decode('ISO-8859-1'),code))
+        statesOf.sort()
+        return map(lambda (x,y):(y,x),statesOf)
 
     def getCountries(self):
         return self._countries.items()
@@ -41,27 +44,15 @@ class CountriesStatesParser:
         return map(lambda (x,y):(y,x),invertedItems)
 
     def getStatesOf(self,code):
-        return self._states.get(code,{})
+        return self._states.get(code,[])
 
-#class OrderedDict(dict):
-    #def __init__(self, byValues=False):
-        #self._sortByValues = byValues
-        #self._orden = []
-        #self._index = 0
+    def getStatesOfAllCountries(self):
+        result = []
+        for stateList in self._states.values():
+            result.extend(stateList)
+        return result
 
-    #def __iter__(self):
-        #return [self._orden].__iter__()
-
-    #def __next__(self):
-        #try:
-            #return self._orden[self._index]
-        #except KeyError:
-            #raise StopIteration
-
-    #def __setitem__(self,i,y):
-        #dict.__setitem__(self,i,y)
-        #if self._sortByValues:
-            #self._orden.append((y,i))
-        #else:
-            #self._orden.append(i)
-        #self._orden.sort()
+if __name__ == '__main__':
+    c = CountriesStatesParser('iso3166')
+    c.parse()
+    w = c.getStatesOfAllCountries()

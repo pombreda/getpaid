@@ -103,23 +103,23 @@ class CountriesStatesFromFile(object):
 
     def countries(self):
         return self.csparser.getCountriesNameOrdered()
-
     countries = property(countries)
 
     def states(self,context=None, country=None):
-        noValues = {u'(no values)':u'(no values)'}
+        noValues = [(u'(no values)',u'(no values)')]
         if country is None:
             countryAttrs = [attr for attr in dir(context) if 'country' in attr.lower()]
-            print countryAttrs
             if len(countryAttrs) != 1:
-                return noValues.items()
+                return noValues
             country = getattr(context,countryAttrs[0])
-        print country
         states = self.csparser.getStatesOf(country)
         if not len(states):
             states = noValues
-        return states.items()
+        return states
 
+    def allStates(self):
+        return self.csparser.getStatesOfAllCountries()
+    allStates = property(allStates)
 
 def Countries( context ):
     utility = zapi.getUtility(ICountriesStates)
@@ -127,5 +127,5 @@ def Countries( context ):
 
 def States( context ):
     utility = zapi.getUtility(ICountriesStates)
-    return TitledVocabulary.fromTitles(utility.states(context))
+    return TitledVocabulary.fromTitles(utility.allStates)
 
