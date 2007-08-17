@@ -244,7 +244,11 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
             # 
             pass
         elif result is interfaces.keys.results_success:
-            order.finance_workflow.fireTransition("authorize")
+            order_manager = component.getUtility( interfaces.IOrderManager )
+            order_manager.store( order )
+            order.finance_workflow.fireTransition("authorize")        
+            # kill the cart after we create the order
+            component.getUtility( interfaces.IShoppingCartUtility ).destroy( self.context )
         else:
             order.finance_workflow.fireTransition('reviewing-declined')
             self.status = result
@@ -278,10 +282,6 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
         order.order_id = order_id
         order.user_id = getSecurityManager().getUser().getId()
         
-        order_manager.store( order )
-        
-        # kill the cart after we create the order
-        component.getUtility( interfaces.IShoppingCartUtility ).destroy( self.context )
         
         return order
 
