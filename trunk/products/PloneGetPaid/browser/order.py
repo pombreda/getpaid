@@ -68,46 +68,12 @@ _marker = object()
 # Views for looking at a single order, we do some traversal tricks to make the
 # the orders exposeable ttw.
 
-class OrderDetailsManagerBase( object ):
-
-    viewlets_map = ()
-
-    def sort (self, viewlets ):
-        viewlets.sort( lambda x, y: cmp(x[1].order, y[1].order ) )
-        return viewlets
-
-    def get( self, name ):
-        if name in self.viewlets_map:
-            return self.viewlets_map[ name ]
-        return None
-
-    def update(self):
-        """See zope.contentprovider.interfaces.IContentProvider"""
-        self.__updated = True
-
-        # Find all content providers for the region
-        viewlets = component.getAdapters(
-            (self.context, self.request, self.__parent__, self),
-            IViewlet)
-
-        viewlets = self.filter(viewlets)
-        viewlets = self.sort(viewlets)
-        self.viewlets_map = dict( viewlets )
-
-        # Just use the viewlets from now on
-        self.viewlets = [viewlet for name, viewlet in viewlets]
-
-        # Update all viewlets
-        [viewlet.update() for viewlet in self.viewlets]
-
-
 OrderDetailsManager = ViewletManager(
     "OrderDetails",
     ipgp.IOrderDetailsManager,
     os.path.join( os.path.dirname( __file__ ),
                   "templates",
-                  "viewlet-manager.pt"),
-    bases=( OrderDetailsManagerBase, )
+                  "viewlet-manager.pt")
     )
 
 
