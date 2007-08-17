@@ -2,7 +2,9 @@ from zope.app.form.browser import FloatWidget
 from zope.app.form.browser.widget import SimpleInputWidget
 from zope.app.form.browser.itemswidgets import OrderedMultiSelectWidget as BaseSelection
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from zope.i18n.interfaces import IUserPreferredCharsets
 
+from Products.Five.browser.decode import setPageEncoding
 
 #from Acquisition import Explicit
 
@@ -13,11 +15,18 @@ class ChoiceWithSubField(SimpleInputWidget):
     def test( self ):
         """Test"""
         return "test"
-    
-    def __call__( self ):
-        #return self.render()
-        return self.template()
 
+    def __call__( self ):
+        
+        # XXX dirty hack to make the values coming out of here encoded properly
+        # please fix me.
+        envadapter = IUserPreferredCharsets( self.request)
+        charsets = envadapter.getPreferredCharsets() or ['utf-8']            
+        value = unicode( self.template(), charsets[0] )
+        # we reset the page encoding thg thats get set by our template
+        setPageEncoding( self.request )
+        return value
+    
     def getVocabulary(self):
         return self.context.vocabulary
 
