@@ -8,6 +8,8 @@ from persistent import Persistent
 from zope.interface import implements
 from zope import component
 from zope.app.annotation.interfaces import IAttributeAnnotatable
+from zope.app.intid.interfaces import IIntIds
+
 from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
 from getpaid.core import interfaces
 
@@ -42,3 +44,9 @@ class PayableLineItem( LineItem ):
     an item in the cart for a payable
     """
     implements( interfaces.IPayableLineItem )
+
+    def resolve( self ):
+        utility = component.getUtility( IIntIds )
+        utility.queryObject( self.uid )
+        
+        
