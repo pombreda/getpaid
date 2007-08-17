@@ -20,7 +20,7 @@ from Products.CMFCore.utils import getToolByName
 def PaymentMethods( context ):
     # context is the portal config options, whose context is the portal
     adapters = component.getAdapters( (context.context,), interfaces.IPaymentProcessor )
-    payment_names = set( [ n for n,a in adapters] )
+    payment_names = set( map(unicode, [ n for n,a in adapters]) )
     return vocabulary.SimpleVocabulary.fromValues( payment_names )    
 
 def ContentTypes( context ):
@@ -38,7 +38,7 @@ def ContentTypes( context ):
         if type.getId() in types_not_searched:
             continue
         terms.append(
-            vocabulary.SimpleTerm( type.getId(), title=type.title_or_id() )
+            vocabulary.SimpleTerm( unicode(type.getId()), title=unicode(type.title_or_id()) )
             )
 
     terms.sort( lambda x,y: cmp( x.title, y.title ) )
@@ -63,8 +63,8 @@ def Currencies( context ):
 def MerchantNotificationChoices( context ):
     return vocabulary.SimpleVocabulary.fromItems(
         [
-        ("Do not send merchant email notification of a completed transaction" ,u"no_notification"),
-        ("Send merchant email notification when a transaction happens", u"notification"),
+        (u"Do not send merchant email notification of a completed transaction" ,u"no_notification"),
+        (u"Send merchant email notification when a transaction happens", u"notification"),
         #("Send merchant encrypted email notification when a transaction happens", u"encrypted_notification")]
         ]
         )
