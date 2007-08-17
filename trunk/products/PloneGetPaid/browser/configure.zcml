@@ -50,8 +50,8 @@
       file="resources/jquery-1.1.3.1.pack.js" />
 
   <browser:resource
-      name="sequence.js"
-      file="resources/sequence.js" />
+      name="country-states-selection.js"
+      file="resources/country-states-selection.js" />
 
   <!-- Get Paid Admin UI -->
   <include file="admin.zcml" />
