@@ -2,6 +2,6 @@
 	i18n:domain="plonegetpaid">
   <metal:block fill-slot="getpaid_content">
     <h3 i18n:translate="heading_checkout"> Checkout </h3>
-    <div metal:use-macro="context/@@ore-member-form/form"> </div>
+    <div metal:use-macro="context/@@getpaid-layout/form"> </div>
   </metal:block>
 </metal:page>

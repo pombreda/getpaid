@@ -4,9 +4,9 @@
 
 <!-- Dependencies -->
 <include package="getpaid.core" />
+<include package="zope.app.annotation" />
+<include package="yoma.layout" />
 
-<include package="ore.member" file="meta.zcml" />
-<include package="ore.member" />
 
 <include package="five.intid" file="base.zcml" />
 
@@ -46,8 +46,6 @@
 <!-- UI -->
 <include package=".browser" />
 
-<!-- Member/User Attributes -->
-<include file="member.zcml" />
 
 <!-- Vocabularies -->
 <include file="vocabularies.zcml" />

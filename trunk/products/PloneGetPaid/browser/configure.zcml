@@ -12,6 +12,15 @@
      permission="zope2.View"
      />
 
+  <!-- Form Layout Macros -->
+  <browser:page
+     for="*"
+     name="getpaid-layout"
+     template="templates/layoutform.pt"
+     class=".base.LayoutTemplate"
+     permission="zope2.View"
+     />
+
   <!-- Generic Content Space which hides context actions -->
   <browser:page
      for="*"
