@@ -69,6 +69,7 @@ from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from base import BaseView, GridLayout
 from widgets import CountrySelectionWidget, StateSelectionWidget
 
+
 class BaseCheckoutForm( formbase.EditForm, BaseView ):
 
     template = ZopeTwoPageTemplateFile("templates/checkout-billing-info.pt")
@@ -104,7 +105,7 @@ class CheckoutConfirmed( BrowserView, BaseView ):
 class CheckoutLayouts:
 
     credit_card_layout = GridLayout(
-        ).addText('Credit Card', 0, 0
+        ).addText(u'Credit Card', 0, 0
         ).addWidget('name_on_card', 1, 0                                                          
         ).addWidget('credit_card_type', 2, 0
         ).addWidget('credit_card', 3, 0
@@ -114,7 +115,7 @@ class CheckoutLayouts:
         )
 
     bill_address_layout = GridLayout(
-        ).addText('Billing Address', 0, 1, colspan=2 
+        ).addText(u'Billing Address', 0, 1, colspan=2 
         ).addWidget('bill_first_line', 1, 0
         ).addWidget('bill_second_line', 2, 0
         ).addWidget('bill_city', 3, 0
