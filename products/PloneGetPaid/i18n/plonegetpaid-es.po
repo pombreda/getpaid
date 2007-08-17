@@ -200,7 +200,7 @@ msgstr "Unidades de Peso"
 #. Default: "You can check the status of your order ${status_url}"
 #: ./browser/templates/checkout-thank-you.pt:10
 msgid "box_order_status_url_description"
-msgstr "Puede verificar el estado de tu orden ${status_url}"
+msgstr "Puede verificar el estado de tu pedido ${status_url}"
 
 #: ./interfaces.py:310
 msgid "countries"
@@ -284,12 +284,12 @@ msgstr "Administración de Pedidos"
 #. Default: "order id"
 #: ./browser/templates/order-history-viewlet.pt:5
 msgid "heading_order_id"
-msgstr "identificador de la orden"
+msgstr "identificador del pedido"
 
 #. Default: "Order Workflow Log"
 #: ./browser/templates/order-history-viewlet.pt:17
 msgid "heading_order_workflow_log"
-msgstr "Historia del Workflow de la Orden"
+msgstr "Historia del Workflow del Pedido"
 
 #. Default: "previous state"
 #: ./browser/templates/order-history-viewlet.pt:26
