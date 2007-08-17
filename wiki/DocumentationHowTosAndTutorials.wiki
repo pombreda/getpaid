@@ -16,9 +16,10 @@
   * What is the difference between adding a donation to a site versus adding a product?
   * How do I make a donation appear in a portlet vs within the page content? 
   * How do I make an "Add to Cart" button appear in the body of the content on my site?
+  * How do I change the "Add to Cart" text or make it a button? 
   * How do I create a category and add products to the category? 
   * How do I manage my orders? 
-  * How do I set up a payment processor? [SetUpPaymentProcessorDoc Answer]
+  * How do I set up a payment processor in GetPaid? [SetUpPaymentProcessorDoc Answer]
   * What happens when a user places an order on my site (offline vs online order completion)?
   * How do I make a content object payable? Not payable? [MakeObjectPayableDoc Answer]
   * What are the steps for installing and uninstalling the product? [InstallProductDoc Answer]
@@ -30,7 +31,7 @@
 
 == Payment Processor Questions ==
 
-  * What payment processors are supported now? 
+  * What payment processors are supported now? [http://www.plonegetpaid.com/features/payment-processors Answer]
   * When will payment processor <my favorite processor> be supported?
   * Authorize.net: 
     * How do I get a test or dev account? [http://developer.authorize.net/support/ Submit request form]
