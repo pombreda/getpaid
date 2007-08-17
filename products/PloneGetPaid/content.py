@@ -35,9 +35,11 @@ $Id$
 from zope import interface
 
 from getpaid.core.interfaces import IBuyableContent, IShippableContent, IPremiumContent, IDonationContent
-from getpaid.core import cart, item
+from getpaid.core import item
 
 from getpaid.core import options
+
+from Products.CMFCore.utils import getToolByName
 
 class ContentLineItem( item.PayableLineItem ):
     """ A line item with a reference to an archetype content that can be placed in a cart
