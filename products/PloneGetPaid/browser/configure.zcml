@@ -155,4 +155,21 @@
       permission="zope2.View"
   />
 
+  <!-- Disclaimer and Privacy Policy -->
+  <browser:page
+     for="*"
+     name="disclaimer"
+     class=".checkout.DisclaimerView"
+     template="templates/disclaimer.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="privacy-policy"
+     class=".checkout.PrivacyPolicyView"
+     template="templates/privacy-policy.pt"
+     permission="zope2.View"
+     />
+
 </configure>

@@ -63,6 +63,7 @@ from AccessControl import getSecurityManager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.formlib import formbase
+from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 
@@ -307,3 +308,22 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
             return base_url + '/@@getpaid-thank-you'
             
 
+class DisclaimerView(BrowserView):
+    """ Shows the disclaimer text from the getpaid settings.
+    """
+
+    @property
+    def disclaimer(self):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        settings = IGetPaidManagementOptions(portal)
+        return settings.disclaimer
+
+class PrivacyPolicyView(BrowserView):
+    """ Shows the privacy policy text from the getpaid settings.
+    """
+
+    @property
+    def privacyPolicy(self):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        settings = IGetPaidManagementOptions(portal)
+        return settings.privacy_policy
