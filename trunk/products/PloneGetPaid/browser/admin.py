@@ -9,8 +9,6 @@ from Products.Five.browser import BrowserView
 from Products.Five.formlib import formbase
 from Products.PloneGetPaid import interfaces, pkg_home
 
-
-
 from zope import component
 from zope.formlib import form
 from zope.app.form.browser import MultiSelectWidget
@@ -18,11 +16,12 @@ from zope.i18nmessageid import MessageFactory
 
 import getpaid.core.interfaces as igetpaid
 
-from ore.member.browser import SchemaSelectWidget as SelectWidgetFactory
-
 from base import BaseView
+from widgets import SelectWidgetFactory
 
 _ = MessageFactory('plonegetpaid')
+
+
 
 
 class Overview( BrowserView ):
