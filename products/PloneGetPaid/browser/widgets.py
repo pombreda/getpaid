@@ -4,20 +4,17 @@ from zope.app.form.browser.itemswidgets import OrderedMultiSelectWidget as BaseS
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.i18n.interfaces import IUserPreferredCharsets
 
-from Products.Five.browser.decode import setPageEncoding
+from Products.Five.browser import decode
+
 
 class CountrySelectionWidget(SimpleInputWidget):
-
     template = ViewPageTemplateFile('templates/country-selection-widget.pt')
-
     def __call__( self ):
-        # XXX dirty hack to make the values coming out of here encoded properly
-        # please fix me.
+        # XXX dirty hack to make the values coming out of here encoded properly,
+        # by default please fix me.
         envadapter = IUserPreferredCharsets( self.request)
         charsets = envadapter.getPreferredCharsets() or ['utf-8']
-        value = unicode( self.template(), charsets[0] )
-        # we reset the page encoding thg thats get set by our template
-        setPageEncoding( self.request )
+        value = decode._decode( self.template(), charsets )
         return value
 
     def getVocabulary(self):
@@ -61,12 +58,6 @@ def SelectWidgetFactory( field, request ):
 
 class OrderedMultiSelectionWidget(BaseSelection):
     template = ViewPageTemplateFile('templates/ordered-selection.pt')
-
-    def __call__( self ):
-
-	value = super( OrderedMultiSelectionWidget, self).__call__()
-        setPageEncoding( self.request )
-	return value
 
     def selected(self):
         """Return a list of tuples (text, value) that are selected."""
