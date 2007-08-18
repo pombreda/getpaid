@@ -26,6 +26,8 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.viewlet import viewlet, manager as viewlet_manager
 
 from Products.PloneGetPaid import interfaces as ipgp
+from Products.PloneGetPaid.i18n import _
+
 from yoma.batching import BatchingMixin
 
 from order import OrderRoot
@@ -64,12 +66,12 @@ class OrderListingComponent( core.EventViewlet ):
     template = ZopeTwoPageTemplateFile('templates/orders-listing.pt')
     
     columns = [
-        column.GetterColumn( title="Order Id", getter=renderOrderId ),
-        column.GetterColumn( title="Customer Id", getter=AttrColumn("user_id" ) ),        
-        column.GetterColumn( title="Status", getter=AttrColumn("finance_state") ),
-        column.GetterColumn( title="Fufillment", getter=AttrColumn("fulfillment_state") ),
-        column.GetterColumn( title="Price", getter=PriceColumn("getTotalPrice") ),
-        column.GetterColumn( title="Created", getter=DateColumn("creation_date") )
+        column.GetterColumn( title=_(u"Order Id"), getter=renderOrderId ),
+        column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ),        
+        column.GetterColumn( title=_(u"Status"), getter=AttrColumn("finance_state") ),
+        column.GetterColumn( title=_(u"Fufillment"), getter=AttrColumn("fulfillment_state") ),
+        column.GetterColumn( title=_(u"Price"), getter=PriceColumn("getTotalPrice") ),
+        column.GetterColumn( title=_(u"Created"), getter=DateColumn("creation_date") )
         ]
 
     order = 2
@@ -102,7 +104,7 @@ class OrderCSVComponent( core.ComponentViewlet ):
     def render( self ):
         return self.template()
 
-    @form.action("Export Search")
+    @form.action(_(u"Export Search"))
     def export_search( self, action, data ):
 
         search = self.manager.get('order-search')
@@ -165,7 +167,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
             ignore_request=ignore_request
             )
 
-    @form.action("Filter", condition=form.haveInputWidgets)
+    @form.action(_(u"Filter"), condition=form.haveInputWidgets)
     def handle_filter_action( self, action, data ):
         if data.get('creation_date'):
             data['creation_date'] = self.date_search_map.get( data['creation_date'] )
@@ -335,7 +337,7 @@ class CollectionTransitionHandler( object ):
         form.__parent__.manager.items_by_state = None
     
 
-def bindTransitions( form_instance, transitions, wf_name=None, collection=False ):
+def bindTransitions( form_instance, transitions, wf_name=None, collection=False, wf=None ):
     """ bind workflow transitions into formlib actions """
 
     assert not (collection and wf_name )
@@ -351,7 +353,10 @@ def bindTransitions( form_instance, transitions, wf_name=None, collection=False 
         d = {}
         if success_factory:
             d['success'] = success_factory( tid )
-        action = form.Action( tid, **d )
+        if wf is not None:
+            action = form.Action( _(unicode(wf.getTransitionById( tid ).title) ) )
+        else:
+            action = form.Action( tid, **d )
         action.form = form_instance
         action.__name__ = "%s.%s"%(form_instance.prefix, action.__name__)
         actions.append( action )
@@ -377,8 +382,9 @@ class OrderFinanceComponent( core.ComponentViewlet ):
         return super(OrderFinanceComponent, self).update()
 
     def setupActions( self ):
-        transitions = self.__parent__.context.finance_workflow.getManualTransitionIds()
-        self.actions = bindTransitions( self, transitions, wf_name='order.finance' )
+        wf = self.__parent__.context.finance_workflow
+        transitions = wf.getManualTransitionIds()
+        self.actions = bindTransitions( self, transitions, wf_name='order.finance') #, wf=wf.workflow() )
 
     def finance_status( self ):
         return self.__parent__.context.finance_state
@@ -404,8 +410,9 @@ class OrderFulfillmentComponent( core.ComponentViewlet ):
         return super( OrderFulfillmentComponent, self).update()
 
     def setupActions( self ):
-        transitions = self.__parent__.context.fulfillment_workflow.getManualTransitionIds()
-        self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment' )
+        wf = self.__parent__.context.fulfillment_workflow
+        transitions = wf.getManualTransitionIds()
+        self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment') #, wf=wf.workflow() )
 
     def fulfillment_status( self ):
         return self.__parent__.context.fulfillment_state
@@ -448,7 +455,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
 def AvailableOrderFinanceTransitions( context ):
     info = component.getAdapter( (context,), IWorkflowInfo, "order.finance")
     return vocabulary.SimpleVocabulary.fromValues(
-        info.getManualTransitionIds()
+        info.getManualTransitionIds()        
         )
 
 interface.directlyProvides( AvailableOrderFinanceTransitions, IContextSourceBinder )
@@ -532,11 +539,11 @@ class OrderContentsComponent( core.ComponentViewlet ):
     
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
-        column.GetterColumn( title="Item Id", getter=renderItemId ),
-        column.GetterColumn( title="Price", getter=AttrColumn("cost") ),        
-        column.GetterColumn( title="Quantity", getter=AttrColumn("quantity" ) ),
-        column.GetterColumn( title="Total", getter=renderItemPrice ),        
-        column.GetterColumn( title="Status", getter=AttrColumn("fulfillment_state" ) ),
+        column.GetterColumn( title=_(u"Item Id"), getter=renderItemId ),
+        column.GetterColumn( title=_(u"Price"), getter=AttrColumn("cost") ),        
+        column.GetterColumn( title=_(u"Quantity"), getter=AttrColumn("quantity" ) ),
+        column.GetterColumn( title=_(u"Total"), getter=renderItemPrice ),        
+        column.GetterColumn( title=_(u"Status"), getter=AttrColumn("fulfillment_state" ) ),
         ]
     
     selection_column = columns[0]
