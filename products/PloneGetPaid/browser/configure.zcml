@@ -40,6 +40,22 @@
       name="jquery.js"
       file="resources/jquery-1.1.3.1.pack.js" />
 
+  <browser:resource
+      name="address.js"
+      file="resources/address.js" />
+
+  <browser:resource
+      name="country-states-selection.js"
+      file="resources/country-states-selection.js" />
+
+  <browser:resource
+      name="batching.css"
+      file="resources/batching.css" />
+
+  <browser:resource
+      name="checkout.css"
+      file="resources/checkout.css" />     
+
   <!-- Get Paid Admin UI -->
   <include file="admin.zcml" />
 
@@ -52,15 +68,76 @@
 
   <browser:page
      for="*"
-     name="getpaid-checkout"
-     class=".checkout.CheckoutPayment"
+     name="getpaid-checkout-wizard"
+     class=".checkout.CheckoutWizard"
+     permission="zope2.View"
+     />
+
+   <browser:page
+      for="*"
+     name="checkout-address-info"
+     class=".checkout.CheckoutAddress"
      permission="zope2.View"
      />
 
   <browser:page
      for="*"
+     name="checkout-review-pay"
+     class=".checkout.CheckoutReviewAndPay"
+      permission="zope2.View"
+      />
+        
+  <browser:page
+     for="*"
      template="templates/checkout-thank-you.pt"
      name="getpaid-thank-you"
+     permission="zope2.View"
+     />
+
+  <!-- User's Order View -->
+  <browser:page
+      for="getpaid.core.interfaces.IStore"
+      name="getpaid-order"
+      class=".order.OrderRoot"
+      permission="zope2.View"
+      />
+
+  <five:traversable class=".order.TraversableWrapper" />
+  <five:defaultViewable class=".order.TraversableWrapper"/>
+
+  <browser:defaultView
+     for="getpaid.core.interfaces.IOrder"
+     name="details"
+     />
+
+  <browser:page
+     for="getpaid.core.interfaces.IOrder"
+     name="details"
+     class=".order.OrderDetails"
+     template="templates/order-history.pt"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-summary"
+     manager="..interfaces.IOrderDetailsManager"
+     template="templates/order-summary.pt"
+     class=".admin_order.OrderSummaryComponent"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-all-items"
+     manager="..interfaces.IOrderDetailsManager"
+     template="templates/order-item-listing.pt"
+     class=".admin_order.AllItems"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
+     name="order-workflow-log"
+     manager="..interfaces.IOrderDetailsManager"
+     class=".admin_order.OrderWorkflowLog"
      permission="zope2.View"
      />
 
@@ -87,5 +164,29 @@
       class=".order.UserOrderHistoryComponent"
       permission="zope2.View"
       />
+
+  <browser:page
+      for="*"
+      name="states-ajax"
+      class=".portlet.StatesAjax"
+      permission="zope2.View"
+  />
+
+  <!-- Disclaimer and Privacy Policy -->
+  <browser:page
+     for="*"
+     name="disclaimer"
+     class=".checkout.DisclaimerView"
+     template="templates/disclaimer.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     name="privacy-policy"
+     class=".checkout.PrivacyPolicyView"
+     template="templates/privacy-policy.pt"
+     permission="zope2.View"
+     />
 
 </configure>

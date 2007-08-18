@@ -5,6 +5,7 @@ $Id$
 from zope import schema
 from zope.interface import Interface
 from zope.schema import Iterable
+from getpaid.core.fields import PhoneNumber
 
 import getpaid.core.interfaces as igetpaid
 import zope.viewlet.interfaces
@@ -29,6 +30,10 @@ class IOrdersAdminManager( zope.viewlet.interfaces.IViewletManager ):
     """
 
 class IAdminOrderManager( zope.viewlet.interfaces.IViewletManager ):
+    """ viewlet manager for admin of a single order
+    """ 
+
+class IOrderDetailsManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for a single order
     """ 
 
@@ -72,6 +77,11 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                   required = True,
                                   default = u""
                                 )
+    
+    allow_anonymous_checkout = schema.Bool( title = _(u"Allow anonymous checkout"),
+                                            required = True,
+                                            default = False
+                                          )
 
     contact_name = schema.TextLine( title = _(u"Contact Name"),
                                   required = False,
@@ -174,6 +184,11 @@ class IGetPaidManagementShippingOptions( igetpaid.IPersistentOptions ):
 class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     """
+    #TODO: Compatibility field, to be removed
+    #Returns the first one active processor
+    payment_processor = schema.Choice( title = _(u"Payment Processor"),
+                                       source = "getpaid.payment_methods" )
+
     payment_processors = schema.List( 
         title = _(u"Payment Processors"),
         default = [],
@@ -318,3 +333,66 @@ class ICountriesStates(Interface):
         title = _(u"states"),
         description=_(u"A list of states")
         )
+
+
+class ICheckoutInfoUtility( Interface ):
+    """An utility for storing checkout details
+    """
+    def get( create=False ):
+        """
+        Return the user's checkout details or None if no details are set.
+        If create is passed then create an empty set of checkout details.
+        """
+
+    def destroy( ):
+        """
+        Removes the current user's checkout details from the session.
+        """
+        
+class IBuyerInfo( Interface ):
+    """Contains the necessary fields for identifying a buyer
+    """
+    full_name = schema.TextLine( title=_(u"Full name"),
+                                 description=_(u"Enter full name, eg. John Smith."),
+                                 required=True )
+                                 
+    company = schema.TextLine( title=_(u"Company name"),
+                              description=_(u"Enter your company name."),
+                              required=False )
+
+    email = schema.TextLine( title=_(u"Email"),
+                            description=_(u"Enter a valid email address to receive the order confirmation."),
+                            required=True )
+
+class IBuyerTaxInfo ( Interface ):
+    """Describes additional buyer attributes which can have a direct influence on order receipt / price calculation.
+    """
+    vat_id = schema.TextLine( title=_(u"VAT ID"),
+                              description=_(u"Enter your VAT ID."),
+                              required = False )
+
+#Taken from ore.member
+class IBuyerMemberInfo( IBuyerInfo ):
+    """Describes a buyer which wants to register on the store after a successfull anonymous checkout.
+    """
+
+    login = schema.ASCIILine(title=u"User Name",
+                             description=u"Enter a user name, usually something like 'jsmith'. No spaces or special characters. Usernames and passwords are case sensitive, make sure the caps lock key is not enabled. This is the name used to log in.")
+
+    password = schema.ASCIILine(title=u"Password",
+                                description=u"Minimum 5 characters.",                                
+                                min_length=5)
+
+    password_confirm = schema.ASCIILine( title=u"Password Confirmation",
+                                         description=u"Re-enter the password. Make sure the passwords are identical.",
+                                         min_length=5)
+
+    mail_me = schema.Bool( title=u"Send a mail with the password",
+                           required=False )
+
+class IAddressActions( Interface ):
+    """Temporary interface for exposing a custom "copy billing address to shipping address" field.
+    """
+    
+    single_address = schema.Bool(title=u"Same as Billing address",
+                                 required=False)

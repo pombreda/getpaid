@@ -2,10 +2,12 @@
 $Id$
 """
 
-_GETPAID_DEPENDENCIES_ = [ "ore.member", 'CMFonFive' ]
+_GETPAID_DEPENDENCIES_ = [ 'CMFonFive' ]
 
 import os, sys
 from Globals import package_home
+
+import _patch
 
 pkg_home = package_home( globals() )
 lib_path = os.path.join( pkg_home, 'lib' )

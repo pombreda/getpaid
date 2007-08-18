@@ -4,12 +4,38 @@
 
 <!-- Dependencies -->
 <include package="getpaid.core" />
+<include package="zope.app.annotation" />
 
-<include package="ore.member" file="meta.zcml" />
-<include package="ore.member" />
-
+<!-- Don't include the subscribers for ipersistent.. -->
 <include package="five.intid" file="base.zcml" />
 
+<!-- since we use intid specifically with payables also include
+     the intid suscribers for them, since we don't want the generic
+     ones that fire for everything (yet).. -->
+<subscriber
+   for="getpaid.core.interfaces.IPayable
+        zope.app.container.interfaces.IObjectAddedEvent"
+   handler="five.intid.intid.addIntIdSubscriber"
+   />
+
+<subscriber
+   for="getpaid.core.interfaces.IPayable
+        zope.app.container.interfaces.IObjectMovedEvent"
+   handler="five.intid.intid.removeIntIdSubscriber"
+   />
+
+<subscriber
+   for="getpaid.core.interfaces.IPayable
+        zope.app.container.interfaces.IObjectRemovedEvent"
+   handler="five.intid.intid.moveIntIdSubscriber"
+   />
+
+<!-- Classify Orders with marker interfaces -->
+<subscriber
+   for="getpaid.core.interfaces.IOrder
+	zope.app.event.interfaces.IObjectCreatedEvent"
+   handler=".order.classifyOrder"
+   />
 
 <!-- Optional Payment Processors and Dependency Checks-->
 
@@ -29,9 +55,6 @@
 <include zcml:condition="installed getpaid.nullpayment"
 	 package="getpaid.nullpayment" />
 
-<include zcml:condition="installed getpaid.moneytransfer"
-  package="getpaid.moneytransfer" />
-
 <!-- Inject Plone with the nesc interfaces / local site -->
 
 <five:localsite
@@ -49,8 +72,6 @@
 <!-- UI -->
 <include package=".browser" />
 
-<!-- Member/User Attributes -->
-<include file="member.zcml" />
 
 <!-- Vocabularies -->
 <include file="vocabularies.zcml" />
@@ -79,12 +100,13 @@
   provides="getpaid.core.interfaces.IDonationContent"
   factory=".content.DonatableContentAdapter"
   />
-   
-<!-- Content to Cart Item Adapters -->
+
+<!-- Content to Line Item Adapter -->
 <adapter
    for="getpaid.core.interfaces.IShoppingCart"
-   provides="getpaid.core.interfaces.IPayableLineItem"
-   factory=".content.ContentLineItemFactory" />
+   provides="getpaid.core.interfaces.ILineItemFactory"
+   factory=".content.LineItemFactory"
+   />
 
 <!-- Property Storage for Configuration Options -->
 <adapter
@@ -95,8 +117,12 @@
 
 <!-- Utilities -->
 <utility
-   provides="getpaid.core.interfaces.IShoppingCartUtility"
-   factory=".cart.ShoppingCartUtility"/>
+    provides="getpaid.core.interfaces.IShoppingCartUtility"
+    factory=".cart.ShoppingCartUtility"/>
+
+<utility
+    provides=".interfaces.ICheckoutInfoUtility"
+    factory=".checkout.CheckoutInfoUtility"/>
 
 <utility
     provides=".interfaces.ICountriesStates"

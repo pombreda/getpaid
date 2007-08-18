@@ -5,28 +5,27 @@ $Id$
 """
 
 import os
+from urllib import urlencode
 
 from zope import component
 from zope.formlib import form
 from zc.table import column
-from zc.table import table
 
 from ore.viewlet.container import ContainerViewlet
 from ore.viewlet.core import FormViewlet
 
-from getpaid.core import interfaces, item as litem
+from getpaid.core import interfaces
 
 from AccessControl import getSecurityManager
 
-from Products.Five.viewlet import viewlet, manager
+from Products.Five.viewlet import manager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from Products.PloneGetPaid.interfaces import PayableMarkers, PayableMarkerMap, IGetPaidCartViewletManager
+
 from Products.CMFCore.utils import getToolByName
 
-from zope.i18nmessageid import MessageFactory
-
-_ = MessageFactory('plonegetpaid')
+from Products.PloneGetPaid.interfaces import PayableMarkers, IGetPaidCartViewletManager, IGetPaidManagementOptions
+from Products.PloneGetPaid.i18n import _
 
 
 #################################
@@ -40,20 +39,20 @@ class ShoppingCart( BrowserView ):
         self.manager = ShoppingCartManager( self.context, self.request, self )
         self.manager.update()
         return super( ShoppingCart, self ).__call__()
-    
+
     def getCart( self ):
         if self._cart is not None:
             return self._cart
         cart_manager = component.getUtility( interfaces.IShoppingCartUtility )
         self._cart = cart = cart_manager.get( self.context, create=True )
         return cart
-    
+
     cart = property( getCart )
 
     def isContextAddable( self ):
         addable = filter( lambda x, s=self.context: x.providedBy(s), PayableMarkers )
-        return not not addable 
-    
+        return not not addable
+
     def size( self ):
         if self.cart is None:
             return 0
@@ -61,39 +60,47 @@ class ShoppingCart( BrowserView ):
 
 class ShoppingCartAddItem( ShoppingCart ):
     """
-    item we're adding is the context 
+    item we're adding is the context
     """
-    
+
     def __call__( self ):
         if self.request.has_key('add_item'):
             self.addToCart()
         return super( ShoppingCartAddItem, self ).__call__()
-    
-    def addToCart( self ):
-        item_id = self.context.UID()
-        if item_id in self.cart:
-            self.cart[ item_id ].quantity += 1
-            return 
-        found = False
-        for marker, iface in PayableMarkerMap.items():
-            if marker.providedBy( self.context ):
-                found = True
-                break
 
-        if not found:
-            raise RuntimeError("Invalid Context For Cart Add")
+    def addToCart( self ):
+        # create a line item and add it to the cart
+        item_factory = interfaces.ILineItemFactory( self.cart )
+        item_factory.create( self.context )
         
-        payable = iface( self.context )
+                                     
+class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
+    def addToCart( self ):
+        # XXX this duplicates functionality available elsewhere
+        #     (in the name of simplicity -- pah)
+        super(ShoppingCartAddItemAndGoToCheckout, self).addToCart()
+        portal = getToolByName( self.context, 'portal_url').getPortalObject()
+        url = portal.absolute_url()
+        if getSecurityManager().getUser().getId() is not None:
+            url = url + '/@@getpaid-checkout-wizard'
+        else:
+            url = "%s/%s?%s"%( url,
+                               'login_form',
+                               urlencode([('came_from',
+                                           url + '/@@getpaid-checkout-wizard')]))
+        return self.request.RESPONSE.redirect( url )
         
-        item = litem.PayableLineItem()
-        item.item_id = self.context.UID()
-        item.name = self.context.Title()
-        item.description = self.context.Description()
-        item.cost = payable.price
-        item.quantity = 1
-        self.cart[ item.item_id ] = item
-        self.cart.last_item = item.item_id
-        
+def verifyItems( cart ):
+    """ verify that all the objects in the cart can be resolved, removing
+    items that can no longer be resolved and returning them """
+    remove = []
+    for item in cart.values():
+        if interfaces.IPayableLineItem.providedBy( item ):
+            if item.resolve() is None:
+                remove.append( item )
+    for item in remove:
+        del cart[ item.item_id ]
+    return remove
 
 #################################
 # Shopping Cart Viewlet Manager
@@ -108,7 +115,7 @@ class ViewletManagerShoppingCart( object ):
     def sort (self, viewlets ):
         """ sort by name """
         return sorted(viewlets)
-        
+
 ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
                                               IGetPaidCartViewletManager,
                                               GetPaidShoppingCartTemplate,
@@ -119,10 +126,10 @@ ShoppingCartManager = manager.ViewletManager( "ShoppingCart",
 # Shopping Cart Viewlets
 
 class LineItemColumn( object ):
-    
+
     def __init__(self, name):
         self.name = name
-        
+
     def __call__( self, item, formatter ):
         value = getattr( item, self.name, '')
         if callable( value ):
@@ -144,20 +151,20 @@ class ShoppingCartListing( ContainerViewlet ):
         column.GetterColumn( title=_(u"Price"), getter=LineItemColumn("cost") ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
        ]
-    
+
     selection_column = columns[0]
     template = ZopeTwoPageTemplateFile('templates/cart-listing.pt')
-    
+
     def __init__( self, *args, **kw):
         super( ShoppingCartListing, self ).__init__( *args, **kw )
 
     def getContainerContext( self ):
         return self.__parent__.cart
-        
+
     def isOrdered( self, *args ):
         # shopping cart should not be ordered, so override this with False
         return False
-    
+
 class ShoppingCartActions( FormViewlet ):
 
     template = ZopeTwoPageTemplateFile('templates/cart-actions.pt')
@@ -165,12 +172,27 @@ class ShoppingCartActions( FormViewlet ):
     def render( self ):
         return self.template()
 
+    def canCheckout( self, *args ):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        manage_options = IGetPaidManagementOptions(portal)
+        allow_anonymous_checkout = manage_options.allow_anonymous_checkout
+        itemsize = len( self.__parent__.cart )
+        if itemsize != 0:
+            return allow_anonymous_checkout and True or self.isLoggedIn()
+        return False
+        
     def isLoggedIn( self, *args ):
         return getSecurityManager().getUser().getId() is not None
-    
+
+    def isLoggedInAndHasItems(self, *args):
+        itemsize = len( self.__parent__.cart )
+        if itemsize !=0 and getSecurityManager().getUser().getId() is not None:
+            return True
+        else:
+            return False
+
     def isAnonymous( self, *args ):
         return getSecurityManager().getUser().getId() is None
-
 
     @form.action("Continue Shopping")
     def handle_continue_shopping( self, action, data ):
@@ -184,24 +206,13 @@ class ShoppingCartActions( FormViewlet ):
             payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
         return self.request.RESPONSE.redirect(payable.absolute_url()+'/view')
 
-    @form.action("Checkout", condition="isLoggedIn", name="AuthCheckout")
+
+    @form.action("Checkout", condition="canCheckout", name="AuthCheckout")
     def handle_checkout( self, action, data ):
         # go to order-create
         # force ssl? redirect host? options
         portal = getToolByName( self.context, 'portal_url').getPortalObject()
-        url = portal.absolute_url() + '/@@getpaid-checkout'
+        url = portal.absolute_url() + '/@@getpaid-checkout-wizard'
         return self.request.RESPONSE.redirect( url )
-
-    @form.action("Checkout", condition="isAnonymous", name="AnonCheckout")
-    def handle_login_checkout( self, action, data ):
-        # go to sign in with redirect url to checkout
-        portal = getToolByName( self.context, 'portal_url').getPortalObject()
-        url = portal.absolute_url()
-        url = "%s/%s?%s=%s/%s"%( url,
-                                 'login_form',
-                                 'came_from',
-                                 url,
-                                 '@@getpaid-checkout' )
-        return self.request.RESPONSE.redirect( url )         
 
 

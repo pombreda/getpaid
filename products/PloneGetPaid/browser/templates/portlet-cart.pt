@@ -5,9 +5,9 @@
 <body>
 <div metal:define-macro="portlet"
      tal:define="view context/@@getpaid-shopping-cart">
-  
+
     <dl class="portlet" id="portlet-cart"
-	tal:condition="python: view.cart or view.isContextAddable()">
+	tal:condition="python: (view.cart or view.isContextAddable()) and view.size()!=0">
 
         <dt class="portletHeader">
             <span class="portletTopLeft"></span>
@@ -15,7 +15,7 @@
             <span class="portletTopRight"></span>
         </dt>
 
-        <dd class="portletItem even"> 
+        <dd class="portletItem">
             <span i18n:translate="text_contains_items">Contains <span tal:content="view/size" i18n:name="size"> 5 </span> Items</span>
         </dd>
 
@@ -23,6 +23,12 @@
             <a href="" tal:attributes="href string:${context/portal_url}/@@getpaid-cart"
                i18n:translate="label_manage_cart">
               Manage Cart
+            </a>
+        </dd>
+        <dd class="portletFooter">
+            <a href="" tal:attributes="href string:${context/portal_url}/@@getpaid-checkout-wizard"
+               i18n:translate="heading_checkout">
+              <span>Checkout</span>
             </a>
             <span class="portletBottomLeft"></span>
             <span class="portletBottomRight"></span>

@@ -6,16 +6,19 @@
     
     <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
 
-    <div class="hidden_fields" tal:condition="view/hidden_inputs" tal:content="structure view/hidden_inputs"> </div>
+    <div class="hidden_fields" tal:define="hidden_inputs view/hidden_inputs|nothing" tal:condition="hidden_inputs" tal:content="structure view/hidden_inputs"> </div>
   
 <metal:block define-macro="form-body">
 
-  <fieldset>
+  <fieldset tal:define="widgets view/widgets">
+
     <legend tal:define="form_name view/form_name|nothing"
             tal:condition="form_name"
             tal:content="form_name">Form name</legend>
 
-  <tal:block tal:repeat="widget view/widgets">
+  <metal:block define-macro="fieldset"> 
+
+  <tal:block tal:repeat="widget widgets">
 
     <div tal:condition="python: not widget.visible">
       <div class="error" tal:condition="widget/error" tal:content="widget/error"></div>
@@ -51,8 +54,10 @@
 	  </div>
     </div>
    </tal:block>
+  </metal:block>
   </fieldset>
 </metal:block>
+
 
    <div id="actionsView">
     <span class="actionButtons"

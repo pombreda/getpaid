@@ -19,11 +19,10 @@ from zope.i18nmessageid import MessageFactory
 
 import getpaid.core.interfaces as igetpaid
 
-from ore.member.browser import SchemaSelectWidget as SelectWidgetFactory
+from Products.PloneGetPaid.i18n import _
 
 from base import BaseView
-
-_ = MessageFactory('plonegetpaid')
+from widgets import SelectWidgetFactory, CountrySelectionWidget, StateSelectionWidget
 
 
 class Overview( BrowserView ):
@@ -72,7 +71,8 @@ class Identification( BaseSettingsForm ):
     get paid management interface
     """
     form_fields = form.Fields(interfaces.IGetPaidManagementIdentificationOptions)
-    
+    form_fields['contact_country'].custom_widget = CountrySelectionWidget
+    form_fields['contact_state'].custom_widget = StateSelectionWidget
 
 #Configure
 class ContentTypes( BaseSettingsForm ):
@@ -80,11 +80,13 @@ class ContentTypes( BaseSettingsForm ):
     get paid management interface
     """
     form_fields = form.Fields( interfaces.IGetPaidManagementContentTypes )
+    form_fields = form_fields.omit('premium_types')
+    form_fields = form_fields.omit('shippable_types')
 
     form_fields['buyable_types'].custom_widget = SelectWidgetFactory
-    form_fields['premium_types'].custom_widget = SelectWidgetFactory
+    #form_fields['premium_types'].custom_widget = SelectWidgetFactory
     form_fields['donate_types'].custom_widget = SelectWidgetFactory
-    form_fields['shippable_types'].custom_widget = SelectWidgetFactory
+    #form_fields['shippable_types'].custom_widget = SelectWidgetFactory
 
 
 class ShippingOptions( BaseSettingsForm ):
@@ -144,7 +146,7 @@ class PaymentProcessor( BaseSettingsForm ):
                                               igetpaid.IPaymentProcessor,
                                               processor_name )
         except:
-            self.status = _(u"The specified processor name is available in the configuration but has been uninstalled; please reinstall the payment method package or adjust the available payment options.")
+            self.status = _(u"The currenly configured Payment Processor cannot be found; please check if the corresponding package is installed correctly.")
             return
         
         self.hidden_form_vars = {'processor_name' : self._edited_processor_name}
