@@ -148,7 +148,7 @@ msgstr ""
 
 #: ./browser/order.py:117
 msgid "Order Details"
-msgstr ""
+msgstr "Detalles"
 
 msgid "Payment Options"
 msgstr ""
@@ -158,7 +158,7 @@ msgid "Payment Processor"
 msgstr "Procesador de Pagos"
 
 msgid "Payment Processor Settings"
-msgstr ""
+msgstr "Configuración del Procesador de Pagos"
 
 #: ./browser/admin.py:114
 msgid "Please Select Payment Processor in Payment Options Settings"
@@ -216,7 +216,7 @@ msgid "Shopping cart session timeout (in seconds)"
 msgstr "Tiempo límite de la sesión del carrito de compras (en segundos)"
 
 msgid "Site Profile"
-msgstr ""
+msgstr "Perfíl del Sitio"
 
 #: ./interfaces.py:76
 msgid "Store/Organization Name"
@@ -254,7 +254,7 @@ msgstr "países"
 #. Default: "Documentation on GetPaid can be found at ${label_plone_documentation} ."
 #: ./browser/templates/admin-overview.pt:17
 msgid "description_getpaid_setup_documentation"
-msgstr ""
+msgstr "Se puede encontrar la documentación de GetPaid en ${lable_plone_documentation}."
 
 #. Default: "To view and manage orders in the site, click on the Orders tab above."
 #: ./browser/templates/admin-overview.pt:18
@@ -289,12 +289,12 @@ msgstr ""
 #. Default: "Disclaimer"
 #: ./browser/templates/disclaimer.pt:5
 msgid "heading_checkout_disclaimer"
-msgstr ""
+msgstr "Salvedad"
 
 #. Default: "Privacy Policy"
 #: ./browser/templates/privacy-policy.pt:5
 msgid "heading_checkout_privacy_policy"
-msgstr ""
+msgstr "Política de Privacidad"
 
 #. Default: "Thank you for you Order"
 #: ./browser/templates/checkout-thank-you.pt:5
@@ -509,7 +509,7 @@ msgstr "Número de Pedido"
 #: ./browser/templates/portlet-content-buyable.pt:33
 #, fuzzy
 msgid "text_price"
-msgstr "Precio: $<span>${DYNAMIC_CONTENT}</span>"
+msgstr "Precio: $${value_price}"
 
 #. Default: "Product Details"
 #: ./browser/templates/portlet-content-buyable.pt:12

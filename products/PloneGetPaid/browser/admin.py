@@ -68,11 +68,11 @@ class ContentTypes( BaseSettingsForm ):
     get paid management interface
     """
     form_fields = form.Fields( interfaces.IGetPaidManagementContentTypes )
-    form_fields = form_fields.omit('buyable_types')
+    form_fields = form_fields.omit('premium_types')
     form_fields = form_fields.omit('shippable_types')
     
-    #form_fields['buyable_types'].for_input = False
-    form_fields['premium_types'].custom_widget = SelectWidgetFactory
+    form_fields['buyable_types'].custom_widget = SelectWidgetFactory
+    #form_fields['premium_types'].custom_widget = SelectWidgetFactory
     form_fields['donate_types'].custom_widget = SelectWidgetFactory
     #form_fields['shippable_types'].custom_widget = SelectWidgetFactory
 
