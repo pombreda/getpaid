@@ -144,7 +144,8 @@ class ILineItem( Interface ):
 
 
 class ILineItemFactory( Interface ):
-    """
+    """ encapsulation of creating and adding a line item to a line item container
+    from a payable.
     """
     
     def create( payable ):
@@ -161,8 +162,8 @@ class IPayableLineItem( ILineItem ):
     A line item linked to a payable
     """
 
-    def resolve( ine):
-        """ return the payable object
+    def resolve( ):
+        """ return the payable object, or None if can't be found.
         """
 
 class IRecurringLineItem( IPayableLineItem ):
@@ -228,7 +229,7 @@ class ITaxUtility( Interface ):
 class IAddress( Interface ):
     """ a physical address
     """
-    first_line = schema.TextLine( title = _(u"First Line"))
+    first_line = schema.TextLine( title = _(u"First Line"), description=_(u"Please Enter Your Address"))
     second_line = schema.TextLine( title = _(u"Second Line"), required=False )
     city = schema.TextLine( title = _(u"City") )
     state = schema.Choice( title = _(u"State"),

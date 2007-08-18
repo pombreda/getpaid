@@ -45,8 +45,10 @@ class PayableLineItem( LineItem ):
     """
     implements( interfaces.IPayableLineItem )
 
+    uid = None
+    
     def resolve( self ):
         utility = component.getUtility( IIntIds )
-        utility.queryObject( self.uid )
+        return utility.queryObject( self.uid )
         
         
