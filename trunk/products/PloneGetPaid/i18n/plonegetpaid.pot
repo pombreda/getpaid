@@ -464,6 +464,11 @@ msgstr ""
 msgid "states"
 msgstr ""
 
+#. Default: "here"
+#: ./browser/templates/checkout-thank-you.pt:10
+msgid "status_url"
+msgstr ""
+
 #. Default: "Contains ${size} Items"
 #: ./browser/templates/portlet-cart.pt:19
 msgid "text_contains_items"
@@ -504,7 +509,7 @@ msgstr ""
 msgid "text_order_id"
 msgstr ""
 
-#. Default: "Price: $${value_price}"
+#. Default: "Price: $ ${value_price}"
 #: ./browser/templates/portlet-content-buyable.pt:33
 msgid "text_price"
 msgstr ""
