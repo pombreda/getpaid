@@ -3,7 +3,7 @@
 #This script must be executed from the product folder.
 #i18ndude should be available in current $PATH
 
-i18ndude rebuild-pot --pot i18n/plonegetpaid.pot --create i18n/plonegetpaid --merge i18n/manual.pot ./
+i18ndude rebuild-pot --pot i18n/plonegetpaid.pot --create plonegetpaid --merge i18n/manual.pot ./
 
 for file in i18n/plonegetpaid-??.po
 do
