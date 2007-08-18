@@ -377,7 +377,7 @@ def recordOrderWorkflow( order, event ):
     data['change_date'] = datetime.datetime.now()
     data['new_state'] = event.destination
     data['previous_state'] = event.source
-    data['transition'] = event.transition.transition_id
+    data['transition'] = event.transition.title
     data['comment'] = event.comment
 
     audit_log = interfaces.IOrderWorkflowLog( event.object )
