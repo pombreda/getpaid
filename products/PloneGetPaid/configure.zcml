@@ -5,7 +5,6 @@
 <!-- Dependencies -->
 <include package="getpaid.core" />
 <include package="zope.app.annotation" />
-<include package="yoma.layout" />
 
 <!-- Don't include the subscribers for ipersistent.. -->
 <include package="five.intid" file="base.zcml" />
@@ -29,6 +28,13 @@
    for="getpaid.core.interfaces.IPayable
         zope.app.container.interfaces.IObjectRemovedEvent"
    handler="five.intid.intid.moveIntIdSubscriber"
+   />
+
+<!-- Classify Orders with marker interfaces -->
+<subscriber
+   for="getpaid.core.interfaces.IOrder
+	zope.app.event.interfaces.IObjectCreatedEvent"
+   handler=".order.classifyOrder"
    />
 
 <!-- Optional Payment Processors and Dependency Checks-->
