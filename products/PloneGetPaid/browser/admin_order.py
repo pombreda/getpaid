@@ -6,7 +6,7 @@ or better split admin.py into getpaid.admin
 order administration
 """
 
-import datetime, os, inspect, StringIO
+import datetime, os, inspect, StringIO, csv
 
 from zope import component, schema, interface
 from zope.schema.interfaces import IContextSourceBinder
@@ -16,7 +16,6 @@ from zope.formlib import form
 
 from zc.table import table, column
 from ore.viewlet import core
-from ore.viewlet.base import BaseEventManager
 
 from getpaid.core import interfaces
 from getpaid.core.order import OrderQuery as query
@@ -29,7 +28,6 @@ from Products.Five.viewlet import viewlet, manager as viewlet_manager
 from Products.PloneGetPaid import interfaces as ipgp
 from yoma.batching import BatchingMixin
 
-from base import BaseView
 from order import OrderRoot
 
 def renderOrderId( order, formatter ):

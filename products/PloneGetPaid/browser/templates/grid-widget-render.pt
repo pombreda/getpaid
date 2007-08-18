@@ -1,0 +1,29 @@
+<div class="field"
+     tal:define="widget options/widget;
+		 description widget/hint;
+                 error view/error"
+     tal:attributes="class python:'field'+(error and ' error' or '')">
+          <label tal:attributes="for widget/name">
+            <span i18n:translate=""
+                  tal:content="widget/label">label</span>
+          </label>
+
+          <span class="fieldRequired" title="Required">
+                i18n:domain="plone"
+                i18n:translate="label_required"
+                i18n:attributes="title title_required;">
+            (Required)
+          </span>
+          
+          <div class="formHelp"
+               i18n:translate=""
+               tal:content="description"
+               tal:condition="description"
+               >field description</div>
+          <div tal:condition="error" tal:content="structure error">               
+            The Error
+          </div>
+          <div class="widget" tal:content="structure widget">
+            <input type="text" />
+	  </div>
+ </div>

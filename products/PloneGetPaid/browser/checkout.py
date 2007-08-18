@@ -47,10 +47,14 @@ carry hidden to force transition to required, allow linear links to be used thou
 import random, sys
 from cPickle import loads, dumps
 
-from zope.formlib import form
-from zope.schema import getFieldsInOrder
-from zope.app.event.objectevent import ObjectCreatedEvent
+
+from zope.dottedname import resolve
 from zope.event import notify
+from zope.formlib import form
+from zope import schema, interface
+from zope.interface.interfaces import IInterface
+from zope.app.event.objectevent import ObjectCreatedEvent
+
 from zope import component
 
 from yoma.layout import LayoutMixin
@@ -59,6 +63,7 @@ from getpaid.core import interfaces, options
 from getpaid.core.order import Order
 
 from AccessControl import getSecurityManager
+from ZTUtils import make_hidden_input
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -67,13 +72,17 @@ from Products.CMFCore.utils import getToolByName
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 
+from Products.PloneGetPaid.i18n import _
+
 from base import BaseView, GridLayout
 from widgets import CountrySelectionWidget, StateSelectionWidget
 
 
 class BaseCheckoutForm( formbase.EditForm, BaseView ):
-
-    template = ZopeTwoPageTemplateFile("templates/checkout-billing-info.pt")
+    
+    template = None # must be overridden
+    hidden_form_vars = None
+    _next_url = None
     
     def __init__( self, context, request ):
         self.context = context
@@ -81,13 +90,61 @@ class BaseCheckoutForm( formbase.EditForm, BaseView ):
         self.setupLocale( request )
         self.setupEnvironment( request )   
 
+    def hidden_inputs( self ):
+        if not self.hidden_form_vars: return ''
+        return make_hidden_input( **self.hidden_form_vars )
+    
+    hidden_inputs = property( hidden_inputs )
 
+    def invariantErrors( self ):
+        errors = []
+        for error in self.errors:
+            if isinstance( error, interface.Invalid ):
+                errors.append( error )
+        return errors
+    
+    def getAdapters( self ):
+        return self.adapters.values()
+
+    def getFieldsByAdapter( self, adapter ):
+        return [ff for ff in self.form_fields if ff.field.interface == adapter.schema]
+
+    def getWidgetsByAdapter( self, adapter ):
+        return [w for w in self.widgets if w.context.interface == adapter.schema ]
+
+    def getWidgetsByIName( self, name ):
+        # XXX only call through unrestricted code..
+        iface  = resolve.resolve( name )
+        assert IInterface.providedBy( iface )
+        return self.getWidgetsByInterface( iface )
+
+    def getWidgetsByInterface( self, interface ):
+        return [w for w in self.widgets if w.context.interface == interface ]
+        
+    def setUpWidgets( self, ignore_request=False ):
+        self.adapters = self.adapters is not None and self.adapters or {}
+        self.widgets = form.setUpEditWidgets(
+            self.form_fields, self.prefix, self.context, self.request,
+            adapters=self.adapters, ignore_request=ignore_request
+            )
+        
+    def render( self ):
+        if self._next_url:
+            self.request.RESPONSE.redirect( self._next_url )
+            return ""
+        return super( BaseCheckoutForm, self).render()
+    
 ##############################
 # Some Property Bags - transient adapters
 
-class BillingInfo( options.PropertyBag ): pass
-class ShipAddressInfo( options.PropertyBag ): pass
-class BillAddressInfo( options.PropertyBag ): pass
+class BillingInfo( options.PropertyBag ):
+    title = "Billing Information"
+
+class ShipAddressInfo( options.PropertyBag ):
+    title = "Shipping Information"
+    
+class BillAddressInfo( options.PropertyBag ):
+    title = "Credit Information"
 
 BillingInfo.initclass( interfaces.IUserPaymentInformation )
 ShipAddressInfo.initclass( interfaces.IShippingAddress )
@@ -96,124 +153,139 @@ BillAddressInfo.initclass( interfaces.IBillingAddress )
 class ImmutableBag( object ):
 
     def initfrom( self, other, iface ):
-        for field_name, field in getFieldsInOrder( iface ):
+        for field_name, field in schema.getFieldsInOrder( iface ):
             setattr( self, field_name, field.get( other ) )
         return self
 
-class CheckoutConfirmed( BrowserView, BaseView ):
-    pass
 
-class CheckoutLayouts:
+WIZARD_NEXT_STEP = object()
 
-    credit_card_layout = GridLayout(
-        ).addText(u'Credit Card', 0, 0
-        ).addWidget('name_on_card', 1, 0                                                          
-        ).addWidget('credit_card_type', 2, 0
-        ).addWidget('credit_card', 3, 0
-        ).addWidget('cc_expiration', 4, 0
-        ).addWidget('cc_cvc', 5, 0
-        ).addWidget('phone_number', 6, 0                                        
-        )
+class CheckoutWizard( BrowserView ):
 
-    bill_address_layout = GridLayout(
-        ).addText(u'Billing Address', 0, 1, colspan=2 
-        ).addWidget('bill_first_line', 1, 0
-        ).addWidget('bill_second_line', 2, 0
-        ).addWidget('bill_city', 3, 0
-        ).addWidget('bill_state', 4, 0
-        ).addWidget('bill_country', 5, 0
-        ).addWidget('bill_postal_code', 6, 0
-# use same shipping as billing address
-#        ).addWidget('bill_postal_code', 7, 0                                    
-        )
+    steps = ['checkout-address-info', 'checkout-review-pay']
+
+    def __call__( self ):
+        import pprint
+        pprint.pprint( self.request.form )
+
+        current_step, next_step = self.getSteps( self.request )
+        print 'wizard', current_step, next_step
+
+        current = self.context.restrictedTraverse('@@%s'%current_step)
+        current.update()
         
-    shipping_address_layout = GridLayout(
+        if current._next_url == WIZARD_NEXT_STEP:
+            print "moving to next step", next_step
+            assert next_step, "No Next Step Or Redirect"
+            next = self.context.restrictedTraverse('@@%s'%next_step )
+            return next()
 
-        ).addText(u'Mailing Address', 0, 1, colspan=2 
-        ).addWidget('ship_first_line', 1, 0
-        ).addWidget('ship_second_line', 2, 0
-        ).addWidget('ship_city', 3, 0
-        ).addWidget('ship_state', 4, 0
-        ).addWidget('ship_country', 5, 0
-        ).addWidget('ship_postal_code', 6, 0                            
-        )
+        return current.render()
+
+    def getSteps( self, request ):
+        cur_step = self.request.get('cur_step', self.steps[0] )
+        assert cur_step in self.steps
         
-class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
+        # check last step
+        if len(self.steps) -1 == self.steps.index(cur_step):
+            return cur_step, None
+        
+        next_step = self.steps[ self.steps.index( cur_step ) + 1 ]
+        return cur_step, next_step
+
+class CheckoutAddress( BaseCheckoutForm, LayoutMixin ):
     """
     browser view for collecting credit card information and submitting it to
     a processor.
     """
+
     form_fields = form.Fields( interfaces.IBillingAddress,
-                               interfaces.IShippingAddress,
-                               interfaces.IUserPaymentInformation )
+                               interfaces.IShippingAddress )
     
     form_fields['ship_country'].custom_widget = CountrySelectionWidget
     form_fields['bill_country'].custom_widget = CountrySelectionWidget
     form_fields['ship_state'].custom_widget = StateSelectionWidget
     form_fields['bill_state'].custom_widget = StateSelectionWidget
-    
-    form_layout = GridLayout(
-        ).addLayout(
-           # Billing Address
-           CheckoutLayouts.bill_address_layout,
-           0, 0
-        ).addLayout(
-           # Shipping Address
-           CheckoutLayouts.shipping_address_layout,           
-           0, 1
-        ).addLayout(
-           # credit card information
-           CheckoutLayouts.credit_card_layout,
-           1, 1, colspan=2
-        ).addAction("make-payment", 2, 1, colspan=2)
 
-    # style it
-    form_layout.setCSS( 0, 0, "fieldset")
-    form_layout.setStyle( 0, 0, "border:1px solid black;")
-    form_layout.setId( 0, 0, "billing")
-    
-    form_layout.setCSS( 0, 1, "fieldset")
-    form_layout.setStyle( 0, 1, "border:1px solid black;")
-    form_layout.setId( 0, 1, "shipping")
-
-    form_layout.setCSS( 1, 1, "fieldset")
-    form_layout.setStyle( 1, 1, "border:1px solid black;")
-    form_layout.setId( 1, 1, "credit_card")
-
-
+    template = ZopeTwoPageTemplateFile("templates/checkout-address.pt")
 
     _next_url = None
-
+    
     def setupDataAdapters( self ):
 	self.adapters = {}
         self.adapters[ interfaces.IBillingAddress ] = BillAddressInfo()
         self.adapters[ interfaces.IShippingAddress ] = ShipAddressInfo()
-        self.adapters[ interfaces.IUserPaymentInformation ] = BillingInfo()
 	return
 
-    def __call__( self ):
-        try:
-            self.setupDataAdapters()
-            return super( CheckoutPayment, self).__call__()
-        except:
-            import sys,pdb,traceback
-            traceback.print_exc()
-            pdb.post_mortem( sys.exc_info()[-1] )
-            raise
+    def update( self ):
+        self.hidden_form_vars = dict( cur_step = 'checkout-address-info' )
+        self.setupDataAdapters()
+        super( CheckoutAddress, self).update()
 
+    @form.action(_(u"Continue"), name="continue", condition=form.haveInputWidgets )
+    def handle_continue( self, action, data ):
+        self._next_url = WIZARD_NEXT_STEP
+
+
+class CheckoutReviewAndPay( BaseCheckoutForm ):
+
+    form_fields = form.Fields( interfaces.IUserPaymentInformation )
+    passed_fields = form.Fields( interfaces.IBillingAddress ) + \
+                    form.Fields( interfaces.IShippingAddress )
+
+    template = ZopeTwoPageTemplateFile("templates/checkout-review-pay.pt")
+
+    def setupDataAdapters( self ):
+	self.adapters = {}
+        self.adapters[ interfaces.IBillingAddress ] = BillAddressInfo()
+        self.adapters[ interfaces.IShippingAddress ] = ShipAddressInfo()        
+        self.adapters[ interfaces.IUserPaymentInformation ] = BillingInfo()
+
+        # extract data that was passed through in the request, using edit widgets
+        # for marshalling value extraction. we'll basically throw an error here 
+        # if the values aren't found, but that shouldn't happen in normal operation
+        data = {}
+        widgets = form.setUpEditWidgets( self.passed_fields, self.prefix, self.context,
+                                         self.request, adapters=self.adapters,
+                                         ignore_request=False )
+        form.getWidgetsData( widgets, self.prefix, data )
+
+        # widgets don't nesc. have one to one mapping, greedily pass through
+        # all the previous form data in the request.. skip actions
+        passed = {}
+        for k in self.request.form:
+            if k.startswith( self.prefix ) and not 'action' in k:
+                passed[ k ] = self.request.form[ k ]
+        self.hidden_form_vars = passed
+
+        # save the data to the adapters
+        self.extractData( data )
+        
     def setUpWidgets( self, ignore_request=False ):
         self.adapters = self.adapters is not None and self.adapters or {}
+
+        # edit widgets for payment info
         self.widgets = form.setUpEditWidgets(
-            self.form_fields, self.prefix, self.context, self.request,
+            self.form_fields.select( *schema.getFieldNames( interfaces.IUserPaymentInformation)),
+            self.prefix, self.context, self.request,
             adapters=self.adapters, ignore_request=ignore_request
             )
 
-    def render( self ):
-        if self._next_url:
-            self.request.RESPONSE.redirect( self._next_url )
-            return ""
-        return super( CheckoutPayment, self).render()
+        # display widgets for bill/ship address
+        self.widgets += form.setUpEditWidgets(
+            self.passed_fields,  self.prefix, self.context, self.request,
+            adapters=self.adapters, for_display=True, ignore_request=ignore_request
+            )
 
+    def update( self ):
+        self.setupDataAdapters()
+        self.hidden_form_vars['cur_step'] = 'checkout-review-pay'
+
+        super( CheckoutReviewAndPay, self).update()
+
+    # custom validator.. make sure we have all relevant data
+    #def validatePayment( self, action, data ):
+    #    pass
 
     @form.action(u"Make Payment", name="make-payment", condition=form.haveInputWidgets )
     def makePayment( self, action, data ):
@@ -264,7 +336,7 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
 
     def extractData( self, data ):
         for iface, adapter in self.adapters.items():
-            for name, field in getFieldsInOrder( iface ):
+            for name, field in schema.getFieldsInOrder( iface ):
                 if name in data:
                     field.set( adapter, data[ name ] )
 
@@ -306,7 +378,11 @@ class CheckoutPayment( BaseCheckoutForm, LayoutMixin ):
                       f_states.REVIEWING,
                       f_states.CHARGED ):
             return base_url + '/@@getpaid-thank-you'
+
             
+class CheckoutConfirmed( BrowserView ):
+    """ thank you screen after success
+    """
 
 class DisclaimerView(BrowserView):
     """ Shows the disclaimer text from the getpaid settings.
@@ -323,7 +399,7 @@ class PrivacyPolicyView(BrowserView):
     """
 
     @property
-    def privacyPolicy(self):
+    def privacy_policy(self):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         settings = IGetPaidManagementOptions(portal)
         return settings.privacy_policy

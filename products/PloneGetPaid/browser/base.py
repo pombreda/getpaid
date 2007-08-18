@@ -3,20 +3,67 @@ $Id$
 """
 
 
-from zope.i18n.interfaces import IUserPreferredLanguages
+from zope.i18n.interfaces import IUserPreferredLanguages, IUserPreferredCharsets
 from zope.i18n.locales import locales, LoadLocaleError
 
 from ZTUtils import make_hidden_input
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.app import pagetemplate
+from Products.Five.browser import decode
 from Products.Five.formlib import formbase
 from Products.Five.viewlet import viewlet
 
-from yoma.layout.layout import TableFormatter, GridLayout as BaseLayout
+from yoma.layout import layout
 
 class LayoutTemplate( object ): pass
 
-class GridLayout( BaseLayout ):
+class WidgetRenderer( layout.WidgetRenderer ):
+    
+    template = pagetemplate.ViewPageTemplateFile('templates/grid-widget-render.pt')
+    
+    def render( self ):
+        self.visible = self.widget.visible
+        self.error = self.widget.error()
+        self.required = self.widget.required
+        
+        print 'visible', self.widget.visible, 'required', self.widget.required, 'error', self.widget.error()
+        value =  self.template( widget=self.widget)
+        charsets = IUserPreferredCharsets( self.request ).getPreferredCharsets() or ['utf-8']
+        # reset since our z3 template kills it.
+        decode.setPageEncoding( self.request )
+        return decode._decode( value, charsets )
+
+## class TextCell( layout.TextCell ):
+
+##     def render( self, form ):
+##         value = self()
+##         if isinstance( value, messageid ):
+##             return XXX translate
+##         return value
+
+class WidgetCell( layout.WidgetCell ):
+
+    def render( self, form ):
+        name, label, hint = self()
+        renderer = WidgetRenderer( form.context, form.request, form.widgets[ name ] )
+
+        return unicode( renderer.render() )
+
+class GridLayout( layout.GridLayout ):
+
+    def addWidget(self,
+        name, row, col, rowspan=1, colspan=1, label=layout._marker, hint=layout._marker,
+        ):
+        widgetcell = WidgetCell(name, label, hint, rowspan, colspan)
+        if label is None:
+            # hide label - swallow up the label column
+            widgetcell.width += 1
+            self.grid.set(row, col, widgetcell)
+        else:
+            self.grid.set(row, col, layout.LabelCell(widgetcell))
+            self.grid.set(row, col+1, widgetcell)
+        return self
 
     def setDesign( self, row, col, **kw ):
         for n in ('id', 'class', 'style'):
@@ -37,7 +84,7 @@ class GridLayout( BaseLayout ):
         formatter = LayoutTableFormatter( self.grid, form )
         return formatter()
 
-class LayoutTableFormatter( TableFormatter ):
+class LayoutTableFormatter( layout.TableFormatter ):
     
     def renderCell( self, cell ):
         attr = u''
@@ -72,7 +119,7 @@ class BaseView( object ):
 
     def setupEnvironment( self, request ):
         if not hasattr( request, 'debug'): request.debug = False
-        
+
     def setupLocale( self, request ):
         # slightly adapted from zope.publisher.http.HTTPRequest.setupLocale
         if getattr( request, 'locale', None) is not None:

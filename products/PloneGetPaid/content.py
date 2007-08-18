@@ -32,31 +32,57 @@ of a content object via applying an interface to it.
 $Id$
 """
 
-from zope import interface
+from zope import interface, component
+from zope.app.intid.interfaces import IIntIds
 
-from getpaid.core.interfaces import IBuyableContent, IShippableContent, IPremiumContent, IDonationContent
-from getpaid.core import item
-
+from getpaid.core import interfaces, item
 from getpaid.core import options
 
-from Products.CMFCore.utils import getToolByName
+from interfaces import PayableMarkerMap
 
-class ContentLineItem( item.PayableLineItem ):
-    """ A line item with a reference to an archetype content that can be placed in a cart
+class LineItemFactory( object ):
     """
-    reference_id = None
-    
-    def resolve( self, context ):
-        resolve = getToolByName( context, 'reference_catalog').lookupObject
-        return resolve( self.reference_id )
+    adapts to cart and content (payable marker marked), and creates a line item
+    from said item for cart.
+    """
+    def __init__( self, cart ):
+        self.cart = cart
 
-def ContentLineItemFactory( cart, content ):
-    item = cart.PayableLineItem()
-    item.name = "%s : %s"%( content.Type(), content.Title())
-    item.cost = content.getBuyableContentPrice()
-    item.quantity = 1
-    item.reference_id = content.UID()
-    return item
+    def create( self, content ):
+        item_id = content.UID()
+        if item_id in self.cart:
+            self.cart[ item_id ].quantity += 1
+            return
+        
+        found = False
+        for marker, iface in PayableMarkerMap.items():
+            if marker.providedBy( content ):
+                found = True
+                break
+
+        if not found:
+            raise RuntimeError("Invalid Context For Cart Add")
+
+        payable = iface( content )
+
+        nitem = item.PayableLineItem()
+        nitem.item_id = content.UID() # archetypes uid
+
+        # we use intids to reference content that we can dereference cleanly
+        # without access to context.
+        nitem.uid = component.getUtility( IIntIds ).register( content )
+
+        # copy over information regarding the item
+        nitem.name = content.Title()
+        nitem.description = content.Description()
+        nitem.cost = payable.price
+        nitem.quantity = 1
+
+        # 
+        self.cart[ nitem.item_id ] = nitem
+        self.cart.last_item = nitem.item_id
+        
+        return nitem
 
 #################################
 # Buyable Content
@@ -67,14 +93,14 @@ for those who have paid, or at least replace any shopping cart / transaction ref
 with information.
 """
 
-BuyableContentStorage = options.PersistentOptions.wire( "BuyableContentStorage", "getpaid.content.buyable", IBuyableContent )
+BuyableContentStorage = options.PersistentOptions.wire( "BuyableContentStorage", "getpaid.content.buyable", interfaces.IBuyableContent )
 
 class BuyableContentAdapter( BuyableContentStorage ):
     """
     Default Adapter between Content and IBuyable. This implementation stores attributes
     of a buyable in an annotation adapter
     """
-    interface.implements( IBuyableContent )
+    interface.implements( interfaces.IBuyableContent )
     
     def __init__( self, context ):
         self.context = context
@@ -86,11 +112,11 @@ class BuyableContentAdapter( BuyableContentStorage ):
 shippable deletions need to track orders not shipped 
 """
 
-ShippableContentStorage = options.PersistentOptions.wire( "ShippableContentStorage", "getpaid.content.shippable", IShippableContent )
+ShippableContentStorage = options.PersistentOptions.wire( "ShippableContentStorage", "getpaid.content.shippable", interfaces.IShippableContent )
 
 class ShippableContentAdapter( ShippableContentStorage ):
 
-    interface.implements( IShippableContent )
+    interface.implements( interfaces.IShippableContent )
     
     def __init__( self, context ):
         self.context = context
@@ -98,11 +124,11 @@ class ShippableContentAdapter( ShippableContentStorage ):
 #################################
 # Premium Content
 
-PremiumContentStorage = options.PersistentOptions.wire( "PremiumContentStorage", "getpaid.content.buyable", IPremiumContent )
+PremiumContentStorage = options.PersistentOptions.wire( "PremiumContentStorage", "getpaid.content.buyable", interfaces.IPremiumContent )
 
 class PremiumContentAdapter( PremiumContentStorage ):
 
-    interface.implements( IPremiumContent )
+    interface.implements( interfaces.IPremiumContent )
     
     def __init__( self, context ):
         self.context = context
@@ -113,14 +139,14 @@ class PremiumContentAdapter( PremiumContentStorage ):
 """
 """
 
-DonatableContentStorage = options.PersistentOptions.wire( "DonatableContentStorage", "getpaid.content.donate", IDonationContent )
+DonatableContentStorage = options.PersistentOptions.wire( "DonatableContentStorage", "getpaid.content.donate", interfaces.IDonationContent )
 
 class DonatableContentAdapter( DonatableContentStorage ):
     """
     Default Adapter between Content and IDonationContent. This implementation stores attributes
     of a donate-able in an annotation adapter
     """
-    interface.implements( IDonationContent )
+    interface.implements( interfaces.IDonationContent )
 
     def __init__( self, context ):
         self.context = context
