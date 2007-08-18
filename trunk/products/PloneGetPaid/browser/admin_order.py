@@ -28,7 +28,7 @@ from Products.Five.viewlet import viewlet, manager as viewlet_manager
 from Products.PloneGetPaid import interfaces as ipgp
 from Products.PloneGetPaid.i18n import _
 
-from yoma.batching import BatchingMixin
+from yoma.batching import BatchingMixin, RenderNav
 
 from order import OrderRoot
 
@@ -58,7 +58,21 @@ class PriceColumn( AttrColumn ):
         value = super( PriceColumn, self).__call__( item, formatter )
         return "%0.2f"%value
 
-class BatchingFormatter( BatchingMixin, table.StandaloneFullFormatter ):
+class MyRenderNav (RenderNav):
+    def renderPrev(self):
+        # is '*-batch' the right name for these classes?
+        print >> self.out, '<span class="prev-batch">'
+        super(MyRenderNav, self).renderPrev()
+        print >> self.out, '</span><span class="next-batch">'
+        super(MyRenderNav, self).renderNext()
+        print >> self.out, '</span><span class="current-batch">'
+    def renderNext(self):
+        print >> self.out, '</span>'
+
+class MyBatchingMixin (BatchingMixin):
+    rendernav_factory = MyRenderNav
+
+class BatchingFormatter( MyBatchingMixin, table.StandaloneFullFormatter ):
     pass
 
 class OrderListingComponent( core.EventViewlet ):
