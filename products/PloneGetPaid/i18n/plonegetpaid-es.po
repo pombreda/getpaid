@@ -16,6 +16,7 @@ msgstr ""
 "Language-Name: Español\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plonegetpaid\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
 
 #: ./interfaces.py:317
 msgid "A list of countries"
@@ -465,6 +466,11 @@ msgstr "Resúmen"
 msgid "states"
 msgstr "estados"
 
+#. Default: "here"
+#: ./browser/templates/checkout-thank-you.pt:10
+msgid "status_url"
+msgstr "aquí"
+
 #. Default: "Contains ${size} Items"
 #: ./browser/templates/portlet-cart.pt:19
 msgid "text_contains_items"
@@ -505,11 +511,11 @@ msgstr "Estado del Despacho"
 msgid "text_order_id"
 msgstr "Número de Pedido"
 
-#. Default: "Price: $${value_price}"
+#. Default: "Price: $ ${value_price}"
 #: ./browser/templates/portlet-content-buyable.pt:33
 #, fuzzy
 msgid "text_price"
-msgstr "Precio: $${value_price}"
+msgstr "Precio: $ ${value_price}"
 
 #. Default: "Product Details"
 #: ./browser/templates/portlet-content-buyable.pt:12
