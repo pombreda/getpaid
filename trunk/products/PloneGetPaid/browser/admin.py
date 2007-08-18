@@ -11,17 +11,13 @@ from Products.PloneGetPaid import interfaces, pkg_home
 
 from zope import component
 from zope.formlib import form
-from zope.app.form.browser import MultiSelectWidget
-from zope.i18nmessageid import MessageFactory
 
 import getpaid.core.interfaces as igetpaid
 
+from Products.PloneGetPaid.i18n import _
+
 from base import BaseView
 from widgets import SelectWidgetFactory, CountrySelectionWidget, StateSelectionWidget
-
-_ = MessageFactory('plonegetpaid')
-
-
 
 
 class Overview( BrowserView ):
