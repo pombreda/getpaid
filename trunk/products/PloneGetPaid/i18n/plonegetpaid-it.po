@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2007-08-18 00:21+0000\n"
+"POT-Creation-Date: 2007-08-18 00:30+0000\n"
 "PO-Revision-Date: 2007-08-15 20:45 +0000\n"
 "Last-Translator: Fabio Corneti <info@corneti.com>\n"
 "Language-Team: Italiano <LL@li.org>\n"
@@ -256,12 +256,12 @@ msgid "description_getpaid_setup_documentation"
 msgstr ""
 
 #. Default: "To view and manage orders in the site, click on the Orders tab above."
-#: ./browser/templates/admin-overview.pt:19
+#: ./browser/templates/admin-overview.pt:18
 msgid "description_getpaid_setup_orders_link"
 msgstr ""
 
 #. Default: "Use the links below to configure GetPaid."
-#: ./browser/templates/admin-overview.pt:21
+#: ./browser/templates/admin-overview.pt:20
 msgid "description_getpaid_setup_overview"
 msgstr ""
 
@@ -307,7 +307,7 @@ msgid "heading_comment"
 msgstr "commento"
 
 #. Default: "Configure"
-#: ./browser/templates/admin-overview.pt:25
+#: ./browser/templates/admin-overview.pt:24
 msgid "heading_configure"
 msgstr "Configurazione"
 
@@ -327,7 +327,7 @@ msgid "heading_fulfillment_state"
 msgstr "stato spedizione"
 
 #. Default: "General Information"
-#: ./browser/templates/admin-overview.pt:37
+#: ./browser/templates/admin-overview.pt:36
 msgid "heading_general_information"
 msgstr "Informazioni generali"
 
@@ -387,7 +387,7 @@ msgid "label_donate!"
 msgstr ""
 
 #. Default: "GetPaid Version:"
-#: ./browser/templates/admin-overview.pt:39
+#: ./browser/templates/admin-overview.pt:38
 msgid "label_getpaid_version"
 msgstr "Versione di GetPaid:"
 
@@ -402,7 +402,7 @@ msgid "label_order_status_link_text"
 msgstr "qui"
 
 #. Default: "Store/Organization Name:"
-#: ./browser/templates/admin-overview.pt:41
+#: ./browser/templates/admin-overview.pt:40
 msgid "label_organization_name"
 msgstr "Nome del negozio/società:"
 
