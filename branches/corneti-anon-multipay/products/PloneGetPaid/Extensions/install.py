@@ -16,7 +16,6 @@ from zope.app.intid.interfaces import IIntIds
 from five.intid.site import add_intids
 from getpaid.core.interfaces import IOrderManager, IStore
 from getpaid.core.order import OrderManager
-from ore.member.interfaces import ISiteSchemaManager
 
 
 coci_actions = [
@@ -108,7 +107,7 @@ coci_actions = [
                action = 'string:$object_url/@@getpaid-order-history',
                category ='user',
                permission = "View",
-               condition = "python:path('object/@@getpaid_control').showManageCart()",
+               condition = "python:path('object/@@getpaid_control').showOrderHistory()",
                visible = True ),
         None ),
 
@@ -222,22 +221,6 @@ def uninstall_cart_portlet( self ):
 def uninstall_contentwidget_portlet( self ):
     install_contentwidget_portlet (self, True )
     
-def install_member_schemas( self ):
-    manager = ISiteSchemaManager( self )
-    schemas = manager.member_schemas
-    for s in [u"BillingAddressMemberData", u"ShippingAddressMemberData"]:
-        if not s in schemas:
-            schemas.append( s )
-    manager.member_schemas = schemas
-    
-def uninstall_member_schemas( self ):
-    manager = ISiteSchemaManager( self )
-    schemas = manager.member_schemas
-    for s in [u"BillingAddressMemberData", u"ShippingAddressMemberData"]:
-        if s in schemas:
-            schemas.remove( s )
-    manager.member_schemas = schemas
-    
 def install( self ):
     out = StringIO()
 
@@ -246,9 +229,6 @@ def install( self ):
     
     print >> out, "Installing Control Panel"
     install_control_panel( self  )
-
-    print >> out, "Installing Member Schemas"
-    install_member_schemas( self )
 
     print >> out, "Installing Cart Portlet"
     install_cart_portlet( self )
@@ -280,9 +260,6 @@ def uninstall( self ):
 
     print >> out, "Uninstalling Control Panels Actions"
     uninstall_control_panel( self )
-
-    print >> out, "Uninstalling Control Panels Actions"
-    uninstall_member_schemas( self )
 
     print >> out, "Uninstalling Cart Portlets"
     uninstall_cart_portlet( self )

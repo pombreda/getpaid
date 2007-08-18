@@ -6,9 +6,8 @@ or better split admin.py into getpaid.admin
 order administration
 """
 
-import datetime, os, inspect, StringIO
+import datetime, os, inspect, StringIO, csv
 
-from zope.app.traversing.interfaces import ITraversable, TraversalError
 from zope import component, schema, interface
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema import vocabulary
@@ -17,24 +16,24 @@ from zope.formlib import form
 
 from zc.table import table, column
 from ore.viewlet import core
-from ore.viewlet.base import BaseEventManager
 
 from getpaid.core import interfaces
 from getpaid.core.order import OrderQuery as query
 from hurry.workflow.interfaces import IWorkflowInfo
 
-from OFS.SimpleItem import SimpleItem
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.Five.viewlet import viewlet, manager as viewlet_manager
-from Products.Five.traversable import FiveTraversable
 
 from Products.PloneGetPaid import interfaces as ipgp
+from Products.PloneGetPaid.i18n import _
 
-from base import BaseView
+from yoma.batching import BatchingMixin, RenderNav
+
+from order import OrderRoot
 
 def renderOrderId( order, formatter ):
-    return '<a href="@@admin-manage-order/%s">%s</a>'%( order.order_id, order.order_id )
+    return '<a href="@@admin-manage-order/%s/@@admin">%s</a>'%( order.order_id, order.order_id )
 
 class AttrColumn( object ):
 
@@ -59,17 +58,34 @@ class PriceColumn( AttrColumn ):
         value = super( PriceColumn, self).__call__( item, formatter )
         return "%0.2f"%value
 
+class MyRenderNav (RenderNav):
+    def renderPrev(self):
+        # is '*-batch' the right name for these classes?
+        print >> self.out, '<span class="prev-batch">'
+        super(MyRenderNav, self).renderPrev()
+        print >> self.out, '</span><span class="next-batch">'
+        super(MyRenderNav, self).renderNext()
+        print >> self.out, '</span><span class="current-batch">'
+    def renderNext(self):
+        print >> self.out, '</span>'
+
+class MyBatchingMixin (BatchingMixin):
+    rendernav_factory = MyRenderNav
+
+class BatchingFormatter( MyBatchingMixin, table.StandaloneFullFormatter ):
+    pass
+
 class OrderListingComponent( core.EventViewlet ):
 
     template = ZopeTwoPageTemplateFile('templates/orders-listing.pt')
     
     columns = [
-        column.GetterColumn( title="Order Id", getter=renderOrderId ),
-        column.GetterColumn( title="Customer Id", getter=AttrColumn("user_id" ) ),        
-        column.GetterColumn( title="Status", getter=AttrColumn("finance_state") ),
-        column.GetterColumn( title="Fufillment", getter=AttrColumn("fulfillment_state") ),
-        column.GetterColumn( title="Price", getter=PriceColumn("getTotalPrice") ),
-        column.GetterColumn( title="Created", getter=DateColumn("creation_date") )
+        column.GetterColumn( title=_(u"Order Id"), getter=renderOrderId ),
+        column.GetterColumn( title=_(u"Customer Id"), getter=AttrColumn("user_id" ) ),        
+        column.GetterColumn( title=_(u"Status"), getter=AttrColumn("finance_state") ),
+        column.GetterColumn( title=_(u"Fufillment"), getter=AttrColumn("fulfillment_state") ),
+        column.GetterColumn( title=_(u"Price"), getter=PriceColumn("getTotalPrice") ),
+        column.GetterColumn( title=_(u"Created"), getter=DateColumn("creation_date") )
         ]
 
     order = 2
@@ -80,13 +96,16 @@ class OrderListingComponent( core.EventViewlet ):
     def listing( self ):
         columns = self.columns
         values = self.manager.get('orders-search').results
-        formatter = table.StandaloneFullFormatter( self.context,
-                                                   self.request,
-                                                   values,
-                                                   prefix="form",
-                                                   visible_column_names = [c.name for c in columns],
-                                                   #sort_on = ( ('name', False)
-                                                   columns = columns )
+        
+        formatter = BatchingFormatter( self.context,
+                                      self.request,
+                                      values,
+                                      prefix="form",
+                                      batch_size=5,
+                                      visible_column_names = [c.name for c in columns],
+                                      #sort_on = ( ('name', False)
+                                      columns = columns )
+        
         formatter.cssClasses['table'] = 'listing'
         return formatter()
     
@@ -99,7 +118,7 @@ class OrderCSVComponent( core.ComponentViewlet ):
     def render( self ):
         return self.template()
 
-    @form.action("Export Search")
+    @form.action(_(u"Export Search"))
     def export_search( self, action, data ):
 
         search = self.manager.get('order-search')
@@ -162,7 +181,7 @@ class OrderSearchComponent( core.ComponentViewlet ):
             ignore_request=ignore_request
             )
 
-    @form.action("Filter", condition=form.haveInputWidgets)
+    @form.action(_(u"Filter"), condition=form.haveInputWidgets)
     def handle_filter_action( self, action, data ):
         if data.get('creation_date'):
             data['creation_date'] = self.date_search_map.get( data['creation_date'] )
@@ -234,47 +253,8 @@ class ManageOrders( BrowserView ):
         self.manager.update()
         return super( ManageOrders, self).__call__()
 
-_marker = object()
-
-#################################
-# Views for looking at a single order, we do some traversal tricks to make the
-# the orders exposeable ttw.
-
-class AdminOrderRoot( BrowserView, FiveTraversable ):
-    """ a view against the store which allow us to expose individual order objects
-    """
-    interface.implements( ITraversable )
-    
-    def __init__( self, context, request ):
-        self.context = context
-        self.request = request
-
-    def __bobo_traverse__( self, request, name ):
-        value = getattr( self, name, _marker )
-        if value is not _marker:
-            return value
-        manager = component.getUtility( interfaces.IOrderManager )
-        order = manager.get( name )
-        if order is None:
-            raise AttributeError( name )
-        return TraversableWrapper( order ).__of__( self.context )
-
-
-class TraversableWrapper( SimpleItem ):
-    """ simple indeed, a zope2 transient wrapper around a persistent order so we can
-    publish them ttw.
-    """
-    
-    interface.implements( interfaces.IOrder )
-    
-    def __init__( self, object ):
-        self._object = object
-
-    def __getattr__( self, name ):
-        value =  getattr( self._object, name, _marker )
-        if value is not _marker:
-            return value
-        return super( TraversableWrapper, self).__getattr__( name )
+class AdminOrderRoot ( OrderRoot ):
+    pass
 
 class AdminOrderManagerBase( OrderAdminManagerBase ):
     
@@ -371,7 +351,7 @@ class CollectionTransitionHandler( object ):
         form.__parent__.manager.items_by_state = None
     
 
-def bindTransitions( form_instance, transitions, wf_name=None, collection=False ):
+def bindTransitions( form_instance, transitions, wf_name=None, collection=False, wf=None ):
     """ bind workflow transitions into formlib actions """
 
     assert not (collection and wf_name )
@@ -387,7 +367,10 @@ def bindTransitions( form_instance, transitions, wf_name=None, collection=False 
         d = {}
         if success_factory:
             d['success'] = success_factory( tid )
-        action = form.Action( tid, **d )
+        if wf is not None:
+            action = form.Action( _(unicode(wf.getTransitionById( tid ).title) ) )
+        else:
+            action = form.Action( tid, **d )
         action.form = form_instance
         action.__name__ = "%s.%s"%(form_instance.prefix, action.__name__)
         actions.append( action )
@@ -413,8 +396,9 @@ class OrderFinanceComponent( core.ComponentViewlet ):
         return super(OrderFinanceComponent, self).update()
 
     def setupActions( self ):
-        transitions = self.__parent__.context.finance_workflow.getManualTransitionIds()
-        self.actions = bindTransitions( self, transitions, wf_name='order.finance' )
+        wf = self.__parent__.context.finance_workflow
+        transitions = wf.getManualTransitionIds()
+        self.actions = bindTransitions( self, transitions, wf_name='order.finance') #, wf=wf.workflow() )
 
     def finance_status( self ):
         return self.__parent__.context.finance_state
@@ -440,8 +424,9 @@ class OrderFulfillmentComponent( core.ComponentViewlet ):
         return super( OrderFulfillmentComponent, self).update()
 
     def setupActions( self ):
-        transitions = self.__parent__.context.fulfillment_workflow.getManualTransitionIds()
-        self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment' )
+        wf = self.__parent__.context.fulfillment_workflow
+        transitions = wf.getManualTransitionIds()
+        self.actions = bindTransitions( self, transitions, wf_name='order.fulfillment') #, wf=wf.workflow() )
 
     def fulfillment_status( self ):
         return self.__parent__.context.fulfillment_state
@@ -484,7 +469,7 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
 def AvailableOrderFinanceTransitions( context ):
     info = component.getAdapter( (context,), IWorkflowInfo, "order.finance")
     return vocabulary.SimpleVocabulary.fromValues(
-        info.getManualTransitionIds()
+        info.getManualTransitionIds()        
         )
 
 interface.directlyProvides( AvailableOrderFinanceTransitions, IContextSourceBinder )
@@ -568,11 +553,11 @@ class OrderContentsComponent( core.ComponentViewlet ):
     
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
-        column.GetterColumn( title="Item Id", getter=renderItemId ),
-        column.GetterColumn( title="Price", getter=AttrColumn("cost") ),        
-        column.GetterColumn( title="Quantity", getter=AttrColumn("quantity" ) ),
-        column.GetterColumn( title="Total", getter=renderItemPrice ),        
-        column.GetterColumn( title="Status", getter=AttrColumn("fulfillment_state" ) ),
+        column.GetterColumn( title=_(u"Item Id"), getter=renderItemId ),
+        column.GetterColumn( title=_(u"Price"), getter=AttrColumn("cost") ),        
+        column.GetterColumn( title=_(u"Quantity"), getter=AttrColumn("quantity" ) ),
+        column.GetterColumn( title=_(u"Total"), getter=renderItemPrice ),        
+        column.GetterColumn( title=_(u"Status"), getter=AttrColumn("fulfillment_state" ) ),
         ]
     
     selection_column = columns[0]

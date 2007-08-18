@@ -2,10 +2,15 @@
 $Id$
 """
 
-from zope.i18n.interfaces import IUserPreferredLanguages
-from zope.i18n.locales import locales
 
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from zope.i18n.interfaces import IUserPreferredLanguages, IUserPreferredCharsets
+from zope.i18n.locales import locales, LoadLocaleError
+
+from ZTUtils import make_hidden_input
+
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.app import pagetemplate
+from Products.Five.browser import decode
 from Products.Five.formlib import formbase
 from Products.Five.viewlet import viewlet
 
@@ -22,6 +27,10 @@ class FormViewlet( viewlet.SimpleAttributeViewlet, formbase.SubPageForm ):
         super( formbase.SubPageForm, self).update()
 
 class BaseView( object ):
+    # so this mixin fixes some issues with doing zope3 in zope2 for views
+    # specifically it puts a debug attribute on the request which some view machinery checks for
+    # secondly it lookups the user locale, and attaches it as an attribute on the request
+    # where the i10n widget machinery expects to find it.
 
     def setupEnvironment( self, request ):
         if not hasattr( request, 'debug'): request.debug = False
@@ -53,7 +62,7 @@ class BaseView( object ):
 
 class BaseFormView( formbase.EditForm, BaseView ):
 
-    template = ZopeTwoPageTemplateFile('templates/form.pt')
+    template = ViewPageTemplateFile('templates/form.pt')
 
     action_url = "" # NEEDED
     hidden_form_vars = None # mapping of hidden variables to pass through on the form
