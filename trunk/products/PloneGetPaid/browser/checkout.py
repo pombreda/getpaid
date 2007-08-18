@@ -57,8 +57,6 @@ from zope.app.event.objectevent import ObjectCreatedEvent
 
 from zope import component
 
-from yoma.layout import LayoutMixin
-
 from getpaid.core import interfaces, options
 from getpaid.core.order import Order
 
@@ -74,7 +72,7 @@ from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 
 from Products.PloneGetPaid.i18n import _
 
-from base import BaseView, GridLayout
+from base import BaseView
 from widgets import CountrySelectionWidget, StateSelectionWidget
 
 
@@ -193,7 +191,7 @@ class CheckoutWizard( BrowserView ):
         next_step = self.steps[ self.steps.index( cur_step ) + 1 ]
         return cur_step, next_step
 
-class CheckoutAddress( BaseCheckoutForm, LayoutMixin ):
+class CheckoutAddress( BaseCheckoutForm ):
     """
     browser view for collecting credit card information and submitting it to
     a processor.
