@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2007-08-18 00:09+0000\n"
+"POT-Creation-Date: 2007-08-18 00:21+0000\n"
 "PO-Revision-Date: 2007-08-16 12:44-0300\n"
 "Last-Translator: JAVIER MANSILLA <javier@except.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,18 +251,18 @@ msgstr "Puede verificar el estado de tu pedido ${status_url}"
 msgid "countries"
 msgstr "países"
 
-#. Default: "Documentation on GetPaid can be found at <a href=\"http://plone.org/products/plonegetpaid/documentation\">http://plone.org/products/plonegetpaid/documentation</a> ."
-#: ./browser/templates/admin-overview.pt:15
+#. Default: "Documentation on GetPaid can be found at ${label_plone_documentation} ."
+#: ./browser/templates/admin-overview.pt:17
 msgid "description_getpaid_setup_documentation"
 msgstr ""
 
 #. Default: "To view and manage orders in the site, click on the Orders tab above."
-#: ./browser/templates/admin-overview.pt:18
+#: ./browser/templates/admin-overview.pt:19
 msgid "description_getpaid_setup_orders_link"
 msgstr ""
 
 #. Default: "Use the links below to configure GetPaid."
-#: ./browser/templates/admin-overview.pt:20
+#: ./browser/templates/admin-overview.pt:21
 msgid "description_getpaid_setup_overview"
 msgstr ""
 
@@ -307,7 +307,7 @@ msgid "heading_comment"
 msgstr "comentario"
 
 #. Default: "Configure"
-#: ./browser/templates/admin-overview.pt:24
+#: ./browser/templates/admin-overview.pt:25
 msgid "heading_configure"
 msgstr "Configurar"
 
@@ -327,7 +327,7 @@ msgid "heading_fulfillment_state"
 msgstr "estado del despacho"
 
 #. Default: "General Information"
-#: ./browser/templates/admin-overview.pt:36
+#: ./browser/templates/admin-overview.pt:37
 msgid "heading_general_information"
 msgstr "Información General"
 
@@ -387,7 +387,7 @@ msgid "label_donate!"
 msgstr ""
 
 #. Default: "GetPaid Version:"
-#: ./browser/templates/admin-overview.pt:38
+#: ./browser/templates/admin-overview.pt:39
 msgid "label_getpaid_version"
 msgstr "Versión de GetPaid"
 
@@ -402,7 +402,7 @@ msgid "label_order_status_link_text"
 msgstr "aquí"
 
 #. Default: "Store/Organization Name:"
-#: ./browser/templates/admin-overview.pt:40
+#: ./browser/templates/admin-overview.pt:41
 msgid "label_organization_name"
 msgstr "Nombre de Tienda y/u Organización"
 
