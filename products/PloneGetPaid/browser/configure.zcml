@@ -44,6 +44,10 @@
       name="country-states-selection.js"
       file="resources/country-states-selection.js" />
 
+  <browser:resource
+      name="batching.css"
+      file="resources/batching.css" />
+
   <!-- Get Paid Admin UI -->
   <include file="admin.zcml" />
 

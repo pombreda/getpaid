@@ -1,6 +1,10 @@
 <metal:page define-macro="admin"
   i18n:domain="plonegetpaid">
   <metal:block use-macro="here/prefs_main_template/macros/master">
+    <metal:style fill-slot="css_slot">
+    <style type="text/css"
+           tal:content="string:@import url(${context/portal_url}/++resource++batching.css);" ></style>
+    </metal:style>
     <metal:block fill-slot="prefs_configlet_content">
 
       <div id="content"  class="documentEditable">
