@@ -10,7 +10,7 @@ from zope.app import zapi
 from os import path
 
 from zope.schema import vocabulary
-from getpaid.core import interfaces, cart
+from getpaid.core import interfaces
 
 from Products.PloneGetPaid.CountriesStatesParser import CountriesStatesParser
 from Products.PloneGetPaid.interfaces import ICountriesStates
