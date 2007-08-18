@@ -42,7 +42,7 @@
         <metal:block define-slot="up_to_parent">
             <a href=""
                class="link-parent"
-               tal:attributes="href string: $portal_url/@@manage-getpaid-overview"
+               tal:attributes="href string: $portal_url/@@manage-getpaid-orders"
                i18n:translate="label_up_to_getpaid_setup">
                   Up to Order Management
             </a>
