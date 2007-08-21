@@ -255,7 +255,7 @@ msgstr "países"
 #. Default: "Documentation on GetPaid can be found at ${label_plone_documentation} ."
 #: ./browser/templates/admin-overview.pt:17
 msgid "description_getpaid_setup_documentation"
-msgstr "Se puede encontrar la documentación de GetPaid en ${lable_plone_documentation}."
+msgstr "Se puede encontrar la documentación de GetPaid en ${label_plone_documentation}."
 
 #. Default: "To view and manage orders in the site, click on the Orders tab above."
 #: ./browser/templates/admin-overview.pt:18
