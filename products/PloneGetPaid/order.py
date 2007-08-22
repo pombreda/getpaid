@@ -18,7 +18,7 @@ def classifyOrder( order, event ):
                 continue
             if interfaces.IShippableMarker.providedBy( payable ):
                 shipped = True
-            elif interfaces.IDonationMarker.providedBy( payable ):
+            elif interfaces.IDonatableMarker.providedBy( payable ):
                 donation = True
 
     if shipped is False:
