@@ -25,9 +25,9 @@ Thus it is necessary that both developers and those adapting the product for a n
 
 *For Translators*
 
-GetPaid is implemented in 2 main products (PloneGetPaid and getpaid.core), and thus has two separate files where translations are created/maintained. 
+GetPaid is implemented in 2 main products (PloneGetPaid and getpaid.core), and thus has two separate areas where translations are created/maintained: *PloneGetPaid/i18n/* (two files) and *getpaid.core/src/getpaid/core/locales/* (one file). 
 
-  * Updating translations: GetPaid continues in development, and thus new items that need translation will be created as new parts of the interface are added. Please be sure to update the appropriate .po file located at PloneGetPaid/i18n/ . 
+  * Updating translations: GetPaid continues in development, and thus new items that need translation will be created as new parts of the interface are added. Please be sure to update the appropriate .po files located at PloneGetPaid/i18n/ and getpaid.core/src/getpaid/core/locales/ . 
 
   * Creating a new translation: For translating to a new language, translate each of the fields in the .po file to the language corresponding to the file (see more below). In order to get the .po file into the product, it needs to be committed to the product. To get commit access to GetPaid, send an email via www.plonegetpaid.com/contact requesting access. If you already have a file and need it added to the product, you can send it to the [http://groups.google.com/group/getpaid-dev getpaid-dev] mailing list. 
 
