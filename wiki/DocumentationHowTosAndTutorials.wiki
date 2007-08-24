@@ -38,6 +38,7 @@
     * Are there test credit card numbers I can use? [http://developer.authorize.net/faqs/#7429 See authnet doc]
     * How do I get an authorize.net account? 
     * How do I get my merchant ID and transaction key? [http://developer.authorize.net/faqs/#7423 See authnet doc]
+    * How do I set up my gateway to accept international credit cards? [AcceptInternationalCardsDoc Answer] 
 
 == Developer Concerns ==
   
