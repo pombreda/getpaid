@@ -1,0 +1,10 @@
+#summary Where to get info on GetPaid features
+#labels Phase-Support
+
+= Introduction =
+
+You can find the overview of GetPaid features at http://plonegetpaid.com/features 
+
+You can also find more information on our Release plans: http://plone.org/products/plonegetpaid/releases
+
+And in the Product Readme (viewable online here: http://getpaid.googlecode.com/svn/trunk/products/PloneGetPaid/readme.txt )
