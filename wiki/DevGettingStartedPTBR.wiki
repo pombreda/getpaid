@@ -1,16 +1,12 @@
-#summary Hopefully simple steps to get you ready to be a productive GetPaid developer
+#summary Importante passos para se tornar um desenvolvedor GetPaid produtivo
 
-=Getting Started=
+=Iniciando=
 
-Setting up a development environment is now easy thanks to our use of
-`zc.buildout` ( http://python.org/pypi/zc.buildout )
+Iniciar um ambiente de desenvolvimento e facil gracas ao uso do `zc.buildout` ( http://python.org/pypi/zc.buildout )
 
-`zc.buildout` is a framework for creating repeatable installs, and is in
-widespread use in the Zope3 and Plone 3 communities. It installs Zope,
-Plone, all the getpaid products, the requisite python libraries, and
-setups an instance that's usable out of the box for development.
+`zc.buildout` e um framework para a criacao de instalacoes repetidas e usado largamente nas comunidades Zope3 e Plone3. Ele instala o Zope, Plone e todos os produtos do getpaid, as bibliotecas requeridas do python e inicia uma instancia para ser utilizada out of the box para o desenvolvimento.
 
-==Ingredients==
+==Ingredientes==
 
 You'll need:
 
