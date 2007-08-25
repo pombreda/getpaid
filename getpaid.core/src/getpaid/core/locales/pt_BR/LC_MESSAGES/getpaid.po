@@ -1,0 +1,282 @@
+# Getpaid Brazilian Portuguese translation
+# ThreePointsWeb Team <contato@threepointsweb.com>, 2007.
+msgid ""
+msgstr ""
+"Last-Translator: ThreePointsWeb Team <contato@threepointsweb.com>\n"
+"Language-Name: Brazilian Portuguese\n"
+"PO-Revision-Date: 2007-08-25 15:00-0300\n"
+"POT-Creation-Date: Thu Aug 25 15:00:00 2007\n"
+"Domain: getpaid\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Language-Team: ThreePointsWeb Team <contato@threepointsweb.com>\n"
+"Language-Code: pt_BR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: getpaid.core VERSION\n"
+"Plural-Forms: nplurals=0; null;\n"
+
+#: /interfaces.py:138
+msgid "Unique Item Id"
+msgstr "Item com id único"
+
+#: /interfaces.py:139
+msgid "Name"
+msgstr "Nome"
+
+#: /interfaces.py:140
+msgid "Description"
+msgstr "Descrição"
+
+#: /interfaces.py:141
+msgid "Cost"
+msgstr "Preço"
+
+#: /interfaces.py:142
+msgid "Quantity"
+msgstr "Quantidade"
+
+#: /interfaces.py:160
+msgid "Period as a timedelta"
+msgstr "Intervalo Temporal"
+
+#: /interfaces.py:221
+#: /interfaces.py:233
+#: /interfaces.py:245
+msgid "First Line"
+msgstr "Primeira Linha"
+
+#: /interfaces.py:222
+#: /interfaces.py:234
+#: /interfaces.py:246
+msgid "Second Line"
+msgstr "Segunda Linha"
+
+#: /interfaces.py:223
+#: /interfaces.py:235
+#: /interfaces.py:247
+msgid "City"
+msgstr "Cidade"
+
+#: /interfaces.py:224
+#: /interfaces.py:236
+#: /interfaces.py:248
+msgid "State"
+msgstr "Estado"
+
+#: /interfaces.py:226
+#: /interfaces.py:238
+#: /interfaces.py:250
+msgid "Country"
+msgstr "País"
+
+#: /interfaces.py:228
+#: /interfaces.py:240
+#: /interfaces.py:252
+msgid "Zip Code"
+msgstr "CEP"
+
+#: /interfaces.py:259
+msgid "Card Holder Name"
+msgstr "Nome escrito no Cartão"
+
+#: /interfaces.py:260
+msgid "Phone Number"
+msgstr "Número de Telefone"
+
+#: /interfaces.py:262
+msgid "Credit Card Type"
+msgstr "Tipo de Cartão de Crédito"
+
+#: /interfaces.py:268
+msgid "Credit Card Number"
+msgstr "Número do Cartão de Crédito"
+
+#: /interfaces.py:269
+msgid "Credit Card Expiration Date"
+msgstr "Data de Expiração do Cartão de Crédito"
+
+#: /interfaces.py:270
+msgid "Credit Card Verfication Number"
+msgstr "Código de Verificação do Cartão de Crédito"
+
+#: /interfaces.py:278
+msgid "Payment Status"
+msgstr "Estatus do Pagamento"
+
+#: /interfaces.py:279
+msgid "Accepted"
+msgstr "Aceito"
+
+#: /interfaces.py:280
+#: /workflow/shipment.py:77
+msgid "Declined"
+msgstr "Recusado"
+
+#: /interfaces.py:281
+msgid "Refunded"
+msgstr "Reembolsado"
+
+#: /interfaces.py:309
+msgid "Customer Id"
+msgstr "Código do Cliente"
+
+#: /interfaces.py:313
+msgid "Finance State"
+msgstr "Estatus do Pagamento"
+
+#: /interfaces.py:314
+msgid "Fufillment State"
+msgstr "Estatus da Expedição"
+
+#: /interfaces.py:315
+msgid "Processor Order Id"
+msgstr "Identificação de ordem de pagamento"
+
+#: /interfaces.py:32
+msgid "Made Payable By"
+msgstr "Pagamento realizado por"
+
+#: /interfaces.py:346
+msgid "Changed By"
+msgstr "Modificado por"
+
+#: /interfaces.py:347
+msgid "Change Date"
+msgstr "Data de Modificação"
+
+#: /interfaces.py:348
+msgid "Comment"
+msgstr "Comentário"
+
+#: /interfaces.py:349
+msgid "New State"
+msgstr "Novo Estado"
+
+#: /interfaces.py:350
+msgid "Previous State"
+msgstr "Estado anterior"
+
+#: /interfaces.py:37
+msgid "Product Code"
+msgstr "Código do produto"
+
+#: /interfaces.py:38
+msgid "An organization's unique product identifier (not required since shopping"
+"cart uses content UID internally)"
+msgstr ""
+
+#: /interfaces.py:41
+msgid "Price"
+msgstr "Preço"
+
+#: /interfaces.py:46
+msgid "Donation Description"
+msgstr "Descrição da donação"
+
+#: /interfaces.py:47
+msgid "Very brief 50 character text (that shows up in portlet)"
+msgstr "Pequena descrição de 50 caracter (será mostrado em um portlet)"
+
+#: /interfaces.py:70
+msgid "Dimensions"
+msgstr "Dimensões"
+
+#: /interfaces.py:71
+msgid "Product SKU"
+msgstr "SKU Produto"
+
+#: /order.py:53
+msgid "Order Id already set"
+msgstr "Código de Pedido existente"
+
+#: /order.py:55
+msgid "Invalid Order Id"
+msgstr "Código de Pedido inválido"
+
+#: /workflow/item.py:100
+msgid "Electronic Delivery"
+msgstr "Entrega Eletrônica"
+
+#: /workflow/item.py:109
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: /workflow/item.py:117
+msgid "Refund"
+msgstr "Reembolso"
+
+#: /workflow/item.py:124
+msgid "Refund Processed"
+msgstr "Reembolso processado"
+
+#: /workflow/item.py:133
+#: /workflow/shipment.py:102
+msgid "Ship"
+msgstr "Enviar"
+
+#: /workflow/order.py:104
+msgid "Refund Order"
+msgstr "Ordem de Reembolso"
+
+#: /workflow/order.py:124
+msgid "Processor Cancel"
+msgstr ""
+
+#: /workflow/order.py:24
+#: /workflow/order.py:62
+#: /workflow/shipment.py:63
+msgid "Create"
+msgstr "Criado"
+
+#: /workflow/order.py:30
+msgid "Process Order"
+
+#: /workflow/order.py:35
+msgid "Order Processed"
+msgstr "Pedido Processado"
+
+#: /workflow/order.py:41
+#: /workflow/order.py:46
+msgid "Will Not Deliver"
+msgstr "Não será entregue"
+
+#: /workflow/order.py:68
+msgid "Payment Declined"
+msgstr "Pagamento recusado"
+
+#: /workflow/order.py:75
+msgid "Authorize"
+msgstr "Autorizar"
+
+#: /workflow/order.py:83
+#: /workflow/order.py:109
+msgid "Charge Order"
+msgstr "Alterar Pedido"
+
+#: /workflow/order.py:88
+#: /workflow/order.py:117
+msgid "Cancel Order"
+msgstr "Cancelar Pedido"
+
+#: /workflow/order.py:93
+#: /workflow/order.py:99
+msgid "Authorize Order"
+msgstr "Autorizar Pedido"
+
+#: /workflow/shipment.py:109
+msgid "Delivered"
+msgstr "Entregue"
+
+#: /workflow/shipment.py:70
+msgid "Charge"
+msgstr "Alterar"
+
+#: /workflow/shipment.py:85
+msgid "Charged"
+msgstr "Alterado"
+
+#: /workflow/shipment.py:93
+msgid "Order Charged"
+msgstr "Pedido Alterado"
+
