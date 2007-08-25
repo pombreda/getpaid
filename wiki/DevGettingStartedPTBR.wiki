@@ -8,12 +8,12 @@ Iniciar um ambiente de desenvolvimento e facil gracas ao uso do `zc.buildout` ( 
 
 ==Ingredientes==
 
-You'll need:
+Voce vai precisar:
 
-  * 1 Gmail account and a !GoogleCode subversion password (you can get the latter at http://code.google.com/hosting/settings)
-  * 1 subversion commandline client, `svn`
-  * 1 zope-acceptable python interpreter, header files, and libraries.
-  * 1 working C toolchain (everything you could have used to compile the above interpreter)
+  * 1 conta no Gmail account e um !GoogleCode subversion password (voce pode pegar o seu em http://code.google.com/hosting/settings)
+  * 1 cliente de subversion de linha de comando, `svn`
+  * 1 interpretador python aceitado no zope, seus headers e bibliotecas.
+  * 1 compilador C funcionando (Tudo que voce precisa para compilar)
   * for testing authorized.net with buildout, you'll also need libssl-dev and swig
   * 2 tbsp. fair trade, organic, shade-grown tea, coffee or _yerba mate_.
   * 254MiB of diskspace
