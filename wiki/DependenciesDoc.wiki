@@ -13,9 +13,9 @@ Versions of GetPaid: 0.1 - 0.3
 
 Requires: 
 
-  * Plone 2.5
-  * Zope 2.??
-  * Python 2.4?
+  * Plone 2.5.2 (latest 2.5.X release recommended )
+  * Zope 2.9.4  (latest 2.9.X release recommended )
+  * Python 2.4 (latest 2.4.X release recommended )
   * Other libraries: 
     * simplejson
     * For authorize.net, m2crypto 
