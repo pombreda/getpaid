@@ -1,0 +1,21 @@
+#summary Dependencies and requirements for GetPaid
+#labels Phase-Support
+
+= Introduction =
+
+You will be up and running quickly with GetPaid as long as you have the correct dependencies installed. This document will help you find out more about the dependencies. 
+
+For specific information on requirements for installing GetPaid via buildout, please see DevGettingStarted
+
+= Details =
+
+Versions of GetPaid: 0.1 - 0.3
+
+Requires: 
+
+  * Plone 2.5
+  * Zope 2.??
+  * Python 2.4?
+  * Other libraries: 
+    * simplejson
+    * For authorize.net, m2crypto 
