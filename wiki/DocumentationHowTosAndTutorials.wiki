@@ -13,7 +13,7 @@
 
   * How do I add a donation to the site? [AddDonationDoc Answer]
   * How do I add a product to the site?
-  * What is the difference between adding a donation to a site versus adding a product?
+  * What is the difference between adding a donation to a site versus making something buyable?
   * How do I make a donation appear in a portlet vs within the page content? 
   * How do I make an "Add to Cart" button appear in the body of the content on my site?
   * How do I change the "Add to Cart" text or make it a button? 
@@ -25,9 +25,11 @@
   * What are the steps for installing and uninstalling the product? [InstallProductDoc Answer]
   * What basic settings must be configured so that an order can be processed? [ConfigureProductDoc Answer]
   * What is the header / footer configuration area for? 
+  * How do I translate GetPaid to another language? [TranslateGetPaid Answer]
+
+  _Not implemented yet_
   * How do I configure my currency?
   * How do I set up my shipping information? 
-  * How do I translate GetPaid to another language? [TranslateGetPaid Answer]
 
 == Payment Processor Questions ==
 
@@ -42,6 +44,6 @@
 
 == Developer Concerns ==
   
-  * What are the dependencies for GetPaid?
+  * What are the dependencies for GetPaid? [DependenciesDoc Answer]
   * What unit tests are available?
   * How do I write an adapter for a new payment processor? 
