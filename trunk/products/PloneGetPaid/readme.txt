@@ -10,7 +10,7 @@ How to Start Using GetPaid:
 
  - Install:  From the Plone Quick Installer, install PloneGetPaid. This will also add other tools that GetPaid needs. 
 
- - Setup: From the Plone Setup area, scroll down to the area for configuration of custom products and click on GetPaid. This will take you to the administrative screens for GetPaid. At a minimum, you will need to set what content types will be buyable (on the "Content Types" screen). 
+ - Setup: From the Plone Setup area, scroll down to the area for configuration of custom products and click on GetPaid. This will take you to the administrative screens for GetPaid. At a minimum, you will need to set what content types will be buyable (on the "Content Types" screen) and the payment processor (setting to Testing Processor will allow you to test the product). 
 
  - Content: Go to the content of your site. When you click on the "action" menu while viewing a type of content you selected in the "content types" configuration, you will see options to make the content "buyable", a "donation", "shippable", etc. Select the option you want and then fill in the required fields (ie price). 
 
