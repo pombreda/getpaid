@@ -144,15 +144,19 @@ def lineItemTotal( item, formatter ):
 
 class ShoppingCartListing( ContainerViewlet ):
 
+    actions = ContainerViewlet.actions.copy()
+
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
-        column.GetterColumn( title=_(u"Quantity"), getter=LineItemColumn("quantity") ),
+        column.FieldEditColumn( _(u"Quantity"), 'edit', interfaces.ILineItem['quantity'], lambda item: item.item_id ),
+        #column.GetterColumn( title=_(u"Quantity"), getter=LineItemColumn("quantity") ),
         column.GetterColumn( title=_(u"Name"), getter=lineItemURL ),
         column.GetterColumn( title=_(u"Price"), getter=LineItemColumn("cost") ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
        ]
 
     selection_column = columns[0]
+    quantity_column = columns[1]
     template = ZopeTwoPageTemplateFile('templates/cart-listing.pt')
 
     def __init__( self, *args, **kw):
@@ -164,6 +168,19 @@ class ShoppingCartListing( ContainerViewlet ):
     def isOrdered( self, *args ):
         # shopping cart should not be ordered, so override this with False
         return False
+
+    @form.action("Update", condition="isNotEmpty")
+    def handle_update( self, action, data ):
+        try:
+            data = self.quantity_column.input(self.container.values(), self.request)
+            self.form_reset = True
+            self.quantity_column.update(self.container.values(), data)
+        except:
+            self.form_reset = True
+            #reset the form data in the request
+            for i in self.request.form.keys():
+                self.request.form.pop(i)
+
 
 class ShoppingCartActions( FormViewlet ):
 
