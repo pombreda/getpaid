@@ -14,6 +14,7 @@ Versions of GetPaid: 0.1 - 0.3
 Requires: 
 
   * Plone 2.5.2 (latest 2.5.X release recommended )
+    * elementree (make sure you got it!)
   * Zope 2.9.4  (latest 2.9.X release recommended )
   * Python 2.4 (latest 2.4.X release recommended )
   * Other libraries: 
