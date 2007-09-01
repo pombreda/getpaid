@@ -6,7 +6,7 @@
   <browser:page
      for="*"
      name="checkout-review-pay"
-     class=".checkout.OgoneCheckoutPayment"
+     class=".browser.checkout.OgoneCheckoutPayment"
      permission="zope2.View"
      />
 
