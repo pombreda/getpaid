@@ -163,17 +163,13 @@ class CheckoutWizard( BrowserView ):
     steps = ['checkout-address-info', 'checkout-review-pay']
 
     def __call__( self ):
-        import pprint
-        pprint.pprint( self.request.form )
 
         current_step, next_step = self.getSteps( self.request )
-        print 'wizard', current_step, next_step
 
         current = self.context.restrictedTraverse('@@%s'%current_step)
         current.update()
         
         if current._next_url == WIZARD_NEXT_STEP:
-            print "moving to next step", next_step
             assert next_step, "No Next Step Or Redirect"
             next = self.context.restrictedTraverse('@@%s'%next_step )
             return next()
@@ -249,14 +245,16 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         form.getWidgetsData( widgets, self.prefix, data )
 
         # widgets don't nesc. have one to one mapping, greedily pass through
-        # all the previous form data in the request.. skip actions
+        # all the previous form data in the request.. skip actions. and only
+        # pass through values which this step isn't collecting itself (issue 88)
         passed = {}
-        for k in self.request.form:
-            if k.startswith( self.prefix ) and not 'action' in k:
-                passed[ k ] = self.request.form[ k ]
+        for f in self.passed_fields:
+            kv = "%s.%s"%(self.prefix, f.__name__ )
+            passed[ kv ] = self.request.form[ kv ]
         self.hidden_form_vars = passed
 
-        # save the data to the adapters
+        # save the data to the adapters, we're not an edit form so we won't automatically
+        # be storing to them, and we don't want to use the values as object attributes
         self.extractData( data )
         
     def setUpWidgets( self, ignore_request=False ):
