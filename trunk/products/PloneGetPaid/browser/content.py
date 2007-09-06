@@ -146,7 +146,7 @@ class ContentControl( BrowserView ):
     """
 
     __allow_access_to_unprotected_subobjects__ = 1
-    __slots__ = ( 'context', 'request', 'options' )
+    #__slots__ = ( 'context', 'request', 'options' )
     
     def __init__( self, context, request ):
         self.context = context
