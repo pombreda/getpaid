@@ -75,6 +75,8 @@ from Products.PloneGetPaid.i18n import _
 from base import BaseView
 from widgets import CountrySelectionWidget, StateSelectionWidget
 
+def null_condition( *args ):
+    return ()
 
 class BaseCheckoutForm( formbase.EditForm, BaseView ):
     
@@ -220,6 +222,9 @@ class CheckoutAddress( BaseCheckoutForm ):
     def handle_continue( self, action, data ):
         self._next_url = WIZARD_NEXT_STEP
 
+    @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
+    def handle_cancel( self, action, data):
+        return self.request.response.redirect( self.context.portal_url.getPortalObject().absolute_url() )
 
 class CheckoutReviewAndPay( BaseCheckoutForm ):
 
@@ -283,7 +288,11 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     #def validatePayment( self, action, data ):
     #    pass
 
-    @form.action(u"Make Payment", name="make-payment", condition=form.haveInputWidgets )
+    @form.action(_(u"Cancel"), name="cancel", validator=null_condition)
+    def handle_cancel( self, action, data):
+        return self.request.response.redirect( self.context.portal_url.getPortalObject().absolute_url() )        
+
+    @form.action(_(u"Make Payment"), name="make-payment", condition=form.haveInputWidgets )
     def makePayment( self, action, data ):
         """ create an order, and submit to the processor
         for async processors we never even got here.???
