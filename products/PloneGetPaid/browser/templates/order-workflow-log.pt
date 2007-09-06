@@ -2,7 +2,6 @@
   <legend i18n:translate="legend_order_log"> Order Log </legend>
   <table class="listing">
     <tr>
-      <th i18n:translate="heading_workflow">workflow</th>
       <th i18n:translate="heading_changed_by">changed by</th>
       <th i18n:translate="heading_change_date">change date</th>
       <th i18n:translate="heading_previous_state">previous state</th>
@@ -14,7 +13,6 @@
     	<tal:block tal:define="isEven repeat/logitem/even;">
 	    <tr class="even"
 	    		tal:condition="isEven">
-	      <td>???</td>
 	      <td tal:content="logitem/changed_by"></td>
 	      <td tal:content="logitem/change_date"></td>
 	      <td tal:content="python:logitem.previous_state or '-'"></td>
