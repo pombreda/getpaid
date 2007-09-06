@@ -490,10 +490,16 @@ def AvailableGenericTransitions( context ):
 
 interface.directlyProvides( AvailableGenericTransitions, IContextSourceBinder )
 
-
 def renderItemId( item, formatter ):
     return item.item_id
-    #return '<a href="@@admin-manage-order/%s">%s</a>'%( order.order_id, order.order_id )    
+
+def renderItemName( item, formatter ):
+    content = item.resolve()
+    if not content:
+        return _(u"N/A")
+    content_url = content.absolute_url()
+    title = content.Title()
+    return '<a href="%s">%s</a>'%( content_url, title )
 
 def renderItemPrice( item, formatter ):
     return "%0.2f"%( item.quantity * item.cost )
@@ -554,6 +560,7 @@ class OrderContentsComponent( core.ComponentViewlet ):
     columns = [
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
         column.GetterColumn( title=_(u"Item Id"), getter=renderItemId ),
+        column.GetterColumn( title=_(u"Name"), getter=renderItemName ),
         column.GetterColumn( title=_(u"Price"), getter=AttrColumn("cost") ),        
         column.GetterColumn( title=_(u"Quantity"), getter=AttrColumn("quantity" ) ),
         column.GetterColumn( title=_(u"Total"), getter=renderItemPrice ),        
