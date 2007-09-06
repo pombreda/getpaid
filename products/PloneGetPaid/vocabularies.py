@@ -12,7 +12,7 @@ from os import path
 from zope.schema import vocabulary
 from getpaid.core import interfaces
 
-from Products.PloneGetPaid.CountriesStatesParser import CountriesStatesParser
+from iso3166 import CountriesStatesParser
 from Products.PloneGetPaid.interfaces import ICountriesStates
 
 from Products.CMFCore.utils import getToolByName
