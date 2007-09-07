@@ -121,7 +121,7 @@ class OrderCSVComponent( core.ComponentViewlet ):
     @form.action(_(u"Export Search"))
     def export_search( self, action, data ):
 
-        search = self.manager.get('order-search')
+        search = self.manager.get('orders-search')
         listing = self.manager.get('order-listing')
 
         io = StringIO.StringIO()
@@ -130,16 +130,17 @@ class OrderCSVComponent( core.ComponentViewlet ):
 
         field_getters = []
         for column in listing.columns:
-            if isinstance( column, AttrColumn ):
-                field_getters.append( column.getter )
+            if column.name == 'Order Id':
+                field_getters.append( lambda x,y: x.order_id )
             else:
-                field_getters.append( AttrColumn( c.name ) )
+                field_getters.append( column.getter )
 
         for order in search.results:
             writer.writerow( [getter( order, None ) for getter in field_getters ] )
 
-        # um.. send to user
-        return io.getvalue()
+        # um.. send to user, we need to inform our view, to do the appropriate thing
+        # since we can't directly control the response rendering from the view
+        self._parent._download_content = ('text/csv',  io.getvalue() )
 
 def define( **kw ):
     kw['required'] = False
@@ -248,9 +249,14 @@ OrdersAdminManager = viewlet_manager.ViewletManager(
 
 class ManageOrders( BrowserView ):
     # admin the collection of orders
+    _download_content = None
+    
     def __call__( self ):
         self.manager = OrdersAdminManager( self.context, self.request, self )
         self.manager.update()
+        if self._download_content is not None:
+            self.request.response.setHeader('Content-Type', self._download_content[0] )
+            return self._download_content[1]
         return super( ManageOrders, self).__call__()
 
 class AdminOrderRoot ( OrderRoot ):
