@@ -7,29 +7,32 @@
   * What functionality does GetPaid offer? [FunctionalityDoc Answer]
   * What will the next release do and when will it be released? [ReleaseDoc Answer]
   * How does a session-based cart work?
+  * What happens when a user places an order on my site (offline vs online order completion)?
 
+==Using the Product==
 
-== Integration and Configuration ==
-
+  * What are the steps for installing and uninstalling the product? [InstallProductDoc Answer]
+  * What basic settings must be configured so that an order can be processed? [ConfigureProductDoc Answer]
+  * How do I set up a payment processor in GetPaid? [SetUpPaymentProcessorDoc Answer]
   * How do I add a donation to the site? [AddDonationDoc Answer]
   * How do I add a product to the site?
   * What is the difference between adding a donation to a site versus making something buyable?
+  * How do I manage my orders? 
+  * How do I make a content object payable? Not payable? [MakeObjectPayableDoc Answer]
+
+== Customization and Extension ==
+
+  * How should I make customizations to the product? [CustomizationsBestPracticesDoc Answer]
+  * How do I build an extension of the product? 
   * How do I make a donation appear in a portlet vs within the page content? 
   * How do I make an "Add to Cart" button appear in the body of the content on my site?
   * How do I change the "Add to Cart" text or make it a button? 
-  * How do I create a category and add products to the category? 
-  * How do I manage my orders? 
-  * How do I set up a payment processor in GetPaid? [SetUpPaymentProcessorDoc Answer]
-  * What happens when a user places an order on my site (offline vs online order completion)?
-  * How do I make a content object payable? Not payable? [MakeObjectPayableDoc Answer]
-  * What are the steps for installing and uninstalling the product? [InstallProductDoc Answer]
-  * What basic settings must be configured so that an order can be processed? [ConfigureProductDoc Answer]
-  * What is the header / footer configuration area for? 
   * How do I translate GetPaid to another language? [TranslateGetPaid Answer]
 
   _Not implemented yet_
   * How do I configure my currency?
   * How do I set up my shipping information? 
+  * How do I create a category and add products to the category? 
 
 == Payment Processor Questions ==
 
