@@ -31,7 +31,10 @@
       <div class="visualClear"><!-- --></div>
 
       <div>
-	   Shopping Cart Review
+	<fieldset>
+	  <legend> Shopping Cart </legend>
+	  <div tal:replace="structure view/renderCart">cart</div>
+	</fieldset>
       </div>
       
       <div>

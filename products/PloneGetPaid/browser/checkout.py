@@ -57,6 +57,8 @@ from zope.app.event.objectevent import ObjectCreatedEvent
 
 from zope import component
 
+from zc.table import table, column
+
 from getpaid.core import interfaces, options
 from getpaid.core.order import Order
 
@@ -73,6 +75,7 @@ from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from Products.PloneGetPaid.i18n import _
 
 from base import BaseView
+import cart
 from widgets import CountrySelectionWidget, StateSelectionWidget
 
 def null_condition( *args ):
@@ -234,6 +237,13 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
 
     template = ZopeTwoPageTemplateFile("templates/checkout-review-pay.pt")
 
+    columns = [
+        column.GetterColumn( title=_(u"Quantity"), getter=cart.LineItemColumn("quantity") ),
+        column.GetterColumn( title=_(u"Name"), getter=cart.lineItemURL ),
+        column.GetterColumn( title=_(u"Price"), getter=cart.LineItemColumn("cost") ),
+        column.GetterColumn( title=_(u"Total"), getter=cart.lineItemTotal ),
+       ]
+    
     def setupDataAdapters( self ):
 	self.adapters = {}
         self.adapters[ interfaces.IBillingAddress ] = BillAddressInfo()
@@ -277,6 +287,21 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
             self.passed_fields,  self.prefix, self.context, self.request,
             adapters=self.adapters, for_display=True, ignore_request=ignore_request
             )
+
+    def renderCart( self ):
+        cart = component.getUtility( interfaces.IShoppingCartUtility ).get( self.context )
+        if not cart:
+            return _(u"N/A")
+        formatter = table.StandaloneFullFormatter( self.context,
+                                                   self.request,
+                                                   cart.values(),
+                                                   prefix=self.prefix,
+                                                   visible_column_names = [c.name for c in self.columns],
+                                                   #sort_on = ( ('name', False)
+                                                   columns = self.columns )
+        formatter.cssClasses['table'] = 'listing'
+        return formatter()
+    
 
     def update( self ):
         self.setupDataAdapters()
