@@ -22,7 +22,6 @@
 	    </tr>
 	    <tr class="odd"
 	    		tal:condition="python: isEven==False">
-	      <td>???</td>
 	      <td tal:content="logitem/changed_by"></td>
 	      <td tal:content="logitem/change_date"></td>
 	      <td tal:content="python:logitem.previous_state or '-'"></td>
