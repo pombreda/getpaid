@@ -1,14 +1,23 @@
 
+---
 
- Provides a completely z3 based plugin architecture to commerce
- systems on plone.
+ - need to collect email address and marketing preferences
 
+ - need to allow for easy adaptation to user properties.
+
+ - checkout user property adaptation, user.
+
+ - provide tax rule definition
+
+ - serialization to tarball of various ore.xd files
+
+ - shipping methods implementation
  
-  content
+ - product catalog implementation
 
-  tax methods
+ - activating rich text email
 
-  shipping methods
+ - implementation of time management
 
- Management Interface
+---
 
