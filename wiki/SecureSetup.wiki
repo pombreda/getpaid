@@ -5,7 +5,7 @@ This documentation assumes that you have some knowledge about configuration the 
     * First, you will need SSL certificates to use with apache.  You can purchase a certificate or create a self-signed certificate.  If you are purchasing a certificate from Verisign or Digicert, they should have their own instructions for obtaining and setting up a certificate.  Documentation for creating a self-signed certificate can be found here.
     * Next, you want to set up Apache to work with SSL and Virtual Host Monster. I've included a sample apache configuration below but, if you've never set up Apache with Virtual Host Monster before, I highly recommend reading the documentation for setting this up.
 
-<VirtualHost 127.0.0.1:443>
+`<VirtualHost 127.0.0.1:443>
     ServerName mydomain.com
 
     SSLEngine On
@@ -16,7 +16,7 @@ This documentation assumes that you have some knowledge about configuration the 
     RewriteEngine On
     RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/https/%{SERVER_NAME}:443/MyPloneSite/VirtualHostRoot/$1 [NC,P,L]
 
-</VirtualHost>
+</VirtualHost>`
 
     * Last, you need to add rewrite rules to the Apache configuration for the unencrypted VirtualHost of your site, to forward all traffic that should be secured to the the encrypted VirtualHost.  The four RewriteRules in the sample config below can likely be copied without change into your Apache configuration.
 
@@ -32,7 +32,6 @@ This documentation assumes that you have some knowledge about configuration the 
     #Below is the Virtual Host Monster rewrite rule
     RewriteRule ^/(.*) http://localhost:8096/VirtualHostBase/http/%{SERVER_NAME}:80/PloneGetPaid/www/VirtualHostRoot/$1 [NC,P,L]
 </VirtualHost>
-
 
 
 
