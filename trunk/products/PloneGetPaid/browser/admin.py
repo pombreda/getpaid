@@ -53,7 +53,6 @@ class BaseSettingsForm( formbase.EditForm, BaseView ):
             self.adapters = { interface : interfaces.IGetPaidManagementOptions( self.context ) } 
         super( BaseSettingsForm, self).update()
         
-# Profile
 class Identification( BaseSettingsForm ):
     """
     get paid management interface
@@ -62,7 +61,6 @@ class Identification( BaseSettingsForm ):
     form_fields['contact_country'].custom_widget = CountrySelectionWidget
     form_fields['contact_state'].custom_widget = StateSelectionWidget
 
-#Configure
 class ContentTypes( BaseSettingsForm ):
     """
     get paid management interface

@@ -24,17 +24,11 @@ from Products.PloneGetPaid.i18n import _
 # from getpaid.core.interfaces import IOrderManager
 from AccessControl import getSecurityManager
 
-
-
-OrderHistoryManager = ViewletManager("OrderHistory",
-                                     ipgp.IOrderHistoryManager,
-                                     os.path.join( os.path.dirname( __file__ ),
-                                                   "templates",
-                                                   "viewlet-manager.pt")
-                                     )
+_marker = object()
 
 
 class UserOrderHistory( BrowserView ):
+    """ browser view for a user's order history """
     def __call__( self ):
         uid = getSecurityManager().getUser().getId()
         if not uid:
@@ -44,12 +38,17 @@ class UserOrderHistory( BrowserView ):
         self.manager.update()
         return super( UserOrderHistory, self ).__call__()
 
+# viewlet manager for the same
+OrderHistoryManager = ViewletManager("OrderHistory",
+                                     ipgp.IOrderHistoryManager,
+                                     os.path.join( os.path.dirname( __file__ ),
+                                                   "templates",
+                                                   "viewlet-manager.pt")
+                                     )
+
 class UserOrderHistoryComponent:
+    """ order history listing...  """
     def history( self ):
-        # this sucks on many levels:
-        #  - do I really need to go fish out my own uid? surely that
-        #    is in the context somewhere
-        #  - I should be using zc.table / yoma.batching, right?
         #  - does this really benefit from the additional complexity
         #    of being a viewlet?
         uid = getSecurityManager().getUser().getId()
@@ -62,7 +61,6 @@ class UserOrderHistoryComponent:
                            'log': tuple(igpc.IOrderWorkflowLog( order ))})
         return orders
 
-_marker = object()
 
 #################################
 # Views for looking at a single order, we do some traversal tricks to make the
