@@ -131,5 +131,17 @@
    handler=".notifications.sendNotification"
    />
 
+<!-- Email Notification Templates -->
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="merchant-new-order"
+   factory=".notifications.MerchantOrderNotificationTemplate"
+   />
+
+<adapter
+   for="getpaid.core.interfaces.IOrder"
+   name="customer-new-order"
+   factory=".notifications.CustomerOrderNotificationTemplate"
+   />
 
 </configure>
