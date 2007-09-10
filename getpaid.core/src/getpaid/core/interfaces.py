@@ -232,11 +232,11 @@ class IAddress( Interface ):
     first_line = schema.TextLine( title = _(u"First Line"), description=_(u"Please Enter Your Address"))
     second_line = schema.TextLine( title = _(u"Second Line"), required=False )
     city = schema.TextLine( title = _(u"City") )
+    country = schema.Choice( title = _(u"Country"),
+                               vocabulary = "getpaid.countries")    
     state = schema.Choice( title = _(u"State"),
                              vocabulary="getpaid.states")
-    country = schema.Choice( title = _(u"Country"),
-                               vocabulary = "getpaid.countries")
-    postal_code = schema.TextLine( title = _(u"Zip Code"))
+    postal_code = schema.TextLine( title = _(u"Zip/Postal Code"))
 
 class IShippingAddress( Interface ):
     """ where to send goods
