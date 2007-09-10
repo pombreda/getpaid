@@ -103,17 +103,48 @@ class CountriesStatesFromFile(object):
         iso3166_path = path.join(path.dirname(__file__), 'iso3166')
         self.csparser = CountriesStatesParser(iso3166_path)
         self.csparser.parse()
+        
+        self.loaded_countries = []
 
     def countries(self):
-        return self.csparser.getCountriesNameOrdered()
+        if self.loaded_countries:
+            return self.loaded_countries
+        names =  self.csparser.getCountriesNameOrdered()
+        res = []
+        
+        for n in names:
+            if len(n[1]) < 18:
+                res.append( n )
+            elif ',' in n:
+                res.append( ( n[0], n[1].split(',')[0] ) )
+
+        # need to pick this up some list of strings property in the admin interface
+        def sorter( x, y, order=['UNITED STATES', 'UNITED KINGDOM', 'CANADA']):
+            if x[1] in order and y[1] in order:
+                return cmp( order.index(x[1]), order.index(y[1]) )
+            if x[1] in order:
+                return -1
+            if y[1] in order:
+                return 1
+            return cmp( x[1], y[1] )
+
+        res.sort( sorter )
+        self.loaded_countries = res
+        return res
+    
     countries = property(countries)
 
     def states(self, country=None):
         if country is None:
-            return self.allStates()
+            return [n for n in self.allStates() if len(n[1]) < 20]
+        
         states = self.csparser.getStatesOf(country)
+        
         if len(states) == 0:
             return self._noValues
+        
+        res = []
+        states = [n for n in states if len(n[1]) < 20 ]
         return states
 
     def allStates(self):
