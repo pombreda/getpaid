@@ -189,15 +189,11 @@ class ShoppingCartActions( FormViewlet ):
     def render( self ):
         return self.template()
 
+    def doesCartContainItems( self, *args ):
+        return bool(  len( self.__parent__.cart ) )
+
     def isLoggedIn( self, *args ):
         return getSecurityManager().getUser().getId() is not None
-
-    def isLoggedInAndHasItems(self, *args):
-        itemsize = len( self.__parent__.cart )
-        if itemsize !=0 and getSecurityManager().getUser().getId() is not None:
-            return True
-        else:
-            return False
 
     def isAnonymous( self, *args ):
         return getSecurityManager().getUser().getId() is None
@@ -214,8 +210,7 @@ class ShoppingCartActions( FormViewlet ):
             payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
         return self.request.RESPONSE.redirect(payable.absolute_url()+'/view')
 
-
-    @form.action("Checkout", condition="isLoggedInAndHasItems", name="AuthCheckout")
+    @form.action("Checkout", condition="doesCartContainItems", name="Checkout")
     def handle_checkout( self, action, data ):
         # go to order-create
         # force ssl? redirect host? options
@@ -223,16 +218,20 @@ class ShoppingCartActions( FormViewlet ):
         url = portal.absolute_url() + '/@@getpaid-checkout-wizard'
         return self.request.RESPONSE.redirect( url )
 
-    @form.action("Checkout", condition="isAnonymous", name="AnonCheckout")
-    def handle_login_checkout( self, action, data ):
-        # go to sign in with redirect url to checkout
-        portal = getToolByName( self.context, 'portal_url').getPortalObject()
-        url = portal.absolute_url()
-        url = "%s/%s?%s=%s/%s"%( url,
-                                 'login_form',
-                                 'came_from',
-                                 url,
-                                 '@@getpaid-checkout-wizard' )
-        return self.request.RESPONSE.redirect( url )
+##     we used to not allow anonymous checkouts, would be nice to have this configurable..
+
+##     @form.action("Checkout", condition="isLoggedInAndHasItems", name="AuthCheckout")
+    
+##     @form.action("Checkout", condition="isAnonymous", name="AnonCheckout")
+##     def handle_login_checkout( self, action, data ):
+##         # go to sign in with redirect url to checkout
+##         portal = getToolByName( self.context, 'portal_url').getPortalObject()
+##         url = portal.absolute_url()
+##         url = "%s/%s?%s=%s/%s"%( url,
+##                                  'login_form',
+##                                  'came_from',
+##                                  url,
+##                                  '@@getpaid-checkout-wizard' )
+##         return self.request.RESPONSE.redirect( url )
 
 
