@@ -60,6 +60,14 @@ class IShippableMarker( IPayableMarker ):
 class IDonatableMarker( IPayableMarker ):
     """ donate-able interface added to shippable content """
 
+class INotificationMailTemplate( Interface ):
+
+    def __call__( from_email, to_email, store_name, store_settings, store_url, order ):
+        """
+        return a rendered template suitable for passing to a mailhost.send
+        """
+        
+
 PayableMarkers = [ IBuyableMarker, IPremiumMarker, IShippableMarker, IDonatableMarker ]
 
 PayableMarkerMap = dict(
