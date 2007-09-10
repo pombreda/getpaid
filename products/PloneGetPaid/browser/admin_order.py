@@ -139,7 +139,7 @@ class OrderCSVComponent( core.ComponentViewlet ):
             writer.writerow( [getter( order, None ) for getter in field_getters ] )
 
         # um.. send to user, we need to inform our view, to do the appropriate thing
-        # since we can't directly control the response rendering from the view
+        # since we can't directly control the response rendering from the viewlet
         self._parent._download_content = ('text/csv',  io.getvalue() )
 
 def define( **kw ):
