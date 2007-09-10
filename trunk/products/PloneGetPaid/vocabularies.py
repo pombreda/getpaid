@@ -142,10 +142,8 @@ class CountriesStatesFromFile(object):
         
         if len(states) == 0:
             return self._noValues
-        
-        res = []
-        states = [n for n in states if len(n[1]) < 20 ]
-        return states
+
+        return [n for n in states if len(n[1]) < 20 ]
 
     def allStates(self):
         return self.csparser.getStatesOfAllCountries() + self._noValues
