@@ -116,9 +116,13 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                     default = u""
                                   )
 
+    contact_country = schema.Choice( title = _(u"Contact Country"),
+                                     required = False,
+                                     vocabulary = "getpaid.countries"
+                                   )
+
     contact_state = schema.Choice( title = _(u"Contact State/Province"),
                                    required = False,
-                                   default = u"",
                                    vocabulary = "getpaid.states"
                                  )
 
@@ -126,12 +130,6 @@ class IGetPaidManagementIdentificationOptions( igetpaid.IPersistentOptions ):
                                           required = False,
                                           default = u""
                                         )
-
-    contact_country = schema.Choice( title = _(u"Contact Country"),
-                                     required = False,
-                                     default = u"",
-                                     vocabulary = "getpaid.countries"
-                                   )
 
     contact_phone = PhoneNumber( title = _(u"Contact Phone"),
                                  description = _(u"Only digits allowed"),
