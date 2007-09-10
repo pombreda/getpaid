@@ -5,8 +5,8 @@ This documentation assumes that you have some knowledge about configuration the 
     * First, you will need SSL certificates to use with apache.  You can purchase a certificate or create a self-signed certificate.  If you are purchasing a certificate from Verisign or Digicert, they should have their own instructions for obtaining and setting up a certificate.  Documentation for creating a self-signed certificate can be found here.
     * Next, you want to set up Apache to work with SSL and Virtual Host Monster. I've included a sample apache configuration below but, if you've never set up Apache with Virtual Host Monster before, I highly recommend reading the documentation for setting this up.
 
-'<VirtualHost 127.0.0.1:443>
-    ServerName mydomain.com
+`<VirtualHost 127.0.0.1:443>`
+`    ServerName mydomain.com`
 
     SSLEngine On
     SSLCertificateFile /path/to/certificate/server.crt
@@ -32,5 +32,4 @@ This documentation assumes that you have some knowledge about configuration the 
     #Below is the Virtual Host Monster rewrite rule
     RewriteRule ^/(.*) http://localhost:8096/VirtualHostBase/http/%{SERVER_NAME}:80/PloneGetPaid/www/VirtualHostRoot/$1 [NC,P,L]
 </VirtualHost>
-
 
