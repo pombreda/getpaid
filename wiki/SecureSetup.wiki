@@ -1,39 +1,4 @@
 #summary How to set up SSL (secure socket layer) for GetPaid in your site.
 #labels Phase-Support
 
-This documentation assumes that you have some knowledge about configuration of the Apache web server.  If you are an Apache neophyte, you should find someone who is familiar with the product to help you set it up.
-
-    * First, you will need SSL certificates to use with apache.  You can purchase a certificate or create a self-signed certificate.  If you are purchasing a certificate from Verisign or Digicert, they should have their own instructions for obtaining and setting up a certificate.  Documentation for creating a self-signed certificate can be found here.
-    * Next, you want to set up Apache to work with SSL and Virtual Host Monster. I've included a sample apache configuration below but, if you've never set up Apache with Virtual Host Monster before, I highly recommend reading the documentation for setting this up.
-
-{{{
-<VirtualHost 127.0.0.1:443>
-    ServerName mydomain.com
-
-    SSLEngine On
-    SSLCertificateFile /path/to/certificate/server.crt
-    SSLCertificateKeyFile /path/to/key/server.key
-    SSLCACertificateFile /path/to/cacertificate/ca.crt
-
-    RewriteEngine On
-    RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/https/%{SERVER_NAME}:443/MyPloneSite/VirtualHostRoot/$1 [NC,P,L]
-
-</VirtualHost>
-}}}
-
-    * Last, you need to add rewrite rules to the Apache configuration for the unencrypted VirtualHost of your site, to forward all traffic that should be secured to the the encrypted VirtualHost.  The four RewriteRules in the sample config below can likely be copied without change into your Apache configuration.
-
-{{{
-<VirtualHost 208.96.32.124:80>
-    ServerName mydomian.com
-
-    RewriteEngine On
-    #These rules should be copied more or less unchanged to your apache config
-    RewriteRule ^/@@getpaid-checkout-wizard https://%{SERVER_NAME}/@@getpaid-checkout-wizard [R]
-    RewriteRule ^/@@getpaid-order-history https://%{SERVER_NAME}/@@getpaid-order-history [R]
-    RewriteRule ^/@@manage-getpaid-overview https://%{SERVER_NAME}/@@manage-getpaid-overview [R]
-    RewriteRule ^/@@manage-getpaid-orders https://%{SERVER_NAME}/@@manage-getpaid-orders [R]
-    #Below is the Virtual Host Monster rewrite rule
-    RewriteRule ^/(.*) http://localhost:8096/VirtualHostBase/http/%{SERVER_NAME}:80/PloneGetPaid/www/VirtualHostRoot/$1 [NC,P,L]
-</VirtualHost>
-}}}
+Moved to http://plone.org/products/getpaid/documentation
