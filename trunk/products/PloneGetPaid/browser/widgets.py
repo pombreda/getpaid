@@ -26,6 +26,8 @@ class StateSelectionWidget(SimpleInputWidget):
         value = ''
         if self.hasInput():
             value = self.getInputValue()
+        else:
+            value = self._getFormValue()
         return """<div id="%s_container">
                   <select name="%s" id="%s">
                     <option value="%s" selected="selected">Selected</option>
