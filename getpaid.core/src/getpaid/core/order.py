@@ -291,9 +291,9 @@ class OrderStorage( BTreeContainer ):
 
     def reset_index( self ):
         # reindex all orders
-        for oid in self.keys():
-            self.unindex( oid )
-            order = self[ oid ]
+        for index in self.indexes.values():
+            index.clear()
+        for order in self.values():
             self.index( order )
 
     def reindex( self, object ):
