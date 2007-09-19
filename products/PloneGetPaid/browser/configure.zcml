@@ -86,6 +86,13 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     for="*"
+     template="templates/cart-empty.pt"
+     name="empty-cart"
+     permission="zope2.View"
+     />
+
   <!-- User's Order View -->
   <browser:page
       for="getpaid.core.interfaces.IStore"
