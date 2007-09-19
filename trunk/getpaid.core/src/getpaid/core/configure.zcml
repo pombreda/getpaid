@@ -4,9 +4,23 @@
   <i18n:registerTranslations directory="locales" />
   <include package=".workflow" />
 
-  <!-- Per Order Log of Worklow Events -->
+  <!-- Per Order Log of Workflow Events -->
   <subscriber
      handler=".order.recordOrderWorkflow"
+     for=".interfaces.IOrder
+	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
+     />
+
+  <!-- Fire Automatic finance state transitions -->
+  <subscriber
+     handler=".payment.fireAutomaticTransitions"
+     for=".interfaces.IOrder
+	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
+     />
+
+  <!-- Payment Processor Workflow Integration -->
+  <subscriber
+     handler=".payment.handleCapture"
      for=".interfaces.IOrder
 	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
      />
@@ -18,7 +32,6 @@
      />
 
   <!-- Taxes -->
-
   <utility
      provides=".interfaces.ITaxUtility"
      factory=".tax.TaxUtility"
