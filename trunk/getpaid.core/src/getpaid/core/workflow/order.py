@@ -77,38 +77,52 @@ def create_finance_workflow( ):
                               source = fs.REVIEWING,
                               destination = fs.CHARGEABLE ) )
 
-    
     # CHARGEABLE TRANSITIONS
     add( workflow.Transition( transition_id = 'charge-chargeable',
                               title = _(u'Charge Order'),
                               source = fs.CHARGEABLE,
-                              destination = fs.CHARGED ) )
+                              destination = fs.CHARGING,
+                              trigger = iworkflow.AUTOMATIC ) )
 
     add( workflow.Transition( transition_id = 'cancel-chargeable',
                               title = _(u'Cancel Order'),
                               source = fs.CHARGEABLE,
                               destination = fs.CANCELLED ) )
+                              
+    # CHARGING TRANSITIONS
+    add( workflow.Transition( transition_id = 'decline-charging',
+                              title = _(u'Processor Declined'),
+                              source = fs.CHARGING,
+                              destination = fs.PAYMENT_DECLINED,
+                              trigger = iworkflow.SYSTEM ) )
+                              
+    add( workflow.Transition( transition_id = 'charge-charging',
+                              title = _(u'Processor Charged'),
+                              source = fs.CHARGING,
+                              destination = fs.CHARGED,
+                              trigger = iworkflow.SYSTEM ) )
+                                                    
 
-    add( workflow.Transition( transition_id = 'authorize-chargeable',
-                              title = _(u'Authorize Order'),
-                              source = fs.CHARGEABLE,
-                              destination = fs.CHARGEABLE ) )
+    # add( workflow.Transition( transition_id = 'authorize-chargeable',
+    #                           title = _(u'Authorize Order'),
+    #                           source = fs.CHARGEABLE,
+    #                           destination = fs.CHARGEABLE ) )
 
     # CHARGED TRANSITIONS
-    add( workflow.Transition( transition_id = 'authorize-charged',
-                              title = _(u'Authorize Order'),
-                              source = fs.CHARGED,
-                              destination = fs.CHARGED ) )
+    # add( workflow.Transition( transition_id = 'authorize-charged',
+    #                           title = _(u'Authorize Order'),
+    #                           source = fs.CHARGED,
+    #                           destination = fs.CHARGED ) )
 
-    add( workflow.Transition( transition_id = 'refund-order',
-                              title = _(u'Refund Order'),
-                              source = fs.CHARGED,
-                              destination = fs.REFUNDED ) )
+    # add( workflow.Transition( transition_id = 'refund-order',
+    #                           title = _(u'Refund Order'),
+    #                           source = fs.CHARGED,
+    #                           destination = fs.REFUNDED ) )
 
-    add( workflow.Transition( transition_id = 'charge-charged',
-                              title = _(u'Charge Order'),
-                              source = fs.CHARGED,
-                              destination = fs.CHARGED ) )
+    # add( workflow.Transition( transition_id = 'charge-charged',
+    #                           title = _(u'Charge Order'),
+    #                           source = fs.CHARGED,
+    #                           destination = fs.CHARGED ) )
 
 
     # PAYMENT DECLINED TRANSITIONS
