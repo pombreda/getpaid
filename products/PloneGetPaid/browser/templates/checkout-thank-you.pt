@@ -2,9 +2,9 @@
             i18n:domain="plonegetpaid">
   <metal:block fill-slot="getpaid_content">
 
-    <h3 i18n:translate="heading_checkout_thank_you"> Thank you for you Order </h3>
+    <h3 i18n:translate="heading_checkout_thank_you"> Thank you for your order </h3>
 
-    <div >
+    <div tal:condition="not:isAnon">
       <span i18n:translate="box_order_status_url_description">You can check the status of your order </span>
 
       <a href=""
