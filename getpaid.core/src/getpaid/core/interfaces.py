@@ -7,6 +7,7 @@ from zope import schema
 from zope.app.event.interfaces import IObjectEvent
 from zope.app.container.interfaces import IContainer
 from zope.schema.interfaces import ITextLine
+from zope.schema.vocabulary import SimpleVocabulary
 from fields import PhoneNumber, CreditCardNumber
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid')
@@ -82,8 +83,7 @@ class IPayableCreationEvent( IObjectEvent ):
     """ sent out when a payable is created
     """
 
-    payable = Attribute("object implementing payable interface")
-    
+    payable = Attribute("object implementing payable interface")    
     payable_interface = Attribute("payable interface the object implements")
 
 
@@ -262,6 +262,43 @@ class IBillingAddress( Interface ):
                                     vocabulary = "getpaid.countries")
     bill_postal_code = schema.TextLine( title = _(u"Zip Code"))
 
+MarketingPreferenceVocabulary = SimpleVocabulary( 
+                                   map(SimpleVocabulary.createTerm, 
+                                       ( (True, "Yes", _(u"Yes")), (False, "No", _(u"No") ) )
+                                       )
+                                )
+                                
+EmailFormatPreferenceVocabulary = SimpleVocabulary( 
+                                   map( lambda x: SimpleVocabulary.createTerm(*x), 
+                                       ( (True, "Yes", _(u"HTML")), (False, "No", _(u"Plain Text") ) )
+                                       )
+                                  )                                
+
+class IUserContactInformation( Interface ):
+    """docstring for IUserContactInformation"""
+    
+    name = schema.TextLine( title = _(u"Your Name"))
+    
+    phone_number = PhoneNumber( title = _(u"Phone Number"),
+                                description = _(u"Only digits allowed - e.g. 3334445555 and not 333-444-5555 "))
+                                
+    email = schema.TextLine( 
+                        title=_(u"Email"),
+                        description = _(u"Contact Information") 
+                        )
+        
+    marketing_preference = schema.Bool(
+                                        title=_(u"Can we contact you with offers"), 
+                                        description=_(u"Can we contact you regarding new offers?"),                            
+                                        ) 
+    
+    email_html_format = schema.Choice( 
+                                        title=_(u"Email Format"), 
+                                        description=_(u"Would you prefer to receive rich html emails or only plain text"),
+                                        vocabulary = EmailFormatPreferenceVocabulary
+                                        )
+
+                                
 class IUserPaymentInformation( Interface ):
     """ A User's payment information to be optionally collected by the
     payment processor view.
@@ -270,8 +307,6 @@ class IUserPaymentInformation( Interface ):
     name_on_card = schema.TextLine( title = _(u"Card Holder Name"),
                                 description = _(u"Enter the full name, as it appears on the card. "))
 
-    phone_number = PhoneNumber( title = _(u"Phone Number"),
-                                description = _(u"Only digits allowed - e.g. 3334445555 and not 333-444-5555 "))
     # DONT STORED PERSISTENTLY
     credit_card_type = schema.Choice( title = _(u"Credit Card Type"),
                                       values = ( u"Visa",
@@ -328,6 +363,8 @@ class IOrder( Interface ):
     user_id = schema.ASCIILine( title = _(u"Customer Id"), readonly=True )
     shipping_address = schema.Object( IShippingAddress, required=False)
     billing_address  = schema.Object( IBillingAddress )
+    # only shown on anonymous checkouts?
+    contact_information = schema.Object( IUserContactInformation, required=False )
     shopping_cart = schema.Object( IShoppingCart )
     finance_state = schema.TextLine( title = _(u"Finance State"), readonly=True)
     fufillment_state = schema.TextLine( title = _(u"Fufillment State"), readonly=True)
