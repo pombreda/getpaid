@@ -76,7 +76,7 @@ from Products.PloneGetPaid.i18n import _
 
 from base import BaseView
 import cart
-from widgets import CountrySelectionWidget, StateSelectionWidget
+from widgets import CountrySelectionWidget, StateSelectionWidget, CCExpirationDateWidget
 
 def null_condition( *args ):
     return ()
@@ -314,7 +314,8 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     form_fields = form.Fields( interfaces.IUserPaymentInformation )
     passed_fields = form.Fields( interfaces.IBillingAddress ) + \
                     form.Fields( interfaces.IShippingAddress )
-    
+    form_fields['cc_expiration'].custom_widget = CCExpirationDateWidget
+
     template = ZopeTwoPageTemplateFile("templates/checkout-review-pay.pt")
     
     columns = [
@@ -483,8 +484,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         if state in ( f_states.CHARGEABLE,
                       f_states.REVIEWING,
                       f_states.CHARGED ):
-            return base_url + '/@@getpaid-thank-you'
-            
+            return base_url + '/@@getpaid-thank-you?order_id=%s&finance_state=%s' %(order.order_id,state)
 
 class CheckoutConfirmed( BrowserView ):
     """ thank you screen after success

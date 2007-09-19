@@ -103,6 +103,10 @@
     provides=".interfaces.ICountriesStates"
     factory=".vocabularies.CountriesStatesFromFile"/>
 
+<utility
+    provides=".interfaces.IMonthsAndYears"
+    factory=".vocabularies.MonthsAndYears"/>
+
 <!-- Notifications -->
 <subscriber
    for="getpaid.core.interfaces.IOrder
