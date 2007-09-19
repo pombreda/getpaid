@@ -267,9 +267,11 @@ class IUserPaymentInformation( Interface ):
     payment processor view.
     """
 
-    name_on_card = schema.TextLine( title = _(u"Card Holder Name"))
+    name_on_card = schema.TextLine( title = _(u"Card Holder Name"),
+                                description = _(u"Enter the full name, as it appears on the card. "))
+
     phone_number = PhoneNumber( title = _(u"Phone Number"),
-                                description = _(u"Only digits allowed"))
+                                description = _(u"Only digits allowed - e.g. 3334445555 and not 333-444-5555 "))
     # DONT STORED PERSISTENTLY
     credit_card_type = schema.Choice( title = _(u"Credit Card Type"),
                                       values = ( u"Visa",
@@ -278,9 +280,13 @@ class IUserPaymentInformation( Interface ):
                                                  u"American Express" ) )
 
     credit_card = CreditCardNumber( title = _(u"Credit Card Number"),
-                                    description = _(u"Only digits allowed"))
-    cc_expiration = schema.TextLine( title = _(u"Credit Card Expiration Date"))
-    cc_cvc = schema.TextLine(title = _(u"Credit Card Verfication Number"))
+                                    description = _(u"Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777 "))
+
+    cc_expiration = schema.TextLine( title = _(u"Credit Card Expiration Date"),
+                                    description = _(u"Enter as two digits for the month and two digits for the year (MMYY) - e.g. 1209 for December of 2009."))
+
+    cc_cvc = schema.TextLine(title = _(u"Credit Card Verfication Number"),
+                             description = _(u"For MC, Visa, and DC, this is a 3-digit number on back of the card.  For AmEx, this is a 4-digit code on front of card. "))
 
 
     
