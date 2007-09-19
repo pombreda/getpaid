@@ -5,6 +5,7 @@ $Id$
 from zope import schema
 from zope.interface import Interface
 from zope.schema import Iterable
+from zope.app.event.interfaces import IObjectEvent
 from getpaid.core.fields import PhoneNumber
 
 import getpaid.core.interfaces as igetpaid
@@ -12,6 +13,11 @@ import zope.viewlet.interfaces
 
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('plonegetpaid')
+
+class IBeforeCheckoutEvent( IObjectEvent ):
+    """
+    an event fired before the checkout process begins
+    """
 
 class IGetPaidManageViewletManager( zope.viewlet.interfaces.IViewletManager ):
     """ viewlet manager for get paid management ui
@@ -60,6 +66,10 @@ class IShippableMarker( IPayableMarker ):
 class IDonatableMarker( IPayableMarker ):
     """ donate-able interface added to shippable content """
 
+
+class IStoreMember( Interface ):
+    """ marker interface so we can adapt to members """
+    
 class INotificationMailTemplate( Interface ):
 
     def __call__( from_email, to_email, store_name, store_settings, store_url, order ):
@@ -188,6 +198,9 @@ class IGetPaidManagementPaymentOptions( igetpaid.IPersistentOptions ):
     """
     payment_processor = schema.Choice( title = _(u"Payment Processor"),
                                        source = "getpaid.payment_methods" )
+                                       
+    allow_anonymous_checkout = schema.Bool( title=_(u"Allow Anonymous Checkout"), default=False)
+                                    
 
 ##     accepted_credit_cards = schema.List( title = _(u"Accepted Credit Cards"),
 ##                                          required = False,

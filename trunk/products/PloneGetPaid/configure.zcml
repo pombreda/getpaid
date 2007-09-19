@@ -9,6 +9,10 @@
 <!-- using five.intid ... introduces subscribers for all persistent objects .. -->
 <include package="five.intid"/>
 
+<!-- Commenting on Orders 
+<include package="zc.comment" />
+-->
+
 <!-- Classify Orders with marker interfaces -->
 <subscriber
    for="getpaid.core.interfaces.IOrder
@@ -94,6 +98,18 @@
    factory=".preferences.ConfigurationPreferences"
    />
 
+<!-- Contact Information from Members -->
+<five:implements
+	class="Products.PlonePAS.plugins.ufactory.PloneUser"
+	interface=".interfaces.IStoreMember"
+	/>
+	
+<adapter
+	for=".interfaces.IStoreMember"
+	provides="getpaid.core.interfaces.IUserContactInformation"
+	factory=".member.memberContactInformation"
+    />
+    
 <!-- Utilities -->
 <utility
    provides="getpaid.core.interfaces.IShoppingCartUtility"

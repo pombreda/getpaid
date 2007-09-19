@@ -3,14 +3,12 @@ $Id$
 """
 
 
-from zope.i18n.interfaces import IUserPreferredLanguages, IUserPreferredCharsets
+from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.i18n.locales import locales, LoadLocaleError
 
 from ZTUtils import make_hidden_input
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.app import pagetemplate
-from Products.Five.browser import decode
 from Products.Five.formlib import formbase
 from Products.Five.viewlet import viewlet
 
