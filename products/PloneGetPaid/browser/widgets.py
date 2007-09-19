@@ -1,14 +1,15 @@
+from zope.app import zapi
 from zope.app.form.browser import FloatWidget
 from zope.app.form.browser.widget import SimpleInputWidget
+from zope.app.form.browser.textwidgets import DateWidget
 from zope.app.form.browser.itemswidgets import OrderedMultiSelectWidget as BaseSelection
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.i18n.interfaces import IUserPreferredCharsets
+from Products.PloneGetPaid.interfaces import IMonthsAndYears
 
 from Products.Five.browser import decode
 
-
-class CountrySelectionWidget(SimpleInputWidget):
-    template = ViewPageTemplateFile('templates/country-selection-widget.pt')
+class WithTemplateWidget(SimpleInputWidget):
     def __call__( self ):
         # XXX dirty hack to make the values coming out of here encoded properly,
         # by default please fix me.
@@ -16,6 +17,9 @@ class CountrySelectionWidget(SimpleInputWidget):
         charsets = envadapter.getPreferredCharsets() or ['utf-8']
         value = decode._decode( self.template(), charsets )
         return value
+
+class CountrySelectionWidget(WithTemplateWidget):
+    template = ViewPageTemplateFile('templates/country-selection-widget.pt')
 
     def getVocabulary(self):
         return self.context.vocabulary
@@ -34,6 +38,32 @@ class StateSelectionWidget(SimpleInputWidget):
                   </select>
                   </div>""" % (self.name, self.name, self.name, value)
 
+class CCExpirationDateWidget(WithTemplateWidget,DateWidget):
+    template = ViewPageTemplateFile('templates/cc-expiration-date-widget.pt')
+    def months(self):
+        utility = zapi.getUtility(IMonthsAndYears)
+        return utility.months
+
+    def years(self):
+        utility = zapi.getUtility(IMonthsAndYears)
+        return utility.years
+
+    def getFormMonth(self):
+        return self.request.get('%s_month' % self.name)
+
+    def getFormYear(self):
+        return self.request.get('%s_year' % self.name)
+
+    def _getFormInput(self):
+        return ('%s-%s'%(self.getFormYear(),self.getFormMonth()))
+
+    def _toFieldValue(self,input):
+        return super(DateWidget, self)._toFieldValue(input)
+
+    def hasInput(self):
+        return self.getFormMonth() and self.getFormYear()
+        #return self.getFormMonth() in self.months() and\
+               #self.getFormYear() in self.years()
 
 class PriceWidget(FloatWidget):
     """ This is a widget for rendering the price.

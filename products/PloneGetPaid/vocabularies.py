@@ -13,7 +13,7 @@ from zope.schema import vocabulary
 from getpaid.core import interfaces
 
 from iso3166 import CountriesStatesParser
-from Products.PloneGetPaid.interfaces import ICountriesStates
+from Products.PloneGetPaid.interfaces import ICountriesStates, IMonthsAndYears
 
 from Products.CMFCore.utils import getToolByName
 
@@ -103,7 +103,6 @@ class CountriesStatesFromFile(object):
         iso3166_path = path.join(path.dirname(__file__), 'iso3166')
         self.csparser = CountriesStatesParser(iso3166_path)
         self.csparser.parse()
-        
         self.loaded_countries = []
 
     def countries(self):
@@ -111,7 +110,6 @@ class CountriesStatesFromFile(object):
             return self.loaded_countries
         names =  self.csparser.getCountriesNameOrdered()
         res = []
-        
         for n in names:
             if len(n[1]) < 18:
                 res.append( n )
@@ -131,7 +129,7 @@ class CountriesStatesFromFile(object):
         res.sort( sorter )
         self.loaded_countries = res
         return res
-    
+
     countries = property(countries)
 
     def states(self, country=None):
@@ -156,3 +154,26 @@ def States( context ):
     utility = zapi.getUtility(ICountriesStates)
     return TitledVocabulary.fromTitles(utility.states())
 
+class MonthsAndYears(object):
+    """Months-Years utility"""
+    implements(IMonthsAndYears)
+
+    def tuple_unicode_range(self,begin,end):
+        return tuple([unicode('%02i' % i) for i in range(begin,end)])
+
+    def months(self):
+        return self.tuple_unicode_range(1,13)
+    months = property(months)
+
+    def years(self):
+        return self.tuple_unicode_range(2007,2030)
+    years = property(years)
+
+
+#def Months( context ):
+    #utility = zapi.getUtility(IMonthsAndYears)
+    #return vocabulary.SimpleVocabulary.fromValues(utility.months)
+
+#def Years( context ):
+    #utility = zapi.getUtility(IMonthsAndYears)
+    #return vocabulary.SimpleVocabulary.fromValues(utility.years)

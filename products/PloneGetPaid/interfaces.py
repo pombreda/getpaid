@@ -326,3 +326,13 @@ class ICountriesStates(Interface):
         title = _(u"states"),
         description=_(u"A list of states")
         )
+
+class IMonthsAndYears(Interface):
+    months = Iterable(
+        title = _(u"months"),
+        description=_(u"The list of months")
+        )
+    years = Iterable(
+        title = _(u"years"),
+        description=_(u"A list of years")
+        )
