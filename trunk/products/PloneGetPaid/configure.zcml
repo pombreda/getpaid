@@ -6,29 +6,8 @@
 <include package="getpaid.core" />
 <include package="zope.app.annotation" />
 
-<!-- Don't include the subscribers for ipersistent.. -->
-<include package="five.intid" file="base.zcml" />
-
-<!-- since we use intid specifically with payables also include
-     the intid suscribers for them, since we don't want the generic
-     ones that fire for everything (yet).. -->
-<subscriber
-   for="getpaid.core.interfaces.IPayable
-        zope.app.container.interfaces.IObjectAddedEvent"
-   handler="five.intid.intid.addIntIdSubscriber"
-   />
-
-<subscriber
-   for="getpaid.core.interfaces.IPayable
-        zope.app.container.interfaces.IObjectMovedEvent"
-   handler="five.intid.intid.removeIntIdSubscriber"
-   />
-
-<subscriber
-   for="getpaid.core.interfaces.IPayable
-        zope.app.container.interfaces.IObjectRemovedEvent"
-   handler="five.intid.intid.moveIntIdSubscriber"
-   />
+<!-- using five.intid ... introduces subscribers for all persistent objects .. -->
+<include package="five.intid"/>
 
 <!-- Classify Orders with marker interfaces -->
 <subscriber
