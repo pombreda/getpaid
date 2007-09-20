@@ -21,6 +21,9 @@ msgstr ""
 msgid "Make Buyable"
 msgstr ""
 
+msgid "Make Shippable Product"
+msgstr ""
+
 msgid "Make this a Donation"
 msgstr ""
 

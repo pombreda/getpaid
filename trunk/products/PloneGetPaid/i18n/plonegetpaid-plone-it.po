@@ -28,6 +28,9 @@ msgstr "Marca come disponibile agli utenti non paganti"
 msgid "Make Not Shippable Product"
 msgstr "Marca come non spedibile"
 
+msgid "Make Shippable Product"
+msgstr ""
+
 msgid "Make this a Donation"
 msgstr "Marca come donazione"
 
