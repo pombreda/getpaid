@@ -104,7 +104,7 @@ coci_actions = [
 
      ( dict(  id = 'getpaid_order_history',
                name = 'Order History',
-               action = 'string:$object_url/@@getpaid-order-history',
+               action = 'string:$portal_url/@@getpaid-order-history',
                category ='user',
                permission = "View",
                condition = "python:path('object/@@getpaid_control').showOrderHistory()",
