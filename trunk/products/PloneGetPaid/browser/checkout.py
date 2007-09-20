@@ -357,7 +357,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     passed_fields = form.Fields( interfaces.IBillingAddress ) + \
                     form.Fields( interfaces.IShippingAddress ) + \
                     form.Fields( interfaces.IUserContactInformation )
-    #form_fields['cc_expiration'].custom_widget = CCExpirationDateWidget
+    form_fields['cc_expiration'].custom_widget = CCExpirationDateWidget
 
     template = ZopeTwoPageTemplateFile("templates/checkout-review-pay.pt")
     
