@@ -24,6 +24,7 @@
 
   * How should I make customizations to the product? [CustomizationsBestPracticesDoc Answer]
   * How do I build an extension of the product? 
+  * How do I make my custom content type integrate with the product (so I can make it buyable)? [CustomContentTypeDevelopmentDoc Answer]
   * How do I make a donation appear in a portlet vs within the page content? 
   * How do I make an "Add to Cart" button appear in the body of the content on my site?
   * How do I change the "Add to Cart" text or make it a button? 
@@ -50,3 +51,4 @@
   * What are the dependencies for GetPaid? [DependenciesDoc Answer]
   * What unit tests are available?
   * How do I write an adapter for a new payment processor? 
+ 
