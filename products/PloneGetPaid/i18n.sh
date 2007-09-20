@@ -11,6 +11,12 @@ do
     i18ndude sync --pot i18n/plonegetpaid.pot $file
 done
 
+for file in i18n/plonegetpaid-plone-??.po
+do
+    echo Syncing $file ...
+    i18ndude sync --pot i18n/plonegetpaid-plone.pot $file
+done
+
 #Caveman style extraction of message ids from settings.zcml
 #grep title="" browser/settings.zcml | sed -e "s/.*title=/msgid /g"
 
