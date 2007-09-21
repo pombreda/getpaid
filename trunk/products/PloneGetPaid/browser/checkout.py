@@ -504,6 +504,9 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
                                                           interfaces.IShippingAddress )
         order.billing_address = ImmutableBag().initfrom( self.adapters[ interfaces.IBillingAddress ],
                                                          interfaces.IBillingAddress )
+
+        order.contact_information = ImmutableBag().initfrom( self.adapters[ interfaces.IUserContactInformation ],
+                                                         interfaces.IUserContactInformation )
         while 1:
             order_id = str( random.randint( 0, sys.maxint ) )
             if order_manager.get( order_id ) is None:
