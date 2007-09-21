@@ -39,6 +39,7 @@
 
   * What payment processors are supported now? [http://www.plonegetpaid.com/features/payment-processors Answer]
   * When will payment processor <my favorite processor> be supported?
+  * How do I integrate payment processor <my processor>? 
   * Authorize.net: 
     * How do I get a test or dev account? [http://developer.authorize.net/support/ Submit request form]
     * Are there test credit card numbers I can use? [http://developer.authorize.net/faqs/#7429 See authnet doc]
@@ -51,4 +52,5 @@
   * What are the dependencies for GetPaid? [DependenciesDoc Answer]
   * What unit tests are available?
   * How do I write an adapter for a new payment processor? 
+ 
  
