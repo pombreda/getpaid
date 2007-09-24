@@ -45,3 +45,8 @@ msgstr ""
 msgid "Order History"
 msgstr ""
 
+msgid "Settings"
+msgstr ""
+
+msgid "Orders"
+msgstr ""

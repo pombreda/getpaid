@@ -28,7 +28,7 @@
         <dd class="portletFooter">
             <a href="" tal:attributes="href string:${context/portal_url}/@@getpaid-checkout-wizard"
                i18n:translate="heading_checkout">
-              <span>Checkout</span>
+              Checkout
             </a>
             <span class="portletBottomLeft"></span>
             <span class="portletBottomRight"></span>

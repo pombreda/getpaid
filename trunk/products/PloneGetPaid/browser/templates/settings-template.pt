@@ -1,4 +1,5 @@
-<metal:page define-macro="admin">
+<metal:page define-macro="admin"
+			i18n:domain="plonegetpaid">
   <metal:block use-macro="here/prefs_main_template/macros/master">
     <metal:block fill-slot="prefs_configlet_content">
 
