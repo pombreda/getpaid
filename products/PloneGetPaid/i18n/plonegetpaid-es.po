@@ -79,7 +79,7 @@ msgid "Contact Zip/Postal Code"
 msgstr "Código Postal del Contacto"
 
 msgid "Content Types"
-msgstr ""
+msgstr "Tipos de Contenido"
 
 #: ./interfaces.py:161
 msgid "Content Types available for donation"
@@ -118,10 +118,10 @@ msgid "Donatable Content Types"
 msgstr "Tipos de Contenido Donables"
 
 msgid "Email Notifications"
-msgstr ""
+msgstr "Notificaciones por Email"
 
 msgid "Legal Disclaimers"
-msgstr ""
+msgstr "Cláusulas Legales"
 
 #: ./interfaces.py:277
 msgid "Merchant Email Notifications"
@@ -145,14 +145,14 @@ msgstr "Número de Dígitos en un Grupo"
 
 #: ./interfaces.py:129
 msgid "Only digits allowed"
-msgstr ""
+msgstr "Solo digitos permitidos"
 
 #: ./browser/order.py:117
 msgid "Order Details"
 msgstr "Detalles"
 
 msgid "Payment Options"
-msgstr ""
+msgstr "Opciones de Pago"
 
 #: ./interfaces.py:183
 msgid "Payment Processor"
@@ -176,7 +176,7 @@ msgstr "Tipos de Contenido Pagos"
 #. Default: "Premium not implemented yet"
 #: ./browser/templates/portlet-content-premium.pt:30
 msgid "Premium not implemented yet"
-msgstr ""
+msgstr "'Premium' no implementado todavía"
 
 #: ./browser/cart.py:162
 msgid "Price"
@@ -191,7 +191,7 @@ msgid "Quantity"
 msgstr "Cantidad"
 
 msgid "Sales Tax Configuration"
-msgstr ""
+msgstr "Configuracíon de impuestos sobre la venta"
 
 #: ./interfaces.py:216
 msgid "Session Timeout"
@@ -199,7 +199,7 @@ msgstr "Tiempo Límite para la Sesión"
 
 # settings.zcml
 msgid "Settings"
-msgstr ""
+msgstr "Configuraciones"
 
 #: ./interfaces.py:166
 msgid "Shippable Product Types"
@@ -210,7 +210,7 @@ msgid "Shipping Method"
 msgstr "Método de Envío"
 
 msgid "Shipping Options"
-msgstr ""
+msgstr "Opciones de Envío"
 
 #: ./interfaces.py:218
 msgid "Shopping cart session timeout (in seconds)"
@@ -229,7 +229,7 @@ msgstr "Método Impositivo"
 
 #: ./browser/admin.py:124
 msgid "The currenly configured Payment Processor cannot be found; please check if the corresponding package is installed correctly."
-msgstr ""
+msgstr "El procesador de pagas actualmente configurado no puede ser encontrado; por favor verifique si el paquete correspondiente esta correctamente instalado."
 
 #: ./browser/cart.py:163
 msgid "Total"
@@ -260,12 +260,12 @@ msgstr "Se puede encontrar la documentación de GetPaid en ${label_plone_documen
 #. Default: "To view and manage orders in the site, click on the Orders tab above."
 #: ./browser/templates/admin-overview.pt:18
 msgid "description_getpaid_setup_orders_link"
-msgstr ""
+msgstr "Para ver y manejar las ordenes del sitio, haga click en ordenes."
 
 #. Default: "Use the links below to configure GetPaid."
 #: ./browser/templates/admin-overview.pt:20
 msgid "description_getpaid_setup_overview"
-msgstr ""
+msgstr "Use los links de abajo para configurar GetPaid."
 
 #. Default: "Your Shopping Cart"
 #: ./browser/templates/cart-manage.pt:4
@@ -385,7 +385,7 @@ msgstr "Agregar al Carrito"
 #. Default: "Donate!"
 #: ./browser/templates/portlet-content-donatable.pt:39
 msgid "label_donate!"
-msgstr ""
+msgstr "Donar!"
 
 #. Default: "GetPaid Version:"
 #: ./browser/templates/admin-overview.pt:38

@@ -45,3 +45,9 @@ msgstr "Modificar Carrito"
 msgid "Order History"
 msgstr "Historial de Pedidos"
 
+msgid "Orders"
+msgstr "Ordenes"
+
+msgid "Settings"
+msgstr "Configuraciones"
+
