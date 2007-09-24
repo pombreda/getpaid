@@ -54,6 +54,8 @@
       </div>
     
   </form>
-
+  <p> <a tal:attributes="href string:${context/portal_url}/@@privacy-policy"> Privacy Policy</a> |
+      <a tal:attributes="href string:${context/portal_url}/@@disclaimer"> Disclaimer </a>
+  </p>
   </metal:block>
 </metal:page>
