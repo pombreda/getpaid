@@ -532,3 +532,5 @@ msgstr "Precio Total"
 msgid "text_your_cart"
 msgstr "Tu Carrito"
 
+msgid "Apply"
+msgstr "Aplicar"
