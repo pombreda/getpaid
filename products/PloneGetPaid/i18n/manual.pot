@@ -44,3 +44,6 @@ msgstr ""
 
 msgid "Legal Disclaimers"
 msgstr ""
+
+msgid "Apply"
+msgstr ""
