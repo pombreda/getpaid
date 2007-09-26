@@ -17,7 +17,6 @@ msgstr ""
 "Domain: plonegetpaid\n"
 
 #settings.zcml
-
 msgid "Settings"
 msgstr ""
 
@@ -45,5 +44,6 @@ msgstr ""
 msgid "Legal Disclaimers"
 msgstr ""
 
+# zope.formlib Apply button
 msgid "Apply"
 msgstr ""
