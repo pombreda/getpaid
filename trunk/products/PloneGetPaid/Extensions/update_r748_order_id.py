@@ -19,6 +19,6 @@ def order_id_upgrade( self ):
         del manager.storage[ oid ]
         manager.store( o )
 
-    return "Updated %s Order Ids "( len( manager.storage) )
+    return "Updated %s Order Ids "%( len( manager.storage) )
  
         
