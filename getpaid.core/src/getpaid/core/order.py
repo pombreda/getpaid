@@ -78,17 +78,28 @@ class Order( Persistent ):
             return 0
 
         total = 0
+        total += self.getSubTotalPrice()
+        total += self.getShippingCost()
+        total += self.getTaxCost()
+        
+        return float( str( total ) )            
+
+    def getSubTotalPrice( self ):
+        if not self.shopping_cart:
+            return 0        
         for item in self.shopping_cart.values():
             d = decimal.Decimal ( str(item.cost ) ) * item.quantity
-            total += d
-
+            total += d        
+        return total
+        
+    def getShippingCost( self ):
         shipping_method = component.getUtility( interfaces.IShippingMethod )
-        total += shipping_method.getCost( self )
+        return shipping_method.getCost( self )
 
+    def getTaxCost( self ):
         tax_utility = component.getUtility( interfaces.ITaxUtility )
-        total += tax_utility.getCost( self )
+        return tax_utility.getCost( self )
 
-        return float( str( total ) )
 
 class OrderManager( Persistent ):
 
@@ -96,11 +107,6 @@ class OrderManager( Persistent ):
     
     def __init__( self ):
         self.storage = OrderStorage()
-
-    def getOrdersByUser( self, user_id, **kw):
-        return query.search(
-            dict( user_id = user_id )
-            )
 
     def store( self, order ):
         self.storage[ order.order_id ] = order
@@ -331,7 +337,8 @@ class OrderWorkflowRecord( Persistent ):
     comment = FP( I['comment'] )
     new_state = FP( I['new_state'] )
     previous_state = FP( I['previous_state'] )
-
+    change_kind = FP(I['change_kind'])
+    
     def __init__( self, **kw ):
         names = interfaces.IOrderWorkflowEntry.names()
         for k,v in kw.items():
@@ -380,6 +387,12 @@ def recordOrderWorkflow( order, event ):
     data['transition'] = event.transition.title
     data['comment'] = event.comment
 
+    # figure out which workflow it is to denote change kind
+    if order.finance_state == event.destination:
+        data['change_kind'] = _(u'Finance')
+    else:
+        data['change_kind'] = _(u'Fufillment')
+        
     audit_log = interfaces.IOrderWorkflowLog( event.object )
     audit_log.add( OrderWorkflowRecord( **data ) )
 
