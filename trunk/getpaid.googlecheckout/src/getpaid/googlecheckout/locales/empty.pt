@@ -1,4 +1,4 @@
-<metal:page i18n:domain="getpaid.nullpayment">
+<metal:page i18n:domain="getpaid.googlecheckout">
 	<!-- workaround for i18ndude bug -->
 	<i18n:workaround translate="do_not_translate" />
 </metal:page>
