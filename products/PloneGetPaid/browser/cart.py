@@ -142,6 +142,10 @@ def lineItemURL( item, formatter ):
 def lineItemTotal( item, formatter ):
     return "%0.2f" % (item.quantity * item.cost)
 
+def lineItemPrice( item, formatter ):
+    return "%0.2f" % (LineItemColumn("cost")(item, formatter))
+
+
 class ShoppingCartListing( ContainerViewlet ):
 
     actions = ContainerViewlet.actions.copy()
@@ -151,7 +155,7 @@ class ShoppingCartListing( ContainerViewlet ):
         column.FieldEditColumn( _(u"Quantity"), 'edit', interfaces.ILineItem['quantity'], lambda item: item.item_id ),
         #column.GetterColumn( title=_(u"Quantity"), getter=LineItemColumn("quantity") ),
         column.GetterColumn( title=_(u"Name"), getter=lineItemURL ),
-        column.GetterColumn( title=_(u"Price"), getter=LineItemColumn("cost") ),
+        column.GetterColumn( title=_(u"Price"), getter=lineItemPrice ),
         column.GetterColumn( title=_(u"Total"), getter=lineItemTotal ),
        ]
 

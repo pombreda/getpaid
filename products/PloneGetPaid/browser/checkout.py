@@ -364,7 +364,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
     columns = [
         column.GetterColumn( title=_(u"Quantity"), getter=cart.LineItemColumn("quantity") ),
         column.GetterColumn( title=_(u"Name"), getter=cart.lineItemURL ),
-        column.GetterColumn( title=_(u"Price"), getter=cart.LineItemColumn("cost") ),
+        column.GetterColumn( title=_(u"Price"), getter=cart.lineItemPrice ),
         column.GetterColumn( title=_(u"Total"), getter=cart.lineItemTotal ),
        ]
     
