@@ -9,6 +9,7 @@ import datetime
 
 from persistent.dict import PersistentDict
 from zope.app.container.btree import BTreeContainer
+from zope.app.intids.interfaces import IIntIds
 
 from BTrees.IFBTree import weightedIntersection, intersection
 
@@ -32,6 +33,8 @@ class IndexedRecords( BTreeContainer ):
     # 
     #index_map = { 'index_name' : ( Factory, query_method )}
 
+
+    
     def __init__( self ):
         super( IndexedRecords, self).__init__()
         self.indexes = PersistentDict()
@@ -42,7 +45,7 @@ class IndexedRecords( BTreeContainer ):
             self.indexes[ index_name ] = factory
         
     def query( self, **args ):
-        results = self.apply( args )
+        results = self.apply( args )        
         return ResultSet( results, self )
 
     def apply(self, query):
@@ -71,7 +74,7 @@ class IndexedRecords( BTreeContainer ):
     
     def __setitem__( self, key, object):
         super( IndexedRecords, self ).__setitem__( key, object )
-        self.index( object )
+        self.index( key, object )
 
     def reset_index( self ):
         # reindex all orders
@@ -80,12 +83,13 @@ class IndexedRecords( BTreeContainer ):
         for order in self.values():
             self.index( order )
 
-    def reindex( self, object ):
-        self.unindex( object.order_id )
-        self.index( object )
+    def reindex( self, key ):
+        self.unindex( key )
+        object = self[ key ]
+        self.index( key, object )
             
-    def index( self, object ):
-        doc_id = int( object.order_id )
+    def index( self, key, object ):
+        doc_id = int( key )
         for attr, index in self.indexes.items():
             value = getattr( object, attr, None)
             if callable( value ):
@@ -94,14 +98,13 @@ class IndexedRecords( BTreeContainer ):
                 continue
             index.index_doc( doc_id, value )
 
-    def unindex( self, order_id ):
+    def unindex( self, key ):
         for index in self.indexes.values():
-            index.unindex_doc( int( order_id ) )
+            index.unindex_doc( int( key ) )
         
     def __delitem__( self, key ):
         super( IndexedRecords, self).__delitem__( key )
-        doc_id = int( key )
-        self.unindex( doc_id )
+        self.unindex( key )
 
     #################################
     # junk for z2.9 / f 1.4
@@ -167,15 +170,16 @@ class RecordQuery( object ):
             return results
         return cls.sort( results, *storage.default_sort)
         
-        # reverse sort on creation date
-        return query.sort( results, 'creation_date', reverse=True )
-    
     @classmethod
     def generate( cls, results ):
         """ used to actualize results from ifsets to 
         """
-        storage = cls.getStorage()
-        return ResultSet( results, storage )
+        intids = cls.getIntIds()
+        return ResultSet( results, intitds )
+
+    @classmethod
+    def getIntIds( self ):
+        return component.getUtility( IIntIds )
 
     @staticmethod
     def sort( results, attribute, reverse=False ):
