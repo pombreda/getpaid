@@ -508,7 +508,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
         order.contact_information = ImmutableBag().initfrom( self.adapters[ interfaces.IUserContactInformation ],
                                                          interfaces.IUserContactInformation )
         while 1:
-            order_id = str( random.randint( 0, sys.maxint ) )
+            order_id = str( random.randint( 2**10, 2**30 ) )
             if order_manager.get( order_id ) is None:
                 break
         order.order_id = order_id
