@@ -86,7 +86,8 @@ class Order( Persistent ):
 
     def getSubTotalPrice( self ):
         if not self.shopping_cart:
-            return 0        
+            return 0
+        total = 0
         for item in self.shopping_cart.values():
             d = decimal.Decimal ( str(item.cost ) ) * item.quantity
             total += d        
