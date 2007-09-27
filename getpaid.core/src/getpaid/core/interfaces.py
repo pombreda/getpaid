@@ -127,6 +127,16 @@ class IPaymentProcessorOptions( Interface ):
     """ Options for a Processor
 
     """
+
+class IWorkflowPaymentProcessorIntegration( Interface ):
+    """
+    integrates an order's workflow with a payment processor
+    """
+
+    def __call__( order_workflow_event ):
+        """
+        process a workflow event
+        """
     
 #################################
 # Info needed for payment processing
