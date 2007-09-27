@@ -20,9 +20,16 @@
 
   <!-- Payment Processor Workflow Integration -->
   <subscriber
-     handler=".payment.handleCapture"
+     handler=".payment.processorWorkflowSubscriber"
      for=".interfaces.IOrder
 	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
+     />
+
+  <adapter
+     for=".interfaces.IOrder
+          .interfaces.IDefaultFinanceWorkflow"
+     provides=".interfaces.IWorkflowPaymentProcessorIntegration"
+     factory=".order.OrderWorkflowLog"
      />
 
   <adapter
@@ -31,6 +38,7 @@
      factory=".order.OrderWorkflowLog"
      />
 
+  <!-- Reports -->
   <adapter
 	 for=".interfaces.IStore"
 	 provides=".interfaces.IOrderSetReport"

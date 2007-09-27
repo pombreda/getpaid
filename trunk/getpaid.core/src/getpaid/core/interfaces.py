@@ -371,6 +371,8 @@ class IOrderManager( Interface ):
     def store( order ):
          """ save an order
          """
+class IDefaultFinanceWorkflow( Interface ):
+    """ marker interface for workflow / processor integration on the default ootb workflow """
 
 class IOrder( Interface ):
     """ captures information, and is a container to multiple workflows

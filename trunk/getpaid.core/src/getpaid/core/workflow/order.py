@@ -8,7 +8,7 @@ from zope.interface import implements
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
 
-from getpaid.core.interfaces import workflow_states, IOrder, IPaymentProcessor
+from getpaid.core.interfaces import workflow_states, IOrder, IPaymentProcessor, IDefaultFinanceWorkflow
 from zope import component
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid')
@@ -150,7 +150,7 @@ class FulfillmentWorkflow( workflow.Workflow ):
         super( FulfillmentWorkflow, self).__init__( create_fulfillment_workflow())
 
 class FinanceWorkflow( workflow.Workflow ):
-    implements( iworkflow.IWorkflow )
+    implements( iworkflow.IWorkflow, IDefaultFinanceWorkflow )
     def __init__( self ):
         super( FinanceWorkflow, self).__init__( create_finance_workflow() )
 
