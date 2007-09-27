@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid VERSION\n"
-"POT-Creation-Date: 2007-09-27 14:06+0000\n"
+"POT-Creation-Date: 2007-09-27 14:51+0000\n"
 "PO-Revision-Date: 2007-09-27 08:40-0300\n"
 "Last-Translator: Juan Pablo Giménez <jpg@rcom.com.ar>\n"
 "Language-Team: Juan Pablo Giménez <jpg@rcom.com.ar>\n"
@@ -12,18 +12,14 @@ msgstr ""
 "Language-Code: es\n"
 "Language-Name: Spanish\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: getpaid.nullpayment\n"
+"Domain: getpaid.paypal\n"
 
-#: ./interfaces.py:21
-msgid "Google Checkout Server URL"
+#: ./interfaces.py:24
+msgid "Paypal Id"
 msgstr ""
 
-#: ./interfaces.py:25
-msgid "Merchant Id"
-msgstr ""
-
-#: ./interfaces.py:26
-msgid "Merchant Key"
+#: ./interfaces.py:20
+msgid "Paypal Website Payments Server"
 msgstr ""
 
 #: ./locales/empty.pt:3
