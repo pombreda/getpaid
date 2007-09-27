@@ -25,12 +25,14 @@
 	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
      />
 
+<!--
   <adapter
      for=".interfaces.IOrder
           .interfaces.IDefaultFinanceWorkflow"
      provides=".interfaces.IWorkflowPaymentProcessorIntegration"
      factory=".order.OrderWorkflowLog"
      />
+-->
 
   <adapter
      for=".interfaces.IOrder"
@@ -45,7 +47,7 @@
 	 factory=".reports.AttributeCSVSetReport"
 	 name="default-csv"
 	 />
-	
+
   <!-- Taxes -->
   <utility
      provides=".interfaces.ITaxUtility"
