@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid VERSION\n"
-"POT-Creation-Date: 2007-09-26 21:40+0000\n"
+"POT-Creation-Date: 2007-09-27 14:06+0000\n"
 "PO-Revision-Date: 2007-09-27 08:40-0300\n"
 "Last-Translator: Juan Pablo Giménez <jpg@rcom.com.ar>\n"
 "Language-Team: Juan Pablo Giménez <jpg@rcom.com.ar>\n"
@@ -14,18 +14,17 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: getpaid.nullpayment\n"
 
-#: ./interfaces.py:18
-msgid "Allow Authorizations"
-msgstr "Permitir autorizaciones"
+#: ./interfaces.py:21
+msgid "Google Checkout Server URL"
+msgstr ""
 
 #: ./interfaces.py:25
-#, fuzzy
-msgid "Allow Captures"
-msgstr "Permitir capturas"
+msgid "Merchant Id"
+msgstr ""
 
-#: ./interfaces.py:32
-msgid "Allow Refunds"
-msgstr "Permitir devoluciones"
+#: ./interfaces.py:26
+msgid "Merchant Key"
+msgstr ""
 
 #: ./locales/empty.pt:3
 msgid "do_not_translate"

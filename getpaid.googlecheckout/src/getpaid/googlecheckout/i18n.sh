@@ -9,4 +9,5 @@ for file in `find locales -name *.po`
 do
     echo Syncing $file ...
     i18ndude sync --pot locales/getpaid.googlecheckout.pot $file
+    msgfmt -o `dirname $file`/`basename $file .po`.mo $file
 done
