@@ -17,7 +17,7 @@ Subject: New Order Notification
 
 Thank you for you order.
 
-Total Amount to be Charged : <dtml-var "order.getTotalPrice()">
+Total Amount to be Charged : <dtml-var "order.getTotalPrice()" fmt="%0.2f">
 
 You can view the status of your order here
 
@@ -27,7 +27,7 @@ Order Contents
 
 <dtml-in "order.shopping_cart.values()">
  <dtml-with sequence-item>
-   <dtml-var "resolve().Title()"> <dtml-var cost> <dtml-var quantity>
+   <dtml-var "resolve().Title()"> <dtml-var cost fmt="%0.2f"> <dtml-var quantity>
   </dtml-with>
 </dtml-in>
 
@@ -49,7 +49,7 @@ Subject: New Order Notification
 
 A New Order has been created
 
-Total Cost: <dtml-var "order.getTotalPrice()">
+Total Cost: <dtml-var "order.getTotalPrice()" fmt="%0.2f">
 
 To continue processing the order this order follow this link.
 <dtml-var store_url>/@@admin-manage-order/<dtml-var "order.order_id">/@@admin
@@ -58,7 +58,7 @@ Order Contents
 
 <dtml-in "order.shopping_cart.values()">
  <dtml-with sequence-item>
-   <dtml-var "resolve().Title()"> <dtml-var cost> <dtml-var quantity>
+   <dtml-var "resolve().Title()"> <dtml-var cost fmt="%0.2f"> <dtml-var quantity>
   </dtml-with>
 </dtml-in>
 

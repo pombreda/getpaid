@@ -452,7 +452,8 @@ class OrderSummaryComponent( viewlet.ViewletBase ):
         return True
 
     def getTotalPrice( self ):
-        return self.__parent__.context.getTotalPrice()
+        total_price = "%0.2f" % self.__parent__.context.getTotalPrice()
+        return total_price
 
     def getOrderId( self ):
         return self.__parent__.context.order_id
@@ -506,6 +507,9 @@ def renderItemName( item, formatter ):
     content_url = content.absolute_url()
     title = content.Title()
     return '<a href="%s">%s</a>'%( content_url, title )
+
+def renderItemCost( item, formatter ):
+    return "%0.2f" % ( item.cost )
 
 def renderItemPrice( item, formatter ):
     return "%0.2f"%( item.quantity * item.cost )
@@ -567,7 +571,7 @@ class OrderContentsComponent( core.ComponentViewlet ):
         column.SelectionColumn( lambda item: item.item_id, name="selection"),
         column.GetterColumn( title=_(u"Item Id"), getter=renderItemId ),
         column.GetterColumn( title=_(u"Name"), getter=renderItemName ),
-        column.GetterColumn( title=_(u"Price"), getter=AttrColumn("cost") ),        
+        column.GetterColumn( title=_(u"Price"), getter=renderItemCost ),        
         column.GetterColumn( title=_(u"Quantity"), getter=AttrColumn("quantity" ) ),
         column.GetterColumn( title=_(u"Total"), getter=renderItemPrice ),        
         column.GetterColumn( title=_(u"Status"), getter=AttrColumn("fulfillment_state" ) ),
