@@ -341,6 +341,14 @@ class IPersistentOptions( Interface ):
     """
 
 #################################
+#
+class IProductCatalog( Interface ):
+    
+    def query( **kw ):
+        """ query products """
+    def __setitem__( product_id, product ):
+        """ """
+#################################
 # Orders
 
 class IOrderManager( Interface ):
@@ -355,9 +363,14 @@ class IOrderManager( Interface ):
         """ retrieve an order
         """
 
+# future interface
+#    def __setitem__( order_id, order ):
+#               """ save an order
+#        """
+
     def store( order ):
-        """ save an order
-        """
+         """ save an order
+         """
 
 class IOrder( Interface ):
     """ captures information, and is a container to multiple workflows
@@ -394,7 +407,16 @@ class IVirtualOrder( Interface ):
 class IDonationOrder( Interface ):
     """ marker interface for orders which contain donations"""
 
+class IOrderSetReport( Interface ):
+    """ store adapters that can serialize a set of orders into a report"""
+    
+    title = schema.TextLine()
+    mime_type = schema.ASCIILine()
 
+    def __call__( orders ):
+        """ 
+        return a rendered report string from the given ordrs
+        """
     
 class IOrderWorkflowLog( Interface ):
     """ an event log based history of an order's workflow
@@ -412,6 +434,7 @@ class IOrderWorkflowEntry( Interface ):
     """
     changed_by = schema.ASCIILine( title = _(u"Changed By"), readonly = True )
     change_date = schema.ASCIILine( title = _(u"Change Date"), readonly = True)
+    change_kind = schema.TextLine( title=_(u"Change Kind"), readonly=True) 
     comment = schema.ASCIILine( title = _(u"Comment"), readonly = True, required=False )
     new_state = schema.ASCIILine( title = _(u"New State"), readonly = True)
     previous_state = schema.ASCIILine( title = _(u"Previous State"), readonly = True )

@@ -31,6 +31,13 @@
      factory=".order.OrderWorkflowLog"
      />
 
+  <adapter
+	 for=".interfaces.IStore"
+	 provides=".interfaces.IOrderSetReport"
+	 factory=".reports.AttributeCSVSetReport"
+	 name="default-csv"
+	 />
+	
   <!-- Taxes -->
   <utility
      provides=".interfaces.ITaxUtility"
