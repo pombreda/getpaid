@@ -3,20 +3,20 @@
 # JAVIER MANSILLA <javier@except.com.ar>, 2007.
 msgid ""
 msgstr ""
-"Last-Translator: JAVIER MANSILLA <javier@except.com.ar>\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2007-09-28 11:56+0000\n"
 "PO-Revision-Date: 2007-08-16 12:44-0300\n"
+"Last-Translator: JAVIER MANSILLA <javier@except.com.ar>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Domain: plonegetpaid\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Preferred-Encodings: utf-8 latin1\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 "Language-Code: es\n"
 "Language-Name: Español\n"
-"POT-Creation-Date: 2007-09-26 18:41+0000\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plonegetpaid\n"
 "X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
-"Project-Id-Version: PACKAGE VERSION\n"
-"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ./interfaces.py:336
 msgid "A list of countries"
@@ -164,7 +164,7 @@ msgstr "Filtro"
 msgid "Fufillment"
 msgstr ""
 
-#: ./browser/admin_order.py:568
+#: ./browser/admin_order.py:572
 msgid "Item Id"
 msgstr ""
 
@@ -179,11 +179,11 @@ msgstr ""
 msgid "Merchant Email Notifications"
 msgstr "Alertas al Vendedor por Email"
 
-#: ./browser/admin_order.py:505
+#: ./browser/admin_order.py:506
 msgid "N/A"
 msgstr ""
 
-#: ./browser/admin_order.py:569
+#: ./browser/admin_order.py:573
 msgid "Name"
 msgstr "Nombre"
 
@@ -233,8 +233,8 @@ msgstr "Formato de Moneda Positiva"
 msgid "Premium Content Types"
 msgstr "Tipos de Contenido Pagos"
 
-#: ./browser/templates/portlet-content-premium.pt:30
 #. Default: "Premium not implemented yet"
+#: ./browser/templates/portlet-content-premium.pt:30
 msgid "Premium not implemented yet"
 msgstr "'Premium' no implementado todavía"
 
@@ -246,7 +246,7 @@ msgstr "Precio"
 msgid "Privacy Policy"
 msgstr "Política de Privacidad"
 
-#: ./browser/admin_order.py:571
+#: ./browser/admin_order.py:575
 msgid "Quantity"
 msgstr "Cantidad"
 
@@ -299,7 +299,7 @@ msgstr "El procesador de pagas actualmente configurado no puede ser encontrado; 
 msgid "The list of months"
 msgstr ""
 
-#: ./browser/admin_order.py:572
+#: ./browser/admin_order.py:576
 msgid "Total"
 msgstr "Total"
 
@@ -311,8 +311,8 @@ msgstr "Formato de Moneda Estadounidense"
 msgid "Weight Units"
 msgstr "Unidades de Peso"
 
-#: ./browser/templates/checkout-thank-you.pt:25
 #. Default: "You can check the status of your order"
+#: ./browser/templates/checkout-thank-you.pt:25
 #, fuzzy
 msgid "box_order_status_url_description"
 msgstr "Puede verificar el estado de tu pedido ${status_url}"
@@ -321,211 +321,211 @@ msgstr "Puede verificar el estado de tu pedido ${status_url}"
 msgid "countries"
 msgstr "países"
 
-#: ./browser/templates/admin-overview.pt:17
 #. Default: "Documentation on GetPaid can be found at ${label_plone_documentation} ."
+#: ./browser/templates/admin-overview.pt:17
 msgid "description_getpaid_setup_documentation"
 msgstr "Se puede encontrar la documentación de GetPaid en ${label_plone_documentation}."
 
-#: ./browser/templates/admin-overview.pt:18
 #. Default: "To view and manage orders in the site, click on the Orders tab above."
+#: ./browser/templates/admin-overview.pt:18
 msgid "description_getpaid_setup_orders_link"
 msgstr "Para ver y manejar las ordenes del sitio, haga click en ordenes."
 
-#: ./browser/templates/admin-overview.pt:20
 #. Default: "Use the links below to configure GetPaid."
+#: ./browser/templates/admin-overview.pt:20
 msgid "description_getpaid_setup_overview"
 msgstr "Use los links de abajo para configurar GetPaid."
 
-#: ./browser/templates/cart-empty.pt:5
 #. Default: "Your Cart is Empty"
+#: ./browser/templates/cart-empty.pt:5
 msgid "heading_cart_empty"
 msgstr ""
 
-#: ./browser/templates/cart-manage.pt:4
 #. Default: "Your Shopping Cart"
+#: ./browser/templates/cart-manage.pt:4
 msgid "heading_cart_manage"
 msgstr "Tu Carrito de Compras"
 
-#: ./browser/templates/order-workflow-log.pt:6
 #. Default: "change date"
+#: ./browser/templates/order-workflow-log.pt:6
 msgid "heading_change_date"
 msgstr "fecha modificación"
 
-#: ./browser/templates/order-workflow-log.pt:5
 #. Default: "changed by"
+#: ./browser/templates/order-workflow-log.pt:5
 msgid "heading_changed_by"
 msgstr "modificado por"
 
-#: ./browser/templates/checkout-address.pt:4
 #. Default: "Checkout"
+#: ./browser/templates/checkout-address.pt:4
 msgid "heading_checkout"
 msgstr ""
 
-#: ./browser/templates/disclaimer.pt:5
 #. Default: "Disclaimer"
+#: ./browser/templates/disclaimer.pt:5
 msgid "heading_checkout_disclaimer"
 msgstr "Salvedad"
 
-#: ./browser/templates/privacy-policy.pt:5
 #. Default: "Privacy Policy"
+#: ./browser/templates/privacy-policy.pt:5
 msgid "heading_checkout_privacy_policy"
 msgstr "Política de Privacidad"
 
-#: ./browser/templates/checkout-thank-you.pt:7
 #. Default: "Thank you for your order"
+#: ./browser/templates/checkout-thank-you.pt:7
 #, fuzzy
 msgid "heading_checkout_thank_you"
 msgstr "Gracias por tu Pedido"
 
-#: ./browser/templates/order-workflow-log.pt:10
 #. Default: "comment"
+#: ./browser/templates/order-workflow-log.pt:10
 msgid "heading_comment"
 msgstr "comentario"
 
-#: ./browser/templates/admin-overview.pt:24
 #. Default: "Configure"
+#: ./browser/templates/admin-overview.pt:24
 msgid "heading_configure"
 msgstr "Configurar"
 
-#: ./browser/templates/order-history-viewlet.pt:5
 #. Default: "created"
+#: ./browser/templates/order-history-viewlet.pt:5
 msgid "heading_created"
 msgstr "creado"
 
-#: ./browser/templates/order-history-viewlet.pt:6
 #. Default: "financial state"
+#: ./browser/templates/order-history-viewlet.pt:6
 msgid "heading_financial_state"
 msgstr "estado financiero"
 
-#: ./browser/templates/order-history-viewlet.pt:7
 #. Default: "fulfillment state"
+#: ./browser/templates/order-history-viewlet.pt:7
 msgid "heading_fulfillment_state"
 msgstr "estado del despacho"
 
-#: ./browser/templates/admin-overview.pt:36
 #. Default: "General Information"
+#: ./browser/templates/admin-overview.pt:36
 msgid "heading_general_information"
 msgstr "Información General"
 
-#: ./browser/templates/settings-template.pt:37
 #. Default: "GetPaid Setup"
+#: ./browser/templates/settings-template.pt:37
 #, fuzzy
 msgid "heading_getpaid_setup"
 msgstr "Los Pedidos del Sitio"
 
-#: ./browser/templates/order-workflow-log.pt:9
 #. Default: "new state"
+#: ./browser/templates/order-workflow-log.pt:9
 msgid "heading_new_state"
 msgstr "nuevo estado"
 
-#: ./browser/templates/order-manage.pt:5
 #. Default: "Order"
+#: ./browser/templates/order-manage.pt:5
 msgid "heading_order"
 msgstr "Pedido"
 
-#: ./browser/templates/orders-manage.pt:5
 #. Default: "Order Administration"
+#: ./browser/templates/orders-manage.pt:5
 msgid "heading_order_administration"
 msgstr "Administración de Pedidos"
 
-#: ./browser/templates/order-history-viewlet.pt:4
 #. Default: "order id"
+#: ./browser/templates/order-history-viewlet.pt:4
 msgid "heading_order_id"
 msgstr "identificador del pedido"
 
-#: ./browser/templates/order-workflow-log.pt:7
 #. Default: "previous state"
+#: ./browser/templates/order-workflow-log.pt:7
 msgid "heading_previous_state"
 msgstr "estado previo"
 
-#: ./browser/templates/order-workflow-log.pt:8
 #. Default: "transition"
+#: ./browser/templates/order-workflow-log.pt:8
 msgid "heading_transition"
 msgstr "transición"
 
-#: ./browser/templates/order-history.pt:4
 #. Default: "Your Orders"
+#: ./browser/templates/order-history.pt:4
 msgid "heading_your_orders"
 msgstr "Tus Pedidos"
 
-#: ./browser/templates/portlet-content-buyable.pt:40
 #. Default: "Add to Cart"
+#: ./browser/templates/portlet-content-buyable.pt:40
 msgid "label_add_to_cart"
 msgstr "Agregar al Carrito"
 
-#: ./browser/templates/portlet-content-donatable.pt:39
 #. Default: "Donate!"
+#: ./browser/templates/portlet-content-donatable.pt:39
 msgid "label_donate!"
 msgstr "Donar!"
 
-#: ./browser/templates/admin-overview.pt:38
 #. Default: "GetPaid Version:"
+#: ./browser/templates/admin-overview.pt:38
 msgid "label_getpaid_version"
 msgstr "Versión de GetPaid"
 
-#: ./browser/templates/portlet-cart.pt:23
 #. Default: "Manage Cart"
+#: ./browser/templates/portlet-cart.pt:23
 msgid "label_manage_cart"
 msgstr "Ver el Carrito"
 
-#: ./browser/templates/admin-overview.pt:40
 #. Default: "Store/Organization Name:"
+#: ./browser/templates/admin-overview.pt:40
 msgid "label_organization_name"
 msgstr "Nombre de Tienda y/u Organización"
 
-#: ./browser/templates/settings-template.pt:40
 #. Default: "Up to GetPaid Setup"
+#: ./browser/templates/settings-template.pt:40
 #, fuzzy
 msgid "label_up_to_getpaid_setup"
 msgstr "Subir a Gestión de Pedidos"
 
-#: ./browser/templates/cart-listing.pt:4
 #. Default: "Your Cart Contents"
+#: ./browser/templates/cart-listing.pt:4
 msgid "legend_cart_contents"
 msgstr "Los Contenidos de Tu Carrito"
 
-#: ./browser/templates/order-item-listing.pt:2
 #. Default: "Contents"
+#: ./browser/templates/order-item-listing.pt:2
 msgid "legend_contents"
 msgstr "Contenidos"
 
-#: ./browser/templates/orders-export-csv.pt:3
 #. Default: "Export to CSV"
+#: ./browser/templates/orders-export-csv.pt:3
 msgid "legend_csv_export"
 msgstr "Exportar a CSV"
 
-#: ./browser/templates/cart-actions.pt:3
 #. Default: "Next Steps"
+#: ./browser/templates/cart-actions.pt:3
 msgid "legend_next_steps"
 msgstr "Opciones"
 
-#: ./browser/templates/order-finance.pt:3
 #. Default: "Finance"
+#: ./browser/templates/order-finance.pt:3
 msgid "legend_order_finance"
 msgstr "Finanzas"
 
-#: ./browser/templates/order-fulfillment.pt:3
 #. Default: "Fulfillment"
+#: ./browser/templates/order-fulfillment.pt:3
 msgid "legend_order_fulfillment"
 msgstr "Despacho"
 
-#: ./browser/templates/order-workflow-log.pt:2
 #. Default: "Order Log"
+#: ./browser/templates/order-workflow-log.pt:2
 msgid "legend_order_log"
 msgstr "Historia de Pedidos"
 
-#: ./browser/templates/orders-listing.pt:2
 #. Default: "Orders"
+#: ./browser/templates/orders-listing.pt:2
 msgid "legend_orders"
 msgstr "Pedidos"
 
-#: ./browser/templates/orders-search-filter.pt:3
 #. Default: "Search Orders"
+#: ./browser/templates/orders-search-filter.pt:3
 msgid "legend_search_orders"
 msgstr "Buscador de Pedidos"
 
-#: ./browser/templates/order-summary.pt:3
 #. Default: "Summary"
+#: ./browser/templates/order-summary.pt:3
 msgid "legend_summary"
 msgstr "Resúmen"
 
@@ -537,69 +537,69 @@ msgstr ""
 msgid "states"
 msgstr "estados"
 
-#: ./browser/templates/checkout-thank-you.pt:27
 #. Default: "here"
+#: ./browser/templates/checkout-thank-you.pt:27
 msgid "status_url"
 msgstr "aquí"
 
-#: ./browser/templates/portlet-cart.pt:19
 #. Default: "Contains ${size} Items"
+#: ./browser/templates/portlet-cart.pt:19
 msgid "text_contains_items"
 msgstr "Contiene ${size} Items"
 
-#: ./browser/templates/payable-form.pt:25
 #. Default: "The Context ${portal} Does Not Support this Operation."
+#: ./browser/templates/payable-form.pt:25
 msgid "text_context_does_not_support_operation"
 msgstr "Esta Operación no es soportada en el contexto ${portal}"
 
-#: ./browser/templates/order-summary.pt:14
 #. Default: "Creation Date"
+#: ./browser/templates/order-summary.pt:14
 msgid "text_creation_date"
 msgstr "Fecha de Creación"
 
-#: ./browser/templates/order-fulfillment.pt:5
 #. Default: "Current Status"
+#: ./browser/templates/order-fulfillment.pt:5
 msgid "text_current_status"
 msgstr "Estado Actual"
 
-#: ./browser/templates/order-summary.pt:10
 #. Default: "Customer Id"
+#: ./browser/templates/order-summary.pt:10
 msgid "text_customer_id"
 msgstr "Número del Cliente"
 
-#: ./browser/templates/order-summary.pt:18
 #. Default: "Finance Status"
+#: ./browser/templates/order-summary.pt:18
 msgid "text_finance_status"
 msgstr "Estado Financiero"
 
-#: ./browser/templates/order-summary.pt:22
 #. Default: "Fulfillment Status"
+#: ./browser/templates/order-summary.pt:22
 msgid "text_fulfillment_status"
 msgstr "Estado del Despacho"
 
-#: ./browser/templates/order-summary.pt:6
 #. Default: "Order Id"
+#: ./browser/templates/order-summary.pt:6
 msgid "text_order_id"
 msgstr "Número de Pedido"
 
-#: ./browser/templates/portlet-content-buyable.pt:33
 #. Default: "Price: $ ${value_price}"
+#: ./browser/templates/portlet-content-buyable.pt:33
 #, fuzzy
 msgid "text_price"
 msgstr "Precio: $ ${value_price}"
 
-#: ./browser/templates/portlet-content-buyable.pt:12
 #. Default: "Product Details"
+#: ./browser/templates/portlet-content-buyable.pt:12
 msgid "text_product_details"
 msgstr "Detalles del Producto"
 
-#: ./browser/templates/order-summary.pt:26
 #. Default: "Total Price"
+#: ./browser/templates/order-summary.pt:26
 msgid "text_total_price"
 msgstr "Precio Total"
 
-#: ./browser/templates/portlet-cart.pt:14
 #. Default: "Your Cart"
+#: ./browser/templates/portlet-cart.pt:14
 msgid "text_your_cart"
 msgstr "Tu Carrito"
 
