@@ -9,8 +9,6 @@ setup(
     include_package_data=True,
     install_requires = [ 'setuptools',
 	                 'getpaid.core',
-                         'zope.interface',
-                         'zope.component',
                          ],
     zip_safe = False,
     )
