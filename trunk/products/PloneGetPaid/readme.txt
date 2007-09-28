@@ -1,8 +1,16 @@
 GetPaid for Plone
 
-Product Description: Version 0.1
+Product Description: Version 0.1.1
 
 Congratulations - you have installed GetPaid for Plone! GetPaid provides you basic commerce functionality (donations, shopping cart, checkout) out of the box while providing a flexible framework for creating custom ecommerce applications. 
+
+You can find more information about this project at
+
+  - "www.plonegetpaid.com":http://www.plonegetpaid.com (public web site, general information, sponsorship opportunities, blog)
+
+  - "Google Code":http://code.google.com/p/getpaid (issue tracker, wiki, browse and checkout source code)
+
+  - "Plone Products":http://plone.org/products/getpaid (release plans, official documentation, release code tarballs)
 
 How to Start Using GetPaid:
 
@@ -10,7 +18,7 @@ How to Start Using GetPaid:
 
  - Install:  From the Plone Quick Installer, install PloneGetPaid. This will also add other tools that GetPaid needs. 
 
- - Setup: From the Plone Setup area, scroll down to the area for configuration of custom products and click on GetPaid. This will take you to the administrative screens for GetPaid. At a minimum, you will need to set what content types will be buyable (on the "Content Types" screen) and the payment processor (setting to Testing Processor will allow you to test the product). 
+ - Setup: From the Plone Setup area, scroll down to the area for configuration of custom products and click on GetPaid. This will take you to the administrative screens for GetPaid. At a minimum, you will need to set what content types will be buyable (on the "Content Types" screen) and the payment processor (setting to Testing Processor will allow you to test the product). If you do not have a mailhost set on your server, you will need to disable the email notifications. We recommend that you fill out information in all the screens applicable to your store to provide the best user experience. 
 
  - Content: Go to the content of your site. When you click on the "action" menu while viewing a type of content you selected in the "content types" configuration, you will see options to make the content "buyable", a "donation", "shippable", etc. Select the option you want and then fill in the required fields (ie price). 
 
@@ -20,25 +28,23 @@ Payment Processors:
 
 How to Customize Functionality:
 
-  Most functionality and features of GetPaid can be easily customized. To do so, you should be familiar with the Zope 3 Component Architecture. By writing your own adapters for GetPaid, you use a custom way of storing member data (ie a relational database), handling pricing (to implement specific discounting options, for example), and many other things. 
+  Most functionality and features of GetPaid can be easily customized. To do so, you should be familiar with the Zope 3 Component Architecture. By writing your own adapters for GetPaid, you use a custom way of storing member data (ie a relational database), handling pricing (to implement specific discounting options, for example), introducing new payment processors, and much more. 
 
 Where to Find More Information:
 
-  You can find more information about this project at
-
-  - http://www.plonegetpaid.com (public web site, general information, sponsorship opportunities, blog)
-
-  - http://code.google.com/p/getpaid (issue tracker, wiki, browse and checkout source code)
-
-  - http://plone.org/products/plonegetpaid (release plans, official documentation)
-
-  You can also join our development mailing list to contact others, find collaborators or discuss issues of the product, and get help: http://groups.google.com/group/getpaid-dev
+  In addition to the links above, you can also join our development mailing list to contact others, find collaborators or discuss issues of the product, and get help: http://groups.google.com/group/getpaid-dev
 
   The project community uses the irc channel #getpaid (irc.freenode.net) for real-time interaction. 
 
+Where to Find Support: 
+
+  Support options, including commercial support, are listed at: "GetPaid Support":http://www.plonegetpaid.com/support
+
+  If you find this product beneficial, please consider making a contribution: "Contribute to GetPaid":http://www.plonegetpaid.com/sponsor
+
 License:
 
-  This product is licensed under the Zope Public License (ZPL), disponible en http://www.zope.org/Resources/ZPL
+  This product is licensed under the Zope Public License (ZPL), available at "Zope Public License":http://www.zope.org/Resources/ZPL
 
 Credits:
 
