@@ -188,4 +188,11 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     for="*"
+     name="legal-disclaimers-links"
+     template="templates/legal-disclaimers-links.pt"
+     permission="zope2.View"
+     />
+
 </configure>
