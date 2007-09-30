@@ -3,7 +3,7 @@
 $Id$
 """
 
-from zope.interface import implements
+from zope import interface
 
 from hurry.workflow import interfaces as iworkflow
 from hurry.workflow import workflow
@@ -145,12 +145,12 @@ def create_finance_workflow( ):
 
 
 class FulfillmentWorkflow( workflow.Workflow ):
-    implements( iworkflow.IWorkflow )
+    interface.implements( iworkflow.IWorkflow )
     def __init__( self ):
         super( FulfillmentWorkflow, self).__init__( create_fulfillment_workflow())
 
 class FinanceWorkflow( workflow.Workflow ):
-    implements( iworkflow.IWorkflow, IDefaultFinanceWorkflow )
+    interface.implements( iworkflow.IWorkflow )
     def __init__( self ):
         super( FinanceWorkflow, self).__init__( create_finance_workflow() )
 
@@ -165,6 +165,9 @@ FinanceWorkflowAdapter, FinanceState, FinanceInfo = workflow.ParallelWorkflow(
     workflow.AdaptedWorkflow( FinanceWorkflow() ),
     workflow_states.order.finance.name,
     )
+
+interface.classImplements( FinanceWorkflowAdapter, IDefaultFinanceWorkflow )
+
 
 if __name__ == '__main__':
     wk = FinanceWorkflow(None)
