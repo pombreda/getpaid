@@ -4,7 +4,7 @@ workflow event driven payment processor integration
 """
 
 from getpaid.core import interfaces 
-from zope import component
+from zope import component, interface
 
 def fireAutomaticTransitions( order, event ):    
     """ fire automatic transitions for a new state """ 
@@ -16,22 +16,29 @@ def processorWorkflowSubscriber( order, event ):
     fire off transition from charging to charged or declined based on
     payment processor interaction.
     """
-    
-    if order.finance_state == event.destination:
-        adapter = component.queryMultiAdapter( interfaces.IWorkflowPaymentProcessorIntegration,
-                                               (order, order.finance_workflow) )
-        
-    elif order.fulfillment_state == event.destination:
-        adapter = component.queryMultiAdapter( interfaces.IWorkflowPaymentProcessorIntegration,
-                                               (order, order.fulfillment_workflow ) )
 
+    # check for a payment processor associated with the 
+    # there is a default notion here that the workflows for finance / fulfillment can't share state names
+    # 
+    if order.finance_state == event.destination:
+        adapter = component.queryMultiAdapter( (order, order.finance_workflow.workflow() ),
+                                               interfaces.IWorkflowPaymentProcessorIntegration )
+                                               
+    elif order.fulfillment_state == event.destination:
+        adapter = component.queryMultiAdapter( (order, order.fulfillment_workflow.workflow() ),
+                                               interfaces.IWorkflowPaymentProcessorIntegration )
+    else:
+        return
+                                              
     if adapter is None:
         return
 
     return adapter( event )
 
 class DefaultFinanceProcessorIntegration( object ):
-
+    
+    interface.implements( interfaces.IWorkflowPaymentProcessorIntegration )
+    
     def __init__( self, order, workflow):
         self.order = order
         self.workflow = workflow
@@ -57,13 +64,13 @@ class DefaultFinanceProcessorIntegration( object ):
 
         processor = component.getAdapter( context,
                                           interfaces.IPaymentProcessor,
-                                          order.processor_id )
+                                          self.order.processor_id )
 
-        result = processor.capture( order, order.getTotalPrice() )
+        result = processor.capture( self.order, self.order.getTotalPrice() )
     
         if result == interfaces.keys.results_async:
             return
         elif result == interfaces.keys.results_success:
-            self.workflow.fireTransition('charge-charging')
+            self.order.finance_workflow.fireTransition('charge-charging')
         else:
-            self.workflow.fireTransition('decline-charging', comment=result)
+            self.order.finance_workflow.fireTransition('decline-charging', comment=result)

@@ -25,14 +25,13 @@
 	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
      />
 
-<!--
   <adapter
      for=".interfaces.IOrder
           .interfaces.IDefaultFinanceWorkflow"
      provides=".interfaces.IWorkflowPaymentProcessorIntegration"
-     factory=".order.OrderWorkflowLog"
+     factory=".payment.DefaultFinanceProcessorIntegration"
      />
--->
+
 
   <adapter
      for=".interfaces.IOrder"
