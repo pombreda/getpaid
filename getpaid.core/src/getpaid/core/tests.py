@@ -17,7 +17,7 @@ import random, string, datetime
 from zope import component
 
 from getpaid.core.interfaces import IOrder, IOrderManager, IOrderWorkflowLog, workflow_states
-from getpaid.core import order, cart
+from getpaid.core import order, cart, item as line_item
 from getpaid.core.workflow import store, order as oworkflow
 
 def setUp(test):
@@ -37,7 +37,7 @@ def createOrders( how_many=10 ):
         o.shopping_cart = sc = cart.ShoppingCart()
         
         for i in range(0, 10):
-            item = cart.LineItem()
+            item = line_item.LineItem()
             item.name = "p%s"%random.choice( string.letters )
             item.quantity = random.randint(1,25)
             item.cost = random.randint(30, 100)
