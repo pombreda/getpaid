@@ -529,6 +529,7 @@ class CheckoutReviewAndPay( BaseCheckoutForm ):
 ##             return base_url + '/@@checkout-error'
         
         if state in ( f_states.CHARGEABLE,
+                      f_states.CHARGING,
                       f_states.REVIEWING,
                       f_states.CHARGED ):
             return base_url + '/@@getpaid-thank-you?order_id=%s&finance_state=%s' %(order.order_id,state)

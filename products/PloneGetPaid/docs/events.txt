@@ -10,7 +10,7 @@ content
 
    - payable removed
 
-cart events
+cart events ( not implemented)
 
    - item added to cart
    

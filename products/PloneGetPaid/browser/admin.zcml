@@ -39,6 +39,16 @@
   <!-- <include file="menu.zcml" /> -->
   <include file="settings.zcml" />
 
+  <!-- Import Export Management -->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="manage-getpaid-import-export"
+     class=".io.AdminImportExport"
+     permission="cmf.ManagePortal"
+     menu="getpaid_settings"
+     title="Upgrade"
+     />
+
   <!-- Order Management -->
   <browser:page
      for="*"

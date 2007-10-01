@@ -48,7 +48,7 @@ License:
 
 Credits:
 
-  Project leaders: Kapil Thangavelu is the chief architect of the product. Christopher Johnson is the project organizer. Jon Stahl is the project's NGO Liason.
+  Project leaders: Kapil Thangavelu is the chief architect and author of the product. Christopher Johnson is the project organizer. Jon Stahl is the project's NGO Liason.
 
   Lots of people have contributed to this project through our sprints. Thanks to all those who participated in the BBQSprint, Google DocComm Sprint, and i18n Sprint. 
 
