@@ -31,6 +31,8 @@ Checkout the getpaid.buildout infrastructure. Make sure you check it out to a lo
 svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
 }}}
 
+Make sure you use https and not http, as you will have authentication problems later if you do.
+
 For using authorize.net payment processor, uncomment zc.authorizeddotnetet and getpaid.authorizenet in buildout.cfg
 
 Run the buildout bootstrap script using a python interpreter that Zope likes (for example, `python2.4`):
