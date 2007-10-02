@@ -17,11 +17,14 @@ from Products.PloneGetPaid.interfaces import ICountriesStates, IMonthsAndYears
 
 from Products.CMFCore.utils import getToolByName
 
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('plonegetpaid')
+
 def PaymentMethods( context ):
     # context is the portal config options, whose context is the portal
     adapters = component.getAdapters( (context.context,), interfaces.IPaymentProcessor )
     payment_names = set( map(unicode, [ n for n,a in adapters]) )
-    return vocabulary.SimpleVocabulary.fromValues( payment_names )    
+    return vocabulary.SimpleVocabulary.fromValues( payment_names )
 
 def ContentTypes( context ):
     # context is actually a preferences object, dig another level to get to the adapted context
@@ -49,22 +52,22 @@ def TaxMethods( context ):
     return vocabulary.SimpleVocabulary.fromValues( (u"None",) )
 
 def ShippingMethods( context ):
-    return vocabulary.SimpleVocabulary.fromValues( (u"None", u"Flat Rate Shipping") )
+    return vocabulary.SimpleVocabulary.fromValues( (u"None", _(u"Flat Rate Shipping")))
 
 def CreditCards( context ):
     return vocabulary.SimpleVocabulary.fromValues( (u"Visa", u"Mastercard", u"Discover", u"American Express") )
 
 def WeightUnits( context ):
-    return vocabulary.SimpleVocabulary.fromValues( (u"Pounds",) )
+    return vocabulary.SimpleVocabulary.fromValues( (_(u"Pounds"),) )
 
 def Currencies( context ):
-    return vocabulary.SimpleVocabulary.fromValues( (u"US Dollars",) )
+    return vocabulary.SimpleVocabulary.fromValues( (_(u"US Dollars"),) )
 
 def MerchantNotificationChoices( context ):
     return vocabulary.SimpleVocabulary.fromItems(
         [
-        (u"Do not send merchant email notification of a completed transaction" ,u"no_notification"),
-        (u"Send merchant email notification when a transaction happens", u"notification"),
+        (_(u"Do not send merchant email notification of a completed transaction") ,u"no_notification"),
+        (_(u"Send merchant email notification when a transaction happens"), u"notification"),
         #("Send merchant encrypted email notification when a transaction happens", u"encrypted_notification")]
         ]
         )
@@ -72,10 +75,10 @@ def MerchantNotificationChoices( context ):
 def CustomerNotificationChoices( context ):
     return vocabulary.SimpleVocabulary.fromItems(
         [
-        (u"Do not send customer email notification of a completed transaction", u"no_notification"), 
-        (u"Send customer email notification of a completed transaction", u"notification")    
+        (_(u"Do not send customer email notification of a completed transaction"), u"no_notification"),
+        (_(u"Send customer email notification of a completed transaction"), u"notification")
         ]
-        )                                                
+        )
 
 class TitledVocabulary(vocabulary.SimpleVocabulary):
     def fromTitles(cls, items, *interfaces):
@@ -135,9 +138,9 @@ class CountriesStatesFromFile(object):
     def states(self, country=None):
         if country is None:
             return [n for n in self.allStates() if len(n[1]) < 20]
-        
+
         states = self.csparser.getStatesOf(country)
-        
+
         if len(states) == 0:
             return self._noValues
 

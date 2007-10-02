@@ -44,6 +44,11 @@ msgstr ""
 msgid "Legal Disclaimers"
 msgstr ""
 
-# zope.formlib Apply button
+# zope.formlib
+# Apply button
 msgid "Apply"
+msgstr ""
+
+# Delete button
+msgid "Delete"
 msgstr ""

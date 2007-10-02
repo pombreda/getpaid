@@ -4,7 +4,7 @@
 
 <body>
 <div metal:define-macro="portlet" tal:condition="view/payable">
-         
+
     <dl class="portlet" id="portlet-cart">
 
         <dt class="portletHeader">
@@ -14,7 +14,7 @@
             <span class="portletTopRight"></span>
         </dt>
 
-        <dd class="portletItem odd"> 
+        <dd class="portletItem odd">
           <div>
 
             <p tal:define="field context/Title"
@@ -28,8 +28,9 @@
             </p>
 
             <p tal:define="field python: '%.2f' % view.payable.price"
-               tal:condition="field">
-                 Price: $<span tal:content="field" />
+               tal:condition="field"
+               i18n:translate="text_price">
+                 Price: $ <span tal:content="field" i18n:name="value_price" />
             </p>
 
           </div>

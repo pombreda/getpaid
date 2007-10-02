@@ -1,11 +1,14 @@
 from zope import schema
 from zope.schema.interfaces import ValidationError
 
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid')
+
 class InvalidPhoneNumber(ValidationError):
-    __doc__ = u"Only digit character allowed."
+    __doc__ = _(u"Only digit character allowed.")
 
 class InvalidCreditCardNumber(ValidationError):
-    __doc__ = u"Invalid Credit Card Number."
+    __doc__ = _(u"Invalid Credit Card Number.")
 
 def creditCardValid(card_number):
     """ checks to make sure that the card passes a luhn mod-10 checksum """
