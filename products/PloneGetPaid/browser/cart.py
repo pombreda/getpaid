@@ -72,8 +72,8 @@ class ShoppingCartAddItem( ShoppingCart ):
         # create a line item and add it to the cart
         item_factory = interfaces.ILineItemFactory( self.cart )
         item_factory.create( self.context )
-        
-                                     
+
+
 class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
     def addToCart( self ):
         # XXX this duplicates functionality available elsewhere
@@ -89,7 +89,7 @@ class ShoppingCartAddItemAndGoToCheckout(ShoppingCartAddItem):
                                urlencode([('came_from',
                                            url + '/@@getpaid-checkout-wizard')]))
         return self.request.RESPONSE.redirect( url )
-        
+
 def verifyItems( cart ):
     """ verify that all the objects in the cart can be resolved, removing
     items that can no longer be resolved and returning them """
@@ -173,7 +173,7 @@ class ShoppingCartListing( ContainerViewlet ):
         # shopping cart should not be ordered, so override this with False
         return False
 
-    @form.action("Update", condition="isNotEmpty")
+    @form.action(_("Update"), condition="isNotEmpty")
     def handle_update( self, action, data ):
         try:
             data = self.quantity_column.input(self.container.values(), self.request)
@@ -202,7 +202,7 @@ class ShoppingCartActions( FormViewlet ):
     def isAnonymous( self, *args ):
         return getSecurityManager().getUser().getId() is None
 
-    @form.action("Continue Shopping")
+    @form.action(_("Continue Shopping"))
     def handle_continue_shopping( self, action, data ):
         # redirect the user to the last thing they were viewing if there is not
         # such thing to the came_from variable and if this doesn't exist neither
@@ -214,7 +214,7 @@ class ShoppingCartActions( FormViewlet ):
             payable = getToolByName( self.context, 'reference_catalog').lookupObject( last_item )
         return self.request.RESPONSE.redirect(payable.absolute_url()+'/view')
 
-    @form.action("Checkout", condition="doesCartContainItems", name="Checkout")
+    @form.action(_("Checkout"), condition="doesCartContainItems", name="Checkout")
     def handle_checkout( self, action, data ):
         # go to order-create
         # force ssl? redirect host? options
@@ -225,7 +225,7 @@ class ShoppingCartActions( FormViewlet ):
 ##     we used to not allow anonymous checkouts, would be nice to have this configurable..
 
 ##     @form.action("Checkout", condition="isLoggedInAndHasItems", name="AuthCheckout")
-    
+
 ##     @form.action("Checkout", condition="isAnonymous", name="AnonCheckout")
 ##     def handle_login_checkout( self, action, data ):
 ##         # go to sign in with redirect url to checkout

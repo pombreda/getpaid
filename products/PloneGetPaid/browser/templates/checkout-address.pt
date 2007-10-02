@@ -4,12 +4,12 @@
     <h3 i18n:translate="heading_checkout"> Checkout </h3>
 
   <form action="."
-        tal:attributes="action request/URL" 
+        tal:attributes="action request/URL"
 	method="post"
 	enctype="multipart/form-data">
 
-    <div class="hidden_fields" 
-	 tal:content="structure view/hidden_inputs"> </div>    
+    <div class="hidden_fields"
+	 tal:content="structure view/hidden_inputs"> </div>
 
     <div class="portalMessage" tal:content="view/status" tal:condition="view/status"> </div>
 
@@ -17,7 +17,7 @@
 	<tr>
 		<td colspan="2">
 	  		<fieldset tal:define="widgets python: view.getWidgetsByIName('getpaid.core.interfaces.IUserContactInformation')">
-	    		<legend> Contact Information </legend>
+	    		<legend i18n:translate=""> Contact Information </legend>
 	    		<div metal:use-macro="context/@@getpaid-form/fieldset"> </div>
 	  		</fieldset>
 		</td>
@@ -25,14 +25,14 @@
     <tr>
 	<td>
 	  <fieldset tal:define="widgets python: view.getWidgetsByIName('getpaid.core.interfaces.IBillingAddress')">
-	    <legend> Billing Address </legend>
+	    <legend i18n:translate=""> Billing Address </legend>
 	    <div metal:use-macro="context/@@getpaid-form/fieldset"> </div>
 	  </fieldset>
        </td>
 
 	<td>
 	  <fieldset tal:define="widgets python: view.getWidgetsByIName('getpaid.core.interfaces.IShippingAddress')">
-	    <legend> Mailing Address </legend>
+	    <legend i18n:translate=""> Mailing Address </legend>
 	    <div metal:use-macro="context/@@getpaid-form/fieldset"> </div>
 	  </fieldset>
 	</td>
@@ -45,16 +45,26 @@
 	  <div id="actionsView">
 	    <span class="actionButtons"
 		  tal:condition="view/availableActions">
-	      <input tal:repeat="action view/actions"
-		     tal:replace="structure action/render"
-		     />
+  <!-- action/render doesn't handle i18n translations (fix)
+    <input tal:repeat="action view/actions"
+           tal:replace="structure action/render"
+           />
+  -->
+      <tal:loop tal:repeat="action view/availableActions">
+		<input type="submit" class="button"
+			   id="" name="" value=""
+			   tal:attributes="id action/__name__;
+			   				   name action/__name__;
+			   				   value python:str(action.label);"
+			   i18n:attributes="value" />
+	  </tal:loop>
 	    </span>
 	  </div>
 
 	</td>
       </tr>
     </table>
-    
+
   </form>
   <metal:legal use-macro="context/@@legal-disclaimers-links/links" />
 

@@ -49,6 +49,9 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
+msgid "Payable"
+msgstr ""
+
 msgid "Settings"
 msgstr ""
 

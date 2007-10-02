@@ -50,3 +50,6 @@ msgstr ""
 
 msgid "Orders"
 msgstr ""
+
+msgid "Payable"
+msgstr ""

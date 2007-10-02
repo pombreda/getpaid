@@ -8,13 +8,13 @@
 
     <div>
         <div tal:condition="finance_state|nothing">
-            <span i18n_translate="your_finance_state_is">
+            <span i18n:translate="your_finance_state_is">
                 Your finance state is
             </span>
             <tal:replace tal:replace="finance_state"></tal:replace>
         </div>
         <div tal:condition="order_id|nothing">
-            <span i18n_translate="your_order_id">
+            <span i18n:translate="your_order_id">
                 Your order id is
             </span>
             <tal:replace tal:replace="order_id"></tal:replace>
@@ -22,13 +22,14 @@
     </div>
 
     <div tal:condition="not:isAnon">
-      <span i18n:translate="box_order_status_url_description">You can check the status of your order </span>
-
+      <span i18n:translate="box_order_status_url_description">You can check the status of your order
+	  <span i18n:name="status_url">
       <a href=""
          tal:attributes="href
          string:${context/portal_url}/@@getpaid-order-history?searchterm=${order_id}"
-         i18n:translate="status_url">here</a>
-
+         i18n:translate="">here</a>
+      </span>
+	  </span>
     </div>
 
   </metal:block>

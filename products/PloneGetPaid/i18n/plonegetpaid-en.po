@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
-"POT-Creation-Date: 2007-09-28 11:56+0000\n"
+"POT-Creation-Date: 2007-10-02 19:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Fabio Corneti <info@corneti.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,10 @@ msgstr ""
 msgid "A list of years"
 msgstr ""
 
+#: ./browser/content.py:61
+msgid "Activate"
+msgstr ""
+
 #: ./interfaces.py:202
 msgid "Allow Anonymous Checkout"
 msgstr ""
@@ -41,6 +45,11 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+#. Default: "Billing Address"
+#: ./browser/templates/checkout-address.pt:28
+msgid "Billing Address"
+msgstr ""
+
 #: ./interfaces.py:161
 msgid "Buyable Content delivered through the web/virtually"
 msgstr ""
@@ -51,6 +60,10 @@ msgstr ""
 
 #: ./browser/checkout.py:350
 msgid "Cancel"
+msgstr ""
+
+#: ./browser/cart.py:217
+msgid "Checkout"
 msgstr ""
 
 #: ./interfaces.py:114
@@ -79,6 +92,11 @@ msgstr ""
 
 #: ./interfaces.py:150
 msgid "Contact Fax"
+msgstr ""
+
+#. Default: "Contact Information"
+#: ./browser/templates/checkout-address.pt:20
+msgid "Contact Information"
 msgstr ""
 
 #: ./interfaces.py:99
@@ -116,6 +134,10 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
+#: ./browser/cart.py:205
+msgid "Continue Shopping"
+msgstr ""
+
 #: ./browser/admin_order.py:88
 msgid "Created"
 msgstr ""
@@ -132,16 +154,33 @@ msgstr ""
 msgid "Customer Id"
 msgstr ""
 
+#: ./browser/io.py:17
+msgid "Data File to Import"
+msgstr ""
+
 #: ./interfaces.py:277
 msgid "Decimal Symbol"
+msgstr ""
+
+# Delete button
+msgid "Delete"
 msgstr ""
 
 #: ./interfaces.py:267
 msgid "Digit Grouping Symbol"
 msgstr ""
 
-#: ./interfaces.py:308
+#. Default: "Disclaimer"
+#: ./browser/templates/legal-disclaimers-links.pt:14
 msgid "Disclaimer"
+msgstr ""
+
+#: ./vocabularies.py:78
+msgid "Do not send customer email notification of a completed transaction"
+msgstr ""
+
+#: ./vocabularies.py:69
+msgid "Do not send merchant email notification of a completed transaction"
 msgstr ""
 
 #: ./interfaces.py:174
@@ -151,12 +190,20 @@ msgstr ""
 msgid "Email Notifications"
 msgstr ""
 
+#: ./browser/io.py:64
+msgid "Export"
+msgstr ""
+
 #: ./browser/admin_order.py:121
 msgid "Export Search"
 msgstr ""
 
 #: ./browser/admin_order.py:185
 msgid "Filter"
+msgstr ""
+
+#: ./vocabularies.py:55
+msgid "Flat Rate Shipping"
 msgstr ""
 
 #: ./browser/admin_order.py:86
@@ -168,6 +215,11 @@ msgid "Item Id"
 msgstr ""
 
 msgid "Legal Disclaimers"
+msgstr ""
+
+#. Default: "Mailing Address"
+#: ./browser/templates/checkout-address.pt:35
+msgid "Mailing Address"
 msgstr ""
 
 #: ./browser/checkout.py:441
@@ -210,6 +262,11 @@ msgstr ""
 msgid "Order Id"
 msgstr ""
 
+#. Default: "Payment Details"
+#: ./browser/templates/checkout-review-pay.pt:42
+msgid "Payment Details"
+msgstr ""
+
 msgid "Payment Options"
 msgstr ""
 
@@ -228,6 +285,10 @@ msgstr ""
 msgid "Positive Currency Format"
 msgstr ""
 
+#: ./vocabularies.py:61
+msgid "Pounds"
+msgstr ""
+
 #: ./interfaces.py:166
 msgid "Premium Content Types"
 msgstr ""
@@ -241,7 +302,8 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: ./interfaces.py:312
+#. Default: "Privacy Policy"
+#: ./browser/templates/legal-disclaimers-links.pt:7
 msgid "Privacy Policy"
 msgstr ""
 
@@ -250,6 +312,14 @@ msgid "Quantity"
 msgstr ""
 
 msgid "Sales Tax Configuration"
+msgstr ""
+
+#: ./vocabularies.py:79
+msgid "Send customer email notification of a completed transaction"
+msgstr ""
+
+#: ./vocabularies.py:70
+msgid "Send merchant email notification when a transaction happens"
 msgstr ""
 
 #: ./interfaces.py:235
@@ -269,6 +339,11 @@ msgid "Shipping Method"
 msgstr ""
 
 msgid "Shipping Options"
+msgstr ""
+
+#. Default: "Shopping Cart"
+#: ./browser/templates/checkout-review-pay.pt:35
+msgid "Shopping Cart"
 msgstr ""
 
 #: ./interfaces.py:237
@@ -306,12 +381,20 @@ msgstr ""
 msgid "US Currency Formatting"
 msgstr ""
 
+#: ./vocabularies.py:64
+msgid "US Dollars"
+msgstr ""
+
+#: ./browser/cart.py:176
+msgid "Update"
+msgstr ""
+
 #: ./interfaces.py:228
 msgid "Weight Units"
 msgstr ""
 
-#. Default: "You can check the status of your order"
-#: ./browser/templates/checkout-thank-you.pt:25
+#. Default: "You can check the status of your order ${status_url}"
+#: ./browser/templates/checkout-thank-you.pt:26
 msgid "box_order_status_url_description"
 msgstr ""
 
@@ -444,13 +527,18 @@ msgstr ""
 msgid "heading_your_orders"
 msgstr ""
 
+#. Default: "here"
+#: ./browser/templates/checkout-thank-you.pt:27
+msgid "here"
+msgstr ""
+
 #. Default: "Add to Cart"
 #: ./browser/templates/portlet-content-buyable.pt:40
 msgid "label_add_to_cart"
 msgstr ""
 
 #. Default: "Donate!"
-#: ./browser/templates/portlet-content-donatable.pt:39
+#: ./browser/templates/portlet-content-donatable.pt:40
 msgid "label_donate!"
 msgstr ""
 
@@ -532,11 +620,6 @@ msgstr ""
 msgid "states"
 msgstr ""
 
-#. Default: "here"
-#: ./browser/templates/checkout-thank-you.pt:27
-msgid "status_url"
-msgstr ""
-
 #. Default: "Contains ${size} Items"
 #: ./browser/templates/portlet-cart.pt:19
 msgid "text_contains_items"
@@ -599,5 +682,15 @@ msgstr ""
 
 #: ./interfaces.py:349
 msgid "years"
+msgstr ""
+
+#. Default: "Your finance state is"
+#: ./browser/templates/checkout-thank-you.pt:11
+msgid "your_finance_state_is"
+msgstr ""
+
+#. Default: "Your order id is"
+#: ./browser/templates/checkout-thank-you.pt:17
+msgid "your_order_id"
 msgstr ""
 
