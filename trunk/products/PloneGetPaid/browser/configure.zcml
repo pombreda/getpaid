@@ -156,11 +156,19 @@
       class=".order.OrderHistoryManager"
       />
 
+  <!-- 'name' determines the order viewlets show up -->
   <browser:viewlet
       name="order-history"
       manager="..interfaces.IOrderHistoryManager"
       template="templates/order-history-viewlet.pt"
       class=".order.UserOrderHistoryComponent"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      name="privacy-policy-disclaimer-links"
+      manager="..interfaces.IOrderHistoryManager"
+      template="templates/legal-disclaimers-links.pt"
       permission="zope2.View"
       />
 

@@ -39,11 +39,20 @@ class UserOrderHistory( BrowserView ):
         return super( UserOrderHistory, self ).__call__()
 
 # viewlet manager for the same
+class ViewletManagerOrderHistory(object):
+    """ Order History Viewlet Manager """
+
+    def sort (self, viewlets):
+        """ Sort by name """
+        return sorted(viewlets)
+
+
 OrderHistoryManager = ViewletManager("OrderHistory",
                                      ipgp.IOrderHistoryManager,
                                      os.path.join( os.path.dirname( __file__ ),
                                                    "templates",
-                                                   "viewlet-manager.pt")
+                                                   "viewlet-manager.pt"),
+                                     bases=(ViewletManagerOrderHistory,)
                                      )
 
 class UserOrderHistoryComponent:
