@@ -1,7 +1,7 @@
 <metal:block define-macro="links"
              i18n:domain="plonegetpaid">
 
-  <div style="margin-top: 3em"
+  <div style="margin-top: 2em"
        tal:define="privacy_policy_exists context/@@privacy-policy/privacy_policy;
                    disclaimer_exists context/@@disclaimer/disclaimer">
     <a href="" target="_blank"
