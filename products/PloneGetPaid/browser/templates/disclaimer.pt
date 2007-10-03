@@ -5,7 +5,7 @@
     <h3 i18n:translate="heading_checkout_disclaimer"> Disclaimer </h3>
 
     <div>
-    <p tal:content="view/disclaimer"> Privacy Policy Text </p>
+    <p tal:content="structure view/disclaimer"> Privacy Policy Text </p>
 
 
     </div>

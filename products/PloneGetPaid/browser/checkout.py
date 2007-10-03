@@ -54,6 +54,7 @@ from zope.formlib import form
 from zope import schema, interface
 from zope.interface.interfaces import IInterface
 from zope.app.event.objectevent import ObjectCreatedEvent
+from zope.app.renderer.plaintext import PlainTextToHTMLRenderer
 
 from zope import component
 
@@ -549,7 +550,8 @@ class DisclaimerView(BrowserView):
     def disclaimer(self):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         settings = IGetPaidManagementOptions(portal)
-        return settings.disclaimer
+        renderer = PlainTextToHTMLRenderer(settings.disclaimer, self.request)
+        return renderer.render().strip()
 
 class PrivacyPolicyView(BrowserView):
     """ Shows the privacy policy text from the getpaid settings.
@@ -559,4 +561,5 @@ class PrivacyPolicyView(BrowserView):
     def privacy_policy(self):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         settings = IGetPaidManagementOptions(portal)
-        return settings.privacy_policy
+        renderer = PlainTextToHTMLRenderer(settings.privacy_policy, self.request)
+        return renderer.render().strip()
