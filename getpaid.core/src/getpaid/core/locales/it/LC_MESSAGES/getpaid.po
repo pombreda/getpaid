@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: getpaid.core VERSION\n"
-"POT-Creation-Date: Thu Aug 16 13:01:17 2007\n"
+"POT-Creation-Date: 2007-10-04 13:22+0000\n"
 "PO-Revision-Date: 2007-08-16 12:46-0300\n"
 "Last-Translator: Fabio Corneti <info@corneti.com>\n"
 "Language-Team: Fabio Corneti <info@corneti.com>\n"
@@ -16,250 +16,343 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: getpaid\n"
 
-#: /interfaces.py:138
-msgid "Unique Item Id"
-msgstr ""
-
-#: /interfaces.py:139
-msgid "Name"
-msgstr "Nome"
-
-#: /interfaces.py:140
-msgid "Description"
-msgstr "Descrizione"
-
-#: /interfaces.py:141
-msgid "Cost"
-msgstr "Prezzo"
-
-#: /interfaces.py:142
-msgid "Quantity"
-msgstr "Quantità"
-
-#: /interfaces.py:160
-msgid "Period as a timedelta"
-msgstr "Intervallo temporale"
-
-#: /interfaces.py:221 /interfaces.py:233 /interfaces.py:245
-msgid "First Line"
-msgstr "Prima linea"
-
-#: /interfaces.py:222 /interfaces.py:234 /interfaces.py:246
-msgid "Second Line"
-msgstr "Seconda linea"
-
-#: /interfaces.py:223 /interfaces.py:235 /interfaces.py:247
-msgid "City"
-msgstr "Città"
-
-#: /interfaces.py:224 /interfaces.py:236 /interfaces.py:248
-msgid "State"
-msgstr "Provincia"
-
-#: /interfaces.py:226 /interfaces.py:238 /interfaces.py:250
-msgid "Country"
-msgstr "Nazione"
-
-#: /interfaces.py:228 /interfaces.py:240 /interfaces.py:252
-msgid "Zip Code"
-msgstr "C.A.P."
-
-#: /interfaces.py:259
-msgid "Card Holder Name"
-msgstr "Nome del titolare della carta"
-
-#: /interfaces.py:260
-msgid "Phone Number"
-msgstr "Numero di telefono"
-
-#: /interfaces.py:262
-msgid "Credit Card Type"
-msgstr "Tipo di carta"
-
-#: /interfaces.py:268
-msgid "Credit Card Number"
-msgstr "Numero carta"
-
-#: /interfaces.py:269
-msgid "Credit Card Expiration Date"
-msgstr "Data di scadenza"
-
-#: /interfaces.py:270
-msgid "Credit Card Verfication Number"
-msgstr "Codice di sicurezza"
-
-#: /interfaces.py:278
-msgid "Payment Status"
-msgstr "Stato del pagamento"
-
-#: /interfaces.py:279
+#: ./interfaces.py:345
 msgid "Accepted"
 msgstr "Accettato"
 
-#: /interfaces.py:280 /workflow/shipment.py:77
-msgid "Declined"
-msgstr "Respinto"
+#: ./interfaces.py:40
+msgid "An organization's unique product identifier (not required since shopping cart uses content UID internally)"
+msgstr "Il codice utilizzato internamente all'organizzazione per identificare univocamente un prodotto (facoltativo, il carrello utilizza l'UID del contenuto per l'identificazione)"
 
-#: /interfaces.py:281
-msgid "Refunded"
-msgstr "Rimborsato"
-
-#: /interfaces.py:309
-msgid "Customer Id"
-msgstr "Codice cliente"
-
-#: /interfaces.py:313
-msgid "Finance State"
-msgstr "Stato del pagamento"
-
-#: /interfaces.py:314
-msgid "Fufillment State"
-msgstr "Stato della spedizione"
-
-#: /interfaces.py:315
-msgid "Processor Order Id"
-msgstr "Identificativo del metodo di pagamento"
-
-#: /interfaces.py:32
-msgid "Made Payable By"
-msgstr "Marcato come acquistabile da"
-
-#: /interfaces.py:346
-msgid "Changed By"
-msgstr "Modificato da"
-
-#: /interfaces.py:347
-msgid "Change Date"
-msgstr "Data dell'ultima modifica"
-
-#: /interfaces.py:348
-msgid "Comment"
-msgstr "Commento"
-
-#: /interfaces.py:349
-msgid "New State"
-msgstr "Nuovo stato"
-
-#: /interfaces.py:350
-msgid "Previous State"
-msgstr "Stato precedente"
-
-#: /interfaces.py:37
-msgid "Product Code"
-msgstr "Codice del prodotto"
-
-#: /interfaces.py:38
-msgid ""
-"An organization's unique product identifier (not required since shopping "
-"cart uses content UID internally)"
-msgstr ""
-"Il codice utilizzato internamente all'organizzazione per identificare univocamente un prodotto"
-" (facoltativo, il carrello utilizza l'UID del contenuto per l'identificazione)"
-
-#: /interfaces.py:41
-msgid "Price"
-msgstr "Prezzo"
-
-#: /interfaces.py:46
-msgid "Donation Description"
-msgstr "Descrizione della donazione"
-
-#: /interfaces.py:47
-msgid "Very brief 50 character text (that shows up in portlet)"
-msgstr "Breve testo (max. 50 caratteri) visualizzato nella portlet"
-
-#: /interfaces.py:70
-msgid "Dimensions"
-msgstr "Dimensioni"
-
-#: /interfaces.py:71
-msgid "Product SKU"
-msgstr "SKU del prodotto"
-
-#: /order.py:53
-msgid "Order Id already set"
-msgstr "Codice ordine già assegnato"
-
-#: /order.py:55
-msgid "Invalid Order Id"
-msgstr "Codice ordine invalido"
-
-#: /workflow/item.py:100
-msgid "Electronic Delivery"
-msgstr "Spedizione via mail/download"
-
-#: /workflow/item.py:109
-msgid "Cancel"
-msgstr "Annulla"
-
-#: /workflow/item.py:117
-msgid "Refund"
-msgstr "Rimborsa"
-
-#: /workflow/item.py:124
-msgid "Refund Processed"
-msgstr "Rimborso processato"
-
-#: /workflow/item.py:133 /workflow/shipment.py:102
-msgid "Ship"
-msgstr "Invia"
-
-#: /workflow/order.py:104
-msgid "Refund Order"
-msgstr "Rimborsa ordine"
-
-#: /workflow/order.py:124
-msgid "Processor Cancel"
-msgstr ""
-
-#: /workflow/order.py:24 /workflow/order.py:62 /workflow/shipment.py:63
-msgid "Create"
-msgstr "Crea"
-
-#: /workflow/order.py:30
-msgid "Process Order"
-msgstr "Processa ordine"
-
-#: /workflow/order.py:35
-msgid "Order Processed"
-msgstr "Ordine processato"
-
-#: /workflow/order.py:41 /workflow/order.py:46
-msgid "Will Not Deliver"
-msgstr "Non verrà spedito"
-
-#: /workflow/order.py:68
-msgid "Payment Declined"
-msgstr "Pagamento respinto"
-
-#: /workflow/order.py:75
+#: ./workflow/order.py:75
 msgid "Authorize"
 msgstr "Autorizza"
 
-#: /workflow/order.py:83 /workflow/order.py:109
-msgid "Charge Order"
-msgstr "Effettua il pagamento dell'ordine"
+#: ./interfaces.py:302
+msgid "Can we contact you regarding new offers?"
+msgstr ""
 
-#: /workflow/order.py:88 /workflow/order.py:117
+#: ./interfaces.py:301
+msgid "Can we contact you with offers"
+msgstr ""
+
+#: ./workflow/item.py:109
+msgid "Cancel"
+msgstr "Annulla"
+
+#: ./workflow/order.py:88
 msgid "Cancel Order"
 msgstr "Annulla ordine"
 
-#: /workflow/order.py:93 /workflow/order.py:99
-msgid "Authorize Order"
-msgstr "Autorizza ordine"
+#: ./interfaces.py:317
+msgid "Card Holder Name"
+msgstr "Nome del titolare della carta"
 
-#: /workflow/shipment.py:109
-msgid "Delivered"
-msgstr "Spedito"
+#: ./interfaces.py:448
+msgid "Change Date"
+msgstr "Data dell'ultima modifica"
 
-#: /workflow/shipment.py:70
+#: ./interfaces.py:449
+msgid "Change Kind"
+msgstr ""
+
+#: ./interfaces.py:447
+msgid "Changed By"
+msgstr "Modificato da"
+
+#: ./workflow/shipment.py:70
 msgid "Charge"
 msgstr "Effettua il pagamento"
 
-#: /workflow/shipment.py:85
+#: ./workflow/order.py:82
+msgid "Charge Order"
+msgstr "Effettua il pagamento dell'ordine"
+
+#: ./workflow/shipment.py:85
 msgid "Charged"
 msgstr "Pagato"
 
-#: /workflow/shipment.py:93
+#: ./interfaces.py:244
+msgid "City"
+msgstr "Città"
+
+#: ./interfaces.py:450
+msgid "Comment"
+msgstr "Commento"
+
+#: ./interfaces.py:297
+msgid "Contact Information"
+msgstr ""
+
+#: ./interfaces.py:152
+msgid "Cost"
+msgstr "Prezzo"
+
+#: ./interfaces.py:245
+msgid "Country"
+msgstr "Nazione"
+
+#: ./workflow/order.py:24
+msgid "Create"
+msgstr "Crea"
+
+#: ./interfaces.py:333
+msgid "Credit Card Expiration Date"
+msgstr "Data di scadenza"
+
+#: ./interfaces.py:330
+msgid "Credit Card Number"
+msgstr "Numero carta"
+
+#: ./interfaces.py:324
+msgid "Credit Card Type"
+msgstr "Tipo di carta"
+
+#: ./interfaces.py:336
+msgid "Credit Card Verfication Number"
+msgstr "Codice di sicurezza"
+
+#: ./interfaces.py:390
+msgid "Customer Id"
+msgstr "Codice cliente"
+
+#: ./interfaces.py:346
+msgid "Declined"
+msgstr "Respinto"
+
+#: ./workflow/shipment.py:109
+msgid "Delivered"
+msgstr "Spedito"
+
+#: ./interfaces.py:151
+msgid "Description"
+msgstr "Descrizione"
+
+#: ./interfaces.py:72
+msgid "Dimensions"
+msgstr "Dimensioni"
+
+#: ./interfaces.py:48
+msgid "Donation Description"
+msgstr "Descrizione della donazione"
+
+#: ./workflow/item.py:100
+msgid "Electronic Delivery"
+msgstr "Spedizione via mail/download"
+
+#: ./interfaces.py:296
+msgid "Email"
+msgstr ""
+
+#: ./interfaces.py:306
+msgid "Email Format"
+msgstr ""
+
+#: ./interfaces.py:318
+msgid "Enter the full name, as it appears on the card. "
+msgstr ""
+
+#: ./order.py:393
+msgid "Finance"
+msgstr ""
+
+#: ./interfaces.py:396
+msgid "Finance State"
+msgstr "Stato del pagamento"
+
+#: ./interfaces.py:242
+msgid "First Line"
+msgstr "Prima linea"
+
+#: ./interfaces.py:337
+msgid "For MC, Visa, and DC, this is a 3-digit number on back of the card.  For AmEx, this is a 4-digit code on front of card. "
+msgstr ""
+
+#: ./order.py:395
+msgid "Fufillment"
+msgstr ""
+
+#: ./interfaces.py:397
+msgid "Fufillment State"
+msgstr "Stato della spedizione"
+
+#: ./interfaces.py:283
+msgid "HTML"
+msgstr ""
+
+#: ./fields.py:11
+msgid "Invalid Credit Card Number."
+msgstr ""
+
+#: ./order.py:55
+msgid "Invalid Order Id"
+msgstr "Codice ordine invalido"
+
+#: ./interfaces.py:34
+msgid "Made Payable By"
+msgstr "Marcato come acquistabile da"
+
+#: ./interfaces.py:150
+msgid "Name"
+msgstr "Nome"
+
+#: ./interfaces.py:451
+msgid "New State"
+msgstr "Nuovo stato"
+
+#: ./interfaces.py:277
+msgid "No"
+msgstr ""
+
+#: ./fields.py:8
+msgid "Only digit character allowed."
+msgstr ""
+
+#: ./interfaces.py:293
+msgid "Only digits allowed - e.g. 3334445555 and not 333-444-5555 "
+msgstr ""
+
+#: ./interfaces.py:331
+msgid "Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777 "
+msgstr ""
+
+#: ./workflow/shipment.py:93
 msgid "Order Charged"
 msgstr "Ordine pagato"
+
+#: ./order.py:53
+msgid "Order Id already set"
+msgstr "Codice ordine già assegnato"
+
+#: ./workflow/order.py:35
+msgid "Order Processed"
+msgstr "Ordine processato"
+
+#: ./workflow/order.py:68
+msgid "Payment Declined"
+msgstr "Pagamento respinto"
+
+#: ./interfaces.py:344
+msgid "Payment Status"
+msgstr "Stato del pagamento"
+
+#: ./interfaces.py:181
+msgid "Period as a timedelta"
+msgstr "Intervallo temporale"
+
+#: ./interfaces.py:292
+msgid "Phone Number"
+msgstr "Numero di telefono"
+
+#: ./interfaces.py:283
+msgid "Plain Text"
+msgstr ""
+
+#: ./interfaces.py:242
+msgid "Please Enter Your Address"
+msgstr ""
+
+#: ./interfaces.py:452
+msgid "Previous State"
+msgstr "Stato precedente"
+
+#: ./interfaces.py:43
+msgid "Price"
+msgstr "Prezzo"
+
+#: ./workflow/order.py:30
+msgid "Process Order"
+msgstr "Processa ordine"
+
+#: ./workflow/order.py:138
+msgid "Processor Cancel"
+msgstr ""
+
+#: ./workflow/order.py:100
+msgid "Processor Charged"
+msgstr ""
+
+#: ./workflow/order.py:94
+msgid "Processor Declined"
+msgstr ""
+
+#: ./interfaces.py:398
+msgid "Processor Order Id"
+msgstr "Identificativo del metodo di pagamento"
+
+#: ./interfaces.py:39
+msgid "Product Code"
+msgstr "Codice del prodotto"
+
+#: ./interfaces.py:73
+msgid "Product SKU"
+msgstr "SKU del prodotto"
+
+#: ./interfaces.py:153
+msgid "Quantity"
+msgstr "Quantità"
+
+#: ./workflow/item.py:117
+msgid "Refund"
+msgstr "Rimborsa"
+
+#: ./workflow/item.py:124
+msgid "Refund Processed"
+msgstr "Rimborso processato"
+
+#: ./interfaces.py:347
+msgid "Refunded"
+msgstr "Rimborsato"
+
+#: ./interfaces.py:243
+msgid "Second Line"
+msgstr "Seconda linea"
+
+#: ./interfaces.py:334
+msgid "Select month and year"
+msgstr ""
+
+#: ./workflow/item.py:133
+msgid "Ship"
+msgstr "Invia"
+
+#: ./interfaces.py:247
+msgid "State"
+msgstr "Provincia"
+
+#: ./interfaces.py:149
+msgid "Unique Item Id"
+msgstr ""
+
+#: ./interfaces.py:49
+msgid "Very brief 50 character text (that shows up in portlet)"
+msgstr "Breve testo (max. 50 caratteri) visualizzato nella portlet"
+
+#: ./workflow/order.py:41
+msgid "Will Not Deliver"
+msgstr "Non verrà spedito"
+
+#: ./interfaces.py:307
+msgid "Would you prefer to receive rich html emails or only plain text"
+msgstr ""
+
+#: ./interfaces.py:277
+msgid "Yes"
+msgstr ""
+
+#: ./interfaces.py:290
+msgid "Your Name"
+msgstr ""
+
+#: ./interfaces.py:261
+msgid "Zip Code"
+msgstr "C.A.P."
+
+#: ./interfaces.py:249
+msgid "Zip/Postal Code"
+msgstr ""
+
+#: ./locales/empty.pt:3
+msgid "do_not_translate"
+msgstr ""
+
