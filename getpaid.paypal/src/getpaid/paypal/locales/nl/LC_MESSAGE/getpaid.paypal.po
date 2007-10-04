@@ -19,7 +19,7 @@ msgstr ""
 
 #: ./interfaces.py:24
 msgid "Paypal Id"
-msgstr "Pypal nummer"
+msgstr "Paypal nummer"
 
 #: ./interfaces.py:20
 msgid "Paypal Website Payments Server"
