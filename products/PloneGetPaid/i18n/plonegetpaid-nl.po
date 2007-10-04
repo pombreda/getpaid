@@ -566,12 +566,12 @@ msgstr "klantnummer"
 #. Default: "Finance Status"
 #: ./browser/templates/order-summary.pt:18
 msgid "text_finance_status"
-msgstr "Financiele status"
+msgstr "Financiële status"
 
 #. Default: "Fulfillment Status"
 #: ./browser/templates/order-summary.pt:22
 msgid "text_fulfillment_status"
-msgstr ""
+msgstr "Voltooiingsstatus"
 
 #. Default: "Order Id"
 #: ./browser/templates/order-summary.pt:6
