@@ -97,7 +97,7 @@ def sendNotification( order, event ):
     if settings.merchant_email_notification == 'notification' \
        and settings.contact_email:
 
-        template = component.getAdapter( interfaces.INotificationMailTemplate, order, "merchant-new-order")
+        template = component.getAdapter(  order, interfaces.INotificationMailTemplate, "merchant-new-order")
         message = template( to_email = settings.contact_email,
                             from_email = settings.contact_email,
                             store_settings = settings,
@@ -112,7 +112,7 @@ def sendNotification( order, event ):
         member = portal.portal_membership.getMemberById( order.user_id )
 
         if member.getProperty('email'):
-            template = component.getAdapter( interfaces.INotificationMailTemplate, order, "customer-new-order")
+            template = component.getAdapter( order, interfaces.INotificationMailTemplate, "customer-new-order")
             message = template( to_email = member.getProperty('email'),
                                 from_email = settings.contact_email,
                                 store_settings = settings,
