@@ -1,5 +1,4 @@
 #summary Information page for the i18n Sprint, August 9, in Cordoba, Argentina
-#labels Featured
 
 = Introduction =
 
