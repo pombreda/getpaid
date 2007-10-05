@@ -1,5 +1,5 @@
 #summary Main page for GetPaid Sprint in Naples, Italy
-#labels sprint
+#labels sprint,Featured
 
 = Introduction =
 
