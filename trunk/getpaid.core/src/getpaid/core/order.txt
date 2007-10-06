@@ -37,15 +37,11 @@ Firing some more transitions to test the finance workflow.
    >>> print state
    CHARGEABLE
 
-   >>> testorder.finance_workflow.fireTransition('authorize-chargeable')
-   >>> state = testorder.finance_state
-   >>> print state
-   CHARGEABLE
 
    >>> testorder.finance_workflow.fireTransition('charge-chargeable')
    >>> state = testorder.finance_state
    >>> print state
-   CHARGED
+   CHARGING
 
 Firing the 'create' transition in the fulfillment workflow should put us 
 in the REVIEWING state
