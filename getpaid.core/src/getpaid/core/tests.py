@@ -125,7 +125,7 @@ class OrderQueryTests( unittest.TestCase ):
         
         self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CHARGEABLE ) ), 1 )
         self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CANCELLED ) ), 1 )
-        self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CHARGED ) ), 1 )                
+        self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CHARGING ) ), 1 )                
 
     def testCombinedQuery( self ):
         self.orders[0].finance_workflow.fireTransition('authorize')
