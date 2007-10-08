@@ -30,6 +30,24 @@ try:
 except ImportError:
     getSecurityManager = None
 
+class workflow_state( object ):
+    
+    def __init__(self, workflow_name ):
+        self.workflow_name = workflow_name
+        self.__doc__ = "workflow state %s"%workflow_name
+
+    def __get__(self, obj, objtype=None):
+        if obj is None:
+            return self         
+        return component.getAdapter( obj, IWorkflowState, self.workflow_name).getState()            
+
+    def __set__(self, obj, value):
+        return component.getAdapter( obj, IWorkflowState, self.workflow_name).setState( value )
+
+    def __delete__(self, obj):
+        raise AttributeError, "can't delete attribute"
+
+
 class Order( Persistent ):
 
     implements( interfaces.IOrder, IAttributeAnnotatable )
@@ -57,13 +75,9 @@ class Order( Persistent ):
 
     order_id = property( getOrderId, setOrderId )
 
-    @property
-    def finance_state( self ):
-        return component.getAdapter( self, IWorkflowState, "order.finance").getState()
+    finance_state = workflow_state( "order.finance")
 
-    @property
-    def fulfillment_state( self ):
-        return component.getAdapter( self, IWorkflowState, "order.fulfillment").getState()
+    fulfillment_state = workflow_state( "order.fulfillment")
 
     @property
     def finance_workflow( self ):

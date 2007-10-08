@@ -4,7 +4,9 @@ workflow event driven payment processor integration
 """
 
 from getpaid.core import interfaces 
+from getpaid.options import PropertyBag
 from zope import component, interface
+
 
 def fireAutomaticTransitions( order, event ):    
     """ fire automatic transitions for a new state """ 
