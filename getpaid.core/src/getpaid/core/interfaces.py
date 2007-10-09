@@ -172,6 +172,8 @@ class IPayableLineItem( ILineItem ):
     A line item linked to a payable
     """
 
+    uid = schema.ASCIILine( title = _(u"Integer Id for a Product") )
+
     def resolve( ):
         """ return the payable object, or None if can't be found.
         """

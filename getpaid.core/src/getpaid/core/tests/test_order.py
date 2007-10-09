@@ -17,14 +17,14 @@ class OrderLogTests( base.GetPaidTestCase ):
     def testLog( self ):
         self.orders = list( base.createOrders() )
         order1 = self.orders[0]
-        order1.finance_workflow.fireTransition('authorize')
+        order1.finance_workflow.fireTransition('create')
 
         olog = IOrderWorkflowLog( order1 )
         history = list( iter( olog ) )
-        self.assertEqual( len( history ), 3 )
-        entry = history[-1]
-        self.assertEqual( entry.transition, u'Authorize')
-        self.assertEqual( entry.new_state, workflow_states.order.finance.CHARGEABLE)
+        self.assertEqual( len( history ), 1 )
+        entry = history[0]
+        self.assertEqual( entry.transition, u'Create')
+        self.assertEqual( entry.new_state, workflow_states.order.finance.REVIEWING)
     
 class OrderQueryTests( base.GetPaidTestCase ):
 
@@ -57,13 +57,17 @@ class OrderQueryTests( base.GetPaidTestCase ):
 
         
     def testStateQuery( self ):
+        self.orders[0].finance_workflow.fireTransition('create')
         self.orders[0].finance_workflow.fireTransition('authorize')
+
         self.manager.storage.reindex( self.orders[0] )        
-        
+
+        self.orders[1].finance_workflow.fireTransition('create')        
         self.orders[1].finance_workflow.fireTransition('authorize')
         self.orders[1].finance_workflow.fireTransition('cancel-chargeable')        
         self.manager.storage.reindex( self.orders[1] )
 
+        self.orders[2].finance_workflow.fireTransition('create')        
         self.orders[2].finance_workflow.fireTransition('authorize')
         self.orders[2].finance_workflow.fireTransition('charge-chargeable') 
         self.manager.storage.reindex( self.orders[2] )
@@ -73,6 +77,7 @@ class OrderQueryTests( base.GetPaidTestCase ):
         self.assertEqual( len( order.query.search( finance_state = workflow_states.order.finance.CHARGING ) ), 1 )                
 
     def testCombinedQuery( self ):
+        self.orders[0].finance_workflow.fireTransition('create')
         self.orders[0].finance_workflow.fireTransition('authorize')
         self.orders[0].creation_date = created = datetime.datetime.now() - datetime.timedelta( 30 )
         self.manager.storage.reindex( self.orders[0] )
