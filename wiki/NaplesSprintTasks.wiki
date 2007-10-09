@@ -36,38 +36,9 @@ we need to select a shipping method for these. add a new step, that collects shi
 
 automatically enabling the delivery step it would be nice to make this step automatically enabled if the cart contains shippable items, via viewlet filtering or other.
 
-== Import / Export ==
-
-the import / export format consists of tarball of xml files in the following directory structure::
-
-   orders/
-     123123123.xml # order_id.xml
-     ...
-   products/
-     ADFOIUSDF123.xml # archetype_uid.xml
-     ...
-   settings.xml # portal settings
-
-the format of the xml is pretty simple, its not designed for human consumption, although it does pretty print, and is fairly readable, its primary purpose is marshalling and demarshalling simple python objects to xml. reading or writing a file typically takes a nested dictionary of values to serialize. keys become element names, etc. value type information is preserved to make reconstruction to the same values on deserialization possible. using zope.schema to retrieve and set values makes this process for interface content straightforward.
-
-we have a top level importer and exporter which coordinates file structure and invoking all the de/serialization components. the exporter is functional, but currently the export process does not export product information, we need the following.
-
-=== Product Catalog Task ===
+== Product Catalog Task ==
 
 we need a queryable index for products, that allows us to search and query for products. there is an implementation thats not wired in getpaid.core. the one issue for it is that its based on an order manager refactoring to be generic, meaning it actually wants to store products, but we really don't want. this needs to use intids to reference the individual products, so we need to index but not store the data, which is stored as annotations on the product.
 
 it needs subscribers for payable creation, payable modification, and payable destruction, and payable deletion. destruction is the case where the payable interface is removed from a content. might need the introduction of this event publication for the payable initialized and payable destruction events into browser/content.py views, the rest are given by standard object events. the subscribers will keep the catalog in sync.
-
-=== Dependent Product Export Task ===
-
-export all information on payables, iterating via the product catalog which will return a set of payable adapters to resolved content. see the existing order exporting for example.
-
-=== Order Processor Settings Export Task ===
-
-we need to export annotation information on the order to the xml for an order, needs modification
-of OrderWriter implementation. this is not zope.schema based data.
-
-=== Import Task ===
-
-The import part needs to be completed, basically it needs to have matching components for deserialization to the export process. creating orders from deserialized values and storing them in the order manager. looking up archetypes by uid, and setting up payables and attributes on them. values should by default update in place on import for both orders and payables (? or not.. i'm fine with accepting a sane default now, we can grow options latter).
 
