@@ -49,8 +49,8 @@ def createOrders( how_many=10 ):
             sc[item.item_id] = item
             
         o.user_id = "u%s"%random.choice( string.letters )
-        o.finance_workflow.fireTransition('create')
-        o.fulfillment_workflow.fireTransition('create')
+        #o.finance_workflow.fireTransition('create')
+        #o.fulfillment_workflow.fireTransition('create')
         
         manager.store( o )
 
