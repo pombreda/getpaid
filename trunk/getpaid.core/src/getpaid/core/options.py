@@ -3,6 +3,7 @@ $Id$
 """
 from zope.app.annotation import IAnnotations
 from persistent.dict import PersistentDict
+from persistent import Persistent
 from zope import schema
 from zope.interface import classImplements, implements
 
@@ -23,11 +24,13 @@ class PropertyBag( object ):
         cls.schema = iface
         for field_name, field in schema.getFieldsInOrder( iface ):
             setattr( cls, field_name, field.default )
+        classImplements( cls, iface )            
 
     @classmethod
     def makeclass( cls, schema ):
         klass = type( "transientbag", ( cls, ), {} )
         klass.initclass( schema )
+        classImplements( klass, schema )
         return klass
 
     @classmethod
@@ -42,7 +45,10 @@ class PropertyBag( object ):
         for field_name, field in schema.getFieldsInOrder( self.schema ):
             d[field_name] = field.get(instance)
         return cls( **d )
-
+        
+class PersistentBag( PropertyBag ):
+    pass
+    
 class PersistentOptions( object ):
 
     implements( interfaces.IPersistentOptions )

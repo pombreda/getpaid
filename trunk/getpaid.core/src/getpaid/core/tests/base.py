@@ -59,6 +59,8 @@ def createOrders( how_many=10 ):
 def coreSetUp( test=None ):
     placelesssetup.setUp()
 
+    ###########################
+    # order workflow
     ztapi.provideAdapter( IOrder,
                           interfaces.IWorkflowState,
                           oworkflow.FinanceState,
@@ -78,7 +80,7 @@ def coreSetUp( test=None ):
                      interfaces.IWorkflowInfo,
                      oworkflow.FulfillmentInfo,
                     'order.fulfillment')
-                    
+    
     ztapi.provideAdapter(annotation_interfaces.IAttributeAnnotatable,
                          annotation_interfaces.IAnnotations,
                          attribute.AttributeAnnotations)
@@ -101,4 +103,7 @@ def coreSetUp( test=None ):
     ztapi.subscribe( (IOrder, interfaces.IWorkflowTransitionEvent), 
                        None, 
                        order.recordOrderWorkflow )
+
+    ######################
+    # product catalog
 

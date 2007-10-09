@@ -5,16 +5,17 @@ product catalog
 
 from zope.index.field import FieldIndex
 from zope.index.keyword  import KeywordIndex
+from zope.app.intids.interfaces import IIntIds
 from zope import component, interface
 from persistent import Persistent
 
 from getpaid.core import interfaces, catalog, options
 
-def productModified( product ):
+def productModified( product, event ):
     products = component.getUtility( interfaces.IProductCatalog )
     products.reindex( product.uid, product )
     
-def productDeleted( product ):
+def productDeleted( product, event ):
     products = component.getUtility( interfaces.IProductCatalog )
     products.unindex( product.uid, product )
     products[ product.uid ] = 'deleted'
