@@ -25,6 +25,8 @@ class LineItem( Persistent ):
     """
     implements( interfaces.ILineItem, IAttributeAnnotatable )
 
+    
+    # default attribute values, item_id is required and has no default
     name = ""
     description = ""
     quantity = 0
@@ -45,6 +47,7 @@ class PayableLineItem( LineItem ):
     """
     implements( interfaces.IPayableLineItem )
 
+    # required
     uid = None
     
     def resolve( self ):
