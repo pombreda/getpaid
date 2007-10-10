@@ -99,14 +99,12 @@ class IPaymentProcessor( Interface ):
     """ A Payment Processor
 
     a processor can keep processor specific information on an orders
-    annotations. 
+    annotations.
     """ 
 
     def authorize( order, payment_information ):
         """
         authorize an order, using payment information.
-
-        (XXX - processors should decorate orders with processor name )
         """
 
     def capture( order, amount ):
@@ -155,7 +153,7 @@ class ILineItem( Interface ):
 
 class ILineItemFactory( Interface ):
     """ encapsulation of creating and adding a line item to a line item container
-    from a payable.
+    from a payable. sort of like an adding view
     """
     
     def create( payable ):
