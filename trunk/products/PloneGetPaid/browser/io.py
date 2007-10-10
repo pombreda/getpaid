@@ -2,8 +2,9 @@
 Import Export Management Views for GetPaid
 """
 
+from StringIO import StringIO
 from datetime import datetime
-from getpaid.io.writer import StoreWriter
+from getpaid.io.interfaces import IStoreWriter, IStoreReader
 from zope.formlib import form
 from base import BaseFormView
 from zope import interface, schema
@@ -64,7 +65,7 @@ class AdminImportExport( BaseFormView ):
     @form.action(_(u"Export"), condition=form.haveInputWidgets)
     def handle_export( self, action, data ):
         store = getToolByName( self.context, 'portal_url').getPortalObject()
-        writer = StoreWriter( store )
+        writer = IStoreWriter( store )
         stream = writer.toArchiveStream()        
         self._download_stream = StreamIterator( stream )
         now = datetime.now()
@@ -73,8 +74,10 @@ class AdminImportExport( BaseFormView ):
         self.request.response.setHeader("Content-Disposition", "attachment; filename=%s"%filename)
         self.request.response.setHeader('Content-Length', len( self._download_stream) )        
         
-#    @form.action(_(u"Import"), condition=form.haveInputWidgets)
-#    def handle_import( self, action, data ):#
-#
-#        print "imported"
-
+    @form.action(_(u"Import"), condition=form.haveInputWidgets)
+    def handle_import( self, action, data ):#
+        store = getToolByName( self.context, 'portal_url').getPortalObject()
+        reader = IStoreReader( store )        
+        stream = StringIO( data['data_file'])
+        reader.importArchiveStream( stream )
+        self.status = _(u"Data Imported")
