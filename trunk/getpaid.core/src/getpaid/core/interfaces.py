@@ -447,7 +447,7 @@ class IOrderWorkflowEntry( Interface ):
     """ a record describing a change in an order's workflow history
     """
     changed_by = schema.ASCIILine( title = _(u"Changed By"), readonly = True )
-    change_date = schema.ASCIILine( title = _(u"Change Date"), readonly = True)
+    change_date = schema.Date( title = _(u"Change Date"), readonly = True)
     change_kind = schema.TextLine( title=_(u"Change Kind"), readonly=True) 
     comment = schema.ASCIILine( title = _(u"Comment"), readonly = True, required=False )
     new_state = schema.ASCIILine( title = _(u"New State"), readonly = True)
