@@ -42,3 +42,6 @@ we need a queryable index for products, that allows us to search and query for p
 
 it needs subscribers for payable creation, payable modification, and payable destruction, and payable deletion. destruction is the case where the payable interface is removed from a content. might need the introduction of this event publication for the payable initialized and payable destruction events into browser/content.py views, the rest are given by standard object events. the subscribers will keep the catalog in sync.
 
+== Create a sample customization product ==
+
+This would help integrators understand what they should do to customize getpaid. Hopefully we should be able to answer CustomizationsBestPracticesDoc and issue 107
