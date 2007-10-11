@@ -3,6 +3,5 @@
 #
 
 develop-products http://getpaid.googlecode.com/svn/trunk/products
-develop-plone https://svn.plone.org/svn/plone/bundles/2.5-zope29
-develop-debug https://svn.objectrealms.net/svn/public/vendor/z2_dev_bundle
-
+develop-debug http://svn.objectrealms.net/svn/public/vendor/z2_dev_bundle
+wiki http://getpaid.googlecode.com/svn/wiki
