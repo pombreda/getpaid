@@ -20,6 +20,28 @@ class IStore( Interface ):
     """ represents a getpaid installation, should be a local site w/ getpaid local components installed
     """
 
+class IPersistentOptions( Interface ):
+    """
+    a base interface that our persistent option annotation settings,
+    can adapt to. specific schemas that want to have context stored
+    annotation values should subclass from this interface, so they
+    use adapation to get access to persistent settings. for example,
+    settings = IMySettings(context)
+    """
+
+class IStoreSettings( IPersistentOptions ):
+    """ minimum configuration schema for a store, pgp product has examples of many more
+    """
+    shipping_method = schema.Choice( title = _(u"Shipping Method"),
+                                     required = True,
+                                     source = "getpaid.shipping_methods" )
+
+    store_name = schema.TextLine( title = _(u"Store/Organization Name"),
+                                  required = True,
+                                  default = u""
+                                )
+    
+
 #################################
 # Stuff To Buy
 
@@ -346,10 +368,6 @@ class IPaymentTransaction( ILineItemContainer ):
                                        _(u"Declined"),
                                        _(u"Refunded") ) )
     
-class IPersistentOptions( Interface ):
-    """ interface
-    """
-
 #################################
 #
 class IProductCatalog( Interface ):
