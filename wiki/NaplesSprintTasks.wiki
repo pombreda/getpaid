@@ -45,3 +45,11 @@ it needs subscribers for payable creation, payable modification, and payable des
 == Create a sample customization product ==
 
 This would help integrators understand what they should do to customize getpaid. Hopefully we should be able to answer CustomizationsBestPracticesDoc and issue 107
+
+== Documentation ==
+
+We need more documentation, and screencasts :)
+
+== customization policy ==
+
+We would like to offer a sample customization policy, to help integrators do their thing.
