@@ -6,7 +6,8 @@ def setupVarious(context):
     For instance, it is possible to get the Plone Site object:
     ``site = context.getSite()``
     """
-    pass
-    #site = context.getSite()
+    if context.readDataFile('PloneGetPaid.setupVarious.txt') is None:
+        return
 
-    # Put your own import stuff here
+    # Now do something useful
+    #site = context.getSite()
