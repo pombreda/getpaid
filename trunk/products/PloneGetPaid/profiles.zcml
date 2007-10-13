@@ -5,7 +5,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="getpaid"
+      title="PloneGetPaid"
       directory="profiles/default"
       description="Extension profile for getpaid."
       provides="Products.GenericSetup.interfaces.EXTENSION"
