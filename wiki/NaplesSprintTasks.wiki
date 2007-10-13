@@ -13,6 +13,10 @@ GetPaid Sprint Goals For Release
 
 What we need to make the release happen.
 
+== TESTS!!!! ==
+
+PloneGetPaid is lacking tests and needs some major help there. 
+
 == Refactor Checkout Wizard ==
 
 the checkout wizard basically sequences a set of formlib pages, based on list of steps. its a linear implementation at the moment. changing to a viewlet manager, would be more appropriate as we typically provide access to the wizard from the formlib step. 
