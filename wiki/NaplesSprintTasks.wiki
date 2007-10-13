@@ -46,6 +46,14 @@ it needs subscribers for payable creation, payable modification, and payable des
 
 This would help integrators understand what they should do to customize getpaid. Hopefully we should be able to answer CustomizationsBestPracticesDoc and issue 107
 
+== Ogone pay processor merging ==
+
+Ogone pay processor is working in a branch of GetPaid. It needs to have the interface updated for trunk and merged in and working. 
+
 == Documentation ==
 
-We need more documentation, and screencasts :)
+We need more documentation, filling out the missing pieces on http://code.google.com/p/getpaid/wiki/DocumentationHowTosAndTutorials
+
+== Screencast ==
+
+Demonstrating the use of GetPaid via screencast
