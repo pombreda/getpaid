@@ -2,6 +2,9 @@
 	   xmlns:zcml="http://namespaces.zope.org/zcml"
 	   xmlns:five="http://namespaces.zope.org/five">
 
+<!-- Including profiles.zcml (for registration of an extension profile) -->
+<include file="profiles.zcml" />
+
 <!-- Dependencies -->
 <include package="getpaid.core" />
 <include package="getpaid.io" />
