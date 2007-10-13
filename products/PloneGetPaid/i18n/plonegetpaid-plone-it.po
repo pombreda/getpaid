@@ -1,11 +1,12 @@
 # Italian translations for PloneGetPaid
 # Fabio Corneti <info@corneti.com>, 2007.
+# Giuseppe Masili <giuseppe.masili@redomino.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: PloneGetPaid VERSION\n"
 "POT-Creation-Date: 2006-06-06 13:53+0000\n"
-"PO-Revision-Date: 2007-08-15 20:48-0300\n"
-"Last-Translator: Fabio Corneti <info@corneti.com>\n"
+"PO-Revision-Date: 2007-10-13 17:00-0300\n"
+"Last-Translator: <giuseppe.masili@redomino.com>\n"
 "Language-Team: Italiano <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -17,10 +18,10 @@ msgstr ""
 "Domain: plone\n"
 
 msgid "Make Buyable"
-msgstr "Marca come acquistabile"
+msgstr "Permetti l'acquisto del prodotto"
 
 msgid "Make Not Buyable"
-msgstr "Marca come non acquistabile"
+msgstr "Prodotto non acquistabile"
 
 msgid "Make Not Premium Members Only"
 msgstr "Marca come disponibile agli utenti non paganti"
@@ -42,4 +43,13 @@ msgstr "Modifica Carrello"
 
 msgid "Order History"
 msgstr "Storico degli ordini"
+
+msgid "Orders"
+msgstr "Ordini"
+
+msgid "Payable"
+msgstr "e-commerce"
+
+msgid "Settings"
+msgstr "Seleziona"
 
