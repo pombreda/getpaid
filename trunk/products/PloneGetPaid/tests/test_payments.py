@@ -11,7 +11,14 @@ def createPayableType():
     pass
 
 def setupCart():
-    pass
+    """Test that a cart can be instantiated
+
+    >>> from zope.component import getUtility
+    >>> from getpaid.core.interfaces import IShoppingCartUtility
+    >>> cart_util = getUtility(IShoppingCartUtility)
+    
+
+    """
 
 def test_payments():
     """Test that payments can be processed.
@@ -19,7 +26,7 @@ def test_payments():
     >>> self.setRoles(('Manager',))
 
     """
-
+    
 
 def test_suite():
     return unittest.TestSuite((
