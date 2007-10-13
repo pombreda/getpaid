@@ -9,10 +9,11 @@ from base import PloneGetPaidTestCase
 
 def test_add_to_cart():
     """Test that payments can be processed.
+
+    >>> 
     
     """
-
-
+    
 
 def test_suite():
     return unittest.TestSuite((

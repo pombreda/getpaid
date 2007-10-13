@@ -7,18 +7,18 @@ from base import PloneGetPaidTestCase
 #from Products.borg.config import LOCALROLES_PLUGIN_NAME, PLACEFUL_WORKFLOW_POLICY
 
 class TestProductInstall(PloneGetPaidTestCase):
-
+    pass
     # XXX MOVED THIS TO THE BASE 'PloneGetPaidTestCase' to simplify things
     #def afterSetUp(self):
     #    # XXX monkey patch -- see tests/base.py for more details
     #    super( TestProductInstall, self).afterSetUp()
     #    self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
 
-    def testTypesInstalled(self):
-        self.types = ('Donation',)
-        for t in self.types:
-            self.failUnless(t in self.portal.portal_types.objectIds(),
-                            '%s content type not installed' % t)
+##     def testTypesInstalled(self):
+##         self.types = ('Donation',)
+##         for t in self.types:
+##             self.failUnless(t in self.portal.portal_types.objectIds(),
+##                             '%s content type not installed' % t)
     
     #def testTypesRegisteredWithMembrane(self):
     #    for t in self.types:

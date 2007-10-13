@@ -35,7 +35,7 @@ class TestCreateDonation(PloneGetPaidTestCase):
         
         mark( donation, IDonatableMarker)
         #request = TestRequest()
-        payable = IDonation( donation ) 
+        payable = IDonationContent( donation ) 
 
         payable.setProperty('donationText','description')
         self.failUnless(payable.donationText == 'description')
