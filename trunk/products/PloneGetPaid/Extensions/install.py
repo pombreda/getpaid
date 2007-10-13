@@ -224,8 +224,12 @@ def uninstall_contentwidget_portlet( self ):
 def install( self ):
     out = StringIO()
 
-    print >> out, "Installing Dependencies"
-    install_dependencies( self )
+    # Run all import steps for ItalianSkin
+    portal = getToolByName(self, 'portal_url').getPortalObject()
+    setup_tool = getToolByName(portal, 'portal_setup')
+    setup_tool.setImportContext('profile-Products.PloneGetPaid:default')
+    setup_tool.runAllImportSteps()
+    setup_tool.setImportContext('profile-CMFPlone:plone')
     
     print >> out, "Installing Control Panel"
     install_control_panel( self  )
