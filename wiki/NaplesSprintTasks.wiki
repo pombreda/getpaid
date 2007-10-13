@@ -49,7 +49,3 @@ This would help integrators understand what they should do to customize getpaid.
 == Documentation ==
 
 We need more documentation, and screencasts :)
-
-== customization policy ==
-
-We would like to offer a sample customization policy, to help integrators do their thing.
