@@ -550,8 +550,11 @@ class DisclaimerView(BrowserView):
     def disclaimer(self):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         settings = IGetPaidManagementOptions(portal)
-        renderer = PlainTextToHTMLRenderer(settings.disclaimer, self.request)
-        return renderer.render().strip()
+        disclaimer = None
+        if settings.disclaimer:
+            renderer = PlainTextToHTMLRenderer(settings.disclaimer, self.request)
+            disclaimer = renderer.render().strip()
+        return disclaimer
 
 class PrivacyPolicyView(BrowserView):
     """ Shows the privacy policy text from the getpaid settings.
@@ -561,5 +564,8 @@ class PrivacyPolicyView(BrowserView):
     def privacy_policy(self):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         settings = IGetPaidManagementOptions(portal)
-        renderer = PlainTextToHTMLRenderer(settings.privacy_policy, self.request)
-        return renderer.render().strip()
+        privacy = None
+        if settings.privacy_policy:
+            renderer = PlainTextToHTMLRenderer(settings.privacy_policy, self.request)
+            privacy = renderer.render().strip()
+        return privacy
