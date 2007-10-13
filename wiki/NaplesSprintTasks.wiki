@@ -17,6 +17,13 @@ What we need to make the release happen.
 
 PloneGetPaid is lacking tests and needs some major help there. 
 
+== Issues ==
+
+  - Issue 124
+  - Issue 95
+  - Issue 126
+  - See http://code.google.com/p/getpaid/issues/list?can=2&q=milestone:M1&colspec=ID%20Type%20Status%20Priority%20Milestone%20Owner%20Summary
+
 == Refactor Checkout Wizard ==
 
 the checkout wizard basically sequences a set of formlib pages, based on list of steps. its a linear implementation at the moment. changing to a viewlet manager, would be more appropriate as we typically provide access to the wizard from the formlib step. 
