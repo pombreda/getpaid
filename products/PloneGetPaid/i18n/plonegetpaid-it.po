@@ -35,7 +35,7 @@ msgstr "Attivo"
 
 #: ./interfaces.py:202
 msgid "Allow Anonymous Checkout"
-msgstr "Rendi possibile il Checkout all'utente anonimo"
+msgstr "Permetti l'acquisto dei prodotti all'utente anonimo"
 
 # zope.formlib
 # Apply button
@@ -426,7 +426,7 @@ msgstr ""
 #. Default: "Your Shopping Cart"
 #: ./browser/templates/cart-manage.pt:4
 msgid "heading_cart_manage"
-msgstr "Carrello"
+msgstr "contenuto del carrello"
 
 #. Default: "change date"
 #: ./browser/templates/order-workflow-log.pt:6
