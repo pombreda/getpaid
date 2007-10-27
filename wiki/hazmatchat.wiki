@@ -1,6 +1,6 @@
 #notes from chat with hazmat on checkout wizard refactoring questions...
 
-
+{{{
 (07:18:41 PM) cjj: hazmat: we are ready to start refactoring. and the guys say product catalog is doable and understood
 (07:19:01 PM) cjj: but they don't get the vision of what was wanted for the checkout wizard refactoring (or why refactor the working one befre release)
 (07:19:27 PM) Kapil: because right now its pretty hard wired
@@ -64,3 +64,4 @@
 (07:40:10 PM) Kapil: sounds good, cheers
 (07:41:04 PM) cjj: ciao!
 (07:45:18 PM) Kapil left the room (quit: "This computer has gone to sleep").
+}}}
