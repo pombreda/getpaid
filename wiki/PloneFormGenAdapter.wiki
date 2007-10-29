@@ -1,0 +1,15 @@
+#summary Summary of ideas and information about making a GetPaid / PloneFormGen integration
+
+= Introduction =
+
+PloneFormGen is a popular tool for creating custom forms in the Plone CMS. GetPaid could leverage this flexibility to allow Plone site admins to create custom forms associated with the buyable content (or donations) available in their site. 
+
+
+= Details =
+
+Something along the lines of the Salesforce connector done by One/Northwest would be ideal. Scenario would be something like:
+
+ * make a PFG form "buyable"
+ * ability to map fields in form into the checkout wizard fields (use case: make an alternative, single page form that could build the checkout pieces in one place...or gather the info you want, save to csv, and then pass to checkout to continue)
+ * ability to map fields to buyable items in your site (show list of items for sale and let user enter quantity, or, in case of a donation, amounts).
+ * ability to add buttons to "checkout" or "add to cart" (customizable names), based on what the user wants to do with the gathered information.
