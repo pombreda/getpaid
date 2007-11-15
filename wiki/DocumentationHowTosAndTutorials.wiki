@@ -1,18 +1,15 @@
 #summary A listing of How-Tos and Tutorials that will be needed for end users
 #labels Phase-Support,Documentation,Featured
 
+A lot of documentation has been ported to plone.org/products/getpaid/documentation . Where that has happened, I am removing the links here. Please use this as a place to outline what is needed and work on drafting it. 
 
 == General Questions ==
 
-  * What functionality does GetPaid offer? [FunctionalityDoc Answer]
-  * What will the next release do and when will it be released? [ReleaseDoc Answer]
   * How does a session-based cart work?
   * What happens when a user places an order on my site (offline vs online order completion)?
 
 ==Using the Product==
 
-  * What are the steps for installing and uninstalling the product? [InstallProductDoc Answer]
-  * What basic settings must be configured so that an order can be processed? [ConfigureProductDoc Answer]
   * How do I set up a payment processor in GetPaid? [SetUpPaymentProcessorDoc Answer]
   * How do I add a donation to the site? [AddDonationDoc Answer]
   * How do I add a product to the site?
@@ -28,7 +25,6 @@
   * How do I make a donation appear in a portlet vs within the page content? 
   * How do I make an "Add to Cart" button appear in the body of the content on my site?
   * How do I change the "Add to Cart" text or make it a button? 
-  * How do I translate GetPaid to another language? [TranslateGetPaid Answer]
 
   _Not implemented yet_
   * How do I configure my currency?
@@ -37,7 +33,6 @@
 
 == Payment Processor Questions ==
 
-  * What payment processors are supported now? [http://www.plonegetpaid.com/features/payment-processors Answer]
   * When will payment processor <my favorite processor> be supported?
   * How do I integrate payment processor <my processor>? 
   * Authorize.net: 
@@ -49,7 +44,6 @@
 
 == Developer Concerns ==
   
-  * What are the dependencies for GetPaid? [DependenciesDoc Answer]
   * What unit tests are available?
   * How do I write an adapter for a new payment processor? 
  
