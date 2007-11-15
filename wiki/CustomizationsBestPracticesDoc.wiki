@@ -1,16 +1,4 @@
 #summary Recommendations for how to make your changes to the product
 #labels Phase-Support,Phase-Deploy
 
-= Introduction =
-
-We often get asked: "Is there any preferred approach by design that would allow integrators to implement customizations? For instance, if I want to default the billing/shipping addr country, or reorder the form so that country precedes state, etc."
-
-This document is meant to provide information on how customizations should be introduced to GetPaid in order to follow best practices (and make your life easier when dealing with new versions etc). 
-
-= Details =
-
-You may notice that PloneGetPaid and getpaid.core do not use the old skin_path approach to override templates in order to introduce customizations. Since the product is architected entirely with Zope 3, you will need to be familiar with the new ways :) 
-
-In order to change how something behaves or looks in GetPaid, you need to override the view template. 
-
-For example, say you had a myecommercesite product. In it, you would have an overrides.zcml   which would define custom checkout views or viewlets. 
+Moved to http://plone.org/products/getpaid/documentation/how-to/best-practices-for-customizing-getpaid
