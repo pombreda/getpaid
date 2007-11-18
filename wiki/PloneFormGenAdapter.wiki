@@ -1,4 +1,5 @@
 #summary Summary of ideas and information about making a GetPaid / PloneFormGen integration
+#labels Featured,Phase-Requirements
 
 = Introduction =
 
