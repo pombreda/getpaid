@@ -1,0 +1,23 @@
+=Proposals & Requirements for integrating store functionality, as opposed to donations, into GetPaid=
+
+While it's been decided that store functionality will not be included in the 0.3 release of GetPaid, it's become clear that there are plenty of people interested in getting it added in there.  This page will serve as a place to discuss and hopefully come to a consensus about the specification of required features.  
+
+These are just my initial thoughts - please add to and modify them!
+
+= Core Features =
+  # Catalog views.  A store needs to have a nice way to view/browse the items for sale.  I'm not sure what the best way to go about this will be, since the pieces of content on sale can be anything.  But a listing for a folder with shippable (or just buyable?) items in it would be nice.  Each item could be added to the cart from this list view, as well as from the page for the item itself.
+
+= Taxes =
+This is detailed elsewhere in the wiki, and will need to be implemented.
+
+= Payment Processors =
+A payment processor that supports the shipping workflow needs to be available.  Ie, customer places order, order is authorized, store later captures the funds and ships the item.  I'm not sure what the story is with Authorize.net and Ogone...maybe this is already done.  
+
+But it would be really nice to be able to integrate with something like Google Checkout as it supports this functionality for free.  With PayPal, the free service doesn't support this - you need to pass the customer off to the PayPal site.  GoogleCheckout also integrates nicely with AdWords, which lots of people use to track their online advertising.  
+
+= Shipping Services =
+It makes tons of sense to integrate with a shipping service to fetch the current shipping rates, as is already detailed elsewhere in the wiki.  A fair amount of work has been done to integrate with UPS.  However, because GetPaid doesn't currently have a good way for this to fit in, it's not so useful.  
+
+Each shipping service should also offer store admins the possibility of marking up the prices returned from UPS (or wherever) to account for handling charges.  This system can either be a percentage with a ceiling, or a flat rate (perhaps other configs as well).
+
+It would also be great to integrate with the tracking mechanism for a given shipping service.  This would allow customers to check the status of their order on the GetPaid site.  This wouldn't be too much more than getting the tracking number for an order, and linking to the tracking service in the case of UPS.  However, there needs to be a good way of getting tracking numbers back into GetPaid from the shipping software - perhaps an import/export mechanism based on the GetPaid order ID.  
