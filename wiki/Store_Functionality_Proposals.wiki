@@ -1,3 +1,4 @@
+#labels Featured,Phase-Requirements
 =Proposals & Requirements for integrating store functionality, as opposed to donations, into GetPaid=
 
 While it's been decided that store functionality will not be included in the 0.3 release of GetPaid, it's become clear that there are plenty of people interested in getting it added in there.  This page will serve as a place to discuss and hopefully come to a consensus about the specification of required features.  
