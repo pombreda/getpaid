@@ -1,5 +1,4 @@
 #summary Red Ochre Status
-#labels Featured
 
 Milestone 1 - Red Ochre
 
