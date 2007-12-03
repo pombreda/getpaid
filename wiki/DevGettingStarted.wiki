@@ -25,17 +25,10 @@ You'll need:
 
 ==To Get Started==
 
-Checkout the getpaid.buildout infrastructure. Note that you currently need to use a different command for Plone 2.5 buildout vs Plone 3.0 buildout. Make sure you check it out to a location outside of any existing Zope instances.
+Checkout the getpaid.buildout infrastructure. The code for both Plone 2.5 and 3.0 buildouts can be obtained together, so only one place to check out from. Make sure you check it out to a location outside of any existing Zope instances.
 
-
-For Plone 2.5: 
 {{{
 svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
-}}}
-
-For Plone 3.0: 
-{{{
-svn co https://getpaid.googlecode.com/svn/trunk/getpaid-30.buildout
 }}}
 
 Make sure you use https and not http, as you will have authentication problems later if you do.
@@ -57,11 +50,18 @@ cd getpaid.buildout
 python2.4 bootstrap.py
 }}}
 
-This creates a few directories used by buildout. Then run:
+This creates a few directories used by buildout. Then you run a command depending on which version of Plone you want:
 
+For Plone 2.5 run: 
 {{{
 bin/buildout -v
 }}}
+
+For Plone 3.0 run: 
+{{{
+bin/buildout -c 30.cfg
+}}}
+
 
 The -v isn't necessary, but may make you feel better in the knowledge that
 a lot is going on.
@@ -73,7 +73,7 @@ Brew your caffeinated beverage of choice: this will take a long time and use up 
   * Download a Zope 2 tarball into parts/zope2.
   * Build Zope 2, using 'setup.py build_ext -i'
   * Build a Zope 2 instance in parts/instance
-  * Install Plone 2.5's products into the Zope 2 instance
+  * Install Plone 2.5's (or Plone 3.0's) products into the Zope 2 instance
   * Setup the !GetPaid Product/Package suite for Plone
   * Remove the Zope egg files
 
