@@ -1,20 +1,56 @@
 #labels Featured,Phase-Requirements
-=Proposals & Requirements for integrating store functionality, as opposed to donations, into GetPaid=
+=Proposals & Requirements for integrating store functionality into GetPaid=
 
 While it's been decided that store functionality will not be included in the 0.3 release of GetPaid, it's become clear that there are plenty of people interested in getting it added in there.  This page will serve as a place to discuss and hopefully come to a consensus about the specification of required features.  
 
-These are just my initial thoughts - please add to and modify them!
+= Preliminary Work = 
+
+  * Catalog of buyables (Issue #70): needs to be implemented and upgrade path created, tested leveraging the upgrade framework. 
+
+  * Refactor checkout wizard: the wizard needs to be made much more customizable, flexible. Refactoring was originally discussed as related to the NaplesSprint. 
+
+  * Order as line item container: Issue #33
+
+  * Make shopping cart persistent: this has been discussed in terms of eliminating problems with five.intid, but also as a way to make more flexible cart storage. We also offer users the convenience of saved information on carts. 
+
+  * Save and reuse user address info: Currently a user on the site would have to enter their information every time they checked out. We should (a) associate the address information with the user (save is the right word?) and (b) let them use that information again (ie if they are checking out, their info is pre-populated. An advanced user story here would allow the user to have multiple addresses and be able to choose from them. 
+
+  * Advanced order management: Current order management is a bit clunky. For more store features, site admins need to be able to interact with the items in the cart/order for fulfillment (anyone know specs on this?!). Admin also needs user-friendly way to interact with the workflow states (financial and fulfillment). I have a feeling this last point involves Issue #29. 
+
+= Usability / UI = 
+
+  * Progress indicator on checkout (Issue #58): Please add an indicator of where we are in the checkout process. This has to be somewhat flexible given the flexibility being added in checkout refactoring (see above), but should at least ship with something that helps orient the user. 
+
+  * Order template: we need to improve the order templates so they show the useful info! Currently (though it is filed in issue #150), the order for the user and admin doesn't show the address of orderer. This should be formatted appropriately. Also, we should add the print option onto the order, so the user can print the order simply. Additionally, displays of the history on an order should be more human-readable. 
+
+  * Issue #30 (though not sure what it is actually referring to...)
+
+  * Update countries list (Issue #86)
+
+  * Setup section UI improvments: Issue #95. 
+
+  * AJAX to improve usability! Issue #32. Issue #20
+
+  * C'mon...there's got to be a ton more ideas here ;)
 
 = Core Features =
-  # Catalog views.  A store needs to have a nice way to view/browse the items for sale.  I'm not sure what the best way to go about this will be, since the pieces of content on sale can be anything.  But a listing for a folder with shippable (or just buyable?) items in it would be nice.  Each item could be added to the cart from this list view, as well as from the page for the item itself.
+  * Catalog views.  A store needs to have a nice way to view/browse the items for sale.  I'm not sure what the best way to go about this will be, since the pieces of content on sale can be anything.  But a view/listing for a folder with shippable (or just buyable?) items in it would be nice.  Each item could be added to the cart from this list view, as well as from the page for the item itself, display it's price, and if available, show a thumbnail. 
+
+  * Product Categories (Issue #21): a way of categorizing the buyable items in the site. This should be a criteria that SmartFolders could be used to generate collections with.  
+
+  * Product content type? Should we ship our own product content type to make the store story a bit easier to manage? 
 
 = Taxes =
-This is detailed elsewhere in the wiki, and will need to be implemented.
+This is detailed elsewhere in the wiki, and will need to be implemented. 
 
-= Payment Processors =
-A payment processor that supports the shipping workflow needs to be available.  Ie, customer places order, order is authorized, store later captures the funds and ships the item.  I'm not sure what the story is with Authorize.net and Ogone...maybe this is already done.  
+  _Who is interested in putting work into this? This is a big hairy mess, imho. I don't know how it would be implemented. Surely someone wants it though and can drive it!_ cjj
 
-But it would be really nice to be able to integrate with something like Google Checkout as it supports this functionality for free.  With PayPal, the free service doesn't support this - you need to pass the customer off to the PayPal site.  GoogleCheckout also integrates nicely with AdWords, which lots of people use to track their online advertising.  
+= Fulfillment Workflow =
+Though perhaps not universal, one common workflow is to have the payment authorized on checkout and then the capture happens when the site admin either fulfills the order or captures the payment manually (_note: by regulation, authorizations are only good for up to 30 days_). How should we support the shipping workflow? Is there a way we can offer through-the-web configurable workflow setups?   
+
+= Payment processors =
+
+It would be really nice to be able to integrate with something like Google Checkout (Issue #5), which supports fulfillment workflow for free.  With PayPal, the free service doesn't support this - you need to pass the customer off to the PayPal site.  GoogleCheckout also integrates nicely with AdWords, which lots of people use to track their online advertising.  
 
 = Shipping Services =
 It makes tons of sense to integrate with a shipping service to fetch the current shipping rates, as is already detailed elsewhere in the wiki.  A fair amount of work has been done to integrate with UPS.  However, because GetPaid doesn't currently have a good way for this to fit in, it's not so useful.  
@@ -22,3 +58,13 @@ It makes tons of sense to integrate with a shipping service to fetch the current
 Each shipping service should also offer store admins the possibility of marking up the prices returned from UPS (or wherever) to account for handling charges.  This system can either be a percentage with a ceiling, or a flat rate (perhaps other configs as well).
 
 It would also be great to integrate with the tracking mechanism for a given shipping service.  This would allow customers to check the status of their order on the GetPaid site.  This wouldn't be too much more than getting the tracking number for an order, and linking to the tracking service in the case of UPS.  However, there needs to be a good way of getting tracking numbers back into GetPaid from the shipping software - perhaps an import/export mechanism based on the GetPaid order ID.  
+
+= Other Store Features of Interest = 
+
+  * Saved order: For sites where users order the same thing frequently, a saved order system 
+
+  * Inventory management: Site admin would be able to enter the number of an item on hand. When an item is purchased, the number goes down correspondingly. Advanced version of this story tracks the history of the number on hand, and ties into reporting. 
+
+  * Discounts: system by which administrators can create discount codes. 
+
+  * Multiple currencies (issue #85 is placeholder for this...still need better specs)
