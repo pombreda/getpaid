@@ -55,6 +55,8 @@ While it's been decided that store functionality will not be included in the 0.3
 
   * Cart quantity change improvement, issue #144
 
+  * Consistent column names and orders, issue #155
+
 = Core Features =
   * Catalog views.  A store needs to have a nice way to view/browse the items for sale.  I'm not sure what the best way to go about this will be, since the pieces of content on sale can be anything.  But a view/listing for a folder with shippable (or just buyable?) items in it would be nice.  Each item could be added to the cart from this list view, as well as from the page for the item itself, display it's price, and if available, show a thumbnail. 
 
