@@ -69,6 +69,10 @@ This is detailed elsewhere in the wiki, and will need to be implemented.
 
   _Who is interested in putting work into this? This is a big hairy mess, imho. I don't know how it would be implemented. Surely someone wants it though and can drive it!_ cjj
 
+The way this is done in PayPal is you manually add a sales tax item for each of the locations you need to collect taxes from.  You have the option (check box) to collect taxes on the shipping/handling costs as well.  This makes sense, at least in the US, since internet stores only need to collect tax for states that they have a physical presence in.
+
+We might be able to add this functionality in a reasonably straightforward way with DataGridField - http://plone.org/products/datagridfield.  I was just looking at SimpleCartItem - http://plone.org/products/simplecartitem - which uses DGF to add options (different colors/sizes, etc.) for a store item.  I haven't looked at the code for it, but it seems like the functionality is pretty well aligned with this need.  Unfortunately, it currently currently claims to rely on JavaScript without graceful degradation, so perhaps it's not all that interesting.
+
 = Fulfillment Workflow =
 Though perhaps not universal, one common workflow is to have the payment authorized on checkout and then the capture happens when the site admin either fulfills the order or captures the payment manually (_note: by regulation, authorizations are only good for up to 30 days_). How should we support the shipping workflow? Is there a way we can offer through-the-web configurable workflow setups?   
 
