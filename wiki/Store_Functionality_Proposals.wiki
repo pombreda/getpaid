@@ -79,11 +79,13 @@ See one idea at Issue #115
 It would be really nice to be able to integrate with something like Google Checkout (Issue #5), which supports fulfillment workflow for free.  With PayPal, the free service doesn't support this - you need to pass the customer off to the PayPal site.  GoogleCheckout also integrates nicely with AdWords, which lots of people use to track their online advertising.  
 
 = Shipping Services =
-It makes tons of sense to integrate with a shipping service to fetch the current shipping rates, as is already detailed elsewhere in the wiki.  A fair amount of work has been done to integrate with UPS.  However, because GetPaid doesn't currently have a good way for this to fit in, it's not so useful.  
+It makes tons of sense to integrate with a shipping service to fetch the current shipping rates, as is already detailed elsewhere in the wiki.  A fair amount of work has been done to integrate with UPS.  These can be implemented much the same way the payment processors are implemented - one screen to select the service you want, and then another screen to configure the details for that service.
 
 Each shipping service should also offer store admins the possibility of marking up the prices returned from UPS (or wherever) to account for handling charges.  This system can either be a percentage with a ceiling, or a flat rate (perhaps other configs as well).
 
-It would also be great to integrate with the tracking mechanism for a given shipping service.  This would allow customers to check the status of their order on the GetPaid site.  This wouldn't be too much more than getting the tracking number for an order, and linking to the tracking service in the case of UPS.  However, there needs to be a good way of getting tracking numbers back into GetPaid from the shipping software - perhaps an import/export mechanism based on the GetPaid order ID.  
+Integrating with the shipping label generation for a given service will be important.  For UPS, a desktop app creates shipping labels and assigns a tracking number.  There are reasonable CSV import/export options for this software to get these values in and out of PGP.  This has the added advantage that we can then provide users a quick link to tracking info for their package - in the case of UPS, we'd just link to their tracking service with the tracking number in the URL, I believe.  
+
+What is the story for integration at this level for other shipping services?  FedEx?  DHL?  USPS?
 
 = Other Store Features of Interest = 
 
