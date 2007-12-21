@@ -9,8 +9,6 @@ While it's been decided that store functionality will not be included in the 0.3
 
   * Refactor checkout wizard: the wizard needs to be made much more customizable, flexible. Refactoring was originally discussed as related to the NaplesSprint. 
 
-  * Order as line item container: Issue #33
-
   * Make shopping cart persistent: this has been discussed in terms of eliminating problems with five.intid, but also as a way to make more flexible cart storage. We also offer users the convenience of saved information on carts. 
 
   * Save and reuse user address info: Currently a user on the site would have to enter their information every time they checked out. We should (a) associate the address information with the user (save is the right word?) and (b) let them use that information again (ie if they are checking out, their info is pre-populated. An advanced user story here would allow the user to have multiple addresses and be able to choose from them. 
