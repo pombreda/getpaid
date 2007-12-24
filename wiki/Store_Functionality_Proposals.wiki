@@ -93,7 +93,7 @@ What is the story for integration at this level for other shipping services?  Fe
 
   * Saved order: For sites where users order the same thing frequently, a saved order system 
 
-  * Inventory management: Site admin would be able to enter the number of an item on hand. When an item is purchased, the number goes down correspondingly (see issue #100). Advanced version of this story tracks the history of the number on hand, and ties into reporting. 
+  * InventoryManagement: Site admin would be able to enter the number of an item on hand. When an item is purchased, the number goes down correspondingly (see issue #100). Advanced version of this story tracks the history of the number on hand, and ties into reporting. 
 
   * Discounts: system by which administrators can create discount codes. 
 
