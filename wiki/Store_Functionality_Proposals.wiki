@@ -95,7 +95,11 @@ What is the story for integration at this level for other shipping services?  Fe
 
   * InventoryManagement: Site admin would be able to enter the number of an item on hand. When an item is purchased, the number goes down correspondingly (see issue #100). Advanced version of this story tracks the history of the number on hand, and ties into reporting. 
 
-  * Discounts: system by which administrators can create discount codes. 
+  * Quantity-based price breaks.  Need to be able to specify a percentage discount for orders of quantities in a certain range.  ie, 0-9: 0%, 10-49: 5%, 50-99: 10% etc.
+
+  * Time-based discounts/sales.  Mark an item down a certain percentage or specify a new price, and set a date for the sale to expire at which point the discount is removed automatically.
+
+  * Gift certificates?  I had a customer ask me if we had these, and it struck me that I had no idea how this would work.  It's a nice idea, though! 
 
   * Multiple currencies (issue #85 is placeholder for this...still need better specs)
 
