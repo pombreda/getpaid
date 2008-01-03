@@ -110,11 +110,17 @@ svn up
 
 from your getpaid.buildout folder to update the buildout. Then run the buildout again: 
 
+*For Plone 2.5*
 {{{
 ./bin/buildout -N
 }}}
 
-Once this is done, reinstall the GetPaid product.
+*For Plone 3.0*
+{{{
+./bin/buildout -c 30.cfg
+}}}
+
+That's it!
 
 
 
