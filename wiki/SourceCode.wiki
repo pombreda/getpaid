@@ -6,7 +6,7 @@ The preferred method for getting the GetPaid code base is a secure (https) check
 
 = Specific Code Information = 
 
-  * Secure checkout: svn checkout https://getpaid.googlecode.com/svn/trunk/getpaid.buildout/ getpaid --username [your google/gmail username]
+  * Secure checkout: svn checkout https://getpaid.googlecode.com/svn/trunk/getpaid.buildout/ getpaid --username <your google/gmail username>
 
   When prompted, enter your generated [http://code.google.com/hosting/settings googlecode.com password].
 
