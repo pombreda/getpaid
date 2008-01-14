@@ -1,0 +1,13 @@
+#summary Information for getting to GetPaid source code
+
+= Introduction =
+
+The preferred method for getting the GetPaid code base is a secure (https) checkout. For detailed instructions on getting started with the buildout, please see DevGettingStarted. Alternatively, you can use an anonymous checkout or finally download the most recent tarball from [http://code.google.com/p/getpaid/downloads/list Downloads]. You can browse the source in the projects [http://getpaid.googlecode.com/svn/ svn repository]
+
+= Specific Code Information = 
+
+  * Secure checkout:
+
+  * Anonymous checkout: 
+
+  
