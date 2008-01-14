@@ -2,12 +2,14 @@
 
 = Introduction =
 
-The preferred method for getting the GetPaid code base is a secure (https) checkout. For detailed instructions on getting started with the buildout, please see DevGettingStarted. Alternatively, you can use an anonymous checkout or finally download the most recent tarball from [http://code.google.com/p/getpaid/downloads/list Downloads]. You can browse the source in the projects [http://getpaid.googlecode.com/svn/ svn repository]
+The preferred method for getting the GetPaid code base is a secure (https) checkout of the buildout. For detailed instructions on getting started with the buildout, please see DevGettingStarted. Alternatively, you can use an anonymous checkout or finally download the most recent tarball from [http://code.google.com/p/getpaid/downloads/list Downloads]. You can browse the source in the projects [http://getpaid.googlecode.com/svn/ svn repository]
 
 = Specific Code Information = 
 
-  * Secure checkout:
+  * Secure checkout: svn checkout https://getpaid.googlecode.com/svn/trunk/getpaid.buildout/ getpaid --username [your google/gmail username]
 
-  * Anonymous checkout: 
+  When prompted, enter your generated [http://code.google.com/hosting/settings googlecode.com password].
+
+  * Anonymous checkout: svn checkout http://getpaid.googlecode.com/svn/trunk/getpaid-anonymous-buildout/ getpaid
 
   
