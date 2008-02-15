@@ -37,3 +37,7 @@ GetPaid needs to create general interfaces for handling recurring billing in ord
   * System: regularly checks status of subscribers (to find any with failed recurring payments). Cron job? Can be set to take action when finding failed payment. 
   * User: purchase a item/service with recurring billing (with adequate notification in checkout, including possibly agreement process). 
   * User: ability to cancel recurring payment
+
+= Further Information = 
+
+  * Authorize.net Automated Recurring Billing API: available in XML and SOAP. Go to authorize.net/help and search for "automated recurring billing" to find API documentation and case study. 
