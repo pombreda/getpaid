@@ -1,5 +1,5 @@
 #summary A listing of How-Tos and Tutorials that will be needed for end users
-#labels Phase-Support,Documentation,Featured
+#labels Phase-Support,Documentation
 
 A lot of documentation has been ported to plone.org/products/getpaid/documentation . Where that has happened, I am removing the links here. Please use this as a place to outline what is needed and work on drafting it. 
 
