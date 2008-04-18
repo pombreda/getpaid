@@ -1,0 +1,18 @@
+**Creating Content Buyable Content for GetPaid**
+
+This document assumes you have already set up a Plone site with
+GetPaid. If you haven't, please read setup.txt
+
+Now you need to make content buyable, donatable or shippable.
+
+To do this, go to the "site setup" section of your site when viewed
+through the Plone interface. In the "Content Types" sub-section, use
+the arrows to move any appropriate content types to the "Selected"
+column on the right of the Buyable, Donatable or Shippable sections.
+
+Now, when you click on the "action" menu while viewing a type of
+content you selected in the "content types" configuration, you will see
+options to make the content "buyable", a "donation" or "shippable".
+
+Select the option you want and then fill in the required fields (ie
+price and/or other fields).
