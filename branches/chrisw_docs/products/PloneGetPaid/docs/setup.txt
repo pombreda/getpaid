@@ -102,6 +102,17 @@ applicable to your store to provide the best user experience.
     accepted, use the arrows to move those you do not wish to be
     accepted to the left column.
     
+- Payment Processor Settings
+
+  Here you will find specific settings for the payment processor you
+  have selected. Please consult the documentation provided with the
+  payment processor for more information.
+
+- Sales Tax Configuration
+
+  Here you can configure methods of applying sales tax.
+  This area is currently under development and might be best avoided.
+
 - Email Notifications
 
   Here you can configure what emails are send as part of the shopping
