@@ -76,11 +76,23 @@ applicable to your store to provide the best user experience.
 
   - Allow Anonymous Checkout
 
-    Don't know what this does
+    If checked, anonymous users will be allowed to use the shopping
+    cart, check out and place orders. However, they won't be able to
+    access the review of their order.
+
+    If not checked, only users who are logged in will be able to use
+    the checkout and place orders. Because they are identified, they
+    will be able to access the review of their order.
 
   - Use SSL for Checkout
 
-    Don't know what this does
+    If checked, the browser will be redirected to use https when
+    clicking on the checkout button and will stay in https until the
+    thankyou page, which will then redirect back to http.
+
+    It should be noted that this isn't usually necessary as the
+    payment processor will secure any communications with the end user
+    as necessary.
 
   - Accepted Credit Cards
 
