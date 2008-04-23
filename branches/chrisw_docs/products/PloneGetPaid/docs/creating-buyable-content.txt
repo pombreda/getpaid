@@ -84,6 +84,9 @@ The differences are explained below:
 
   xxx what is shipping weight used for?
 
+  To use shippables, you must have a shipping method configured or the
+  checkout will not function.
+
 In addition to making existing content types buyable, donatable or
 shippable, content types can be specifically created to be of these
 types. The following example shows how to do this:
