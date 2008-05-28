@@ -5,12 +5,26 @@
 
 PloneFormGen is a popular tool for creating custom forms in the Plone CMS. GetPaid could leverage this flexibility to allow Plone site admins to create custom forms associated with the buyable content (or donations) available in their site. 
 
+Something along the lines of the Salesforce connector done by One/Northwest would be ideal. General scenario would be something like:
 
-= Details =
+ * Make a form with fields using PFG. 
+ * make the PFG form "buyable"
+ * Map the fields in form into the checkout wizard fields 
 
-Something along the lines of the Salesforce connector done by One/Northwest would be ideal. Scenario would be something like:
+= Use Case Details =
 
- * make a PFG form "buyable"
- * ability to map fields in form into the checkout wizard fields (use case: make an alternative, single page form that could build the checkout pieces in one place...or gather the info you want, save to csv, and then pass to checkout to continue)
+Specific use cases: 
+
+ * Make an alternative, single page form that could build the checkout pieces in one place...or gather the info you want, save to csv, and then pass to checkout to continue)
  * ability to map fields to buyable items in your site (show list of items for sale and let user enter quantity, or, in case of a donation, amounts).
  * ability to add buttons to "checkout" or "add to cart" (customizable names), based on what the user wants to do with the gathered information.
+
+We probably need to distinguish between the use of the form for a single product/donation (ie one-page checkout) and support for using a form for ordering multiple items (example)
+
+= Tasks = 
+
+ * refactor checkout wizard: split order creation part from data gathering (wizard)
+ * creating adapter and mapping
+    * creating item in cart from field (and arbitrary amount)
+    * mapping dropdown of amounts into the cart (ie pick predefined 5, 10, 20)
+ * Make a PFG content type that provides prepopulated and mapped form (optional, for usability and not having to recreate all fields)
