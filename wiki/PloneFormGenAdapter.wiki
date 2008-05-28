@@ -23,7 +23,10 @@ We probably need to distinguish between the use of the form for a single product
 
 = Tasks = 
 
- * refactor checkout wizard: split order creation part from data gathering (wizard)
+ * Possible Refactor checkout wizard: split order creation part from data gathering (wizard)
+   Perrito (horacio) here:
+   If I am not mistaken, the order creation and the processor authorization and perhaps other end of transaction related stuff is happening in the make_payment step in checkout-review-pay of the wizard. I thought that, instead of this, we could have a Class managing all these functionalities with helper methods and, more important, separated from checkout wizard. This way we could use the data gathering method that we want or modify the checkout process without fear of breaking functionality while changing view.
+
  * creating adapter and mapping
     * creating item in cart from field (and arbitrary amount)
     * mapping dropdown of amounts into the cart (ie pick predefined 5, 10, 20)
