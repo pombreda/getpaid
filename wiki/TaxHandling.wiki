@@ -1,0 +1,26 @@
+#summary Refining requirements for handling taxes in GetPaid
+#labels Phase-Requirements,Featured
+
+= Introduction =
+
+Currently there is no handling for taxes. Some users are starting to need this, and it is a complex set of functionalities. This page is notes for refining requirements. We will sprint on this during the NOLA Symposium June 6.
+
+= Background and Issues =
+
+
+= Requirements = 
+
+An example is the Yahoo! store tax handling. 
+
+{{{
+Yahoo! Merchant Solutions Tax Wizard
+
+Select "do not collect tax" if you determine that you do not need to collect tax from buyers. Consult the tax agency for your state (or any state where you may be deemed to have a presence) or a tax accountant to determine if you must collect sales tax.
+
+Select "collect tax at checkout" to set up and collect tax as buyers complete the checkout process. You can select states in which to charge tax and specify a rate. You can also set up additional rates by zip code to cover special city or county tax rates.
+
+Select "collect tax after checkout" if you wish to determine the correct tax rate while processing each order. The key benefits to this method are you do not need to set up applicable tax rates for cities and counties before opening for business, and can determine the correct tax charges for each order as they are processed. Note: Buyers may cancel an order (or worse initiate a chargeback), if their card is charged for a higher amount than displayed at checkout.
+}}}
+
+Here is the test page for the tax calculation from Yahoo!: 
+http://www.ncpc.org/resources/enhancement-assets/web/yahoo-shipping-tax-test-page.png/image_view_fullscreen
