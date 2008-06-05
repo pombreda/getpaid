@@ -7,6 +7,8 @@ Currently there is no handling for taxes. Some users are starting to need this, 
 
 = Background and Issues =
 
+ * http://svn.plone.org/svn/collective/PloneMall/core/PloneMall/trunk/PloneMall/docs/Tax.txt
+
 
 = Requirements = 
 
