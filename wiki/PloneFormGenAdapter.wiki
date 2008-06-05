@@ -15,13 +15,19 @@ Something along the lines of the Salesforce connector done by One/Northwest woul
 
 Specific use cases: 
 
- * Make an alternative, single page form that could build the checkout pieces in one place...or gather the info you want, save to csv, and then pass to checkout to continue)
- * ability to map fields to buyable items in your site (show list of items for sale and let user enter quantity, or, in case of a donation, amounts).
- * ability to add buttons to "checkout" or "add to cart" (customizable names), based on what the user wants to do with the gathered information.
+ 1. GetPaid Checkout Form: Make an alternative, single page form that can customize (add new fields to, reorder, change field titles etc using PFG). This is actually a subclassed PloneFormGen that is set up with the prepopulated form. 
+ 2. GetPaid cart generating form: ability to map fields to buyable items in your site (show list of items for sale and let user enter quantity, or, in case of a donation, amounts). 
+ 3. (??I don't know what this is saying!) ability to add buttons to "checkout" or "add to cart" (customizable names), based on what the user wants to do with the gathered information.
 
-We probably need to distinguish between the use of the form for a single product/donation (ie one-page checkout) and support for using a form for ordering multiple items (example)
+== Background on PloneFormGen ==
 
-= Tasks = 
+  - PFG "adapter" is Action: first class portal content object. Shouldn't show up in search results.
+  - Field is part of validation process, but action only called after validation process (ie no validation on action). Actions can be conditional (ie show Thank you page if all fields are validated successfully). 
+  - Goal of PFG: Keep things simple. Skeleton of field and action adapter are simple. If need new hooks, Steve can add. In future, rearchitecting PFG for more Zope3 use. AndrewB wants to make PFG viewlet in future. 
+  - Can use field sets in PFG to improve usability (reflect groupings of getpaid forms). 
+
+
+== Integration Tasks ==
 
  * Possible Refactor checkout wizard: split order creation part from data gathering (wizard)
    Perrito (horacio) here:
