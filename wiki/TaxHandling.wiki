@@ -23,4 +23,4 @@ Select "collect tax after checkout" if you wish to determine the correct tax rat
 }}}
 
 Here is the test page for the tax calculation from Yahoo!: 
-http://www.ncpc.org/resources/enhancement-assets/web/yahoo-shipping-tax-test-page.png/image_view_fullscreen
+http://www.ncpc.org/resources/enhancement-assets/web/yahoo-shipping-tax-test-page.png
