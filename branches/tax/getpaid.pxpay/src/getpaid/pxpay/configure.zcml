@@ -1,0 +1,31 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:five="http://namespaces.zope.org/five">
+
+   <include package=".browser" />
+   <include file="vocabulary.zcml" />
+
+  <adapter
+     for="getpaid.core.interfaces.IStore"
+     provides=".interfaces.IPXPayStandardOptions"
+     factory=".pxpay.PXPayStandardOptions"
+     />
+
+  <adapter
+     for="getpaid.core.interfaces.IStore"
+     provides="getpaid.core.interfaces.IPaymentProcessor"
+     factory=".pxpay.PXPayPaymentAdapter"
+     name="PXPay Processor"
+     />
+
+   <adapter
+       for=".interfaces.IPXPayStandardOptions"
+       provides=".interfaces.IPXPayWebInterfaceGateway"
+       factory=".gateway.PXPayWebInterfaceGateway"
+     />
+
+   <utility
+       provides=".interfaces.IPXPayCommunicationError"
+       factory=".errors.PXPayCommunicationError"
+     />
+
+</configure>
