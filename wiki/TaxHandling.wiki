@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Currently there is no handling for taxes. Some users are starting to need this, and it is a complex set of functionalities. This page is notes for refining requirements. We will sprint on this during the NOLA Symposium June 6.
+Currently there is no handling for taxes. Some users are starting to need this, and it is a complex set of functionalities. This page is notes for refining requirements. We sprinted on this during the NOLA Symposium June 6, 2008 and created a branch called "tax" for the work.
 
 = Background and Issues =
 
