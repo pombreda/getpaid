@@ -47,6 +47,10 @@ To use taxes, the site admin would have to install the egg(s) for that applies a
     * has one method getTax returns a dictionary of tax amount and tax id name
     * iTaxUtility has control over part of payable tab to be able to insert rendered information for admin to set on content. Admin get a list of taxes (multiselect list) on the payable form. Needs to be coded based on the tax utility you have.
 
+= Issues and Questions =
+
+  * What about auditing or reporting? Make sure that possible to get out / export of tax info for accountant. 
+
 
 = Reference =
 
