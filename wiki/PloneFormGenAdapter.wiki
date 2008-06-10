@@ -42,6 +42,7 @@ PloneFormGen info:
      * PFG action field that stuffs field data into GetPaid machienary: chain of actions: Action 1: add to cart; Action 2: checkout; Action 3: rerender page with portal status and error message (this may not be any extra work...PFG may do it for us)
      * Add ability for actions to fail (next v of PFG) - Steve will do for next minor PFG release. (SteveM)
      * Thank you page is handled by GetPaid (anything marked with interface can be the Thank You page). Set up GetPaid's Thanks you page as default for the form. 
+     * If SSL is set in GetPaid admin, then the form renders securely (it is a page where credit card info is entered!). Secure emailing should be forced for PFG when used as a checkout form. 
 
 
 Older notes: 
