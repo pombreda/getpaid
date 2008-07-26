@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary GetPaid remote sprint, August 2008
 #labels Featured
 
 = Introduction =
@@ -26,4 +26,3 @@ Features
   * implement tax calculation (6ftup, Dennis)
   * improve Discount product (6ftup)
   * improve PloneFormGenAdapter and document (ifPeople)
-
