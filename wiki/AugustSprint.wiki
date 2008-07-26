@@ -12,17 +12,17 @@ The sprint will last somewhere between 3 days and 10 days (if longer, more of a 
 See the list below and add your name next to anything you would be interested to work on: 
   * refactor svn repository (6ftup)
   * review code 
-  * fix issues (there are several filed in the tracker)
+  * fix issues _there are several filed in the tracker_ (dennis)
   * update translations
-  * add greater test coverage
+  * add greater test coverage (dennis)
   * make a release (woukd support 2.5 and 3 together)
-  * reorganize (base, 30, 25) and document buildouts (how to add getpaid) (6ftup)
+  * reorganize (base, 30, 25) and document buildouts (how to add getpaid) (6ftup, dennis)
   * eggify products and get to pypi (6ftup)
-  * make a branch to separate future 2.5 and 3 support
+  * make a branch to separate future 2.5 and 3 support (dennis)
   * gather/improve/update/add documentation (list specific here)
   * reorganize issue tracker
 
 Features
-  * implement tax calculation (6ftup, Dennis)
+  * implement tax calculation (6ftup, dennis)
   * improve Discount product (6ftup)
-  * improve PloneFormGenAdapter and document (ifPeople)
+  * improve PloneFormGenAdapter and document (ifPeople, dennis)
