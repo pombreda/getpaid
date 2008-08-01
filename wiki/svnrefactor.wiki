@@ -75,8 +75,7 @@ I (lucielejard) might work on that on 8/21-22 if I have the green light.
         * create tmp/getpaid.discount/branches and tmp/getpaid.discount/tags
         * no need to create the trunk yet since we will copy over later
   * once the structure is ready, import it: svn import tmp http://getpaid.googlecode.com/svn/
-  * move everything that needs to be moved from http://getpaid.googlecode.com/svn/trunk/PACKAGENAME to
-http://getpaid.googlecode.com/svn/PACKAGENAME/trunk, for example:
+  * move everything that needs to be moved from http://getpaid.googlecode.com/svn/trunk/PACKAGENAME to http://getpaid.googlecode.com/svn/PACKAGENAME/trunk, for example:
      * mv http://getpaid.googlecode.com/svn/trunk/getpaid.discount/ http://getpaid.googlecode.com/svn/getpaid.discount/trunk
   * update the EXTERNALS files and buildout config files that need to
   * create pypi sources for the eggs that are in getpaid-buildout/src (for the eggs that need it)
