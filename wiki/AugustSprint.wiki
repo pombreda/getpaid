@@ -3,9 +3,14 @@
 
 = Introduction =
 
-GetPaid remote sprint, August 2008 (Friday afternoon on 8/1 and 8/8, and then possibly 8/21-22)
+GetPaid remote sprints, August 2008  
 
-The sprint will last somewhere between 3 days and 10 days (if longer, more of a "participate when you can" idea). We have a lot to do that ranges from project organization, cleanup, product packaging, new features, issue fixing and release creation. 
+We have a lot to do that ranges from project organization, cleanup, product packaging, new features, issue fixing and release creation. 
+
+=== Sprint dates ===
+ * August 1, Friday afternoon
+ * August 8, Friday afternoon
+ * August 21-22
 
 = Topics & Interests =
 
@@ -13,14 +18,14 @@ See the list below and add your name next to anything you would be interested to
   * refactor svn repository (6ftup)
   * review code 
   * fix issues _there are several filed in the tracker_ (dennis)
-  * update translations
+  * update translations (cjj for spanish)
   * add greater test coverage (dennis)
   * make a release (would support 2.5 and 3 together)
   * reorganize (base, 30, 25) and document buildouts (how to add getpaid) (6ftup, dennis)
   * eggify products and get to pypi (6ftup)
   * make a branch to separate future 2.5 and 3 support (dennis)
   * gather/improve/update/add documentation (list specific here)
-  * reorganize issue tracker
+  * ReorganizeIssueTracker (cjj, gabrielle)
 
 Features
   * implement tax calculation (6ftup, dennis)
