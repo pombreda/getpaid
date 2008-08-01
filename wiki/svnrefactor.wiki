@@ -56,8 +56,7 @@ You need to send you pypi login id to Kapil and he will add you to the maintaine
 The vendors packages are in the getpaid repo, and have a whole set of issues associated with them relating to using via eggs:
   * hurry.workflow i've basically forked due to lack of upstream response on patches/tests for parallel/adapted workflows and 2.9 compatiblity, its distributed as ore.workflow and works with the existing annotations of hurry.workflow.
   * zc.table relies on zc.resourcelibrary, both of these were basically non functional without some minor mods. 
-  * zc.resourcelibrary is basically deadweight, its not usable in z2. however recent versions will pull in
-alot of zope3 eggs that will break a plone instance.
+  * zc.resourcelibrary is basically deadweight, its not usable in z2. however recent versions will pull in a lot of zope3 eggs that will break a plone instance.
 
 Matt Halstead wrote in his email (but we don't have any news from him):
 
