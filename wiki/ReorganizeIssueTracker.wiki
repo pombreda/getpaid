@@ -1,0 +1,8 @@
+#summary Proposal for improving GetPaid issue tracker organization
+
+= Introduction =
+
+Currently it is a mess and we aren't using labels very well. Also, not much consistent about the releases. Need to get it much better!
+
+
+= Details =
