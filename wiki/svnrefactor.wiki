@@ -68,13 +68,18 @@ each getpaid package (I can't do this for the non-getpaid packages)
 
 == Implementation Proposition ==
 
-I (lucielejard) might work on that on 8/21-22 if I have the green light.
+I (lucielejard) will work on the following (unless someone disagree):
+
+=== Friday 8/8 ===
   * create the new structure on my computer:
      * create a tmp folder
      * put all the sources needed in it, for example:
         * create tmp/getpaid.discount/branches and tmp/getpaid.discount/tags
         * no need to create the trunk yet since we will copy over later
   * once the structure is ready, import it: svn import tmp http://getpaid.googlecode.com/svn/
+
+
+=== Friday 8/15 ===
   * move everything that needs to be moved from http://getpaid.googlecode.com/svn/trunk/PACKAGENAME to http://getpaid.googlecode.com/svn/PACKAGENAME/trunk, for example:
      * mv http://getpaid.googlecode.com/svn/trunk/getpaid.discount/ http://getpaid.googlecode.com/svn/getpaid.discount/trunk
   * update the EXTERNALS files and buildout config files that need to
