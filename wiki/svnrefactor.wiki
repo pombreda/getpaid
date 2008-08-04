@@ -58,14 +58,6 @@ The vendors packages are in the getpaid repo, and have a whole set of issues ass
   * zc.table relies on zc.resourcelibrary, both of these were basically non functional without some minor mods. 
   * zc.resourcelibrary is basically deadweight, its not usable in z2. however recent versions will pull in a lot of zope3 eggs that will break a plone instance.
 
-Matt Halstead wrote in his email (but we don't have any news from him):
-
-I know I'm volunteering to:
-- make the initial changes to the repository structure
-- update all the setup.py data to reflect Kapil's suggestions
-- write some release script that runs Tarek's release mechanism for
-each getpaid package (I can't do this for the non-getpaid packages)
-
 == Implementation Proposition ==
 
 I (lucielejard) will work on the following (unless someone disagree):
@@ -89,4 +81,44 @@ I (lucielejard) will work on the following (unless someone disagree):
 Extra:
   * eggify getpaid-buildout/develop-products/PloneGetPaid
   * release should be handled by a recipe (down the road)
+
+== Notes ==
+
+=== preparing for buildout ===
+
+Perhaps reviewing grok's method is useful.
+
+a grok project's setup.py dependencies are: 
+
+{{{
+      install_requires=['setuptools',
+                        'grok',
+                        'z3c.testsetup',
+                        # Add extra requirements here
+                        ],
+
+}}}
+
+the grok egg itself depends on all the individual packages that make up the grok framework. These are unversioned ... see http://svn.zope.org/grok/trunk/setup.py?rev=89307&view=auto
+
+in a grok projects buildout.cfg you pin versions by referring to an external versions reference for the particular release you are interested in:
+
+see http://grok.zope.org/releaseinfo/readme.html for reasoning
+see http://grok.zope.org/releaseinfo/grok-0.13.cfg for an example.
+
+you can override individual packages in your project by redefining the egg and it's version in your own versions part.
+
+This avoids the need for specific recipes for getpaid, but does require everything to be have an egg.
+
+=== releasing eggs to pypi ===
+
+see http://tarekziade.wordpress.com/2008/06/08/eggs-releasing-procedure-and-continuous-integration/
+
+collective.releaser is worth considering - obviously a change in the svn tree structure of getpaid would be necessary for this
+
+
+
+
+
+
  
