@@ -5,4 +5,20 @@
 Currently it is a mess and we aren't using labels very well. Also, not much consistent about the releases. Need to get it much better!
 
 
-= Details =
+== Categories ==
+ * checkout wizard
+ * admin screen
+ * ???
+
+== Releases ==
+
+We need a map of past and future, plus "trunk", for tags: 
+ * trunk
+ * 0.3
+ * 0.6.0
+ * 0.6.1
+ * future ones???
+
+=== Questions ===
+
+ * Do we need to tag per Plone version? I think if we branch 2.5 vs 3, then yes...
