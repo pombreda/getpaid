@@ -122,8 +122,9 @@ collective.releaser is worth considering - obviously a change in the svn tree st
 
 Note from Lucie: I wrote to Tarek to figure out why does a branch is created when releasing using his product, and he said it's because it changes the setup.cfg file before it is tagged. I asked him if he can make his product not create a branch by default, or at least, give us the option to not use a branch. I hope to have an answer soon.
 
+=== pypi categories ===
 
-
+Note from Michael: Would be useful to have some consistency with the pypi categories. And to establish a new category specifically for getpaid. Perhaps "Framework :: GetPaid". This would make it easier to either find or exclude GetPaid work.
 
 
  
