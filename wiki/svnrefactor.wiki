@@ -126,5 +126,14 @@ Note from Lucie: I wrote to Tarek to figure out why does a branch is created whe
 
 Note from Michael: Would be useful to have some consistency with the pypi categories. And to establish a new category specifically for getpaid. Perhaps "Framework :: GetPaid". This would make it easier to either find or exclude GetPaid work.
 
+Some suggested categories: 
+ * Framework :: Plone
+ * Framework :: Zope3
+ * Intended Audience :: Developers
+ * License :: OSI Approved :: Zope Public License
+ * Operating System :: OS Independent
+ * Programming Language :: Python
+ * Topic :: Office/Business :: Financial
+ * Topic :: Software Development :: Libraries
 
- 
+There seems to be nothing on ecommerce directly unfortunately :(
