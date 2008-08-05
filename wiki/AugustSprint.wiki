@@ -15,7 +15,7 @@ We have a lot to do that ranges from project organization, cleanup, product pack
 = Topics & Interests =
 
 See the list below and add your name next to anything you would be interested to work on: 
-  * refactor svn repository (6ftup)
+  * refactor svn repository (6ftup): see svnrefactor proposal and info
   * review code 
   * fix issues _there are several filed in the tracker_ (dennis)
   * update translations (cjj for spanish)
