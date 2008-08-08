@@ -36,7 +36,7 @@ Make sure you use https and not http, as you will have authentication problems l
 If you wish to do anonymous checkout, use: 
 
 {{{
-svn co http://getpaid.googlecode.com/svn/trunk/getpaid-anonymous-buildout
+svn co http://getpaid.googlecode.com/svn/getpaid-anonymous-buildout/trunk
 }}}
 
 _Note: For the rest of the documentation, we will simply use "getpaid.buildout" as the name of your buildout folder. Depending on which version you checked out in the above step, you will need to adjust the name of the folder for the commands shown._
