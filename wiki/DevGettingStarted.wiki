@@ -28,7 +28,7 @@ You'll need:
 Checkout the getpaid.buildout infrastructure. The code for both Plone 2.5 and 3.0 buildouts can be obtained together, so only one place to check out from. Make sure you check it out to a location outside of any existing Zope instances.
 
 {{{
-svn co https://getpaid.googlecode.com/svn/trunk/getpaid.buildout
+svn co https://getpaid.googlecode.com/svn/getpaid.buildout/trunk
 }}}
 
 Make sure you use https and not http, as you will have authentication problems later if you do.
