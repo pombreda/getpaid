@@ -69,16 +69,14 @@ I (lucielejard) will work on the following (unless someone disagree):
         * create tmp/getpaid.discount/branches and tmp/getpaid.discount/tags
         * no need to create the trunk yet since we will copy over later
   * once the structure is ready, import it: svn import tmp http://getpaid.googlecode.com/svn/
-
-
-=== Friday 8/15 ===
   * move everything that needs to be moved from http://getpaid.googlecode.com/svn/trunk/PACKAGENAME to http://getpaid.googlecode.com/svn/PACKAGENAME/trunk, for example:
      * mv http://getpaid.googlecode.com/svn/trunk/getpaid.discount/ http://getpaid.googlecode.com/svn/getpaid.discount/trunk
   * update the EXTERNALS files and buildout config files that need to
+
+
+=== Friday 8/15 ===
   * create pypi sources for the eggs that are in getpaid-buildout/src (for the eggs that need it)
   * create a versions.cfg file that has all the versions information for when you want to use getpaid on a production site
- 
-Extra:
   * eggify getpaid-buildout/develop-products/PloneGetPaid
   * release should be handled by a recipe (down the road)
 
