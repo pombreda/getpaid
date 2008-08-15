@@ -1,12 +1,13 @@
 # Getpaid Brazilian Portuguese translation
+# Érico Andrei <erico@simplesconsultoria.com.br>, 2008.
 # ThreePointsWeb Team <contato@threepointsweb.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: getpaid.core VERSION\n"
 "POT-Creation-Date: 2007-12-13 20:02+0000\n"
-"PO-Revision-Date: 2007-08-25 15:00-0300\n"
-"Last-Translator: ThreePointsWeb Team <contato@threepointsweb.com>\n"
-"Language-Team: ThreePointsWeb Team <contato@threepointsweb.com>\n"
+"PO-Revision-Date: 2008-08-12 11:20-0300\n"
+"Last-Translator: Érico Andrei <erico@simplesconsultoria.com.br>\n"
+"Language-Team: Érico Andrei <erico@simplesconsultoria.com.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +23,7 @@ msgstr "Aceito"
 
 #: ./interfaces.py:66
 msgid "An organization's unique product identifier (not required since shopping cart uses content UID internally)"
-msgstr ""
+msgstr "Um identificador único para o produto (não é obrigatório porque o carrinho de compras utilizará o UID internamente)"
 
 #: ./workflow/order.py:75
 msgid "Authorize"
@@ -30,11 +31,11 @@ msgstr "Autorizar"
 
 #: ./interfaces.py:362
 msgid "Can we contact you regarding new offers?"
-msgstr ""
+msgstr "Você aceita receber mensagens sobre novas ofertas?"
 
 #: ./interfaces.py:361
 msgid "Can we contact you with offers"
-msgstr ""
+msgstr "Podemos contatá-lo com ofertas "
 
 #: ./workflow/item.py:109
 msgid "Cancel"
@@ -54,7 +55,7 @@ msgstr "Data de Modificação"
 
 #: ./interfaces.py:502
 msgid "Change Kind"
-msgstr ""
+msgstr "Alterar o tipo"
 
 #: ./interfaces.py:500
 msgid "Changed By"
@@ -82,7 +83,7 @@ msgstr "Comentário"
 
 #: ./interfaces.py:357
 msgid "Contact Information"
-msgstr ""
+msgstr "Informações de contato"
 
 #: ./interfaces.py:176
 msgid "Cost"
@@ -142,19 +143,19 @@ msgstr "Entrega Eletrônica"
 
 #: ./interfaces.py:356
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ./interfaces.py:366
 msgid "Email Format"
-msgstr ""
+msgstr "Formato de email"
 
 #: ./interfaces.py:378
 msgid "Enter the full name, as it appears on the card. "
-msgstr ""
+msgstr "Informe seu nome completo, como aparece no cartão"
 
 #: ./order.py:430
 msgid "Finance"
-msgstr ""
+msgstr "Pagamento"
 
 #: ./interfaces.py:449
 msgid "Finance State"
@@ -166,7 +167,7 @@ msgstr "Primeira Linha"
 
 #: ./interfaces.py:394
 msgid "For MC, Visa, and DC, this is a 3-digit number on back of the card.  For AmEx, this is a 4-digit code on front of card. "
-msgstr ""
+msgstr "Para MasterCard, Visa e Dinners, existe um código de 3 dígitos no verso do cartão. Para American Express, este código tem 4 dígitos e está na frente do cartão."
 
 #: ./order.py:432
 msgid "Fulfillment"
@@ -178,15 +179,15 @@ msgstr "Estatus da Expedição"
 
 #: ./interfaces.py:343
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: ./interfaces.py:223
 msgid "Integer Id for a Product"
-msgstr ""
+msgstr "Id para um produto (número inteiro)"
 
 #: ./fields.py:11
 msgid "Invalid Credit Card Number."
-msgstr ""
+msgstr "Número de cartão de crédito inválido."
 
 #: ./order.py:79
 msgid "Invalid Order Id"
@@ -206,19 +207,19 @@ msgstr "Novo Estado"
 
 #: ./interfaces.py:337
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: ./fields.py:8
 msgid "Only digit character allowed."
-msgstr ""
+msgstr "Apenas números são permitidos."
 
 #: ./interfaces.py:353
 msgid "Only digits allowed - e.g. 3334445555 and not 333-444-5555 "
-msgstr ""
+msgstr "Apenas números são permitidos - ex: 3334445555 ao invés de 333-444-5555 "
 
 #: ./interfaces.py:388
 msgid "Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777 "
-msgstr ""
+msgstr "Apenas números são permitidos - ex: 4444555566667777 ao invés de 4444-5555-6666-7777 "
 
 #: ./workflow/shipment.py:93
 msgid "Order Charged"
@@ -230,7 +231,7 @@ msgstr "Código de Pedido existente"
 
 #: ./workflow/order.py:35
 msgid "Order Processed"
-msgstr ""
+msgstr "Pedido processado"
 
 #: ./workflow/order.py:68
 msgid "Payment Declined"
@@ -250,11 +251,11 @@ msgstr "Número de Telefone"
 
 #: ./interfaces.py:343
 msgid "Plain Text"
-msgstr ""
+msgstr "Texto puro"
 
 #: ./interfaces.py:301
 msgid "Please Enter Your Address"
-msgstr ""
+msgstr "Por favor informe o seu endereço"
 
 #: ./interfaces.py:505
 msgid "Previous State"
@@ -266,19 +267,19 @@ msgstr "Preço"
 
 #: ./workflow/order.py:30
 msgid "Process Order"
-msgstr ""
+msgstr "Processar o pedido"
 
 #: ./workflow/order.py:138
 msgid "Processor Cancel"
-msgstr ""
+msgstr "Cancelado"
 
 #: ./workflow/order.py:100
 msgid "Processor Charged"
-msgstr ""
+msgstr "Cobrado"
 
 #: ./workflow/order.py:94
 msgid "Processor Declined"
-msgstr ""
+msgstr "Negado"
 
 #: ./interfaces.py:451
 msgid "Processor Order Id"
@@ -310,7 +311,7 @@ msgstr "Reembolsado"
 
 #: ./interfaces.py:313
 msgid "Same as billing address"
-msgstr ""
+msgstr "Mesmo que endereço de cobrança"
 
 #: ./interfaces.py:302
 msgid "Second Line"
@@ -318,7 +319,7 @@ msgstr "Segunda Linha"
 
 #: ./interfaces.py:391
 msgid "Select month and year"
-msgstr ""
+msgstr "Informe o mês e ano"
 
 #: ./workflow/item.py:133
 msgid "Ship"
@@ -326,7 +327,7 @@ msgstr "Enviar"
 
 #: ./interfaces.py:39
 msgid "Shipping Method"
-msgstr ""
+msgstr "Forma de entrega"
 
 #: ./interfaces.py:306
 msgid "State"
@@ -334,11 +335,11 @@ msgstr "Estado"
 
 #: ./interfaces.py:43
 msgid "Store/Organization Name"
-msgstr ""
+msgstr "Nome da empresa"
 
 #: ./interfaces.py:173
 msgid "Unique Item Id"
-msgstr "Item com id único"
+msgstr "Id único do item"
 
 #: ./interfaces.py:75
 msgid "Very brief 50 character text (that shows up in portlet)"
@@ -350,15 +351,15 @@ msgstr "Não será entregue"
 
 #: ./interfaces.py:367
 msgid "Would you prefer to receive rich html emails or only plain text"
-msgstr ""
+msgstr "Você prefere receber a mensagem como html ou como texto puro"
 
 #: ./interfaces.py:337
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: ./interfaces.py:350
 msgid "Your Name"
-msgstr ""
+msgstr "Seu nome"
 
 #: ./interfaces.py:321
 msgid "Zip Code"
@@ -366,7 +367,7 @@ msgstr "CEP"
 
 #: ./interfaces.py:308
 msgid "Zip/Postal Code"
-msgstr ""
+msgstr "CEP/Código postal"
 
 #: ./locales/empty.pt:3
 msgid "do_not_translate"
