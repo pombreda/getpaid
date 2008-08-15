@@ -1,0 +1,3 @@
+getpaid https://svn.plone.org/svn/collective/getpaid/trunk
+ore.member https://svn.objectrealms.net/svn/public/ore.member/trunk/
+
