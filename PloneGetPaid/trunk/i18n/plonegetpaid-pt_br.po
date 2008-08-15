@@ -1,13 +1,14 @@
 # --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
 # SOME DESCRIPTIVE TITLE.
+# Érico Andrei <erico@simplesconsultoria.com.br>, 2008.
 # ThreePointsWeb Team <contato@threepointsweb.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1.0\n"
 "POT-Creation-Date: 2007-08-25 15:20+0000\n"
-"PO-Revision-Date: 2007-08-25 17:04-0300\n"
-"Last-Translator: ThreePointsWeb Team <contato@threepointsweb.com>\n"
-"Language-Team: ThreePointsWeb Team <contato@threepointsweb.com>\n"
+"PO-Revision-Date: 2008-08-12 11:12-0300\n"
+"Last-Translator: Érico Andrei <erico@simplesconsultoria.com.br>\n"
+"Language-Team: Érico Andrei <erico@simplesconsultoria.com.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -175,7 +176,7 @@ msgstr "Tipos de Conteúdo Premium"
 #. Default: "Premium not implemented yet"
 #: ./browser/templates/portlet-content-premium.pt:30
 msgid "Premium not implemented yet"
-msgstr ""
+msgstr "Premium ainda não implementado"
 
 #: ./browser/cart.py:162
 msgid "Price"
@@ -369,7 +370,7 @@ msgstr "transição"
 #. Default: "workflow"
 #: ./browser/templates/order-workflow-log.pt:5
 msgid "heading_workflow"
-msgstr ""
+msgstr "workflow"
 
 #. Default: "Your Orders"
 #: ./browser/templates/order-history.pt:4
