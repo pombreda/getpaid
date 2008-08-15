@@ -1,0 +1,22 @@
+#!/opt/local/Library/Frameworks/Python.framework/Versions/2.4/Resources/Python.app/Contents/MacOS/Python
+
+import sys
+sys.path[0:0] = [
+  '/Users/lucie/Desktop/getpaid.recipe.release',
+  '/Users/lucie/.buildout/eggs/zope.testing-3.6.0-py2.4.egg',
+  '/Users/lucie/.buildout/eggs/zope.interface-3.4.1-py2.4-macosx-10.3-i386.egg',
+  '/Users/lucie/.buildout/eggs/setuptools-0.6c8-py2.4.egg',
+  '/Users/lucie/.buildout/eggs/zc.buildout-1.1.1-py2.4.egg',
+  ]
+
+import os
+sys.argv[0] = os.path.abspath(sys.argv[0])
+os.chdir('/Users/lucie/Desktop/getpaid.recipe.release/parts/test')
+
+
+import zope.testing.testrunner
+
+if __name__ == '__main__':
+    zope.testing.testrunner.run([
+  '--test-path', '/Users/lucie/Desktop/getpaid.recipe.release',
+  ])
