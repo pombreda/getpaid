@@ -3,7 +3,9 @@
 There are currently three ways to get going with GetPaid:
 
 1. If you downloaded GetPaid as a bundle, the README.txt included in
-   that bundle will explain how to install.
+   that bundle will explain how to install. You can download the latest release from:  
+
+   http://code.google.com/p/getpaid/downloads/list
 
 2. If you wish to develop GetPaid or wish to use a release from
    Subversion, the following instructions provide a way to get a Zope

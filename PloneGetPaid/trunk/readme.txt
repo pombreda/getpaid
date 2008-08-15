@@ -1,10 +1,10 @@
 **GetPaid for Plone**
 
-*Product Description: Version 0.6*
+*Product Description: Version 0.7*
 
 GetPaid provides you basic commerce functionality (donations, shopping
 cart, checkout) and order management out of the box while providing a
-flexible framework for creating custom ecommerce applications.
+flexible framework for creating custom ecommerce applications. There are also a number of add-ons for GetPaid that can extend its functionality and are optional (discounts, UPS shipping, warehouse/inventory management, various payment processors etc). 
 
 You can find more information about this project at
 
@@ -29,7 +29,7 @@ Installation
 
 Setting up a Plone Site to use GetPaid
 
-  Please read docs/setup.txt
+  Please read docs/setup.txt or find the "tutorial with screenshots here":http://plone.org/products/getpaid/documentation/tutorial/setting-up-getpaid/tutorial-all-pages
 
 Customising GetPaid
 
@@ -61,19 +61,17 @@ License:
 
 Credits:
 
-  Project leaders: Kapil Thangavelu is the chief architect and author
-  of the product. Christopher Johnson is the project organizer. Jon
+  Project leaders: Kapil Thangavelu is the chief architect and primary author
+  of the product thorugh version 0.6. Christopher Johnson is the project organizer. Jon
   Stahl is the project's NGO Liason.
 
   Lots of people have contributed to this project through our
   sprints. Thanks to all those who participated in the BBQSprint,
-  Google DocComm Sprint, and i18n Sprint. For more complete list of
-  credits, please see 
+  Google DocComm Sprint, i18n Sprint, Naples Sprint, and remote sprints. For more complete list of credits, please see 
   "GetPaid Credits":http://plonegetpaid.com/about/credits/
 
-  This second release has been made possible by a lot of help from the
-  great GetPaid community, including Liam, Lucie, Perrito, and
-  Maurits. We are also grateful for the companies that have used
+  This is our third major release and has been made possible by a lot of help from the
+  great GetPaid community, including Lucie, . We are also grateful for the companies that have used
   GetPaid and contributed a lot to its improvements, including
   "ifPeople":http://www.ifpeople.net,
   "SixFeetUp":http://sixfeetup.com, and 

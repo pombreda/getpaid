@@ -1,7 +1,7 @@
 **Setting up GetPaid**
 
 A guide to setting up GetPaid can be found at the following URL,
-however the text that follows is likely to be more up to date:
+which includes screenshots and additional information:
 
 http://plone.org/products/getpaid/documentation/tutorial/setting-up-getpaid/tutorial-all-pages
 
@@ -28,7 +28,7 @@ applicable to your store to provide the best user experience.
 - Site Profile
 
   Here you need to enter contact details for the organisation from
-  which sales will be made.
+  which sales will be made. Note that email is necessary for notifications from the store; address is necessary if you are using shipping functionalities. 
 
 - Content Types
 
@@ -38,15 +38,14 @@ applicable to your store to provide the best user experience.
 
 - Shipping Methods
 
-  This, if present, is currently under development and should be left
-  well alone.
+  To have available options here, you need to have the UPS feature enabled in your buildout (or included in your product you installed). 
 
   However, you will also need to fill in the zip code field of the
   Site Profile section if you wish to have shipping enabled
 
 - Payment Options
 
-  Here you should select the payment options for you GetPaid site.
+  Here you should select the payment options for you GetPaid site, including the process (you must save this page for the processor to be selected), SSL, anonymous checkout, and the credit cards to be accepted. 
 
   - Payment Processor
 
