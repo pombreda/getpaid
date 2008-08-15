@@ -75,10 +75,21 @@ I (lucielejard) will work on the following (unless someone disagree):
 
 
 === Friday 8/15 ===
-  * create pypi sources for the eggs that are in getpaid-buildout/src (for the eggs that need it)
-  * create a versions.cfg file that has all the versions information for when you want to use getpaid on a production site
-  * eggify getpaid-buildout/develop-products/PloneGetPaid
-  * release should be handled by a recipe (down the road)
+
+Goal: create a new release tag (0.7): http://plone.org/products/getpaid/releases/0.7.0
+ 
+  * change the version of the product PloneGetPaid and the egg getpaid.core to be 0.7.0
+  * use paster template to create a new recipe:
+     * create pypi sources for the eggs that are in getpaid-buildout/src (for the eggs that need it)
+     * make sure to set up the categories correctly
+  * Other important things:
+     * Ricardo's "unfix"/rollback was to undo this change, which broke the checkout in .6.1: http://code.google.com/p/getpaid/source/detail?r=1482 .So in .7, we need to remove "site" from the parameters passed, that's it.
+     * make sure that there is good documentation for the buildout.cfg for new releases. i.e need to mention to add googlecheckout-overrides.zcml to instances part if you want google checkout
+     * eggify getpaid-buildout/develop-products/PloneGetPaid (getmeteored)
+     * We also should give some extra love to the way we do, for instance, externals => there are at least 2 or 3 externals that have to be changed when doing a branch or a tag
+     * http://code.google.com/p/getpaid/issues/detail?id=204 => create a 0.6.2 tag with the fix, when 0.7 release done (backport fixes)
+ 
+
 
 == Notes ==
 
@@ -105,6 +116,7 @@ see http://grok.zope.org/releaseinfo/readme.html for reasoning
 see http://grok.zope.org/releaseinfo/grok-0.13.cfg for an example.
 
 you can override individual packages in your project by redefining the egg and it's version in your own versions part.
+
 
 This avoids the need for specific recipes for getpaid, but does require everything to be have an egg.
 
