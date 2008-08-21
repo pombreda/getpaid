@@ -18,11 +18,12 @@ See the list below and add your name next to anything you would be interested to
   * refactor svn repository (6ftup): see [http://code.google.com/p/getpaid/wiki/svnrefactor svnrefactor] proposal and info
   * review code 
   * fix issues _there are several filed in the tracker_ (dennis)
-  * update translations (cjj for spanish)
-  * add greater test coverage (dennis)
+    * list target issues here...
+  * update translations (cjj for spanish; anyone else for French, German, Italian, Chinese...?)
+  * add greater test coverage (dennis, Waldo)
   * make a release (would support 2.5 and 3 together)
   * reorganize (base, 30, 25) and document buildouts (how to add getpaid) (6ftup, dennis)
-  * eggify products and get to pypi (6ftup)
+  * eggify products and get to pypi (6ftup, fairwinds, matt hallstead)
   * make a branch to separate future 2.5 and 3 support (dennis)
   * gather/improve/update/add documentation (list specific here)
   * ReorganizeIssueTracker (cjj, gabrielle)
