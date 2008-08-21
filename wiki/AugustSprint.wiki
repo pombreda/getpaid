@@ -21,7 +21,14 @@ See the list below and add your name next to anything you would be interested to
     * Issue #204
     * Issue #202
     * Issue #203
-  * update translations (cjj for spanish; anyone else for French, German, Italian, Chinese...?)
+    * Issue #208
+  * update translations
+    * Spanish: in progress (FranGM, Wu, cjj)
+    * French
+    * German 
+    * Italian 
+    * Chinese
+    * Dutch
   * add greater test coverage (dennis, Waldo)
   * make a release (would support 2.5 and 3 together)
   * reorganize (base, 30, 25) and document buildouts (how to add getpaid) (6ftup, dennis)
