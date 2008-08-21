@@ -18,7 +18,8 @@ See the list below and add your name next to anything you would be interested to
   * refactor svn repository (6ftup): see [http://code.google.com/p/getpaid/wiki/svnrefactor svnrefactor] proposal and info
   * review code 
   * fix issues _there are several filed in the tracker_ (dennis)
-    * list target issues here...
+    * Issue #204
+    * 
   * update translations (cjj for spanish; anyone else for French, German, Italian, Chinese...?)
   * add greater test coverage (dennis, Waldo)
   * make a release (would support 2.5 and 3 together)
