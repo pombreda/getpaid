@@ -13,7 +13,7 @@ Ideas:
  * checkout wizard
  * admin screen
  * user interface
- * translations
+ * i18n 
  * ??
 
 == Releases ==
@@ -23,6 +23,10 @@ We need a map of past and future, plus "trunk", for tags:
  * 0.3
  * 0.6.0
  * 0.6.1
+ * 0.7
+ * 0.8
+ * 0.9
+ * 1.0
  * future ones???
 
 === Questions ===
