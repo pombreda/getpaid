@@ -23,9 +23,29 @@
 
 from setuptools import setup, find_packages
 
+import os
+
+version = "0.2"
+
 setup(
     name="getpaid.nullpayment",
-    version="0.1",
+    version=version,
+    description="package for plone getpaid to hook up the checkout with a fake payment processor",
+    long_description=open(os.path.join("src", "readme.txt")).read(),
+    classifiers=[
+        "Framework :: Plone",
+        "Programming Language :: Python",
+        "Framework :: Zope3",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Zope Public License",
+        "Operating System :: OS Independent",
+        "Topic :: Office/Business :: Financial",
+        "Topic :: Software Development :: Libraries",
+        ],
+    keywords='',
+    author='getpaid community',
+    author_email='getpaid-dev@googlegroups.com',
+    url='http://code.google.com/p/getpaid',
     packages=find_packages('src'),
     package_dir={'':'src'},
     namespace_packages=['getpaid'],
