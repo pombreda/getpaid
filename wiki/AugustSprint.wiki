@@ -32,3 +32,5 @@ Features
   * implement tax calculation (6ftup, dennis)
   * improve Discount product (6ftup)
   * improve PloneFormGenAdapter and document (ifPeople, dennis)
+  * finalize Paypal ipn (dennis)
+  * document payable content use case (dennis, dixond, cjj)
