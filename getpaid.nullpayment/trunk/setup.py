@@ -31,7 +31,7 @@ setup(
     name="getpaid.nullpayment",
     version=version,
     description="package for plone getpaid to hook up the checkout with a fake payment processor",
-    long_description=open(os.path.join("src", "readme.txt")).read(),
+    long_description=open(os.path.join("readme.txt")).read(),
     classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
