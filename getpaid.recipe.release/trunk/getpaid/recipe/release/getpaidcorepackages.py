@@ -48,6 +48,7 @@ GETPAID_BASE_PACKAGES = [
 ]
 
 GETPAID_PAYMENT_PROCESSORS = [
+    PyModule('getpaid.authorizedotnet', CHEESE_SOURCE + 'g/getpaid.authorizedotnet/getpaid.authorizedotnet-0.2.tar.gz', version="0.2"),
     PyModule('getpaid.paymentech', CHEESE_SOURCE + 'g/getpaid.paymentech/getpaid.paymentech-0.2.tar.gz', version="0.2"),
 ]
 
