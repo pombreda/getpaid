@@ -44,4 +44,5 @@ CHEESE_SOURCE = 'http://pypi.python.org/packages/source/'
 
 GETPAID_CORE_PACKAGES = [
     PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.4.tar.gz', version="0.4"),
+    PyModule('ore.viewlet', CHEESE_SOURCE + 'o/ore.viewlet/ore.viewlet-0.2.tar.gz', version="0.2"),
 ]
