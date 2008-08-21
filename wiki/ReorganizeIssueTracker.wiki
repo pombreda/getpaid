@@ -12,6 +12,7 @@ Ideas:
 == Categories ==
  * installation
  * checkout wizard
+ * payment processor
  * admin screen
  * user interface
  * i18n 
