@@ -38,7 +38,7 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Zope Public License",
         "Operating System :: OS Independent",
-        "Topic :: Office/Business :: Financial"
+        "Topic :: Office/Business :: Financial",
         "Topic :: Software Development :: Libraries",
         ],
     keywords='',
