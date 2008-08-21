@@ -10,6 +10,7 @@ Ideas:
 
 
 == Categories ==
+ * installation
  * checkout wizard
  * admin screen
  * user interface
