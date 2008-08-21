@@ -31,6 +31,17 @@ We need a map of past and future, plus "trunk", for tags:
  * 1.0
  * future ones???
 
+== Difficulty ==
+ * newbie
+ * black belt
+
+== Planned Time ==
+ * 1h
+ * 2-3h
+ * 3-5h
+ * 5-10h
+ * 10h+
+
 === Questions ===
 
  * Do we need to tag per Plone version? I think if we branch 2.5 vs 3, then yes...
