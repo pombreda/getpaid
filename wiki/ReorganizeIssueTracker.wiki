@@ -16,7 +16,7 @@ Ideas:
  * admin screen
  * user interface
  * i18n 
- * ??
+ * documentation
 
 == Releases ==
 
