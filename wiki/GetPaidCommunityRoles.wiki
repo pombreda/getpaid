@@ -17,7 +17,12 @@ This page aims at helping to organize the Get Paid Community - ie what roles do 
  * Handle simple issues tagged with the keyword "newbie"
  
 == Release Manager ==
- * Manages releases
+Manages releases
+
+ * 0.7: _Target date Sept 2008_
+ * 0.8: _Target date October 2008_
+ * 0.9: _Target date December 2008_
+ * 1.0: _Target date Sprint 2009_
 
 == Project Manager ==
  * Outlines the long-term vision for the product
@@ -25,11 +30,8 @@ This page aims at helping to organize the Get Paid Community - ie what roles do 
 
 == Product Advocate ==
  * Promotes Get Paid wherever and whenever possible
+ * Helps people get involved in project
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+==Fundraising==
+ * Social sourcing fundraising
+ * Works with Project Manager on plans that can be used in fundraising
