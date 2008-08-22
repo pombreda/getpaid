@@ -15,12 +15,13 @@ def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 setup(
-    name="getpaid.googlecheckout",
-    version="0.2dev",
+    name='getpaid.googlecheckout',
+    version='0.2dev',
     license = 'BSD',
-    author="Getpaid Community",
-    author_email="getpaid-dev@googlegroups.com",
-    description="Get paid framework module for flat rate shipping",
+    author='Getpaid Community',
+    author_email='getpaid-dev@googlegroups.com',
+    description='Getpaid google checkout payment functionality'
+getpaid',
     long_description = (
         read('README.txt')
         + '\n' +
@@ -35,11 +36,11 @@ setup(
         '**********************\n'
         ),
     classifiers = [
-        "Framework :: Zope2",
-        "Framework :: Zope3",
-        "Framework :: Plone"
+        'Framework :: Zope2',
+        'Framework :: Zope3',
+        'Framework :: Plone'
         ],
-    url="http://code.google.com/p/getpaid",
+    url='http://code.google.com/p/getpaid',
     packages=find_packages('src'),
     package_dir={'':'src'},
     namespace_packages=['getpaid'],
