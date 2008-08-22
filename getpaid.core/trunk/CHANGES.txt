@@ -1,0 +1,9 @@
+=======
+CHANGES
+=======
+
+
+0.7 (2008-08-22)
+----------------
+
+- Added buildout files and general text documents to project root.
