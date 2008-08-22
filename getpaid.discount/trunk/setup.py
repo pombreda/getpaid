@@ -18,6 +18,7 @@ version = '0.5dev'
 
 setup(name='getpaid.discount',
       version=version,
+      license = 'ZPL2.1',
       description='package for plone getpaid handling discounts',
       long_description = (
         read('README.txt')
