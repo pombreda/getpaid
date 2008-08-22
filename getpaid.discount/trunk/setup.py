@@ -1,40 +1,42 @@
-# Copyright (c) 2007 ifPeople, Kapil Thangavelu, and Contributors
-#
-# Permission is hereby granted, free of charge, to any person
-# obtaining a copy of this software and associated documentation
-# files (the "Software"), to deal in the Software without
-# restriction, including without limitation the rights to use,
-# copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following
-# conditions:
-#
-# The above copyright notice and this permission notice shall be
-# included in all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-# OTHER DEALINGS IN THE SOFTWARE.
+"""
+$Id$
 
-from setuptools import setup, find_packages
+Copyright (c) 2007 - 2008 ifPeople, Kapil Thangavelu, and Contributors
+All rights reserved. Refer to LICENSE.txt for details of distribution and use.
+
+Distutils setup
+ 
+"""
+
 import os
+from setuptools import setup, find_packages
 
-version = '0.4'
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
+version = '0.5dev'
 
 setup(name='getpaid.discount',
       version=version,
-      description="package for plone getpaid handling discounts",
-      long_description=open(os.path.join("src", "getpaid", "discount", "README.txt")).read(),
+      description='package for plone getpaid handling discounts',
+      long_description = (
+        read('README.txt')
+        + '\n' +
+        read('CHANGES.txt')
+        + '\n' +
+        'Detailed Documentation\n'
+        '**********************\n'
+        + '\n' +
+        read('src', 'getpaid', 'discount', 'README.txt')
+        + '\n' +
+        'Download\n'
+        '**********************\n'
+        ),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+        'Framework :: Plone',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries :: Python Modules',
         ],
       keywords='',
       author='Six Feet Up, Inc.',
@@ -45,11 +47,5 @@ setup(name='getpaid.discount',
       namespace_packages=['getpaid'],
       include_package_data=True,
       zip_safe=False,
-      install_requires=[
-          'setuptools',
-          # -*- Extra requirements: -*-
-      ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
+      install_requires=['setuptools'],
       )
