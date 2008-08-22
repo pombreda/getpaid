@@ -3,7 +3,10 @@ from setuptools import setup, find_packages
 setup(
     name="getpaid.wizard",
     version="0.2",
-    install_requires=['setuptools'], # use in plone means bad requires spec
+    install_requires=['setuptools',
+                      'zope.formlib',
+                      'getpaid.core',
+                      'zope.contentprovider'], 
     dependency_links=['http://download.zope.org/distribution/',],
     packages=find_packages('src', exclude=["*.tests", "*.ftests"]),
     package_dir= {'':'src'},
