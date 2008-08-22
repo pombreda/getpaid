@@ -45,7 +45,8 @@ setup(
     namespace_packages=['getpaid'],
     include_package_data=True,
     install_requires = ['setuptools',
-                        'getpaid.core'
+                        'getpaid.core',
+                        'zope.app.annotation',
                        ],
     zip_safe = False,
     )
