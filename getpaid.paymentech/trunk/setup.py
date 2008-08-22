@@ -51,7 +51,8 @@ setup(
     include_package_data=True,
     install_requires = [ 'setuptools',
                          'getpaid.core',
-                         'zc.ssl'
+                         'zc.ssl',
+                         'zope.app.annotation',
                          ],
     zip_safe = False,
     )
