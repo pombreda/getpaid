@@ -1,0 +1,33 @@
+This page aims at helping to organize the Get Paid Community - ie what roles do we need filled, what expectations are there for them, etc.
+
+= Proposed Roles =
+
+== Issue Tracker Master ==
+ * Keeps an eye on issue tracker
+ * Tags new issues appropriately (release, priority, component, difficulty level, owner, etc.)
+ * Asks issue authors for more info when needed
+
+== Get Paid 'Black Belt' Developers ==
+ * Tackle the most challenging issues tagged with the keyword "black belt"
+
+== Get Paid 'Newbie' Developers ==
+ * Handle simple issues tagged with the keyword "newbie"
+
+ 
+== Release Manager ==
+ * Manages releases
+
+== Project Manager ==
+ * Outlines the long-term vision for the product
+ * Prioritize tasks in coordination with the Issue Tracker Master
+
+== Product Advocate ==
+ * Promotes Get Paid wherever and whenever possible
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
