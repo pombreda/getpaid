@@ -7,12 +7,14 @@ This page aims at helping to organize the Get Paid Community - ie what roles do 
  * Tags new issues appropriately (release, priority, component, difficulty level, owner, etc.)
  * Asks issue authors for more info when needed
 
+== Get Paid Technical Advisor ==
+ * Reviews issues and provides clear guidelines as to what needs to be done to address each ticket.
+
 == Get Paid 'Black Belt' Developers ==
  * Tackle the most challenging issues tagged with the keyword "black belt"
 
 == Get Paid 'Newbie' Developers ==
  * Handle simple issues tagged with the keyword "newbie"
-
  
 == Release Manager ==
  * Manages releases
