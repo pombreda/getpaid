@@ -19,7 +19,7 @@ version = '0.7dev'
 setup(
     name='getpaid.core',
     version=version,
-    license = 'BSD',
+    license = 'ZPL2.1',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
     description='Core ecommerce functionality for zope and python projects',
