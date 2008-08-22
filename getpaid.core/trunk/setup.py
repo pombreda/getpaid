@@ -31,7 +31,7 @@ setup(
         'Detailed Documentation\n'
         '**********************\n'
         + '\n' +
-        read('src', 'getpaid', 'core', 'orders.txt')
+        read('src', 'getpaid', 'core', 'order.txt')
         + '\n' +
         'Download\n'
         '**********************\n'
