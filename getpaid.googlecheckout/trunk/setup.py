@@ -20,8 +20,7 @@ setup(
     license = 'BSD',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
-    description='Getpaid google checkout payment functionality'
-getpaid',
+    description='Getpaid google checkout payment functionality',
     long_description = (
         read('README.txt')
         + '\n' +
@@ -46,7 +45,12 @@ getpaid',
     namespace_packages=['getpaid'],
     include_package_data=True,
     install_requires = ['setuptools',
-                        'getpaid.core'
+                        'getpaid.core',
+                        'Products.PloneGetPaid',
+                        'zope.component',
+                        'gchecky',
+                        'zope.interface',
+                        'zope.schema',
                        ],
     zip_safe = False,
     )
