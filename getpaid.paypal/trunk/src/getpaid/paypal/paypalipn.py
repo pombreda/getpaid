@@ -48,7 +48,7 @@ responderSchema = Schema((
         'responseAction',
         read_permission=ModifyPortalContent,
         language_independent=True,
-        default='ssshopPayPalIpnListener',
+        default='PayPalIpnListener',
         widget=StringWidget(
             label='Response Action',
             description = 'This provides the suffix of the response URL to '\
@@ -202,7 +202,7 @@ class PayPalIpnResponder(BaseBTreeFolder):
         params =[(key, form[key]) for key in form.keys() if key != 'cmd']
         params = [('cmd', '_notify-validate')] + params
         paramData = urllib.urlencode(params)
-        url = self.ssshopGetPayPalUrl()
+        url = self.GetPaypalUrl()
         
         self.plone_log(
             'PayPalIpnResponder::   Opening URL: ' + repr(url) + ' ... ')
@@ -268,7 +268,7 @@ class PayPalIpnResponder(BaseBTreeFolder):
         # 1 (c) "make sure the receiver_email is an email address registered 
         # in your PayPal account" ...
         
-        ourAccount = self.ssshopGetPayPalUserName()
+        ourAccount = self.GetPayPalUserName()
         if ourAccount != params['receiver_email']:
             self._handleSuspiciousPayPayRequest(
                 response, params, 'invalid seller PayPal email address')
@@ -329,7 +329,7 @@ class PayPalIpnResponder(BaseBTreeFolder):
                 moreContent = set(product.getRawVirtualContent())
                 contentUids = contentUids.union(moreContent)
         
-        addMethod = self.manage_addProduct['ssShop']
+        addMethod = self.manage_addProduct['paypalIPN']
         bundleId = self.generateUniqueId(type_name='bundle')
         addMethod.addProtectedContent(bundleId)
         bundle = self[bundleId]
