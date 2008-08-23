@@ -1,59 +1,59 @@
-# Copyright (c) 2007 ifPeople, Kapil Thangavelu, and Contributors
-#
-# Permission is hereby granted, free of charge, to any person
-# obtaining a copy of this software and associated documentation
-# files (the "Software"), to deal in the Software without
-# restriction, including without limitation the rights to use,
-# copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the
-# Software is furnished to do so, subject to the following
-# conditions:
-#
-# The above copyright notice and this permission notice shall be
-# included in all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-# OTHER DEALINGS IN THE SOFTWARE.
+"""
+$Id: setup.py 1868 2008-08-22 22:00:38Z fairwinds.dp $
 
-from setuptools import setup, find_packages
+Copyright (c) 2007 - 2008 ifPeople, Kapil Thangavelu, and Contributors
+All rights reserved. Refer to LICENSE.txt for details of distribution and use.
+
+Distutils setup
+ 
+"""
+
 import os
+from setuptools import setup, find_packages
 
-version = "0.2"
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 setup(
-    name="getpaid.paymentech",
-    version=version,
-    description="package for plone getpaid to hook up the checkout with Paymentech",
-    long_description=open(os.path.join("src", "getpaid", "paymentech", "readme.txt")).read(),
-    classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        "Framework :: Zope3",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: Zope Public License",
-        "Operating System :: OS Independent",
-        "Topic :: Office/Business :: Financial",
-        "Topic :: Software Development :: Libraries",
-        ],
-    keywords='',
+    name='getpaid.paymentech',
+    version='0.3dev',
+    license = 'ZPL2.1',
     author='Six Feet Up, Inc.',
-    author_email='info@sixfeetup.com',
+    author_email='getpaid-dev@googlegroups.com',
+    description='Get paid paymentech payment processor functionality',
+    long_description = (
+        read('README.txt')
+        + '\n' +
+        read('CHANGES.txt')
+        + '\n' +
+        'Detailed Documentation\n'
+        '**********************\n'
+        + '\n' +
+        read('src', 'getpaid', 'paymentech', 'README.txt')
+        + '\n' +
+        'Download\n'
+        '**********************\n'
+        ),
+Ê Ê classifiers=[
+Ê Ê Ê Ê "Framework :: Plone",
+Ê Ê Ê Ê "Programming Language :: Python",
+Ê Ê Ê Ê "Framework :: Zope3",
+Ê Ê Ê Ê "Intended Audience :: Developers",
+Ê Ê Ê Ê "License :: OSI Approved :: Zope Public License",
+Ê Ê Ê Ê "Operating System :: OS Independent",
+Ê Ê Ê Ê "Topic :: Office/Business :: Financial",
+Ê Ê Ê Ê "Topic :: Software Development :: Libraries",
+Ê Ê Ê Ê ],
     url='http://code.google.com/p/getpaid',
     packages=find_packages('src'),
     package_dir={'':'src'},
     namespace_packages=['getpaid'],
     include_package_data=True,
-    install_requires = [ 'setuptools',
-                         'getpaid.core',
-                         'zc.ssl',
-                         'zope.app.annotation',
-                         ],
+    install_requires = ['setuptools',
+                        'getpaid.core',
+                        'zc.ssl',
+                        'zope.app.annotation',
+                       ],
     zip_safe = False,
     )
 
