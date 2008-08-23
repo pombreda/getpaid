@@ -1,12 +1,12 @@
-'''
+"""
 $Id$
 
 Copyright (c) 2007 - 2008 ifPeople, Kapil Thangavelu, and Contributors
 All rights reserved. Refer to LICENSE.txt for details of distribution and use.
 
 Distutils setup
- 
-'''
+
+"""
 
 import os
 from setuptools import setup, find_packages
@@ -37,9 +37,14 @@ setup(
         '**********************\n'
         ),
     classifiers = [
-        'Framework :: Zope2',
-        'Framework :: Zope3',
-        'Framework :: Plone'
+        "Framework :: Plone",
+        "Framework :: Zope3",
+        "Programming Language :: Python",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Zope Public License",
+        "Operating System :: OS Independent",
+        "Topic :: Office/Business :: Financial",
+        "Topic :: Software Development :: Libraries",
         ],
     url='http://code.google.com/p/getpaid',
     packages=find_packages('src'),
