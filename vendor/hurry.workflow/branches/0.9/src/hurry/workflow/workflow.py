@@ -3,7 +3,8 @@ import random, sys
 from persistent import Persistent
 from zope import interface 
 from zope.event import notify
-from zope.security.management import getInteraction, NoInteraction
+from zope.security.management import getInteraction
+from zope.security.interfaces import NoInteraction
 from zope.security.interfaces import Unauthorized
 from zope.security.checker import CheckerPublic
 
