@@ -14,7 +14,7 @@ setup(
     packages=find_packages('src'),
     package_dir={'':'src'},
     description = "PXPay payment plugin",
-    license = "GPL",
+    license = "ZPL",
     keywords = "getpaid pxpay payment",
     namespace_packages=['getpaid'],
     include_package_data=True,

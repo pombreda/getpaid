@@ -5,8 +5,9 @@
 #
 # All Rights Reserved.
 #
-# This software is subject to the provisions of the GNU General Public License
-# Version 2 (GPL). A copy of the GPL should accompany this distribution.
+#
+# This product is licensed under the Zope Public License (ZPL),
+# available at "Zope Public License":http://www.zope.org/Resources/ZPL
 #
 # THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
 # WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
