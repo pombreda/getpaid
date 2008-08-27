@@ -48,5 +48,5 @@ class Notification(BrowserView):
         xml = self.request.stdin.read()
         processor = getAdapter(self.context, IPaymentProcessor,
                                'Google Checkout')
-        return processor.notify(xml)
+        return processor.notify(xml).toxml(pretty=True)
 

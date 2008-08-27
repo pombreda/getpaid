@@ -254,7 +254,8 @@ notification message to the site detailing the new order:
     ...             new_order_notification)
 
     >>> print google.contents
-    <?xml version="1.0" ?><notification-acknowledgment
+    <?xml version="1.0" encoding="utf-8" ?>
+    <notification-acknowledgment
         serial-number="123456789012345-00001-7"
         xmlns="http://checkout.google.com/schema/2"/>
 
