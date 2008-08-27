@@ -53,7 +53,6 @@ buildout.cfg::
 
     ${googlecheckout:develop}
     ${googlecheckout:eggs}
-    ${googlecheckout:zcml}
     
 Note - during development, if you're developing locally, make sure to access
 your site via 127.0.0.1:8080/my-plone-instance instead of localhost:8080/my-plone-instance
