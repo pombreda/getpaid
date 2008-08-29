@@ -1,21 +1,3 @@
-##############################################################################
-#
-# Copyright (c) 2008 Darryl Dixon <darryl.dixon@winterhouseconsulting.com>,
-# Matt Halstead <matt@elyt.com>
-#
-# All Rights Reserved.
-#
-#
-# This product is licensed under the Zope Public License (ZPL),
-# available at "Zope Public License":http://www.zope.org/Resources/ZPL
-#
-# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
-# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
-# FOR A PARTICULAR PURPOSE.
-#
-##############################################################################
-
 This is a Payment Processor for the PaymentExpress PXPay hosted Payments solution
 SEE: http://www.paymentexpress.com/technical_resources/ecommerce_hosted/pxpay.html
 
@@ -28,9 +10,6 @@ In buildout, make sure you have the egg getpaid.pxpay installed, in
 the zope instance configuration, add the following:
 
 eggs = getpaid.pxpay
-zcml =
-    getpaid.pxpay
-    getpaid.pxpay-overrides
 
 
 Mechanics
