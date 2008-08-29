@@ -138,7 +138,7 @@ We use workflows to model the order lifecycle for finance and
 fulfillment. We can introspect orders to classify by them interface
 and adapt to the appropriate workflows. As a consequence we can support
 online and shipping based from the same order management system.
- and support virtual delivery, and a shipping lifecycle. we
+and support virtual delivery, and a shipping lifecycle. we
 utilize hurry.workflow to implement our workflows, one benefits to
 make this lifecycle observable via event subscribers.
 
@@ -161,7 +161,7 @@ dependent on its contained items. the finance workflow models things
 like cc authorization for an order, and capture/charging an order.
 
 Workflow Tests
---------------
+==============
 
 Let's first create an Order object to work with:
 
