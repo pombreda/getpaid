@@ -1,3 +1,3 @@
-This package contains paymentech payment processort functionality for the getpaid
+This package contains paymentech payment processor functionality for the getpaid
 framework.
 

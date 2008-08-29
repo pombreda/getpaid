@@ -34,16 +34,16 @@ setup(
         'Download\n'
         '**********************\n'
         ),
-Ê Ê classifiers=[
-Ê Ê Ê Ê "Framework :: Plone",
-Ê Ê Ê Ê "Programming Language :: Python",
-Ê Ê Ê Ê "Framework :: Zope3",
-Ê Ê Ê Ê "Intended Audience :: Developers",
-Ê Ê Ê Ê "License :: OSI Approved :: Zope Public License",
-Ê Ê Ê Ê "Operating System :: OS Independent",
-Ê Ê Ê Ê "Topic :: Office/Business :: Financial",
-Ê Ê Ê Ê "Topic :: Software Development :: Libraries",
-Ê Ê Ê Ê ],
+    classifiers=[
+        "Framework :: Plone",
+        "Programming Language :: Python",
+        "Framework :: Zope3",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Zope Public License",
+        "Operating System :: OS Independent",
+        "Topic :: Office/Business :: Financial",
+        "Topic :: Software Development :: Libraries",
+    ],
     url='http://code.google.com/p/getpaid',
     packages=find_packages('src'),
     package_dir={'':'src'},

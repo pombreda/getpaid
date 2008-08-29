@@ -1,11 +1,13 @@
+============================
 GetPaid Paymentech Interface
-=======================================
+============================
 
 Store Specific Processor Setting Tests
 This is only for Authorization and Mark for Capture
 We are doing the tests of Section A and C of 
 the Orbital Certification Guidelines
---------------------------------------
+
+
 STORE CREATION:
       
       >>> from getpaid.core import interfaces
@@ -39,9 +41,10 @@ PAYMENT PROCESSOR CREATION:
       >>> processor.options.terminal_id = "001"
       >>> processor.server = processor._sites['Test1']
 
-=======================================
+
 SECTION A: Authorization only transactions
-=======================================
+==========================================
+
 Generic function to test the Authorization:
 
       >>> from getpaid.paymentech.paymentech import createAuthorizeXMLFile
@@ -192,9 +195,10 @@ TEST 8:
       True
       >>> res_trans_ref_num8 = result.trans_ref_num
       
-=======================================
+
 SECTION C: Mark for Capture
-=======================================
+===========================
+
 Generic function to test the Capture:
 
       >>> from getpaid.paymentech.paymentech import createCaptureXMLFile
