@@ -30,14 +30,17 @@ setup(
         '**********************\n'
         + '\n' +
         read('src', 'getpaid', 'nullpayment', 'README.txt')
-        + '\n' +
-        'Download\n'
-        '**********************\n'
+        + '\n'
         ),
     classifiers = [
-        'Framework :: Zope2',
-        'Framework :: Zope3',
-        'Framework :: Plone'
+        "Framework :: Plone",
+        "Framework :: Zope3",
+        "Programming Language :: Python",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: Zope Public License",
+        "Operating System :: OS Independent",
+        "Topic :: Office/Business :: Financial",
+        "Topic :: Software Development :: Libraries",
         ],
     url='http://code.google.com/p/getpaid',
     packages=find_packages('src'),
