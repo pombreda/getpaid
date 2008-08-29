@@ -44,16 +44,26 @@ CHEESE_SOURCE = 'http://pypi.python.org/packages/source/'
 
 GETPAID_BASE_PACKAGES = [
     PyModule('ore.viewlet', CHEESE_SOURCE + 'o/ore.viewlet/ore.viewlet-0.2.tar.gz', version="0.2"),
-    PyModule('getpaid.nullpayment', CHEESE_SOURCE + 'g/getpaid.nullpayment/getpaid.nullpayment-0.2.tar.gz', version="0.2"),
+    PyModule('getpaid.core', CHEESE_SOURCE + 'g/getpaid.core/getpaid.core-0.7.tar.gz', version="0.7"),
+    PyModule('Products.PloneGetPaid', CHEESE_SOURCE + 'P/Products.PloneGetPaid/Products.PloneGetPaid-0.7.tar.gz', version="0.7"),
+    PyModule('getpaid.wizard', CHEESE_SOURCE + 'g/getpaid.wizard/getpaid.wizard-0.3.tar.gz', version="0.3"),
+    PyModule('getpaid.nullpayment', CHEESE_SOURCE + 'g/getpaid.nullpayment/getpaid.nullpayment-0.3.tar.gz', version="0.3"),
 ]
 
 GETPAID_PAYMENT_PROCESSORS = [
-    PyModule('getpaid.authorizedotnet', CHEESE_SOURCE + 'g/getpaid.authorizedotnet/getpaid.authorizedotnet-0.2.tar.gz', version="0.2"),
-    PyModule('getpaid.paymentech', CHEESE_SOURCE + 'g/getpaid.paymentech/getpaid.paymentech-0.2.tar.gz', version="0.2"),
+    PyModule('getpaid.authorizedotnet', CHEESE_SOURCE + 'g/getpaid.authorizedotnet/getpaid.authorizedotnet-0.3.tar.gz', version="0.3"),
+    PyModule('getpaid.paymentech', CHEESE_SOURCE + 'g/getpaid.paymentech/getpaid.paymentech-0.3.tar.gz', version="0.3"),
+    PyModule('getpaid.googlecheckout', CHEESE_SOURCE + 'g/getpaid.googlecheckout/getpaid.googlecheckout-0.2.tar.gz', version="0.2"),
+    #PyModule('getpaid.pxpay', CHEESE_SOURCE + 'g/getpaid.pxpay/getpaid.pxpay-0.2.tar.gz', version="0.2"),
+]
+
+GETPAID_SHIPPING = [
+    PyModule('getpaid.flatrateshipping', CHEESE_SOURCE + 'g/getpaid.flatrateshipping/getpaid.flatrateshipping-0.2.tar.gz', version="0.2"),
+    PyModule('getpaid.ups', CHEESE_SOURCE + 'g/getpaid.ups/getpaid.ups-0.3.tar.gz', version="0.3"),
 ]
 
 GETPAID_EXTRA_PACKAGES = [
-    PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.4.tar.gz', version="0.4"),
+    PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.5.tar.gz', version="0.5"),
 ]
 
-GETPAID_CORE_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_PAYMENT_PROCESSORS + GETPAID_EXTRA_PACKAGES
+GETPAID_CORE_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_SHIPPING + GETPAID_PAYMENT_PROCESSORS + GETPAID_EXTRA_PACKAGES
