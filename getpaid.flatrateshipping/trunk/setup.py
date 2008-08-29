@@ -14,7 +14,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version="0.2dev"
+version="0.3dev"
 
 setup(
     name="getpaid.flatrateshipping",
@@ -34,7 +34,7 @@ setup(
         read('src', 'getpaid', 'flatrateshipping', 'README.txt')
         + '\n' +
         'Download\n'
-        '**********************\n'
+        '********\n'
         ),
     classifiers = [
         "Framework :: Plone",
