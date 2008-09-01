@@ -17,7 +17,7 @@ def read(*rnames):
 
 setup(
     name="getpaid.pxpay",
-    version="0.2.dev",
+    version="0.3dev",
     author='getpaid community',
     author_email='getpaid-dev@googlegroups.com',
     classifiers=[
