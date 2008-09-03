@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="getpaid.creditregistry">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="GetPaid Credit Registry"
+      directory="profiles/default"
+      description='Extension profile for the "GetPaid Credit Registry".'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>
