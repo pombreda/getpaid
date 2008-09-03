@@ -1,0 +1,32 @@
+<div class="portlet">
+  <form tal:define="formName    view/formname"
+        tal:attributes="id      string:creditpublishing;
+                        name    formName;
+                        action  request/ACTUAL_URL;
+                        method  string:post">
+    <fieldset>
+      <legend>Publishing</legend>
+      <div id="publishing-control"
+           tal:define="credit     view/current_credit;
+                       listed  view/is_listed">
+        <p class="publishMessage">You may choose to Publish this item for any number of weeks</p>
+        <ul class="publishConditions">
+          <li>You will be prompted by email if your credit runs out before the end of the Publishing period you choose.</li>
+          <li>Credit will only be deducted for each week as it begins.</li>
+        </ul>
+        <label for="weeks">Weeks to Publish:</label>
+        <select tal:attributes="name  string:${view/nameprefix}.weeks:int" id="weeks">
+          <tal:rep repeat="number   view/weeks_options">
+            <option tal:attributes="value      number/value;
+                                    selected   number/selected"
+                    tal:content="number/value">52</option>
+          </tal:rep>
+        </select>
+        <div class="visualClear"><!-- --></div>
+        <input type="submit" tal:attributes="name  string:${view/nameprefix}.publish" id="docreditpublishing" value="Publish this item" />
+      </div>
+    </fieldset>
+    <div class="visualClear"><!-- --></div>
+    <input type="hidden" tal:attributes="name  string:${view/nameprefix}.submitted" value="submitted" />
+  </form>
+</div>

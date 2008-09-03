@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<portlets
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="getpaid.creditpublish">
+
+  <portlet
+    addview="getpaid.creditpublish.portlet.creditpublishing"
+    title="Credit Publishing"
+    description="A portlet to enable publishing based on credit">
+    <for interface="plone.app.portlets.interfaces.IColumn" />
+  </portlet>
+
+  <assignment
+    manager="plone.leftcolumn"
+    category="context"
+    key="/"
+    type="getpaid.creditpublish.portlet.creditpublishing"
+    name="publishing"
+  />
+
+  <portlet
+    addview="getpaid.creditpublish.portlet.creditpurchasing"
+    title="Credit Purchasing"
+    description="A portlet to enable purchasing credit">
+    <for interface="plone.app.portlets.interfaces.IColumn" />
+  </portlet>
+
+  <assignment
+    manager="plone.leftcolumn"
+    category="context"
+    key="/"
+    type="getpaid.creditpublish.portlet.creditpurchasing"
+    name="purchasing"
+  />
+
+</portlets>

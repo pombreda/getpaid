@@ -1,0 +1,36 @@
+<div class="portlet">
+  <form tal:define="formName    view/formname"
+        tal:attributes="id      string:creditpublishing;
+                        name    formName;
+                        action  request/ACTUAL_URL;
+                        method  string:post">
+    <fieldset>
+      <legend>Publishing</legend>
+      <div id="publishing-control"
+           tal:define="credit     view/current_credit;
+                       listed  view/is_listed">
+        <p class="publishMessage">
+          This item's current week published ends <tal:cont content="view/current_expiry" />
+        </p>
+        <p tal:condition="view/current_weeks">
+          It will remain published for a further <tal:cont content="view/current_weeks" /> weeks after that date, unless you choose to de-publish it in the meantime.
+        </p>
+        <label for="publishweeks">Update the number of extra weeks that this item will remain published for:</label>
+        <select tal:attributes="name  string:${view/nameprefix}.weeks:int" id="publishweeks">
+          <tal:rep repeat="number   view/weeks_options">
+            <option tal:attributes="value      number/value;
+                                    selected   number/selected"
+                    tal:content="number/value">52</option>
+          </tal:rep>
+        </select>
+        <div class="visualClear"><!-- --></div>
+        <input type="submit" tal:attributes="name  string:${view/nameprefix}.update" id="docreditpublishing" value="Update weeks published" />
+        <p>You may de-publish this item entirely; doing so will forfeit any credit used for the week ending at the date above</p>
+        <div class="visualClear"><!-- --></div>
+        <input type="submit" tal:attributes="name  string:${view/nameprefix}.depublish" id="docreditdepublishing" value="De-publish this item" />
+    </div>
+    </fieldset>
+    <div class="visualClear"><!-- --></div>
+    <input type="hidden" tal:attributes="name  string:${view/nameprefix}.submitted" value="submitted" />
+  </form>
+</div>

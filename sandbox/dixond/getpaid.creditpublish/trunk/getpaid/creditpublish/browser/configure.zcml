@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="getpaid.creditpublish">
+
+  <browser:page
+    name="credit_purchasing"
+    class=".creditpurchasing.CreditPurchasing"
+    for="Products.CMFCore.interfaces.ISiteRoot"
+    permission="zope2.View"
+  />
+
+</configure>

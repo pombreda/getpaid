@@ -1,0 +1,2 @@
+getWeeksLeftPublished FieldIndex
+getRepublishReminderSent FieldIndex

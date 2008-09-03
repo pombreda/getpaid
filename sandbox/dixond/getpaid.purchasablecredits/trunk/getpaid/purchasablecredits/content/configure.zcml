@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="rentalsite.content">
+
+    <!-- configure your content components here -->
+    <class class=".credit.PurchasableCredit">
+        <require
+            permission="zope2.View"
+            interface="..interfaces.IPurchasableCredit"
+        />
+        <require
+            permission="cmf.ModifyPortalContent"
+            set_schema="..interfaces.IPurchasableCredit"
+        />
+    </class>
+
+    <!-- -*- extra stuff goes here -*- -->
+
+</configure>

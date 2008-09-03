@@ -1,0 +1,25 @@
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+<!--
+    The commented sections of this file should be kept in sync
+    with the contents of catalog_noclobber.txt
+-->
+
+    <!-- Begin fields for IOneWeekCreditPublishedContent content types -->
+<!-- ABSOLUTELY MUST NOT UNCOMMENT THESE ON PAIN OF DEATH
+     GENERICSETUP WILL ZERO THESE INDEXES IF THIS IMPORT
+     STEP IS ACTUALLY ALLOWED TO RUN. DEATH ENSUES. DONT!
+
+    <index name="getWeeksLeftPublished" meta_type="FieldIndex">
+        <indexed_attr value="getWeeksLeftPublished"/>
+    </index>
+    <column value="getWeeksLeftPublished"/>
+
+    <index name="getRepublishReminderSent" meta_type="FieldIndex">
+        <indexed_attr value="getRepublishReminderSent"/>
+    </index>
+    <column value="getRepublishReminderSent"/>
+-->
+    <!-- End fields for IOneWeekCreditPublishedContent content types -->
+
+</object>
+

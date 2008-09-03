@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<import-steps>
+ <import-step id="getpaid-creditpublish-various" version="20080904-01"
+              handler="getpaid.creditpublish.setuphandlers.importVarious"
+              title="Additional GetPaid Credit Publish installation steps">
+  GetPaid Credit Publish installation steps
+ </import-step>
+</import-steps>

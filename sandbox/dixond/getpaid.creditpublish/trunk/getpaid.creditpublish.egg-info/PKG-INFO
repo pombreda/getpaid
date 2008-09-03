@@ -1,0 +1,26 @@
+Metadata-Version: 1.0
+Name: getpaid.creditpublish
+Version: 1.0dev-r1111
+Summary: A suite of tools to control publishing content with credit
+Home-page: https://getpaid.googlecode.com/svn/getpaid.creditpublish
+Author: Darryl Dixon (Winterhouse Consulting Ltd)
+Author-email: darryl.dixon@winterhouseconsulting.com
+License: ZPL
+Description: Introduction
+        ============
+        
+        
+        
+        Changelog
+        =========
+        
+        1.0 - Unreleased
+        ----------------
+        
+        * Initial release
+        
+        
+Keywords: getpaid credit publish
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

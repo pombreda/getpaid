@@ -1,0 +1,48 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="getpaid.creditpublish">
+
+    <subscriber
+      handler=".control.runChecks"
+      for="Products.TickingMachine.ITickEvent.ITickEvent"
+    />
+
+    <subscriber
+      handler=".actions.addOneWeekPublishedCreditPortlet"
+      for=".portlets.interfaces.ICreditPurchasingPortlet
+           zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+    />
+
+    <subscriber
+      handler=".actions.editOneWeekPublishedCreditPortlet"
+      for=".portlets.interfaces.ICreditPurchasingPortlet
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    />
+
+    <subscriber
+      handler=".actions.handleOneWeekPublishedCreditPurchase"
+      for="getpaid.core.interfaces.IOrder
+           hurry.workflow.interfaces.IWorkflowTransitionEvent"
+    />
+
+    <adapter factory=".adapters.OneWeekPublishedCreditRegistryAdapter" />
+
+    <adapter
+      factory=".extenders.OneWeekCreditPublishedSchemaExtender"
+      name="getpaid.creditpublish.oneweekcreditpublishedschemaextender"
+    />
+
+    <include package=".portlets" />
+    <include package=".browser" />
+
+    <!-- Register the installation GenericSetup extension profile -->
+    <genericsetup:registerProfile
+      name="default"
+      title="Publish Control"
+      directory="profiles/default"
+      description="Tools for controlling Publishing of content"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+</configure>

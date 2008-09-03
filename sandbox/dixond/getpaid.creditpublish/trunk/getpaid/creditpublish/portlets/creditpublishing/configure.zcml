@@ -1,0 +1,16 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:plone="http://namespaces.plone.org/plone">
+
+  <include package="plone.app.portlets" />
+
+  <plone:portlet
+    name="getpaid.creditpublish.portlet.creditpublishing"
+    interface="..interfaces.ICreditPublishingPortlet"
+    assignment=".portlet.Assignment"
+    renderer=".portlet.Renderer"
+    addview=".portlet.AddForm"
+  />
+    
+</configure>
