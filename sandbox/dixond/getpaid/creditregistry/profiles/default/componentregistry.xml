@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<componentregistry>
- <utilities>
-  <utility
-     interface="getpaid.creditregistry.interfaces.ICreditRegistry"
-     factory="getpaid.creditregistry.creditregistry.CreditRegistry"
-     />
- </utilities>
-</componentregistry>
