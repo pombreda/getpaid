@@ -1,12 +1,15 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="getpaid.creditpublish">
 
-    <subscriber
-      handler=".control.runChecks"
-      for="Products.TickingMachine.ITickEvent.ITickEvent"
-    />
+    <configure zcml:condition="installed Products.TickingMachine">
+      <subscriber
+        handler=".control.runChecks"
+        for="Products.TickingMachine.ITickEvent.ITickEvent"
+      />
+    </configure>
 
     <subscriber
       handler=".actions.addOneWeekPublishedCreditPortlet"
