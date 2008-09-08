@@ -1,0 +1,67 @@
+==============================================================================
+Doctest generated Fri Sep 05 2008 11:41:42 GMT-0300 (ART)
+created by walteralini
+==============================================================================
+
+We create the browser to make all tests
+
+    >>> portal_url = portal.absolute_url()
+    >>> browser = self.browser
+
+Let's login first as the portal admin
+
+    >>> from Products.PloneTestCase.setup import portal_owner, default_password
+    >>> browser.open(portal_url)
+
+We have the login portlet, so let's use that.
+
+    >>> browser.getControl(name='__ac_name').value = portal_owner
+    >>> browser.getControl(name='__ac_password').value = default_password
+    >>> browser.getControl(name='submit').click()
+
+Add a warehouse to keep pages:
+
+    >>> browser.getLink('Site Setup').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Warehouses').click()
+    >>> browser.getControl('Add').click()
+
+    >>> browser.getControl('Warehouse Name').value = 'warehouse1'
+    >>> browser.getControl('Address 1').value = 'Street 244'
+    >>> browser.getControl(name='form.city').value = 'Chicago'
+    >>> browser.getControl(name='form.state').value = ('US-IL',)
+    >>> browser.getControl('Zip/Postal Code').value = '60601'
+    >>> browser.getControl('Add Warehouse').click()
+
+Now let's make shippable the front-page
+
+    >>> browser.open(portal_url + '/front-page/@@activate-shippable')
+    >>> browser.getControl('Product Code').value = 'home0809'
+    >>> input_price = '130.00'
+    >>> browser.getControl('Price').value = input_price
+    >>> browser.getControl('Dimensions').value = '1024x768'
+    >>> browser.getControl('Product SKU').value = 'a1014'
+    >>> browser.getControl('Shipping Weight').value = '0.5'
+    >>> browser.getControl('Weight Unit').value = ('kgs',)
+    >>> browser.getControl('Activate').click()
+    >>> 'Product Details' in browser.contents
+    True
+    >>> input_price in browser.contents
+    True
+
+Access to the inventory, to set some of these pages in stock.
+TODO: The following open can be replaced for a click on the inventory tab, when
+this tab get present (#211)
+
+    >>> browser.open(portal_url + '/front-page/@@inventory')
+    >>> browser.getControl('Pick Bin').value = '134'
+    >>> browser.getControl('Pallet').value = 'B'
+    >>> browser.getControl('Quantity in Stock').value = '10'
+    >>> browser.getControl('Warehouse').value = ('warehouse1',)
+    >>> browser.getControl('Apply').click()
+    >>> 'Updated' in browser.contents
+    True
+    >>> browser.getControl('Quantity in Stock').value
+    '10'
+    >>> '10' in browser.contents
+    True
