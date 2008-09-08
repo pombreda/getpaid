@@ -46,9 +46,7 @@ class Renderer(base.Renderer, RequestMixin):
     def available(self):
         """Should this portlet be available?"""
         if IOneWeekCreditPublishedContent.providedBy(self.context):
-            self.context.plone_log("Before user is creator test")
             if self.user_is_creator:
-                self.context.plone_log("After user is creator test")
                 if self.current_credit:
                     # If they've got credit then show the portlet regardless
                     return True
