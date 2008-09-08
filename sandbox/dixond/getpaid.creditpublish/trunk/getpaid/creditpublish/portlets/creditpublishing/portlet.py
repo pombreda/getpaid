@@ -36,7 +36,7 @@ class Renderer(base.Renderer, RequestMixin):
 
     @property
     def render(self):
-        # This stop us from having convoluted logic in the page templates
+        # This stops us from having convoluted logic in the page templates
         if self.is_listed:
             return ViewPageTemplateFile('published.pt')
         else:
@@ -46,23 +46,32 @@ class Renderer(base.Renderer, RequestMixin):
     def available(self):
         """Should this portlet be available?"""
         if IOneWeekCreditPublishedContent.providedBy(self.context):
-            if self.current_credit:
-                # If they've got credit then show the portlet regardless
-                return True
-            else:
-                # Only show the portlet when they have no credit if the context
-                # is already published - they need to be able to choose to withdraw
-                # it if necessary
-                if self.is_listed:
-                    # OK, so we will show it so they can withdraw if necessary
+            self.context.plone_log("Before user is creator test")
+            if self.user_is_creator:
+                self.context.plone_log("After user is creator test")
+                if self.current_credit:
+                    # If they've got credit then show the portlet regardless
                     return True
                 else:
-                    # They have no credit and the context isn't published - instead
-                    # of showing this portlet, we will let a more prominent BeforeContentViewlet
-                    # inform them of the situation, and they can use the creditpurchasing portlet
-                    # to remedy
-                    return False
+                    # Only show the portlet when they have no credit if the context
+                    # is already published - they need to be able to choose to withdraw
+                    # it if necessary
+                    if self.is_listed:
+                        # OK, so we will show it so they can withdraw if necessary
+                        return True
+                    else:
+                        # They have no credit and the context isn't published - instead
+                        # of showing this portlet, we will let a more prominent BeforeContentViewlet
+                        # inform them of the situation, and they can use the creditpurchasing portlet
+                        # to remedy
+                        return False
+            else:
+                # User isn't creator
+                # XXX Probably this should be policy-pluggable - maybe people in the same group should
+                #     be able to publish each other's stuff?
+                return False
         else:
+            # Not a credit-published item
             return False
 
     def update(self):
@@ -71,27 +80,29 @@ class Renderer(base.Renderer, RequestMixin):
         if self.request.get('REQUEST_METHOD', '') == 'POST':
             # Find out if any of our settings were included in this
             if self.formvalue('submitted') is not None:
-                # OK, so what action has been requested?
-                if self.formvalue('publish'):
-                    if self.is_listed:
-                        # They've probably just tried refreshing the previously submitted
-                        # page. Better to just do nothing at this point
-                        pass
-                    else:
-                        self.publishContext(self.formvalue('weeks'))
-                        # The page has already rendered with self.context showing as 'private'
-                        self.request.RESPONSE.redirect(self.request['ACTUAL_URL'], status=302)
-                elif self.formvalue('update'):
-                    self.publishContext(self.formvalue('weeks'), update=True)
-                elif self.formvalue('depublish'):
-                    if not self.is_listed:
-                        # They've probably just tried refreshing the previously submitted
-                        # page. Better to just do nothing at this point
-                        pass
-                    else:
-                        self.depublishContext()
-                        # The page has already rendered with self.context showing as 'published'
-                        self.request.RESPONSE.redirect(self.request['ACTUAL_URL'], status=302)
+                # Paranoia:
+                if self.user_is_creator:
+                    # OK, so what action has been requested?
+                    if self.formvalue('publish'):
+                        if self.is_listed:
+                            # They've probably just tried refreshing the previously submitted
+                            # page. Better to just do nothing at this point
+                            pass
+                        else:
+                            self.publishContext(self.formvalue('weeks'))
+                            # The page has already rendered with self.context showing as 'private'
+                            self.request.RESPONSE.redirect(self.request['ACTUAL_URL'], status=302)
+                    elif self.formvalue('update'):
+                        self.publishContext(self.formvalue('weeks'), update=True)
+                    elif self.formvalue('depublish'):
+                        if not self.is_listed:
+                            # They've probably just tried refreshing the previously submitted
+                            # page. Better to just do nothing at this point
+                            pass
+                        else:
+                            self.depublishContext()
+                            # The page has already rendered with self.context showing as 'published'
+                            self.request.RESPONSE.redirect(self.request['ACTUAL_URL'], status=302)
         return True
 
     def publishContext(self, weeks, update=False):
@@ -114,6 +125,7 @@ class Renderer(base.Renderer, RequestMixin):
         return True
 
     def depublishContext(self):
+        """Perform the various policy-steps necessary when depublishing this context"""
         schema = self.context.Schema()
         self.wft.doActionFor(self.context, 'hide')
         schema['weeksLeftPublished'].set(self.context, 0)
@@ -125,6 +137,10 @@ class Renderer(base.Renderer, RequestMixin):
     def formname(self):
         """stub"""
         return "%s.form" % self.nameprefix
+
+    @property
+    def user_is_creator(self):
+        return self.pmt.getAuthenticatedMember().getId() == self.context.Creator()
 
     @property
     def is_listed(self):

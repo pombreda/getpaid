@@ -10,4 +10,13 @@
     permission="zope2.View"
   />
 
+  <!-- The customized comments -->
+  <browser:viewlet
+    name="getpaid.nooneweekpublishedcredits"
+    for="..interfaces.IOneWeekCreditPublishedContent"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+    class=".viewlets.NoOneWeekPublishedCreditsViewlet"
+    permission="zope2.View"
+  />
+
 </configure>
