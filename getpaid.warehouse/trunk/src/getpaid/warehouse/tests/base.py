@@ -44,7 +44,7 @@ def baseAfterSetUp( self ):
     except ImportError:
         # Not needed in Plone 3
         pass
-        
+
     # Set up sessioning objects
     ZopeTestCase.utils.setupCoreSessions(self.app)
 
@@ -53,14 +53,13 @@ class WarehouseFunctionalTestCase(PloneGetPaidFunctionalTestCase):
     This may provide specific set-up and tear-down operations, or provide 
     convenience methods.
     """
-    
+
     def afterSetUp( self ):
         super(WarehouseFunctionalTestCase,self).afterSetUp()
         self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
-		#Here we are setting Documents as shippeable
+        #Here we are setting Documents as shippeable
         options = IGetPaidManagementOptions(self.portal)
         options.shippable_types = ['Document']
-		# Set browser and error handling
+        # Set browser and error handling
         self.browser = Browser()
         self.browser.handleErrors = False
-
