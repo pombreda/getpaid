@@ -34,8 +34,8 @@ class CreditRegistry(Persistent):
 
     def __init__(self):
         self._usercredit_map = OIBTree()
-        self._inverted_creditmap = OOTreeSet()
-        self._inverted_usermap = OOTreeSet()
+        self._inverted_creditmap = OOBTree()
+        self._inverted_usermap = OOBTree()
         self._default_values = OIBTree()
 
     def defineCredit(self, creditname, default_value=0):
