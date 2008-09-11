@@ -11,6 +11,9 @@ _sites = {
     "Production": "www.paypal.com",
     }
 
+    paypalurl = self.plonegetpaidGetPayPalUrl()
+    merchantid = self.plonegetpaidGetPayPalUserName()
+
 class PaypalStandardProcessor( object ):
    
     interface.implements( IPaypalStandardProcessor )
@@ -31,8 +34,8 @@ class PaypalStandardProcessor( object ):
                                 "quantity": item.quantity,}
             cartitems.append(v)
         formvals = {
-            "site": _sites[options.server_url],
-            "merchant_id": options.merchant_id,
+            "site": paypalurl,
+            "merchant_id": merchantid,
             "cart": ''.join(cartitems),
             "order_number": order.order_id,
             }
@@ -59,3 +62,40 @@ _button_cart = """
 <input type="hidden" name="quantity_%(idx)s" value="%(quantity)s"/>
 """
 
+
+        
+        url = self.plonegetpaidGetPayPalUrl()
+        
+        self.plone_log(
+            'PayPalIpnResponder::   Opening URL: ' + repr(url) + ' ... ')
+        # TODO: is this dangerous for other products?
+        socket.setdefaulttimeout(120)
+        try:
+            connection = urllib2.urlopen(url, paramData)
+        except URLError:
+            raise IOError, 'IPN post-back failed'
+        self.plone_log('PayPalIpnResponder::   Reading response ... ')
+        response = connection.read()
+        self.plone_log('PayPalIpnResponder::   Response: ' + repr(response))
+        connection.close()
+        
+        # convert params into an easy to use dictionary:
+        newParams = {}
+        for (key, value) in params:
+            newParams[key] = value
+        params = newParams
+        
+        if response == 'VERIFIED':
+            self._handleVerifiedPayPayRequest(response, params)
+        elif response == 'INVALID':
+            self._handleInvalidPayPayRequest(response, params)
+        else:
+            self._handleUnknownPayPayRequest(response, params)
+            
+        self.previousPayPalTransactionId = params['txn_id']
+    
+    
+    def _handleVerifiedPayPayRequest(self, response, params):
+        
+        txnId = params['txn_id']
+        self.plone_log('PayPalIpnResonder:: request VERIFIED; txn_id=' + txnId)
