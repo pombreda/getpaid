@@ -34,4 +34,4 @@ Manages releases
 
 ==Fundraising==
  * Social sourcing fundraising
- * Works with Project Manager on plans that can be used in fundraising.
+ * Works with Project Manager on plans that can be used in fundraising
