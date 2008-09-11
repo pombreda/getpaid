@@ -1,45 +1,50 @@
-#summary GetPaid remote sprint, August 2008
+#summary GetPaid remote sprint list of things to work on
 #labels Featured
 
 = Introduction =
 
-GetPaid remote sprints, August 2008  
-
-We have a lot to do that ranges from project organization, cleanup, product packaging, new features, issue fixing and release creation. 
+GetPaid remote sprints started in August and we decided to continue them every Friday. This is an organizing place for that. If you are interested to sprint, please check out the info below. We have a lot to do that ranges from project organization, cleanup, product packaging, new features, issue fixing and release creation. 
 
 === Sprint dates ===
- * August 1, Friday afternoon
- * August 8, Friday afternoon
- * August 21-22
+ * Every Friday afternoon in #getpaid
 
 = Topics & Interests =
 
 See the list below and add your name next to anything you would be interested to work on: 
-  * refactor svn repository (6ftup): see [http://code.google.com/p/getpaid/wiki/svnrefactor svnrefactor] proposal and info
+
+  * Finish eggifying components and get to pypi (6ftup, fairwinds, matt hallstead)
+  * Finish GetPaid recipe; document usage
+  * finish reorganization (base, 30, 25, currently on meteoroid-branch) and document buildouts (how to add getpaid) (6ftup, dennis, meteoroid)
   * review code 
-  * fix issues _there are several filed in the tracker_ (dennis)
-    * Issue #204
+    * Issue #216
+  * fix issues
+    * Issue #209
     * Issue #202
-    * Issue #203
-    * Issue #208
+    * Issue #117
   * update translations
     * Spanish: in progress (FranGM, Wu, cjj)
-    * French
+    * French (very close to done)
     * German 
     * Italian 
     * Chinese
     * Dutch
-  * add greater test coverage (dennis, Waldo)
+  * add greater test coverage:
+    * _list components needing coverage_
   * make a release (would support 2.5 and 3 together)
-  * reorganize (base, 30, 25) and document buildouts (how to add getpaid) (6ftup, dennis)
-  * eggify products and get to pypi (6ftup, fairwinds, matt hallstead)
   * make a branch to separate future 2.5 and 3 support (dennis)
   * gather/improve/update/add documentation (list specific here)
-  * ReorganizeIssueTracker (cjj, gabrielle)
+    * Enabling components in buildouts
+    * Using the new buildouts
+    * 
+  * ReorganizeIssueTracker (in progress; cjj, gabrielle)
 
 Features
-  * implement tax calculation (6ftup, dennis)
+  * implement tax calculation (6ftup, dennis, dixond)
   * improve Discount product (6ftup)
   * improve PloneFormGenAdapter and document (ifPeople, dennis)
   * finalize Paypal ipn (dennis)
   * document payable content use case (dennis, dixond, cjj)
+  * improve getpaid.salesforce for general mapping (perrito666, duffyd)
+
+DONE: 
+  * refactor svn repository (6ftup): see [http://code.google.com/p/getpaid/wiki/svnrefactor svnrefactor] proposal and info
