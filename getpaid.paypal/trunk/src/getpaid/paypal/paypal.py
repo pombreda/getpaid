@@ -21,7 +21,7 @@ class PaypalStandardProcessor( object ):
         self.context = context
 
     def cart_post_button( self, cart ):
-        import pdb;pdb.set_trace()
+        #import pdb;pdb.set_trace()
         options = IPaypalStandardOptions( self.context )
         cartitems = []
         idx = 1
@@ -36,7 +36,6 @@ class PaypalStandardProcessor( object ):
                name="submit"
                alt="Make payments with PayPal - it's fast, free and secure!"/>
         </form>"""
-        
         _button_cart = """
         <input type="hidden" name="item_name_%(idx)s" value="%(itemname)s"/>
         <input type="hidden" name="amount_%(idx)s" value="%(amount)s"/>
