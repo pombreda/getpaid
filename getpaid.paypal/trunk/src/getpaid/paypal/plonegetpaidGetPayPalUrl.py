@@ -1,4 +1,4 @@
 ##
 
-return 'https://www.paypal.com/cgi-bin/webscr'
+return 'https://www.sandbox.paypal.com/cgi-bin/webscr'
 
