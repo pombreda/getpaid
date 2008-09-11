@@ -4,5 +4,5 @@
 ##bind script=script
 ##bind subpath=traverse_subpath
 
-return 'you@yourdomain.org'
+return 'duffyd@kokorice.org'
 
