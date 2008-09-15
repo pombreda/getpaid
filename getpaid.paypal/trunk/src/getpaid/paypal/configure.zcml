@@ -15,11 +15,13 @@
       name="Paypal Website Payments Standard"
       factory=".paypal.PaypalStandardProcessor" />
 
-    <browser:page
+    <!--browser:page
       for="*"
       name="buy_now_button"
       class=".browser.BuyNowButtonView"
       permission="zope2.View"
-      />
+      /-->
+	  
+    <include package=".browser" />
      
 </configure>
