@@ -31,12 +31,11 @@ and the Notification API:
 
 - Includes integration with Google Analytics.
 
+- Works with gchecky 0.2.1.
+
 
 Todo
 ====
-
-- Need to fix the buildout experience. There are few wrinkles with the
-  install of ghcecky.
 
 - Update locales.
 
