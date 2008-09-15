@@ -1,8 +1,7 @@
 <fieldset i18n:domain="plonegetpaid">
   <legend i18n:translate="legend_next_steps">Next Steps</legend>
   <div class="form-controls" tal:condition="view/doesHaveActions">
-    <form style="float: left"
-          action="."
+    <form action="."
           tal:attributes="action request/URL" method="post"
           class="edit-form" enctype="multipart/form-data"
           id="getpaid.cart.actions"

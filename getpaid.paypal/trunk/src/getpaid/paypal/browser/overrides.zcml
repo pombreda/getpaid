@@ -10,4 +10,12 @@
 	 weight="20"
      />
 
+  <browser:page
+     for="*"
+     name="portlet-shopping-cart"
+     class="Products.PloneGetPaid.browser.portlet.ShoppingCart"
+     template="templates/portlet-cart.pt"
+     permission="zope2.View"
+     />
+
 </configure>
