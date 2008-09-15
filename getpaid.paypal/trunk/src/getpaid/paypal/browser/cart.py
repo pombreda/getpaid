@@ -8,6 +8,12 @@ from zope.component import getAdapter, getUtility
 class Actions(ShoppingCartActions):
 
     template = ZopeTwoPageTemplateFile('templates/cart-actions.pt')
+    
+    def render(self):
+        cart_utility = getUtility(IShoppingCartUtility)
+        html = self.template()
+        cart_utility.destroy(self.context)
+        return html
 
     def actionsOtherThanCheckout(self):
         return [action for action in self.availableActions()
