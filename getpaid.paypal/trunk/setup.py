@@ -49,8 +49,7 @@ setup(
     package_dir={'':'src'},
     namespace_packages=['getpaid'],
     include_package_data=True,
-    install_requires = ['setuptools',
-                        'getpaid.core',
+    install_requires = ['setuptools'
                        ],
     zip_safe = False,
     )

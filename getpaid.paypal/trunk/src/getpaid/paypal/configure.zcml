@@ -4,6 +4,8 @@
 
    <i18n:registerTranslations directory="locales" />
 
+   <include package=".browser" />
+
    <adapter
       for="Products.CMFCore.interfaces.ISiteRoot"
       provides=".interfaces.IPaypalStandardOptions"
@@ -21,7 +23,5 @@
       class=".browser.BuyNowButtonView"
       permission="zope2.View"
       /-->
-	  
-    <include package=".browser" />
      
 </configure>
