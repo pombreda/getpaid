@@ -38,9 +38,6 @@ Todo
 - Need to fix the buildout experience. There are few wrinkles with the
   install of ghcecky.
 
-- Still need to override the cart portlet to use the Google Checkout
-  buttons.
-
 - Update locales.
 
 

@@ -11,4 +11,6 @@
      weight="20"
      />
 
+  <include package=".portlets" file="overrides.zcml" />
+
 </configure>

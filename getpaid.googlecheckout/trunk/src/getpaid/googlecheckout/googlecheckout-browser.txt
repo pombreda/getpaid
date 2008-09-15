@@ -95,15 +95,36 @@ Checkout button:
                 src="http://sandbox.google.com/checkout/buttons/checkout.gif?merchant_id=1234567890&amp;w=160&amp;h=43&amp;style=white&amp;variant=text&amp;loc=en_GB" />
        </form>...
 
+The cart portlet also uses the Google Checkout button:
+
+    >>> print browser.contents
+    <!DOCTYPE html ...
+    ...<dl class="portlet" id="portlet-cart">
+         ...
+         <dd class="portletFooter">
+           <form method="post"
+                 class="googlecheckout"
+                 action="http://nohost/plone/google-checkout">
+             <input type="hidden" name="analyticsdata" value="" />
+             <input type="image" id="portlet-cart-google-checkout"
+                    name="Google Checkout"
+                    alt="Fast checkout through Google"
+                    src="http://sandbox.google.com/checkout/buttons/checkout.gif?merchant_id=1234567890&amp;w=160&amp;h=43&amp;style=white&amp;variant=text&amp;loc=en_GB" />
+           </form>
+           <span class="portletBottomLeft"></span>
+           <span class="portletBottomRight"></span>
+         </dd>
+        </dl>...
+
 Note the there is a hidden input to support integration with Google
 Analytics. This input is populated via JavaScript before the form is
 submitted. For demonstration lets populate that with some data:
 
-    >>> browser.getControl(name='analyticsdata').value = '00000000'
+    >>> browser.getControl(name='analyticsdata', index=0).value = '00000000'
 
 The checkout action redirects the user to Google Checkout.
 
-    >>> browser.getControl(name='Google Checkout').click()
+    >>> browser.getControl(name='Google Checkout', index=0).click()
     >>> browser.url
     'http://sandbox.google.com/checkout'
 
