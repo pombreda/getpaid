@@ -22,8 +22,4 @@ class Actions(ShoppingCartActions):
         manage_options = IGetPaidManagementOptions(portal)
         processor_name = manage_options.payment_processor
         processor = getAdapter(portal, IPaymentProcessor, processor_name)
-        #order = self.createOrder()
-        #order.processor_id = processor_name
-        #order.finance_workflow.fireTransition( "create" )
-        
         return processor.cart_post_button(cart)

@@ -2,13 +2,12 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:five="http://namespaces.zope.org/five">
 
-  <browser:page
-     for="*"
-     name="checkout-review-pay"
-     class=".checkout.PaypalCheckoutPayment"
+  <browser:viewlet
+     name="cart-actions"
+     manager="Products.PloneGetPaid.interfaces.IGetPaidCartViewletManager"
+     class=".cart.Actions"
      permission="zope2.View"
+	 weight="20"
      />
-
-   <testing<testing<testing
 
 </configure>

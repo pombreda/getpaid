@@ -16,12 +16,5 @@
       provides="getpaid.core.interfaces.IPaymentProcessor"
       name="Paypal Website Payments Standard"
       factory=".paypal.PaypalStandardProcessor" />
-
-    <!--browser:page
-      for="*"
-      name="buy_now_button"
-      class=".browser.BuyNowButtonView"
-      permission="zope2.View"
-      /-->
      
 </configure>
