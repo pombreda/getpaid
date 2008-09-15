@@ -6,6 +6,7 @@ CHANGES
 0.3 (unreleased)
 ----------------
 
+* Remove code not needed now with gchecky 0.2.1. And update tests to suit.
 * Override the cart portlet to use Google Checkout.
 
 

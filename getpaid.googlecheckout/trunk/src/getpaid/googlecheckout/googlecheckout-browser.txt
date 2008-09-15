@@ -165,12 +165,12 @@ request:
       </shopping-cart>
       <checkout-flow-support>
         <merchant-checkout-flow-support>
-          <edit-cart-url>
-            http://nohost/plone/getpaid-cart
-          </edit-cart-url>
           <continue-shopping-url>
             http://nohost/plone
           </continue-shopping-url>
+          <edit-cart-url>
+            http://nohost/plone/getpaid-cart
+          </edit-cart-url>
           <analytics-data>
             00000000
           </analytics-data>

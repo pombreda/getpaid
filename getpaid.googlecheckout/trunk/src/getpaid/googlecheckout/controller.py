@@ -35,13 +35,6 @@ import logging
 logger = logging.getLogger('getpaid.googlecheckout')
 
 
-class notification_acknowledgment_t(gxml.Document):
-    # XXX With a bit of luck this will show up in gchecky and we can
-    # remove this from here.
-    tag_name = 'notification-acknowledgment'
-    serial_number = gxml.ID('@serial-number')
-
-
 class GoogleCheckoutController(Controller):
 
     implements(IGoogleCheckoutController)
@@ -73,5 +66,5 @@ class GoogleCheckoutController(Controller):
         else:
             logger.debug('Unhandled notification %s\n%s'
                          % (notification.__class__, xml))
-        return notification_acknowledgment_t(
+        return gmodel.notification_acknowledgment_t(
             serial_number=notification.serial_number)

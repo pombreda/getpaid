@@ -89,12 +89,12 @@ The processor can generate a checkout request from a cart:
       </shopping-cart>
       <checkout-flow-support>
         <merchant-checkout-flow-support>
-          <edit-cart-url>
-            http://nohost/plone/getpaid-cart
-          </edit-cart-url>
           <continue-shopping-url>
             http://nohost/plone
           </continue-shopping-url>
+          <edit-cart-url>
+            http://nohost/plone/getpaid-cart
+          </edit-cart-url>
         </merchant-checkout-flow-support>
       </checkout-flow-support>
     </checkout-shopping-cart>
