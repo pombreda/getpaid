@@ -58,8 +58,8 @@ def handleOneWeekPublishedCreditPurchase(object, event):
                     except Exception, e:
                         # We absolutely must record a failure here. People get grumpy
                         # if their credit doesn't turn up.
-                        log.info('Unable to process the credit for user: %s, processor_order_id: %s, processor_id: %s. Error is: %s, details were: %s' % (order.user_id,
-                                                                                                                                                          order.processor_order_id,
-                                                                                                                                                          order.processor_id,
-                                                                                                                                                          e.__class__,
-                                                                                                                                                          str(e)))
+                        from traceback import format_exc
+                        log.info('Unable to process the credit for user: %s, processor_order_id: %s, processor_id: %s. Traceback was: %s' % (order.user_id,
+                                                                                                                                             order.processor_order_id,
+                                                                                                                                             order.processor_id,
+                                                                                                                                             format_exc(),))

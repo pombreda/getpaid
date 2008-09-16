@@ -46,27 +46,31 @@ class Renderer(base.Renderer, RequestMixin):
     def available(self):
         """Should this portlet be available?"""
         if IOneWeekCreditPublishedContent.providedBy(self.context):
-            if self.user_is_creator:
-                if self.current_credit:
-                    # If they've got credit then show the portlet regardless
-                    return True
-                else:
-                    # Only show the portlet when they have no credit if the context
-                    # is already published - they need to be able to choose to withdraw
-                    # it if necessary
-                    if self.is_listed:
-                        # OK, so we will show it so they can withdraw if necessary
+            if not 'portal_factory' in self.request['ACTUAL_URL']:
+                if self.user_is_creator:
+                    if self.current_credit:
+                        # If they've got credit then show the portlet regardless
                         return True
                     else:
-                        # They have no credit and the context isn't published - instead
-                        # of showing this portlet, we will let a more prominent BeforeContentViewlet
-                        # inform them of the situation, and they can use the creditpurchasing portlet
-                        # to remedy
-                        return False
+                        # Only show the portlet when they have no credit if the context
+                        # is already published - they need to be able to choose to withdraw
+                        # it if necessary
+                        if self.is_listed:
+                            # OK, so we will show it so they can withdraw if necessary
+                            return True
+                        else:
+                            # They have no credit and the context isn't published - instead
+                            # of showing this portlet, we will let a more prominent BeforeContentViewlet
+                            # inform them of the situation, and they can use the creditpurchasing portlet
+                            # to remedy
+                            return False
+                else:
+                    # User isn't creator
+                    # XXX Probably this should be policy-pluggable - maybe people in the same group should
+                    #     be able to publish each other's stuff?
+                    return False
             else:
-                # User isn't creator
-                # XXX Probably this should be policy-pluggable - maybe people in the same group should
-                #     be able to publish each other's stuff?
+                # The object is still being added right now
                 return False
         else:
             # Not a credit-published item

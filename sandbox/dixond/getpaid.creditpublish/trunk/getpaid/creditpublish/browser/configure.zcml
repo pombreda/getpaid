@@ -19,4 +19,12 @@
     permission="zope2.View"
   />
 
+  <browser:viewlet
+    name="getpaid.oneweekcreditpublishing"
+    for="..interfaces.IOneWeekCreditPublishedContent"
+    manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+    class=".viewlets.OneWeekCreditPublishingViewlet"
+    permission="zope2.View"
+  />
+
 </configure>
