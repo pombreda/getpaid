@@ -1,4 +1,3 @@
-<div class="portlet">
   <form tal:define="formName    view/formname"
         tal:attributes="id      string:creditpublishing-viewlet;
                         name    formName;
@@ -30,4 +29,3 @@
     </div>
     <input type="hidden" tal:attributes="name  string:${view/nameprefix}.submitted" value="submitted" />
   </form>
-</div>

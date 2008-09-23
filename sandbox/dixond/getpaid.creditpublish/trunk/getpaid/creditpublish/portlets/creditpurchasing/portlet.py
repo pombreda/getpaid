@@ -1,7 +1,7 @@
 __author__ = """Darryl Dixon <darryl.dixon@winterhouseconsulting.com>"""
 
 from zope.interface import implements
-from zope.component import getUtility
+from zope.component import getUtility, getAdapter
 from zope.formlib import form
 
 from plone.app.portlets.portlets import base
@@ -13,6 +13,7 @@ from DateTime.DateTime import DateTime
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
+from getpaid.core.interfaces import IBuyableContent
 from getpaid.creditregistry.interfaces import ICreditRegistry
 
 from getpaid.creditpublish import creditpublishMessageFactory as _
@@ -45,7 +46,7 @@ class Renderer(base.Renderer, RequestMixin):
     @property
     def available(self):
         if not self.pmt.isAnonymousUser():
-            if self.pct.unrestrictedSearchResults(UID=self.data.representative_object):
+            if self.representative_object is not None:
                 return True
         return False
 
@@ -58,6 +59,21 @@ class Renderer(base.Renderer, RequestMixin):
 
     def weeks_options(self):
         return range(1, 53)
+
+    @property
+    def representative_object(self):
+        ro = self.pct.unrestrictedSearchResults(UID=self.data.representative_object)[:1]
+        if ro:
+            return ro[0].getObject()
+        else:
+            return None
+
+    @property
+    def credit_price(self):
+        """Return a dict containing the price of the credit item and the tax applicable and a 'tax string'
+        """
+        return "%.2f" % getAdapter(self.representative_object, IBuyableContent).price
+
 
 class AddForm(base.AddForm):
     form_fields = form.Fields(ICreditPurchasingPortlet)

@@ -1,6 +1,6 @@
 <div id="viewlet-nooneweekpublishedcredits"
      i18n:domain="getpaid.creditpublish">
-  <dl class="portalMessage info">
+  <dl class="portalMessage warning">
     <dt>No Credit</dt>
     <dd id="viewlet-nooneweekpublishedcredits">
         You do not have any credit available to Publish this item. You can use the Purchasing form on the left to buy more.

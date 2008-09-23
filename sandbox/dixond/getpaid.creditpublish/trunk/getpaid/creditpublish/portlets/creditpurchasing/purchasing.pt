@@ -13,7 +13,7 @@
           <span tal:condition="credit">You have <tal:cont content="credit" /> weeks of credit currently available</span>
         </p>
         <div>
-          <label for="purchaseweeks">Purchase more weeks of credit:</label>
+          <label for="purchaseweeks">Purchase more weeks of credit at $<tal:cont content="view/credit_price" /> per week:</label>
           <select tal:attributes="name  string:${view/nameprefix}.weeks:int" id="purchaseweeks">
             <tal:rep repeat="number   view/weeks_options">
               <option tal:attributes="value      number"

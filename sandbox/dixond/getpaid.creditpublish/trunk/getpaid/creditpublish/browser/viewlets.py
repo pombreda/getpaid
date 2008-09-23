@@ -33,7 +33,7 @@ class NoOneWeekPublishedCreditsViewlet(ViewletBase):
            not self.cr.queryCredit(member_id, IOneWeekPublishedCredit.__identifier__) and \
            not (self.wft.getInfoFor(self.context, 'review_state') == 'published') and \
            (member_id == self.context.Creator()):
-            return ViewPageTemplateFile("viewlet_nooneweekpublishedcredits.pt")
+            return ViewPageTemplateFile("templates/viewlet_nooneweekpublishedcredits.pt")
         else:
             return lambda: ''
 
