@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-0.2 (2008-10-24)
+0.4 (2008-10-24)
 ----------------
 
 - getting ready to upload to pypi
