@@ -42,12 +42,24 @@ class PyModule(Software):
 
 CHEESE_SOURCE = 'http://pypi.python.org/packages/source/'
 
+# XXX Missing
+# gchecky http://pypi.python.org/pypi/gchecky/0.2.1 (waiting answer)
+# hurry.workflow https://getpaid.googlecode.com/svn/vendor/hurry.workflow/branches/0.9
+# yoma.batching https://getpaid.googlecode.com/svn/vendor/yoma.batching
+# zc.table svn://svn.zope.org/repos/main/zc.table/tags/zc.table-0.5.1
+# zc.resourcelibrary svn://svn.zope.org/repos/main/zc.resourcelibrary/tags/zc.resourcelibrary-0.5
+
 GETPAID_BASE_PACKAGES = [
     PyModule('ore.viewlet', CHEESE_SOURCE + 'o/ore.viewlet/ore.viewlet-0.2.tar.gz', version="0.2"),
     PyModule('getpaid.core', CHEESE_SOURCE + 'g/getpaid.core/getpaid.core-0.7.tar.gz', version="0.7"),
     PyModule('Products.PloneGetPaid', CHEESE_SOURCE + 'P/Products.PloneGetPaid/Products.PloneGetPaid-0.7.tar.gz', version="0.7"),
     PyModule('getpaid.wizard', CHEESE_SOURCE + 'g/getpaid.wizard/getpaid.wizard-0.3.tar.gz', version="0.3"),
     PyModule('getpaid.nullpayment', CHEESE_SOURCE + 'g/getpaid.nullpayment/getpaid.nullpayment-0.3.tar.gz', version="0.3"),
+]
+
+GETPAID_DEPENDENCIES = [
+    PyModule('five.intid', CHEESE_SOURCE + 'f/five.intid/five.intid-0.2.0.tar.gz', version="0.2.0"),
+    PyModule('zc.authorizedotnet', CHEESE_SOURCE + 'z/zc.authorizedotnet/zc.authorizedotnet-1.3.tar.gz', version="1.3"),
 ]
 
 GETPAID_PAYMENT_PROCESSORS = [
@@ -67,4 +79,6 @@ GETPAID_EXTRA_PACKAGES = [
     PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.5.tar.gz', version="0.5"),
 ]
 
-GETPAID_CORE_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_SHIPPING + GETPAID_PAYMENT_PROCESSORS + GETPAID_EXTRA_PACKAGES
+GETPAID_CORE_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_DEPENDENCIES + \
+                        GETPAID_SHIPPING + GETPAID_PAYMENT_PROCESSORS + \
+                        GETPAID_EXTRA_PACKAGES
