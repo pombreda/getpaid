@@ -9,10 +9,12 @@ from cornerstone.browser.base import RequestMixin
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.WorkflowCore import WorkflowException
 
 from getpaid.creditpublish.interfaces import IOneWeekPublishedCredit, IOneWeekCreditPublishedContent
 from getpaid.creditregistry.interfaces import ICreditRegistry
 from getpaid.creditpublish import creditpublishMessageFactory as _
+from getpaid.creditpublish.security import invokeFunctionAsManager
 
 class NoOneWeekPublishedCreditsViewlet(ViewletBase):
     """Notification viewlet for when the user is viewing credit published content
@@ -77,6 +79,8 @@ class OneWeekCreditPublishingViewlet(ViewletBase, RequestMixin):
                             elif self.formvalue('update'):
                                 self.publishContext(self.formvalue('weeks'), update=True)
                             elif self.formvalue('depublish'):
+                                return ViewPageTemplateFile('templates/confirmdepublish.pt')
+                            elif self.formvalue('confirmdepublish'):
                                 if not self.is_listed:
                                     # They've probably just tried refreshing the previously submitted
                                     # page. Better to just do nothing at this point
@@ -129,7 +133,21 @@ class OneWeekCreditPublishingViewlet(ViewletBase, RequestMixin):
             schema['republishReminderSent'].set(self.context, False)
             schema['weeksLeftPublished'].set(self.context, weeks)
         elif self.current_credit:
-            self.wft.doActionFor(self.context, 'publish') 
+            try:
+                invokeFunctionAsManager(self.request, self.wft.doActionFor, self.context, 'publish') 
+            except WorkflowException, e:
+                # Ok, basically this means there isn't a way to make this item 'published'.
+                # Possibly, this is because it already *is*. Because the site admin has chosen
+                # to make this content type purchasable, we will assume the reason we can't publish
+                # it is because it is already published. Lets find out:
+                state = self.wft.getInfoFor(self.context, 'review_state')
+                if state != 'published':
+                    # Log an error and bail: 
+                    self.context.plone_log("Unable to publish: %s, current state is: %s" % (self.context.getPhysicalPath(), state))
+                    raise
+                else:
+                    # Our work here is complete:
+                    pass
             self.context.setEffectiveDate(DateTime())
             self.context.setExpirationDate(DateTime()+7)
             schema['republishReminderSent'].set(self.context, False)

@@ -1,0 +1,15 @@
+  <form tal:define="formName    view/formname"
+        tal:attributes="id      string:creditpublishing-viewlet;
+                        name    formName;
+                        action  request/ACTUAL_URL;
+                        method  string:post">
+      <div id="publishing-control"
+           tal:define="credit     view/current_credit;
+                       listed  view/is_listed">
+        <p class="publishMessage">
+          Are you sure you want to de-publish this item? De-publishing will forfeit the credit remaining for the week ending <tal:cont content="view/current_expiry" />
+        </p>
+        <input type="submit" tal:attributes="name  string:${view/nameprefix}.confirmdepublish" id="docreditdepublishing" value="Confirm De-publish" class="creditPublishingActions" />
+    </div>
+    <input type="hidden" tal:attributes="name  string:${view/nameprefix}.submitted" value="submitted" />
+  </form>
