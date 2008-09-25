@@ -6,6 +6,10 @@ egg_name_re = re.compile(r'(\S+?)([=<>!].+)')
 
 from getpaid.recipe.release.getpaidcorepackages import GETPAID_CORE_PACKAGES
 
+import infrae.subversion
+import zc.recipe.egg
+
+
 class Recipe(object):
     """zc.buildout recipe"""
 
@@ -14,18 +18,29 @@ class Recipe(object):
 
         # These are passed onto zc.recipe.egg.
         options['eggs'] = self.getpaid_eggs()
+        self.egg = zc.recipe.egg.Egg(buildout, options['recipe'], options)
+        
+        # create our cluster object using zope2instnace
+        default_svn_urls = """    https://getpaid.googlecode.com/svn/vendor/hurry.workflow/branches/0.9 hurry.workflow
+    https://getpaid.googlecode.com/svn/vendor/yoma.batching yoma.batching"""
+        self.options['urls'] = options.get('urls', default_svn_urls)
+        self.getpaid_svn = infrae.subversion.Py.Recipe(buildout, "%s-svn" % name, self.options)
 
     def install(self):
         """Installer"""
-        # XXX Implement recipe functionality here
-        
-        # Return files that were created by the recipe. The buildout
-        # will remove all returned files upon reinstall.
-        return tuple()
+        options = self.options
+        location = options['location']
+        self.egg.install()
+        self.getpaid_svn.install()
+        return location
 
     def update(self):
         """Updater"""
-        pass
+        options = self.options
+        location = options['location']
+        self.getpaid_svn.update()
+        return location
+
 
     def getpaid_eggs(self):
         """Read the eggs from dist_plone

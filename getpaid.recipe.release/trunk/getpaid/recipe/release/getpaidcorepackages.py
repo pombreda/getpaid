@@ -43,11 +43,14 @@ class PyModule(Software):
 CHEESE_SOURCE = 'http://pypi.python.org/packages/source/'
 
 # XXX Missing
-# gchecky http://pypi.python.org/pypi/gchecky/0.2.1 (waiting answer)
+# gchecky http://pypi.python.org/pypi/gchecky/0.2.1 (waiting answer) => seems like it gets installed by default
+# ore.viewlet need to update browser.py
 # hurry.workflow https://getpaid.googlecode.com/svn/vendor/hurry.workflow/branches/0.9
 # yoma.batching https://getpaid.googlecode.com/svn/vendor/yoma.batching
-# zc.table svn://svn.zope.org/repos/main/zc.table/tags/zc.table-0.5.1
-# zc.resourcelibrary svn://svn.zope.org/repos/main/zc.resourcelibrary/tags/zc.resourcelibrary-0.5
+# getpaid.paypal => personal info in it
+# zc.table svn://svn.zope.org/repos/main/zc.table/tags/zc.table-0.5.1 (double check)
+# zc.resourcelibrary svn://svn.zope.org/repos/main/zc.resourcelibrary/tags/zc.resourcelibrary-0.5 (double check)
+# Products.PloneGetPaid needs to be uploaded to pypi again
 
 GETPAID_BASE_PACKAGES = [
     PyModule('ore.viewlet', CHEESE_SOURCE + 'o/ore.viewlet/ore.viewlet-0.2.tar.gz', version="0.2"),
@@ -60,6 +63,8 @@ GETPAID_BASE_PACKAGES = [
 GETPAID_DEPENDENCIES = [
     PyModule('five.intid', CHEESE_SOURCE + 'f/five.intid/five.intid-0.2.0.tar.gz', version="0.2.0"),
     PyModule('zc.authorizedotnet', CHEESE_SOURCE + 'z/zc.authorizedotnet/zc.authorizedotnet-1.3.tar.gz', version="1.3"),
+    PyModule('zc.resourcelibrary', CHEESE_SOURCE + 'z/zc.resourcelibrary/zc.resourcelibrary-1.0.1.tar.gz', version="1.0.1"),
+    PyModule('zc.table', CHEESE_SOURCE + 'z/zc.table/zc.table-0.7.0.tar.gz', version="0.7.0"),
 ]
 
 GETPAID_PAYMENT_PROCESSORS = [
