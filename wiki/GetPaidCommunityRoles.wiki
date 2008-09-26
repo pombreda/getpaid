@@ -27,13 +27,15 @@ _interested_:
 == Release Manager ==
 Manages releases
 
- * 0.7: _Target date Sept 2008_
+ * 0.6.2: _Target date October 2007_
+   _release manager_: Horacio Duran (perrito666)
+ * 0.7: _Target date October 2008_
    _interested_: 
- * 0.8: _Target date October 2008_
+ * 0.8: _Target date December 2008_
    _interested_: 
- * 0.9: _Target date December 2008_
+ * 0.9: _Target date March 2008_
    _interested_: 
- * 1.0: _Target date Sprint 2009_
+ * 1.0: _Target date June 2009_
    _interested_: 
 
 == Project Manager ==
