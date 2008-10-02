@@ -2,7 +2,7 @@ import datetime
 import sqlalchemy as rdb
 
 metadata = rdb.MetaData()
-metadata.bind = rdb.create_engine('postgres://localhost/getpaid')
+metadata.bind = rdb.create_engine('sqlite://')
 
 def now( ):
     return datetime.datetime.now()

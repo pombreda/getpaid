@@ -9,7 +9,13 @@ setup(
     license='X11',
     keywords="zope zope3",
     url="http://code.google.com/p/getpaid",
-    install_requires=['setuptools', 'getpaid.core', 'getpaid.warehouse', 'SQLAlchemy>0.4'], # use in plone means bad requires spec
+    install_requires=['setuptools',
+                      'getpaid.core',
+                      'getpaid.warehouse',
+                      'zope.index', # getpaid.core dep
+                      'zope.app.intid', # getpaid.core dep
+                      'zope.viewlet',
+                      'SQLAlchemy>0.4'], # use in plone means bad requires spec
     dependency_links=['http://download.zope.org/distribution/',],
     packages=find_packages('src', exclude=["*.tests", "*.ftests"]),
     package_dir= {'':'src'},

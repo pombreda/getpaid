@@ -87,7 +87,9 @@ def handleNewOrder( _order, event ):
     when a new order is created, we serialize it do the database.
     """
     def _( s ):
-        order = domain.Order()
+        order = s.query( domain.Order ).get( _order.order_id )
+        if order is not None:
+            order = domain.Order()
         sync.copyOrder( s, _order, order )
         return order
     return _interact( _ )
