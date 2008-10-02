@@ -33,9 +33,16 @@ See the list below and add your name next to anything you would be interested to
   * make a release (would support 2.5 and 3 together)
   * make a branch to separate future 2.5 and 3 support (dennis)
   * gather/improve/update/add documentation (list specific here)
+    * Review and improve [http://code.google.com/p/getpaid/source/browse/Products.PloneGetPaid/trunk/Products/PloneGetPaid/docs/development/make-content-types-buyable.txt content type integration for devs doc]
+    * How to show price (or other GetPaid properties) on a template in your site
+    * How to wire payment process to a workflow state change (ie create a piece of content, but pay before it is published)
+    * How to get and use getpaid.formgen
+    * How to get and use getpaid.salesforce
+    * How to manage inventory
+    * How to customize the checkout process (including using available slots, ie for comments)
     * Enabling components in buildouts
     * Using the new buildouts
-    * 
+    * Using the recipe
   * ReorganizeIssueTracker (in progress; cjj, gabrielle)
 
 Features
