@@ -21,6 +21,7 @@ See the list below and add your name next to anything you would be interested to
     * Issue #209
     * Issue #202
     * Issue #117
+    * Improve paypal processor: make multi-item checkout possible, make/fix admin screen for processor
   * update translations
     * Spanish: in progress (FranGM, Wu, cjj)
     * French (very close to done)
@@ -29,7 +30,7 @@ See the list below and add your name next to anything you would be interested to
     * Chinese
     * Dutch
   * add greater test coverage:
-    * _list components needing coverage_
+    * getpaid.report
   * make a release (would support 2.5 and 3 together)
   * make a branch to separate future 2.5 and 3 support (dennis)
   * gather/improve/update/add documentation (list specific here)
@@ -43,6 +44,7 @@ See the list below and add your name next to anything you would be interested to
     * Enabling components in buildouts
     * Using the new buildouts
     * Using the recipe
+    * Review mailing list and document errors messages (on plone.org doc collection) and how to fix them
   * ReorganizeIssueTracker (in progress; cjj, gabrielle)
 
 Features
