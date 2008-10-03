@@ -13,6 +13,7 @@ __Feature details (Interested people/orgs)__:
 *New features*
   * TaxHandling (6ftup, ChrisW, Jason Lantz)
   * PloneFormGenAdapter to make single page checkout and flexible info gathering (ifPeople, Trees for Life, One/Northwest, Daniel Holth, SteveM)
+  * PayToSubmitContent feature (drafted by perrito and javimansilla, so far nothing done)
   * Salesforce.comIntegration for loading info into SF from GetPaid checkout (related to PFG integration), (One/Northwest, ifPeople, Trees for Life)
   * Conference/event registration, including limited seating and wait list (NCPC)
   * Customizable/personalizable products (e.g., the GREEN shirt with JOE embroidered on the front) --- what role would GetPaid play in this? (NCPC)
