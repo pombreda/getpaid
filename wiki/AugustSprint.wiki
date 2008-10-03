@@ -24,10 +24,8 @@ See the list below and add your name next to anything you would be interested to
     * update anonymous buildout (diff svn externals and cfg file). Fairly easy, as it was last updated in August. 
 
 ==Bugs & Issues==
-  * review code 
-    * Issue #216
   * fix issues
-    * Issue #209
+    * Issue #209 
     * Issue #202
     * Issue #117
     * Improve paypal processor: make multi-item checkout possible, make/fix admin screen for processor
@@ -41,11 +39,9 @@ See the list below and add your name next to anything you would be interested to
     * Chinese
     * Dutch
 
-
+==Testing==
   * add greater test coverage:
     * getpaid.report
-  * make a release (would support 2.5 and 3 together)
-  * make a branch to separate future 2.5 and 3 support (dennis)
 
 ==Documentation==
   * gather/improve/update/add documentation (list specific here)
@@ -53,16 +49,23 @@ See the list below and add your name next to anything you would be interested to
     * How to show price (or other GetPaid properties) on a template in your site
     * How to wire payment process to a workflow state change (ie create a piece of content, but pay before it is published)
     * How to get and use getpaid.formgen
-    * How to get and use getpaid.salesforce
     * How to customize the checkout process (including using available slots, ie for comments)
     * Enabling components in buildouts
     * Using the new buildouts
     * Using the recipe
     * Review mailing list and document errors messages (on plone.org doc collection) and how to fix them
+    * How to get and use getpaid.salesforce
   * ReorganizeIssueTracker (in progress; cjj, gabrielle)
 
-Features
-  * implement tax calculation (6ftup, dennis, dixond)
+==Release prep==
+  * 0.7.0 release (would support 2.5 and 3 together)
+    * update changelog on plone.org/products/getpaid
+    * branch code
+  * make a branch to separate future 2.5 and 3 support (dennis)
+
+
+==Features==
+  * implement flat rate tax calculation (6ftup, dennis, dixond)
   * improve Discount product (6ftup)
   * improve PloneFormGenAdapter and document (ifPeople, dennis)
   * finalize Paypal ipn (dennis)
@@ -71,4 +74,4 @@ Features
 
 DONE: 
   * refactor svn repository (6ftup): see [http://code.google.com/p/getpaid/wiki/svnrefactor svnrefactor] proposal and info
-    * How to manage inventory
+  * How to manage inventory
