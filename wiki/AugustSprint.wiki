@@ -12,9 +12,18 @@ GetPaid remote sprints started in August and we decided to continue them every F
 
 See the list below and add your name next to anything you would be interested to work on: 
 
-  * Finish eggifying components and get to pypi (6ftup, fairwinds, matt hallstead)
-  * Finish GetPaid recipe; document usage
-  * finish reorganization (base, 30, 25, currently on meteoroid-branch) and document buildouts (how to add getpaid) (6ftup, dennis, meteoroid)
+==Distribution==
+  * Eggify components and get to pypi (everything in externals already there)
+    * getpaid.warehouse
+    * getpaid.report
+  * Finish GetPaid recipe; Document usage
+  * Buildouts: 
+    * Test and finish reorganization (base, 30, 25, currently on meteoroid-branch) and document buildouts (how to add getpaid)
+      * Document and use in DevGettingStarted
+      * Merge branch or copy files on existing buildout
+    * update anonymous buildout (diff svn externals and cfg file). Fairly easy, as it was last updated in August. 
+
+==Bugs & Issues==
   * review code 
     * Issue #216
   * fix issues
@@ -22,6 +31,8 @@ See the list below and add your name next to anything you would be interested to
     * Issue #202
     * Issue #117
     * Improve paypal processor: make multi-item checkout possible, make/fix admin screen for processor
+
+==i18n==
   * update translations
     * Spanish: in progress (FranGM, Wu, cjj)
     * French (very close to done)
@@ -29,17 +40,20 @@ See the list below and add your name next to anything you would be interested to
     * Italian 
     * Chinese
     * Dutch
+
+
   * add greater test coverage:
     * getpaid.report
   * make a release (would support 2.5 and 3 together)
   * make a branch to separate future 2.5 and 3 support (dennis)
+
+==Documentation==
   * gather/improve/update/add documentation (list specific here)
     * Review and improve [http://code.google.com/p/getpaid/source/browse/Products.PloneGetPaid/trunk/Products/PloneGetPaid/docs/development/make-content-types-buyable.txt content type integration for devs doc]
     * How to show price (or other GetPaid properties) on a template in your site
     * How to wire payment process to a workflow state change (ie create a piece of content, but pay before it is published)
     * How to get and use getpaid.formgen
     * How to get and use getpaid.salesforce
-    * How to manage inventory
     * How to customize the checkout process (including using available slots, ie for comments)
     * Enabling components in buildouts
     * Using the new buildouts
@@ -57,3 +71,4 @@ Features
 
 DONE: 
   * refactor svn repository (6ftup): see [http://code.google.com/p/getpaid/wiki/svnrefactor svnrefactor] proposal and info
+    * How to manage inventory
