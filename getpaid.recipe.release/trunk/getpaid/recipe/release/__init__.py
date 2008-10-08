@@ -2,11 +2,11 @@
 """Recipe release"""
 
 import re
+import os.path
 egg_name_re = re.compile(r'(\S+?)([=<>!].+)')
 
-from getpaid.recipe.release.getpaidcorepackages import GETPAID_CORE_PACKAGES
+from getpaid.recipe.release.getpaidcorepackages import GETPAID_PACKAGES
 
-import infrae.subversion
 import zc.recipe.egg
 
 
@@ -19,28 +19,21 @@ class Recipe(object):
         # These are passed onto zc.recipe.egg.
         options['eggs'] = self.getpaid_eggs()
         self.egg = zc.recipe.egg.Egg(buildout, options['recipe'], options)
-        
-        # create our cluster object using zope2instnace
-        default_svn_urls = """    https://getpaid.googlecode.com/svn/vendor/hurry.workflow/branches/0.9 hurry.workflow
-    https://getpaid.googlecode.com/svn/vendor/yoma.batching yoma.batching"""
-        self.options['urls'] = options.get('urls', default_svn_urls)
-        self.getpaid_svn = infrae.subversion.Py.Recipe(buildout, "%s-svn" % name, self.options)
+        options['location'] = os.path.join(
+            buildout['buildout']['parts-directory'],
+            self.name
+            )
 
     def install(self):
         """Installer"""
         options = self.options
         location = options['location']
         self.egg.install()
-        self.getpaid_svn.install()
         return location
-
+        
     def update(self):
         """Updater"""
-        options = self.options
-        location = options['location']
-        self.getpaid_svn.update()
-        return location
-
+        pass
 
     def getpaid_eggs(self):
         """Read the eggs from dist_plone
@@ -57,7 +50,7 @@ class Recipe(object):
             explicit_eggs[name] = version
         
         eggs = []
-        for pkg in GETPAID_CORE_PACKAGES:
+        for pkg in GETPAID_PACKAGES:
             name = pkg.name
             if name in explicit_eggs:
                 eggs.append(name + explicit_eggs[name])

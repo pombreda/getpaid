@@ -41,16 +41,14 @@ class PyModule(Software):
         os.chdir(cwd)
 
 CHEESE_SOURCE = 'http://pypi.python.org/packages/source/'
+GETPAID_SOURCE = 'http://getpaid.googlecode.com/files/'
 
 # XXX Missing
-# gchecky http://pypi.python.org/pypi/gchecky/0.2.1 (waiting answer) => seems like it gets installed by default
+# gchecky is installed by default
 # ore.viewlet need to update browser.py
-# hurry.workflow https://getpaid.googlecode.com/svn/vendor/hurry.workflow/branches/0.9
-# yoma.batching https://getpaid.googlecode.com/svn/vendor/yoma.batching
 # getpaid.paypal => personal info in it
 # zc.table svn://svn.zope.org/repos/main/zc.table/tags/zc.table-0.5.1 (double check)
 # zc.resourcelibrary svn://svn.zope.org/repos/main/zc.resourcelibrary/tags/zc.resourcelibrary-0.5 (double check)
-# Products.PloneGetPaid needs to be uploaded to pypi again
 
 GETPAID_BASE_PACKAGES = [
     PyModule('ore.viewlet', CHEESE_SOURCE + 'o/ore.viewlet/ore.viewlet-0.2.tar.gz', version="0.2"),
@@ -62,6 +60,8 @@ GETPAID_BASE_PACKAGES = [
 
 GETPAID_DEPENDENCIES = [
     PyModule('five.intid', CHEESE_SOURCE + 'f/five.intid/five.intid-0.2.0.tar.gz', version="0.2.0"),
+    #PyModule('hurry.workflow', GETPAID_SOURCE + 'hurry.workflow-0.9.1-getpaid.tar.gz', version="0.9.1-getpaid"),
+    #PyModule('yoma.batching', 'http://getpaid.googlecode.com/files/yoma.batching-0.2.1.tar.gz', version="0.2.1"),
     PyModule('zc.authorizedotnet', CHEESE_SOURCE + 'z/zc.authorizedotnet/zc.authorizedotnet-1.3.tar.gz', version="1.3"),
     PyModule('zc.resourcelibrary', CHEESE_SOURCE + 'z/zc.resourcelibrary/zc.resourcelibrary-1.0.1.tar.gz', version="1.0.1"),
     PyModule('zc.table', CHEESE_SOURCE + 'z/zc.table/zc.table-0.7.0.tar.gz', version="0.7.0"),
@@ -84,6 +84,6 @@ GETPAID_EXTRA_PACKAGES = [
     PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.5.tar.gz', version="0.5"),
 ]
 
-GETPAID_CORE_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_DEPENDENCIES + \
+GETPAID_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_DEPENDENCIES + \
                         GETPAID_SHIPPING + GETPAID_PAYMENT_PROCESSORS + \
                         GETPAID_EXTRA_PACKAGES
