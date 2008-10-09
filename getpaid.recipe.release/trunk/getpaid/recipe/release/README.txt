@@ -1,47 +1,64 @@
+Tested with
+===========
+
+A buildout using plone 3.1
+
+Required options
+================
+
+You need to have the following find-links so that the getpaid recipe can find the packages.
+
+find-links=
+
+- http://getpaid.googlecode.com/files/hurry.workflow-0.9.1-getpaid.tar.gz
+- http://getpaid.googlecode.com/files/yoma.batching-0.2.1-getpaid.tar.gz
+- http://getpaid.googlecode.com/files/zc.resourcelibrary-0.5-getpaid.tar.gz
+- http://getpaid.googlecode.com/files/zc.table-0.5.1-getpaid.tar.gz
+
+
 Supported options
 =================
 
-The recipe supports the following options:
+The recipe supports the following option:
 
-eggs
-    This will be the getpaid eggs
+addpackages=
 
-Example usage
-=============
+You can choose the "extra" packages you want to use with the "addpackages" option. The names listed correspond to the names of the packages. So you could do addpackages=getpaid.discount
 
-.. Note to recipe author!
-   ----------------------
-   zc.buildout provides a nice testing environment which makes it
-   relatively easy to write doctests that both demonstrate the use of
-   the recipe and test it.
-   You can find examples of recipe doctests from the PyPI, e.g.
-   
-     http://pypi.python.org/pypi/zc.recipe.egg
 
-   The PyPI page for zc.buildout contains documentation about the test
-   environment.
+What to add in your buildout
+============================
 
-     http://pypi.python.org/pypi/zc.buildout#testing-support
-
-   Below is a skeleton doctest that you can start with when building
-   your own tests.
-
-We'll start by creating a buildout that uses the recipe::
+We are assuming you have your own buildout created.
 
     >>> write('buildout.cfg',
     ... """
     ... [buildout]
-    ... parts = test1
+    ... parts = 
+    ...     getpaid
     ...
-    ... [test1]
+    ... [getpaid]
     ... recipe = getpaid.recipe.release
     ...
+    ... addpackages=
+    ...     getpaid.paymentech
+    ...     getpaid.discount
+    ... 
+    ... find-links=
+    ...     http://getpaid.googlecode.com/files/hurry.workflow-0.9.1-getpaid.tar.gz
+    ...     http://getpaid.googlecode.com/files/yoma.batching-0.2.1-getpaid.tar.gz
+    ...     http://getpaid.googlecode.com/files/zc.resourcelibrary-0.5-getpaid.tar.gz
+    ...     http://getpaid.googlecode.com/files/zc.table-0.5.1-getpaid.tar.gz
+    ...
+    ... [instance]
+    ... eggs = 
+    ...     ${getpaid:eggs}
     ... """)
 
-Running the buildout gives us::
 
-    >>> print 'start', system(buildout) # doctest:+ELLIPSIS
-    start...
-    Installing test1.
+In resume:
 
-
+- you add the getpaid part
+- in the getpaid part, you can choose the "extra" packages you want to use with the "addpackages" option
+- by default, the following packages are installed: ore.viewlet, getpaid.core, Products.PloneGetPaid, getpaid.wizard, getpaid.nullpayment, five.intid, hurry.workflow, yoma.batching, zc.resourcelibrary and zc.table
+- then you will have to run bin/buildout, start your instance and quickinstall PloneGetPaid

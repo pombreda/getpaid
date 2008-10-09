@@ -43,12 +43,8 @@ class PyModule(Software):
 CHEESE_SOURCE = 'http://pypi.python.org/packages/source/'
 GETPAID_SOURCE = 'http://getpaid.googlecode.com/files/'
 
-# XXX Missing
-# gchecky is installed by default
-# ore.viewlet need to update browser.py
-# getpaid.paypal => personal info in it
-# zc.table svn://svn.zope.org/repos/main/zc.table/tags/zc.table-0.5.1 (double check)
-# zc.resourcelibrary svn://svn.zope.org/repos/main/zc.resourcelibrary/tags/zc.resourcelibrary-0.5 (double check)
+# XXX NOTES
+# gchecky and zc.authorizedotnet are installed by default
 
 GETPAID_BASE_PACKAGES = [
     PyModule('ore.viewlet', CHEESE_SOURCE + 'o/ore.viewlet/ore.viewlet-0.2.tar.gz', version="0.2"),
@@ -62,28 +58,22 @@ GETPAID_DEPENDENCIES = [
     PyModule('five.intid', CHEESE_SOURCE + 'f/five.intid/five.intid-0.2.0.tar.gz', version="0.2.0"),
     PyModule('hurry.workflow', GETPAID_SOURCE + 'hurry.workflow-0.9.1-getpaid.tar.gz', version="0.9.1-getpaid"),
     PyModule('yoma.batching', GETPAID_SOURCE + 'yoma.batching-0.2.1-getpaid.tar.gz', version="0.2.1-getpaid"),
-    PyModule('zc.authorizedotnet', CHEESE_SOURCE + 'z/zc.authorizedotnet/zc.authorizedotnet-1.3.tar.gz', version="1.3"),
-    PyModule('zc.resourcelibrary', CHEESE_SOURCE + 'z/zc.resourcelibrary/zc.resourcelibrary-1.0.1.tar.gz', version="1.0.1"),
-    PyModule('zc.table', CHEESE_SOURCE + 'z/zc.table/zc.table-0.7.0.tar.gz', version="0.7.0"),
+    PyModule('zc.resourcelibrary', GETPAID_SOURCE + 'zc.resourcelibrary-0.5-getpaid.tar.gz', version="0.5-getpaid"),
+    PyModule('zc.table', GETPAID_SOURCE + 'zc.table-0.5.1-getpaid.tar.gz', version="0.5.1-getpaid"),
 ]
 
-GETPAID_PAYMENT_PROCESSORS = [
-    PyModule('getpaid.authorizedotnet', CHEESE_SOURCE + 'g/getpaid.authorizedotnet/getpaid.authorizedotnet-0.3.tar.gz', version="0.3"),
-    PyModule('getpaid.googlecheckout', CHEESE_SOURCE + 'g/getpaid.googlecheckout/getpaid.googlecheckout-0.2.tar.gz', version="0.2"),
-    PyModule('getpaid.paymentech', CHEESE_SOURCE + 'g/getpaid.paymentech/getpaid.paymentech-0.3.tar.gz', version="0.3"),
-    PyModule('getpaid.paypal', CHEESE_SOURCE + 'g/getpaid.paypal/getpaid.paypal-0.4.tar.gz', version="0.4"),
-    PyModule('getpaid.pxpay', CHEESE_SOURCE + 'g/getpaid.pxpay/getpaid.pxpay-0.2.tar.gz', version="0.2"),
-]
+GETPAID_OTHER_PACKAGES = {
+    # payment processors
+    'getpaid.authorizedotnet': PyModule('getpaid.authorizedotnet', CHEESE_SOURCE + 'g/getpaid.authorizedotnet/getpaid.authorizedotnet-0.3.tar.gz', version="0.3"),
+    'getpaid.googlecheckout': PyModule('getpaid.googlecheckout', CHEESE_SOURCE + 'g/getpaid.googlecheckout/getpaid.googlecheckout-0.2.tar.gz', version="0.2"),
+    'getpaid.paymentech': PyModule('getpaid.paymentech', CHEESE_SOURCE + 'g/getpaid.paymentech/getpaid.paymentech-0.3.tar.gz', version="0.3"),
+    'getpaid.paypal': PyModule('getpaid.paypal', CHEESE_SOURCE + 'g/getpaid.paypal/getpaid.paypal-0.4.tar.gz', version="0.4"),
+    'getpaid.pxpay': PyModule('getpaid.pxpay', CHEESE_SOURCE + 'g/getpaid.pxpay/getpaid.pxpay-0.2.tar.gz', version="0.2"),
+    # shipping
+    'getpaid.flatrateshipping': PyModule('getpaid.flatrateshipping', CHEESE_SOURCE + 'g/getpaid.flatrateshipping/getpaid.flatrateshipping-0.2.tar.gz', version="0.2"),
+    'getpaid.ups': PyModule('getpaid.ups', CHEESE_SOURCE + 'g/getpaid.ups/getpaid.ups-0.3.tar.gz', version="0.3"),
+    # discount
+    'getpaid.discount': PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.6.tar.gz', version="0.6"),
+}
 
-GETPAID_SHIPPING = [
-    PyModule('getpaid.flatrateshipping', CHEESE_SOURCE + 'g/getpaid.flatrateshipping/getpaid.flatrateshipping-0.2.tar.gz', version="0.2"),
-    PyModule('getpaid.ups', CHEESE_SOURCE + 'g/getpaid.ups/getpaid.ups-0.3.tar.gz', version="0.3"),
-]
-
-GETPAID_EXTRA_PACKAGES = [
-    #PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.5.tar.gz', version="0.5"),
-]
-
-GETPAID_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_DEPENDENCIES + \
-                        GETPAID_SHIPPING + GETPAID_PAYMENT_PROCESSORS + \
-                        GETPAID_EXTRA_PACKAGES
+GETPAID_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_DEPENDENCIES

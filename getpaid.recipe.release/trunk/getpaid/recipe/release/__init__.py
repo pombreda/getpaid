@@ -6,6 +6,7 @@ import os.path
 egg_name_re = re.compile(r'(\S+?)([=<>!].+)')
 
 from getpaid.recipe.release.getpaidcorepackages import GETPAID_PACKAGES
+from getpaid.recipe.release.getpaidcorepackages import GETPAID_OTHER_PACKAGES
 
 import zc.recipe.egg
 
@@ -49,8 +50,17 @@ class Recipe(object):
                 version = match.groups(2)
             explicit_eggs[name] = version
         
+        # we get the other packages that people want
+        all_packages = []
+        addpackages = self.options.get('addpackages', '').split()
+        
+        for p in addpackages:
+            pymodule = GETPAID_OTHER_PACKAGES.get(p, None)
+            if pymodule:
+                all_packages.append(pymodule)
+        
         eggs = []
-        for pkg in GETPAID_PACKAGES:
+        for pkg in GETPAID_PACKAGES + all_packages:
             name = pkg.name
             if name in explicit_eggs:
                 eggs.append(name + explicit_eggs[name])
