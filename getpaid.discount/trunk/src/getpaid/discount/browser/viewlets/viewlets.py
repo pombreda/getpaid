@@ -16,9 +16,9 @@ class DiscountListingViewlet(ViewletBase):
     render = ViewPageTemplateFile('discount_listing.pt')
     
     def update(self):
-        self.portal_state = getMultiAdapter((self.context, self.request),
-                                            name=u'plone_portal_state')
-        self.portal_url = self.portal_state.portal_url()
+        #self.portal_state = getMultiAdapter((self.context, self.request),
+        #                                    name=u'plone_portal_state')
+        #self.portal_url = self.portal_state.portal_url()
         self.cart = getUtility(IShoppingCartUtility).get(self.context) or {}
     
     def getDiscounts(self):
