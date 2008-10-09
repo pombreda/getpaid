@@ -17,4 +17,5 @@ Batching Tools
 """,
     license='ZPL',
     keywords="zope zope3",
+    install_requires=['setuptools'],
     )
