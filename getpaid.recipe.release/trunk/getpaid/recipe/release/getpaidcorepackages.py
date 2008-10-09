@@ -60,8 +60,8 @@ GETPAID_BASE_PACKAGES = [
 
 GETPAID_DEPENDENCIES = [
     PyModule('five.intid', CHEESE_SOURCE + 'f/five.intid/five.intid-0.2.0.tar.gz', version="0.2.0"),
-    #PyModule('hurry.workflow', GETPAID_SOURCE + 'hurry.workflow-0.9.1-getpaid.tar.gz', version="0.9.1-getpaid"),
-    #PyModule('yoma.batching', 'http://getpaid.googlecode.com/files/yoma.batching-0.2.1.tar.gz', version="0.2.1"),
+    PyModule('hurry.workflow', GETPAID_SOURCE + 'hurry.workflow-0.9.1-getpaid.tar.gz', version="0.9.1-getpaid"),
+    PyModule('yoma.batching', GETPAID_SOURCE + 'yoma.batching-0.2.1-getpaid.tar.gz', version="0.2.1-getpaid"),
     PyModule('zc.authorizedotnet', CHEESE_SOURCE + 'z/zc.authorizedotnet/zc.authorizedotnet-1.3.tar.gz', version="1.3"),
     PyModule('zc.resourcelibrary', CHEESE_SOURCE + 'z/zc.resourcelibrary/zc.resourcelibrary-1.0.1.tar.gz', version="1.0.1"),
     PyModule('zc.table', CHEESE_SOURCE + 'z/zc.table/zc.table-0.7.0.tar.gz', version="0.7.0"),
@@ -81,7 +81,7 @@ GETPAID_SHIPPING = [
 ]
 
 GETPAID_EXTRA_PACKAGES = [
-    PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.5.tar.gz', version="0.5"),
+    #PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.5.tar.gz', version="0.5"),
 ]
 
 GETPAID_PACKAGES = GETPAID_BASE_PACKAGES + GETPAID_DEPENDENCIES + \
