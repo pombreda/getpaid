@@ -90,6 +90,8 @@ class Order( Persistent, cart.CartItemTotals ):
     creation_date = None
     user_payment_info_last4 = None
     user_payment_info_trans_id = None
+    name_on_card = None
+    bill_phone_number = None
 
     def __init__( self ):
         self.creation_date = datetime.datetime.now()
