@@ -170,11 +170,11 @@ msgstr "Per MasterCard, Visa e Diners Card, è il numero di 3 cifre sul retro de
 
 #: ./order.py:432
 msgid "Fulfillment"
-msgstr ""
+msgstr "Compilazione"
 
 #: ./interfaces.py:450
 msgid "Fulfillment State"
-msgstr ""
+msgstr "Stato della compilazione"
 
 #: ./interfaces.py:343
 msgid "HTML"
@@ -182,15 +182,15 @@ msgstr "HTML"
 
 #: ./interfaces.py:223
 msgid "Integer Id for a Product"
-msgstr ""
+msgstr "Codice numerico intero per un Prodotto"
 
 #: ./fields.py:11
 msgid "Invalid Credit Card Number."
-msgstr "Numero di carta invalido."
+msgstr "Numero di carta non valido."
 
 #: ./order.py:79
 msgid "Invalid Order Id"
-msgstr "Codice ordine invalido"
+msgstr "Codice di ordine non valido"
 
 #: ./interfaces.py:60
 msgid "Made Payable By"
@@ -310,7 +310,7 @@ msgstr "Rimborsato"
 
 #: ./interfaces.py:313
 msgid "Same as billing address"
-msgstr ""
+msgstr "Uguale all'indirizzo di fatturazione"
 
 #: ./interfaces.py:302
 msgid "Second Line"
@@ -326,7 +326,7 @@ msgstr "Invia"
 
 #: ./interfaces.py:39
 msgid "Shipping Method"
-msgstr ""
+msgstr "Metodo di spedizione"
 
 #: ./interfaces.py:306
 msgid "State"
@@ -334,7 +334,7 @@ msgstr "Provincia"
 
 #: ./interfaces.py:43
 msgid "Store/Organization Name"
-msgstr ""
+msgstr "Nome del negozio/organizzazione"
 
 #: ./interfaces.py:173
 msgid "Unique Item Id"
