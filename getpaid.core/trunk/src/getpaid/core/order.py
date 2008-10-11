@@ -88,6 +88,8 @@ class Order( Persistent, cart.CartItemTotals ):
     processor_order_id = None
     user_id = None
     creation_date = None
+    user_payment_info_last4 = None
+    user_payment_info_trans_id = None
 
     def __init__( self ):
         self.creation_date = datetime.datetime.now()
@@ -101,6 +103,13 @@ class Order( Persistent, cart.CartItemTotals ):
         if not order_id:
             raise TypeError(_(u"Invalid Order Id"))
         self._order_id = order_id
+
+    def setOrderTransId( self, trans_id):
+        if self.user_payment_info_trans_id is not None:
+            raise SyntaxError(_(u"Transaction Id already set"))
+        if not trans_id:
+            raise TypeError(_(u"Invalid Transaction Id"))
+        self.user_payment_info_trans_id = trans_id
 
     order_id = property( getOrderId, setOrderId )
 

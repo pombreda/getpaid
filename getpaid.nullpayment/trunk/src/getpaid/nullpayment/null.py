@@ -52,6 +52,10 @@ class NullPaymentAdapter( object ):
         if self.settings.allow_authorization == u'allow_authorization':
             annotation = IAnnotations( order )
             annotation[ LAST_FOUR ] = payment.credit_card[-4:]
+
+            import random
+            order.setOrderTransId( random.randint(10,1000))
+
             return interfaces.keys.results_success
         return "Authorization Failed"
 
