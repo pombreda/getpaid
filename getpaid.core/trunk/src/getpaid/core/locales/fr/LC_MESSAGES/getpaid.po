@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid VERSION\n"
-"POT-Creation-Date: 2008-04-24 20:34+0000\n"
+"POT-Creation-Date: 2008-10-11 21:51+0000\n"
 "PO-Revision-Date: 2007-10-15 12:35+0100\n"
 "Last-Translator: Lucie Lejard <lucie@sixfeetup.com>\n"
 "Language-Team: \n"
@@ -15,15 +15,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: getpaid\n"
 
-#: ./interfaces.py:518
+#: ./interfaces.py:536
 msgid "Address 1"
 msgstr "Adresse 1"
 
-#: ./interfaces.py:519
+#: ./interfaces.py:537
 msgid "Address 2"
 msgstr "Adresse 2"
 
-#: ./interfaces.py:197
+#: ./interfaces.py:215
 msgid "An organization's unique product identifier (not required since shopping cart uses content UID internally)"
 msgstr "Un identifiant unique pour le produit donné par l'organisation (non requis puisque le panier utilise des UID pour les contenus de manière interne)"
 
@@ -31,7 +31,7 @@ msgstr "Un identifiant unique pour le produit donné par l'organisation (non req
 msgid "Authorize"
 msgstr "Autoriser"
 
-#: ./interfaces.py:580
+#: ./interfaces.py:598
 msgid "Can we contact you with offers?"
 msgstr "Pouvons-nous vous contacter concernant de nouvelles offres?"
 
@@ -43,19 +43,19 @@ msgstr "Annuler"
 msgid "Cancel Order"
 msgstr "Annuler la commande"
 
-#: ./interfaces.py:596
+#: ./interfaces.py:614
 msgid "Card Holder Name"
 msgstr "Nom du titulaire de la carte"
 
-#: ./interfaces.py:725
+#: ./interfaces.py:743
 msgid "Change Date"
 msgstr "Modifier la date"
 
-#: ./interfaces.py:726
+#: ./interfaces.py:744
 msgid "Change Kind"
 msgstr "Modifier le type"
 
-#: ./interfaces.py:724
+#: ./interfaces.py:742
 msgid "Changed By"
 msgstr "Modifié par"
 
@@ -71,11 +71,11 @@ msgstr "Payer la commande"
 msgid "Charged"
 msgstr "Payé"
 
-#: ./interfaces.py:520
+#: ./interfaces.py:538
 msgid "City"
 msgstr "Ville"
 
-#: ./interfaces.py:727
+#: ./interfaces.py:745
 msgid "Comment"
 msgstr "Commentaire"
 
@@ -107,7 +107,7 @@ msgstr "Courrier électronique du contact"
 msgid "Contact Fax"
 msgstr "Fax du contact"
 
-#: ./interfaces.py:576
+#: ./interfaces.py:594
 msgid "Contact Information"
 msgstr "Information du contact"
 
@@ -127,15 +127,15 @@ msgstr "État/Province du contact"
 msgid "Contact Zip/Postal Code"
 msgstr "Zip/Code postal du contact"
 
-#: ./interfaces.py:317
+#: ./interfaces.py:335
 msgid "Cost"
 msgstr "Coût"
 
-#: ./interfaces.py:445
+#: ./interfaces.py:463
 msgid "Cost of Delivery"
 msgstr "Coût de livraison"
 
-#: ./interfaces.py:521
+#: ./interfaces.py:539
 msgid "Country"
 msgstr "Pays"
 
@@ -143,31 +143,31 @@ msgstr "Pays"
 msgid "Create"
 msgstr "Créer"
 
-#: ./interfaces.py:446
+#: ./interfaces.py:464
 msgid "Creation Date"
 msgstr "Date de création"
 
-#: ./interfaces.py:609
+#: ./interfaces.py:627
 msgid "Credit Card Expiration Date"
 msgstr "Date d'expiration de la carte bancaire"
 
-#: ./interfaces.py:606
+#: ./interfaces.py:624
 msgid "Credit Card Number"
 msgstr "Numéro de la carte bancaire"
 
-#: ./interfaces.py:603
+#: ./interfaces.py:621
 msgid "Credit Card Type"
 msgstr "Type de la carte bancaire"
 
-#: ./interfaces.py:612
+#: ./interfaces.py:630
 msgid "Credit Card Verfication Number"
 msgstr "Numéro de vérification de la carte bancaire"
 
-#: ./interfaces.py:488
+#: ./interfaces.py:506
 msgid "Currency Denomination Code"
 msgstr ""
 
-#: ./interfaces.py:657
+#: ./interfaces.py:675
 msgid "Customer Id"
 msgstr "Identifiant du client"
 
@@ -183,11 +183,11 @@ msgstr "Livré"
 msgid "Description"
 msgstr "Description"
 
-#: ./interfaces.py:233
+#: ./interfaces.py:251
 msgid "Dimensions"
 msgstr "Dimensions"
 
-#: ./interfaces.py:205
+#: ./interfaces.py:223
 msgid "Donation Description"
 msgstr "Description de la donation"
 
@@ -195,55 +195,55 @@ msgstr "Description de la donation"
 msgid "Electronic Delivery"
 msgstr "Livraison électronique"
 
-#: ./interfaces.py:575
+#: ./interfaces.py:593
 msgid "Email"
 msgstr "Courrier électronique"
 
-#: ./interfaces.py:585
+#: ./interfaces.py:603
 msgid "Email Format"
 msgstr "Format du courrier électronique"
 
-#: ./interfaces.py:239
+#: ./interfaces.py:257
 msgid "Enter a weight, only two decimal places are supported. The unit is specified in the field below."
 msgstr "Entrer le poids, seulement deux décimales sont permises. L'unité est spécifié dans le champ ci-bas."
 
-#: ./interfaces.py:597
+#: ./interfaces.py:615
 msgid "Enter the full name, as it appears on the card. "
 msgstr "Entrer le nom complet, tel qu'il apparaît sur la carte. "
 
-#: ./order.py:466
+#: ./order.py:437
 msgid "Finance"
 msgstr "Finance"
 
-#: ./interfaces.py:663
+#: ./interfaces.py:681
 msgid "Finance State"
 msgstr "Status du paiement"
 
-#: ./interfaces.py:613
+#: ./interfaces.py:631
 msgid "For MC, Visa, and DC, this is a 3-digit number on back of the card.  For AmEx, this is a 4-digit code on front of card. "
 msgstr "Pour MC, Visa et DC, c'est un nombre à 3 chiffres au dos de la carte. Pour AmEx, c'est un code à 4 chiffres sur le devant de la carte. "
 
-#: ./order.py:468
+#: ./order.py:439
 msgid "Fulfillment"
 msgstr "Avancement"
 
-#: ./interfaces.py:664
+#: ./interfaces.py:682
 msgid "Fulfillment State"
 msgstr "Status de l'avancement"
 
-#: ./interfaces.py:531
+#: ./interfaces.py:549
 msgid "Full Name"
 msgstr "Nom complet"
 
-#: ./interfaces.py:562
+#: ./interfaces.py:580
 msgid "HTML"
 msgstr "HTML"
 
-#: ./interfaces.py:382
+#: ./interfaces.py:400
 msgid "Height"
 msgstr "Hauteur"
 
-#: ./interfaces.py:365
+#: ./interfaces.py:383
 msgid "Integer Id for a Product"
 msgstr "Identifiant (entier) pour un produit"
 
@@ -259,23 +259,23 @@ msgstr "Identifiant de la commande invalide"
 msgid "Invalid Weight"
 msgstr "Poids invalide"
 
-#: ./interfaces.py:381
+#: ./interfaces.py:399
 msgid "Length"
 msgstr "Longeur"
 
-#: ./interfaces.py:191
+#: ./interfaces.py:209
 msgid "Made Payable By"
 msgstr "Rendu payable par"
 
-#: ./interfaces.py:315
+#: ./interfaces.py:333
 msgid "Name"
 msgstr "Nom"
 
-#: ./interfaces.py:728
+#: ./interfaces.py:746
 msgid "New State"
 msgstr "Nouveau statut"
 
-#: ./interfaces.py:556
+#: ./interfaces.py:574
 msgid "No"
 msgstr "Non"
 
@@ -287,11 +287,11 @@ msgstr "Seuls les chiffres sont permis."
 msgid "Only digits allowed"
 msgstr "Seuls les chiffres sont permis"
 
-#: ./interfaces.py:572
+#: ./interfaces.py:590
 msgid "Only digits allowed - e.g. 3334445555 and not 333-444-5555 "
 msgstr "Seuls les chiffres sont permis - par exemple 3334445555 et non 333-444-5555 "
 
-#: ./interfaces.py:607
+#: ./interfaces.py:625
 msgid "Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777 "
 msgstr "Seuls les chiffres sont permis - par exemple 4444555566667777 et non 4444-5555-6666-7777 "
 
@@ -311,31 +311,31 @@ msgstr "Commande traitée"
 msgid "Payment Declined"
 msgstr "Paiement refusé"
 
-#: ./interfaces.py:387
+#: ./interfaces.py:405
 msgid "Period as a timedelta"
 msgstr "Période de temps"
 
-#: ./interfaces.py:571
+#: ./interfaces.py:589
 msgid "Phone Number"
 msgstr "Numéro de téléphone"
 
-#: ./interfaces.py:562
+#: ./interfaces.py:580
 msgid "Plain Text"
 msgstr "Format texte"
 
-#: ./interfaces.py:518
+#: ./interfaces.py:536
 msgid "Please Enter Your Address"
 msgstr "Entrez votre adresse s'il vous plaît"
 
-#: ./interfaces.py:241
+#: ./interfaces.py:259
 msgid "Please select the unit in which you specified the shipment weight."
 msgstr "Sélectionner l'unité dans laquelle vous avez spécifié le poids."
 
-#: ./interfaces.py:729
+#: ./interfaces.py:747
 msgid "Previous State"
 msgstr "Status précédent"
 
-#: ./interfaces.py:200
+#: ./interfaces.py:218
 msgid "Price"
 msgstr "Prix"
 
@@ -355,19 +355,19 @@ msgstr "Chargé par le processeur"
 msgid "Processor Declined"
 msgstr "Refusé par le processeur"
 
-#: ./interfaces.py:665
+#: ./interfaces.py:683
 msgid "Processor Order Id"
 msgstr "Identifiant de la commande pour le processeur"
 
-#: ./interfaces.py:196
+#: ./interfaces.py:214
 msgid "Product Code"
 msgstr "Code du produit"
 
-#: ./interfaces.py:234
+#: ./interfaces.py:252
 msgid "Product SKU"
 msgstr "SKU du produit"
 
-#: ./interfaces.py:318
+#: ./interfaces.py:336
 msgid "Quantity"
 msgstr "Quantité"
 
@@ -379,7 +379,7 @@ msgstr "Remboursement"
 msgid "Refund Processed"
 msgstr "Remboursement effectué"
 
-#: ./interfaces.py:530
+#: ./interfaces.py:548
 msgid "Same as billing address"
 msgstr "Identique à l'adresse de facturation"
 
@@ -387,15 +387,15 @@ msgstr "Identique à l'adresse de facturation"
 msgid "Select a method to calculate shipping charges for orders in your store."
 msgstr "Sélectionner une méthode pour calculer le tarif de livraison pour les commandes."
 
-#: ./interfaces.py:610
+#: ./interfaces.py:628
 msgid "Select month and year"
 msgstr "Choisir le mois et l'année"
 
-#: ./interfaces.py:443
+#: ./interfaces.py:461
 msgid "Service Code (2 Letter)"
 msgstr "Code de service (2 lettres)"
 
-#: ./interfaces.py:444
+#: ./interfaces.py:462
 msgid "Service Name"
 msgstr "Nom du service"
 
@@ -407,19 +407,19 @@ msgstr "Livrer"
 msgid "Shipping Method"
 msgstr "Méthode de livraison"
 
-#: ./interfaces.py:675
+#: ./interfaces.py:693
 msgid "Shipping Price"
 msgstr "Prix de livraison"
 
-#: ./interfaces.py:673
+#: ./interfaces.py:691
 msgid "Shipping Service"
 msgstr "Service de livraison"
 
-#: ./interfaces.py:237
+#: ./interfaces.py:255
 msgid "Shipping Weight"
 msgstr "Poids de livraison"
 
-#: ./interfaces.py:523
+#: ./interfaces.py:541
 msgid "State"
 msgstr "État"
 
@@ -435,27 +435,27 @@ msgstr "Numéro d'indentification pour les taxes"
 msgid "Title"
 msgstr "Titre"
 
-#: ./interfaces.py:442
+#: ./interfaces.py:460
 msgid "Tracking Number"
 msgstr "Numéro de repérage"
 
-#: ./interfaces.py:314
+#: ./interfaces.py:332
 msgid "Unique Item Id"
 msgstr "Identifiant unique de l'article"
 
-#: ./interfaces.py:206
+#: ./interfaces.py:224
 msgid "Very brief 50 character text (that shows up in portlet)"
 msgstr "Texte très bref de 50 caractères (qui apparaît dans le portlet)"
 
-#: ./interfaces.py:241
+#: ./interfaces.py:259
 msgid "Weight Unit"
 msgstr "Unité du poids"
 
-#: ./interfaces.py:376
+#: ./interfaces.py:394
 msgid "Weight of Packaged Item"
 msgstr "Poids des produits emballés"
 
-#: ./interfaces.py:383
+#: ./interfaces.py:401
 msgid "Width"
 msgstr "Largeur"
 
@@ -463,19 +463,19 @@ msgstr "Largeur"
 msgid "Will Not Deliver"
 msgstr "Ne sera pas livré"
 
-#: ./interfaces.py:586
+#: ./interfaces.py:604
 msgid "Would you prefer to receive rich html emails or only plain text"
 msgstr "Préferiez-vous recevoir des courriers électroniques au format html ou texte?"
 
-#: ./interfaces.py:556
+#: ./interfaces.py:574
 msgid "Yes"
 msgstr "Oui"
 
-#: ./interfaces.py:569
+#: ./interfaces.py:587
 msgid "Your Name"
 msgstr "Votre nom"
 
-#: ./interfaces.py:525
+#: ./interfaces.py:543
 msgid "Zip/Postal Code"
 msgstr "Code postal"
 
@@ -483,11 +483,11 @@ msgstr "Code postal"
 msgid "do_not_translate"
 msgstr ""
 
-#: ./interfaces.py:228
+#: ./interfaces.py:246
 msgid "kgs"
 msgstr "kgs"
 
-#: ./interfaces.py:227
+#: ./interfaces.py:245
 msgid "lbs"
 msgstr "lbs"
 
