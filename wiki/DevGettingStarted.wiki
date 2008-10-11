@@ -59,7 +59,7 @@ bin/buildout -v
 
 For Plone 3.0 run: 
 {{{
-bin/buildout -c 30.cfg
+bin/buildout -c 30.cfg -v
 }}}
 
 
