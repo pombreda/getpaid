@@ -45,8 +45,6 @@ See the list below and add your name next to anything you would be interested to
 
 ==Documentation==
   * gather/improve/update/add documentation (list specific here)
-    * Review and improve [http://code.google.com/p/getpaid/source/browse/Products.PloneGetPaid/trunk/Products/PloneGetPaid/docs/development/make-content-types-buyable.txt content type integration for devs doc]
-    * How to show price (or other GetPaid properties) on a template in your site
     * How to wire payment process to a workflow state change (ie create a piece of content, but pay before it is published)
     * How to get and use getpaid.formgen
     * How to customize the checkout process (including using available slots, ie for comments)
@@ -75,3 +73,5 @@ See the list below and add your name next to anything you would be interested to
 DONE: 
   * refactor svn repository (6ftup): see [http://code.google.com/p/getpaid/wiki/svnrefactor svnrefactor] proposal and info
   * How to manage inventory
+    * Review and improve [http://code.google.com/p/getpaid/source/browse/Products.PloneGetPaid/trunk/Products/PloneGetPaid/docs/development/make-content-types-buyable.txt content type integration for devs doc]
+    * How to show price (or other GetPaid properties) on a template in your site
