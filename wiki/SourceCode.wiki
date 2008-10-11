@@ -11,7 +11,7 @@ You can browse the source in the projects [http://code.google.com/p/getpaid/sour
 = Specific Code Information = 
 
   * Secure checkout: svn checkout 
-https://getpaid.googlecode.com/svn/getpaid.buildout/trunk getpaid.buildout --username <your google/gmail username>
+https://getpaid.googlecode.com/svn/getpaid.buildout/trunk getpaid.buildout
 
   When prompted, enter your generated [http://code.google.com/hosting/settings googlecode.com password].
 
