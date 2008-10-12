@@ -73,7 +73,7 @@ bin/buildout -c 316.cfg -v
 The -v isn't necessary, but may make you feel better in the knowledge that
 a lot is going on.
 
-NOTE!:  Do NOT attempt to run a buildout of one instance in a buildout directory that you had a different version in already.  Start with a clean buildout directory and choose either the 2.5, 3.0, or 3.1 buildout config for that buildout (do not run a 3.0 buildout in the directory that you had a 2.5 buildout.)
+_Note:  Do NOT attempt to run a buildout of one instance in a buildout directory that you had a different version in already.  Start with a clean buildout directory and choose either the 2.5, 3.0, or 3.1 buildout config for that buildout (do not run a 3.0 buildout in the directory that you had a 2.5 buildout.)
 
 You can copy the cfg and alter the Plone version it's pinned to, if you'd prefer to attempt a different, possibly more recent Plone version.
 
