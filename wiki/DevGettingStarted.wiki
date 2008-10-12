@@ -39,6 +39,8 @@ If you wish to do anonymous checkout, use:
 svn co http://getpaid.googlecode.com/svn/getpaid-anonymous-buildout/trunk getpaid.buildout
 }}}
 
+_Note:  The anonymous buildout svn repository above is not always kept in sync with the developer svn repo.  If you run into issues with the anonymous svn checkout, you should contact the getpaid developers list or go onto the #getpaid IRC channel to notify us of such an issue, but we attempt to periodically keep them synchronized.
+
 _Note: For the rest of the documentation, we will simply use "getpaid.buildout" as the name of your buildout folder. Depending on which version you checked out in the above step, you will need to adjust the name of the folder for the commands shown._
 
 For using authorize.net payment processor, uncomment zc.authorizeddotnetet and getpaid.authorizenet in buildout.cfg
