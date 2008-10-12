@@ -3,7 +3,15 @@
 
 = Sprint Report for October 2008 Plone Conference =
 
-Sprinters
+= Sprinters =
+ * Christopher Johnson (cjj)
+ * Antonio
+ * Bruno
+ * B?
+ * Ken Wasetis (ctxlken)
+ * Adam Hutton (AdamAtNCPC)
+ * Lee
+ * Alex 
 
 
 = Details =
