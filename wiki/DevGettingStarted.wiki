@@ -119,7 +119,9 @@ Just do a
 svn up
 }}}
 
-from your getpaid.buildout folder to update the buildout. Then run the buildout again: 
+from your getpaid.buildout folder to update the buildout. 
+
+Then run the buildout again. *Be sure to run the command corresponding to the same version of Plone you built originally, otherwise this will break your build.* 
 
 *For Plone 2.5*
 {{{
@@ -129,6 +131,11 @@ from your getpaid.buildout folder to update the buildout. Then run the buildout 
 *For Plone 3.0*
 {{{
 ./bin/buildout -c 30.cfg
+}}}
+
+*For Plone 3.1.6*
+{{{
+./bin/buildout -c 316.cfg
 }}}
 
 That's it!
