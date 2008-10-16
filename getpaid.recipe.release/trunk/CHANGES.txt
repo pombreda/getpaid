@@ -1,5 +1,5 @@
 1.0 (2008-10-15)
-==================
+================
 
  - added documentation to use the fake eggs
  - added simplejson and ssl-for-setuptools in the recipe, since they are dependencies
