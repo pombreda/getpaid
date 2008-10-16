@@ -57,6 +57,7 @@ GETPAID_BASE_PACKAGES = [
 GETPAID_DEPENDENCIES = [
     PyModule('five.intid', CHEESE_SOURCE + 'f/five.intid/five.intid-0.2.0.tar.gz', version="0.2.0"),
     PyModule('hurry.workflow', GETPAID_SOURCE + 'hurry.workflow-0.9.1-getpaid.tar.gz', version="0.9.1-getpaid"),
+    PyModule('simplejson', CHEESE_SOURCE + 's/simplejson/simplejson-2.0.3.tar.gz', version="2.0.3"),
     PyModule('yoma.batching', GETPAID_SOURCE + 'yoma.batching-0.2.1-getpaid.tar.gz', version="0.2.1-getpaid"),
     PyModule('zc.resourcelibrary', GETPAID_SOURCE + 'zc.resourcelibrary-0.5-getpaid.tar.gz', version="0.5-getpaid"),
     PyModule('zc.table', GETPAID_SOURCE + 'zc.table-0.5.1-getpaid.tar.gz', version="0.5.1-getpaid"),
