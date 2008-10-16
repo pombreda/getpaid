@@ -1,6 +1,0 @@
-1.0 (2008-10-09)
-==================
-
- - Made the recipe work in a buildout with Plone 3.1
- - Added the possibility to choose what getpaid packages you want the recipe to install
- - Created recipe with ZopeSkel [Lucie Lejard].
