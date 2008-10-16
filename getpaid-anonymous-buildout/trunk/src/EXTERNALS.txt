@@ -10,14 +10,17 @@ getpaid.core http://getpaid.googlecode.com/svn/getpaid.core/trunk
 # checkout wizards
 getpaid.wizard http://getpaid.googlecode.com/svn/getpaid.wizard/trunk
 
-# import / export 
+# import / export
 #getpaid.io http://getpaid.googlecode.com/svn/getpaid.io/trunk
 
-# various viewlet conviences 
+# various viewlet conviences
 ore.viewlet http://getpaid.googlecode.com/svn/vendor/ore.viewlet/trunk/
 
 # python xml object marshalling
 #ore.xd http://getpaid.googlecode.com/svn/vendor/ore.xd/trunk/
+## NOTE: getpaid.buildout would use
+## ore.xd https://svn.objectrealms.net/svn/public/ore.xd/trunk
+## but it's commented out
 
 # integer object references
 five.intid http://svn.plone.org/svn/collective/five.intid/trunk
@@ -28,10 +31,11 @@ hurry.workflow http://getpaid.googlecode.com/svn/vendor/hurry.workflow/branches/
 # payment processors
 getpaid.googlecheckout http://getpaid.googlecode.com/svn/getpaid.googlecheckout/trunk
 getpaid.authorizedotnet http://getpaid.googlecode.com/svn/getpaid.authorizedotnet/trunk
-#getpaid.paypal http://getpaid.googlecode.com/svn/getpaid.paypal/trunk
 getpaid.nullpayment http://getpaid.googlecode.com/svn/getpaid.nullpayment/trunk
 getpaid.paymentech http://getpaid.googlecode.com/svn/getpaid.paymentech/trunk
-getpaid.ogone http://getpaid.googlecode.com/svn/getpaid.ogone/trunk
+getpaid.paypal http://getpaid.googlecode.com/svn/getpaid.paypal/trunk/
+#getpaid.ogone http://getpaid.googlecode.com/svn/getpaid.ogone/trunk
+getpaid.pxpay http://getpaid.googlecode.com/svn/getpaid.pxpay/trunk
 
 # shipping methods
 getpaid.flatrateshipping http://getpaid.googlecode.com/svn/getpaid.flatrateshipping/trunk
