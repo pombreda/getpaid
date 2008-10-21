@@ -4,13 +4,15 @@ from getpaid.ogone.interfaces import IOgoneStandardOptions
 from zope.component import getUtility
 import sha
 
+
 class ValidatePaymentParameters(object):
+
     def createShaOutSignature(self):
         """
         Create the sha out signature based on the parameter in the request
         and the sha out password defined in the payment processor parameters
         """
-        options = IOgoneStandardOptions( self.context )
+        options = IOgoneStandardOptions(self.context)
         shaPassword = options.shaout
         orderID = self.request.get('orderID')
         currency = self.request.get('currency')
@@ -40,6 +42,7 @@ class ValidatePaymentParameters(object):
             return False
         return self.createShaOutSignature() == requestShaOut
 
+
 class OgonePostProcessAccepted(BrowserView, ValidatePaymentParameters):
     """
     The Ogone payment has been accepted
@@ -59,6 +62,7 @@ class OgonePostProcessAccepted(BrowserView, ValidatePaymentParameters):
         order.finance_workflow.fireTransition("charge-charging")
         return 1
 
+
 class OgonePostProcessCancelled(BrowserView, ValidatePaymentParameters):
     """
     The Ogone payment has been cancelled
@@ -77,4 +81,3 @@ class OgonePostProcessCancelled(BrowserView, ValidatePaymentParameters):
         order = orderManager.get(orderId)
         order.finance_workflow.fireTransition("decline-charging")
         return 1
-

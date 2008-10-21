@@ -14,6 +14,7 @@ OgoneStandardOptions = PersistentOptions.wire("OgoneStandardOptions",
                                               "getpaid.ogone",
                                               interfaces.IOgoneStandardOptions)
 
+
 class OgoneStandardProcessor(object):
     """
     Ogone Standard Processor
@@ -51,7 +52,7 @@ class OgoneStandardProcessor(object):
         Create the basic SHA signature
         See the Ogone Advanced e-commerce documentation SHA-IN for more informations
         """
-        options = IOgoneStandardOptions( self.context )
+        options = IOgoneStandardOptions(self.context)
         shaPassword = options.shain
         shaObject = sha.new()
         shaObject.update("%s%s%s%s%s" % (order.order_id,
@@ -68,7 +69,7 @@ class OgoneStandardProcessor(object):
         price = order.getTotalPrice()
         ogone_price = int(price * 100)
         orderId = order.order_id
-        options = IOgoneStandardOptions( self.context )
+        options = IOgoneStandardOptions(self.context)
         server_url = options.server_url
         urlArgs = dict(pspid=options.pspid,
                        orderID=orderId,
@@ -88,7 +89,7 @@ class OgoneStandardProcessor(object):
         arguments = urllib.urlencode(urlArgs)
         url = "%s?%s" % (server_url, arguments)
         order_manager = getUtility(IOrderManager)
-        order_manager.store( order )
+        order_manager.store(order)
         order.finance_workflow.fireTransition("authorize")
         getUtility(IShoppingCartUtility).destroy(self.context)
         self.context.REQUEST.RESPONSE.redirect(url)
@@ -104,4 +105,3 @@ class OgoneStandardProcessor(object):
         """
         reset
         """
-
