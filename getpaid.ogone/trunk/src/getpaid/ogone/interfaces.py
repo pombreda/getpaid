@@ -2,7 +2,8 @@ from getpaid.core import interfaces
 from zope import schema
 from getpaid.ogone import _
 
-class IOgoneStandardOptions(interfaces.IPaymentProcessorOptions ):
+
+class IOgoneStandardOptions(interfaces.IPaymentProcessorOptions):
     """
     Ogone Standard Options
     """
@@ -32,25 +33,29 @@ class IOgoneStandardOptions(interfaces.IPaymentProcessorOptions ):
     accept_url = schema.URI(
         title = _("Accept URL"),
         required = False,
-        description = _(u"The url of the page that display the success of the payment"),)
+        description = _(u"The url of the page that display the success of the payment"))
 
     cancel_url = schema.URI(
         title = _("Cancel URL"),
         required = False,
-        description = _(u"The url of the page which is displayed when the payment is cancelled"),)
+        description = _(u"The url of the page which is displayed when the payment is cancelled"))
 
     decline_url = schema.URI(
         title = _("Decline URL"),
         required = False,
-        description = _(u"The url of the page which is displayed when the payment is refused by the band card company"),)
+        description = _(u"The url of the page which is displayed when the payment is refused by the band card company"))
 
     error_url = schema.URI(
         title = _("Error URL"),
         required = False,
-        description = _(u"The url of the page which is displayed when there is an error in the payment transation"),)
+        description = _(u"The url of the page which is displayed when there is an error in the payment transation"))
 
-class IOgoneStandardProcessor( interfaces.IPaymentProcessor ):
+    use_portal_css = schema.Bool(
+        title = _(u"Use css defined in this portal ?"),
+        required = False)
+
+
+class IOgoneStandardProcessor(interfaces.IPaymentProcessor):
     """
     Ogone Standard Processor
     """
-

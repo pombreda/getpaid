@@ -62,6 +62,13 @@ class OgoneStandardProcessor(object):
         hexString = shaObject.hexdigest()
         return hexString.upper()
 
+    def getColors(self):
+        props = self.context.base_properties
+        layoutDict = {}
+        layoutDict['BGCOLOR'] = props.getProperty('backgroundColor')
+        layoutDict['TXTCOLOR'] = props.getProperty('fontColor')
+        return layoutDict
+
     def authorize(self, order, payment_information):
         """
         authorize an order, using payment information.
@@ -76,6 +83,8 @@ class OgoneStandardProcessor(object):
                        RL='ncol-2.0',
                        currency=options.currency,
                        amount=ogone_price)
+        if self.options.use_portal_css:
+            urlArgs.update(self.getColors())
         urlArgs['language'] = self.getLanguage()
         if options.cancel_url:
             urlArgs['cancelurl'] = options.cancel_url
