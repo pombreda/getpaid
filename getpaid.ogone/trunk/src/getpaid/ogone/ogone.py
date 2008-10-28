@@ -83,7 +83,7 @@ class OgoneStandardProcessor(object):
                        RL='ncol-2.0',
                        currency=options.currency,
                        amount=ogone_price)
-        if self.options.use_portal_css:
+        if options.use_portal_css:
             urlArgs.update(self.getColors())
         urlArgs['language'] = self.getLanguage()
         if options.cancel_url:
