@@ -56,24 +56,22 @@ class OgoneStandardProcessor(object):
         shaPassword = options.shain
         shaObject = sha.new()
         shaObject.update("%s%s%s%s%s" % (order.order_id,
-                                   int(order.getTotalPrice()*100),
+                                   int(self.getOrderTotal(order)*100),
                                    options.currency, options.pspid,
                                    shaPassword))
         hexString = shaObject.hexdigest()
         return hexString.upper()
 
-    def getColors(self):
-        props = self.context.base_properties
-        layoutDict = {}
-        layoutDict['BGCOLOR'] = props.getProperty('backgroundColor')
-        layoutDict['TXTCOLOR'] = props.getProperty('fontColor')
-        return layoutDict
+    def getOrderTotal(self, order):
+        shippingType = order.deliveryInformations.shipping
+        countryId = order.countryId
+        return order.getTotalPrice(countryId, shippingType)
 
     def authorize(self, order, payment_information):
         """
         authorize an order, using payment information.
         """
-        price = order.getTotalPrice()
+        price = self.getOrderTotal(order)
         ogone_price = int(price * 100)
         orderId = order.order_id
         options = IOgoneStandardOptions(self.context)
@@ -83,8 +81,6 @@ class OgoneStandardProcessor(object):
                        RL='ncol-2.0',
                        currency=options.currency,
                        amount=ogone_price)
-        if options.use_portal_css:
-            urlArgs.update(self.getColors())
         urlArgs['language'] = self.getLanguage()
         if options.cancel_url:
             urlArgs['cancelurl'] = options.cancel_url
@@ -99,7 +95,7 @@ class OgoneStandardProcessor(object):
         url = "%s?%s" % (server_url, arguments)
         order_manager = getUtility(IOrderManager)
         order_manager.store(order)
-        order.finance_workflow.fireTransition("authorize")
+        #order.finance_workflow.fireTransition("authorize")
         getUtility(IShoppingCartUtility).destroy(self.context)
         self.context.REQUEST.RESPONSE.redirect(url)
         return keys.results_async
