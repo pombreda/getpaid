@@ -55,8 +55,6 @@ class OgonePostProcessAccepted(BrowserView, ValidatePaymentParameters):
         if not self.validate():
             raise 'Incorrect SHA OUT Signature'
         orderId = self.request.orderID
-        options = IOgoneStandardOptions(self.context)
-        currency = options.currency
         orderManager = getUtility(IOrderManager)
         order = orderManager.get(orderId)
         order.finance_workflow.fireTransition("charge-charging")
@@ -75,8 +73,6 @@ class OgonePostProcessCancelled(BrowserView, ValidatePaymentParameters):
         if not self.validate():
             raise 'Incorrect SHA OUT Signature'
         orderId = self.request.orderID
-        options = IOgoneStandardOptions(self.context)
-        currency = options.currency
         orderManager = getUtility(IOrderManager)
         order = orderManager.get(orderId)
         order.finance_workflow.fireTransition("decline-charging")

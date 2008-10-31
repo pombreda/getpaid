@@ -57,7 +57,7 @@ class OgoneStandardProcessor(object):
         shaObject = sha.new()
         shaObject.update("%s%s%s%s%s" % (order.order_id,
                                    int(self.getOrderTotal(order)*100),
-                                   options.currency, options.pspid,
+                                   order.currencyId, options.pspid,
                                    shaPassword))
         hexString = shaObject.hexdigest()
         return hexString.upper()
@@ -66,6 +66,13 @@ class OgoneStandardProcessor(object):
         shippingType = order.deliveryInformations.shipping
         countryId = order.countryId
         return order.getTotalPrice(countryId, shippingType)
+
+    def getColors(self):
+        props = self.context.base_properties
+        layoutDict = {}
+        layoutDict['BGCOLOR'] = props.getProperty('backgroundColor')
+        layoutDict['TXTCOLOR'] = props.getProperty('fontColor')
+        return layoutDict
 
     def authorize(self, order, payment_information):
         """
@@ -79,8 +86,10 @@ class OgoneStandardProcessor(object):
         urlArgs = dict(pspid=options.pspid,
                        orderID=orderId,
                        RL='ncol-2.0',
-                       currency=options.currency,
+                       currency=order.currencyId,
                        amount=ogone_price)
+        if options.use_portal_css:
+            urlArgs.update(self.getColors())
         urlArgs['language'] = self.getLanguage()
         if options.cancel_url:
             urlArgs['cancelurl'] = options.cancel_url
@@ -95,7 +104,7 @@ class OgoneStandardProcessor(object):
         url = "%s?%s" % (server_url, arguments)
         order_manager = getUtility(IOrderManager)
         order_manager.store(order)
-        #order.finance_workflow.fireTransition("authorize")
+        order.finance_workflow.fireTransition("authorize")
         getUtility(IShoppingCartUtility).destroy(self.context)
         self.context.REQUEST.RESPONSE.redirect(url)
         return keys.results_async
