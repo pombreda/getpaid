@@ -2,6 +2,7 @@ from Products.Five import BrowserView
 from getpaid.core.interfaces import IOrderManager
 from getpaid.ogone.interfaces import IOgoneStandardOptions
 from zope.component import getUtility
+from hurry.workflow.interfaces import InvalidTransitionError
 import sha
 
 
@@ -57,7 +58,10 @@ class OgonePostProcessAccepted(BrowserView, ValidatePaymentParameters):
         orderId = self.request.orderID
         orderManager = getUtility(IOrderManager)
         order = orderManager.get(orderId)
-        order.finance_workflow.fireTransition("charge-charging")
+        try:
+            order.finance_workflow.fireTransition("charge-charging")
+        except InvalidTransitionError:
+            pass
         return 1
 
 
@@ -75,5 +79,8 @@ class OgonePostProcessCancelled(BrowserView, ValidatePaymentParameters):
         orderId = self.request.orderID
         orderManager = getUtility(IOrderManager)
         order = orderManager.get(orderId)
-        order.finance_workflow.fireTransition("decline-charging")
+        try:
+            order.finance_workflow.fireTransition("decline-charging")
+        except InvalidTransitionError:
+            pass
         return 1
