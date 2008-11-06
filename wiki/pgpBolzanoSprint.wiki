@@ -1,5 +1,5 @@
 =PloneGetPaid sprint in Bolzano, Italy.=
-Some ideas for Blozano Sprint
+#summary Some ideas for Bolzano Sprint
 
 = Introduction =
 
