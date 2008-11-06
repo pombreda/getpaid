@@ -1,4 +1,3 @@
-#labels Featured
 =PloneGetPaid sprint in Bolzano, Italy.=
 
 = Introduction =
