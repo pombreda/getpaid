@@ -43,4 +43,6 @@ During the next Bolzano Sprint (November, 11th-14th) there will be the chance to
 
 Sprint details on openplans: [http://www.openplans.org/projects/bolzano-plone-sprint/project-home here]
 
+
+
 *This page is under construction: feel free to add any info you think could help users*
