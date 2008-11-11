@@ -45,5 +45,5 @@ Sprint details on openplans: [http://www.openplans.org/projects/bolzano-plone-sp
 
 === Partecipants ===
 
-Bruno Ripa (]j0k3r[, Abstract)
-Luca Pisani (Abstract)
+    * Bruno Ripa (]j0k3r[, Abstract)
+    * Luca Pisani (Abstract)
