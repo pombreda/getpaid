@@ -1,4 +1,5 @@
 #summary Some ideas for Bolzano Sprint
+#labels featured
 =PloneGetPaid sprint in Bolzano, Italy.=
 
 = Introduction =
