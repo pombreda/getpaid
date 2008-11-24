@@ -6,8 +6,6 @@ from zope import interface
 from interfaces import IPaypalStandardOptions
 from interfaces import IPaypalStandardProcessor
 
-from config import SITEURL, MERCHANTID
-
 _sites = {
     "Sandbox": "www.sandbox.paypal.com",
     "Production": "www.paypal.com",
@@ -23,11 +21,10 @@ class PaypalStandardProcessor( object ):
         self.context = context
 
     def cart_post_button( self, cart ):
-        #import pdb;pdb.set_trace()
         options = IPaypalStandardOptions( self.context )
         cartitems = []
         idx = 1
-        _button_form = """\
+        _button_form = """
         <form style="display:inline;" action="https://%(site)s/cgi-bin/webscr" method="post">
         <input type="hidden" name="cmd" value="_cart"/>
         <input type="hidden" name="upload" value="1">
@@ -51,8 +48,8 @@ class PaypalStandardProcessor( object ):
                                 "quantity": item.quantity,}
             cartitems.append(v)
         formvals = {
-            "site": SITEURL,
-            "merchant_id": MERCHANTID,
+            "site": _sites[options.server_url],
+            "merchant_id": options.merchant_id,
             "cart": ''.join(cartitems),
             }
         return _button_form % formvals
