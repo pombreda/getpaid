@@ -47,6 +47,7 @@ class PXPayPaymentAdapter( object ):
         initial_request.merchant_reference = self.settings.MerchantReference
         initial_request.transaction_type = "Purchase"
         initial_request.transaction_id = order.order_id
+        initial_request.transaction_data_1 = order.order_id
         initial_request.url_failure = return_url
         initial_request.url_success = return_url
 
