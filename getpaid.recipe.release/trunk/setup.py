@@ -8,10 +8,12 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.1dev'
+version = '0.1.1dev'
 
 long_description = (
     read('README.txt')
+    + '\n' +
+    read('CHANGES.txt')
     + '\n' +
     'Detailed Documentation\n'
     '**********************\n'
@@ -25,8 +27,6 @@ long_description = (
     + '\n' +
     'Change history\n'
     '**************\n'
-    + '\n' + 
-    read('CHANGES.txt')
     + '\n'
     )
 entry_point = 'getpaid.recipe.release:Recipe'

@@ -17,6 +17,13 @@ class Recipe(object):
     def __init__(self, buildout, name, options):
         self.buildout, self.name, self.options = buildout, name, options
 
+        findlinks = ['http://getpaid.googlecode.com/files/hurry.workflow-0.9.1-getpaid.tar.gz', \
+         'http://getpaid.googlecode.com/files/yoma.batching-0.2.1-getpaid.tar.gz', \
+         'http://getpaid.googlecode.com/files/zc.resourcelibrary-0.5-getpaid.tar.gz', \
+         'http://getpaid.googlecode.com/files/zc.table-0.5.1-getpaid.tar.gz', \
+         'http://download.zope.org/distribution/ssl-for-setuptools-1.10']
+        options['find-links'] = "\n%s" % ('\n').join(findlinks)
+
         # These are passed onto zc.recipe.egg.
         options['eggs'] = self.getpaid_eggs()
         self.egg = zc.recipe.egg.Egg(buildout, options['recipe'], options)

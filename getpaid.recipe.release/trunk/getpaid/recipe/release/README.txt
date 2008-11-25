@@ -6,17 +6,7 @@ A buildout using plone 3.1
 Required options
 ================
 
-You need to have the following find-links so that the getpaid recipe can find the packages.
-
-find-links=
-
-- http://getpaid.googlecode.com/files/hurry.workflow-0.9.1-getpaid.tar.gz
-- http://getpaid.googlecode.com/files/yoma.batching-0.2.1-getpaid.tar.gz
-- http://getpaid.googlecode.com/files/zc.resourcelibrary-0.5-getpaid.tar.gz
-- http://getpaid.googlecode.com/files/zc.table-0.5.1-getpaid.tar.gz
-- http://download.zope.org/distribution/ssl-for-setuptools-1.10
-
-Make sure also to add unzip = true into your [buildout] part, so that you don't have problems with packages being zip safe.
+Make sure to add unzip = true into your [buildout] part, so that you don't have problems with packages being zip safe.
 
 Supported options
 =================
@@ -49,12 +39,6 @@ We are assuming you have your own buildout created.
     ...     getpaid.paymentech
     ...     getpaid.discount
     ... 
-    ... find-links=
-    ...     http://getpaid.googlecode.com/files/hurry.workflow-0.9.1-getpaid.tar.gz
-    ...     http://getpaid.googlecode.com/files/yoma.batching-0.2.1-getpaid.tar.gz
-    ...     http://getpaid.googlecode.com/files/zc.resourcelibrary-0.5-getpaid.tar.gz
-    ...     http://getpaid.googlecode.com/files/zc.table-0.5.1-getpaid.tar.gz
-    ...     http://download.zope.org/distribution/ssl-for-setuptools-1.10
     ...
     ... [instance]
     ... eggs = 
