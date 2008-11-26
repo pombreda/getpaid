@@ -1,3 +1,0 @@
-- Code repository: https://getpaid.googlecode.com/svn/
-- Questions and comments to getpaid-dev AT googlegroups dot com
-- Report bugs at http://code.google.com/p/getpaid/issues/list
