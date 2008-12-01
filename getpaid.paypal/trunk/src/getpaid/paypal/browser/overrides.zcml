@@ -18,4 +18,13 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     for="*"
+     name="getpaid-checkout-wizard"
+     class="getpaid.paypal.browser.paypalbutton.PaypalButtonView"
+     template="templates/paypalbutton.pt"
+     permission="zope2.View"
+     />
+
+
 </configure>
