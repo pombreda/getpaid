@@ -57,7 +57,5 @@ class PaypalButtonView(BrowserView):
         # and destroy the cart
         cart_util.destroy(self.context)
 
-        # TODO: make this happen with the IPN processing call
-        #order.finance_workflow.fireTransition('charge-charging')
         return html
         
