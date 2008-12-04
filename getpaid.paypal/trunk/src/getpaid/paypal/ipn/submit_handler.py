@@ -45,10 +45,10 @@ class IPNListener(BrowserView):
                 logger.info('getpaid.paypal: received unsuccessful IPN payment notification for order %s' % this_notification.invoice)
                 return
             # IPN not of interest to us right now
-            logger.info('getpaid.paypal: received IPN for order %s that is not of interest' % this_notification.invoice)
+            logger.info('getpaid.paypal: received IPN for order %s that is not of interest - txn_type "%s", payment_status "%s"' % (this_notification.invoice, this_notification.txn_type, this_notification.payment_status))
             return
         # invoice not in cart
-        logger.info('getpaid.paypal: received IPN that does not apply to any order number')
+        logger.info('getpaid.paypal: received IPN that does not apply to any order number - invoice "%s", txn_type "%s"' % (this_notification.invoice, this_notification.txn_type))
         return 
         
     def compare_cart(self, notification, order):
