@@ -6,7 +6,7 @@ setup(
     packages=find_packages('src', exclude=["*.tests"]),
     package_dir= {'':'src'},
     namespace_packages=['ore'],
-    install_requires = [ 'setuptools', 'dateutil'],
+    install_requires = [ 'setuptools', 'python-dateutil'],
     package_data = {
     '': ['*.txt', '*.zcml'],
     },
