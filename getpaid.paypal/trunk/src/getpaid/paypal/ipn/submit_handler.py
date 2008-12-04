@@ -1,6 +1,7 @@
 import urllib, urllib2
 import socket
 import logging
+import re
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -35,6 +36,7 @@ class IPNListener(BrowserView):
                 # bad IPN - do not apply to transaction
                 return
             if this_notification.payment_status == 'Completed':
+                self.fill_in_order_data(this_notification, order)
                 order.finance_workflow.fireTransition('charge-charging')
                 logger.info('getpaid.paypal: received successful IPN payment notification for order %s' % this_notification.invoice)
                 return
@@ -87,3 +89,39 @@ class IPNListener(BrowserView):
             return True
         else:
             return False
+
+    def fill_in_order_data(self, notification, order):
+
+        name = ''
+        if notification.last_name is not None and notification.first_name is not None:
+            name = "%s %s" % (notification.first_name, notification.last_name)
+        else:
+            if notification.first_name is not None:
+                name = notification.last_name
+            else:
+                name = notification.first_name
+        order.contact_information.name = name
+        
+        if notification.email is not None:
+            order.contact_information.email = notification.email
+        
+        if notification.phone is not None:
+            order.contact_information.phone_number = re.sub('[^\d]+', '', notification.phone)
+        
+        if notification.address_street is not None:
+            order.billing_address.bill_first_line = notification.address_street
+        
+        if notification.address_city is not None:
+            order.billing_address.bill_city = notification.address_city
+        
+        if notification.address_state is not None:
+            order.billing_address.bill_state = notification.address_state
+
+        if notification.address_zip is not None:
+            order.billing_address.bill_postal_code = notification.address_zip
+
+        if notification.address_country is not None:
+            order.billing_address.bill_country = notification.address_country
+
+        # mark address as same - Paypal does not provide seperate shipping address
+        order.shipping_address.ship_same_billing = True
