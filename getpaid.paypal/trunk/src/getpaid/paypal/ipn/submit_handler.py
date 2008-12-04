@@ -50,8 +50,6 @@ class IPNListener(BrowserView):
         return 
         
     def compare_cart(self, notification, order):
-        import pdb
-        pdb.set_trace()
         for ref in order.shopping_cart.keys():
             cart_item = order.shopping_cart[ref]
             if notification.shopping_cart.has_key(cart_item.product_code):
@@ -68,7 +66,6 @@ class IPNListener(BrowserView):
 
     def verify(self):
         options = IPaypalStandardOptions( self.portal )
-        
         # get ready to POST back form variables
         
         form = self.request.form
