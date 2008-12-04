@@ -1,5 +1,6 @@
 import urllib, urllib2
 import socket
+import logging
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -11,6 +12,8 @@ from getpaid.paypal.interfaces import IPaypalStandardOptions
 from getpaid.paypal.paypal import _sites
 
 from notification import Notification
+
+logger = logging.getLogger("Plone")
 
 class IPNListener(BrowserView):
     """Listener for Paypal IPN notifications - registered as a page view
@@ -24,15 +27,45 @@ class IPNListener(BrowserView):
     def process(self):
         this_notification = Notification(self.request)
         is_valid_IPN = self.verify()
-        import pdb
-        pdb.set_trace()
         order_manager = getUtility(IOrderManager)
         if this_notification.invoice in order_manager:
             order = order_manager.get(this_notification.invoice)
+            if not self.compare_cart(this_notification, order):
+                logger.info('getpaid.paypal: received IPN that does match order number %s' % this_notification.invoice)
+                # bad IPN - do not apply to transaction
+                return
             if this_notification.payment_status == 'Completed':
                 order.finance_workflow.fireTransition('charge-charging')
-        # TODO: handle failed transactions 
+                logger.info('getpaid.paypal: received successful IPN payment notification for order %s' % this_notification.invoice)
+                return
+            if this_notification.payment_status == 'Failed':
+                order.finance_workflow.fireTransition('decline-charging')
+                logger.info('getpaid.paypal: received unsuccessful IPN payment notification for order %s' % this_notification.invoice)
+                return
+            # IPN not of interest to us right now
+            logger.info('getpaid.paypal: received IPN for order %s that is not of interest' % this_notification.invoice)
+            return
+        # invoice not in cart
+        logger.info('getpaid.paypal: received IPN that does not apply to any order number')
+        return 
         
+    def compare_cart(self, notification, order):
+        import pdb
+        pdb.set_trace()
+        for ref in order.shopping_cart.keys():
+            cart_item = order.shopping_cart[ref]
+            if notification.shopping_cart.has_key(cart_item.product_code):
+                notification_item = notification.shopping_cart[cart_item.product_code]
+                if int(cart_item.quantity) != int(notification_item.quantity):
+                    return False
+            else:
+                # item not in returned cart - invalid IPN response
+                return False
+        # everything checks out
+        return True
+            
+
+
     def verify(self):
         options = IPaypalStandardOptions( self.portal )
         

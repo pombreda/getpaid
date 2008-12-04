@@ -53,6 +53,7 @@ main_mapping = { 'address_city':'address_city',
                  'payment_gross':'payment_gross',
                  'settle_amount':'settle_amount',
                  'settle_currency':'settle_currency',
+                 'test_ipn':'test_ipn',
                  }
 
 auction_mapping = {'auction_buyer_id':'auction_buyer_id',
@@ -182,15 +183,19 @@ class Notification(DictMixin):
     def _parse_cart(self, request):
         self._form_variables.append('shopping_cart')
         if self.num_cart_items is not None:
-            cartitems = range(1, int(self.num_cart_items))
+            cartitems = range(1, int(self.num_cart_items)+1)
         else:
             cartitems = [1,]
         for i in cartitems:
-            self.shopping_cart[i] = CartItem()
+            if request.has_key('item_number%s' % i):
+                cartkey = request['item_number%s' % i]
+            else:
+                cartkey = "%s" % i
+            self.shopping_cart[cartkey] = CartItem()
             for item in cart_item_mapping.keys():
                 if request.has_key(item % i):
                     # parse out the shopping cart into each variable
-                    setattr(self.shopping_cart[i], cart_item_mapping[item], request[item % i])
+                    setattr(self.shopping_cart[cartkey], cart_item_mapping[item], request[item % i])
 
 
     def _parse_auction(self, request):

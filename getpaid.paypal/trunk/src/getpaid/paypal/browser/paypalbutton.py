@@ -40,6 +40,7 @@ class PaypalButtonView(BrowserView):
         # if possible
         order.contact_information = payment.ContactInformation()
         order.billing_address = payment.BillingAddress()
+        order.shipping_address = payment.ShippingAddress()
 
         order.order_id = new_order_id
         

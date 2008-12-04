@@ -1,12 +1,14 @@
 """
 """
+import urllib
+
+from Products.CMFCore.utils import getToolByName
 from zope import component
 from zope import interface
 
-from interfaces import IPaypalStandardOptions
-from interfaces import IPaypalStandardProcessor
+from interfaces import IPaypalStandardOptions, IPaypalStandardProcessor
 
-from Products.CMFCore.utils import getToolByName
+from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from getpaid.core import interfaces as GetPaidInterfaces
 
 _sites = {
@@ -25,6 +27,8 @@ class PaypalStandardProcessor( object ):
 
     def cart_post_button( self, order ):
         options = IPaypalStandardOptions( self.context )
+        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
+        manage_options = IGetPaidManagementOptions( siteroot )        
         cartitems = []
         idx = 1
         _button_form = """<form style="display:inline;" action="https://%(site)s/cgi-bin/webscr" method="post" id="paypal-button">
@@ -33,28 +37,44 @@ class PaypalStandardProcessor( object ):
 <input type="hidden" name="business" value="%(merchant_id)s" />
 <input type="hidden" name="currency_code" value="%(currency)s" />
 <input type="hidden" name="return" value="%(return_url)s" />
+<input type="hidden" name="cbt" value="Return to %(store_name)s" />
+<input type="hidden" name="rm" value="1" />
+<input type="hidden" name="notify_url" value="%(IPN_url)s" />
+<input type="hidden" name="invoice" value="%(order_id)s" />
+<input type="hidden" name="no_note" value="1" />
 %(cart)s
 <input type="image" src="http://%(site)s/en_US/i/btn/x-click-but01.gif"
     name="submit"
     alt="Make payments with PayPal - it's fast, free and secure!" />
-</form>"""
-        _button_cart = """<input type="hidden" name="item_name_%(idx)s" value="%(itemname)s" />
+</form>
+"""
+        _button_cart = """<input type="hidden" name="item_name_%(idx)s" value="%(item_name)s" />
+<input type="hidden" name="item_number_%(idx)s" value="%(item_number)s" />
 <input type="hidden" name="amount_%(idx)s" value="%(amount)s" />
-<input type="hidden" name="quantity_%(idx)s" value="%(quantity)s" />"""
+<input type="hidden" name="quantity_%(idx)s" value="%(quantity)s" />
+"""
         
         for item in order.shopping_cart.values():
             v = _button_cart % {"idx": idx,
-                                "itemname": item.name,
+                                "item_name": item.name,
+                                "item_number" : item.product_code,
                                 "amount": item.cost,
                                 "quantity": item.quantity,}
             cartitems.append(v)
-        siteURL = getToolByName(self.context, "portal_url").getPortalObject().absolute_url()
+            idx += 1
+        siteURL = siteroot.absolute_url()
+        # having to do some magic with the URL passed to Paypal so their system replaies properly
+        returnURL = "%s/@@getpaid-thank-you?order_id=%s" % (siteURL, order.order_id)
+        IPNURL = "%s/%s" % (siteURL, urllib.quote_plus("@@getpaid-paypal-ipnreactor"))
         formvals = {
             "site": _sites[options.server_url],
             "merchant_id": options.merchant_id,
             "cart": ''.join(cartitems),
-            "return_url": "%s/@@getpaid-thank-you?order_id=%s" % (siteURL, order.order_id),
+            "return_url": returnURL,
             "currency": options.currency,
+            "IPN_url" : IPNURL,
+            "order_id" : order.order_id,
+            "store_name": manage_options.store_name,
             }
         return _button_form % formvals
     
