@@ -38,7 +38,7 @@ class PaypalStandardProcessor( object ):
 <input type="hidden" name="currency_code" value="%(currency)s" />
 <input type="hidden" name="return" value="%(return_url)s" />
 <input type="hidden" name="cbt" value="Return to %(store_name)s" />
-<input type="hidden" name="rm" value="1" />
+<input type="hidden" name="rm" value="2" />
 <input type="hidden" name="notify_url" value="%(IPN_url)s" />
 <input type="hidden" name="invoice" value="%(order_id)s" />
 <input type="hidden" name="no_note" value="1" />
@@ -64,7 +64,7 @@ class PaypalStandardProcessor( object ):
             idx += 1
         siteURL = siteroot.absolute_url()
         # having to do some magic with the URL passed to Paypal so their system replaies properly
-        returnURL = "%s/@@getpaid-thank-you?order_id=%s" % (siteURL, order.order_id)
+        returnURL = "%s/@@getpaid-thank-you" % siteURL
         IPNURL = "%s/%s" % (siteURL, urllib.quote_plus("@@getpaid-paypal-ipnreactor"))
         formvals = {
             "site": _sites[options.server_url],

@@ -10,5 +10,12 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     for="*"
+     name="getpaid-thank-you"
+     class="getpaid.paypal.browser.getpaidthankyou.GetpaidPaypalThankyouView"
+     template="templates/paypalthankyou.pt"
+     permission="zope2.View"
+     />
 
 </configure>
