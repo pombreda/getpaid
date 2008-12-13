@@ -16,6 +16,17 @@ def addCatalogIndexes(context):
             if index not in existing_columns:
                 pct.addColumn(index)
 
+def setupGroups(context):
+    """
+    Create monthly membership group
+    """
+    gtool = getToolByName(context, 'portal_groups')
+    existing = gtool.listGroupIds()
+    if 'MonthlyMembership' not in existing:
+        # We do not give it any particular roles. The idea here is that the site integrator will
+        # assign appropriate roles based on their own needs/content types
+        gtool.addGroup('MonthlyMembership')
+
 def importVarious(context):
     """Miscellanous steps import handle
     """

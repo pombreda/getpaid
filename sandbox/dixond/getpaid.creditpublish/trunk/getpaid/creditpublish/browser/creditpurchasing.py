@@ -35,6 +35,8 @@ class CreditPurchasing(ShoppingCart, RequestMixin):
                 if getToolByName(self.context, 'portal_membership').isAnonymousUser():
                     url = "%s/%s?%s" % (url, 'login_form')
                 else:
+                    # We'll send the user back here after purchases of this type of credit
+                    self.sessionset(IOneWeekPublishedCredit.__identifier__, self.request['ACTUAL_URL'])
                     weeks = self.formvalue('weeks')
                     credititem = self.formvalue('credititem')
                     credititem = pct.unrestrictedSearchResults(UID=credititem)

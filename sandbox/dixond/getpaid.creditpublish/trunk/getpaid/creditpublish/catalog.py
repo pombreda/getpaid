@@ -10,8 +10,6 @@ def getWeeksLeftPublished(object, portal, **kwargs):
     else:
         return None
 
-
-
 def getRepublishReminderSent(object, portal, **kwargs):
     """Index the atschemaextender attribute"""
     object = aq_base(object)

@@ -2,31 +2,44 @@
   <form tal:define="formName    view/formname"
         tal:attributes="id      string:creditpurchasing;
                         name    formName;
-                        action  string:${context/@@plone_portal_state/portal_url}/@@credit_purchasing;
+                        action  request/ACTUAL_URL;
                         method  string:post">
     <fieldset>
-      <legend>Purchase credit</legend>
+      <legend>Credit</legend>
       <div id="purchase-credit"
            tal:define="credit     view/current_credit">
         <p class="purchaseMessage">
           <span tal:condition="not: credit">You don't have any weeks of credit currently available</span>
           <span tal:condition="credit">You have <tal:cont content="credit" /> weeks of credit currently available</span>
         </p>
-        <div>
-          <label for="purchaseweeks">Purchase more weeks of credit at $<tal:cont content="view/credit_price" /> per week:</label>
-          <select tal:attributes="name  string:${view/nameprefix}.weeks:int" id="purchaseweeks">
-            <tal:rep repeat="number   view/weeks_options">
-              <option tal:attributes="value      number"
-                      tal:content="number">52</option>
-            </tal:rep>
-          </select>
+        <div class="creditPurchasingDetails"
+             tal:define="pricing    view/credit_price;
+                         price      pricing/price;
+                         taxes      pricing/taxes">
+            <input type="submit" tal:attributes="name  string:${view/nameprefix}.submitted" id="docreditpurchasing" value="Purchase" />
+            <select tal:attributes="name  string:${view/nameprefix}.weeks:int" id="purchaseweeks">
+              <tal:rep repeat="number   view/weeks_options">
+                <option tal:attributes="value      number"
+                        tal:content="number">52</option>
+              </tal:rep>
+            </select>
+            <span class="creditDetailedInfo">
+            more weeks of credit at $<tal:cont content="price"
+                                     /> per week <tal:cond condition="taxes"
+                                     ><tal:cont content="string:(includes "
+                                     /><tal:rep repeat="tax taxes"
+                                     ><tal:cont content="tax"
+                                     /><tal:cond condition="not:repeat/tax/last" content="string:, "
+                                     /></tal:rep
+                                     ><tal:cont content="string:)"
+                                     /></tal:cond>
+          </span>
           <input type="hidden"
                  tal:attributes="name  string:${view/nameprefix}.credititem;
                                  value view/data/representative_object"
                  id="credititem" />
           <div class="visualClear"><!-- --></div>
         </div>
-        <input type="submit" tal:attributes="name  string:${view/nameprefix}.submitted" id="docreditpurchasing" value="Purchase" />
       </div>
     </fieldset>
     <div class="visualClear"><!-- --></div>

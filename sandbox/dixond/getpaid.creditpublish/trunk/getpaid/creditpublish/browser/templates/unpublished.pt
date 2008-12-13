@@ -6,7 +6,7 @@
       <div id="publishing-control"
            tal:define="credit     view/current_credit;
                        listed  view/is_listed">
-        <p class="publishMessage">You may choose to Publish this item for any number of weeks</p>
+        <p class="publishMessage">You may Publish this item for any number of weeks</p>
         <ul class="publishConditions">
           <li>You will be prompted by email if your credit runs out before the end of the Publishing period you choose.</li>
           <li>Credit will only be deducted for each week as it begins.</li>

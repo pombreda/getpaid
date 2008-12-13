@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<object name="portal_memberdata" meta_type="Plone Memberdata Tool">
+ <property name="monthly_membership_anniversary" type="date">2000/01/01</property>
+ <property name="monthly_membership_reminder" type="date">2000/01/01</property>
+</object>

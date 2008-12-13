@@ -5,7 +5,7 @@ class UserAsManager(SimpleUser):
    """Give the current user manager role
    """
    def __init__(self, user):
-       self.name = '%s_UserAsManager' % user.getUserName()
+       self.name = user.getUserName()
        self.__ = "wrongPass"
        self.domains = user.getDomains()
        roles = list(user.getRoles())

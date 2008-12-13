@@ -6,7 +6,11 @@
 
     <configure zcml:condition="installed Products.TickingMachine">
       <subscriber
-        handler=".control.runChecks"
+        handler=".control.runOneWeekPublishedCreditChecks"
+        for="Products.TickingMachine.ITickEvent.ITickEvent"
+      />
+      <subscriber
+        handler=".control.runMonthlyMembershipPublishingCreditChecks"
         for="Products.TickingMachine.ITickEvent.ITickEvent"
       />
     </configure>

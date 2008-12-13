@@ -19,13 +19,13 @@ getpaid/creditpublish/configure.zcml
 getpaid/creditpublish/control.py
 getpaid/creditpublish/extenders.py
 getpaid/creditpublish/interfaces.py
+getpaid/creditpublish/security.py
 getpaid/creditpublish/setuphandlers.py
 getpaid/creditpublish/browser/__init__.py
-getpaid/creditpublish/browser/__init__.pyc
 getpaid/creditpublish/browser/configure.zcml
 getpaid/creditpublish/browser/creditpurchasing.py
-getpaid/creditpublish/browser/creditpurchasing.pyc
 getpaid/creditpublish/browser/viewlets.py
+getpaid/creditpublish/browser/templates/confirmdepublish.pt
 getpaid/creditpublish/browser/templates/published.pt
 getpaid/creditpublish/browser/templates/unpublished.pt
 getpaid/creditpublish/browser/templates/viewlet_nooneweekpublishedcredits.pt
