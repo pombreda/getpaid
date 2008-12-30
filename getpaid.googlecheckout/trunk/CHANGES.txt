@@ -3,7 +3,7 @@ CHANGES
 =======
 
 
-0.3 (unreleased)
+0.3 (2008-12-30)
 ----------------
 
 * Remove code not needed now with gchecky 0.2.1. And update tests to suit.
