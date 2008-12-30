@@ -2,6 +2,12 @@
 CHANGES
 =======
 
+0.7 (2008-12-30)
+----------------
+
+* added the listing of the discount below the cart resume
+  [lucielejard]
+
 
 0.6 (2008-10-09)
 ----------------
