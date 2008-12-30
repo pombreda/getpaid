@@ -16,7 +16,7 @@ def read(*rnames):
 
 setup(
     name='getpaid.googlecheckout',
-    version='0.3dev',
+    version='0.3',
     license = 'ZPL2.1',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
