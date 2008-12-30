@@ -27,7 +27,6 @@ $Id$
 
 import decimal
 
-from persistent import Persistent
 from zope import component
 from zope.interface import implements
 
@@ -72,8 +71,8 @@ class CartItemTotals( object ):
             return 0
         
         total = 0
-        total += self.getSubTotalPrice()
-        total += self.getShippingCost()
+        total += float(self.getSubTotalPrice())
+        total += float(self.getShippingCost())
         for tax in self.getTaxCost():
             total += tax['value']
         
