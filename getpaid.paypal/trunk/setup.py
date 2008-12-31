@@ -16,7 +16,7 @@ def read(*rnames):
 
 setup(
     name='getpaid.paypal',
-    version='0.4.1dev',
+    version='0.4.2dev',
     license = 'ZPL2.1',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
