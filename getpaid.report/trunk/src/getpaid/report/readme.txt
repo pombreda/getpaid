@@ -1,14 +1,14 @@
 getpaid.report
---------------
+==============
 
 a one way synchronization of getpaid data structures to a rdbms for
 the purpose of constructing reports.
 
 setup
------
+=====
 
 setup the database schema
-=========================
+-------------------------
 
 installing this getpaid.warehouse also creates a script, in a buildout
 its installed to $(buildout-directory)/bin/setup-report-db
@@ -23,7 +23,7 @@ to setup a postgres database:
 
 
 setting up the zope database connection
-======================================= 
+---------------------------------------
 
 you must configure the database url ... currently done in python from
 an existing product.
