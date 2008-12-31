@@ -2,7 +2,17 @@
 CHANGES
 =======
 
-1.0.1 (2008-11-24)
+1.2 (2008-12-31)
+------------------
+
+* update the version for: getpaid.core, Products.PloneGetPaid,
+  five.intid, getpaid.googlecheckout, getpaid.paypal and
+  getpaid.discount [lucielejard]
+* added getpaid.report and getpaid.warehouse to the recipe
+  [lucielejard]
+
+
+1.1 (2008-11-24)
 ------------------
 
 * moved the find-links into the recipe, so that we don't have
