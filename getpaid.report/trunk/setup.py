@@ -7,7 +7,7 @@ def read(*rnames):
 
 setup(
     name="getpaid.report",
-    version="0.1.1dev",
+    version="0.1.2dev",
     author='Kapil Thangavelu',
     author_email='kapil.foss@gmail.com',
     description="""Relational Reports For getpaid.core.""",
