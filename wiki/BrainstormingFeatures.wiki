@@ -11,17 +11,49 @@ Please add the features, with as much detail to clearly depict what you are seek
 __Feature details (Interested people/orgs)__:
 
 *New features*
-  * TaxHandling (6ftup, ChrisW, Jason Lantz)
-  * PloneFormGenAdapter to make single page checkout and flexible info gathering (ifPeople, Trees for Life, One/Northwest, Daniel Holth, SteveM)
-  * PayToSubmitContent feature (drafted by perrito and javimansilla, so far nothing done)
-  * Salesforce.comIntegration for loading info into SF from GetPaid checkout (related to PFG integration), (One/Northwest, ifPeople, Trees for Life)
-  * Conference/event registration, including limited seating and wait list (NCPC)
-  * Customizable/personalizable products (e.g., the GREEN shirt with JOE embroidered on the front) --- what role would GetPaid play in this? (NCPC)
-  * modifying/flagging user profiles (e.g., this user gets a gold start for being a Champion donor) (NCPC)
-  * Membership Dues - recurring payments, granting special site access for payment (we think of members in a non-Plone way and have Members Only sections for different programs) (NCPC). Wiki pages with regards to this feature are ConfigureMembershipTypes and RecurringPaymentStories.
-  * Support for product variants (which item A do you need: the red one or the blue one?) (6ftup)
-  * Common pricing policy settings: Support for Distributors special discount code (or a retail vs wholesale pricing). Support for bundle discounts (product A + product B = discount) (6ftup, TOT)
-  * Payment options: payment by PO number (order generated without actual credit card) 
+  * TaxHandling
+   * who: 6ftup, ChrisW, Jason Lantz
+
+  * PloneFormGenAdapter
+   * who: ifPeople, Trees for Life, One/Northwest, Daniel Holth, SteveM
+   * to make single page checkout and flexible info gathering
+
+  * PayToSubmitContent
+   * who: perrito, javimansilla
+
+  * Salesforce.comIntegration
+   * who: One/Northwest, ifPeople, Trees for Life
+   * for loading info into SF from GetPaid checkout (related to PFG integration), 
+
+  * Conference/event registration
+   * who: NCPC
+   * including limited seating and wait list
+
+  * Customizable/personalizable products
+   * who: NCPC
+   * e.g. the GREEN shirt with JOE embroidered on the front --- what role would GetPaid play in this?
+
+  * modifying/flagging user profiles
+   * who: NCPC
+   * e.g. this user gets a gold start for being a Champion donor
+
+  * Membership Dues
+   * who: Suno Ano, NCPC
+   * wiki: ConfigureMembershipTypes, RecurringPaymentStories
+   * recurring payments, granting special site access for payment (we think of members in a non-Plone way and have Members Only sections for different programs).
+
+  * Support for product variants
+   * who: 6fup
+   * which item A do you need: the red one or the blue one?
+
+  * Common pricing policy settings
+   * who: 6ftup, TOT
+   * Support for Distributors special discount code (or a retail vs wholesale pricing).
+   * Support for bundle discounts (product A + product B = discount)
+
+  * Payment options
+   * who:
+   * payment by PO number (order generated without actual credit card) 
 
 *Feature Enhancements*
   * Enhance reports on sales data (NCPC)
