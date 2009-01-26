@@ -21,7 +21,7 @@ __Feature details (Interested people/orgs)__:
   * PayToSubmitContent
    * who: perrito, javimansilla
 
-  * Salesforce.comIntegration
+  * Salesforce.com Integration
    * who: One/Northwest, ifPeople, Trees for Life
    * for loading info into SF from GetPaid checkout (related to PFG integration), 
 
