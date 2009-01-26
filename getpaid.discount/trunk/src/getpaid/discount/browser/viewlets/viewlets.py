@@ -1,6 +1,9 @@
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 
+from zope import component
+from getpaid.core import interfaces
+
 from plone.app.layout.viewlets.common import ViewletBase
 
 from getpaid.core.interfaces import IShoppingCartUtility
@@ -20,7 +23,14 @@ class DiscountListingViewlet(ViewletBase):
         #                                    name=u'plone_portal_state')
         #self.portal_url = self.portal_state.portal_url()
         self.cart = getUtility(IShoppingCartUtility).get(self.context) or {}
-    
+        # if cart is destroyed, we'll use the order_id to retrieve the cart detail and discount
+        if not self.cart:
+            order_id = self.request.get("order_id", None)
+            if order_id:
+                order_manager = component.getUtility(interfaces.IOrderManager)
+                #self.order = order_manager.get(order_id)
+                self.cart = order_manager.get(order_id).shopping_cart
+        
     def getDiscounts(self):
         """
         for all the items in the cart
@@ -58,5 +68,4 @@ class DiscountListingViewlet(ViewletBase):
                            'description': description
                           }
                     results.append(res)
-                        
         return results

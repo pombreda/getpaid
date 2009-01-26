@@ -16,4 +16,11 @@
       permission="zope2.View" 
         />
         
+  <browser:viewlet
+      name="getpaid.discountfinal"
+      manager="Products.PloneGetPaid.browser.viewlets.interfaces.IBelowCartThankYou"
+      class=".viewlets.DiscountListingViewlet"
+      permission="zope2.View" 
+        />
+        
 </configure>
