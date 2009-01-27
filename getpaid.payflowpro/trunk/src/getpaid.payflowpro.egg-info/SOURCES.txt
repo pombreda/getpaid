@@ -2,6 +2,7 @@ CHANGES.txt
 LICENSE.txt
 README.txt
 bootstrap.py
+buildout.cfg
 setup.py
 src/getpaid/__init__.py
 src/getpaid.payflowpro.egg-info/PKG-INFO
@@ -11,6 +12,8 @@ src/getpaid.payflowpro.egg-info/namespace_packages.txt
 src/getpaid.payflowpro.egg-info/not-zip-safe
 src/getpaid.payflowpro.egg-info/requires.txt
 src/getpaid.payflowpro.egg-info/top_level.txt
+src/getpaid/payflowpro/README.txt
 src/getpaid/payflowpro/__init__.py
+src/getpaid/payflowpro/configure.zcml
 src/getpaid/payflowpro/interfaces.py
 src/getpaid/payflowpro/paypal.py

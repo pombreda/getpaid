@@ -1,13 +1,3 @@
-"""
-$Id: setup.py 1868 2008-08-22 22:00:38Z fairwinds.dp $
-
-Copyright (c) 2007 - 2008 ifPeople, Kapil Thangavelu, and Contributors
-All rights reserved. Refer to LICENSE.txt for details of distribution and use.
-
-Distutils setup
- 
-"""
-
 import os
 from setuptools import setup, find_packages
 
@@ -16,7 +6,7 @@ def read(*rnames):
 
 setup(
     name='getpaid.payflowpro',
-    version='0.1dev',
+    version='1.0b1',
     license = 'ZPL2.1',
     author='Rob LaRubbio',
     author_email='rob@onenw.org',

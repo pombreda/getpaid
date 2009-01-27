@@ -13,12 +13,6 @@ def _vocabulary(*terms):
     return SimpleVocabulary([SimpleTerm(token, token, title)
                              for token, title in terms])
 
-
-class IPaypalPayFlowProProcessor( interfaces.IPaymentProcessor ):
-    """
-    Paypal Standard Processor
-    """
-
 class IPaypalPayFlowProOptions( interfaces.IPaymentProcessorOptions ):
     """
     Paypal Standard Options
