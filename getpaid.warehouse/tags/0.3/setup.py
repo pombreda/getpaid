@@ -6,7 +6,7 @@ def read(*rnames):
 
 setup(
     name="getpaid.warehouse",
-    version="0.3dev",
+    version="0.3",
     packages=find_packages('src'),
     package_dir={'':'src'},
     namespace_packages=['getpaid'],
