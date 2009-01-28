@@ -17,6 +17,20 @@ addpackages=
 
 You can choose the "extra" packages you want to use with the "addpackages" option. The names listed correspond to the names of the packages. So you could do addpackages=getpaid.discount
 
+Available packages:
+
+* getpaid.authorizedotnet
+* getpaid.googlecheckout
+* getpaid.payflowpro
+* getpaid.paymentech
+* getpaid.paypal
+* getpaid.pxpay
+* getpaid.flatrateshipping
+* getpaid.ups
+* getpaid.discount
+* getpaid.report
+* getpaid.warehouse
+
 
 What to add in your buildout
 ============================
