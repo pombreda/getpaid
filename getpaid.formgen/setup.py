@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from setuptools import setup, find_packages
 import os
 
@@ -5,10 +7,9 @@ version = '0.1'
 
 setup(name='getpaid.formgen',
       version=version,
-      description=u"PloneGetPaid+PloneFormGen integration",
+      description=u"PloneGetPaid♡PloneFormGen integration",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
@@ -17,7 +18,7 @@ setup(name='getpaid.formgen',
       keywords='plone plonegetpaid ploneformgen',
       author='Daniel Holth',
       author_email='daniel.holth@exac.com',
-      url='',
+      url='http://dingoskidneys.com/cgi-bin/hgwebdir.cgi/getpaid.formgen',
       license='ZPL 2.1',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['getpaid'],
