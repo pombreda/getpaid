@@ -26,7 +26,7 @@ setup(name='getpaid.formgen',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
+          'Products.DataGridField >= 1.6rc1',
       ],
       entry_points="""
       # -*- Entry points: -*-

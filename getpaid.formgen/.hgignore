@@ -3,4 +3,5 @@ syntax:glob
 *pyc
 *.egg-info/SOURCES.txt
 *.egg-info/PKG-INFO
-build
+build/*
+dist/*
