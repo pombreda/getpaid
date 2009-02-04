@@ -47,6 +47,7 @@ See the list below and add your name next to anything you would be interested to
   * gather/improve/update/add documentation (list specific here)
     * How to wire payment process to a workflow state change (ie create a piece of content, but pay before it is published)
     * How to get and use getpaid.formgen
+      * First part drafted: HowToGetGetpaidDotFormgen
     * How to customize the checkout process (including using available slots, ie for comments)
     * Enabling components in buildouts
     * Using the new buildouts
