@@ -49,4 +49,6 @@ Finally, fire up your instance.
 
 You should see getpaid.formgen listed in mydomain:myport/Control_Panel/Products/manage_main and mydomain:myport/mySite/portal_quickinstaller/manage_installProductsForm
 
-Install the product...and that's as far as I've gotten!
+Install the product.
+
+Also, install DataGridField.
