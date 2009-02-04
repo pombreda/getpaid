@@ -1,38 +1,33 @@
-#!/usr/bin/env python
+from setuptools import setup, find_packages
+import os
 
-from os import walk
-try:
-        from setuptools import setup
-except ImportError:
-        from distutils.core import setup
-from vcpx.tailor import __version__ as VERSION
+version = '0.1'
 
-setup(name='tailor',
-      version=VERSION,
-      author='Lele Gaifax',
-      author_email='lele@nautilus.homeip.net',
-      packages=[dirpath for dirpath, dirnames, filenames in walk('vcpx')
-                if dirpath <> 'vcpx/tests' and '__init__.py' in filenames],
-      scripts=['tailor'],
-      description='A tool to migrate changesets between various kinds of '
-      'version control system.',
-      long_description="""\
-With its ability to "translate the history" from one VCS kind to another,
-this tool makes it easier to keep the upstream changes merged in
-a own branch of a product.
-
-Tailor is able to fetch the history from Arch, Bazaar, CVS, Darcs, Monotone,
-Perforce or Subversion and rewrite it over Aegis, Bazaar, CVS, Darcs, Git,
-Mercurial, Monotone and Subversion.
-""",
+setup(name='getpaid.formgen',
+      version=version,
+      description="PloneGetPaid+PloneFormGen integration",
+      long_description=open("README.txt").read() + "\n" +
+                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        'Development Status :: 4 - Beta',
-        'Environment :: Console',
-        'Intended Audience :: Developers',
-        'Intended Audience :: Developers',
-        'Programming Language :: Python',
-        'Operating System :: Unix',
-        'Topic :: Software Development :: Version Control',
-        'License :: GNU General Public License',
-        ]
-    )
+        "Framework :: Plone",
+        "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        ],
+      keywords='plone plonegetpaid ploneformgen',
+      author='Daniel Holth',
+      author_email='dholth@fastmail.fm',
+      url='http://svn.plone.org/svn/plone/plone.example',
+      license='GPL',
+      packages=find_packages(exclude=['ez_setup']),
+      namespace_packages=['getpaid'],
+      include_package_data=True,
+      zip_safe=False,
+      install_requires=[
+          'setuptools',
+          # -*- Extra requirements: -*-
+      ],
+      entry_points="""
+      # -*- Entry points: -*-
+      """,
+      )
