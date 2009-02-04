@@ -14,19 +14,19 @@ setup(name='getpaid.formgen',
         "Framework :: Plone",
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
+        "License :: OSI Approved :: GNU General Public License (GPL)"
         ],
       keywords='plone plonegetpaid ploneformgen',
       author='Daniel Holth',
       author_email='daniel.holth@exac.com',
       url='http://dingoskidneys.com/cgi-bin/hgwebdir.cgi/getpaid.formgen',
-      license='ZPL 2.1',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['getpaid'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
+          'Products.DataGridField >= 1.6rc1',
       ],
       entry_points="""
       # -*- Entry points: -*-
