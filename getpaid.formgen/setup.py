@@ -5,7 +5,7 @@ version = '0.1'
 
 setup(name='getpaid.formgen',
       version=version,
-      description="PloneGetPaid+PloneFormGen integration",
+      description=u"PloneGetPaid+PloneFormGen integration",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
@@ -16,9 +16,9 @@ setup(name='getpaid.formgen',
         ],
       keywords='plone plonegetpaid ploneformgen',
       author='Daniel Holth',
-      author_email='dholth@fastmail.fm',
-      url='http://svn.plone.org/svn/plone/plone.example',
-      license='GPL',
+      author_email='daniel.holth@exac.com',
+      url='',
+      license='ZPL 2.1',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['getpaid'],
       include_package_data=True,
