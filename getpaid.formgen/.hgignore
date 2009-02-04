@@ -1,7 +1,6 @@
 syntax:glob
 *~
 *pyc
-*.egg-info/SOURCES.txt
-*.egg-info/PKG-INFO
+*.egg-info/*
 build/*
 dist/*
