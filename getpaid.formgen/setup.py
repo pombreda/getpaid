@@ -7,7 +7,7 @@ version = '0.1'
 
 setup(name='getpaid.formgen',
       version=version,
-      description=u"PloneGetPaid♡PloneFormGen integration",
+      description=u"PloneGetPaid♡PloneFormGen integration".encode('utf-8'),
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
