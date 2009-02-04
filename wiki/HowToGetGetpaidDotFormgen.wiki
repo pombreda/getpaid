@@ -21,6 +21,7 @@ If you're not using Buildout: _(untested)_
   # {{{ls getpaid}}}. See if there's already a getpaid folder (there probably is).
   # If there is, {{{cd getpaid}}}. Else, {{{mkdir getpaid; cd getpaid}}}.
   # To link: {{{ln -s }}}path-to-workspace/getpaid-formgen-hexvalue{{{/getpaid/formgen ./formgen}}}. To copy: {{{cp -R }}}path-to-downloaded-files/getpaid-formgen-hexvalue{{{/getpaid/formgen/* ./formgen}}}.
+  # getpaid.formgen depends on Products.DataGridField. Get it here: http://plone.org/products/datagridfield.
 
 If you're using Buildout:
   # You can use getpaid.formgen as a development egg by copying or linking the files under src/.
