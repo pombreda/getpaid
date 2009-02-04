@@ -10,7 +10,7 @@ Throughout the documentation, you'll see _(untested)_. This is because all I did
 
 Because getpaid.formgen is not available as an egg yet, you need to find some way to get the code. You can either
   * hg checkout getpaid.formgen from the mercurial repository anonymously at http://mercurial.intuxication.org/hg/getpaid-formgen _(untested)_
-  * hg checkout getpaid.formgen from the mercurial repository securely (i.e., with Write access) by contacting DanielHoth _(untested)_
+  * hg checkout getpaid.formgen from the mercurial repository securely (i.e., with Write access) by contacting DanielHolth _(untested)_
   * download the files (as tar.bz2, zip, or tar.gz) from http://mercurial.intuxication.org/hg/getpaid-formgen/archive/tip.tar.bz2, http://mercurial.intuxication.org/hg/getpaid-formgen/archive/tip.zip, or http://mercurial.intuxication.org/hg/getpaid-formgen/archive/tip.tar.gz, respectively
 
 Now, you need to let your instance know about the code.
