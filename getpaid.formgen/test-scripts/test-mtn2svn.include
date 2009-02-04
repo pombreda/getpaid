@@ -1,0 +1,199 @@
+#!/bin/sh
+
+# File: test-mtn2svn.include
+#
+# This is an include for all other tests.
+# Tested with monotone 0.35, Subversion Version 1.3.0 (r17949)
+#
+# Can enable shared base dir by setting "SHAREDDIR=yes" before start
+# scripts "test-mtn2svn-*.sh". Default is off.
+
+STARTDIR=$PWD
+
+# Fast exit, if no backend installed
+which mtn >/dev/null 2>&1 || exit 201
+which svn >/dev/null 2>&1 || exit 201
+
+# Exit immediately if a command exits with a non-zero
+set -e
+
+# Remove monotone keypair, because Tailor is bootstrapping it again (see patch)
+rm -f $HOME/.monotone/keys/key-dummy
+
+# Create a new empty tempdirectory and work there.
+rm -rf testdir
+mkdir testdir
+cd testdir
+
+# Runs with Shared basedir?
+if [ -n "$SHAREDDIR" ]
+then
+        SOURCEDIR="shared-dir"
+        TARGETDIR="shared-dir"
+else
+        SOURCEDIR="source-side"
+        TARGETDIR="target-side"
+fi
+
+# execute monotone with more params
+mtn_exec()
+{
+        mtn --norc --keydir=$KEYDIR --rcfile=$LUA "$@"
+}
+
+monotone_setup()
+{
+        # Don't use global users keys here
+        KEYDIR=$PWD/test-monotone_keys
+        LUA=$PWD/test-monotone.lua
+
+        # Create keypair for testing
+        cat <<EOF >$LUA
+function get_passphrase(keypair_id)
+  if (keypair_id == "key-dummy") then return "secret" end
+end
+EOF
+
+        echo "secret" | mtn --norc --keydir=$KEYDIR genkey "key-dummy"
+
+        # Create a new data base with a branch
+        mtn_exec --db=test1.mtn db init
+        mtn_exec --db=test1.mtn --key="key-dummy" --branch=A setup monotone-work
+
+        cd monotone-work
+}
+
+tailor_mtn2svn()
+{
+
+        # create first config for tailor
+        cat <<EOF >test-mtn-svn-forward.conf
+[DEFAULT]
+patch-name-format = ""
+use-propset = True
+#verbose = True
+#Debug = True
+
+[project]
+root-directory = $PWD/rootdir
+source = monotone:source
+target = svn:target
+
+[monotone:source]
+repository = $PWD/test1.mtn
+module = A
+subdir = $SOURCEDIR
+
+[svn:target]
+repository = file://$PWD/svnrepository
+module = A
+subdir = $TARGETDIR
+#tags-path = my-taged-vers
+#commit-all-files = False
+EOF
+
+        # Convert from Monotone to Subversion
+        tailor -c test-mtn-svn-forward.conf
+}
+
+
+tailor_svn2mtn()
+{
+
+        # create a second config for tailor
+        cat <<EOF >test-mtn-svn-backward.conf
+[DEFAULT]
+patch-name-format = ""
+use-propset = True
+#verbose = True
+#Debug = True
+
+[project]
+root-directory = $PWD/rootdir-back
+target = monotone:target
+source = svn:source
+
+[monotone:target]
+repository = $PWD/test2.mtn
+module = A
+subdir = $SOURCEDIR
+keygenid = key-dummy
+passphrase = secret
+
+[svn:source]
+repository = file://$PWD/svnrepository
+module = A
+subdir = $TARGETDIR
+EOF
+
+        # Convert back from Subversion to Monotone
+        tailor -c test-mtn-svn-backward.conf
+}
+
+cat <<EOF >diffexclude
+.mt*
+_MTN
+.svn
+EOF
+
+target_diff1()
+{
+        if diff -Naur -X diffexclude monotone-work rootdir/$TARGETDIR >test0a.log
+	then
+		echo "WD-diff: PASS"
+	else
+		echo "WD-diff: Diffs in Working Dir! (step mtn-->svn, see test0a.log)" >&2
+                exit 101
+	fi
+}
+
+target_diff2()
+{
+        if diff -Naur -X diffexclude monotone-work rootdir-back/$TARGETDIR >test0b.log
+	then
+		echo "WD-diff: PASS"
+	else
+		echo "WD-diff: Diffs in Working Dir! (step svn-->mtn, see test0b.log)" >&2
+                exit 102
+	fi
+}
+
+monotone_logs()
+{
+        # Create a log to see into:
+        LANG=C mtn --db=test1.mtn log --from `mtn --db=test1.mtn automate heads A` --no-graph > test1.log
+        LANG=C mtn --db=test2.mtn log --from `mtn --db=test2.mtn automate heads A` --no-graph > test2.log
+
+        # Bug from Monotone: Starts with "Added directories:", but no dirs listend.
+        # Replace or remove stubs.
+
+	sed -r -e 's/^((Revision|Ancestor): )([0-9a-f]{40})?$/\1STUB-NUMBER/' < test1.log \
+        | sed -r -e \ '/^Added directories:$/,+1s/^.+$/REMOVE-STUBS/' \
+        | grep -v -E "REMOVE-STUBS" \
+        > test1-v.log
+        sed -r -e 's/^((Revision|Ancestor): )([0-9a-f]{40})?$/\1STUB-NUMBER/' < test2.log \
+        | sed -r -e \ '/^Added directories:$/,+1s/^.+$/REMOVE-STUBS/' \
+        | grep -v -E "REMOVE-STUBS" \
+        | head -n -11 \
+        > test2-v.log
+
+	# Compair logs
+	if diff -B test1-v.log test2-v.log >/dev/null
+	then
+		echo "Log-diff: PASS"
+	else
+		echo "Log-diff: Logs are different!" >&2
+                exit 200
+	fi
+}
+
+testing_runs()
+{
+        cd ..
+        tailor_mtn2svn
+        target_diff1
+        tailor_svn2mtn
+        target_diff2
+        monotone_logs
+        cd $STARTDIR
+}
