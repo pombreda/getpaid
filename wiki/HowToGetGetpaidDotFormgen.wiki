@@ -4,14 +4,11 @@
 
 I saw (on AugustSprint) that there was a need to create this page (and a page for how to use getpaid.formgen, but one thing at a time!). Because getpaid.formgen is not available as an egg yet (as of January 2009), getting it can be a little challenging. I hope this saves you some time!
 
-Throughout the documentation, you'll see _(untested)_. This is because all I did was download the tar.gz, link it to my src/ folder, and re-run buildout. If you do things differently--and it works--please update this document to help others.
-
 = Details =
 
 Because getpaid.formgen is not available as an egg yet, you need to find some way to get the code. You can either
-  * hg checkout getpaid.formgen from the mercurial repository anonymously at http://mercurial.intuxication.org/hg/getpaid-formgen _(untested)_
-  * hg checkout getpaid.formgen from the mercurial repository securely (i.e., with Write access) by contacting DanielHolth _(untested)_
-  * download the files (as tar.bz2, zip, or tar.gz) from http://mercurial.intuxication.org/hg/getpaid-formgen/archive/tip.tar.bz2, http://mercurial.intuxication.org/hg/getpaid-formgen/archive/tip.zip, or http://mercurial.intuxication.org/hg/getpaid-formgen/archive/tip.tar.gz, respectively
+  * checkout getpaid.formgen from this repository anonymously: {{{svn co http://getpaid.googlecode.com/svn/getpaid.formgen/trunk/src getpaid.formgen}}} _(untested)_
+  * checkout getpaid.formgen from this repository securely (i.e., with Write access) by contacting someone and using: {{{svn co http://getpaid.googlecode.com/svn/getpaid.formgen/trunk/src getpaid.formgen}}}
 
 Now, you need to let your instance know about the code.
 
@@ -20,13 +17,13 @@ If you're not using Buildout: _(untested)_
   # {{{cd }}}my-site-path{{{/zope2/lib/python}}}.
   # {{{ls getpaid}}}. See if there's already a getpaid folder (there probably is).
   # If there is, {{{cd getpaid}}}. Else, {{{mkdir getpaid; cd getpaid}}}.
-  # To link: {{{ln -s }}}path-to-workspace/getpaid-formgen-hexvalue{{{/getpaid/formgen ./formgen}}}. To copy: {{{cp -R }}}path-to-downloaded-files/getpaid-formgen-hexvalue{{{/getpaid/formgen/* ./formgen}}}.
+  # To link: {{{ln -s }}}path-to-svn-checkout{{{/getpaid.formgen/getpaid/formgen ./formgen}}}. To copy: {{{cp -R }}}path-to-svn-checkout{{{/getpaid.formgen/getpaid/formgen/* ./formgen}}}.
   # getpaid.formgen depends on Products.DataGridField. Get it here: http://plone.org/products/datagridfield.
 
 If you're using Buildout:
   # You can use getpaid.formgen as a development egg by copying or linking the files under src/.
   # {{{cd }}}buildout-path{{{/src}}}.
-  # To link: {{{ln -s }}}path-to-workspace/getpaid-formgen-hexvalue{{{/getpaid ./getpaid}}}. To copy _(untested)_: {{{cp -R }}}path-to-downloaded-files/getpaid-formgen-hexvalue{{{/getpaid/* ./getpaid}}}.
+  # To link: {{{ln -s }}}path-to-svn-checkout{{{/getpaid.formgen ./getpaid.formgen}}}. To copy _(untested)_: {{{cp -R }}}path-to-svn-checkout{{{/getpaid.formgen ./getpaid.formgen}}}.
   # {{{cd ..}}} to get to your buildout root again.
   # edit your buildout.cfg with something like {{{nano buildout.cfg}}} and make the following additions:
     *
