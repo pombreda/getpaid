@@ -20,7 +20,7 @@ __Feature details (Interested people/orgs)__:
 
   * Invoices
    * who: Suno Ano
-   * automatically create Invoices (preferably .pdf) and sending them via email to customers once they bought something, payed for membership etc.
+   * automatically create Invoices (preferably .pdf) and sending them via email to customers once they bought something, payed for membership, etc. There is a first mailing list thread about this [http://thread.gmane.org/gmane.comp.web.zope.plone.getpaid.devel/1039 here].
 
 
   * PayToSubmitContent
