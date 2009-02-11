@@ -18,6 +18,11 @@ __Feature details (Interested people/orgs)__:
    * who: ifPeople, Trees for Life, One/Northwest, Daniel Holth, SteveM
    * to make single page checkout and flexible info gathering
 
+  * Invoices
+   * who: Suno Ano
+   * automatically create Invoices (preferably .pdf) and sending them via email to customers once they bought something, payed for membership etc.
+
+
   * PayToSubmitContent
    * who: perrito, javimansilla
 
