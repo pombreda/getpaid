@@ -32,13 +32,21 @@ from zope.interface import implements
 
 from zope.app.container.ordered import OrderedContainer
 
+try:
+    from zope.annotation.interfaces import IAttributeAnnotatable
+    from zope.annotation.interfaces import IAnnotations
+except ImportError:
+    # BBB for Zope 2.9
+    from zope.app.annotation.interfaces import IAttributeAnnotatable
+    from zope.app.annotation.interfaces import IAnnotations
+
 import interfaces
 
 class ShoppingCart( OrderedContainer ):
     """
     A shopping cart
     """
-    implements( interfaces.IShoppingCart )
+    implements( interfaces.IShoppingCart, IAttributeAnnotatable )
 
     last_item = None
     
