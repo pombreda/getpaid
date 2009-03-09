@@ -24,6 +24,7 @@ class IPNListener(BrowserView):
         self.context = context
         self.request = request
         self.portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        
    
     def process(self):
         this_notification = Notification(self.request)
@@ -40,16 +41,18 @@ class IPNListener(BrowserView):
                 order.finance_workflow.fireTransition('charge-charging')
                 logger.info('getpaid.pagseguro: received successful IPN payment notification for order %s' % this_notification.Referencia)
                 return
-            if this_notification.payment_status == 'Cancelado':
+            if this_notification.StatusTransacao == 'Cancelado':
                 order.finance_workflow.fireTransition('decline-charging')
-                logger.info('getpaid.pagseguro: received unsuccessful IPN payment notification for order %s' % this_notification.Referencia)
+                logger.info('getpaid.pagseguro: received unsuccessful IPN payment notification for order %s  - txn_type "%s"' % this_notification.Referencia,this_notification.TipoPagamento)
                 return
             # IPN not of interest to us right now
-            logger.info('getpaid.pagseguro: received IPN for order %s that is not of interest - txn_type "%s", payment_status "%s"' % (this_notification.Referencia, this_notification.txn_type, this_notification.payment_status))
+            logger.info('getpaid.pagseguro: received IPN for order %s that is not of interest - txn_type "%s", payment_status "%s"' % (this_notification.Referencia, this_notification.TipoPagamento, this_notification.StatusTransacao))
             return
         # invoice not in cart
-        logger.info('getpaid.pagseguro: received IPN that does not apply to any order number - invoice "%s", txn_type "%s"' % (this_notification.invoice, this_notification.txn_type))
-        return
+        #logger.info('getpaid.pagseguro: received IPN that does not apply to any order number - invoice "%s"' % (this_notification.Referencia))
+        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
+        siteURL = siteroot.absolute_url()
+        return self.request.RESPONSE.redirect("%s/@@getpaid-thank-you" % siteURL)
        
     def compare_cart(self, notification, order):
         for ref in order.shopping_cart.keys():
@@ -74,7 +77,7 @@ class IPNListener(BrowserView):
         form = self.request.form
         params =[(key, form[key]) for key in form.keys() if key != 'cmd']
         params = [('Comando', 'validar')] + params
-        params = [('Token', 'teste')] + params
+        params = [('Token', options.merchant_token)] + params
         paramData = urllib.urlencode(params)
         url = "https://%s/Security/NPI/Default.aspx" % _sites[options.server_url]
         req = urllib2.Request(url, paramData)

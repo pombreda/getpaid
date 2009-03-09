@@ -34,8 +34,7 @@ cart_item_mapping = {'ProdDescricao_%s':'ProdDescricao_',
                     
                      }
 
-payment_txn_types = ['cart', 'express_checkout', 'merch_pmt', 'send_money', 
-                     'virtual_terminal', 'web_accept']
+payment_txn_types = ['Pagamento', 'Cartão de Crédito', 'Boleto', 'Pagamento online']
 
 subscription_txn_types = ['subscr-failed', 'subscr-cancel', 'subscr-payment', 
                           'subscr-signup', 'subscr-eot', 'subscr-modify']

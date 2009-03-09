@@ -2,6 +2,7 @@
 """
 import urllib
 
+
 from Products.CMFCore.utils import getToolByName
 from zope import component
 from zope import interface
@@ -63,8 +64,8 @@ name="submit" alt="Pague com PagSeguro - e rapido, gratis e seguro!">
             idx += 1
         siteURL = siteroot.absolute_url()
         # having to do some magic with the URL passed to Paypal so their system replaies properly
-        returnURL = "%s/@@getpaid-thank-you" % siteURL
-        IPNURL = "%s/%s" % (siteURL, urllib.quote_plus("@@getpaid-pagseguro-ipnreactor"))
+        # returnURL = "%s/@@getpaid-thank-you" % siteURL
+        # IPNURL = "%s/%s" % (siteURL, urllib.quote_plus("@@getpaid-pagseguro-ipnreactor"))
         formvals = {
            # "site": _sites[options.server_url],
             "merchant_id": options.merchant_id,
