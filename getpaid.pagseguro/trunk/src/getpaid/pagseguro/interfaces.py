@@ -25,7 +25,7 @@ class IPagseguroStandardOptions( interfaces.IPaymentProcessorOptions ):
     """
     server_url = schema.Choice(
         title = _(u"Pagseguro Website Payments Server"),
-        values = ( "teste", "real" ),
+        values = ( "servidor pagseguro" ),
         )
 
     merchant_id = schema.ASCIILine( title = _(u"ID Pagseguro"))
