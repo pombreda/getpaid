@@ -2,6 +2,7 @@ import urllib, urllib2
 import socket
 import logging
 import re
+import pdb
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -31,6 +32,9 @@ class IPNListener(BrowserView):
         is_valid_IPN = self.verify()
         order_manager = getUtility(IOrderManager)
         if this_notification.Referencia in order_manager:
+            if not(is_valid_IPN):
+		logger.info('getpaid.pagseguro: POST não vem do pagseguro')
+                return		
             order = order_manager.get(this_notification.Referencia)
             if not self.compare_cart(this_notification, order):
                 logger.info('getpaid.pgseguro: received IPN that does match order number %s' % this_notification.Referencia)
@@ -71,7 +75,7 @@ class IPNListener(BrowserView):
 
 
     def verify(self):
-        options = IPagseguroStandardOptions( self.portal )
+        options = IPagseguroStandardOptions( self.portal)
         # get ready to POST back form variables
        
         form = self.request.form

@@ -13,7 +13,8 @@ from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from getpaid.core import interfaces as GetPaidInterfaces
 
 _sites = {
-    "servidor pagseguro": "pagseguro.uol.com.br",
+    "real": "pagseguro.uol.com.br",
+    "teste":  "pagseguro.uol.com.br"
     }
 
 class PagseguroStandardProcessor( object ):
