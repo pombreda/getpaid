@@ -28,6 +28,9 @@ class IPNListener(BrowserView):
     def process(self):
         this_notification = Notification(self.request)
         is_valid_IPN = self.verify()
+        if not is_valid_IPN:
+            logger.info('getpaid.paypal: received bogus IPN')
+            return
         order_manager = getUtility(IOrderManager)
         if this_notification.invoice in order_manager:
             order = order_manager.get(this_notification.invoice)
