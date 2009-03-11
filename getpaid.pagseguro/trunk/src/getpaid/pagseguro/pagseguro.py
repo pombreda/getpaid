@@ -1,6 +1,7 @@
 """
 """
 import urllib
+import pdb
 
 
 from Products.CMFCore.utils import getToolByName
@@ -51,15 +52,19 @@ name="submit" alt="Pague com PagSeguro - e rapido, gratis e seguro!">
 <input type="hidden" name="item_id_%(idx)s" value="%(item_number)s" />
 <input type="hidden" name="item_quant_%(idx)s" value="%(quantity)s" />
 <input type="hidden" name="item_valor_%(idx)s" value="%(amount)s" />
+<input type="hidden" name="item_peso_%(idx)s" value="%(weight)s" />
 
 """
         
         for item in order.shopping_cart.values():
+	    pdb.set_trace()
             v = _button_cart % {"idx": idx,
                                 "item_name": item.name,
                                 "item_number" : item.product_code,
                                 "quantity": item.quantity,
-                                 "amount": int(item.cost*100),}
+                                 "amount": int(item.cost*100),
+                                 "weight": int(item.weight*1000),
+                                 }
             cartitems.append(v)
             idx += 1
         siteURL = siteroot.absolute_url()
