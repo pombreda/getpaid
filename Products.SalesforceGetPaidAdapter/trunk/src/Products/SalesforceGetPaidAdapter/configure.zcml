@@ -1,0 +1,30 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:i18n="http://namespaces.zope.org/i18n"
+           xmlns:gs="http://namespaces.zope.org/genericsetup"
+           i18n_domain="salesforcegetpaidadapter">
+
+  <!-- Dependencies -->
+  <include package="getpaid.formgen" />
+
+  <five:deprecatedManageAddDelete
+      class=".content.salesforcegetpaidadapter.SalesforceGetPaidAdapter" />
+
+  <!-- Per Order Log of Workflow Events -->
+  <subscriber
+     handler=".content.salesforcegetpaidadapter.handleOrderWorkflowTransition"
+     for="getpaid.core.interfaces.IOrder
+          hurry.workflow.interfaces.IWorkflowTransitionEvent"
+     />
+
+  <gs:registerProfile
+      name="default"
+      title="SalesforceGetPaidAdapter"
+      directory="profiles/default"
+      description="Adds a custom adapter for writing PloneFormGen data to 
+                   Salesforce.com after it is run through GetPaids workflow"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      />
+
+</configure>
