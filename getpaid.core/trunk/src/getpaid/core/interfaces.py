@@ -225,6 +225,15 @@ class IDonationContent( IPayable ):
                         required=True,
                         max_length=50)
 
+class IVariableAmountDonationContent( IPayable ):
+    """ Variable Amount Donation
+    """
+    donation_text = schema.TextLine( title = _(u"Donation Description"),
+                        description=_(u"Very brief 50 character text (that shows up in portlet)"),
+                        required=True,
+                        max_length=50)
+    price = schema.Float( title = _(u"Price"), required=False)
+
 class ISubscription( IPayable ):
     """ Subscription
     """
