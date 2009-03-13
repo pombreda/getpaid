@@ -20,7 +20,10 @@ You can choose the "extra" packages you want to use with the "addpackages" optio
 Available packages:
 
 * getpaid.authorizedotnet
+* getpaid.clickandbuy
+* getpaid.formgen
 * getpaid.googlecheckout
+* getpaid.ogone
 * getpaid.payflowpro
 * getpaid.paymentech
 * getpaid.paypal
