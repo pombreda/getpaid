@@ -2,8 +2,8 @@
 CHANGES
 =======
 
-1.5 (2009-03-13)
-----------------
+1.4.1 (2009-03-13)
+------------------
 
 * added getpaid.ogone, getpaid.formgen, getpaid.clickandbuy
 * updated getpaid.authorizedotnet, getpaid.core, getpaid.paypal
