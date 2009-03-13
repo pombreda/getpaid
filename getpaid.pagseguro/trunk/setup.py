@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.0dev'
 
 setup(name='getpaid.pagseguro',
       version=version,
       description="Get Paid payment processor for pagseguro",
       long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open(os.path.join("src", "docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
@@ -19,7 +19,8 @@ setup(name='getpaid.pagseguro',
       author_email='rafael@inverta.com.br',
       url='http://www.plonegetpaid.com/',
       license='GPL',
-      packages=find_packages(exclude=['ez_setup']),
+      packages=find_packages('src'),
+      package_dir={'':'src'},
       namespace_packages=['getpaid'],
       include_package_data=True,
       zip_safe=False,
