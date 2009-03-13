@@ -1,7 +1,7 @@
 """
 """
 import urllib
-import pdb
+
 
 
 from Products.CMFCore.utils import getToolByName
@@ -41,7 +41,7 @@ action="https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx">
 <input type="hidden" name="moeda" value="BRL">
 <input type="hidden" name="ref_transacao" value="%(order_id)s"/>
 %(cart)s
-<input type="hidden" name="tipo_frete" value="EN">
+
 <input type="image" 
 src="https://pagseguro.uol.com.br/Security/Imagens/btnfinalizaBR.jpg" 
 name="submit" alt="Pague com PagSeguro - e rapido, gratis e seguro!">
@@ -57,7 +57,7 @@ name="submit" alt="Pague com PagSeguro - e rapido, gratis e seguro!">
 """
         
         for item in order.shopping_cart.values():
-	    pdb.set_trace()
+	    
             v = _button_cart % {"idx": idx,
                                 "item_name": item.name,
                                 "item_number" : item.product_code,
