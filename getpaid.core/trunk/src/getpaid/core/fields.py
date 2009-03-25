@@ -47,7 +47,6 @@ def weightValidator( weight ):
     return True
 
 def emailValidator(email):
-    import pdb;pdb.set_trace()
     if v_isemail(str(email)) is not 1:
         raise InvalidEmail(email)
     return True
