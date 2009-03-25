@@ -23,6 +23,8 @@
 
 from zope import schema
 from zope.schema.interfaces import ValidationError
+from Products.validation import validation
+v_isemail = validation.validatorFor('isEmail')
 
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid')
@@ -36,11 +38,20 @@ class InvalidCreditCardNumber(ValidationError):
 class InvalidWeight( ValidationError ):
     __doc__ = _(u"Invalid Weight")
     
+class InvalidEmail(ValidationError):
+    __doc__ = _(u"Invalid Email")
+    
 def weightValidator( weight ):
     if weight <= 0:
         raise InvalidWeight( weight )
     return True
-    
+
+def emailValidator(email):
+    import pdb;pdb.set_trace()
+    if v_isemail(str(email)) is not 1:
+        raise InvalidEmail(email)
+    return True
+
 def creditCardValid(card_number):
     """ checks to make sure that the card passes a luhn mod-10 checksum """
     # strip any whitespace

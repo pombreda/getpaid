@@ -42,7 +42,7 @@ except ImportError:
 from zope.app.container.interfaces import IContainer
 from zope.schema.interfaces import ITextLine
 from zope.schema.vocabulary import SimpleVocabulary
-from fields import PhoneNumber, CreditCardNumber, weightValidator
+from fields import PhoneNumber, CreditCardNumber, weightValidator, emailValidator
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid')
 
@@ -588,7 +588,8 @@ EmailFormatPreferenceVocabulary = SimpleVocabulary(
                                    map( lambda x: SimpleVocabulary.createTerm(*x), 
                                        ( (True, "Yes", _(u"HTML")), (False, "No", _(u"Plain Text") ) )
                                        )
-                                  )                                
+                                  )
+
 
 class IUserContactInformation( Interface ):
     """docstring for IUserContactInformation"""
@@ -600,7 +601,8 @@ class IUserContactInformation( Interface ):
                                 
     email = schema.TextLine( 
                         title=_(u"Email"),
-                        description = _(u"Contact Information") 
+                        description = _(u"Contact Information"),
+                        constraint = emailValidator
                         )
         
     marketing_preference = schema.Bool(
