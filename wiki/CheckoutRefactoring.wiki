@@ -1,0 +1,10 @@
+#summary Page for capturing requirements and architecture of refactored checkout for greater developer flexibility and offsite payment processor integration
+#labels Featured
+
+= Introduction =
+
+
+
+
+= Details =
+
