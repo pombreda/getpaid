@@ -22,8 +22,18 @@ GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site en
 
 ==Process==
 
-  * We will start work on a new branch of GetPaid while the refactoring of checkout wizard takes place. 
-  * Once the wizard is working again, payment processors will be refactored to work as well so real testing can take place. 
+  * Create a branch for the work.
+  * Write tests.
+  * Refactor the wizard.
+  * Watch all tests pass
+  * Fork an upgrade process
+  * Fork a documentation process
+  * Write more tests
+  * Refactor payment processors
+  * Watch all tests pass
+  * Fork another documentation process
+  * Merge branch
+  * Release!
 
 ==Use Cases==
 
