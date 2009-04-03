@@ -13,7 +13,7 @@ GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site en
 ==Team==
   * Derek Richardson (student)
   * Brandon Rhodes (mentor)
-  * _______ 
+  * (add you here) 
 
 ==Deliverables==
 
@@ -22,7 +22,7 @@ GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site en
 
 ==Process==
 
-  *We will start work on a new branch of GetPaid while the refactoring of checkout wizard takes place. 
+  * We will start work on a new branch of GetPaid while the refactoring of checkout wizard takes place. 
   * Once the wizard is working again, payment processors will be refactored to work as well so real testing can take place. 
 
 ==Use Cases==
