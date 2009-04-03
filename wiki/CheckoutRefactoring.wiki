@@ -3,8 +3,7 @@
 
 = Introduction =
 
-
+GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site entry of credit card information. Due to regulatory changes, it is now a common use case to outsource entry of credit card information. This is a proposal to redesign the GetPaid shopping cart and payment processor architecture to better support this, implement the redesign, and rewrite as many extant payment processor modules as is possible within the Google Summer of Code for 2009. This rework is necessary to GetPaid on road to 1.0. 
 
 
 = Details =
-
