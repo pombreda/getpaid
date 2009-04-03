@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid.core 0.3.0\n"
-"POT-Creation-Date: 2008-10-11 21:51+0000\n"
+"POT-Creation-Date: 2009-04-03 20:45+0000\n"
 "PO-Revision-Date: 2008-07-09 17:23+0800\n"
 "Last-Translator: adam tang(315ok.org) <yuejun.tang@gmail.com>\n"
 "Language-Team: http://315ok.org/ team <admins@315ok.org>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Generated-By: zope/app/translation_files/extract.py\n"
 "X-Is-Fallback-For: zh-cn zh-hk zh-mo zh-sg\n"
 
-#: ./interfaces.py:536
+#: ./interfaces.py:545
 msgid "Address 1"
 msgstr "地址一"
 
-#: ./interfaces.py:537
+#: ./interfaces.py:546
 msgid "Address 2"
 msgstr "地址二"
 
@@ -32,7 +32,7 @@ msgstr "产品唯一标识符（不是必须的，因为购物车采用商品的
 msgid "Authorize"
 msgstr "授权"
 
-#: ./interfaces.py:598
+#: ./interfaces.py:609
 msgid "Can we contact you with offers?"
 msgstr "当有新货物时，可以通知你吗？"
 
@@ -44,19 +44,19 @@ msgstr "取消"
 msgid "Cancel Order"
 msgstr "取消订单"
 
-#: ./interfaces.py:614
+#: ./interfaces.py:625
 msgid "Card Holder Name"
 msgstr "信任卡持有者姓名"
 
-#: ./interfaces.py:743
+#: ./interfaces.py:754
 msgid "Change Date"
 msgstr "更改日期"
 
-#: ./interfaces.py:744
+#: ./interfaces.py:755
 msgid "Change Kind"
 msgstr "更改种类"
 
-#: ./interfaces.py:742
+#: ./interfaces.py:753
 msgid "Changed By"
 msgstr "已更改由"
 
@@ -72,11 +72,11 @@ msgstr "支付订单"
 msgid "Charged"
 msgstr "已支付"
 
-#: ./interfaces.py:538
+#: ./interfaces.py:547
 msgid "City"
 msgstr "城市"
 
-#: ./interfaces.py:745
+#: ./interfaces.py:756
 msgid "Comment"
 msgstr "评注"
 
@@ -108,7 +108,7 @@ msgstr "邮件"
 msgid "Contact Fax"
 msgstr "传真"
 
-#: ./interfaces.py:594
+#: ./interfaces.py:604
 msgid "Contact Information"
 msgstr "联系信息"
 
@@ -128,15 +128,15 @@ msgstr "联系人州或省"
 msgid "Contact Zip/Postal Code"
 msgstr "联系人邮政编码"
 
-#: ./interfaces.py:335
+#: ./interfaces.py:344
 msgid "Cost"
 msgstr "花费"
 
-#: ./interfaces.py:463
+#: ./interfaces.py:472
 msgid "Cost of Delivery"
 msgstr "发货费用"
 
-#: ./interfaces.py:539
+#: ./interfaces.py:548
 msgid "Country"
 msgstr "国家"
 
@@ -144,31 +144,31 @@ msgstr "国家"
 msgid "Create"
 msgstr "创建"
 
-#: ./interfaces.py:464
+#: ./interfaces.py:473
 msgid "Creation Date"
 msgstr "创建日期"
 
-#: ./interfaces.py:627
+#: ./interfaces.py:638
 msgid "Credit Card Expiration Date"
 msgstr "信任卡过期日期"
 
-#: ./interfaces.py:624
+#: ./interfaces.py:635
 msgid "Credit Card Number"
 msgstr "信任卡号码"
 
-#: ./interfaces.py:621
+#: ./interfaces.py:632
 msgid "Credit Card Type"
 msgstr "信任卡类型"
 
-#: ./interfaces.py:630
+#: ./interfaces.py:641
 msgid "Credit Card Verfication Number"
 msgstr "信任卡认证号码"
 
-#: ./interfaces.py:506
+#: ./interfaces.py:515
 msgid "Currency Denomination Code"
 msgstr "货币代码"
 
-#: ./interfaces.py:675
+#: ./interfaces.py:686
 msgid "Customer Id"
 msgstr "客户ID"
 
@@ -184,7 +184,7 @@ msgstr "已发送"
 msgid "Description"
 msgstr "描述"
 
-#: ./interfaces.py:251
+#: ./interfaces.py:260
 msgid "Dimensions"
 msgstr "尺寸"
 
@@ -196,71 +196,79 @@ msgstr "折扣描述"
 msgid "Electronic Delivery"
 msgstr "电子发送"
 
-#: ./interfaces.py:593
+#: ./interfaces.py:603
 msgid "Email"
 msgstr "电子邮件"
 
-#: ./interfaces.py:603
+#: ./interfaces.py:614
 msgid "Email Format"
 msgstr "邮件格式"
 
-#: ./interfaces.py:257
+#: ./interfaces.py:266
 msgid "Enter a weight, only two decimal places are supported. The unit is specified in the field below."
 msgstr "输入重量，两位小数，重量单位在下面。"
 
-#: ./interfaces.py:615
+#: ./interfaces.py:626
 msgid "Enter the full name, as it appears on the card. "
 msgstr "输入全名，该名称将出现在卡上。"
 
-#: ./order.py:437
+#: ./order.py:448
 msgid "Finance"
 msgstr "财务"
 
-#: ./interfaces.py:681
+#: ./interfaces.py:692
 msgid "Finance State"
 msgstr "财务状态"
 
-#: ./interfaces.py:631
+#: ./interfaces.py:642
 msgid "For MC, Visa, and DC, this is a 3-digit number on back of the card.  For AmEx, this is a 4-digit code on front of card. "
 msgstr "对于MC,VIsa,DC,是卡背面三个数字，对于AmEx,是卡正面4位代码"
 
-#: ./order.py:439
+#: ./order.py:450
 msgid "Fulfillment"
 msgstr "履行"
 
-#: ./interfaces.py:682
+#: ./interfaces.py:693
 msgid "Fulfillment State"
 msgstr "履约状态"
 
-#: ./interfaces.py:549
+#: ./interfaces.py:558
 msgid "Full Name"
 msgstr "全名"
 
-#: ./interfaces.py:580
+#: ./interfaces.py:589
 msgid "HTML"
 msgstr "HTML"
 
-#: ./interfaces.py:400
+#: ./interfaces.py:409
 msgid "Height"
 msgstr "高"
 
-#: ./interfaces.py:383
+#: ./interfaces.py:392
 msgid "Integer Id for a Product"
 msgstr "产品ID（应为整数）"
 
-#: ./fields.py:34
+#: ./fields.py:36
 msgid "Invalid Credit Card Number."
 msgstr "无效的信任卡号码"
 
-#: ./order.py:102
+#: ./fields.py:42
+msgid "Invalid Email"
+msgstr ""
+
+#: ./order.py:106
 msgid "Invalid Order Id"
 msgstr "无效的订单ID"
 
-#: ./fields.py:37
+#: ./order.py:113
+msgid "Invalid Transaction Id"
+msgstr ""
+
+#: ./fields.py:39
 msgid "Invalid Weight"
 msgstr "无效宽度"
 
-#: ./interfaces.py:399
+#: ./interfaces.py:408
 msgid "Length"
 msgstr "长度"
 
@@ -268,19 +276,19 @@ msgstr "长度"
 msgid "Made Payable By"
 msgstr "上架销售由"
 
-#: ./interfaces.py:333
+#: ./interfaces.py:342
 msgid "Name"
 msgstr "名称"
 
-#: ./interfaces.py:746
+#: ./interfaces.py:757
 msgid "New State"
 msgstr "新状态"
 
-#: ./interfaces.py:574
+#: ./interfaces.py:583
 msgid "No"
 msgstr "不"
 
-#: ./fields.py:31
+#: ./fields.py:33
 msgid "Only digit character allowed."
 msgstr "仅仅允许数字字符"
 
@@ -288,11 +296,11 @@ msgstr "仅仅允许数字字符"
 msgid "Only digits allowed"
 msgstr "仅仅数字"
 
-#: ./interfaces.py:590
+#: ./interfaces.py:600
 msgid "Only digits allowed - e.g. 3334445555 and not 333-444-5555 "
 msgstr "只允许数字，例如：3334445555  而不能是  333-444-5555 "
 
-#: ./interfaces.py:625
+#: ./interfaces.py:636
 msgid "Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777 "
 msgstr "只允许数字，例如： 4444555566667777 而不能是 4444-5555-6666-7777 "
 
@@ -300,7 +308,7 @@ msgstr "只允许数字，例如： 4444555566667777 而不能是 4444-5555-6666
 msgid "Order Charged"
 msgstr "已付款订单"
 
-#: ./order.py:100
+#: ./order.py:104
 msgid "Order Id already set"
 msgstr "订单ID已设置"
 
@@ -312,27 +320,27 @@ msgstr "已处理的订单"
 msgid "Payment Declined"
 msgstr "拒绝的支付"
 
-#: ./interfaces.py:405
+#: ./interfaces.py:414
 msgid "Period as a timedelta"
 msgstr "拒绝支付"
 
-#: ./interfaces.py:589
+#: ./interfaces.py:599
 msgid "Phone Number"
 msgstr "电话号码"
 
-#: ./interfaces.py:580
+#: ./interfaces.py:589
 msgid "Plain Text"
 msgstr "平面文本"
 
-#: ./interfaces.py:536
+#: ./interfaces.py:545
 msgid "Please Enter Your Address"
 msgstr "请输入您的地址"
 
-#: ./interfaces.py:259
+#: ./interfaces.py:268
 msgid "Please select the unit in which you specified the shipment weight."
 msgstr "请选择运输重量单位。"
 
-#: ./interfaces.py:747
+#: ./interfaces.py:758
 msgid "Previous State"
 msgstr "前一状态"
 
@@ -356,7 +364,7 @@ msgstr "已付款处理"
 msgid "Processor Declined"
 msgstr "拒绝处理"
 
-#: ./interfaces.py:683
+#: ./interfaces.py:694
 msgid "Processor Order Id"
 msgstr "处理订单ID"
 
@@ -364,11 +372,11 @@ msgstr "处理订单ID"
 msgid "Product Code"
 msgstr "产品代码"
 
-#: ./interfaces.py:252
+#: ./interfaces.py:261
 msgid "Product SKU"
 msgstr "产品SKU"
 
-#: ./interfaces.py:336
+#: ./interfaces.py:345
 msgid "Quantity"
 msgstr "数量"
 
@@ -380,7 +388,7 @@ msgstr "退款"
 msgid "Refund Processed"
 msgstr "已处理的退款"
 
-#: ./interfaces.py:548
+#: ./interfaces.py:557
 msgid "Same as billing address"
 msgstr "同发票地址"
 
@@ -388,15 +396,15 @@ msgstr "同发票地址"
 msgid "Select a method to calculate shipping charges for orders in your store."
 msgstr "选择一种方法计算运费。"
 
-#: ./interfaces.py:628
+#: ./interfaces.py:639
 msgid "Select month and year"
 msgstr "选择年份和月份"
 
-#: ./interfaces.py:461
+#: ./interfaces.py:470
 msgid "Service Code (2 Letter)"
 msgstr "服务代码（两字母）"
 
-#: ./interfaces.py:462
+#: ./interfaces.py:471
 msgid "Service Name"
 msgstr "服务名"
 
@@ -408,19 +416,19 @@ msgstr "送货"
 msgid "Shipping Method"
 msgstr "送货方法"
 
-#: ./interfaces.py:693
+#: ./interfaces.py:704
 msgid "Shipping Price"
 msgstr "送货价"
 
-#: ./interfaces.py:691
+#: ./interfaces.py:702
 msgid "Shipping Service"
 msgstr "送货服务"
 
-#: ./interfaces.py:255
+#: ./interfaces.py:264
 msgid "Shipping Weight"
 msgstr "运输重量"
 
-#: ./interfaces.py:541
+#: ./interfaces.py:550
 msgid "State"
 msgstr "状态"
 
@@ -436,11 +444,15 @@ msgstr "税号"
 msgid "Title"
 msgstr "标题"
 
-#: ./interfaces.py:460
+#: ./interfaces.py:469
 msgid "Tracking Number"
 msgstr "跟踪号"
 
-#: ./interfaces.py:332
+#: ./order.py:111
+msgid "Transaction Id already set"
+msgstr ""
+
+#: ./interfaces.py:341
 msgid "Unique Item Id"
 msgstr "唯一项目ID"
 
@@ -448,15 +460,15 @@ msgstr "唯一项目ID"
 msgid "Very brief 50 character text (that shows up in portlet)"
 msgstr "摘要描述（25个字）"
 
-#: ./interfaces.py:259
+#: ./interfaces.py:268
 msgid "Weight Unit"
 msgstr "重量单位"
 
-#: ./interfaces.py:394
+#: ./interfaces.py:403
 msgid "Weight of Packaged Item"
 msgstr "毛重"
 
-#: ./interfaces.py:401
+#: ./interfaces.py:410
 msgid "Width"
 msgstr "宽"
 
@@ -464,19 +476,19 @@ msgstr "宽"
 msgid "Will Not Deliver"
 msgstr "不将发送"
 
-#: ./interfaces.py:604
+#: ./interfaces.py:615
 msgid "Would you prefer to receive rich html emails or only plain text"
 msgstr "你选择接受HTML格式还是平面文本格式邮件？"
 
-#: ./interfaces.py:574
+#: ./interfaces.py:583
 msgid "Yes"
 msgstr "确认"
 
-#: ./interfaces.py:587
+#: ./interfaces.py:597
 msgid "Your Name"
 msgstr "您的名称"
 
-#: ./interfaces.py:543
+#: ./interfaces.py:552
 msgid "Zip/Postal Code"
 msgstr "邮政编码"
 
@@ -484,11 +496,11 @@ msgstr "邮政编码"
 msgid "do_not_translate"
 msgstr ""
 
-#: ./interfaces.py:246
+#: ./interfaces.py:255
 msgid "kgs"
 msgstr "公斤"
 
-#: ./interfaces.py:245
+#: ./interfaces.py:254
 msgid "lbs"
 msgstr "磅"
 
