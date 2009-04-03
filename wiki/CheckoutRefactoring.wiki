@@ -7,3 +7,26 @@ GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site en
 
 
 = Details =
+
+==Architecture==
+
+==Team==
+  * Derek Richardson (student)
+  * Brandon Rhodes (mentor)
+  * _______ 
+
+==Deliverables==
+
+  * PloneGetPaid Version 0.8.0 Alpha with refactored checkout wizard
+  * Documentation on upgrading, customization of wizard best practices, and writing a payment processor for the new wizard
+
+==Process==
+
+  *We will start work on a new branch of GetPaid while the refactoring of checkout wizard takes place. 
+  * Once the wizard is working again, payment processors will be refactored to work as well so real testing can take place. 
+
+==Use Cases==
+
+  * As a developer, I want to add a field to the checkout wizard
+  * As a site owner, I want my customers to enter in credit card information directly on the payment processor's website
+  * As a site owner, I want to configure my payment processor settings to use on-site or off-site entry of credit card information
