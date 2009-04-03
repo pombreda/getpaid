@@ -17,11 +17,11 @@ msgstr ""
 
 #: ./interfaces.py:545
 msgid "Address 1"
-msgstr ""
+msgstr "Adres 1"
 
 #: ./interfaces.py:546
 msgid "Address 2"
-msgstr ""
+msgstr "Adres 2"
 
 #: ./interfaces.py:215
 msgid "An organization's unique product identifier (not required since shopping cart uses content UID internally)"
@@ -33,7 +33,7 @@ msgstr "Autoriseer"
 
 #: ./interfaces.py:609
 msgid "Can we contact you with offers?"
-msgstr ""
+msgstr "Mogen we u benaderen met aanbiedingen"
 
 #: ./workflow/item.py:132
 msgid "Cancel"
@@ -81,31 +81,31 @@ msgstr "Opmerking"
 
 #: ./interfaces.py:98
 msgid "Contact Address"
-msgstr ""
+msgstr "Contactadres"
 
 #: ./interfaces.py:103
 msgid "Contact Address2"
-msgstr ""
+msgstr "Contractadres 2"
 
 #: ./interfaces.py:108
 msgid "Contact City"
-msgstr ""
+msgstr "Contact stad"
 
 #: ./interfaces.py:93
 msgid "Contact Company"
-msgstr ""
+msgstr "Contact bedrijf"
 
 #: ./interfaces.py:113
 msgid "Contact Country"
-msgstr ""
+msgstr "Contact land"
 
 #: ./interfaces.py:88
 msgid "Contact Email"
-msgstr ""
+msgstr "Contact e-mail"
 
 #: ./interfaces.py:134
 msgid "Contact Fax"
-msgstr ""
+msgstr "Contact fax"
 
 #: ./interfaces.py:604
 msgid "Contact Information"
@@ -113,19 +113,19 @@ msgstr "Contact Informatie"
 
 #: ./interfaces.py:83
 msgid "Contact Name"
-msgstr ""
+msgstr "Contactnaam"
 
 #: ./interfaces.py:128
 msgid "Contact Phone"
-msgstr ""
+msgstr "Contacttelefoonnummer"
 
 #: ./interfaces.py:118
 msgid "Contact State/Province"
-msgstr ""
+msgstr "Contact provincie"
 
 #: ./interfaces.py:123
 msgid "Contact Zip/Postal Code"
-msgstr ""
+msgstr "Contact postcode"
 
 #: ./interfaces.py:344
 msgid "Cost"
@@ -133,7 +133,7 @@ msgstr "Prijs"
 
 #: ./interfaces.py:472
 msgid "Cost of Delivery"
-msgstr ""
+msgstr "Bezorgkosten"
 
 #: ./interfaces.py:548
 msgid "Country"
@@ -145,7 +145,7 @@ msgstr "Creëer"
 
 #: ./interfaces.py:473
 msgid "Creation Date"
-msgstr ""
+msgstr "Creatiedatum"
 
 #: ./interfaces.py:638
 msgid "Credit Card Expiration Date"
