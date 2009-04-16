@@ -15,9 +15,9 @@ from Products.PloneFormGen.interfaces import IPloneFormGenField
 
 from Products.salesforcebaseconnector.tests import sfconfig   # get login/pw
 
-from Products.SalesforceGetPaidAdapter.tests import base
-from Products.SalesforceGetPaidAdapter.config import REQUIRED_MARKER
-from Products.SalesforceGetPaidAdapter.config import SF_ADAPTER_TYPES
+from getpaid.SalesforcePloneFormGenAdapter.tests import base
+from getpaid.SalesforcePloneFormGenAdapter.config import REQUIRED_MARKER
+from getpaid.SalesforcePloneFormGenAdapter.config import SF_ADAPTER_TYPES
 
 class TestProductInstallation(base.SalesforceGetPaidAdapterTestCase):
     """ ensure that our product installs correctly """

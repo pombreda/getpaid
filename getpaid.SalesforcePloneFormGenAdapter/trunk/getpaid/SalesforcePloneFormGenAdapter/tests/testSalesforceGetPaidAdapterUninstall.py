@@ -4,12 +4,12 @@
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
-from Products.SalesforceGetPaidAdapter.tests import base
-from Products.SalesforceGetPaidAdapter.config import SF_ADAPTER_TYPES
+from getpaid.SalesforcePloneFormGenAdapter.tests import base
+from getpaid.SalesforcePloneFormGenAdapter.config import SF_ADAPTER_TYPES
 
 from Products.CMFCore.utils import getToolByName
 
-class TestProductUninstallation(base.SalesforceGetPaidAdapterTestCase):
+class TestProductUninstallation(base.SalesforcePloneFormGenAdapterTestCase):
     """ ensure that our product installs correctly """
 
     def afterSetUp(self):
@@ -23,8 +23,8 @@ class TestProductUninstallation(base.SalesforceGetPaidAdapterTestCase):
         self.metaTypes = self.adapterTypes
         
         # uninstall our product
-        if self.qi.isProductInstalled('SalesforceGetPaidAdapter'):
-            self.qi.uninstallProducts(products=['SalesforceGetPaidAdapter',])
+        if self.qi.isProductInstalled('SalesforcePloneFormGenAdapter'):
+            self.qi.uninstallProducts(products=['SalesforcePloneFormGenAdapter',])
     
     def testDependenciesStillInstalled(self):
         """Just because someone chooses to uninstall the salesforcepfgadapter
@@ -42,7 +42,7 @@ class TestProductUninstallation(base.SalesforceGetPaidAdapterTestCase):
     
     def testQIDeemsProductUninstalled(self):
         """Make sure the product is uninstalled in the eyes of the portal_quickinstaller"""
-        self.failIf(self.qi.isProductInstalled('SalesforceGetPaidAdapter'))
+        self.failIf(self.qi.isProductInstalled('SalesforcePloneFormGenAdapter'))
     
     def testAdapterTypeNotRegisteredOnUninstall(self):
         for t in self.metaTypes:
@@ -103,12 +103,12 @@ class TestProductUninstallation(base.SalesforceGetPaidAdapterTestCase):
         # output in our --coverage results :)
         
         # ensure installable after uninstall
-        self.failUnless(self.qi.isProductInstallable('SalesforceGetPaidAdapter'))
-        self.qi.installProducts(products=['SalesforceGetPaidAdapter',])
+        self.failUnless(self.qi.isProductInstallable('SalesforcePloneFormGenAdapter'))
+        self.qi.installProducts(products=['SalesforcePloneFormGenAdapter',])
         
         # uninstall product
-        self.qi.uninstallProducts(products=['SalesforceGetPaidAdapter',])
-        self.failUnless(self.qi.isProductInstallable('SalesforceGetPaidAdapter'))
+        self.qi.uninstallProducts(products=['SalesforcePloneFormGenAdapter',])
+        self.failUnless(self.qi.isProductInstallable('SalesforcePloneFormGenAdapter'))
         
     
 if  __name__ == '__main__':

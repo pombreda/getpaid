@@ -3,7 +3,7 @@ import doctest
 
 from Testing import ZopeTestCase as ztc
 
-from Products.SalesforceGetPaidAdapter.tests import base
+from getpaid.SalesforcePloneFormGenAdapter.tests import base
 
 testfiles = (
     'pfg_adapter_view.txt',
@@ -14,7 +14,7 @@ def test_suite():
 
         # Test the control panel
         ztc.FunctionalDocFileSuite(
-            f, package='Products.SalesforceGetPaidAdapter.tests',
+            f, package='getpaid.SalesforcePloneFormGenAdapter.tests',
             test_class=base.BaseSalesforceGetPaidAdapterFunctionalTestCase,
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS)
         

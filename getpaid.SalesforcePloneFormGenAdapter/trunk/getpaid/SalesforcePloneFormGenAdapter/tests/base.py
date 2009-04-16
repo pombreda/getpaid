@@ -4,7 +4,7 @@ from Products.Five import zcml
 from Products.CMFPlone.tests import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 from Products.CMFCore.utils import getToolByName
-import Products.SalesforceGetPaidAdapter
+import getpaid.SalesforcePloneFormGenAdapter
 
 from Products.salesforcebaseconnector.tests import sfconfig   # get login/pw
 
@@ -16,19 +16,20 @@ ztc.installProduct('DataGridField')
 ztc.installProduct('salesforcebaseconnector')
 ztc.installProduct('salesforcepfgadapter')
 ztc.installProduct('PloneGetPaid')
-ztc.installProduct('SalesforceGetPaidAdapter')
+
+#ztc.installProduct('SalesforceGetPaidAdapter')
 
 # Set up the Plone site used for the test fixture. The PRODUCTS are the products
 # to install in the Plone site (as opposed to the products defined above, which
 # are all products available to Zope in the test fixture)
 PRODUCTS = ['salesforcepfgadapter',
             'PloneGetPaid',
-            'SalesforceGetPaidAdapter',
-            'getpaid.formgen']
+            'getpaid.formgen',
+            'getpaid.SalesforcePloneFormGenAdapter']
 
 @onsetup
 def setupZCML():
-    zcml.load_config('configure.zcml', Products.SalesforceGetPaidAdapter)
+    zcml.load_config('configure.zcml', getpaid.SalesforcePloneFormGenAdapter)
     ztc.installPackage('getpaid.formgen')
 
 setupZCML()
