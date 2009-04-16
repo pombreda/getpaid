@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 import os
 
-version = open(os.path.join("Products", "SalesforceGetPaidAdapter", "version.txt")).read().strip()
+version = open(os.path.join("getpaid", "SalesforcePloneFormGenAdapter", "version.txt")).read().strip()
 
-setup(name='Products.SalesforceGetPaidAdapter',
+setup(name='getpaid.SalesforcePloneFormGenAdapter',
       version=version,
       description="PloneFormGen adapter allowing for creation of arbitrary Salesforce.com \
         records based on data collected from a web form",
-      long_description=open(os.path.join("Products", "SalesforceGetPaidAdapter", "README.txt")).read(),
+      long_description=open(os.path.join("getpaid", "SalesforcePloneFormGenAdapter", "README.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Programming Language :: Python",
@@ -21,7 +21,7 @@ setup(name='Products.SalesforceGetPaidAdapter',
       url='http://groups.google.com/group/plonesf',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['Products'],
+      namespace_packages=['getpaid'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[

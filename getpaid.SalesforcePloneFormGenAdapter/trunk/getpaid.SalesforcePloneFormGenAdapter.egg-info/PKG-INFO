@@ -1,5 +1,5 @@
 Metadata-Version: 1.0
-Name: Products.SalesforceGetPaidAdapter
+Name: getpaid.SalesforcePloneFormGenAdapter
 Version: 1.0a1.-svn-unreleased-
 Summary: PloneFormGen adapter allowing for creation of arbitrary Salesforce.com         records based on data collected from a web form
 Home-page: http://groups.google.com/group/plonesf
