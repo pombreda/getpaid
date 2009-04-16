@@ -3,7 +3,7 @@ from Products.Archetypes.public import process_types, listTypes
 from Products.CMFCore import utils
 from Products.CMFCore.DirectoryView import registerDirectory
 
-from Products.SalesforceGetPaidAdapter.config import PROJECTNAME, GLOBALS, \
+from getpaid.SalesforcePloneFormGenAdapter.config import PROJECTNAME, GLOBALS, \
     SFA_ADD_CONTENT_PERMISSION
 from Products.PloneFormGen.config import ADD_CONTENT_PERMISSION, SKINS_DIR
 
@@ -29,7 +29,7 @@ def initialize(context):
     for atype, constructor in allTypes:
         kind = "%s: %s" % (PROJECTNAME, atype.archetype_name)
         
-        if atype.portal_type == 'SalesforceGetPaidAdapter':
+        if atype.portal_type == 'SalesforcePloneFormGenAdapter':
             permission = SFA_ADD_CONTENT_PERMISSION
         else:
             permission = ADD_CONTENT_PERMISSION
@@ -42,7 +42,7 @@ def initialize(context):
             fti                = ftis,
             ).initialize(context)
 
-    ModuleSecurityInfo('Products.PloneFormGen').declarePublic('SalesforceGetPaidAdapterMessageFactory')
+    ModuleSecurityInfo('Products.PloneFormGen').declarePublic('SalesforcePloneFormGenAdapterMessageFactory')
     ModuleSecurityInfo('Products.PloneFormGen').declarePublic('HAS_PLONE25')
 
 # Import "PloneFormGenMessageFactory as _" to create message ids
@@ -52,9 +52,9 @@ def initialize(context):
 try:
     from zope.i18nmessageid import MessageFactory
 except ImportError:
-    from messagefactory_ import SalesforceGetPaidAdapterMessageFactory
+    from messagefactory_ import SalesforcePloneFormGenAdapterMessageFactory
 else:
-    SalesforceGetPaidAdapterMessageFactory = MessageFactory('salesforcegetpaidadapter')
+    SalesforcePloneFormGenAdapterMessageFactory = MessageFactory('salesforcegetpaidadapter')
 
 # Check for Plone versions
 try:
