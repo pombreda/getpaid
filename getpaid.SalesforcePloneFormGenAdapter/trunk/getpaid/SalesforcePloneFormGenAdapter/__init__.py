@@ -29,7 +29,7 @@ def initialize(context):
     for atype, constructor in allTypes:
         kind = "%s: %s" % (PROJECTNAME, atype.archetype_name)
         
-        if atype.portal_type == 'SalesforceGetPaidAdapter':
+        if atype.portal_type == 'GetPaidPFGSalesforceAdapter':
             permission = SFA_ADD_CONTENT_PERMISSION
         else:
             permission = ADD_CONTENT_PERMISSION
@@ -54,7 +54,7 @@ try:
 except ImportError:
     from messagefactory_ import SalesforcePloneFormGenAdapterMessageFactory
 else:
-    SalesforcePloneFormGenAdapterMessageFactory = MessageFactory('salesforcegetpaidadapter')
+    SalesforcePloneFormGenAdapterMessageFactory = MessageFactory('getpaidpfgsalesforceadapter')
 
 # Check for Plone versions
 try:

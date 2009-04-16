@@ -1,7 +1,7 @@
 from Products.CMFCore.permissions import setDefaultRoles
 
 ## The Project Name
-PROJECTNAME = "SalesforceGetPaidAdapter"
+PROJECTNAME = "GetPaidPFGSalesforceAdapter"
 
 ## The skins dir
 SKINS_DIR = 'skins'
@@ -16,4 +16,4 @@ setDefaultRoles(SFA_ADD_CONTENT_PERMISSION, ('Manager','Owner',))
 ## Required field marker
 REQUIRED_MARKER = "(required)"
 
-SF_ADAPTER_TYPES = ['SalesforceGetPaidAdapter',]
+SF_ADAPTER_TYPES = ['GetPaidPFGSalesforceAdapter',]

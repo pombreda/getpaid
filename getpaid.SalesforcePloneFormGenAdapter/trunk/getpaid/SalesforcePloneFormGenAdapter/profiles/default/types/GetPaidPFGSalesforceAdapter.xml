@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
-<object name="SalesforceGetPaidAdapter"
+<object name="GetPaidPFGSalesforceAdapter"
    meta_type="Factory-based Type Information with dynamic views"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title">Salesforce GetPaid Adapter</property>
+ <property name="title">GetPaid PloneFormGen Salesforce Adapter</property>
  <property
     name="description"> An adapter for PloneFormGen that saves results to Salesforce after GetPaid's workflow completes
     </property>
  <property name="content_icon">salesforce.gif</property>
- <property name="content_meta_type">SalesforceGetPaidAdapter</property>
- <property name="product">SalesforceGetPaidAdapter</property>
- <property name="factory">addSalesforceGetPaidAdapter</property>
+ <property name="content_meta_type">GetPaidPFGSalesforceAdapter</property>
+ <property name="product">GetPaidPFGSalesforceAdapter</property>
+ <property name="factory">addGetPaidPFGSalesforceAdapter</property>
  <property name="immediate_view">base_view</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">False</property>

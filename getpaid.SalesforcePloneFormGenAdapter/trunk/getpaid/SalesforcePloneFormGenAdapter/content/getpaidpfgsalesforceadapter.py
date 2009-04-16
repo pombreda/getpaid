@@ -63,7 +63,7 @@ from zope.app.component.hooks import getSite
 from zope.app.annotation.interfaces import IAnnotations
 
 
-logger = logging.getLogger("SalesforceGetPaid")
+logger = logging.getLogger("GetPaidPFGSalesforce")
 
 schema = FormAdapterSchema.copy() + Schema((
     StringField('SFObjectType',
@@ -74,7 +74,7 @@ schema = FormAdapterSchema.copy() + Schema((
         mutator='setSFObjectType',
         widget=SelectionWidget(
             label='Salesforce Object Type',
-            i18n_domain = "salesforcegetpaidadapter",
+            i18n_domain = "getpaidpfgsalesforceadapter",
             label_msgid = "label_salesforce_type_text",
             ),
         vocabulary='displaySFObjectTypes',
@@ -102,7 +102,7 @@ schema = FormAdapterSchema.copy() + Schema((
                  "sf_field" : SelectColumn("Salesforce Fields", 
                                            vocabulary="buildSFFieldOptionList")
              },
-             i18n_domain = "salesforcegetpaidadapter",
+             i18n_domain = "getpaidpfgsalesforceadapter",
              ),
         ),
     DataGridField('getPaidFieldMap',
@@ -128,7 +128,7 @@ schema = FormAdapterSchema.copy() + Schema((
                  "sf_field" : SelectColumn("Salesforce Fields", 
                                            vocabulary="buildSFFieldOptionList")
              },
-             i18n_domain = "salesforcegetpaidadapter",
+             i18n_domain = "getpaidpfgsalesforceadapter",
              ),
         )
 ))
@@ -137,7 +137,7 @@ schema = FormAdapterSchema.copy() + Schema((
 schema = ManagedSchema(schema.copy().fields())
 schema.moveSchemata('field mapping', -1)
 
-class SalesforceGetPaidAdapter(SalesforcePFGAdapter):
+class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
     """ An adapter for PloneFormGen that saves results to Salesforce
     after GetPaid's workflow executes.
     """
@@ -147,7 +147,7 @@ class SalesforceGetPaidAdapter(SalesforcePFGAdapter):
     if not HAS_PLONE30:
         finalizeATCTSchema(schema, folderish=True, moveDiscussion=False)
     
-    meta_type = portal_type = 'SalesforceGetPaidAdapter'
+    meta_type = portal_type = 'GetPaidPFGSalesforceAdapter'
     archetype_name = 'Salesforce Adapter'
     content_icon = 'salesforce.gif'
     
@@ -395,11 +395,11 @@ class SalesforceGetPaidAdapter(SalesforcePFGAdapter):
      
         return fixedRows
 
-registerATCT(SalesforceGetPaidAdapter, PROJECTNAME)
+registerATCT(GetPaidPFGSalesforceAdapter, PROJECTNAME)
 
 try:
     from Products.Archetypes.interfaces import IMultiPageSchema
-    classImplements(SalesforceGetPaidAdapter, IMultiPageSchema)
+    classImplements(GetPaidPFGSalesforceAdapter, IMultiPageSchema)
 except ImportError:
     pass
 

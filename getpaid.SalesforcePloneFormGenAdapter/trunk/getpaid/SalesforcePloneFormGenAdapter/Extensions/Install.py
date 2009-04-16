@@ -1,5 +1,5 @@
-from Products.SalesforceGetPaidAdapter.config import PROJECTNAME
-from Products.SalesforceGetPaidAdapter import HAS_PLONE25, HAS_PLONE30
+from getpaid.SalesforcePloneFormGenAdapter.config import PROJECTNAME
+from getpaid.SalesforcePloneFormGenAdapter import HAS_PLONE25, HAS_PLONE30
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.permissions import ManagePortal
@@ -7,7 +7,7 @@ from Products.CMFPlone.utils import versionTupleFromString
 
 from StringIO import StringIO
 
-ALLTYPES = ('SalesforceGetPaidAdapter',)
+ALLTYPES = ('GetPaidPFGSalesforceAdapter',)
 DEPENDENCIES = ('PloneFormGen',
                 'DataGridField',
                 'Products.salesforcepfgadapter')
@@ -23,15 +23,15 @@ def install(self):
     
     # We install our product by running a GS profile.  We use the old-style Install.py module 
     # so that our product works w/ the Quick Installer in Plone 2.5.x
-    print >> out, "Installing SalesforceGetPaidAdapter"
+    print >> out, "Installing GetPaidPFGSalesforceAdapter"
     setup_tool = getToolByName(self, 'portal_setup')
     if HAS_PLONE30:
         setup_tool.runAllImportStepsFromProfile(
-                "profile-Products.SalesforceGetPaidAdapter:default",
+                "profile-getpaid.SalesforcePloneFormGenAdapter:default",
                 purge_old=False)
     else:
         old_context = setup_tool.getImportContextID()
-        setup_tool.setImportContext('profile-Products.SalesforceGetPaidAdapter:default')
+        setup_tool.setImportContext('profile-getpaid.SalesforcePloneFormGenAdapter:default')
         setup_tool.runAllImportSteps()
         setup_tool.setImportContext(old_context)
     print >> out, "Installed types and added to portal_factory via portal_setup"
@@ -40,14 +40,14 @@ def install(self):
     # add the SalesforceGetPaidAdapter type as an addable type to FormField
     # This is not desirable to do with GS because we don't want to maintain a list of 
     # FormFolder's allowed_content_types and we don't want to overwrite existing settings
-    print >> out, "Adding SalesforceGetPaidAdapter to Form Field allowed_content_types"
+    print >> out, "Adding GetPaidPFGSalesforceAdapter to Form Field allowed_content_types"
     types_tool = getToolByName(self, 'portal_types')
     if 'FormFolder' in types_tool.objectIds():
         allowedTypes = types_tool.FormFolder.allowed_content_types
         
-        if 'SalesforceGetPaidAdapter' not in allowedTypes:
+        if 'GetPaidPFGSalesforceAdapter' not in allowedTypes:
             allowedTypes = list(allowedTypes)
-            allowedTypes.append('SalesforceGetPaidAdapter')
+            allowedTypes.append('GetPaidPFGSalesforceAdapter')
             types_tool.FormFolder.allowed_content_types = allowedTypes
         
     propsTool = getToolByName(self, 'portal_properties')
@@ -99,11 +99,11 @@ def uninstall(self):
     if 'FormFolder' in types_tool.objectIds():
         allowedTypes = types_tool.FormFolder.allowed_content_types
         
-        if 'SalesforceGetPaidAdapter' in allowedTypes:
+        if 'GetPaidPFGSalesforceAdapter' in allowedTypes:
             allowedTypes = list(allowedTypes)
-            allowedTypes.remove('SalesforceGetPaidAdapter')
+            allowedTypes.remove('GetPaidPFGSalesforceAdapter')
             types_tool.FormFolder.allowed_content_types = allowedTypes
-            print >> out, "Removed SalesforceGetPaidAdapter from FormFolder's allowedTypes"
+            print >> out, "Removed GetPaidPFGSalesforceAdapter from FormFolder's allowedTypes"
     
     # remove our types from the portal's list of types excluded from navigation
     typesNotListed = list(navtreeProperties.getProperty('metaTypesNotToList'))

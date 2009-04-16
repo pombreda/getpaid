@@ -4,7 +4,7 @@
 
 # BBB: Zope 2.8 / Zope X3.0
 from zope.i18nmessageid import MessageIDFactory
-msg_factory = MessageIDFactory('salesforcegetpaidadapter')
+msg_factory = MessageIDFactory('getpaidpfgsalesforceadapter')
 
 def SalesforcePloneFormGenAdapterMessageFactory(ustr, default=None, mapping=None):
     message = msg_factory(ustr, default)
