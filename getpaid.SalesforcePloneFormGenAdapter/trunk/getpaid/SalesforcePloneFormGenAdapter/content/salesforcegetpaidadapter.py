@@ -49,7 +49,7 @@ from Products.PloneFormGen.content.actionAdapter import \
 
 # Local imports
 from getpaid.SalesforcePloneFormGenAdapter.config import PROJECTNAME, REQUIRED_MARKER, SF_ADAPTER_TYPES
-from getpaid.SalesforcePloneFormGenAdapter import SalesforceGetPaidAdapterMessageFactory as _
+from getpaid.SalesforcePloneFormGenAdapter import SalesforcePloneFormGenAdapterMessageFactory as _
 from getpaid.SalesforcePloneFormGenAdapter import HAS_PLONE25, HAS_PLONE30
 
 from Products.salesforcepfgadapter.content.salesforcepfgadapter import SalesforcePFGAdapter
