@@ -6,7 +6,7 @@
 from zope.i18nmessageid import MessageIDFactory
 msg_factory = MessageIDFactory('salesforcegetpaidadapter')
 
-def SalesforcePFGAdapterMessageFactory(ustr, default=None, mapping=None):
+def SalesforcePloneFormGenAdapterMessageFactory(ustr, default=None, mapping=None):
     message = msg_factory(ustr, default)
     if mapping is not None:
         message.mapping.update(mapping)

@@ -48,9 +48,9 @@ from Products.PloneFormGen.content.actionAdapter import \
     FormActionAdapter, FormAdapterSchema
 
 # Local imports
-from Products.SalesforceGetPaidAdapter.config import PROJECTNAME, REQUIRED_MARKER, SF_ADAPTER_TYPES
-from Products.SalesforceGetPaidAdapter import SalesforceGetPaidAdapterMessageFactory as _
-from Products.SalesforceGetPaidAdapter import HAS_PLONE25, HAS_PLONE30
+from getpaid.SalesforcePloneFormGenAdapter.config import PROJECTNAME, REQUIRED_MARKER, SF_ADAPTER_TYPES
+from getpaid.SalesforcePloneFormGenAdapter import SalesforceGetPaidAdapterMessageFactory as _
+from getpaid.SalesforcePloneFormGenAdapter import HAS_PLONE25, HAS_PLONE30
 
 from Products.salesforcepfgadapter.content.salesforcepfgadapter import SalesforcePFGAdapter
 
@@ -193,11 +193,11 @@ class SalesforceGetPaidAdapter(SalesforcePFGAdapter):
             # Ideally I'd want to associate this with the item, but I have no guarentee that
             # it has been created at this point.  It all depends on the order the adapters run.
             annotation = IAnnotations(cart)
-            annotation["Products.SalesforceGetPaidAdapter.added"] = 1
+            annotation["getpaid.SalesforcePloneFormGenAdapter.added"] = 1
 
             sObject = self._buildSObjectFromForm(fields, REQUEST)
-            annotation["Products.SalesforceGetPaidAdapter.GetPaidSFMapping"] = self.getPaidFieldMap
-            annotation["Products.SalesforceGetPaidAdapter.sObject"] = sObject
+            annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidSFMapping"] = self.getPaidFieldMap
+            annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"] = sObject
    
     security.declareProtected(ModifyPortalContent, 'setSFObjectType')
     def setSFObjectType(self, newType):
@@ -413,8 +413,8 @@ def handleOrderWorkflowTransition( order, event ):
         logger.info("Recording order");
 
         annotation = IAnnotations(order.shopping_cart)
-        if "Products.SalesforceGetPaidAdapter.added" in annotation:
-            getPaidFieldMap = annotation["Products.SalesforceGetPaidAdapter.GetPaidSFMapping"]
+        if "getpaid.SalesforcePloneFormGenAdapter.added" in annotation:
+            getPaidFieldMap = annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidSFMapping"]
 
             salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
             sObject = [];
@@ -423,7 +423,7 @@ def handleOrderWorkflowTransition( order, event ):
             index = 0;
             mappingCount = 0
             for item in order.shopping_cart.items():
-                sObject.append(annotation["Products.SalesforceGetPaidAdapter.sObject"].copy())
+                sObject.append(annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"].copy())
 
                 mappingCount = len(sObject[index].keys())
                 for mapping in getPaidFieldMap:
