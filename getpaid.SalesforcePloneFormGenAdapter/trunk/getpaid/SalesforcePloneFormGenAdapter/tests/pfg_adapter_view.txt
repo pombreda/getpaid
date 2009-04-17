@@ -102,7 +102,7 @@ Let's add a getpaid.formgen adapter::
 Let's now add a GetPaid Salesforce Adapter and populate a few values on our adapter::
     
     >>> browser.open("%s/testform/view" % portal_url)
-    >>> browser.getLink('Salesforce GetPaid Adapter').click()
+    >>> browser.getLink('GetPaid PloneFormGen Salesforce Adapter').click()
     >>> browser.getControl('Title').value = 'sgpa'
     >>> browser.getControl('Salesforce Object Type').value = ('Lead',)
     >>> browser.getControl('Save').click()
