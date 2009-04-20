@@ -57,13 +57,13 @@ name="submit" alt="Pague com PagSeguro - e rapido, gratis e seguro!">
 """
         
         for item in order.shopping_cart.values():
-	    
+            weight = getattr(item, 'weight', 0)	    
             v = _button_cart % {"idx": idx,
                                 "item_name": item.name,
                                 "item_number" : item.product_code,
                                 "quantity": item.quantity,
                                  "amount": int(item.cost*100),
-                                 "weight": int(item.weight*1000),
+                                 "weight": int(weight*1000),
                                  }
             cartitems.append(v)
             idx += 1
