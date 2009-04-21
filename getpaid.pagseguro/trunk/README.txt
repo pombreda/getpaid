@@ -33,8 +33,7 @@ Introduction
 
 2. Setup this as your payment processor in getpaid admin interface (Payment Options) :
 
-3. Last step is to enter your pagseguro email info in Payment Processor
-Settings. You may also want to add your generated TOKEN if return functionality 
-is desired : 
+3. Last step is to enter your pagseguro email and your TOKEN info in Payment Processor
+Settings : 
 
 Enjoy!
