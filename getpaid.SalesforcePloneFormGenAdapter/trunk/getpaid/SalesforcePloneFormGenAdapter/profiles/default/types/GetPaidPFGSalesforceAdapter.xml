@@ -8,7 +8,7 @@
     </property>
  <property name="content_icon">salesforce.gif</property>
  <property name="content_meta_type">GetPaidPFGSalesforceAdapter</property>
- <property name="product">GetPaidPFGSalesforceAdapter</property>
+ <property name="product">getpaid.SalesforcePloneFormGenAdapter</property>
  <property name="factory">addGetPaidPFGSalesforceAdapter</property>
  <property name="immediate_view">base_view</property>
  <property name="global_allow">False</property>

@@ -30,6 +30,7 @@ PRODUCTS = ['salesforcepfgadapter',
 @onsetup
 def setupZCML():
     zcml.load_config('configure.zcml', getpaid.SalesforcePloneFormGenAdapter)
+    ztc.installPackage('getpaid.SalesforcePloneFormGenAdapter')
     ztc.installPackage('getpaid.formgen')
 
 setupZCML()

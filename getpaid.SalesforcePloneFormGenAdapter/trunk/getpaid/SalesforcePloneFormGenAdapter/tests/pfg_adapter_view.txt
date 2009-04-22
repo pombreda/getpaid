@@ -75,7 +75,7 @@ Add a new form folder to contain our Adapters:
 Add a float field to the form::
 
     >>> browser.open("%s/testform/view" % portal_url)
-    >>> browser.getLink('Fixed-Point Field').click()
+    >>> browser.getLink('Decimal Number Field').click()
     >>> browser.getControl('Field Label').value = 'Donation Amount'
     >>> browser.getControl('Save').click()
 

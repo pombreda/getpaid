@@ -23,8 +23,8 @@ class TestProductUninstallation(base.GetPaidPFGSalesforceAdapterTestCase):
         self.metaTypes = self.adapterTypes
         
         # uninstall our product
-        if self.qi.isProductInstalled('GetPaidPFGSalesforceAdapter'):
-            self.qi.uninstallProducts(products=['GetPaidPFGSalesforceAdapter',])
+        if self.qi.isProductInstalled('getpaid.SalesforcePloneFormGenAdapter'):
+            self.qi.uninstallProducts(products=['getpaid.SalesforcePloneFormGenAdapter',])
     
     def testDependenciesStillInstalled(self):
         """Just because someone chooses to uninstall the salesforcepfgadapter
@@ -103,12 +103,12 @@ class TestProductUninstallation(base.GetPaidPFGSalesforceAdapterTestCase):
         # output in our --coverage results :)
         
         # ensure installable after uninstall
-        self.failUnless(self.qi.isProductInstallable('GetPaidPFGSalesforceAdapter'))
-        self.qi.installProducts(products=['GetPaidPFGSalesforceAdapter',])
+        self.failUnless(self.qi.isProductInstallable('getpaid.SalesforcePloneFormGenAdapter'))
+        self.qi.installProducts(products=['getpaid.SalesforcePloneFormGenAdapter',])
         
         # uninstall product
-        self.qi.uninstallProducts(products=['GetPaidPFGSalesforceAdapter',])
-        self.failUnless(self.qi.isProductInstallable('GetPaidPFGSalesforceAdapter'))
+        self.qi.uninstallProducts(products=['getpaid.SalesforcePloneFormGenAdapter',])
+        self.failUnless(self.qi.isProductInstallable('getpaid.SalesforcePloneFormGenAdapter'))
         
     
 if  __name__ == '__main__':
