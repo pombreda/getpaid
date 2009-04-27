@@ -1,0 +1,26 @@
+Metadata-Version: 1.0
+Name: getpaid.luottokunta
+Version: 0.0.0dev
+Summary: Luottokunta payment processor for getpaid.
+Home-page: https://getpaid.googlecode.com/svn/getpaid.luottokunta
+Author: Taito Horiuchi
+Author-email: taito.horiuchi[at]abita.fi
+License: GPL
+Description: Introduction
+        ============
+        
+        
+        
+        Changelog
+        =========
+        
+        0.0.0 - Unreleased
+        ----------------
+        
+        * Initial release
+        
+        
+Platform: UNKNOWN
+Classifier: Framework :: Plone
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
