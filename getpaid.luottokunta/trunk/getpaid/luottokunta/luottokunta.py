@@ -1,7 +1,7 @@
 from zope.interface import implements
 from zope.component import adapts
 from Products.CMFCore.interfaces import ISiteRoot
-from interfaces import ILuottokuntaProcessor, ILuottokuntaOptions
+from getpaid.luottokunta.interfaces import ILuottokuntaProcessor, ILuottokuntaOptions
 
 
 class LuottokuntaProcessor( object ):
