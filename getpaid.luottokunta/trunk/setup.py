@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.0.0'
+version = '0.0.1'
 
 setup(name='getpaid.luottokunta',
       version=version,
@@ -17,7 +17,7 @@ setup(name='getpaid.luottokunta',
       keywords='',
       author='Taito Horiuchi',
       author_email='taito.horiuchi[at]abita.fi',
-      url='https://getpaid.googlecode.com/svn/getpaid.luottokunta',
+      url='http://pypi.python.org/pypi/getpaid.luottokunta',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['getpaid'],

@@ -1,6 +1,10 @@
 README.txt
 setup.cfg
 setup.py
+docs/HISTORY.txt
+docs/INSTALL.txt
+docs/LICENSE.GPL
+docs/LICENSE.txt
 getpaid/__init__.py
 getpaid.luottokunta.egg-info/PKG-INFO
 getpaid.luottokunta.egg-info/SOURCES.txt
@@ -12,4 +16,8 @@ getpaid.luottokunta.egg-info/paster_plugins.txt
 getpaid.luottokunta.egg-info/requires.txt
 getpaid.luottokunta.egg-info/top_level.txt
 getpaid/luottokunta/__init__.py
+getpaid/luottokunta/configure.zcml
+getpaid/luottokunta/interfaces.py
+getpaid/luottokunta/luottokunta.py
+getpaid/luottokunta/options.py
 getpaid/luottokunta/tests.py

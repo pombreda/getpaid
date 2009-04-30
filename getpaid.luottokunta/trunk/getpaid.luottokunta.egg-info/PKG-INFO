@@ -1,14 +1,15 @@
 Metadata-Version: 1.0
 Name: getpaid.luottokunta
-Version: 0.0.0dev
+Version: 0.0.1dev-r2446
 Summary: Luottokunta payment processor for getpaid.
-Home-page: https://getpaid.googlecode.com/svn/getpaid.luottokunta
+Home-page: http://pypi.python.org/pypi/getpaid.luottokunta
 Author: Taito Horiuchi
 Author-email: taito.horiuchi[at]abita.fi
 License: GPL
 Description: Introduction
         ============
-        
+        Luottokunta is Finnish major organization which provides credit card processors.
+        "getpaid.luottokunta" implements Luottokunta payment processors to gaipaid.
         
         
         Changelog
