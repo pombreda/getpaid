@@ -14,6 +14,10 @@ from getpaid.discount.browser.interfaces import IDiscountableMarker
 from getpaid.discount.browser.interfaces import IDiscountable
 from getpaid.discount.browser.interfaces import IBuyXGetXFreeable
 from getpaid.discount.browser.interfaces import IBuyXGetXFreeableMarker
+from getpaid.discount.browser.interfaces import ICodeDiscountable
+from getpaid.discount.browser.interfaces import ICodeDiscountableMarker
+
+from zope.app.annotation.interfaces import IAnnotations
 
 class DiscountListingViewlet(ViewletBase):
     render = ViewPageTemplateFile('discount_listing.pt')
@@ -40,6 +44,7 @@ class DiscountListingViewlet(ViewletBase):
         results = []
         if self.cart:
             for payable_line in self.cart.values():
+                annotation = IAnnotations(payable_line)
                 ref_obj = payable_line.resolve()
                 payable_quantity = payable_line.quantity
                 if ref_obj and IDiscountableMarker.providedBy(ref_obj):
@@ -68,6 +73,17 @@ class DiscountListingViewlet(ViewletBase):
                            'description': description
                           }
                     results.append(res)
+                elif ICodeDiscountableMarker.providedBy(ref_obj) \
+                     and "getpaid.discount.code" in annotation:
+                    discount_title = annotation["getpaid.discount.code.title"]
+                    discount_value = annotation["getpaid.discount.code.discount"]
+                    if discount_value != 0.0:
+                        description = 'Total of $%0.0f off' % (discount_value)
+                        res = {'title': "%s on %s" % (discount_title, ref_obj.Title()), 
+                               'description': description
+                              }
+                        results.append(res)
+
         return results
 
 class DiscountCodeViewlet(ViewletBase):

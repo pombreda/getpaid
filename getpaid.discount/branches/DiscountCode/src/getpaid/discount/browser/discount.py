@@ -237,14 +237,16 @@ class ApplyDiscountCode(BrowserView):
 
         if code is not None and self.cart:
             
-            for payable_line in self.cart.values():
+            for item in self.cart.values():
 
-                ref_obj = payable_line.resolve()
-                payable_quantity = payable_line.quantity
+                ref_obj = item.resolve()
+                payable_quantity = item.quantity
+
+                annotation = IAnnotations(item)
 
                 if ref_obj \
                    and ICodeDiscountableMarker.providedBy(ref_obj) \
-                   and not IDiscountableMarker.providedBy(payable_line):
+                   and not "getpaid.discount.code" in annotation:
 
                     adapter_obj = ICodeDiscountable(ref_obj)
 
@@ -254,13 +256,16 @@ class ApplyDiscountCode(BrowserView):
 
                         import pdb; pdb.set_trace()
 
+                        annotation["getpaid.discount.code"] = 1
+
                         # Here I want to create a new IDiscountableMarker
                         # I also want to drop the price on this payable_line    
-                        form_fields = form.FormFields(IDiscountable)
-                        actions = form.Actions()
-                        interface = IDiscountable
-
-                        interface.alsoProvides(payable_line, IDiscountableMarker)
+                        annotation["getpaid.discount.code"] = 1
+                        annotation["getpaid.discount.code.title"] = adapter_obj.getDiscountTitle()
+                        discount = item.cost - adapter_obj.getDiscountedPrice()
+                        item.cost = adapter_obj.getDiscountedPrice()
+                        total_discount = discount * item.quantity
+                        annotation["getpaid.discount.code.discount"] = total_discount
 
         self.request.response.redirect('@@getpaid-cart')
 
