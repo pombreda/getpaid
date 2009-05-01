@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser">
 
+<!-- discount listing viewlets -->
   <browser:viewlet
       name="getpaid.discountlisting"
       manager="Products.PloneGetPaid.browser.viewlets.interfaces.IBelowCartListing"
@@ -22,5 +23,14 @@
       class=".viewlets.DiscountListingViewlet"
       permission="zope2.View" 
         />
+
+<!-- discount code entering viewlets -->
+  <browser:viewlet
+      name="getpaid.discountcodelisting"
+      manager="Products.PloneGetPaid.browser.viewlets.interfaces.IBelowCartListing"
+      class=".viewlets.DiscountCodeViewlet"
+      permission="zope2.View" 
+        />
+
         
 </configure>

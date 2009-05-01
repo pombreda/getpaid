@@ -2,6 +2,7 @@
 <object>
   <order manager="getpaid.belowcartlisting">
     <viewlet name="getpaid.discountlisting" />
+    <viewlet name="getpaid.discountcodelisting" />
   </order>
   <order manager="getpaid.belowcartresume">
     <viewlet name="getpaid.discountlisting" />

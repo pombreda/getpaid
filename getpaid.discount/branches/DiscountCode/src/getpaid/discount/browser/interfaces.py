@@ -9,7 +9,7 @@ class IDiscountable(Interface):
                            required=True)
     
     discount_type = schema.Choice(title=u'Type of Discount',
-                                  values=['Dollars Off', 'Percentage off'],
+                                  values=['Dollars Off', 'Percentage Off'],
                                   required=True)
     
     discount_value = schema.Float(title=u'Value of the discount',
@@ -34,6 +34,25 @@ class IBuyXGetXFreeable(Interface):
                                   required=True)
 
 class IBuyXGetXFreeableMarker(Interface):
+    """
+    Discount Interface
+    """
+
+class ICodeDiscountable(Interface):
+    """
+    Marker interface for the CodeDiscountable items
+    """
+    discount_title = schema.TextLine(title=u'Discount Title',
+                           required=True)
+
+    discount_code = schema.TextLine(title=u'Discount Code',
+                           required=True)
+    
+    discounted_price = schema.Float(title=u'Price after Discount',
+                                  required=True,)
+
+
+class ICodeDiscountableMarker(Interface):
     """
     Discount Interface
     """

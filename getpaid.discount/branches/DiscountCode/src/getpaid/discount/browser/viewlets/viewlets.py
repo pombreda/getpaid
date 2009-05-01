@@ -69,3 +69,21 @@ class DiscountListingViewlet(ViewletBase):
                           }
                     results.append(res)
         return results
+
+class DiscountCodeViewlet(ViewletBase):
+    render = ViewPageTemplateFile('discount_code.pt')
+    
+    def update(self):
+        #self.portal_state = getMultiAdapter((self.context, self.request),
+        #                                    name=u'plone_portal_state')
+        #self.portal_url = self.portal_state.portal_url()
+        self.cart = getUtility(IShoppingCartUtility).get(self.context) or {}
+        # if cart is destroyed, we'll use the order_id to retrieve the cart detail and discount
+        if not self.cart:
+            order_id = self.request.get("order_id", None)
+            if order_id:
+                order_manager = component.getUtility(interfaces.IOrderManager)
+                #self.order = order_manager.get(order_id)
+                self.cart = order_manager.get(order_id).shopping_cart
+        
+
