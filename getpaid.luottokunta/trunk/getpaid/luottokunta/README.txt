@@ -116,6 +116,9 @@ unambiguous value::
     True
     True
     True
+    >>> browser.getControl('Merchant Number').value = '123456'
+    >>> browser.getControl('Card Details Transmit').selected = True
+    >>> browser.getControl('Transaction Type').selected =True
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Email Notifications').click()
@@ -130,3 +133,97 @@ unambiguous value::
     >>> browser.getLink('GetPaid').click() 
     >>> 'Test this fake company' in browser.contents
     True
+
+Here we are setting the buyable types for use in the following tests
+  
+    >>> from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
+    >>> options = IGetPaidManagementOptions(self.portal)
+    >>> options.buyable_types = ['Link', 'Event']
+    >>> options.donate_types = ['Document']
+    >>> options.shippable_types = ['Document']
+
+Here we set up the Credit cards accepted for payment:
+
+   >>> options.accepted_credit_cards = ["Visa"]
+
+Check to make sure the settings we put in Site Profile appear on this page. 
+
+     >>> browser.getLink('Home').click()
+
+Setup Donatable
+
+    >>> browser.getLink('Make this a Donation').click()
+    >>> browser.getControl(name='form.donation_text').value = 'Test donation description'
+    >>> browser.getControl(name='form.price').value = '11.00'
+    >>> browser.getControl('Activate').click()
+
+Test donation checkout, which should go directly to checkout screen from the portlet. 
+    >>> browser.getLink('Donate!').click()
+    >>> saved_url = browser.url
+
+Continue where we left of after clicking Donate.
+    >>> browser.open(saved_url)
+    >>> browser.getControl('Your Name').value = 'Test'
+    >>> browser.getControl('Phone Number').value = '1234567'
+    >>> browser.getControl('Phone Number').value = '12345678'
+    >>> browser.getControl(name='form.email').value = 'test@test.com'
+    >>> browser.getControl(name='form.bill_name').value = 'Test'
+    >>> browser.getControl(name='form.bill_first_line').value = 'Test'
+    >>> browser.getControl(name='form.bill_city').value = 'Test'
+    >>> browser.getControl(name='form.bill_state').value = ('US-HI',)
+    >>> browser.getControl(name='form.bill_postal_code').value = '12345'
+    >>> browser.getControl(name='form.ship_first_line').value = 'Test'
+    >>> browser.getControl(name='form.ship_city').value = 'Test'
+    >>> browser.getControl(name='form.ship_state').value = ('US-HI',)
+    >>> browser.getControl(name='form.ship_postal_code').value = '12345'
+
+Now go to the next form.
+    >>> try:
+    ...     browser.getControl('Continue').click()
+    ... except:
+    ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
+
+    >>> "id=\"Card_Details_Transmit\" value=\"1\"" in browser.contents
+    True
+
+Check Card Details Transmit option.
+    >>> browser.open(portal_url)
+    >>> browser.getLink('Site Setup').click()
+    >>> browser.getLink('GetPaid').click()
+    >>> browser.getLink('Payment Processor Settings').click()
+    >>> browser.getControl('Card Details Transmit').selected = False
+    >>> browser.getControl('Language').value = ['FI']
+    >>> browser.getControl('Apply').click()
+     >>> browser.getLink('Home').click()
+    >>> browser.getLink('Donate!').click()
+    >>> saved_url = browser.url
+
+Continue where we left of after clicking Donate.
+    >>> browser.open(saved_url)
+    >>> browser.getControl('Your Name').value = 'Test'
+    >>> browser.getControl('Phone Number').value = '1234567'
+    >>> browser.getControl('Phone Number').value = '12345678'
+    >>> browser.getControl(name='form.email').value = 'test@test.com'
+    >>> browser.getControl(name='form.bill_name').value = 'Test'
+    >>> browser.getControl(name='form.bill_first_line').value = 'Test'
+    >>> browser.getControl(name='form.bill_city').value = 'Test'
+    >>> browser.getControl(name='form.bill_state').value = ('US-HI',)
+    >>> browser.getControl(name='form.bill_postal_code').value = '12345'
+    >>> browser.getControl(name='form.ship_first_line').value = 'Test'
+    >>> browser.getControl(name='form.ship_city').value = 'Test'
+    >>> browser.getControl(name='form.ship_state').value = ('US-HI',)
+    >>> browser.getControl(name='form.ship_postal_code').value = '12345'
+
+Now go to the next form.
+    >>> try:
+    ...     browser.getControl('Continue').click()
+    ... except:
+    ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
+
+    >>> "id=\"Card_Details_Transmit\" value=\"0\"" in browser.contents
+    True
+    >>> "value=\"FI\"" in browser.contents
+    True
+
