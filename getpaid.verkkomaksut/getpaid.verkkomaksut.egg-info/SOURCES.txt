@@ -1,0 +1,15 @@
+README.txt
+setup.cfg
+setup.py
+getpaid/__init__.py
+getpaid.verkkomaksut.egg-info/PKG-INFO
+getpaid.verkkomaksut.egg-info/SOURCES.txt
+getpaid.verkkomaksut.egg-info/dependency_links.txt
+getpaid.verkkomaksut.egg-info/entry_points.txt
+getpaid.verkkomaksut.egg-info/namespace_packages.txt
+getpaid.verkkomaksut.egg-info/not-zip-safe
+getpaid.verkkomaksut.egg-info/paster_plugins.txt
+getpaid.verkkomaksut.egg-info/requires.txt
+getpaid.verkkomaksut.egg-info/top_level.txt
+getpaid/verkkomaksut/__init__.py
+getpaid/verkkomaksut/tests.py

@@ -1,0 +1,26 @@
+Metadata-Version: 1.0
+Name: getpaid.verkkomaksut
+Version: 0.0.0dev
+Summary: Verkkomaksut payment processor for getpaid.
+Home-page: http://pypi.python.org/pypi/getpaid.verkkomaksut
+Author: Taito Horiuchi
+Author-email: taito.horiuchi[at]abita.fi
+License: GPL
+Description: Introduction
+        ============
+        
+        
+        
+        Changelog
+        =========
+        
+        0.0.0 - Unreleased
+        ----------------
+        
+        * Initial release
+        
+        
+Platform: UNKNOWN
+Classifier: Framework :: Plone
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
