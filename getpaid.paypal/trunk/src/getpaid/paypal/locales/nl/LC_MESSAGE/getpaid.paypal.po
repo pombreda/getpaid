@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid VERSION\n"
-"POT-Creation-Date: 2007-10-02 17:37+0000\n"
+"POT-Creation-Date: 2009-05-04 08:02+0000\n"
 "PO-Revision-Date: 2007-10-02 19:34+0000\n"
 "Last-Translator: Jean-Paul Ladage <j.ladage@zestsoftware.nl>\n"
 "Language-Team: Plone Nederland <plone-nl@lists.plone.org>\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: getpaid.paypal\n"
 
-#: ./interfaces.py:24
+#: ./interfaces.py:34
+msgid "Currency"
+msgstr ""
+
+#: ./interfaces.py:31
 msgid "Paypal Id"
 msgstr "Paypal nummer"
 
-#: ./interfaces.py:20
+#: ./interfaces.py:27
 msgid "Paypal Website Payments Server"
 msgstr "Paypal Website transactie server"
 
