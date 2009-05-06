@@ -14,4 +14,11 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     for="*"
+     name="checkout-luottokunta-pay"
+     class=".checkout.LuottokuntaPay"
+     permission="zope2.View"
+     />
+
 </configure>

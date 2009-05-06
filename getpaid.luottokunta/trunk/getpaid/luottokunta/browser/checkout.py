@@ -19,7 +19,7 @@ from zope.component import getUtility
 
 class LuottokuntaPay(CheckoutReviewAndPay):
 
-    template = ZopeTwoPageTemplateFile("templates/checkout-review-pay.pt")
+    template = ZopeTwoPageTemplateFile("templates/checkout-luottokunta-pay.pt")
 
     def is_luottokunta(self):
         """

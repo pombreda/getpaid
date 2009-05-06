@@ -38,9 +38,10 @@ def test_suite():
     return unittest.TestSuite([
 
         # Unit tests
-        #doctestunit.DocFileSuite(
-        #    'README.txt', package='getpaid.luottokunta',
-        #    setUp=testing.setUp, tearDown=testing.tearDown),
+        doctestunit.DocFileSuite(
+            'tests/unittests/adapters_unittests.txt', package='getpaid.luottokunta',
+            setUp=testing.setUp, tearDown=testing.tearDown,
+            optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
 
         #doctestunit.DocTestSuite(
         #    module='getpaid.luottokunta.mymodule',
