@@ -1,8 +1,12 @@
+<!-- configure.zcml for getpaid.verkkomaksut -->
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="getpaid.verkkomaksut">
 
-  <five:registerPackage package="." initialize=".initialize" />
+  <include package=".adapters" />
+  <!--
+  <include package=".browser" />
+  -->
 
 </configure>
