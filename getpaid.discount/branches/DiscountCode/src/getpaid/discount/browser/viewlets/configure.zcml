@@ -29,6 +29,7 @@
       name="getpaid.discountcodelisting"
       manager="Products.PloneGetPaid.browser.viewlets.interfaces.IBelowCartListing"
       class=".viewlets.DiscountCodeViewlet"
+      layer="getpaid.discount.interfaces.IGetPaidDiscountLayer"
       permission="zope2.View" 
         />
 
