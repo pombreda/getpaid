@@ -19,7 +19,6 @@
     }
 //    window.location = url + "@@apply-discount-code?discount.code=" + discountCode;
     window.location = "@@apply-discount-code?discount.code=" + discountCode;
-    alert("Foo");
   }
 
   jq(document).ready(function(){

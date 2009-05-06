@@ -80,8 +80,7 @@
      class="getpaid.discount.browser.discount.ApplyDiscountCode"
      permission="zope2.View"
      />
-  
-  
+
   <adapter
       for="Products.PloneGetPaid.interfaces.IPayableMarker"
       provides="getpaid.discount.browser.interfaces.IDiscountable"

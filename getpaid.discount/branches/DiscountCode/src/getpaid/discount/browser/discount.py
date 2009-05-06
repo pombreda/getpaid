@@ -254,8 +254,6 @@ class ApplyDiscountCode(BrowserView):
 
                         discounted_price = adapter_obj.getDiscountedPrice()
 
-                        import pdb; pdb.set_trace()
-
                         annotation["getpaid.discount.code"] = 1
 
                         # Here I want to create a new IDiscountableMarker
