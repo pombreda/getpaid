@@ -20,6 +20,7 @@ class TestCase(ptc.FunctionalTestCase):
         def setUp(cls):
             fiveconfigure.debug_mode = True
             ztc.installPackage(getpaid.verkkomaksut)
+#            zcml.load_config('configure.zcml', getpaid.verkkomaksut)
             fiveconfigure.debug_mode = False
 
         @classmethod

@@ -2,11 +2,20 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="getpaid.verkkomaksut">
 
   <include package=".adapters" />
-  <!--
   <include package=".browser" />
-  -->
+
+<!--
+    <genericsetup:registerProfile
+      name="default"
+      title="Verkkomaksut Payment Processor"
+      directory="profiles/default"
+      description="Extension profile for the Verkkomaksut Payment Processor"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+-->
 
 </configure>

@@ -177,3 +177,5 @@ Now go to the next form.
     ... except:
     ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
     ...     import pdb; pdb.set_trace()
+    >>> "Card Holder Name" in browser.contents
+    False

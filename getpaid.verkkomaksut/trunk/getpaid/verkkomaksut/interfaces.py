@@ -1,6 +1,7 @@
 from zope import schema
 from zope.interface import Interface
 from getpaid.core.interfaces import IPaymentProcessor,IPaymentProcessorOptions
+from getpaid.wizard.interfaces import IWizardController
 from getpaid.verkkomaksut import VerkkomaksutMessageFactory as _
 
 class IVerkkomaksutProcessor(IPaymentProcessor):
@@ -24,6 +25,10 @@ class IVerkkomaksutOptions(IPaymentProcessorOptions):
                         description = _("Input marchant authentication code provided by Verkkomaksut."),
                         required=True,
                         )
+
+class IVerkkomaksutWizardController(IWizardController):
+    """
+    """
 
 ### Adapters
 class IVerkkomaksutOrderInfo(Interface):

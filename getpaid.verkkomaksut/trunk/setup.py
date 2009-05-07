@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.0.1'
+version = '0.0.2'
 
 setup(name='getpaid.verkkomaksut',
       version=version,
@@ -26,6 +26,7 @@ setup(name='getpaid.verkkomaksut',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+#          'getpaid.recipe.release'
       ],
       entry_points="""
       # -*- Entry points: -*-
