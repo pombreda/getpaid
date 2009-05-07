@@ -2,6 +2,11 @@
 CHANGES
 =======
 
+0.8 (2000-01-28)
+------------------
+
+* added discount code.  There is a known bug were the discount total is not updated if a user adds an item into their cart, adds the code, then adds a second of that item. [larubbio]
+
 0.7.1 (2000-01-28)
 ------------------
 
