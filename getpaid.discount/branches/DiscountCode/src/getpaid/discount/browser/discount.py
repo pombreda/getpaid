@@ -254,11 +254,10 @@ class ApplyDiscountCode(BrowserView):
 
                         discounted_price = adapter_obj.getDiscountedPrice()
 
-                        annotation["getpaid.discount.code"] = 1
+                        annotation["getpaid.discount.code"] = adapter_obj.getDiscountCode()
 
                         # Here I want to create a new IDiscountableMarker
                         # I also want to drop the price on this payable_line    
-                        annotation["getpaid.discount.code"] = 1
                         annotation["getpaid.discount.code.title"] = adapter_obj.getDiscountTitle()
                         discount = item.cost - adapter_obj.getDiscountedPrice()
                         item.cost = adapter_obj.getDiscountedPrice()
