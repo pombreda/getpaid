@@ -52,24 +52,24 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
 
     use_dossier_id = schema.Bool(
                         title = _(u"Use Dossier ID"),
-                        description = _(u"Dossier ID is only for travel agencies and airlines. If Dossier ID is used to the card transactions, check this option, if else leave this blank."),
+                        description = _(u"Dossier ID is only for travel agencies and airlines. Check this option if Dossier ID is used to the card transactions, else leave this blank."),
                         required=False,
                         )
 
     dossier_id = schema.ASCIILine(
-                        title = _(u"Use dossier id"),
+                        title = _(u"Use Dossier ID"),
                         description = _(u""),
                         required=False,
                         )
 
     use_authentication_mac = schema.Bool(
                         title = _(u"Use Authentication MAC"),
-                        description = _(u"If authentication MAC is used to the card transactions, check this option, if else leave this blank."),
+                        description = _(u"If authentication MAC is used to the card transactions, check this option, else leave this blank."),
                         required=False,
                         )
 
     authentication_mac = schema.ASCIILine( 
-                        title = _(u"Authenticaition MAC"),
+                        title = _(u"Authentication MAC"),
                         description = _("Input marchant's authentication MAC provided by Luottokunta. Remembet to allow MAC authentication at Luottokunta's administration page!!"),
                         required=False,
                         )
