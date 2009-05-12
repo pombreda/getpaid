@@ -34,6 +34,22 @@
                 visible="True">
             <permission>Modify portal content</permission>
         </action>
+      <action title="Make this Discountable with Code" 
+                action_id="make_code_discountable" 
+                category="object_buttons" 
+                condition_expr="python:path('object/@@discount_content_control').isPossibleDiscountable()" 
+                url_expr="string:$object_url/@@activate-codediscountable" 
+                visible="True">
+            <permission>Modify portal content</permission>
+        </action>
+      <action title="Make this Not Discountable with Code" 
+                action_id="make_not_code_discountable" 
+                category="object_buttons" 
+                condition_expr="python:path('object/@@discount_content_control').isCodeDiscountable()" 
+                url_expr="string:$object_url/@@deactivate-codediscountable" 
+                visible="True">
+            <permission>Modify portal content</permission>
+        </action>
         <action title="Discountable" 
                 action_id="discountable" 
                 category="object" 
@@ -47,6 +63,14 @@
                 category="object" 
                 condition_expr="python:path('object/@@discount_content_control').isBuyXGetXfreeable()" 
                 url_expr="string:${object_url}/@@edit-buyxgetxfree" 
+                visible="True">
+            <permission>Modify portal content</permission>
+        </action>
+        <action title="Discountable" 
+                action_id="codediscountable" 
+                category="object" 
+                condition_expr="python:path('object/@@discount_content_control').isCodeDiscountable()" 
+                url_expr="string:${object_url}/@@edit-codediscountable" 
                 visible="True">
             <permission>Modify portal content</permission>
         </action>

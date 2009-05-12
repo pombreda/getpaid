@@ -26,6 +26,13 @@
     />
     
   <browser:page
+    for="getpaid.discount.browser.interfaces.ICodeDiscountableMarker"
+    name="edit-codediscountable"
+    class="getpaid.discount.browser.discount.CodeDiscountableEdit"
+    permission="cmf.ModifyPortalContent"
+    />
+    
+  <browser:page
      for="*"
      name="activate-discountable"
      class="getpaid.discount.browser.discount.DiscountCreation"
@@ -53,6 +60,27 @@
      permission="cmf.ModifyPortalContent"
      />
   
+  <browser:page
+     for="*"
+     name="activate-codediscountable"
+     class="getpaid.discount.browser.discount.CodeDiscountableCreation"
+     permission="cmf.ModifyPortalContent"
+     />
+     
+   <browser:page
+     for="*"
+     name="deactivate-codediscountable"
+     class="getpaid.discount.browser.discount.CodeDiscountableDestruction"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     for="*"
+     name="apply-discount-code"
+     class="getpaid.discount.browser.discount.ApplyDiscountCode"
+     permission="zope2.View"
+     />
+
   <adapter
       for="Products.PloneGetPaid.interfaces.IPayableMarker"
       provides="getpaid.discount.browser.interfaces.IDiscountable"
@@ -64,6 +92,13 @@
       for="Products.PloneGetPaid.interfaces.IPayableMarker"
       provides="getpaid.discount.browser.interfaces.IBuyXGetXFreeable"
       factory="getpaid.discount.browser.discount.BuyXGetXFreeAdapter"
+      trusted="true"
+  />
+
+  <adapter
+      for="Products.PloneGetPaid.interfaces.IPayableMarker"
+      provides="getpaid.discount.browser.interfaces.ICodeDiscountable"
+      factory="getpaid.discount.browser.discount.CodeDiscountableAdapter"
       trusted="true"
   />
   
