@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid VERSION\n"
-"POT-Creation-Date: 2009-05-12 12:15+0000\n"
+"POT-Creation-Date: 2009-05-12 12:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
