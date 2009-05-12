@@ -2,6 +2,11 @@
 CHANGES
 =======
 
+1.4.2 (2009-05-12)
+------------------
+* added getpaid.SalesforcePloneFormGenAdapter [larubbio]
+* updated Products.PloneGetPaid, getpaid.core, getpaid.discount and getpaid.formgen [larubbio]
+
 1.4.1 (2009-03-13)
 ------------------
 

@@ -33,7 +33,7 @@ Available packages:
 * getpaid.discount
 * getpaid.report
 * getpaid.warehouse
-
+* getpaid.SalesforcePloneFormGenAdapter
 
 What to add in your buildout
 ============================
