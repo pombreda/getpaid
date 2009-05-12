@@ -30,7 +30,7 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
     card_details_transmit = schema.Bool(
                         title = _(u"Card Details Transmit"),
                         description = _("If card details are entered at this plone site, check this option. If at Luottokunta's page, leave this blank."),
-                        required=True,
+                        required=False,
                         )
 
     language = schema.Choice(
@@ -77,6 +77,18 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
     allow_amex = schema.Bool(
                         title = _(u"American Express"),
                         description = _(u"If you allow AMEX as an payment method, check this option. Remember to read usage of AMEX located in Luottokunta's administaration page."),
+                        required=False,
+                        )
+
+    use_incremental_order_id = schema.Bool(
+                        title = _(u"Use Incremenatal Order Number"),
+                        description = _(u"Check this option to use incremental order ID for Luottokunta interface. Remember to input numeric order ID to the next order ID field."),
+                        required=False,
+                        )
+
+    next_order_id = schema.Int( 
+                        title = _(u"Next Order ID"),
+                        description = _("Input order ID for the next order. This order ID will be used only for Luottokunta interface. You see getpaid order ID in the customer ID column in Luottokunta interface."),
                         required=False,
                         )
 

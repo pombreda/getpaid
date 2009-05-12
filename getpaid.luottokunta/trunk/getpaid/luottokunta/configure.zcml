@@ -2,11 +2,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="getpaid.luottokunta">
-
-  <!--
-  <five:registerPackage package="." initialize=".initialize" />
-  -->
 
   <i18n:registerTranslations directory="locales" />
 
@@ -21,15 +18,5 @@
     for="Products.CMFCore.interfaces.ISiteRoot"
     provides=".interfaces.ILuottokuntaOptions"
     factory=".options.LuottokuntaOptions" />
-
-<!--
-  <adapter
-    for="Products.CMFCore.interfaces.ISiteRoot"
-    provides="getpaid.core.interfaces.IPaymentProcessor"
-    name="Luottokunta HTML form interface"
-    factory=".luottokunta.LuottokuntaProcessor" />
--->
-
-
 
 </configure>

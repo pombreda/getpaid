@@ -17,7 +17,7 @@ import md5
 from getpaid.core.interfaces import IOrderManager
 from zope.component import getUtility
 
-class LuottokuntaPay(CheckoutReviewAndPay):
+class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
 
     template = ZopeTwoPageTemplateFile("templates/checkout-luottokunta-pay.pt")
 

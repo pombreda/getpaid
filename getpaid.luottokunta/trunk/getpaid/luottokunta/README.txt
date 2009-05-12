@@ -106,9 +106,11 @@ unambiguous value::
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Processor Settings').click()
-    >>> fields_name = ['Merchant Number', 'Card Details Transmit', 'Language', 'Transaction Type', 'Use Authentication MAC', 'Authentication MAC', 'American Express']
+    >>> fields_name = ['Merchant Number', 'Card Details Transmit', 'Language', 'Transaction Type', 'Use Authentication MAC', 'Authentication MAC', 'American Express', 'Use Incremenatal Order Number', 'Next Order ID']
     >>> for field in fields_name:
     ...     field in browser.contents 
+    True
+    True
     True
     True
     True
