@@ -2,6 +2,15 @@
 CHANGES
 =======
 
+0.7.5 (unreleased)
+------------------
+
+0.7.4 (2009-05-12)
+------------------
+
+- Add support for variable amount donations
+- Allow annotations on shopping cart
+
 0.7.3 (2009-03-13)
 ------------------
 
