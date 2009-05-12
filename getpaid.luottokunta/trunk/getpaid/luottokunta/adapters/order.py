@@ -25,11 +25,18 @@ class LuottokuntaOrderInfo(object):
         """Returns information of order."""
         site = getSite()
         context = aq_inner(self.context)
-        order_id = context.order_id
+        membership = getToolByName(site, 'portal_membership')
+        member_id = membership.getAuthenticatedMember().getId()
+        getpaid_order_id = context.order_id
+        customer_id = member_id + '/' + getpaid_order_id
         price = context.getTotalPrice()
         luottokunta_price = str(int(price * 100))
         options = ILuottokuntaOptions(site)
         merchant_number = options.merchant_number
+        if options.use_incremental_order_id and options.next_order_id:
+            order_id = str(options.next_order_id)
+        else:
+            order_id = getpaid_order_id
         if options.use_dossier_id:
             dossier_id = options.dossier_id
         else:
@@ -44,7 +51,8 @@ class LuottokuntaOrderInfo(object):
             transaction_type = "1"
         else:
             transaction_type = "0"
-        if options.use_authentication_mac:
+        if options.use_authentication_mac and options.authentication_mac:
+#            import pdb; pdb.set_trace()
             m = md5.new()
             m.update(merchant_number)
             m.update(order_id)
@@ -58,8 +66,10 @@ class LuottokuntaOrderInfo(object):
                         'price': luottokunta_price,
                         'authentication_mac': authentication_mac,
                         'order_number': order_id,
+#                        'getpaid_order_id': getpaid_order_id,
                         'card_details_transmit': card_details_transmit,
                         'transaction_type': transaction_type,
                         'language' : language,
+                        'customer_id' : customer_id,
         }
         return order_info

@@ -90,6 +90,7 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
                         title = _(u"Next Order ID"),
                         description = _("Input order ID for the next order. This order ID will be used only for Luottokunta interface. You see getpaid order ID in the customer ID column in Luottokunta interface."),
                         required=False,
+                        default=1,
                         )
 
 ### Adapters

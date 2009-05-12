@@ -124,7 +124,7 @@
              tal:attributes="value order_info/authentication_mac"
              tal:condition="order_info/authentication_mac" />
       <input type="hidden" name="Customer_ID" id="Customer_ID"
-             tal:attributes="value view/customer_id" tal:condition="view/customer_id" />
+             tal:attributes="value order_info/customer_id" />
       <input type="hidden" name="Order_ID" id="Order_ID"
              tal:attributes="value order_info/order_number" />
       <input type="hidden" name="Amount" id="Amount"
