@@ -392,6 +392,22 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
                                   initialData={"form_field" : "Item Description", 
                                                "field_path" : "shopping_cart,items,description",
                                                "sf_field" : ""}))
+
+        #     Discount fields are deduced by looking at annotations
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Discount Code", 
+                                               "field_path" : "shopping_cart,items,discount_code",
+                                               "sf_field" : ""}))
+
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Discount Title", 
+                                               "field_path" : "shopping_cart,items,discount_title",
+                                               "sf_field" : ""}))
+
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Discount Total", 
+                                               "field_path" : "shopping_cart,items,discount_total",
+                                               "sf_field" : ""}))
      
         return fixedRows
 
@@ -467,6 +483,21 @@ def _getValueFromOrder(order, item, fieldPath):
             # calculate it
             value = item[1].cost * item[1].quantity
 
+        elif split_field_path[-1] == "discount_code":
+            annotation = IAnnotations(item[1])
+            if "getpaid.discount.code" in annotation:
+                value = annotation["getpaid.discount.code"]
+
+        elif split_field_path[-1] == "discount_title":
+            annotation = IAnnotations(item[1])
+            if "getpaid.discount.code.title" in annotation:
+                value = annotation["getpaid.discount.code.title"]
+
+        elif split_field_path[-1] == "discount_amount":
+            annotation = IAnnotations(item[1])
+            if "getpaid.discount.code.discount" in annotation:
+                value = annotation["getpaid.discount.code.discount"]
+            
         else:
             func = getattr(item[1], split_field_path[-1], None)
             if callable(func):
