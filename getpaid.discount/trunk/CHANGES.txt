@@ -2,8 +2,11 @@
 CHANGES
 =======
 
-0.8 (unreleased)
-------------------
+0.9 (unreleased)
+----------------
+
+0.8 (2009-05-12)
+----------------
 
 * added discount code.  There is a known bug were the discount total is not updated if a user adds an item into their cart, adds the code, then adds a second of that item. [larubbio]
 * created a browser layer to suppress viewlets when product is not installed [larubbio]
