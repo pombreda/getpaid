@@ -21,7 +21,7 @@ msgstr ""
 
 #: ./interfaces.py:72
 msgid "Authentication MAC"
-msgstr ""
+msgstr "Todennus MAC"
 
 #: ./interfaces.py:31
 msgid "Card Details Transmit"
@@ -41,31 +41,35 @@ msgstr "suomi"
 
 #: ./interfaces.py:67
 msgid "If authentication MAC is used to the card transactions, check this option, else leave this blank."
-msgstr ""
+msgstr "Valitse tämä, jos luottokorttitapahtuman yhteydessä käytetään todennus MAC:ia. Muuten jätä tyhjäksi."
 
 #: ./interfaces.py:32
-msgid "If card details' input happens at this plone site, check this option. If it happens at Luottokunta's page, leave this blank."
-msgstr ""
+msgid "If card details are entered at this plone site, check this option. If at Luottokunta's page, leave this blank."
+msgstr "Jos luottokorttitietojen syöttö tapahtuu tällä plone sivustolla, niin valitse tämä"
 
 #: ./interfaces.py:49
 msgid "If money receiver pays the provision to Luottokunta, check this option. If payer pays it, leave this blank."
-msgstr ""
+msgstr "Valitse tämä, jos rahan vastaanottaja maksaa Luottokunnalle provisiot. Jos maksun suorittaja maksaa provisiot, jätä tämä tyhjäksi."
 
 #: ./interfaces.py:79
 msgid "If you allow AMEX as an payment method, check this option. Remember to read usage of AMEX located in Luottokunta's administaration page."
-msgstr ""
-
-#: ./interfaces.py:73
-msgid "Input marchant's authentication MAC provided by Luottokunta. Remembet to allow MAC authentication at Luottokunta's administration page!!"
-msgstr ""
+msgstr "Valitse tämä, jos AMEX hyväksytään maksuvälineenä. Muista lukea AMEX:n käytöstä Luottokunnan hallinnointisivuilta."
 
 #: ./interfaces.py:26
 msgid "Input merchant ID provided by Luottokunta."
 msgstr "Syötä luottokunnan antama kauppiastunniste."
 
+#: ./interfaces.py:73
+msgid "Input merchant's authentication MAC provided by Luottokunta. Remember to allow MAC authentication at Luottokunta's administration page!!"
+msgstr "Syötä luottokunnalta saatu kauppiaan todennus MAC. Muista sallia MAC todennus luottokunnan hallinnointisivulta!"
+
 #: ./interfaces.py:37
 msgid "Language"
 msgstr "Kieli"
+
+#: ./interfaces.py:43
+msgid "Language to use on Luottokunta's page, if card details are entered there."
+msgstr "Käytettävä kieli, jos luottokorttitietojen syöttö tapahtuu luottokunnan sivuilla."
 
 #: ./interfaces.py:25
 msgid "Merchant Number"
@@ -74,10 +78,6 @@ msgstr "Kauppiasnumero"
 #: ./interfaces.py:41
 msgid "Swedish"
 msgstr "ruotsi"
-
-#: ./interfaces.py:43
-msgid "This language is used on luottokunta page if card details' input happens at Luottokunta's page."
-msgstr "Käytettävä kieli, jos luottokorttitietojen syöttö tapahtuu luottokunnan sivuilla"
 
 #: ./interfaces.py:48
 msgid "Transaction Type"

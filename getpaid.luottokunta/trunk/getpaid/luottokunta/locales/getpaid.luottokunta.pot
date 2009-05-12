@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid VERSION\n"
-"POT-Creation-Date: 2009-05-12 09:08+0000\n"
+"POT-Creation-Date: 2009-05-12 12:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -48,7 +48,7 @@ msgid "If authentication MAC is used to the card transactions, check this option
 msgstr ""
 
 #: ./interfaces.py:32
-msgid "If card details' input happens at this plone site, check this option. If it happens at Luottokunta's page, leave this blank."
+msgid "If card details are entered at this plone site, check this option. If at Luottokunta's page, leave this blank."
 msgstr ""
 
 #: ./interfaces.py:49
@@ -59,16 +59,20 @@ msgstr ""
 msgid "If you allow AMEX as an payment method, check this option. Remember to read usage of AMEX located in Luottokunta's administaration page."
 msgstr ""
 
-#: ./interfaces.py:73
-msgid "Input marchant's authentication MAC provided by Luottokunta. Remembet to allow MAC authentication at Luottokunta's administration page!!"
-msgstr ""
-
 #: ./interfaces.py:26
 msgid "Input merchant ID provided by Luottokunta."
 msgstr ""
 
+#: ./interfaces.py:73
+msgid "Input merchant's authentication MAC provided by Luottokunta. Remember to allow MAC authentication at Luottokunta's administration page!!"
+msgstr ""
+
 #: ./interfaces.py:37
 msgid "Language"
+msgstr ""
+
+#: ./interfaces.py:43
+msgid "Language to use on Luottokunta's page, if card details are entered there."
 msgstr ""
 
 #: ./interfaces.py:25
@@ -77,10 +81,6 @@ msgstr ""
 
 #: ./interfaces.py:41
 msgid "Swedish"
-msgstr ""
-
-#: ./interfaces.py:43
-msgid "This language is used on luottokunta page if card details' input happens at Luottokunta's page."
 msgstr ""
 
 #: ./interfaces.py:48

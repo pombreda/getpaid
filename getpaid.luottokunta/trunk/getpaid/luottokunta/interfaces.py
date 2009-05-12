@@ -29,7 +29,7 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
 
     card_details_transmit = schema.Bool(
                         title = _(u"Card Details Transmit"),
-                        description = _("If card details' input happens at this plone site, check this option. If it happens at Luottokunta's page, leave this blank."),
+                        description = _("If card details are entered at this plone site, check this option. If at Luottokunta's page, leave this blank."),
                         required=True,
                         )
 
@@ -40,7 +40,7 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
                                     ('EN', _(u'English')),
                                     ('SE', _(u'Swedish')),
                                     ),
-                        description = _(u"This language is used on luottokunta page if card details' input happens at Luottokunta's page."),
+                        description = _(u"Language to use on Luottokunta's page, if card details are entered there."),
                         required=False,
                         )
 
@@ -70,7 +70,7 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
 
     authentication_mac = schema.ASCIILine( 
                         title = _(u"Authentication MAC"),
-                        description = _("Input marchant's authentication MAC provided by Luottokunta. Remembet to allow MAC authentication at Luottokunta's administration page!!"),
+                        description = _("Input merchant's authentication MAC provided by Luottokunta. Remember to allow MAC authentication at Luottokunta's administration page!!"),
                         required=False,
                         )
 
