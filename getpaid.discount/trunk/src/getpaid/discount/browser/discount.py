@@ -204,7 +204,8 @@ class CodeDiscountableAdapter(object):
         return self.annotations['discount_code']
 
     def setDiscountCode(self, data):
-        self.annotations['discount_code'] = data
+        code = data.strip()
+        self.annotations['discount_code'] = code
     
     def getDiscountedPrice(self):
         return self.annotations['discounted_price']
@@ -226,6 +227,7 @@ class ApplyDiscountCode(BrowserView):
     #   - Creates new IDiscountable set appropiatly and drops item price
     def __call__(self):
         code = self.request.form.get('discount.code', None)
+        code = code.strip()
 
         self.cart = getUtility(IShoppingCartUtility).get(self.context) or {}
 

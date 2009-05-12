@@ -5,6 +5,11 @@ CHANGES
 0.9 (unreleased)
 ----------------
 
+0.8.1 (2009-05-12)
+------------------
+
+* trim whitespace from the discount code [larubbio]
+
 0.8 (2009-05-12)
 ----------------
 
