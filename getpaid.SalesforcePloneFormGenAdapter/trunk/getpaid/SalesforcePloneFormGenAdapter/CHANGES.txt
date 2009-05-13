@@ -5,6 +5,8 @@ CHANGES
 1.0b3 (unreleased)
 ------------------
 
+ - Fix a bug joining address lines together if address line 2 wasn't provided
+
 1.0b2 (2009-05-12)
 ------------------
 

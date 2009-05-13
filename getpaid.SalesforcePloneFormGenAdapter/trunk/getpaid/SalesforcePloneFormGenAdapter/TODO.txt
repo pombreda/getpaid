@@ -1,4 +1,4 @@
 TODO.txt
 
-- Rename adapter to GetPaid Salesforce Adapter
+- Code doesn't handle case were shipping is the same as billing
 - Update tests

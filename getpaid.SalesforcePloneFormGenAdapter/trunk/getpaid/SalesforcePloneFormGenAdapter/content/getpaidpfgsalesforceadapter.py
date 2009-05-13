@@ -527,13 +527,20 @@ def _getValueFromOrder(order, item, fieldPath):
             line_1 = order.billing_address.bill_first_line
             line_2 = order.billing_address.bill_second_line
 
-            value = "\n".join((line_1, line_2))
+            if line_2 is None:
+                value = line_1
+            else:
+                value = "\n".join((line_1, line_2))
             
         elif split_field_path[-1] == "ship_address_street":
             line_1 = order.shipping_address.ship_first_line
             line_2 = order.shipping_address.ship_second_line
 
-            value = "\n".join((line_1, line_2))
+            if line_2 is None:
+                value = line_1
+            else:
+                value = "\n".join((line_1, line_2))
+                
             
         # for all other elememts, call getattr starting with the order
         else:
