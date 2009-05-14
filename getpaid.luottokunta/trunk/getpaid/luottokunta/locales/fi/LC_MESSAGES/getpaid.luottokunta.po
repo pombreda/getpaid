@@ -27,6 +27,10 @@ msgstr "Todennus MAC"
 msgid "Card Details Transmit"
 msgstr "Luottokorttitietojen lähettäminen"
 
+#: ./interfaces.py:85
+msgid "Check this option to use incremental order ID for Luottokunta interface. Remember to input numeric order ID to the next order ID field."
+msgstr "Valitse tämä käyttääksesi kasvavaa tilaustunnusta luottokunnan rajapinnassa. Muista syöttää numeerinen tilaustunnus seuraavaan tilaustunnuskenttään."
+
 #: ./interfaces.py:55
 msgid "Dossier ID is only for travel agencies and airlines. Check this option if Dossier ID is used to the card transactions, else leave this blank."
 msgstr "Matka-asiakirjatunniste on vain matkatoimistojen ja lentoyhtiöiden käyttöön. Valitse tämä, jos tunnistetta käytetään luottokorttitapahtuman yhteydessä."
@@ -63,6 +67,10 @@ msgstr "Syötä luottokunnan antama kauppiastunniste."
 msgid "Input merchant's authentication MAC provided by Luottokunta. Remember to allow MAC authentication at Luottokunta's administration page!!"
 msgstr "Syötä luottokunnalta saatu kauppiaan todennus MAC. Muista sallia MAC todennus luottokunnan hallinnointisivulta!"
 
+#: ./interfaces.py:91
+msgid "Input order ID for the next order. This order ID will be used only for Luottokunta interface. You see getpaid order ID in the customer ID column in Luottokunta interface."
+msgstr "Syötä seuraavan tilauksen tilaustunnus. Tilaustunnusta käytetään vain Luottokunnan rajapinnassa. Getpaid tilaustunnuksen näkee Luottokunnan rajapinnassa asiakastunnuskentässä."
+
 #: ./interfaces.py:37
 msgid "Language"
 msgstr "Kieli"
@@ -74,6 +82,10 @@ msgstr "Käytettävä kieli, jos luottokorttitietojen syöttö tapahtuu luottoku
 #: ./interfaces.py:25
 msgid "Merchant Number"
 msgstr "Kauppiasnumero"
+
+#: ./interfaces.py:90
+msgid "Next Order ID"
+msgstr "Seuraava tilaustunnus"
 
 #: ./interfaces.py:41
 msgid "Swedish"
@@ -90,4 +102,12 @@ msgstr "Käytä todentamis MAC:ia"
 #: ./interfaces.py:54
 msgid "Use Dossier ID"
 msgstr "Käytä matka-asiakirjatunnistetta"
+
+#: ./interfaces.py:84
+msgid "Use Incremenatal Order Number"
+msgstr "Käytä kasvavaa tilausnumeroa"
+
+#: ./locales/empty.pt:3
+msgid "do_not_translate"
+msgstr ""
 
