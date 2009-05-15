@@ -70,7 +70,7 @@ GETPAID_OTHER_PACKAGES = {
     'getpaid.ogone': PyModule('getpaid.ogone', CHEESE_SOURCE + 'g/getpaid.ogone/getpaid.ogone-0.3.tar.gz', version="0.3"),
     'getpaid.payflowpro': PyModule('getpaid.payflowpro', CHEESE_SOURCE + 'g/getpaid.payflowpro/getpaid.payflowpro-1.0b1.tar.gz', version="1.0b1"),
     'getpaid.paymentech': PyModule('getpaid.paymentech', CHEESE_SOURCE + 'g/getpaid.paymentech/getpaid.paymentech-0.3.tar.gz', version="0.3"),
-    'getpaid.paypal': PyModule('getpaid.paypal', CHEESE_SOURCE + 'g/getpaid.paypal/getpaid.paypal-0.4.2.tar.gz', version="0.4.2"),
+    'getpaid.paypal': PyModule('getpaid.paypal', CHEESE_SOURCE + 'g/getpaid.paypal/getpaid.paypal-0.4.3.tar.gz', version="0.4.3"),
     'getpaid.pxpay': PyModule('getpaid.pxpay', CHEESE_SOURCE + 'g/getpaid.pxpay/getpaid.pxpay-0.3.tar.gz', version="0.3"),
     'getpaid.clickandbuy': PyModule('getpaid.clickandbuy', CHEESE_SOURCE + 'g/getpaid.clickandbuy/getpaid.clickandbuy-0.1.tar.gz', version="0.1"),
     # shipping
