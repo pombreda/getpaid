@@ -17,3 +17,17 @@ Adapter VerkkomaksutProcessor
     >>> verkkomaksut_processor = IVerkkomaksutProcessor(context)
     >>> IVerkkomaksutProcessor.providedBy(verkkomaksut_processor)
     True
+    >>> from zope.formlib.form import Fields
+    >>> fields = Fields(verkkomaksut_processor.options_interface)
+    >>> len(fields)
+    2
+    >>> [w.__name__ for w in fields]
+    ['merchant_id', 'merchant_authentication_code']
+    >>> fields['merchant_id'].field
+    <zope.schema._field.ASCIILine object at ...
+    >>> fields['merchant_id'].field.required
+    True
+    >>> fields['merchant_authentication_code'].field
+    <zope.schema._field.ASCIILine object at ...
+    >>> fields['merchant_authentication_code'].field.required
+    True

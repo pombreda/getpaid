@@ -13,4 +13,6 @@
     provides="getpaid.verkkomaksut.interfaces.IVerkkomaksutOptions"
     factory=".options.VerkkomaksutOptions" />
 
+  <adapter factory=".order.VerkkomaksutOrderInfo" />
+
 </configure>

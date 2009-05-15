@@ -2,9 +2,10 @@ from zope.interface import implements
 from zope.component import adapts
 from Products.CMFCore.interfaces import ISiteRoot
 from getpaid.core.interfaces import keys
-from getpaid.verkkomaksut.interfaces import IVerkkomaksutProcessor, IVerkkomaksutOptions
+from getpaid.verkkomaksut.interfaces import IVerkkomaksutProcessor, IVerkkomaksutOptions, IVerkkomaksutOrderInfo
 
-from urllib import urlencode, urlopen
+from urllib import urlencode#, urlopen
+from urllib2 import urlopen, HTTPSHandler, Request
 import md5
 
 class VerkkomaksutProcessor( object ):
@@ -22,4 +23,11 @@ class VerkkomaksutProcessor( object ):
         return keys.results_async
 
     def authorize( self, order, payment ):
-        pass
+        action_url = "https://ssl.verkkomaksut.fi/payment.svm"
+        order_info = IVerkkomaksutOrderInfo(order)()
+        data = urlencode(order_info)
+        request = Request(action_url, data)
+#        HTTPSHandler().https_open(request)
+#        return keys.results_async
+        f = urlopen(request)
+        return self.request.response.redirect(f.geturl())

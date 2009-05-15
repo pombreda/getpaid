@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.0.2'
+version = '0.0.5'
 
 setup(name='getpaid.verkkomaksut',
       version=version,

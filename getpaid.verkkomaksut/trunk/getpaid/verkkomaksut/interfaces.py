@@ -16,7 +16,7 @@ class IVerkkomaksutOptions(IPaymentProcessorOptions):
 
     merchant_id = schema.ASCIILine( 
                         title = _(u"Merchant ID"),
-                        description = _("Input merchant ID provided by Verkkomaksut. For test, use 13466."),
+                        description = _("Input merchant ID provided by Verkkomaksut."),
                         required=True,
                         )
 
@@ -26,9 +26,9 @@ class IVerkkomaksutOptions(IPaymentProcessorOptions):
                         required=True,
                         )
 
-class IVerkkomaksutWizardController(IWizardController):
-    """
-    """
+#class IVerkkomaksutWizardController(IWizardController):
+#    """
+#    """
 
 ### Adapters
 class IVerkkomaksutOrderInfo(Interface):
