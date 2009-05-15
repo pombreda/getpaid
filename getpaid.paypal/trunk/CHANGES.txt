@@ -2,6 +2,12 @@
 CHANGES
 =======
 
+0.4.3 (2009-05-15)
+------------------
+
+- Added Finnish translations. Updated pot files. [ilja.everila]
+
+
 0.4.2 (2009-03-13)
 ------------------
 
