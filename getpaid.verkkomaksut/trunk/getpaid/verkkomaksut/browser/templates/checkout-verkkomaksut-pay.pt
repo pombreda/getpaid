@@ -121,14 +121,15 @@
     <input name="NOTIFY_ADDRESS" type="hidden" value="http://www.esimerkki.fi/notify">
     -->
     <input name="TYPE" id="TYPE" type="hidden" value="4">
-    <input name="CULTURE" id="CULTURE" type="hidden" value="fi_FI">
+    <input name="CULTURE" id="CULTURE" type="hidden" value="fi_FI"
+           tal:attributes="value order_info/CULTURE">
     <input name="AUTHCODE" id="AUTHCODE" type="hidden" value="C99C6F8BD4F416B49479EFFC9360FE8D"
            tal:attributes="value order_info/AUTHCODE">
     <!--
     <input type="image" name="sv_button" SRC="https://ssl.verkkomaksut.fi/logo/payhere_fin.jpg">
     -->
     <input class="context" type="submit" 
-           name="form.button.Submit" i18n:attributes="value Submit" />
+           name="form.button.Submit" id="form.button.Submit" i18n:attributes="value Submit" />
   </form>
 
   <metal:legal use-macro="context/@@legal-disclaimers-links/links" />

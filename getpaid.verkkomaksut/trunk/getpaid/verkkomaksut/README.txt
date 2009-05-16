@@ -179,11 +179,3 @@ Now go to the next form.
     ...     import pdb; pdb.set_trace()
     >>> "Card Holder Name" in browser.contents
     False
-
-Make payment.
-    >>> try:
-    ...     browser.getControl('Submit').click()
-    ... except:
-    ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
-    ...     import pdb; pdb.set_trace()
-    >>> browser.contents

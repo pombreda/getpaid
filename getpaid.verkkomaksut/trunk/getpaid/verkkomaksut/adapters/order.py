@@ -4,14 +4,14 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 import md5
 from zope.app.component.hooks import getSite
-
+from zope.component import getUtility
 from getpaid.core.order import Order
 
 ### For implements.
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutOrderInfo
 
 ### For call.
-from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions
+from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions, ILanguageCulture
 
 class VerkkomaksutOrderInfo(object):
 
@@ -37,10 +37,15 @@ class VerkkomaksutOrderInfo(object):
         merchant_id = options.merchant_id
         base_url = site.absolute_url()
 #        context.finance_workflow.fireTransition( "create" )
-        state = context.finance_state
-        success_url = base_url + '/@@verkkomaksut-thank-you?order_id=%s&finance_state=%s' %(order_id, state)
-        cancel_url = base_url + '/@@getpaid-cancelled-declined'
-        culture = "fi_FI"
+#        state = context.finance_state
+        success_url = base_url + '/@@verkkomaksut-thank-you?order_id=%s' %(order_id)
+        cancel_url = base_url + '/@@verkkomaksut-cancelled-declined'
+
+        language_tool = getToolByName(site, "portal_languages")
+        language_bindings = language_tool.getLanguageBindings()
+        language_culture = getUtility(ILanguageCulture)
+        culture = language_culture(language_bindings)
+
         m = md5.new()
         m.update(options.merchant_authentication_code)
         m.update('&' + merchant_id)

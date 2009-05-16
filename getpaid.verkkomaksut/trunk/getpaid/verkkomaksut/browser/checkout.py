@@ -64,6 +64,7 @@ class VerkkomaksutThankYou(BrowserView):
         form = self.request.form
         order_id = form.get('order_id')
         order = order_manager.get(order_id)
+        self.finance_state = "CHARGED"
         if order.finance_workflow.state().getState() == "CHARGED":
             getUtility(IShoppingCartUtility).destroy( self.context )
             return self.template()
@@ -83,3 +84,15 @@ class VerkkomaksutThankYou(BrowserView):
             getUtility(IShoppingCartUtility).destroy( self.context )
             return self.template()
 
+#class VerkkomaksutCancelledDeclinedView(BrowserView):
+
+#    template = ZopeTwoPageTemplateFile("templates/checkout-cancelled-declined.pt")
+
+#    def __call__(self):
+#        order_manager = getUtility(IOrderManager)
+#        form = self.request.form
+#        order_id = form.get('order_id')
+#        order = order_manager.get(order_id)
+#        order.finance_workflow.fireTransition("reviewing-declined")
+
+#        return self.template()

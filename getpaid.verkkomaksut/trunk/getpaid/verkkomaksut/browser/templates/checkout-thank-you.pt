@@ -1,7 +1,7 @@
 <metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
             i18n:domain="plonegetpaid">
   <metal:block fill-slot="getpaid_content"
-               tal:define="finance_state request/form/finance_state|nothing;
+               tal:define="finance_state view/finance_state;
                            order_id request/form/order_id|string:">
 
 

@@ -34,3 +34,8 @@ class IVerkkomaksutOptions(IPaymentProcessorOptions):
 class IVerkkomaksutOrderInfo(Interface):
     def __call__():
         """Returns information of order."""
+
+### Utilities
+class ILanguageCulture(Interface):
+    def __call__(language_bindings):
+        """Returns verkkomaksut culture."""
