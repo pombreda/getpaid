@@ -8,4 +8,6 @@
   <include package=".browser" />
   <include package=".utilities" />
 
+  <i18n:registerTranslations directory="locales"/>
+
 </configure>
