@@ -1,6 +1,3 @@
-"""
-"""
-
 from getpaid.core.options import PersistentOptions
 import interfaces
 

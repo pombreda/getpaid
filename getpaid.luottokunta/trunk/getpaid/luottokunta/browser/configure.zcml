@@ -8,7 +8,6 @@
 
   <browser:page
      for="*"
-     template="templates/checkout-thank-you.pt"
      name="luottokunta-thank-you"
      class=".checkout.LuottokuntaThankYou"
      permission="zope2.View"
@@ -16,8 +15,8 @@
 
   <browser:page
      for="*"
-     name="checkout-luottokunta-pay"
-     class=".checkout.LuottokuntaCheckoutReviewAndPay"
+     class=".checkout.LuottokuntaCancelledDeclinedView"
+     name="luottokunta-cancelled-declined"
      permission="zope2.View"
      />
 

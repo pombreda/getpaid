@@ -9,6 +9,7 @@
 
   <include package=".adapters" />
   <include package=".browser" />
+  <include package=".utilities" />
 
   <adapter
     name="Luottokunta HTML form interface"

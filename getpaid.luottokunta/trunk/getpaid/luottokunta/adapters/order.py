@@ -1,5 +1,5 @@
 from zope.interface import implements
-from zope.component import adapts
+from zope.component import adapts, getUtility
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 import md5
@@ -11,7 +11,7 @@ from getpaid.core.order import Order
 from getpaid.luottokunta.interfaces import ILuottokuntaOrderInfo
 
 ### For call.
-from getpaid.luottokunta.interfaces import ILuottokuntaOptions
+from getpaid.luottokunta.interfaces import ILuottokuntaOptions, ILuottokuntaLanguage
 
 class LuottokuntaOrderInfo(object):
 
@@ -28,7 +28,10 @@ class LuottokuntaOrderInfo(object):
         membership = getToolByName(site, 'portal_membership')
         member_id = membership.getAuthenticatedMember().getId()
         getpaid_order_id = context.order_id
-        customer_id = member_id + '/' + getpaid_order_id
+        if member_id:
+            customer_id = member_id + getpaid_order_id
+        else:
+            customer_id = 'Anonymous' + getpaid_order_id
         price = context.getTotalPrice()
         luottokunta_price = str(int(price * 100))
         options = ILuottokuntaOptions(site)
@@ -46,13 +49,15 @@ class LuottokuntaOrderInfo(object):
             language = None
         else:
             card_details_transmit = "0"
-            language = options.language
+            language_tool = getToolByName(site, "portal_languages")
+            language_bindings = language_tool.getLanguageBindings()
+            luottokunta_language = getUtility(ILuottokuntaLanguage)
+            language = luottokunta_language(language_bindings)
         if options.transaction_type:
             transaction_type = "1"
         else:
             transaction_type = "0"
         if options.use_authentication_mac and options.authentication_mac:
-#            import pdb; pdb.set_trace()
             m = md5.new()
             m.update(merchant_number)
             m.update(order_id)
@@ -62,13 +67,19 @@ class LuottokuntaOrderInfo(object):
             authentication_mac = m.hexdigest()
         else:
             authentication_mac = None
+        base_url = site.absolute_url()
+        success_url = base_url + '/@@luottokunta-thank-you?getpaid_order_id=%s&luottokunta_order_id=%s' %(getpaid_order_id, order_id)
+        failure_url = base_url + '/@@luottokunta-cancelled-declined'
         order_info = {
-                        'price': luottokunta_price,
-                        'authentication_mac': authentication_mac,
-                        'order_number': order_id,
+                        'merchant_number' : merchant_number,
+                        'price' : luottokunta_price,
+                        'authentication_mac' : authentication_mac,
+                        'order_number' : order_id,
 #                        'getpaid_order_id': getpaid_order_id,
-                        'card_details_transmit': card_details_transmit,
-                        'transaction_type': transaction_type,
+                        'card_details_transmit' : card_details_transmit,
+                        'transaction_type' : transaction_type,
+                        'success_url' : success_url,
+                        'failure_url' : failure_url,
                         'language' : language,
                         'customer_id' : customer_id,
         }

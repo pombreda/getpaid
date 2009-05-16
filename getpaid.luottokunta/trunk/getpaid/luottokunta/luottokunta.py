@@ -4,9 +4,6 @@ from Products.CMFCore.interfaces import ISiteRoot
 from getpaid.core.interfaces import keys
 from getpaid.luottokunta.interfaces import ILuottokuntaProcessor, ILuottokuntaOptions
 
-from urllib import urlencode, urlopen
-import md5
-
 class LuottokuntaProcessor( object ):
 
     implements(ILuottokuntaProcessor)

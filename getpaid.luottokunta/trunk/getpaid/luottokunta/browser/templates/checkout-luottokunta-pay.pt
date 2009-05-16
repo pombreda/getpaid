@@ -101,12 +101,12 @@
 
   </form>
 
-  <form action="https://dmp2.luottokunta.fi/dmp/html_payments" method="post">
-    <fieldset tal:define="options view/luottokunta_options;
-                          order_info view/order_info">
+  <form action="https://dmp2.luottokunta.fi/dmp/html_payments" method="post"
+        tal:condition="view/is_luottokunta">
+    <fieldset tal:define="order_info view/order_info">
       <legend i18n:translate=""> Payment Details </legend>
       <input type="hidden" name="Merchant_Number" id="Merchant_Number" 
-             tal:attributes="value options/merchant_number" />
+             tal:attributes="value order_info/merchant_number" />
       <input type="hidden" name="Card_Details_Transmit" id="Card_Details_Transmit" 
              tal:attributes="value order_info/card_details_transmit" />
       <input type="hidden" name="Language" id="Language" 
@@ -117,9 +117,9 @@
       <input type="hidden" name="Transaction_Type" id="Transaction_Type" 
              tal:attributes="value order_info/transaction_type" />
       <input type="hidden" name="Success_Url" id="Success_Url"
-               tal:attributes="value view/success_url" />
+               tal:attributes="value order_info/success_url" />
       <input type="hidden" name="Failure_Url" id="Failure_Url"
-             tal:attributes="value view/failure_url" />
+             tal:attributes="value order_info/failure_url" />
       <input type="hidden" name="Authentication_Mac" id="Authentication_Mac"
              tal:attributes="value order_info/authentication_mac"
              tal:condition="order_info/authentication_mac" />
@@ -134,11 +134,15 @@
              tal:attributes="value view/order_description" />
       -->
       <div tal:condition="not:  order_info/language">
-      <span i18n:translate="Ecom_Payment_Card_Number">Card Number</span>: 
+      <div class="field">
+      <label i18n:translate="">Credit Card Number</label>
+      <div i18n:translate="" class="formHelp">Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777</div>
       <input type="box" name="Ecom_Payment_Card_Number" 
              id="Ecom_Payment_Card_Number" size="20" />
-      <span i18n:translate="Ecom_Payment_Card_ExpDate">Card Validity</span>: 
-      <span i18n:translate="Month">Month</span>
+      </div>
+      <div class="field">
+      <label i18n:translate="">Credit Card Expiration Date</label>
+      <br />
       <select name="Ecom_Payment_Card_ExpDate_Month"
               id="Ecom_Payment_Card_ExpDate_Month">
         <tal:block tal:repeat="month view/months">
@@ -146,7 +150,6 @@
                   tal:attributes="value month" />
         </tal:block>
       </select>
-      <span i18n:translate="Year">Year</span>
       <select name="Ecom_Payment_Card_ExpDate_Year"
               id="Ecom_Payment_Card_ExpDate_Year">
         <tal:block tal:repeat="year view/years">
@@ -154,18 +157,20 @@
                   tal:attributes="value year" />
         </tal:block>
       </select>
-      <span i18n:translate="Ecom_Payment_Card_Verification">
-        Security Code
-      </span>
-      <input type="password" name="Ecom_Payment_Card_Verification"
+      </div>
+      <div class="field">
+      <label i18n:translate="">
+        Credit Card Verfication Number
+      </label>
+      <div i18n:translate="" class="formHelp">
+        For MC, Visa, and DC, this is a 3-digit number on back of the card.  For AmEx, this is a 4-digit code on front of card.
+      </div>
+      <input type="box" name="Ecom_Payment_Card_Verification"
              id="Ecom_Payment_Card_Verification" size="4" />
-      <br />
-      <span i18n:translate="about_security_code">
-        You may find your security code next to your card's signature, which is three or four digits.
-      </span>
+      </div>
       </div>
       <input class="context" type="submit" 
-             name="form.button.Submit" i18n:attributes="value send" />
+             name="form.button.Submit" i18n:attributes="value Submit" />
     </fieldset>
   </form>
 

@@ -1,15 +1,15 @@
 from zope import schema
 from zope.interface import Interface
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+#from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from getpaid.core.interfaces import IPaymentProcessor,IPaymentProcessorOptions
 
 from getpaid.luottokunta import LuottokuntaMessageFactory as _
 
-# generate a Zope 3 vocabulary from a sequence of tuples, suitable for use in a drop-down menu
-def _vocabulary(*terms):
-    return SimpleVocabulary([SimpleTerm(token, token, title)
-                             for token, title in terms])
+## generate a Zope 3 vocabulary from a sequence of tuples, suitable for use in a drop-down menu
+#def _vocabulary(*terms):
+#    return SimpleVocabulary([SimpleTerm(token, token, title)
+#                             for token, title in terms])
 
 class ILuottokuntaProcessor(IPaymentProcessor):
     """
@@ -33,16 +33,16 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
                         required=False,
                         )
 
-    language = schema.Choice(
-                        title = _(u"Language"),
-                        vocabulary = _vocabulary(
-                                    ('FI', _(u'Finnish')),
-                                    ('EN', _(u'English')),
-                                    ('SE', _(u'Swedish')),
-                                    ),
-                        description = _(u"Language to use on Luottokunta's page, if card details are entered there."),
-                        required=False,
-                        )
+#    language = schema.Choice(
+#                        title = _(u"Language"),
+#                        vocabulary = _vocabulary(
+#                                    ('FI', _(u'Finnish')),
+#                                    ('EN', _(u'English')),
+#                                    ('SE', _(u'Swedish')),
+#                                    ),
+#                        description = _(u"Language to use on Luottokunta's page, if card details are entered there."),
+#                        required=False,
+#                        )
 
     transaction_type = schema.Bool(
                         title = _(u"Transaction Type"),
@@ -97,3 +97,8 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
 class ILuottokuntaOrderInfo(Interface):
     def __call__():
         """Returns information of order."""
+
+### Utilities
+class ILuottokuntaLanguage(Interface):
+    def __call__():
+        """Returns Language variable."""

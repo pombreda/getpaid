@@ -106,7 +106,7 @@ unambiguous value::
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Processor Settings').click()
-    >>> fields_name = ['Merchant Number', 'Card Details Transmit', 'Language', 'Transaction Type', 'Use Authentication MAC', 'Authentication MAC', 'American Express', 'Use Incremenatal Order Number', 'Next Order ID']
+    >>> fields_name = ['Merchant Number', 'Card Details Transmit', 'Transaction Type', 'Use Authentication MAC', 'Authentication MAC', 'American Express', 'Use Incremenatal Order Number', 'Next Order ID']
     >>> for field in fields_name:
     ...     field in browser.contents 
     True
@@ -117,9 +117,7 @@ unambiguous value::
     True
     True
     True
-    True
     >>> browser.getControl('Merchant Number').value = '123456'
-    >>> browser.getControl('Language').value = ['FI']
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Email Notifications').click()
@@ -184,13 +182,12 @@ Now go to the next form.
     True
     >>> "id=\"Language\"" in browser.contents
     True
-    >>> "value=\"FI\"" in browser.contents
+    >>> "value=\"EN\"" in browser.contents
     True
     >>> "id=\"Transaction_Type\" value=\"0\"" in browser.contents
     True
     >>> order_id = browser.getControl(name="Order_ID").value
-    >>> state = "REVIEWING"
-    >>> thanks_url = "http://nohost/plone/@@luottokunta-thank-you?order_id=%s&amp;finance_state=%s" %(order_id, state)
+    >>> thanks_url = "http://nohost/plone/@@luottokunta-thank-you?order_id=%s" %(order_id)
     >>> ("value=\"%s\"" %(thanks_url)) in browser.contents
     True
     >>> "value=\"http://nohost/plone/@@getpaid-cancelled-declined\"" in browser.contents
