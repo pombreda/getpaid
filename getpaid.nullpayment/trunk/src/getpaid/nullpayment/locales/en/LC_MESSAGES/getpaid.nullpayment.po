@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid VERSION\n"
-"POT-Creation-Date: 2007-10-02 19:24+0000\n"
+"POT-Creation-Date: 2009-05-18 13:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,15 +16,15 @@ msgstr ""
 "Domain: getpaid.nullpayment\n"
 "X-Is-Fallback-For: en-au en-bz en-ca en-ie en-jm en-nz en-ph en-za en-tt en-gb en-us en-zw\n"
 
-#: ./interfaces.py:18
+#: ./interfaces.py:41
 msgid "Allow Authorizations"
 msgstr ""
 
-#: ./interfaces.py:25
+#: ./interfaces.py:48
 msgid "Allow Captures"
 msgstr ""
 
-#: ./interfaces.py:32
+#: ./interfaces.py:55
 msgid "Allow Refunds"
 msgstr ""
 
