@@ -162,7 +162,7 @@ class View( base.BaseFormView ):
         self.hidden_form_vars = {'wid':wid}
         super( View, self).update()
         self.form_name = \
-                u'Warehouse Information (<a href="@@pgp-edit-warehouse?wid=%s">Edit</a>)'%wid
+                self.context.translate(_(u'Warehouse Information')) + ' (<a href="@@pgp-edit-warehouse?wid=%s">'%wid + self.context.translate(_(u'Edit')) + '</a>)'
 
     def isOrdered( self ):
         return False

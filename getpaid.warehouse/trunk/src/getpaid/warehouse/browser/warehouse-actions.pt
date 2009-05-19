@@ -1,5 +1,5 @@
 
-<fieldset i18n:domain="plonegetpaid">
+<fieldset i18n:domain="getpaid.warehouse">
   <legend i18n:translate="legend_warehouses"> Warehouses </legend>
 
 <form action="."

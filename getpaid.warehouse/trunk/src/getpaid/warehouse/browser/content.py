@@ -15,7 +15,7 @@ class ContentInventory( PayableFormView, formbase.EditForm ):
     form_fields = form.Fields( interfaces.IProductInventory )
     form_fields['store_stock'].for_display = True
     
-    form_name = "Product Inventory"
+    form_name = _("Product Inventory")
     allowed = True
     
     @form.action(_("Apply"), condition=form.haveInputWidgets)

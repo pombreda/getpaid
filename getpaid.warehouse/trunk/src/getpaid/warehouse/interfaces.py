@@ -29,8 +29,8 @@ def WarehouseSource( *args ):
 interface.directlyProvides( WarehouseSource, IContextSourceBinder )
 
 class IProductInventory( interface.Interface ):   
-    pickbin = schema.TextLine( title=_(u"Pick Bin"), description=_("") )
-    pallet = schema.TextLine( title=_(u"Pallet"), description=_(""))
+    pickbin = schema.TextLine( title=_(u"Pick Bin") ) # , description=_(u"") )
+    pallet = schema.TextLine( title=_(u"Pallet") ) # , description=_(u"") )
     stock  = schema.Int( title=_(u"Quantity in Stock"), default=0)
     
     # so the notion is that we automatically adjust this value to give
