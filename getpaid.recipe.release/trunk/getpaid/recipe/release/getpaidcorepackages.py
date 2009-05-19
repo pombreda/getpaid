@@ -49,7 +49,7 @@ GETPAID_SOURCE = 'http://getpaid.googlecode.com/files/'
 GETPAID_BASE_PACKAGES = [
     PyModule('ore.viewlet', CHEESE_SOURCE + 'o/ore.viewlet/ore.viewlet-0.2.1.tar.gz', version="0.2.1"),
     PyModule('getpaid.core', CHEESE_SOURCE + 'g/getpaid.core/getpaid.core-0.7.4.tar.gz', version="0.7.4"),
-    PyModule('Products.PloneGetPaid', CHEESE_SOURCE + 'P/Products.PloneGetPaid/Products.PloneGetPaid-0.7.8.tar.gz', version="0.7.8"),
+    PyModule('Products.PloneGetPaid', CHEESE_SOURCE + 'P/Products.PloneGetPaid/Products.PloneGetPaid-0.7.9.tar.gz', version="0.7.9"),
     PyModule('getpaid.wizard', CHEESE_SOURCE + 'g/getpaid.wizard/getpaid.wizard-0.3.tar.gz', version="0.3"),
     PyModule('getpaid.nullpayment', CHEESE_SOURCE + 'g/getpaid.nullpayment/getpaid.nullpayment-0.3.1.tar.gz', version="0.3.1"),
 ]
@@ -79,7 +79,7 @@ GETPAID_OTHER_PACKAGES = {
     # discount
     'getpaid.discount': PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.8.1.tar.gz', version="0.8.1"),
     # others
-    'getpaid.formgen': PyModule('getpaid.formgen', CHEESE_SOURCE + 'g/getpaid.formgen/getpaid.formgen-0.2.2.tar.gz', version="0.2.2"),
+    'getpaid.formgen': PyModule('getpaid.formgen', CHEESE_SOURCE + 'g/getpaid.formgen/getpaid.formgen-0.2.3.tar.gz', version="0.2.3"),
     'getpaid.report': PyModule('getpaid.report', CHEESE_SOURCE + 'g/getpaid.report/getpaid.report-0.1.1.tar.gz', version="0.1.1"),
     'getpaid.warehouse': PyModule('getpaid.warehouse', CHEESE_SOURCE + 'g/getpaid.warehouse/getpaid.warehouse-0.3.tar.gz', version="0.3"),
     'getpaid.SalesforcePloneFormGenAdapter': PyModule('getpaid.SalesforcePloneFormGenAdapter', CHEESE_SOURCE + 'g/getpaid.SalesforcePloneFormGenAdapter/getpaid.SalesforcePloneFormGenAdapter-1.0b2.tar.gzg', version="1.0b2"),

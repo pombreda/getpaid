@@ -1,8 +1,13 @@
 =======
 CHANGES
 =======
-1.4.4 (unreleased)
+1.4.5 (unreleased)
 ------------------
+
+1.4.4 (2009-05-19)
+------------------
+* Update getpaid.formgen again to fix missing form fields [larubbio]
+* Update Products.PloneGetPaid to shorten a translation [larubbio]
 
 1.4.3 (2009-05-19)
 ------------------
