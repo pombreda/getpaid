@@ -75,6 +75,11 @@ msgstr "Matka-asiakirjatunniste on vain matkatoimistojen ja lentoyhtiöiden käy
 msgid "Failed to send reversal message"
 msgstr ""
 
+#. Default: "For MASTER and VISA card, security code is a 3-digit number on back of the card."
+#: ./browser/templates/checkout-luottokunta-pay.pt:169
+msgid "For MASTER and VISA card, security code is a 3-digit number on back of the card."
+msgstr "MASTER ja VISA korteissa turvakoodi on 3-numeroinen luku kortin takana."
+
 #: ./interfaces.py:67
 msgid "If authentication MAC is used to the card transactions, check this option, else leave this blank."
 msgstr "Valitse tämä, jos luottokorttitapahtuman yhteydessä käytetään todennus MAC:ia. Muuten jätä tyhjäksi."
@@ -127,6 +132,11 @@ msgstr "Kuukausi"
 msgid "Next Order ID"
 msgstr "Seuraava tilaustunnus"
 
+#. Default: "Pay"
+#: ./browser/templates/checkout-luottokunta-pay.pt:176
+msgid "Pay"
+msgstr "Maksa"
+
 #: ./config.py:8
 msgid "Reversal message is pending"
 msgstr ""
@@ -149,11 +159,11 @@ msgstr "Kortin antaja eväsi varmentamisen"
 
 #: ./config.py:12
 msgid "The card issuer has accepted the authorisation but has not checked the card verification code. Do not retry the transaction, as it will most likely result in the same outcome. The card cannot be used to pay through Luottokunta. Please contact card issuer for more detailed information."
-msgstr ""
+msgstr "Kortin antaja hyväksyi valtuutuksen, mutta ei tarkistanut kortin tarkistuskoodia. Älä yritä toimintoa uudelleen, sillä se johtaisi mitä todennäköisimmin samaan lopputulokseen. Kortilla ei voi maksaa Luottokunnan kautta. Ole hyvä ja ota yhteyttä kortin antajaan saadaksesi lisätietoja."
 
 #: ./config.py:11
 msgid "The card issuer has rejected the authorisation. The reasons for this can be e.g. that the card limit has been exceeded, or the card is restricted so that it cannot be used in E-commerce. Please contact card issuer for more detailed information."
-msgstr ""
+msgstr "Kortin antaja eväsi tapahtuman. Yleensä tämä johtuu kortin rajan ylittämisestä tai kortin käytön estosta E-kaupassa. Ole hyvä ja ota yhteyttä kortin antajaan saadaksesi lisätietoja."
 
 #: ./config.py:7
 msgid "The card validity field or its content is incorrect or missing. Please check that the card validity month and year are correct."
@@ -161,15 +171,15 @@ msgstr "Kortin voimassaolopäiväkenttä on epäkelpo tai puuttuu kokonaan. Ole 
 
 #: ./config.py:6
 msgid "The card verification code field or its content is formally incorrect or missing. Please check that the verification code (ie. Credit Card Verfication Number) contains only numbers."
-msgstr ""
+msgstr "Kortin varmennuskoodikenttä on tyhjä tai virheellinen. Ole hyvä ja tarkista varmennuskoodin, eli luottokortin varmennusluvun, sisältävän pelkkiä numeroita."
 
 #: ./config.py:5
 msgid "The credit card number field or its content is formally incorrect or missing. Please check that the card number contains only numbers. The card number can be entered with or without spaces."
-msgstr ""
+msgstr "Luottokorttinumerokenttä on tyhjä tai virheellinen. Ole hyvä ja tarkista kortin numeron sisältävän pelkkiä numeroita. Kortin numeron voi syöttää ilman välilyöntejä tai niiden kanssa."
 
 #: ./config.py:14
 msgid "The credit card number, validity or card verification code is invalid. Please try again."
-msgstr ""
+msgstr "Luottokortin numero, voimassaolo tai varmennuskoodi on virheellinen. Ole hyvä ja yritä uudelleen."
 
 #: ./interfaces.py:48
 msgid "Transaction Type"
@@ -189,15 +199,15 @@ msgstr "Käytä kasvavaa tilausnumeroa"
 
 #: ./config.py:16
 msgid "Verified by Visa or MasterCard SecureCode authentication failed due to data communication error."
-msgstr ""
+msgstr "Visan tai MasterCard:n varmentama SecureCode todentaminen epäonnistui tiedonsiirtovirheen vuoksi."
 
 #: ./config.py:15
 msgid "Verified by Visa or MasterCard SecureCode authentication failed. The reasons can be e.g. that the cardholder has given incorrect authentication password or cancelled the authentication by clicking the Cancel button in the authentication page."
-msgstr ""
+msgstr "Visan tai MasterCard:n SecureCode todentaminen epäonnistui. Tämä johtuu yleensä siitä, että kortinhaltija on antanut väärän todennussalasanan tai peruuttanut todentamisen painamalla Peruuta nappia todennussivulla."
 
 #: ./browser/checkout.py:49
 msgid "Year"
-msgstr ""
+msgstr "Vuosi"
 
 #: ./locales/empty.pt:3
 msgid "do_not_translate"
