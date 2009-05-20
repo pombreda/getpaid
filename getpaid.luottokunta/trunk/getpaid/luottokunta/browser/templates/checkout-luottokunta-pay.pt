@@ -101,6 +101,10 @@
 
   </form>
 
+  <tal:cond condition="view/isPlone3">
+    <div tal:replace="structure provider:getpaid.luottokunta.abovepayment" />
+  </tal:cond>
+
   <form action="https://dmp2.luottokunta.fi/dmp/html_payments" method="post"
         tal:condition="view/is_luottokunta">
     <fieldset tal:define="order_info view/order_info">
@@ -133,10 +137,10 @@
       <input type="hidden" name="Order_Description" id="Order_Description"
              tal:attributes="value view/order_description" />
       -->
-      <div tal:condition="not:  order_info/language">
+      <div tal:condition="not:  order_info/language" i18n:domain="getpaid">
       <div class="field">
       <label i18n:translate="">Credit Card Number</label>
-      <div i18n:translate="" class="formHelp">Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777</div>
+      <div class="formHelp" i18n:translate="Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777 ">Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777 </div>
       <input type="box" name="Ecom_Payment_Card_Number" 
              id="Ecom_Payment_Card_Number" size="20" />
       </div>
@@ -162,18 +166,24 @@
       <label i18n:translate="">
         Credit Card Verfication Number
       </label>
-      <div i18n:translate="" class="formHelp">
-        For MC, Visa, and DC, this is a 3-digit number on back of the card.  For AmEx, this is a 4-digit code on front of card.
+      <div i18n:domain="getpaid.luottokunta" i18n:translate="For MASTER and VISA card, security code is a 3-digit number on back of the card." class="formHelp">
+        For MASTER and VISA card, security code is a 3-digit number on back of the card.
       </div>
       <input type="box" name="Ecom_Payment_Card_Verification"
              id="Ecom_Payment_Card_Verification" size="4" />
       </div>
       </div>
       <input class="context" type="submit" 
-             name="form.button.Submit" i18n:attributes="value Submit" />
+             name="form.button.Submit" 
+             value="Pay"
+             i18n:attributes="value"
+             i18n:domain="getpaid.luottokunta" />
     </fieldset>
   </form>
 
+  <tal:cond condition="view/isPlone3">
+    <div tal:replace="structure provider:getpaid.luottokunta.belowpayment" />
+  </tal:cond>
 
   <metal:legal use-macro="context/@@legal-disclaimers-links/links" />
 

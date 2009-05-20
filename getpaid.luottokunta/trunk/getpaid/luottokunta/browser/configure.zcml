@@ -6,12 +6,16 @@
            xmlns:i18n="http://xml.zope.org/namespaces/i18n"
            i18n_domain="getpaid.luottokunta">
 
+  <include package=".viewlets" />
+
   <browser:page
      for="*"
      name="luottokunta-thank-you"
      class=".checkout.LuottokuntaThankYou"
      permission="zope2.View"
      />
+
+
 
   <browser:page
      for="*"
