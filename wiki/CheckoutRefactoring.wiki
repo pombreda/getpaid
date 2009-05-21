@@ -38,11 +38,15 @@ GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site en
 
 ==Use Cases==
 
+  * As a site owner, I want to set a payment processor that has my customers enter all their info and credit card information directly on the payment processor's website.
+  * As a site owner, I want to capture customer info on my site and then have customer enter credit card info on payment processor's website.
+  * As a site owner, I configure how my payment processor should work (all onsite, all offsite, mixed)
+
+_Backlog/Deferred_
   * As a developer, I want to add a field to the checkout wizard
-  * As a site owner, I want my customers to enter in credit card information directly on the payment processor's website
   * As a site owner, I want to configure my payment processor settings to use on-site or off-site entry of credit card information
 
-=Notes by Brandon Rhodes (from email to Google Group)=
+==Notes by Brandon Rhodes (from email to Google Group)==
 
 Derek dropped by this morning and politely pointed out that my goal this
 week ought not to have been to just enjoy reading GetPaid code, but to
