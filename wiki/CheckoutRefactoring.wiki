@@ -48,8 +48,8 @@ _Backlog/Deferred_
 ==Notes about Needs==
 
 As a site admin, you can configure onsite or offsite payment processors. If you use a payment processor that handles everything within the site, you create a cart, go through the checkout process (enter information, review order + credit card information, confirmation page). However, if you are using an offsite payment processor, the integration is rather clunky because you have to override what GetPaid provides to get the checkout process to move offsite. This can happen at multiple places, depending on preference and the processor being used: 
-  - Move offsite as soon as someone clicks "Checkout" (from the cart page or cart portlet)
-  - Move offsite after the first information collection page in checkout wizard (ie before the review and credit card information). 
+  * Move offsite as soon as someone clicks "Checkout" (from the cart page or cart portlet)
+  * Move offsite after the first information collection page in checkout wizard (ie before the review and credit card information). 
 
 We understand that to mean that GetPaid needs more pluggable points for the checkout process to make this more flexible and inclusive of different payment processors used and preferences of site owners. The current refactoring aims to enable: 
   * Completely onsite (current default)
