@@ -8,12 +8,10 @@ GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site en
 
 = Details =
 
-==Architecture==
-
 ==Team==
   * Derek Richardson (student)
   * Brandon Rhodes (mentor)
-  * (add you here) 
+  * (add your name here if you'd like to help) 
 
 ==Deliverables==
 
@@ -22,8 +20,9 @@ GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site en
 
 ==Process==
 
-  * Create a branch for the work.
   * Start brainstorming desired architecture
+  * Get input from GetPaid community
+  * Create a branch for the work.
   * Write tests.
   * Refactor the wizard.
   * Watch all tests pass
@@ -45,6 +44,33 @@ GetPaid is a Plone eCommerce framework. GetPaid's architecture favors on-site en
 _Backlog/Deferred_
   * As a developer, I want to add a field to the checkout wizard
   * As a site owner, I want to configure my payment processor settings to use on-site or off-site entry of credit card information
+
+==Notes about Needs==
+
+As a site admin, you can configure onsite or offsite payment processors. If you use a payment processor that handles everything within the site, you create a cart, go through the checkout process (enter information, review order + credit card information, confirmation page). However, if you are using an offsite payment processor, the integration is rather clunky because you have to override what GetPaid provides to get the checkout process to move offsite. This can happen at multiple places, depending on preference and the processor being used: 
+  - Move offsite as soon as someone clicks "Checkout" (from the cart page or cart portlet)
+  - Move offsite after the first information collection page in checkout wizard (ie before the review and credit card information). 
+
+We understand that to mean that GetPaid needs more pluggable points for the checkout process to make this more flexible and inclusive of different payment processors used and preferences of site owners. The current refactoring aims to enable: 
+  * Completely onsite (current default)
+  * Completely offsite: whole checkout (but GetPaid site knows about order, finance and workflow states based on happenings offsite)
+  * Some on-site, some offsite: Gather general user info onsite and then send offsite for credit card entry/authorization and back to site for order confirmation. Getpaid can send cart line item info, cart total value, and user general info (name, address) to processor. 
+
+
+==Architecture==
+
+_Derek outlining potential solutions_
+
+==Reference==
+
+  * Payment processor override necessity: http://code.google.com/p/getpaid/issues/detail?id=167 
+  * Outdated, but close, workflow: http://code.google.com/p/getpaid/wiki/WorkflowGraphviz
+  * Notes on GSoC project: http://code.google.com/p/getpaid/wiki/CheckoutRefactoring
+  * Payment processors list: https://www.plonegetpaid.com/features
+  * Interfaces: http://code.google.com/p/getpaid/source/browse/getpaid.core/trunk/src/getpaid/core/interfaces.py
+
+
+=History of Notes/Discussions=
 
 ==Notes by Brandon Rhodes (from email to Google Group)==
 
