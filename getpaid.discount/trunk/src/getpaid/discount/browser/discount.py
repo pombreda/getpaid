@@ -252,7 +252,7 @@ class ApplyDiscountCode(BrowserView):
 
                     adapter_obj = ICodeDiscountable(ref_obj)
 
-                    if code == adapter_obj.getDiscountCode():
+                    if code.lower() == adapter_obj.getDiscountCode().lower():
 
                         discounted_price = adapter_obj.getDiscountedPrice()
 

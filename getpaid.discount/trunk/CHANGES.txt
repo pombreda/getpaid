@@ -2,8 +2,10 @@
 CHANGES
 =======
 
-0.9 (unreleased)
-----------------
+0.8.2 (unreleased)
+------------------
+* Make discount code case insensitive
+* Add help text in cart viewlet
 
 0.8.1 (2009-05-12)
 ------------------

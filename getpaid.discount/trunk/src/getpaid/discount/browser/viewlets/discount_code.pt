@@ -30,9 +30,10 @@
   });
 </script>
 
-  <div class="cart-discount-code-entry">
-    <span>Discount Codes:</span>
-    <input id="discount_code" class="textType" type="text" size="10" name="discount_code"/>
-    <a href="javascript:submitDonation();" class="button context">Enter</a>
+  <div id="dcEntry" class="cart-discount-code-entry">
+    <span id="dcLabel">Discount Codes:</span>
+    <input id="dcInput" class="textType" type="text" size="10" name="discount_code"/>
+    <a id="dcButton" href="javascript:submitDonation();" class="button context">Enter</a>
+    <div id="dcHelp" class="formHelp">You must click enter to activate the discount before checking out.</div>
   </div>
 </form>
