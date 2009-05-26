@@ -5,6 +5,10 @@ CHANGES
 0.9 (unreleased)
 ----------------
 
+0.8.3 (2009-05-24)
+------------------
+* Fix a bug introduced in 0.8.2 [larubio]
+
 0.8.2 (2009-05-24)
 ------------------
 * Make discount code case insensitive
