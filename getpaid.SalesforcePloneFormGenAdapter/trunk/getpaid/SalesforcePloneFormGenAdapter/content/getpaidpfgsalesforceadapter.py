@@ -73,7 +73,9 @@ schema = FormAdapterSchema.copy() + Schema((
         default=u'Contact',
         mutator='setSFObjectType',
         widget=SelectionWidget(
-            label='Salesforce Object Type',
+            label='Salesforce Object for Customer',
+            description="""This object will hold the customer, address\
+                 and potentially order items""",
             i18n_domain = "getpaidpfgsalesforceadapter",
             label_msgid = "label_salesforce_type_text",
             ),
@@ -105,32 +107,74 @@ schema = FormAdapterSchema.copy() + Schema((
              i18n_domain = "getpaidpfgsalesforceadapter",
              ),
         ),
-    DataGridField('getPaidFieldMap',
+    StringField('SFObjectTypeForItems',
+        searchable=0,
+        required=0,
+        read_permission=ModifyPortalContent,
+        default=u'',
+        mutator='setSFObjectTypeForItems',
+        widget=SelectionWidget(
+            label='Salesforce Object for Items',
+            description="""This object will hold the order items. It\
+                  is optionally. If blank, the above object will\
+                   be used, with a new SF record created for each item""",
+            i18n_domain = "getpaidpfgsalesforceadapter",
+            label_msgid = "label_salesforce_type_for_items_text",
+            ),
+        vocabulary='displaySFObjectTypesForItems',
+        ),
+    DataGridField('getPaidCustomerFieldMap',
          searchable=0,
          required=1,
          read_permission=ModifyPortalContent,
          schemata='field mapping',
          columns=('field_path', 'form_field', 'sf_field'),
-         fixed_rows = "generateGetPaidFormFieldRows",
+         fixed_rows = "generateGetPaidCustomerFormFieldRows",
          allow_delete = False,
          allow_insert = False,
          allow_reorder = False,
          widget = DataGridWidget(
-             label='Get Paid fields to Salesforce fields mapping',
-             label_msgid = "label_salesforce_getpaid_field_map",
+             label='Get Paid Customer fields to Salesforce fields mapping',
+             label_msgid = "label_salesforce_getpaid_customer_field_map",
              description="""The following Form Fields are provided\
-                 by the GetPaid order. Choose the appropriate \
+                 by the GetPaid customer & order. Choose the appropriate \
                  Salesforce Field for each Form Field.""",
-             description_msgid = 'help_salesforce_getpaid_field_map',
+             description_msgid = 'help_salesforce_getpaid_customer_field_map',
              columns= {
                  "field_path" : FixedColumn("Form Fields (path)", visible=False),
-                 "form_field" : FixedColumn("GetPaid Fields"),
+                 "form_field" : FixedColumn("GetPaid Customer Fields"),
                  "sf_field" : SelectColumn("Salesforce Fields", 
                                            vocabulary="buildSFFieldOptionList")
              },
              i18n_domain = "getpaidpfgsalesforceadapter",
              ),
-        )
+         ),
+    DataGridField('getPaidItemFieldMap',
+         searchable=0,
+         required=1,
+         read_permission=ModifyPortalContent,
+         schemata='field mapping',
+         columns=('field_path', 'form_field', 'sf_field'),
+         fixed_rows = "generateGetPaidItemFormFieldRows",
+         allow_delete = False,
+         allow_insert = False,
+         allow_reorder = False,
+         widget = DataGridWidget(
+             label='Get Paid Item fields to Salesforce fields mapping',
+             label_msgid = "label_salesforce_getpaid_item_field_map",
+             description="""The following Form Fields are provided\
+                 by the GetPaid order items. Choose the appropriate \
+                 Salesforce Field for each Form Field.""",
+             description_msgid = 'help_salesforce_getpaid_item_field_map',
+             columns= {
+                 "field_path" : FixedColumn("Form Fields (path)", visible=False),
+                 "form_field" : FixedColumn("GetPaid Item Fields"),
+                 "sf_field" : SelectColumn("Salesforce Fields", 
+                                           vocabulary="buildSFFieldOptionListForItems")
+             },
+             i18n_domain = "getpaidpfgsalesforceadapter",
+             ),
+        ),
 ))
 
 # move 'field mapping' schemata before the inherited overrides schemata
@@ -161,6 +205,7 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
         # to just set it on the object when we set the Salesforce object type. 
         # This way we don't query Salesforce for every field on our form.
         self._fieldsForSFObjectType = {}
+        self._fieldsForSFObjectForItemsType = {}
 
         #
         # Verify Products.Salesforcebaseconnector is installed
@@ -196,9 +241,48 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
             annotation["getpaid.SalesforcePloneFormGenAdapter.added"] = 1
 
             sObject = self._buildSObjectFromForm(fields, REQUEST)
-            annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidSFMapping"] = self.getPaidFieldMap
             annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"] = sObject
+            annotation["getpaid.SalesforcePloneFormGenAdapter.sItemObject"] = dict(type=self.SFObjectTypeForItems)
+            annotation["getpaid.SalesforcePloneFormGenAdapter.SFObjectForCustomer"] = self.SFObjectType
+            annotation["getpaid.SalesforcePloneFormGenAdapter.SFObjectForItems"] = self.SFObjectTypeForItems
+
+            annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidCustomerSFMapping"] = self.getPaidCustomerFieldMap
+            annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidItemSFMapping"] = self.getPaidItemFieldMap
    
+
+    security.declareProtected(ModifyPortalContent, 'buildSFFieldOptionListForItems')
+    def buildSFFieldOptionListForItems(self):
+        """Returns a DisplayList of all the fields
+           for the currently selected Salesforce object
+           type.
+        """
+
+        tmp = self._fieldsForSFObjectType
+        if self._fieldsForSFObjectForItemsType != "":
+            self._fieldsForSFObjectType = self._fieldsForSFObjectForItemsType
+
+        ret = self.buildSFFieldOptionList()
+
+        self._fieldsForSFObjectType = tmp
+
+        return ret
+
+    security.declareProtected(ModifyPortalContent, 'displaySFObjectTypesForItems')
+    def displaySFObjectTypesForItems(self):
+        logger.debug('Calling displaySFObjectTypesForItems()')        
+        """ returns vocabulary for available Salesforce Object Types 
+            we can create. 
+        """
+        types = self._querySFObjectTypes()
+        typesDisplay = DisplayList()
+        typesDisplay.add("", "")
+
+        for type in types:
+            typesDisplay.add(type, type)
+
+        return typesDisplay
+    
+
     security.declareProtected(ModifyPortalContent, 'setSFObjectType')
     def setSFObjectType(self, newType):
         """When we set the Salesforce object type,
@@ -220,7 +304,7 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
                 eligible_mappings.append(mapping)
             
             mutator(tuple(eligible_mappings))
-        
+
         # set the SFObjectType
         self.SFObjectType = newType
         
@@ -228,10 +312,51 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
         self._fieldsForSFObjectType = self._querySFFieldsForType()
         
         # purge mappings that are no longer valid
-        _purgeInvalidMapping('fieldMap')
+        self._purgeInvalidMapping('fieldMap')
+        self._purgeInvalidMapping('getPaidCustomerFieldMap')
 
-    security.declareProtected(ModifyPortalContent, 'generateGetPaidFormFieldRows')
-    def generateGetPaidFormFieldRows(self):
+    security.declareProtected(ModifyPortalContent, 'setSFObjectTypeForItems')
+    def setSFObjectTypeForItems(self, newType):
+        """When we set the Salesforce object type,
+           we also need to reset all the possible fields
+           for our mapping selection menus.
+        """
+        logger.debug('Calling setSFObjectTypeForItems()')
+        
+        def _purgeInvalidMapping(fname):
+            accessor = getattr(self, self.Schema().get(fname).accessor)
+            mutator = getattr(self, self.Schema().get(fname).mutator)
+            
+            eligible_mappings = []
+            for mapping in accessor():
+                if mapping.has_key('sf_field') and not \
+                        self._fieldsForSFObjectForItemsType.has_key(mapping['sf_field']):
+                    continue
+                
+                eligible_mappings.append(mapping)
+            
+            mutator(tuple(eligible_mappings))
+
+        # set the SFObjectType
+        self.SFObjectTypeForItems = newType
+
+        # This is a little hack.  My parent class uses a member variable in
+        # _querySFFieldsForType so I trick.  Sneaky me...
+        tmp = self.SFObjectType
+        if self.SFObjectTypeForItems != "":
+            self.SFObjectType = self.SFObjectTypeForItems
+        
+        # clear out the cached field info
+        self._fieldsForSFObjectForItemsType = self._querySFFieldsForType()
+        
+        # undo my trickiery
+        self.SFObjectType = tmp
+
+        # purge mappings that are no longer valid
+        _purgeInvalidMapping('getPaidItemFieldMap')        
+
+    security.declareProtected(ModifyPortalContent, 'generateGetPaidCustomerFormFieldRows')
+    def generateGetPaidCustomerFormFieldRows(self):
         """This method returns a list of rows for the field mapping
            ui. One row is returned for each field on the GetPaid order.
         """
@@ -354,6 +479,23 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
                                                "field_path" : "user_payment_info_last4",
                                                "sf_field" : ""}))
 
+        return fixedRows
+
+    security.declareProtected(ModifyPortalContent, 'generateGetPaidItemFormFieldRows')
+    def generateGetPaidItemFormFieldRows(self):
+        """This method returns a list of rows for the field mapping
+           ui. One row is returned for each field on the GetPaid order.
+        """
+        fixedRows = []
+
+
+        if self.SFObjectTypeForItems != "" and self.SFObjectTypeForItems != self.SFObjectType:
+            fixedRows.append(FixedRow(keyColumn="form_field",
+                                      initialData={"form_field" : "Parent SF Object", 
+                                                   "field_path" : "parent-sf-object",
+                                                   "sf_field" : ""}))
+
+
         # 
         # Line Items:
         #      Quantity
@@ -423,55 +565,113 @@ def handleOrderWorkflowTransition( order, event ):
 
     logger.info("handleOrderWorkflowTransition: %s, %s" % (order.finance_state, event.destination));
 
-    # Only save the order if it has moved into the charged state
-    # and the order was placed through PloneFormGen and the adapter is enabled
-    if order.finance_state == event.destination and event.destination == workflow_states.order.finance.CHARGED:
-        logger.info("Recording order");
-
-        annotation = IAnnotations(order.shopping_cart)
-        if "getpaid.SalesforcePloneFormGenAdapter.added" in annotation:
-            getPaidFieldMap = annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidSFMapping"]
-
-            salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
-            sObject = [];
+    try:
+        # Only save the order if it has moved into the charged state
+        # and the order was placed through PloneFormGen and the adapter is enabled
+        if order.finance_state == event.destination and event.destination == workflow_states.order.finance.CHARGED:
+            logger.info("Recording order");
             
-            # Loop over cart items creating an sObject for each
-            index = 0;
-            mappingCount = 0
-            for item in order.shopping_cart.items():
-                sObject.append(annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"].copy())
+            annotation = IAnnotations(order.shopping_cart)
+            if "getpaid.SalesforcePloneFormGenAdapter.added" in annotation:
 
-                mappingCount = len(sObject[index].keys())
-                for mapping in getPaidFieldMap:
-                    if len(mapping['sf_field']) > 0:
-                        value = _getValueFromOrder(order, item, mapping['field_path'])
+                # Todo: update to work with items split out
+                sfObject = annotation["getpaid.SalesforcePloneFormGenAdapter.SFObjectForCustomer"]
+                sfObjectForItems = annotation["getpaid.SalesforcePloneFormGenAdapter.SFObjectForItems"]
+                getPaidCustomerFieldMap = annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidCustomerSFMapping"]
+                getPaidItemFieldMap = annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidItemSFMapping"]
+                
+                if sfObjectForItems == "" or sfObjectForItems == sfObject:
+                   # Loop over the items mapping customer and item to same SFObject
+                   # I will have multiple SF Objects
+                   salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
+                   sObject = [];
+                
+                   # Loop over cart items creating an sObject for each
+                   for item in order.shopping_cart.items():
+                       obj = annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"].copy()
+                       sObject.append(obj)
 
-                        if value is not None:
-                            # Make sure we have found a value and that
-                            # the form field wasn't left blank.  If it was we
-                            # don't care about passing along that value, since
-                            # the Salesforce object field may have it's own ideas
-                            # about data types and or default values
-                            sObject[index][mapping['sf_field']] = value
-                            mappingCount += 1
+                       _mapObject(order, item, obj, getPaidCustomerFieldMap)
+                       _mapObject(order, item, obj, getPaidItemFieldMap)
 
-                index += 1
+                   results = salesforce.create(sObject)
+                   index = 0
+                   for result in results:
+                       if result['success']:
+                           logger.debug("Successfully created new %s %s for order %s in Salesforce" % \
+                                            (sObject[index]['type'], result['id'], order.order_id))
+                       else:
+                           for error in result['errors']:
+                               logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
+                                                (sObject[index]['type'], order.order_id, error['message']))
+                else:
+                   # Loop over the items mapping customer and item to same SFObject
+                   # I will have multiple SF Objects
+                   salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
+                
+                   # first create the customer obejct in SF
+                   obj = annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"].copy()
 
-            # mappingCount is a bit of a hack.  IT will calculate to the same
-            # value for each item since the mapping is the same
-            # I want to verify that I have a mapping other than type
-            if mappingCount > 1:
-                results = salesforce.create(sObject)
-                for result in results:
-                    if result['success']:
-                        logger.debug("Successfully created new %s %s in Salesforce" % \
-                                     (sObject[0]['type'], result['id']))
-                    else:
-                        logger.error('Failed to create new %s in Salesforce: %s' % \
-                                     (sObject[0]['type'], result['errors'][0]['message']))
+                   # I kind of think it's a hack to pass None for the item
+                   # the method expects it, but in this case will not use
+                   # it since I'm passing the customer field map.
+                   _mapObject(order, None, obj, getPaidCustomerFieldMap)
+                   results = salesforce.create(obj)
+                   if results[0]['success']:
+                       logger.debug("Successfully created new %s %s for order %s in Salesforce" % \
+                                        (obj['type'], results[0]['id'], order.order_id))
+
+                       obj['id'] = results[0]['id']
+
+                       # Loop over cart items creating an sObject for each
+                       sObjects = []
+                       for item in order.shopping_cart.items():
+                           itemObj = annotation["getpaid.SalesforcePloneFormGenAdapter.sItemObject"].copy()
+                           sObjects.append(itemObj)
+
+                           _mapObject(order, item, itemObj, getPaidItemFieldMap, obj['id'])
+
+                       results = salesforce.create(sObjects)
+                       index = 0
+                       for result in results:
+                           if result['success']:
+                               logger.debug("Successfully created new %s %s in Salesforce" % \
+                                                (sObjects[index]['type'], result['id']))
+                           else:
+                               for error in result['errors']:
+                                   logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
+                                                    (sObjects[index]['type'], order.order_id, error['message']))
+
+                   else:
+                       for error in result['errors']:
+                           logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
+                                            (obj['type'], order.order_id, error['message']))
+
+
+
+    except:
+        # I catch evrything since and uncaught exception here will prevent
+        # the order from moving to charged
+        logger.error("Exception saving order %s to salesforce" % order.order_id)
+
+def _mapObject(order, item, sfObject, fieldMap, parentSFField=None):
+
+    for mapping in fieldMap:
+        if len(mapping['sf_field']) > 0:
+
+            if mapping['field_path'] == "parent-sf-object":
+                value = parentSFField
             else:
-                logger.warn('No valid field mappings found. Not calling Salesforce.')
-            
+                value = _getValueFromOrder(order, item, mapping['field_path'])
+                            
+            if value is not None:
+                # Make sure we have found a value and that
+                # the form field wasn't left blank.  If it was we
+                # don't care about passing along that value, since
+                # the Salesforce object field may have it's own ideas
+                # about data types and or default values
+                sfObject[mapping['sf_field']] = value
+
 def _getValueFromOrder(order, item, fieldPath):
     split_field_path = fieldPath.split(',')
     
