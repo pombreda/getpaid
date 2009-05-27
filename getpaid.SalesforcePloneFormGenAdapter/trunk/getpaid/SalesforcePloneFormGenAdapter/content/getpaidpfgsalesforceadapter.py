@@ -312,8 +312,8 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
         self._fieldsForSFObjectType = self._querySFFieldsForType()
         
         # purge mappings that are no longer valid
-        self._purgeInvalidMapping('fieldMap')
-        self._purgeInvalidMapping('getPaidCustomerFieldMap')
+        _purgeInvalidMapping('fieldMap')
+        _purgeInvalidMapping('getPaidCustomerFieldMap')
 
     security.declareProtected(ModifyPortalContent, 'setSFObjectTypeForItems')
     def setSFObjectTypeForItems(self, newType):
@@ -570,7 +570,7 @@ def handleOrderWorkflowTransition( order, event ):
         # and the order was placed through PloneFormGen and the adapter is enabled
         if order.finance_state == event.destination and event.destination == workflow_states.order.finance.CHARGED:
             logger.info("Recording order");
-            
+
             annotation = IAnnotations(order.shopping_cart)
             if "getpaid.SalesforcePloneFormGenAdapter.added" in annotation:
 
@@ -595,15 +595,14 @@ def handleOrderWorkflowTransition( order, event ):
                        _mapObject(order, item, obj, getPaidItemFieldMap)
 
                    results = salesforce.create(sObject)
-                   index = 0
                    for result in results:
                        if result['success']:
                            logger.debug("Successfully created new %s %s for order %s in Salesforce" % \
-                                            (sObject[index]['type'], result['id'], order.order_id))
+                                            (sObject[0]['type'], result['id'], order.order_id))
                        else:
                            for error in result['errors']:
                                logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
-                                                (sObject[index]['type'], order.order_id, error['message']))
+                                                (sObject[0]['type'], order.order_id, error['message']))
                 else:
                    # Loop over the items mapping customer and item to same SFObject
                    # I will have multiple SF Objects
@@ -632,27 +631,27 @@ def handleOrderWorkflowTransition( order, event ):
                            _mapObject(order, item, itemObj, getPaidItemFieldMap, obj['id'])
 
                        results = salesforce.create(sObjects)
-                       index = 0
                        for result in results:
                            if result['success']:
                                logger.debug("Successfully created new %s %s in Salesforce" % \
-                                                (sObjects[index]['type'], result['id']))
+                                                (sObjects[0]['type'], result['id']))
                            else:
                                for error in result['errors']:
                                    logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
-                                                    (sObjects[index]['type'], order.order_id, error['message']))
+                                                    (sObjects[0]['type'], order.order_id, error['message']))
 
                    else:
-                       for error in result['errors']:
+                       for error in results['errors']:
                            logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
                                             (obj['type'], order.order_id, error['message']))
 
 
 
-    except:
+    except Exception, e:
         # I catch evrything since and uncaught exception here will prevent
         # the order from moving to charged
-        logger.error("Exception saving order %s to salesforce" % order.order_id)
+        logger.error("Exception saving order %s to salesforce: %s" % (order.order_id, e))
+        logger.info('Annotation: %s' % annotation)
 
 def _mapObject(order, item, sfObject, fieldMap, parentSFField=None):
 
@@ -684,16 +683,19 @@ def _getValueFromOrder(order, item, fieldPath):
             value = item[1].cost * item[1].quantity
 
         elif split_field_path[-1] == "discount_code":
+            value = ""
             annotation = IAnnotations(item[1])
             if "getpaid.discount.code" in annotation:
                 value = annotation["getpaid.discount.code"]
 
         elif split_field_path[-1] == "discount_title":
+            value = ""
             annotation = IAnnotations(item[1])
             if "getpaid.discount.code.title" in annotation:
                 value = annotation["getpaid.discount.code.title"]
 
         elif split_field_path[-1] == "discount_amount":
+            value = ""
             annotation = IAnnotations(item[1])
             if "getpaid.discount.code.discount" in annotation:
                 value = annotation["getpaid.discount.code.discount"]
