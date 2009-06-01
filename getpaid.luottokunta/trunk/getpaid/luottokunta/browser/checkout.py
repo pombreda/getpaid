@@ -1,7 +1,7 @@
 from Products.PloneGetPaid.browser.checkout import CheckoutReviewAndPay
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
-from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
+from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, INamedOrderUtility
 
 from Acquisition import aq_inner
 
@@ -9,12 +9,11 @@ from getpaid.luottokunta import LuottokuntaMessageFactory as _
 from getpaid.luottokunta.interfaces import ILuottokuntaOptions, ILuottokuntaOrderInfo
 
 from Products.Five.browser import BrowserView
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, getUtility
 
 import datetime
 
 from getpaid.core.interfaces import IOrderManager, IShoppingCartUtility
-from zope.component import getUtility
 from getpaid.luottokunta.config import ERROR_CODES
 
 class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
@@ -54,33 +53,9 @@ class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
     def months(self):
         return [_(u'Month'), '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
-#    def luottokunta_options(self):
-#        context= aq_inner(self.context)
-#        return ILuottokuntaOptions(context)
-
     def order_info(self):
         order = self.createOrder()
         return ILuottokuntaOrderInfo(order)()
-
-#    def success_url(self):
-#        context= aq_inner(self.context)
-#        base_url = context.absolute_url()
-#        order = self.createOrder()
-#        order.finance_workflow.fireTransition( "create" )
-#        state = order.finance_state
-#        return base_url + '/@@luottokunta-thank-you?order_id=%s&finance_state=%s' %(order.order_id, state)
-
-#    def failure_url(self):
-#        context= aq_inner(self.context)
-#        base_url = context.absolute_url()
-#        return base_url + '/@@getpaid-cancelled-declined'
-
-#    def customer_id(self):
-#        context = aq_inner(self.context)
-#        membership = getToolByName(context, 'portal_membership')
-##        import pdb; pdb.set_trace()
-#        member_id = membership.getAuthenticatedMember().getId()
-#        return member_id
 
 class LuottokuntaThankYou(BrowserView):
 
@@ -123,6 +98,11 @@ class LuottokuntaThankYou(BrowserView):
             getUtility(IShoppingCartUtility).destroy( self.context )
             return self.template()
 
+declined_template = '''\
+${declined_messsage}
+'''
+
+
 class LuottokuntaCancelledDeclinedView(BrowserView):
 
     template = ZopeTwoPageTemplateFile("templates/checkout-cancelled-declined.pt")
@@ -134,4 +114,19 @@ class LuottokuntaCancelledDeclinedView(BrowserView):
         if self.error_message:
             self.error_title = self.error_message[0]
             self.error_description = self.error_message[1]
-        return self.template()
+
+        portal = getToolByName(self.context, "portal_url").getPortalObject()
+        translate = lambda msg: portal.translate(msgid=msg, domain='shopinmall')
+        mailer = getToolByName(portal, 'MailHost')
+        encoding = portal.getProperty('email_charset')
+        send_to_address = envelope_from = portal.getProperty('email_from_address')
+        subject = _(u'A New Order has been declined.')
+        sender_from_address = "%s <%s>" %(portal.getProperty('title'), send_to_address)
+        message = u'\n'.join((
+                        _(u'A New Order has been declined.'),
+                        ))
+        try:
+            mailer.secureSend(message, send_to_address, envelope_from, subject=subject, subtype='plain', charset=encoding, debug=False, From=sender_from_address)
+            return self.template()
+        except:
+            return self.template()

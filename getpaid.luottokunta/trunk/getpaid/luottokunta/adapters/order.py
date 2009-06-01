@@ -75,7 +75,7 @@ class LuottokuntaOrderInfo(object):
                         'price' : luottokunta_price,
                         'authentication_mac' : authentication_mac,
                         'order_number' : order_id,
-#                        'getpaid_order_id': getpaid_order_id,
+                        'getpaid_order_id': getpaid_order_id,
                         'card_details_transmit' : card_details_transmit,
                         'transaction_type' : transaction_type,
                         'success_url' : success_url,
