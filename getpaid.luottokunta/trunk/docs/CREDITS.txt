@@ -1,6 +1,5 @@
 Credits
 =========
-
 Translations
 ------------
-* Finnish - Ilja Everilä
+* Finnish - Ilja Everila
