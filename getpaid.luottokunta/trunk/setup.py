@@ -6,7 +6,8 @@ version = '0.1.0'
 long_description = (
                         open("README.txt").read() + "\n" +
                         open(os.path.join("docs", "HISTORY.txt")).read() + "\n" +
-                        open(os.path.join("docs", "INSTALL.txt")).read()
+                        open(os.path.join("docs", "INSTALL.txt")).read() + "\n" +
+                        open(os.path.join("docs", "CREDITS.txt")).read()
     )
 
 setup(name='getpaid.luottokunta',
