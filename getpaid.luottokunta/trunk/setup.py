@@ -3,12 +3,16 @@ import os
 
 version = '0.1.0'
 
+long_description = (
+                        open("README.txt").read() + "\n" +
+                        open(os.path.join("docs", "HISTORY.txt")).read() + "\n" +
+                        open(os.path.join("docs", "INSTALL.txt")).read()
+    )
+
 setup(name='getpaid.luottokunta',
       version=version,
       description="Luottokunta payment processor for getpaid.",
-      long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read() + "\n" +
-                       open(os.path.join("docs", "INSTALL.txt")).read(),
+      long_description=long_description,
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",

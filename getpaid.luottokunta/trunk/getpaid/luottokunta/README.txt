@@ -187,14 +187,14 @@ Now go to the next form.
     >>> "id=\"Transaction_Type\" value=\"0\"" in browser.contents
     True
     >>> order_id = browser.getControl(name="Order_ID").value
-    >>> thanks_url = "http://nohost/plone/@@luottokunta-thank-you?order_id=%s" %(order_id)
-    >>> ("value=\"%s\"" %(thanks_url)) in browser.contents
+    >>> thanks_url = "http://nohost/plone/@@luottokunta-thank-you?getpaid_order_id=%s" %(order_id)
+    >>> thanks_url in browser.contents
     True
-    >>> "value=\"http://nohost/plone/@@getpaid-cancelled-declined\"" in browser.contents
+    >>> "http://nohost/plone/@@luottokunta-cancelled-declined" in browser.contents
     True
     >>> "id=\"Authentication_Mac\"" in browser.contents
     False
-    >>> ("value=\"portal_owner/%s\"" %(order_id)) in browser.contents
+    >>> ("\"portal_owner%s\"" %(order_id)) in browser.contents
     True
     >>> ("value=\"%s\"" %(order_id)) in browser.contents
     True
