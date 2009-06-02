@@ -1,5 +1,6 @@
+<!-- checkout-cancelled-declined.pt -->
 <metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
-            i18n:domain="plonegetpaid">
+            i18n:domain="getpaid.luottokunta">
   <metal:block fill-slot="getpaid_content">
 
     <h3 i18n:translate="">We are sorry but your credit card was declined.</h3>
@@ -8,9 +9,14 @@
       <dd tal:content="view/error_description" />
     </dl>
 
-    <div>
-        Please <a href="javascript:history.go(-1)">click here</a> to try your transaction again.
-    </div>
+    <a tal:condition="not: view/luottokunta_order_error"
+       i18n:translate="" href="javascript:history.go(-1)">
+      Please click here to try your transaction again.
+    </a>
+    <a tal:condition="view/luottokunta_order_error" 
+       i18n:translate="" tal:attributes="href view/back_to_cart">
+      Please click here to try your transaction again.
+    </a>
 
   </metal:block>
 </metal:page>

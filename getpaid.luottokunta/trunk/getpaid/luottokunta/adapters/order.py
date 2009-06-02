@@ -33,7 +33,7 @@ class LuottokuntaOrderInfo(object):
         else:
             customer_id = 'Anonymous' + getpaid_order_id
         price = context.getTotalPrice()
-        luottokunta_price = str(int(price * 100))
+        luottokunta_price = '%.0f' %(price * 100)
         options = ILuottokuntaOptions(site)
         merchant_number = options.merchant_number
         if options.use_incremental_order_id and options.next_order_id:
@@ -69,7 +69,7 @@ class LuottokuntaOrderInfo(object):
             authentication_mac = None
         base_url = site.absolute_url()
         success_url = base_url + '/@@luottokunta-thank-you?getpaid_order_id=%s&luottokunta_order_id=%s' %(getpaid_order_id, order_id)
-        failure_url = base_url + '/@@luottokunta-cancelled-declined'
+        failure_url = base_url + '/@@luottokunta-cancelled-declined?getpaid_order_id=%s&luottokunta_order_id=%s' %(getpaid_order_id, order_id)
         order_info = {
                         'merchant_number' : merchant_number,
                         'price' : luottokunta_price,

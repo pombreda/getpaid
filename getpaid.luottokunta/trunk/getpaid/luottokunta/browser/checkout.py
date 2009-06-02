@@ -98,16 +98,13 @@ class LuottokuntaThankYou(BrowserView):
             getUtility(IShoppingCartUtility).destroy( self.context )
             return self.template()
 
-declined_template = '''\
-${declined_messsage}
-'''
-
-
 class LuottokuntaCancelledDeclinedView(BrowserView):
 
     template = ZopeTwoPageTemplateFile("templates/checkout-cancelled-declined.pt")
 
     def __call__(self):
+        portal = getToolByName(self.context, "portal_url").getPortalObject()
+        portal_url = portal.absolute_url()
         form = self.request.form
         error_code = form.get('LKSRC', None)
         self.error_message = ERROR_CODES.get(error_code)
@@ -115,18 +112,38 @@ class LuottokuntaCancelledDeclinedView(BrowserView):
             self.error_title = self.error_message[0]
             self.error_description = self.error_message[1]
 
-        portal = getToolByName(self.context, "portal_url").getPortalObject()
-        translate = lambda msg: portal.translate(msgid=msg, domain='shopinmall')
+            if error_code == '301':
+                options = ILuottokuntaOptions(portal)
+                if options.use_incremental_order_id and options.next_order_id:
+                    options.next_order_id = options.next_order_id + 1
+                    self.luottokunta_order_error = True
+
+        form = self.request.form
+        order_id = form.get('getpaid_order_id', None)
+        order_number = _(u'Order Number') + ': ' + order_id
+        luottokunta_order_id = form.get('luottokunta_order_id', None)
+        luottokunta_order_number = _(u'Luottokunta Order Number') + ': ' + luottokunta_order_id
         mailer = getToolByName(portal, 'MailHost')
         encoding = portal.getProperty('email_charset')
         send_to_address = envelope_from = portal.getProperty('email_from_address')
         subject = _(u'A New Order has been declined.')
         sender_from_address = "%s <%s>" %(portal.getProperty('title'), send_to_address)
-        message = u'\n'.join((
+        if order_id and luottokunta_order_id:
+            message = u'\n'.join((
                         _(u'A New Order has been declined.'),
+                        order_number,
+                        luottokunta_order_number,
+                        '%s/@@getpaid-order/%s' %(portal_url, order_id),
                         ))
-        try:
-            mailer.secureSend(message, send_to_address, envelope_from, subject=subject, subtype='plain', charset=encoding, debug=False, From=sender_from_address)
+            try:
+                mailer.secureSend(message, send_to_address, envelope_from, subject=subject, subtype='plain', charset=encoding, debug=False, From=sender_from_address)
+                return self.template()
+            except:
+                return self.template()
+        else:
             return self.template()
-        except:
-            return self.template()
+
+    def back_to_cart(self):
+        portal = getToolByName(self.context, "portal_url").getPortalObject()
+        portal_url = portal.absolute_url()
+        return portal_url + '/@@getpaid-cart'

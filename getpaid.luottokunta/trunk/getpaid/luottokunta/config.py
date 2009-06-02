@@ -5,6 +5,7 @@ ERROR_CODES = {
                 '104' : (_(u'Card number is invalid'), _(u'The credit card number field or its content is formally incorrect or missing. Please check that the card number contains only numbers. The card number can be entered with or without spaces.')),
                 '105' : (_(u'Card verification code is invalid'), _(u'The card verification code field or its content is formally incorrect or missing. Please check that the verification code (ie. Credit Card Verfication Number) contains only numbers.')),
                 '106' : (_(u'Card validity is invalid'), _(u'The card validity field or its content is incorrect or missing. Please check that the card validity month and year are correct.')),
+                '301' : (_(u'Order id already exists'), _(u'The order id in question is already used by the merchant.')),
                 '1403' : (_(u'Reversal message is pending'), _(u'Luottokunta is automatically reversing an authorisation that has not been completely processed or finished yet due to a temporary service break. Please try again later.')),
                 '1404' : (_(u'Failed to send reversal message'), _(u'Luottokunta did not succeed to reverse an authorisation that was not completely processed or finished due to a temporary service break. Please try again later.')),
                 '1901 ' : (_(u'Luottokunta internal error'), _(u'An internal error has occurred in Luottokunta\'s system. Please try again later.')),
