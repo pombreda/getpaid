@@ -6,6 +6,8 @@ CHANGES
 ------------------
 
  - Fix a bug joining address lines together if address line 2 wasn't provided
+ - Add shipping information
+ - handle ship address same as billing address
 
 1.0b2 (2009-05-12)
 ------------------

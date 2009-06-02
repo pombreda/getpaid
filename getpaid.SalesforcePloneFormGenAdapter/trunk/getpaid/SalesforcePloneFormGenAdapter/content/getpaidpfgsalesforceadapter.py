@@ -479,6 +479,22 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
                                                "field_path" : "user_payment_info_last4",
                                                "sf_field" : ""}))
 
+        # Shipping
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Shipping Service", 
+                                               "field_path" : "shipping_service",
+                                               "sf_field" : ""}))
+
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Shipping Method", 
+                                               "field_path" : "shipping_method",
+                                               "sf_field" : ""}))
+
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Shipping Weight", 
+                                               "field_path" : "shipping_weight",
+                                               "sf_field" : ""}))
+
         return fixedRows
 
     security.declareProtected(ModifyPortalContent, 'generateGetPaidItemFormFieldRows')
@@ -654,7 +670,10 @@ def handleOrderWorkflowTransition( order, event ):
         logger.info('Annotation: %s' % annotation)
 
 def _mapObject(order, item, sfObject, fieldMap, parentSFField=None):
-
+    # Copy address into a dummy object so I can handle ship same as billing
+    # it would be nice if the field names in the shipping and billing
+    # structures where the same
+    
     for mapping in fieldMap:
         if len(mapping['sf_field']) > 0:
 
@@ -735,15 +754,51 @@ def _getValueFromOrder(order, item, fieldPath):
                 value = "\n".join((line_1, line_2))
             
         elif split_field_path[-1] == "ship_address_street":
-            line_1 = order.shipping_address.ship_first_line
-            line_2 = order.shipping_address.ship_second_line
+            if order.ship_same_billing:
+                line_1 = order.billing_address.bill_first_line
+                line_2 = order.billing_address.bill_second_line
+            else:
+                line_1 = order.shipping_address.ship_first_line
+                line_2 = order.shipping_address.ship_second_line
 
             if line_2 is None:
                 value = line_1
             else:
                 value = "\n".join((line_1, line_2))
-                
-            
+
+        elif split_field_path[-1] == "ship_address_city":
+            if order.ship_same_billing:
+                value = order.billing_address.bill_city
+            else:
+                value = order.shipping_address.ship_city
+
+        elif split_field_path[-1] == "ship_address_state":
+            if order.ship_same_billing:
+                value = order.billing_address.bill_state
+            else:
+                value = order.shipping_address.ship_state
+
+        elif split_field_path[-1] == "ship_address_country":
+            if order.ship_same_billing:
+                value = order.billing_address.bill_country
+            else:
+                value = order.shipping_address.ship_country
+
+        elif split_field_path[-1] == "ship_address_postal_code":
+            if order.ship_same_billing:
+                value = order.billing_address.bill_postal_code
+            else:
+                value = order.shipping_address.ship_postal_code
+
+        elif split_field_path[-1] == "shipping_service":
+            value = getShippingService(order)
+
+        elif split_field_path[-1] == "shipping_method":
+            value = getShippingMethod(order)
+
+        elif split_field_path[-1] == "shipping_weight":
+            value = getShipmentWeight(order)
+
         # for all other elememts, call getattr starting with the order
         else:
             obj = order
@@ -756,3 +811,38 @@ def _getValueFromOrder(order, item, fieldPath):
 
     return value
     
+def getShippingService(order):
+    if not hasattr(order,"shipping_service"):
+        return None
+    infos = order.shipping_service
+    if infos:
+        return infos
+
+def getShippingMethod(order):
+    # check the traversable wrrapper
+    if not IShippableOrder.providedBy( order ):
+        return None
+    
+    service = zope.component.queryUtility( IShippingRateService,
+                                           order.shipping_service )
+    
+    # play nice if the a shipping method is removed from the store
+    if not service: 
+        return None
+        
+    return service.getMethodName( order.shipping_method )
+    
+def getShipmentWeight(order):
+    """
+    Lets return the weight in lbs for the moment
+    """
+    # check the traversable wrrapper
+    if not IShippableOrder.providedBy( order ):
+        return None
+
+    totalShipmentWeight = 0
+    for eachProduct in order.shopping_cart.values():
+        if IShippableLineItem.providedBy( eachProduct ):
+            weightValue = eachProduct.weight * eachProduct.quantity
+            totalShipmentWeight += weightValue
+    return totalShipmentWeight
