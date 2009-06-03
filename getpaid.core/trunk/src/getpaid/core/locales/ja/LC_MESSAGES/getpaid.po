@@ -17,11 +17,11 @@ msgstr ""
 
 #: ./interfaces.py:545
 msgid "Address 1"
-msgstr "アドレス１"
+msgstr "町名・番地など"
 
 #: ./interfaces.py:546
 msgid "Address 2"
-msgstr "アドレス２"
+msgstr "マンション・アパート名・部屋番号など"
 
 #: ./interfaces.py:215
 msgid "An organization's unique product identifier (not required since shopping cart uses content UID internally)"
@@ -390,7 +390,7 @@ msgstr ""
 
 #: ./interfaces.py:557
 msgid "Same as billing address"
-msgstr "請求先アドレスを同じ"
+msgstr "請求先と同じ"
 
 #: ./interfaces.py:75
 msgid "Select a method to calculate shipping charges for orders in your store."
