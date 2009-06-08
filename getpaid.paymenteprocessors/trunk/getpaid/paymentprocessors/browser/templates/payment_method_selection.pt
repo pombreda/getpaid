@@ -1,0 +1,25 @@
+<html metal:use-macro="here/main_template/macros/master" i18n:domain="getpaid.paymentprocessors" >
+  <body>
+    <div metal:fill-slot="main" class="payment-selection" >
+		
+		<h1 i18n:translate="choose_payment_method" />
+		
+		<tal:payment-methods define="processors view/getProcessors">
+			
+			<p tal:condition="python:len(processors) == 0">
+				No payment processors enabled. Please use &lt;paymentprocessors:registerProcessor&gt; ZCML
+				directive to register your payment processors to payment method multiplexer. Also, make sure
+				that those payment processors are enabled in GetPaid portal setup.
+			</p>		
+			
+			<form method="POST">
+				<div class="payment-processor" tal:repeat="processor processors">
+					<tal:selector-button replace="structure python:view.renderProcessor(processor)" />
+				</div>
+			</form>
+			
+		</tal:payment-methods>
+		
+    </div>
+  </body>
+</html>

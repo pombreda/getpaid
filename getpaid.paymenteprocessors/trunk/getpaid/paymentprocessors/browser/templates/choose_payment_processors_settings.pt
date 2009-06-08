@@ -1,0 +1,15 @@
+<html metal:use-macro="here/main_template/macros/master" i18n:domain="getpaid.paymentprocessors" >
+  <body>
+    <div metal:fill-slot="main" class="payment-selection" >
+		
+		<h1 i18n:translate="choose_payment_method">choose_payment_method</h1>
+		
+		<tal:payment-methods define="processors view/getProcessors">
+			<div tal:repeat="processor processors">
+				<a tal:content="processor/name" tal:attributes="href string:${view/site_url}/@@ "/>
+			</div>
+		</tal:payment-methods>
+		
+    </div>
+  </body>
+</html>

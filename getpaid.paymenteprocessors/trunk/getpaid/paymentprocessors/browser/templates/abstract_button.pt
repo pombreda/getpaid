@@ -1,0 +1,9 @@
+<button class="payment-method-chooser">
+	<div class="image-wrapper">
+		<img tal:attributes src="string:${view/site_url}/++resource++getpaid.paymentprocessors/button.gif" />
+		
+		<h3>Your payment method name</h3>
+		
+		<p>Description here... like: Supports credit cards, English only</p>
+	</div>
+</button>
