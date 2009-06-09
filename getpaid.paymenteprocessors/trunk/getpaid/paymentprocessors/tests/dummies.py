@@ -31,6 +31,7 @@ configure_zcml = '''
        processor="getpaid.paymentprocessors.tests.dummies.DummyProcessor"
        selection_view="dummy_payment_processor_button"
        thank_you_view="dummy_payment_processor_thank_you_page"
+       settings_view="dummy_payment_processor_settings"
        />
 
     <browser:page
@@ -49,6 +50,12 @@ configure_zcml = '''
          template="templates/thank_you.pt"
          />
 
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="dummy_payment_processor_settings"
+         class="Products.PloneGetPaid.browser.admin.PaymentProcessor"
+         permission="cmf.ManagePortal"
+         />
 
 </configure>'''
 

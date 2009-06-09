@@ -6,7 +6,7 @@ from base import PaymentProcessorTestCase
 from Products.Five import zcml
 from zope.configuration.exceptions import ConfigurationError
 
-from getpaid.paymentprocessors.registry import BadViewConfigurationException
+from getpaid.paymentprocessors.registry import BadViewConfigurationException, paymentProcessorUIRegistry
 
 class TestViews(PaymentProcessorTestCase):
     """ Test ZCML directives """
@@ -22,7 +22,7 @@ class TestViews(PaymentProcessorTestCase):
         self.logout()
 
     def test_selection_screen_no_processor(self):
-        """ Render payment processor selection view screen """
+        """ Test different count of site payment processors """
 
         view = self.portal.restrictedTraverse("@@getpaid-checkout-wizard")
         processors = view.getProcessors()
@@ -35,7 +35,7 @@ class TestViews(PaymentProcessorTestCase):
         self.render_admin()
 
     def test_selection_screen_one_processor(self):
-
+        """ Test different count of site payment processors """
         self.loadDummyZCML(dummies.configure_zcml)
 
         view = self.portal.restrictedTraverse("@@getpaid-checkout-wizard")
@@ -50,7 +50,7 @@ class TestViews(PaymentProcessorTestCase):
 
 
     def test_selection_screen_n_processors(self):
-
+        """ Test different count of site payment processors """
         self.loadDummyZCML(dummies.configure_zcml)
         self.loadDummyZCML(dummies.configure_zcml_2)
 
@@ -104,6 +104,11 @@ class TestViews(PaymentProcessorTestCase):
         view()
         self.assertEqual(self.portal.portal_properties.payment_processor_properties.enabled_processors, ["dummy"])
 
+    def test_settings_view(self):
+        """ Render settings view for an payment processor. """
+        self.loadDummyZCML(dummies.configure_zcml)
+        self.loginAsPortalOwner()
+        self.portal.restrictedTraverse("@@dummy_payment_processor_settings")
 
 def test_suite():
     from unittest import TestSuite, makeSuite

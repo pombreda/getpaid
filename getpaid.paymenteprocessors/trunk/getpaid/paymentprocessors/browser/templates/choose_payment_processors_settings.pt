@@ -21,12 +21,14 @@
 									<input type="checkbox" name="active-payment-processors" value="processor/name" tal:attributes="CHECKED python:view.getCheckedForProcessor(processor) or None"/>
 								<td class="payment-processor-link">
 									<span tal:content="processor/name" />
-									[ <a tal:attributes="href string:${portal_state/portal_url}/@@ " i18n:translate="edit_settings">edit_settings</a> ]
+									[ <a tal:attributes="href string:${portal_state/portal_url}/@@${processor/settings_view}" i18n:translate="edit_settings">edit_settings</a> ]
 								</td>
 							</tr>
 						</tal:payment-methods>
 					</tbody>
 				</table>
+
+				<input type="submit" i18n:attributes="value" name="submit" value="set_enabled_processors" />
 			</form>
 		</tal:core>
     </div>

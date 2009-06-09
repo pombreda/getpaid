@@ -46,30 +46,11 @@ class PaymentMethodSelectionView(MultipleProcessorsBrowserView):
         view = processor.getButtonView(self.context, self.request)
         return view()
 
+    def __call__(self):
+        pass
 
 class ThankYouView(BrowserView):
 
     def render(self):
         pass
 
-
-class AbstractPaymentProcessorSelectorButtonView(BrowserView):
-    """ Render payment method selector button on checkout page. """
-
-    index = ViewPageTemplateFile("templates/abstract_button.pt")
-
-    def site_url(self):
-        return self.context.site_url
-
-    def render(self, processor):
-        """ Child classes should override this.
-
-        Normally you want to return rendered template::
-
-            return self.index()
-
-        @param processor: Processor class instance
-        @return: HTML code as a string
-        """
-        self.processor = processor
-        return self.index()

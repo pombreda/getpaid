@@ -57,20 +57,21 @@ class IRegisterPaymentProcessorDirective(Interface):
         description=u"browser:page name which is used to render the thank you page when the payment is complete",
         required=True)
 
-    setup_view = PythonIdentifier(
-        title=u'Setup view',
-        description=u"browser:page name which is used to render the payment processor configuration screen",
+    settings_view = PythonIdentifier(
+        title=u'Settings view',
+        description=u"browser:page name which is used to render the payment processor admin screen",
         default=None,
         required=False)
 
-def registerProcessor(_context, name, processor, selection_view, thank_you_view, setup_view=None):
+def registerProcessor(_context, name, processor, selection_view, thank_you_view, settings_view=None):
     """
     Configure a payment processor.
     """
-    entry = Entry(name=name, selection_view=selection_view, thank_you_view=thank_you_view, setup_view=setup_view)
+    entry = Entry(name=name, selection_view=selection_view, thank_you_view=thank_you_view, settings_view=settings_view)
 
     if not getpaid.core.interfaces.IPaymentProcessor.implementedBy(processor):
         raise ConfigurationError("Payment processor directive does not implement IPaymentProcessor interface:" + str(processor))
+
 
     paymentProcessorUIRegistry.register(entry)
 
