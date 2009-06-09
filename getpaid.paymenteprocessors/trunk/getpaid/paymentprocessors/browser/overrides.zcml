@@ -19,36 +19,38 @@
      attribute="render"
      permission="zope2.View"
      />
-	 
+
   <!-- Management Payment Options Editing - Change payment processor selection from dropdown to multiple choice -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-options"
-     class=".admin.PaymentOptions"     
+     class=".admin.PaymentOptions"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Payment Options"
+     allowed_attributes="site_url"
      />
 
   <!-- Choose payment processor which settings to edit -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-processor"
-     class=".admin.PaymentProcessorsConfigurationView"     
+     class=".admin.PaymentProcessorsConfigurationView"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Payment Processors"
+     template="templates/choose_payment_processors_settings.pt"
      />
-	 
+
   <!-- Management Payment Processor Editing -->
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="manage-getpaid-payment-processor-options"
-     class=".admin.PaymentProcessor"     
+     class=".admin.PaymentProcessor"
      permission="cmf.ManagePortal"
      menu="getpaid_settings"
      title="Payment Processor Settings"
      />
-	 
+
 
 </configure>
