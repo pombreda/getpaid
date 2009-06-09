@@ -2,55 +2,5 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:five="http://namespaces.zope.org/five">
 
-  <!-- Override checkout wizard to prompt a page to choose a payment method -->
-  <browser:page
-     for="*"
-     name="getpaid-checkout-wizard"
-     class=".selector.PaymentMethodSelectionView"
-     template="templates/payment_method_selection.pt"
-     permission="zope2.View"
-     />
-
-  <!-- Override thank you page to redirect the request to the right payment method thank you page -->
-  <browser:page
-     for="*"
-     name="getpaid-thank-you"
-     class=".selector.ThankYouView"
-     attribute="render"
-     permission="zope2.View"
-     />
-
-  <!-- Management Payment Options Editing - Change payment processor selection from dropdown to multiple choice -->
-  <browser:page
-     for="getpaid.core.interfaces.IStore"
-     name="manage-getpaid-payment-options"
-     class=".admin.PaymentOptions"
-     permission="cmf.ManagePortal"
-     menu="getpaid_settings"
-     title="Payment Options"
-     allowed_attributes="site_url"
-     />
-
-  <!-- Choose payment processor which settings to edit -->
-  <browser:page
-     for="getpaid.core.interfaces.IStore"
-     name="manage-getpaid-payment-processor"
-     class=".admin.PaymentProcessorsConfigurationView"
-     permission="cmf.ManagePortal"
-     menu="getpaid_settings"
-     title="Payment Processors"
-     template="templates/choose_payment_processors_settings.pt"
-     />
-
-  <!-- Management Payment Processor Editing -->
-  <browser:page
-     for="getpaid.core.interfaces.IStore"
-     name="manage-getpaid-payment-processor-options"
-     class=".admin.PaymentProcessor"
-     permission="cmf.ManagePortal"
-     menu="getpaid_settings"
-     title="Payment Processor Settings"
-     />
-
 
 </configure>

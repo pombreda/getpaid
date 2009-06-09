@@ -4,15 +4,5 @@
 
   	<include file="meta.zcml" />
   	
-	<include package=".browser" />
-	
-   	<!-- Register the installation GenericSetup extension profile -->
-    <genericsetup:registerProfile
-      name="default"
-      title="Multiple payment processor support"
-      directory="profiles/default"
-      description=""
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />  
-	  
+
 </configure>

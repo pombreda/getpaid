@@ -12,9 +12,7 @@ from Products.PloneTestCase.layer import onsetup
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneGetPaid.tests.base import PloneGetPaidTestCase
 
-from getpaid.paymentprocessors.registry import paymentProcessorUIRegistry
-
-@onsetup
+from getpaid.paymentprocessors.registry import paymentProcessorRegistry@onsetup
 def setup_package():
     fiveconfigure.debug_mode = True
     import getpaid.paymentprocessors
@@ -32,7 +30,7 @@ class PaymentProcessorTestCase(PloneGetPaidTestCase):
     def afterSetUp( self ):
         """ Since ZCML loads happen process life cycle, we need to unload ZCML on every step """
         PloneGetPaidTestCase.afterSetUp(self)
-        paymentProcessorUIRegistry.clear()
+        papaymentProcessorRegistryar()
 
 
     def loadDummyZCML(self, string):

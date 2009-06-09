@@ -22,7 +22,7 @@ from Products.Five.viewlet import manager
 
 from Products.PloneGetPaid import interfaces, pkg_home
 
-from getpaid.paymentprocessors.registry import paymentProcessorUIRegistry
+from getpaid.paymentprocessors.registry import paymentProcessorRegistry
 
 import Products.PloneGetPaid.browser.admin as base
 import Products.PloneGetPaid.interfaces as igetpaid
@@ -77,7 +77,7 @@ class PaymentProcessorsConfigurationView(BrowserView):
 
         @return: Iterable of Processor objects
         """
-        return paymentProcessorUIRegistry.getProcessors()
+        return papaymentProcessorRegistryProcessors()
 
     def processForm(self):
         """ Manage HTTP post """
@@ -85,7 +85,7 @@ class PaymentProcessorsConfigurationView(BrowserView):
 
         # Add some level of safety
         for a in actived:
-            if not a in paymentProcessorUIRegistry.getNames():
+            if not a in paympaymentProcessorRegistrymes():
                 raise RuntimeError("Tried to enable unsupported processor %s" % a)
 
         self.context.portal_properties.payment_processor_properties.enabled_processors = actived

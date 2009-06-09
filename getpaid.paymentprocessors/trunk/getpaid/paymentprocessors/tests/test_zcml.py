@@ -5,9 +5,7 @@ from base import PaymentProcessorTestCase
 from Products.Five import zcml
 from zope.configuration.exceptions import ConfigurationError
 
-from getpaid.paymentprocessors.registry import paymentProcessorUIRegistry
-
-
+from getpaid.paymentprocessors.registry import paymentProcessorRegistry
 configure_zcml = '''
 <configure
     xmlns="http://namespaces.zope.org/zope"
@@ -51,7 +49,7 @@ class TestZCML(PaymentProcessorTestCase):
         zcml.load_string(configure_zcml)
 
         # See that our processor got registered
-        self.assertEqual(len(paymentProcessorUIRegistry.registry.items()), 1)
+        self.assertEqual(len(papaymentProcessorRegistryistry.items()), 1)
 
     def test_bad_processor(self):
         """ Check that ZCML entry which has bad processor declaration is caught """

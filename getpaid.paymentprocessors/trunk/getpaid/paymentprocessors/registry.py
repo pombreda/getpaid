@@ -61,7 +61,7 @@ class Entry:
         view = self._getViewByName(context, request, self.settings_view)
         return view
 
-class PaymentProcessorUIRegistry:
+class PaymentProcessorRegistry:
     """ Payment processor configuration data holder.
 
     For possible parameters, see directives.IRegisterPaymentProcessorDirective
@@ -90,6 +90,6 @@ class PaymentProcessorUIRegistry:
         """ Return payment processor registry entry by its name. """
         return self.registry[name]
 
-paymentProcessorUIRegistry = PaymentProcessorUIRegistry()
+paymentProcessorRegistry = PaymentProcessorRegistry()
 
 

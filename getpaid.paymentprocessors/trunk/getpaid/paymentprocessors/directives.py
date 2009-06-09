@@ -31,7 +31,7 @@ from zope.interface import Interface
 
 import getpaid.core
 
-from registry import Entry, paymentProcessorUIRegistry
+from registry import paymentProcessorRegistry, Entry
 
 class IRegisterPaymentProcessorDirective(Interface):
     """ Register payment processor with the global registry.
@@ -72,6 +72,5 @@ def registerProcessor(_context, name, processor, selection_view, thank_you_view,
     if not getpaid.core.interfaces.IPaymentProcessor.implementedBy(processor):
         raise ConfigurationError("Payment processor directive does not implement IPaymentProcessor interface:" + str(processor))
 
-
-    paymentProcessorUIRegistry.register(entry)
+    paymentProcessorRegistry.register(entry)
 
