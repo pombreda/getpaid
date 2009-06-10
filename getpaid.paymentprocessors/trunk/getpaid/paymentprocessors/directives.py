@@ -42,11 +42,6 @@ class IRegisterPaymentProcessorDirective(Interface):
         description=u"Unique identifier for the payment processor (use package name)",
         required=True)
 
-    processor = GlobalObject(
-        title=u"Payment processor",
-        description=u"Class which implements IPaymentProcessor",
-        required=True)
-
     selection_view = PythonIdentifier(
         title=u'Selection view',
         description=u"browser:page name which is used to render the payment processor checkout button",
@@ -63,14 +58,16 @@ class IRegisterPaymentProcessorDirective(Interface):
         default=None,
         required=False)
 
-def registerProcessor(_context, name, processor, selection_view, thank_you_view, settings_view=None):
+    pay_view = PythonIdentifier(
+        title=u'Payment view',
+        description=u"browser:page which is used to render the page which redirects to payment processor or renders the payment form",
+        required=True)
+
+def registerProcessor(_context, name, selection_view, thank_you_view, pay_view, settings_view=None):
     """
     Configure a payment processor.
     """
-    entry = Entry(name=name, selection_view=selection_view, thank_you_view=thank_you_view, settings_view=settings_view)
-
-    if not getpaid.core.interfaces.IPaymentProcessor.implementedBy(processor):
-        raise ConfigurationError("Payment processor directive does not implement IPaymentProcessor interface:" + str(processor))
+    entry = Entry(name=name, selection_view=selection_view, thank_you_view=thank_you_view, settings_view=settings_view, pay_view=pay_view)
 
     paymentProcessorRegistry.register(entry)
 

@@ -3,6 +3,11 @@
     >
 
   	<include file="meta.zcml" />
-  	
+
+    <vocabulary
+      name="getpaid.paymentprocessors.payment_processors"
+      factory=".vocabularies.PaymentProcessors"
+    />
+
 
 </configure>

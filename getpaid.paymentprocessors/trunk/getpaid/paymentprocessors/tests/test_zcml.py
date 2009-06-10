@@ -32,7 +32,6 @@ bad_processor_zcml = '''
 
     <paymentprocessors:registerProcessor
        name="dummy"
-       processor="getpaid.paymentprocessors.tests.dummies.DummyButton"
        selection_view="getpaid.paymentprocessors.tests.dummies.DummyButton"
        thank_you_view="getpaid.paymentprocessors.tests.dummies.DummyThankYou"
        />
