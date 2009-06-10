@@ -1,2 +1,11 @@
-<!-- This HTML is rendered inside <button> element provided by getpaid.paymentprocessors -->
-<span>Choose null payment!</span>
+<tr i18n:domain="getpaid.nullpayment" tal:define="processor view/getProcessor">
+	<td >
+		<input name="payment_method" type="radio" tal:attributes="value processor/name">
+		<span>Null Payment Processor</span>
+		<!-- Place your payment processor logo here as <img> -->
+	</td>
+	<td i18n:translate="null_payment_method_description">
+		Null payment method. Just for testing.
+	</td>
+</tr>
+

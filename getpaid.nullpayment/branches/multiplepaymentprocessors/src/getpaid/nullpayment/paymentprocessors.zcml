@@ -27,19 +27,26 @@
 	  For explanation of attributes, please see
 	  getpaid.paymentprocessors.directives.IRegisterPaymentProcessorDirective
 	  interface.
+
+	  name must match one in getpaid.core.interfaces.IPaymentProcessor adapter declaration.
 	  -->
     <paymentprocessors:registerProcessor
-       name="nullpayment"
-       processor="getpaid.nullpayment.null.NullPaymentAdapter"
+       name="Testing Processor"
        selection_view="null_payment_button"
        thank_you_view="null_payment_thank_you_page"
        settings_view="null_payment_settings_page"
+       pay_view="null_payment_pay_page"
        />
 
-	<!-- This BrowserView is rendered on the payment method selection screen -->
+	<!-- This BrowserView is rendered on the payment method selection screen.
+
+		Special BasePaymentMethodButton browser view base class is used to here to
+		enable checkout wizard specific context information in template.
+	-->
     <browser:page
          for="getpaid.core.interfaces.IStore"
          name="null_payment_button"
+         class=".button.NullPaymentButton"
          permission="zope2.View"
          template="templates/button.pt"
          />
@@ -58,6 +65,22 @@
          name="null_payment_settings_page"
          class="Products.PloneGetPaid.browser.admin.PaymentProcessor"
          permission="cmf.ManagePortal"
+         />
+
+	<!--
+
+		This is the page where the payment is completed.
+
+		It is usually <form> posted to payment processor server or
+		redirect to payment processor web interface.
+
+		This page must use checkout wizard page framing.
+	 -->
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="null_payment_pay_page"
+         template="templates/pay.pt"
+         permission="zope2.View"
          />
 
 </configure>
