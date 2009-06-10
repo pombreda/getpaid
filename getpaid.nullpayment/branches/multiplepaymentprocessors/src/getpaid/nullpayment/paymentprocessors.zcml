@@ -1,0 +1,63 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:five="http://namespaces.zope.org/five"
+       xmlns:i18n="http://namespaces.zope.org/i18n"
+       xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
+       xmlns:browser="http://namespaces.zope.org/browser"
+       >
+
+    <!-- This file shows how to set up a payment processor using
+         getpaid.paymentprocessors registry.
+
+         The payment processor consists of
+
+         	- Payment processor registry entry
+
+         	- Associated browser pages and HTML snippets
+
+		After adding the payment processor egg to your buildout,
+		you need to enable the payment processor on GetPaid settings screen.
+
+      -->
+
+	<!-- Depend on this package - enable new paymentprocessor directives -->
+    <include package="getpaid.paymentprocessors" />
+
+	<!-- Register payment processor "nullpayment"
+
+	  For explanation of attributes, please see
+	  getpaid.paymentprocessors.directives.IRegisterPaymentProcessorDirective
+	  interface.
+	  -->
+    <paymentprocessors:registerProcessor
+       name="nullpayment"
+       processor="getpaid.nullpayment.null.NullPaymentAdapter"
+       selection_view="null_payment_button"
+       thank_you_view="null_payment_thank_you_page"
+       settings_view="null_payment_settings_page"
+       />
+
+	<!-- This BrowserView is rendered on the payment method selection screen -->
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="null_payment_button"
+         permission="zope2.View"
+         template="templates/button.pt"
+         />
+
+	<!-- This BrowserView is rendered after the payment has been completed -->
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="null_payment_thank_you_page"
+         permission="zope2.View"
+         template="templates/thank_you.pt"
+         />
+
+	<!-- This form is rendered on admin screen and it allows you to tune payment processor settings -->
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="null_payment_settings_page"
+         class="Products.PloneGetPaid.browser.admin.PaymentProcessor"
+         permission="cmf.ManagePortal"
+         />
+
+</configure>
