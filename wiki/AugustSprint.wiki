@@ -21,7 +21,6 @@ See the list below and add your name next to anything you would be interested to
     * Test and finish reorganization (base, 30, 25, currently on meteoroid-branch) and document buildouts (how to add getpaid)
       * Document and use in DevGettingStarted
       * Merge branch or copy files on existing buildout
-    * update anonymous buildout (diff svn externals and cfg file). Fairly easy, as it was last updated in August. 
 
 ==Bugs & Issues==
   * fix issues
