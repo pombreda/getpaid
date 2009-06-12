@@ -33,11 +33,7 @@ svn co https://getpaid.googlecode.com/svn/getpaid.buildout/trunk getpaid.buildou
 
 Make sure you use https and not http, as you will have authentication problems later if you do.
 
-*The anonymous buildout is no more supported.* If you still wish to do anonymous checkout, use: 
-
-{{{
-svn co http://getpaid.googlecode.com/svn/getpaid-anonymous-buildout/trunk getpaid.buildout
-}}}
+*Note: The anonymous buildout is no more supported.*
 
 
 For using authorize.net payment processor, uncomment zc.authorizeddotnetet and getpaid.authorizenet in buildout.cfg
