@@ -26,8 +26,8 @@ class PaypalStandardProcessor( object ):
         self.context = context
 
     def cart_post_button( self, order ):
-        options = IPaypalStandardOptions( self.context )
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
+        options = IPaypalStandardOptions( siteroot )
         manage_options = IGetPaidManagementOptions( siteroot )        
         cartitems = []
         idx = 1

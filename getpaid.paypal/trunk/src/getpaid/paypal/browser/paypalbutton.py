@@ -24,7 +24,8 @@ class PaypalButtonView(BrowserView):
         button = PaypalStandardProcessor(self.context)
         cart_util = getUtility(IShoppingCartUtility)
         cart = cart_util.get(self.context, create=True)
-        manage_options = IGetPaidManagementOptions( self.context )
+        site = self.context.portal_url.getPortalObject()
+        manage_options = IGetPaidManagementOptions( site )
         
         # we'll get the order_manager, create the new order, and store it.
         order_manager = getUtility(IOrderManager)
