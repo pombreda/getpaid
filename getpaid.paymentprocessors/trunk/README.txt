@@ -4,10 +4,12 @@ Purpose
 -------
 
 This package provides generic payment processor registration methods. Though the code itself is without Plone dependencies,
-payment processor code is documented here.
+this documentation covers Plone also.
 
 Installation
 ------------
+
+Install https://getpaid.googlecode.com/svn/getpaid.paymentprocessors/trunk
 
 Use branch https://getpaid.googlecode.com/svn/Products.PloneGetPaid/branches/multiplepaymentprocessors as Products.PloneGetPaid::
 
@@ -24,13 +26,14 @@ Add ''getpaid.paymentprocessers'' zcml to your''buildout.cfg''.
 Architecture
 ------------
 
-Payment processors are registered using a ZCML directive.
+Payment processors are registered using a ZCML directive::
 
     <paymentprocessors:registerProcessor
-       name="dummy"
-       processor="getpaid.paymentprocessors.tests.dummies.DummyButton"
-       selection_view="getpaid.paymentprocessors.tests.dummies.DummyButton"
-       thank_you_view="getpaid.paymentprocessors.tests.dummies.DummyThankYou"
+       name="Testing Processor"
+       selection_view="null_payment_button"
+       thank_you_view="null_payment_thank_you_page"
+       settings_view="null_payment_settings_page"
+       pay_view="null_payment_pay_page"
        />
 
 Each view is the view name what is used to render the corresponding part. Those must map to registered <browser:page> objects.
@@ -48,6 +51,9 @@ To get active payment processors call::
 
 	processors = payment.getActivePaymentProcessors(context) # context = any Plone site object
 
+See https://getpaid.googlecode.com/svn/getpaid.nullpayment/branches/multiplepaymentprocessors/src/getpaid/nullpayment/paymentprocessors.zcml
+for more info.
+
 UI drop ins
 -----------
 
@@ -56,27 +62,34 @@ selection_view
 
 This is a <tr> element which is rendered on the checkout payment method selection page. It contains three columns:
 
-	- Name/logo, preferably an image <button>
+	- <td> having <input type="radio"> button with accessibility <label>
 
-	- Description
+	- <td> with payment method name/logo image
 
-	- Plain text <button> "Use this method"
+	- <td> with description. You can override this template to have clauses like "Using PayPal will cost 2$ extra"
 
-There is context variable "processor" available which referse to registered Entry object of the payment processors.
+There is template context variable "processor" available which refers to registered Entry object of the payment processors.
 
-<button> elements must have name which can be obtained from the context::
+settings_view
+=============
 
-other views
-===========
+TODO
 
-Other UI drop ins are normal <browser:page> views.
+payment_view
+============
+
+TODO
+
+thank_you_view
+==============
+
+TODO
 
 Checkout
 --------
 
 A checkout wizard contains a step "checkout-payment-method" which allows the user to select the wanted payment method.
 
-This
 
 Administration
 --------------
@@ -85,7 +98,7 @@ GetPaid admin interface has page "" where the site manager can enable payment pr
 
 Each payment processor setting page must be uniquely named. This goes against the prior GetPaid best practice to have just one page.
 
-Active payment processor names are stored in portal_properties as LinesField::
+Activated payment processor names are stored in portal_properties as LinesField::
 
 	portal_properties.payment_processor_properties.enabled_processors
 
