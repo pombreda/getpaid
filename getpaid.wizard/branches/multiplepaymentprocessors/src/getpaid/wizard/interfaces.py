@@ -89,3 +89,30 @@ class IWizardFormStep( IWizardStep ):
     
     def getSchemaAdapters( ):
         """ return the schema adapters for the form """
+
+class IWizardStepOverlay(IWizardStep):
+    """ Allow dynamic reconfiguration of executed wizard steps.
+    
+    The step content can be overridden based on external conditions
+    and conditions in the wizard data (prior user choices).
+
+    Conditional steps are registered using zope.component subscriber pattern.
+        
+    Difference betwen IWizardStep and IWizardStepOverlay is
+    that IWizardStepOverlay is registered using subscriber pattern
+    instread of multiadapter pattern, allowing us to define
+    several, non-conflicting, adapters for the same step name.    
+    """
+    
+    def isActive():
+        """ Should this wizard step be evaluated.
+        
+        Conditional steps are evaluated in the order eggs/ZCML
+        have been registered. Firstly registered conditional step returning
+        True on isActive() takes priority.
+        
+        Use self.wizard.data and self.wizard.context to read condition input.
+                            
+        @return True: This step overrides the step defined in the wizard controllor workflow
+        @return False: Bubble through and pick some other step version (default)
+        """
