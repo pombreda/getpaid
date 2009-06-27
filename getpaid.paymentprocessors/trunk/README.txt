@@ -1,4 +1,4 @@
-This is initial code for supporting multiple payment processors on getpaid site.
+This package adds multiple payment processors support for Plone GetPaid shops.
 
 Purpose
 -------
@@ -23,25 +23,104 @@ Add ''getpaid.paymentprocessers'' egg to your''buildout.cfg''.
 
 Add ''getpaid.paymentprocessers'' zcml to your''buildout.cfg''.
 
-Architecture
-------------
+Administration
+--------------
+
+Checkout wizard's payment method selection step is rendered only if the site has two or more active payment processors. 
+Payment processors must be manually actived from the site setup after installation.
+
+Creating your own payment processor
+-----------------------------------
+
+Payment processor directive
+===========================
 
 Payment processors are registered using a ZCML directive::
 
+    <!-- Register logic class dealing with the actual payment -->
+
+  	<adapter
+     for="getpaid.core.interfaces.IStore"
+     provides="getpaid.core.interfaces.IPaymentProcessor"
+     factory=".null.NullPaymentAdapter"
+     name="Testing Processor"
+     />
+     
+    <!-- Register payment processor specific user interface parts -->
+
     <paymentprocessors:registerProcessor
        name="Testing Processor"
+	   i18n_name="Test Payment"
        selection_view="null_payment_button"
+       review_pay_view="null_payment_pay_page"
        thank_you_view="null_payment_thank_you_page"
        settings_view="null_payment_settings_page"
-       pay_view="null_payment_pay_page"
        />
+       
+              
+It is recommended best practice to put paymentprocessor directive into a separate ZCML file in your getpaid extension module 
+to maintain backwards compatibility. You can do it using zcml condition::
 
-Each view is the view name what is used to render the corresponding part. Those must map to registered <browser:page> objects.
+  <include zcml:condition="installed getpaid.paymentprocessors" file="paymentprocessors.zcml" />
+  
+  
+paymentprocessors:registerProcessor attributes
+++++++++++++++++++++++++++++++++++++++++++++++
 
-To see available directive attributes, please read directives.py / IRegisterPaymentProcessorDirective.
+Below is explanation for ''registerProcessor'' attributes.
 
-Payment processor registry is available in getpaid.paymentprocessors.registry.paymentProcessorRegistry. This registry
-holds the data of registered payment processor code objects. Active payment processors are determined by Products.PloneGetPaid.
+'''name''': This must match getpaid.core.interfaces.IPaymentProcessor adapter name
+
+'''i18_name''': This is the user visible name of the payment processor. It might appear in the summaries and listing. 
+  Term "payment method" is recommended here for more end user friendly language.
+  
+'''selection_view''': This is a <browser:page> registration name which renders the payment method selection button on payment
+method selection checkout wizard step. The browser view class should be subclasses from Products.GetPaid.browser.checkout.BasePaymentMethodButton.
+
+selection_view template should render a <tr> element which is rendered on the checkout payment method selection page. It contains three columns:
+
+	- <td> having <input type="radio"> button with accessibility <label>
+
+	- <td> with payment method name/logo image
+
+	- <td> with description. You can override this template to have clauses like "Using PayPal will cost 2$ extra"
+	
+For example, see getpaid.nullpayment/templates/button.pt
+
+'''review_pay_view'''': This view renders payment processor specific "review and pay" view in the checkout wizard. The attribute
+holds the registered <browser:page> name. This view should be subclass of Products.PloneGetPaid.browser.checkout.CheckoutReviewAndPay.
+To change the review and pay page template, override template attribute of the class.
+
+Usually review and pay page has two purposes::
+	
+	- Render a <form> which is submitted to the payment authorization server with a callback back to the shop server
+	
+	- Do a HTTP redirect or Javascript redirect and take the user to the payment authorization server for an external review payment page
+
+'''settings_view''': This is currently unused. It is reserved to override the default payment processor options screen in site setup.
+
+'''thank_you_view''': This should point to the <browser:page> which is rendered after the payment processor is complete. It is unused currently.
+Payment processor review_pay_view is itself responsible to point the user back to the shop site after the payment has been authorized.
+
+See https://getpaid.googlecode.com/svn/getpaid.nullpayment/branches/multiplepaymentprocessors/src/getpaid/nullpayment/paymentprocessors.zcml
+for more info.
+
+Checkout
+--------
+
+A checkout wizard contains a step "checkout-payment-method" which allows the user to select the wanted payment method.
+
+
+Testing
+-------
+
+Tests required Plone are in Products.PloneGetPaid.tests.test_payment_processors. It is recommended to take a look on 
+Products.PloneGetPaid.tests.test_payment_processors.test_payment how to programmatically play around with the checkout wizard.
+
+Non-plone related functionality is tested in getpaid.paymentprocessors.tests. This mainly involves testing ZCML validy.
+
+Developer snippets
+-------------------
 
 Payment processors are described by Entry objects which simply hold the information provided by IRegisterPaymentProcessorDirective.
 
@@ -51,63 +130,14 @@ To get active payment processors call::
 
 	processors = payment.getActivePaymentProcessors(context) # context = any Plone site object
 
-See https://getpaid.googlecode.com/svn/getpaid.nullpayment/branches/multiplepaymentprocessors/src/getpaid/nullpayment/paymentprocessors.zcml
-for more info.
+In checkout wizard, you can get the user chosen payment method using the following snippet. You can do this *after* the user
+has passed payment method selection step::
 
-UI drop ins
------------
+	payment_method_name = wizard.getActivePaymentMethod()
 
-selection_view
-==============
-
-This is a <tr> element which is rendered on the checkout payment method selection page. It contains three columns:
-
-	- <td> having <input type="radio"> button with accessibility <label>
-
-	- <td> with payment method name/logo image
-
-	- <td> with description. You can override this template to have clauses like "Using PayPal will cost 2$ extra"
-
-There is template context variable "processor" available which refers to registered Entry object of the payment processors.
-
-settings_view
-=============
-
-TODO
-
-payment_view
-============
-
-TODO
-
-thank_you_view
-==============
-
-TODO
-
-Checkout
---------
-
-A checkout wizard contains a step "checkout-payment-method" which allows the user to select the wanted payment method.
-
-
-Administration
---------------
-
-GetPaid admin interface has page "" where the site manager can enable payment processors and enter to the payment processor settings pages.
-
-Each payment processor setting page must be uniquely named. This goes against the prior GetPaid best practice to have just one page.
+Payment processor registry is available in getpaid.paymentprocessors.registry.paymentProcessorRegistry. This registry
+holds the data of registered payment processor code objects. 
 
 Activated payment processor names are stored in portal_properties as LinesField::
 
 	portal_properties.payment_processor_properties.enabled_processors
-
-
-Testing
--------
-
-Non-plone related functionality is tested in getpaid.paymentprocessors.tests. This mainly involves testing ZCML validy.
-
-Plone related functionality is tested in Products.PloneGetPaid.tests.test_payment_processors.
-
-
