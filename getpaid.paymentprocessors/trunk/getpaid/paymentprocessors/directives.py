@@ -39,7 +39,12 @@ class IRegisterPaymentProcessorDirective(Interface):
 
     name = PythonIdentifier(
         title=u'Name',
-        description=u"Unique identifier for the payment processor (use package name)",
+        description=u"Unique identifier for the payment processor. The same name as getpaid.core.interfaces.IPaymentProcessor adapter name has.",
+        required=True)
+    
+    i18n_name = MessageID(
+        title=u'International name',
+        description=u"User visible name of the payment processor (can be localized)",
         required=True)
 
     selection_view = PythonIdentifier(
@@ -47,9 +52,9 @@ class IRegisterPaymentProcessorDirective(Interface):
         description=u"browser:page name which is used to render the payment processor checkout button",
         required=True)
 
-    thank_you_view = PythonIdentifier(
-        title=u'Thank you view',
-        description=u"browser:page name which is used to render the thank you page when the payment is complete",
+    review_pay_view = PythonIdentifier(
+        title=u'Payment view',
+        description=u"browser:page which is used to render the page which redirects to payment processor or renders the payment form",
         required=True)
 
     settings_view = PythonIdentifier(
@@ -58,16 +63,21 @@ class IRegisterPaymentProcessorDirective(Interface):
         default=None,
         required=False)
 
-    pay_view = PythonIdentifier(
-        title=u'Payment view',
-        description=u"browser:page which is used to render the page which redirects to payment processor or renders the payment form",
-        required=True)
+    thank_you_view = PythonIdentifier(
+        title=u'Thank you view',
+        description=u"browser:page name which is used to render the thank you page when the payment is complete",
+        required=False)
 
-def registerProcessor(_context, name, selection_view, thank_you_view, pay_view, settings_view=None):
+def registerProcessor(_context, name=None, i18n_name=None, selection_view=None, review_pay_view=None, settings_view=None, thank_you_view=None):
     """
     Configure a payment processor.
     """
-    entry = Entry(name=name, selection_view=selection_view, thank_you_view=thank_you_view, settings_view=settings_view, pay_view=pay_view)
+    entry = Entry(name=name, 
+                  i18n_name=i18n_name,
+                  selection_view=selection_view, 
+                  thank_you_view=thank_you_view, 
+                  settings_view=settings_view, 
+                  review_pay_view=review_pay_view)
 
     paymentProcessorRegistry.register(entry)
 

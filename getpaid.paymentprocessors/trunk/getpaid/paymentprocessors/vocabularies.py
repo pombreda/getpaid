@@ -1,3 +1,4 @@
+
 """
 
     Zope vocabularies used by payment processors.
@@ -24,7 +25,12 @@ def PaymentProcessors(context):
     Mostly useful for validating form input.
 
     Vocabulary contains all payment processors, not just active ones.
+    
+    @return: zope.vocabulary.SimpleVocabulary
     """
-    return vocabulary.SimpleVocabulary.fromValues(paymentProcessorRegistry.getProcessors())
+    processors = paymentProcessorRegistry.getProcessors() 
+    # TODO: Localize here
+    terms = [ vocabulary.SimpleTerm(token=p.name, value=p.i18n_name) for p in processors ] 
+    return vocabulary.SimpleVocabulary(terms)
 
 

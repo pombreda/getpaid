@@ -69,7 +69,7 @@ class PaymentProcessorRegistry:
 
     def __init__(self):
         self.clear()
-
+        
     def register(self, processor):
         """ Put a new payment processor to the global registry """
         self.registry[processor.name] = processor
@@ -87,7 +87,11 @@ class PaymentProcessorRegistry:
         return self.registry.keys()
 
     def get(self, name):
-        """ Return payment processor registry entry by its name. """
+        """ Return payment processor registry entry by its name. 
+        
+        @param name: Payment processor adapter name
+        @raise: KeyError if the payment processor with name does not exist
+        """
         return self.registry[name]
 
 paymentProcessorRegistry = PaymentProcessorRegistry()
