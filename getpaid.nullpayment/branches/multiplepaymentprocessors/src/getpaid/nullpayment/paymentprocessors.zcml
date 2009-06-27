@@ -3,6 +3,7 @@
        xmlns:i18n="http://namespaces.zope.org/i18n"
        xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
        xmlns:browser="http://namespaces.zope.org/browser"
+	   i18n:domain="getpaid.nullpayment"
        >
 
     <!-- This file shows how to set up a payment processor using
@@ -32,10 +33,11 @@
 	  -->
     <paymentprocessors:registerProcessor
        name="Testing Processor"
+	   i18n_name="Test Payment"
        selection_view="null_payment_button"
+       review_pay_view="null_payment_review_pay_page"
        thank_you_view="null_payment_thank_you_page"
        settings_view="null_payment_settings_page"
-       pay_view="null_payment_pay_page"
        />
 
 	<!-- This BrowserView is rendered on the payment method selection screen.
@@ -69,18 +71,14 @@
 
 	<!--
 
-		This is the page where the payment is completed.
+		Payment processor specific review and pay page.
 
-		It is usually <form> posted to payment processor server or
-		redirect to payment processor web interface.
-
-		This page must use checkout wizard page framing.
 	 -->
     <browser:page
          for="getpaid.core.interfaces.IStore"
-         name="null_payment_pay_page"
-         template="templates/pay.pt"
+         name="null_payment_review_pay_page"
          permission="zope2.View"
+		 class=".pay.CheckoutReviewAndPay"
          />
 
 </configure>
