@@ -6,8 +6,11 @@
 
 """
 
-__author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.fi>"
+__author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com> http://www.twinapex.com"
 __docformat__ = "epytext"
+__license__ = "GPL"
+__copyright__ = "2009 Twinapex Research"
+
 
 from zope.component import queryMultiAdapter
 

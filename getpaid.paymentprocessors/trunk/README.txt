@@ -1,10 +1,8 @@
-This package adds multiple payment processors support for Plone GetPaid shops.
-
 Purpose
 -------
 
-This package provides generic payment processor registration methods. Though the code itself is without Plone dependencies,
-this documentation covers Plone also.
+This package provides generic payment processor registration methods. Though the code itself is free from Plone dependencies,
+this documentation covers Plone too.
 
 Preface
 -------
@@ -22,25 +20,33 @@ GetPaid provides support for two different kind of payment processors:
 Installation
 ------------
 
-Install https://getpaid.googlecode.com/svn/getpaid.paymentprocessors/trunk
+Install GetPaid from trunk. 
 
-Use branch https://getpaid.googlecode.com/svn/Products.PloneGetPaid/branches/multiplepaymentprocessors as Products.PloneGetPaid::
+Use branch following development branches. Note that PayPal changes are in trunk::
 
 	cd src
 	rm -rf Products.PloneGetPaid
 	rm -rf getpaid.nullpayment
+	rm -rf getpaid.paypal
 	svn co https://getpaid.googlecode.com/svn/Products.PloneGetPaid/branches/multiplepaymentprocessors Products.PloneGetPaid
 	svn co https://getpaid.googlecode.com/svn/getpaid.nullpayment/branches/multiplepaymentprocessors getpaid.nullpayment
-
-Add ''getpaid.paymentprocessers'' egg to your''buildout.cfg''.
-
-Add ''getpaid.paymentprocessers'' zcml to your''buildout.cfg''.
+	svn co https://getpaid.googlecode.com/svn/getpaid.paypal/trunk getpaid.paypal
+	
+Add *getpaid.paymentprocessers* to your *316.cfg* eggs and develop-eggs sections.
 
 Administration
 --------------
 
-Checkout wizard's payment method selection step is rendered only if the site has two or more active payment processors.
-Payment processors must be manually actived from the site setup after installation.
+Active payment processors must be enabled in *Site setup* -> *GetPaid* -> *Payment processor settings*.
+
+You can manage individual payment processor settings from the same screen.
+
+Checkout wizard steps
+---------------------
+
+A checkout wizard contains a step "checkout-payment-method" which allows the user to select 
+the wanted payment method. This step is only available if the site has more than 
+one active payment processors.
 
 Creating your own payment processor
 -----------------------------------
@@ -75,6 +81,10 @@ It is recommended best practice to put paymentprocessor directive into a separat
 to maintain backwards compatibility. You can do it using zcml condition::
 
   <include zcml:condition="installed getpaid.paymentprocessors" file="paymentprocessors.zcml" />
+  
+You can also maintain backward compatiblity overrides with not-installed directive::
+
+  <include zcml:condition="not-installed getpaid.paymentprocessors" package=".browser" file="overrides.zcml" />
 
 
 paymentprocessors:registerProcessor attributes
@@ -122,24 +132,21 @@ Payment processor review_pay_view is itself responsible to point the user back t
 See https://getpaid.googlecode.com/svn/getpaid.nullpayment/branches/multiplepaymentprocessors/src/getpaid/nullpayment/paymentprocessors.zcml
 for more info.
 
-Checkout
---------
-
-A checkout wizard contains a step "checkout-payment-method" which allows the user to select the wanted payment method.
-
-
 Testing
 -------
 
-Tests required Plone are in Products.PloneGetPaid.tests.test_payment_processors. It is recommended to take a look on
-Products.PloneGetPaid.tests.test_payment_processors.test_payment how to programmatically play around with the checkout wizard.
+Units tests can be found in *Products.PloneGetPaid.tests.test_payment_processors*. 
 
-Non-plone related functionality is tested in getpaid.paymentprocessors.tests. This mainly involves testing ZCML validy.
+It is recommended to take a look these how to programmatically play around with the checkout wizard and
+test your custom payment methods automatically.
+
+Non-plone related functionality is tested in getpaid.paymentprocessors.tests. 
+This mainly involves testing ZCML validy.
 
 Guidelines for payment processor plug-in authors
 ------------------------------------------------
 
-- See getpaid.paypal how to include all related browser/ module extensions, including necessary image files
+- See getpaid.paypal how to include all related browser/ module extensions, including necessary media files
 
 - In your payment processor README include short, but detailed, instructions
 
@@ -203,3 +210,6 @@ TODO
 
 - There is a bug that wizard.data_manager.payment_method.payment_processor pulls out i18n_name for some reason.
   Unless fixed payment processor name must be i18n_name.
+
+- How/when asyncronous processors should create Order, toggle workflow states and delete cart?
+

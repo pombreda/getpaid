@@ -5,6 +5,11 @@
 """
 import sys, os
 
+__author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com> http://www.twinapex.com"
+__docformat__ = "epytext"
+__license__ = "GPL"
+__copyright__ = "2009 Twinapex Research"
+
 from Testing import ZopeTestCase as ztc
 from Products.Five import zcml
 from Products.Five import fiveconfigure
