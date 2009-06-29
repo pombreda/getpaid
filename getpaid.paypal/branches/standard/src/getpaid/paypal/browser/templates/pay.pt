@@ -1,0 +1,16 @@
+<metal:page use-macro="context/@@getpaid-content-template/macros/content_space"
+	i18n:domain="getpaid.paypal">
+
+  <metal:block fill-slot="getpaid_content">
+
+    <h3 i18n:translate="heading_checkout">Checkout</h3>
+
+	<p class="redirect-message">
+		You will be soon taken to PayPal site to complete your payment. If
+		nothing happens please click the button below.
+	</p>
+
+	<form tal:replace="structure view/getForm" />
+
+  </metal:block>
+</metal:page>

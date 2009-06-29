@@ -1,0 +1,93 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+	   xmlns:five="http://namespaces.zope.org/five"
+       xmlns:i18n="http://namespaces.zope.org/i18n"
+       xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
+       xmlns:browser="http://namespaces.zope.org/browser"
+	   i18n:domain="getpaid.paypal"
+
+       >
+
+    <!-- This file shows how to set up a payment processor using
+         getpaid.paymentprocessors registry.
+
+         The payment processor consists of
+
+         	- Payment processor registry entry
+
+         	- Associated browser pages and HTML snippets
+
+		After adding the payment processor egg to your buildout,
+		you need to enable the payment processor on GetPaid settings screen.
+
+      -->
+
+	<!-- Depend on this package - enable new paymentprocessor directives -->
+    <include package="getpaid.paymentprocessors" />
+
+	<!-- Register payment processor "nullpayment"
+
+	  For explanation of attributes, please see
+	  getpaid.paymentprocessors.directives.IRegisterPaymentProcessorDirective
+	  interface.
+
+	  name must match one in getpaid.core.interfaces.IPaymentProcessor adapter declaration.
+	  -->
+    <paymentprocessors:registerProcessor
+       name="Paypal Website Payments Standard"
+	   i18n_name="Paypal Website Payments Standard"
+       selection_view="paypal-button"
+       review_pay_view="paypal-review-pay"
+       settings_view="paypal-settings"
+       thank_you_view="paypal-thank-you"
+       />
+
+	<!-- This BrowserView is rendered on the payment method selection screen.
+
+		Special BasePaymentMethodButton browser view base class is used to here to
+		enable checkout wizard specific context information in template.
+	-->
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="paypal-button"
+         class=".button.PayPalPaymentButton"
+         permission="zope2.View"
+         template="templates/button.pt"
+         />
+
+	<!-- This BrowserView is rendered after the payment has been completed -->
+ 	<browser:page
+     	for="*"
+     	name="paypal-thank-you"
+     	class="getpaid.paypal.browser.getpaidthankyou.GetpaidPaypalThankyouView"
+     	template="templates/paypalthankyou.pt"
+     	permission="zope2.View"
+     	/>
+
+	<!--
+
+		Payment processor specific review and pay page.
+
+	 -->
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="paypal-review-pay"
+         permission="zope2.View"
+		 class=".pay.CheckoutReviewAndPay"
+         />
+
+	<!-- This form is rendered on admin screen and it allows you to tune payment processor settings -->
+    <browser:page
+         for="getpaid.core.interfaces.IStore"
+         name="paypal-settings"
+         class=".admin.PaymentProcessor"
+         permission="cmf.ManagePortal"
+         />
+
+    <!-- Register static media
+
+    	https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_WPButtonIntegration
+
+      -->
+    <browser:resourceDirectory name="getpaid.paypal" directory="resources" />
+
+</configure>

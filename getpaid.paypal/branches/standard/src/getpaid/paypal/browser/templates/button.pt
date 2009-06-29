@@ -1,0 +1,15 @@
+<tr i18n:domain="getpaid.paypal" tal:define="processor view/getProcessor">
+
+	<td>
+		<input name="form.payment_processor" type="radio" tal:attributes="value processor/name">
+	</td>
+
+	<td >
+		<img tal:attributes="src string:${view/site_url}/++resource++getpaid.paypal/US_AU_btn.gif" alt="PayPal" i18n:attributes="alt" />
+	</td>
+
+	<td i18n:translate="checkout_with_paypal">
+		Checkout with PayPal.
+	</td>
+</tr>
+

@@ -1,7 +1,5 @@
-You will need to set this as your payment processor in the getpaid admin
-interface (Payment Options)
+This package provides PayPal checkout support for PloneGetPaid.
 
-Last step is to enter your paypal account info in Payment Processor
-Settings.
+For PayPal logo usage see https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_WPButtonIntegration
 
-Enjoy!
+

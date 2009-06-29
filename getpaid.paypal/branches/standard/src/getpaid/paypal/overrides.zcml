@@ -1,3 +1,9 @@
-<configure xmlns="http://namespaces.zope.org/zope">
-  <include package=".browser" file="overrides.zcml" />
+<configure xmlns="http://namespaces.zope.org/zope"
+       	   xmlns:zcml="http://namespaces.zope.org/zcml"
+		   >
+
+  <!-- Overrides are only needed if old style payment processor subsystem is used -->
+
+  <include zcml:condition="not-installed getpaid.paymentprocessors" package=".browser" file="overrides.zcml" />
+
 </configure>
