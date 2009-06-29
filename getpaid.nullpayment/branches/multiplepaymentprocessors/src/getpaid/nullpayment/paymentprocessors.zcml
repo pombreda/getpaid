@@ -65,7 +65,7 @@
     <browser:page
          for="getpaid.core.interfaces.IStore"
          name="null_payment_settings_page"
-         class="Products.PloneGetPaid.browser.admin.PaymentProcessor"
+         class=".admin.PaymentProcessor"
          permission="cmf.ManagePortal"
          />
 

@@ -26,5 +26,4 @@
     -->
   <include zcml:condition="installed getpaid.paymentprocessors" file="paymentprocessors.zcml" />
 
-
 </configure>
