@@ -7,6 +7,10 @@ from Products.PloneGetPaid.browser import checkout as base
 
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
+__author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com> http://www.twinapex.com"
+__docformat__ = "epytext"
+__license__ = "BSD"
+__copyright__ = "2009 Twinapex Research"
     
 class CheckoutReviewAndPay(base.CheckoutReviewAndPay):
     """ Null payment method review and pay page.
