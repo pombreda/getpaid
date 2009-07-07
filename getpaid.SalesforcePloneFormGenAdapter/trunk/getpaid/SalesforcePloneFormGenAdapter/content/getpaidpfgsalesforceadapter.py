@@ -400,6 +400,11 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
         # Billing Address
         # Address lines are combined since salesforce only has one line for it
         fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Billing Address Name", 
+                                               "field_path" : "billing_address,bill_name",
+                                               "sf_field" : ""}))
+
+        fixedRows.append(FixedRow(keyColumn="form_field",
                                   initialData={"form_field" : "Billing Address Organization", 
                                                "field_path" : "billing_address,bill_organization",
                                                "sf_field" : ""}))
@@ -431,6 +436,16 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
                                                "sf_field" : ""}))
         # Shipping Address
         # Address lines are combined since salesforce only has one line for it
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Shipping Address Name", 
+                                               "field_path" : "shipping_address,ship_name",
+                                               "sf_field" : ""}))
+
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Shipping Address Organization", 
+                                               "field_path" : "shipping_address,ship_organization",
+                                               "sf_field" : ""}))
+
         fixedRows.append(FixedRow(keyColumn="form_field",
                                   initialData={"form_field" : "Shipping Address Street", 
                                                "field_path" : "shipping_address,ship_address_street",

@@ -4,6 +4,8 @@ CHANGES
 
 1.0 (unreleased)
 ----------------
+ - Map shipping organization name [larubbio]
+ - Map shipping and billing names [larubbio]
 
 1.0b3 (2009-07-07)
 ------------------
@@ -11,6 +13,7 @@ CHANGES
  - Fix a bug joining address lines together if address line 2 wasn't provided
  - Add shipping information
  - handle ship address same as billing address
+ - map organization name
 
 1.0b2 (2009-05-12)
 ------------------
