@@ -58,7 +58,7 @@ if HAS_PLONE25:
     import zope.i18n
 
 # Get Paid events
-from getpaid.core.interfaces import workflow_states, IShoppingCartUtility
+from getpaid.core.interfaces import workflow_states, IShoppingCartUtility, IShippableOrder, IShippingRateService, IShippableLineItem
 from zope.app.component.hooks import getSite
 from zope.app.annotation.interfaces import IAnnotations
 
@@ -495,6 +495,11 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
                                                "field_path" : "shipping_weight",
                                                "sf_field" : ""}))
 
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Shipping Cost", 
+                                               "field_path" : "shipping_price",
+                                               "sf_field" : ""}))
+
         return fixedRows
 
     security.declareProtected(ModifyPortalContent, 'generateGetPaidItemFormFieldRows')
@@ -533,6 +538,11 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
         fixedRows.append(FixedRow(keyColumn="form_field",
                                   initialData={"form_field" : "Product Code", 
                                                "field_path" : "shopping_cart,items,product_code",
+                                               "sf_field" : ""}))
+        #      product sku
+        fixedRows.append(FixedRow(keyColumn="form_field",
+                                  initialData={"form_field" : "Product SKU", 
+                                               "field_path" : "shopping_cart,items,sku",
                                                "sf_field" : ""}))
         #      Price
         fixedRows.append(FixedRow(keyColumn="form_field",
@@ -673,7 +683,7 @@ def _mapObject(order, item, sfObject, fieldMap, parentSFField=None):
     # Copy address into a dummy object so I can handle ship same as billing
     # it would be nice if the field names in the shipping and billing
     # structures where the same
-    
+
     for mapping in fieldMap:
         if len(mapping['sf_field']) > 0:
 
@@ -754,7 +764,7 @@ def _getValueFromOrder(order, item, fieldPath):
                 value = "\n".join((line_1, line_2))
             
         elif split_field_path[-1] == "ship_address_street":
-            if order.ship_same_billing:
+            if order.shipping_address.ship_same_billing:
                 line_1 = order.billing_address.bill_first_line
                 line_2 = order.billing_address.bill_second_line
             else:
@@ -767,25 +777,25 @@ def _getValueFromOrder(order, item, fieldPath):
                 value = "\n".join((line_1, line_2))
 
         elif split_field_path[-1] == "ship_address_city":
-            if order.ship_same_billing:
+            if order.shipping_address.ship_same_billing:
                 value = order.billing_address.bill_city
             else:
                 value = order.shipping_address.ship_city
 
         elif split_field_path[-1] == "ship_address_state":
-            if order.ship_same_billing:
+            if order.shipping_address.ship_same_billing:
                 value = order.billing_address.bill_state
             else:
                 value = order.shipping_address.ship_state
 
         elif split_field_path[-1] == "ship_address_country":
-            if order.ship_same_billing:
+            if order.shipping_address.ship_same_billing:
                 value = order.billing_address.bill_country
             else:
                 value = order.shipping_address.ship_country
 
         elif split_field_path[-1] == "ship_address_postal_code":
-            if order.ship_same_billing:
+            if order.shipping_address.ship_same_billing:
                 value = order.billing_address.bill_postal_code
             else:
                 value = order.shipping_address.ship_postal_code
