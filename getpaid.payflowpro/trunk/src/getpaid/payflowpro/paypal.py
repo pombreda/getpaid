@@ -16,6 +16,8 @@ from getpaid.core import interfaces as GetPaidInterfaces
 from payflowpro.classes import CreditCard, Amount, Profile, Address, Tracking, Response, CustomerInfo
 from payflowpro.client import PayflowProClient
 
+from datetime import date
+
 RESULT = "getpaid.payflowpro.result"
 RESPMSG = "getpaid.payflowpro.respmsg"
 CVV2_MATCH = "getpaid.payflowpro.cvv2match"
@@ -49,7 +51,21 @@ class PayFlowPro( object ):
                                   password=self.options.password,
                                   url_base=self._sites.get(self.options.server_url))
 
-        card_exp_date = payment.cc_expiration.strftime('%m%y') # MMYY
+        card_exp_date = ''
+        if hasattr(payment.cc_expiration, 'strftime'):
+            card_exp_date = payment.cc_expiration.strftime('%m%y')
+        else:
+            # If cc_expiration is not of type date, then it should be 
+            # a string like this: '2011-08-03 00:00'
+            # This is a bug in getpaid.formgen's single page checkout
+            # and the correct fix is to swap out it's expiration date
+            # widget with one that returns a date.
+            yearMonthDay = payment.cc_expiration.split(' ')[0].split('-')
+            _date = date(int(yearMonthDay[0]), 
+                         int(yearMonthDay[1]), 
+                         int(yearMonthDay[2]))
+            card_exp_date = _date.strftime('%m%y')
+
         credit_card = CreditCard(acct=payment.credit_card,
                                  expdate=card_exp_date,
                                  cvv2=payment.cc_cvc)

@@ -2,6 +2,10 @@
 CHANGES
 =======
 
+1.0 (unreleased)
+----------------
+- Handle expiration date as a string.
+
 1.0b1 (2009-01-28)
 ------------------
 
