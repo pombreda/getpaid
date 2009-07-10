@@ -1,9 +1,6 @@
 =======
 CHANGES
 =======
-1.6 (unreleased)
-----------------
-
 1.5 (2009-07-10)
 ----------------
 * update Products.PloneGetPaid [larubbio]
