@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+ <object name="getpaidsalesforceorderrecorder" meta_type="GetPaid Salesforce Order Recorder Property Sheet">
+  <property name="title" type="string" purge="False">GetPaid Salesforce Order Recorder Settings.  **NEVER EDIT THESE VALUES DIRECTLY**</property>
+  <property name="gpsor_aware_types" type="lines" purge="False"></property>
+  <property name="gpsor_salesforce_customer_object" type="lines" purge="False"></property>
+  <property name="gpsor_salesforce_item_object" type="lines" purge="False"></property>
+  <property name="gpsor_first_name" type="lines" purge="False"></property>
+  <property name="gpsor_last_name" type="lines" purge="False"></property>
+  <property name="gpsor_phone" type="lines" purge="False"></property>
+  <property name="gpsor_email" type="lines" purge="False"></property>
+  <property name="gpsor_contact_allowed" type="bool" purge="False"></property>
+  <property name="gpsor_email_format_pref" type="lines" purge="False"></property>
+  <property name="gpsor_billing_address_name" type="lines" purge="False"></property>
+  <property name="gpsor_billing_address_org" type="lines" purge="False"></property>
+  <property name="gpsor_billing_address_street" type="lines" purge="False"></property>
+  <property name="gpsor_billing_address_city" type="lines" purge="False"></property>
+  <property name="gpsor_billing_address_country" type="lines" purge="False"></property>
+  <property name="gpsor_billing_address_state" type="lines" purge="False"></property>
+  <property name="gpsor_billing_address_zip" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_address_name" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_address_org" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_address_street" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_address_city" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_address_country" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_address_state" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_address_zip" type="lines" purge="False"></property>
+  <property name="gpsor_order_id" type="lines" purge="False"></property>
+  <property name="gpsor_creation_date" type="lines" purge="False"></property>
+  <property name="gpsor_order_total" type="lines" purge="False"></property>
+  <property name="gpsor_transaction_id" type="lines" purge="False"></property>
+  <property name="gpsor_cc_last_4" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_service" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_method" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_weight" type="lines" purge="False"></property>
+  <property name="gpsor_shipping_cost" type="lines" purge="False"></property>
+  <property name="gpsor_item_quantity" type="lines" purge="False"></property>
+  <property name="gpsor_item_id" type="lines" purge="False"></property>
+  <property name="gpsor_item_name" type="lines" purge="False"></property>
+  <property name="gpsor_product_code" type="lines" purge="False"></property>
+  <property name="gpsor_product_sku" type="lines" purge="False"></property>
+  <property name="gpsor_item_cost" type="lines" purge="False"></property>
+  <property name="gpsor_total_item_cost" type="lines" purge="False"></property>
+  <property name="gpsor_item_desc" type="lines" purge="False"></property>
+  <property name="gpsor_discount_code" type="lines" purge="False"></property>
+  <property name="gpsor_discount_title" type="lines" purge="False"></property>
+  <property name="gpsor_discount_total" type="lines" purge="False"></property>
+ </object>
+</object>
