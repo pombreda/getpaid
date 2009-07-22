@@ -230,25 +230,50 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
         logger.info('Calling onSuccess()')
 
         scu = zope.component.getUtility(IShoppingCartUtility)
-        cart = scu.get(self, create=True)
+
+        # I need to figure out which cart to get.  The default, or a session
+        # to do that I find the first getpaid adapter. I then look for the 
+        # attr success_callback
+        formFolder = aq_parent(self)
+        adapters = formFolder.objectValues('GetpaidPFGAdapter')
+        cart = None
+        if (len(adapters) and adapters[0].success_callback == '_one_page_checkout_success'):
+            cartKey = "multishot:%s" % formFolder.title
+            cart = scu.get(self, key=cartKey)
+        else:
+            cart = scu.get(self, create=True)
 
         if (cart == None):
             logger.info("Unable to get cart")
         else:
-            # Ideally I'd want to associate this with the item, but I have no guarentee that
-            # it has been created at this point.  It all depends on the order the adapters run.
+            # Ideally I'd want to associate this with the item, but I have no 
+            # guarentee that it has been created at this point.  It all depends
+            # on the order the adapters run.
             annotation = IAnnotations(cart)
-            annotation["getpaid.SalesforcePloneFormGenAdapter.added"] = 1
+
+            if "getpaid.SalesforcePloneFormGenAdapter.adapters" in annotation:
+                adapters = annotation["getpaid.SalesforcePloneFormGenAdapter.adapters"]
+
+                if not self.title in adapters:
+                    adapters.append(self.title)
+            else:
+                adapters = [self.title]
+
+            annotation["getpaid.SalesforcePloneFormGenAdapter.adapters"] = adapters
+
+            annotationKey = "getpaid.SalesforcePloneFormGenAdapter.%s" % self.title
 
             sObject = self._buildSObjectFromForm(fields, REQUEST)
-            annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"] = sObject
-            annotation["getpaid.SalesforcePloneFormGenAdapter.sItemObject"] = dict(type=self.SFObjectTypeForItems)
-            annotation["getpaid.SalesforcePloneFormGenAdapter.SFObjectForCustomer"] = self.SFObjectType
-            annotation["getpaid.SalesforcePloneFormGenAdapter.SFObjectForItems"] = self.SFObjectTypeForItems
+            data = {}
+            data['sObject'] = sObject
+            data['sItemObject'] = dict(type=self.SFObjectTypeForItems)
+            data['SFObjectForCustomer'] = self.SFObjectType
+            data['SFObjectForItems'] = self.SFObjectTypeForItems
 
-            annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidCustomerSFMapping"] = self.getPaidCustomerFieldMap
-            annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidItemSFMapping"] = self.getPaidItemFieldMap
+            data['GetPaidCustomerSFMapping'] = self.getPaidCustomerFieldMap
+            data['GetPaidItemSFMapping'] = self.getPaidItemFieldMap
    
+            annotation[annotationKey] = data
 
     security.declareProtected(ModifyPortalContent, 'buildSFFieldOptionListForItems')
     def buildSFFieldOptionListForItems(self):
@@ -608,96 +633,95 @@ except ImportError:
     pass
 
 def handleOrderWorkflowTransition( order, event ):
+    # Only save the order if it has moved into the charged state
+    # and the order was placed through PloneFormGen and the adapter is enabled
+    if order.finance_state == event.destination and event.destination == workflow_states.order.finance.CHARGED:
+        annotation = IAnnotations(order.shopping_cart)
+        if "getpaid.SalesforcePloneFormGenAdapter.adapters" in annotation:
+            adapters = annotation['getpaid.SalesforcePloneFormGenAdapter.adapters']
 
-    logger.info("handleOrderWorkflowTransition: %s, %s" % (order.finance_state, event.destination));
+            salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
+            for a in adapters:
+                annotationKey = "getpaid.SalesforcePloneFormGenAdapter.%s" % a
+                data = annotation[annotationKey]
 
-    try:
-        # Only save the order if it has moved into the charged state
-        # and the order was placed through PloneFormGen and the adapter is enabled
-        if order.finance_state == event.destination and event.destination == workflow_states.order.finance.CHARGED:
-            logger.info("Recording order");
+                try:
+                    executeAdapter(order, data, salesforce)
+                except Exception, e:
+                    # I catch everything since any uncaught exception here 
+                    # will prevent the order from moving to charged
+                    logger.error("Exception saving order %s to salesforce: %s" % (order.order_id, e))
+                    logger.info('Data: %s' % data)
 
-            annotation = IAnnotations(order.shopping_cart)
-            if "getpaid.SalesforcePloneFormGenAdapter.added" in annotation:
+def executeAdapter(order, data, salesforce):
+    sfObject = data['SFObjectForCustomer']
+    sfObjectForItems = data['SFObjectForItems']
+    getPaidCustomerFieldMap = data['GetPaidCustomerSFMapping']
+    getPaidItemFieldMap = data['GetPaidItemSFMapping']
 
-                # Todo: update to work with items split out
-                sfObject = annotation["getpaid.SalesforcePloneFormGenAdapter.SFObjectForCustomer"]
-                sfObjectForItems = annotation["getpaid.SalesforcePloneFormGenAdapter.SFObjectForItems"]
-                getPaidCustomerFieldMap = annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidCustomerSFMapping"]
-                getPaidItemFieldMap = annotation["getpaid.SalesforcePloneFormGenAdapter.GetPaidItemSFMapping"]
+    if sfObjectForItems == "" or sfObjectForItems == sfObject:
+        # Loop over the items mapping customer and item to same 
+        # SFObject I will have multiple SF Objects
+        sObject = [];
                 
-                if sfObjectForItems == "" or sfObjectForItems == sfObject:
-                   # Loop over the items mapping customer and item to same SFObject
-                   # I will have multiple SF Objects
-                   salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
-                   sObject = [];
-                
-                   # Loop over cart items creating an sObject for each
-                   for item in order.shopping_cart.items():
-                       obj = annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"].copy()
-                       sObject.append(obj)
+        # Loop over cart items creating an sObject for each
+        for item in order.shopping_cart.items():
+            obj = data['sObject'].copy()
+            sObject.append(obj)
 
-                       _mapObject(order, item, obj, getPaidCustomerFieldMap)
-                       _mapObject(order, item, obj, getPaidItemFieldMap)
+            _mapObject(order, item, obj, getPaidCustomerFieldMap)
+            _mapObject(order, item, obj, getPaidItemFieldMap)
 
-                   results = salesforce.create(sObject)
-                   for result in results:
-                       if result['success']:
-                           logger.debug("Successfully created new %s %s for order %s in Salesforce" % \
-                                            (sObject[0]['type'], result['id'], order.order_id))
-                       else:
-                           for error in result['errors']:
-                               logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
-                                                (sObject[0]['type'], order.order_id, error['message']))
+        results = salesforce.create(sObject)
+        for result in results:
+            if result['success']:
+                logger.info("Successfully created new %s %s for order %s in Salesforce" % \
+                                 (sObject[0]['type'], result['id'], order.order_id))
+            else:
+                for error in result['errors']:
+                    logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
+                                     (sObject[0]['type'], order.order_id, error['message']))
+    else:
+        # Loop over the items mapping customer and item to same SFObject
+        # I will have multiple SF Objects
+
+        # first create the customer obejct in SF
+        obj = data['sObject'].copy()
+
+        # I kind of think it's a hack to pass None for the item
+        # the method expects it, but in this case will not use
+        # it since I'm passing the customer field map.
+        _mapObject(order, None, obj, getPaidCustomerFieldMap)
+
+        results = salesforce.create(obj)
+        if results[0]['success']:
+            logger.info("Successfully created new %s %s for order %s in Salesforce" % \
+                             (obj['type'], results[0]['id'], order.order_id))
+
+            obj['id'] = results[0]['id']
+
+            # Loop over cart items creating an sObject for each
+            sObjects = []
+            for item in order.shopping_cart.items():
+                itemObj = data['sItemObject'].copy()
+                sObjects.append(itemObj)
+
+                _mapObject(order, item, itemObj, getPaidItemFieldMap, obj['id'])
+
+            results = salesforce.create(sObjects)
+            for result in results:
+                if result['success']:
+                    logger.info("Successfully created new %s %s in Salesforce" % \
+                                     (sObjects[0]['type'], result['id']))
                 else:
-                   # Loop over the items mapping customer and item to same SFObject
-                   # I will have multiple SF Objects
-                   salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
-                
-                   # first create the customer obejct in SF
-                   obj = annotation["getpaid.SalesforcePloneFormGenAdapter.sObject"].copy()
+                    for error in result['errors']:
+                        logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
+                                         (sObjects[0]['type'], order.order_id, error['message']))
 
-                   # I kind of think it's a hack to pass None for the item
-                   # the method expects it, but in this case will not use
-                   # it since I'm passing the customer field map.
-                   _mapObject(order, None, obj, getPaidCustomerFieldMap)
-                   results = salesforce.create(obj)
-                   if results[0]['success']:
-                       logger.debug("Successfully created new %s %s for order %s in Salesforce" % \
-                                        (obj['type'], results[0]['id'], order.order_id))
-
-                       obj['id'] = results[0]['id']
-
-                       # Loop over cart items creating an sObject for each
-                       sObjects = []
-                       for item in order.shopping_cart.items():
-                           itemObj = annotation["getpaid.SalesforcePloneFormGenAdapter.sItemObject"].copy()
-                           sObjects.append(itemObj)
-
-                           _mapObject(order, item, itemObj, getPaidItemFieldMap, obj['id'])
-
-                       results = salesforce.create(sObjects)
-                       for result in results:
-                           if result['success']:
-                               logger.debug("Successfully created new %s %s in Salesforce" % \
-                                                (sObjects[0]['type'], result['id']))
-                           else:
-                               for error in result['errors']:
-                                   logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
-                                                    (sObjects[0]['type'], order.order_id, error['message']))
-
-                   else:
-                       for error in results['errors']:
-                           logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
-                                            (obj['type'], order.order_id, error['message']))
-
-
-
-    except Exception, e:
-        # I catch evrything since and uncaught exception here will prevent
-        # the order from moving to charged
-        logger.error("Exception saving order %s to salesforce: %s" % (order.order_id, e))
-        logger.info('Annotation: %s' % annotation)
+        else:
+            for error in results['errors']:
+                logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
+                                 (obj['type'], order.order_id, error['message']))
 
 def _mapObject(order, item, sfObject, fieldMap, parentSFField=None):
     # Copy address into a dummy object so I can handle ship same as billing
@@ -796,25 +820,25 @@ def _getValueFromOrder(order, item, fieldPath):
             else:
                 value = "\n".join((line_1, line_2))
 
-        elif split_field_path[-1] == "ship_address_city":
+        elif split_field_path[-1] == "ship_city":
             if order.shipping_address.ship_same_billing:
                 value = order.billing_address.bill_city
             else:
                 value = order.shipping_address.ship_city
 
-        elif split_field_path[-1] == "ship_address_state":
+        elif split_field_path[-1] == "ship_state":
             if order.shipping_address.ship_same_billing:
                 value = order.billing_address.bill_state
             else:
                 value = order.shipping_address.ship_state
 
-        elif split_field_path[-1] == "ship_address_country":
+        elif split_field_path[-1] == "ship_country":
             if order.shipping_address.ship_same_billing:
                 value = order.billing_address.bill_country
             else:
                 value = order.shipping_address.ship_country
 
-        elif split_field_path[-1] == "ship_address_postal_code":
+        elif split_field_path[-1] == "ship_postal_code":
             if order.shipping_address.ship_same_billing:
                 value = order.billing_address.bill_postal_code
             else:
