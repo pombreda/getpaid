@@ -1,0 +1,5 @@
+0.1 (unreleased)
+----------------
+
+ * Initial import and creation derived from getpaid.SalesforcePloneFormGenAdapter
+
