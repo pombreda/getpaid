@@ -14,7 +14,7 @@ from Products.CMFCore.utils import getToolByName
 from getpaid.SalesforceOrderRecorder import SalesforceOrderRecorderMessageFactory as _
 
 # Get Paid events
-from getpaid.core.interfaces import workflow_states, IShoppingCartUtility
+from getpaid.core.interfaces import workflow_states, IShoppingCartUtility, IShippableOrder, IShippingRateService, IShippableLineItem
 from zope.app.component.hooks import getSite
 
 logger = logging.getLogger("SalesforceOrderRecorder")
@@ -26,94 +26,102 @@ def handleOrderWorkflowTransition( order, event ):
     # Only save the order if it has moved into the charged state
     # and the order was placed through PloneFormGen and the adapter is enabled
     if order.finance_state == event.destination and event.destination == workflow_states.order.finance.CHARGED:
-        portal_properties = getToolByName(getSite(), 'portal_properties')
-        props = getattr(portal_properties, 'getpaidsalesforceorderrecorder')
-        refCat = getToolByName( getSite(), 'reference_catalog')
-        salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
+        try:
+            executeAdapter(order)
+        except Exception, e:
+            # I catch everything since any uncaught exception here 
+            # will prevent the order from moving to charged
+            logger.error("Exception saving order %s to salesforce: %s" % (order.order_id, e))
 
-        # Get the content types that I will map
-        itemTypes = props.gpsor_aware_types
 
-        # Loop over the items and see if any are mappable
-        itemList = []
-        for item in order.shopping_cart.items():
-            payable = refCat.lookupObject( item[0] )
-            itemType = payable.portal_type
+def executeAdapter(order):
+    portal_properties = getToolByName(getSite(), 'portal_properties')
+    props = getattr(portal_properties, 'getpaidsalesforceorderrecorder')
+    refCat = getToolByName( getSite(), 'reference_catalog')
+    salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
 
-            if itemType in itemTypes:
-                itemList.append(item)
+    # Get the content types that I will map
+    itemTypes = props.gpsor_aware_types
 
-        import pdb; pdb.set_trace()
-        # If there is something in my list then there is at least
-        # one item to record
-        if len(itemList):
-            customerSObject = props.gpsor_salesforce_customer_object
-            itemSObject = props.gpsor_salesforce_item_object
+    # Loop over the items and see if any are mappable
+    itemList = []
+    for item in order.shopping_cart.items():
+        payable = refCat.lookupObject( item[0] )
+        itemType = payable.portal_type
 
-            if itemSObject == "" or itemSObject == customerSObject:
-                # Loop over the items mapping customer and item to same 
-                # SFObject I will have multiple SF Objects
-                sObject = []
+        if itemType in itemTypes:
+            itemList.append(item)
+
+    # If there is something in my list then there is at least
+    # one item to record
+    if len(itemList):
+        customerSObject = props.gpsor_salesforce_customer_object
+        itemSObject = props.gpsor_salesforce_item_object
+
+        if itemSObject is None or itemSObject == "" or itemSObject == customerSObject:
+            # Loop over the items mapping customer and item to same 
+            # SFObject I will have multiple SF Objects
+            sObject = []
                 
+            # Loop over cart items creating an sObject for each
+            for item in order.shopping_cart.items():
+                obj = dict(type=customerSObject)
+                sObject.append(obj)
+
+                _mapOrderFields(order, obj, props)
+                _mapItemFields(item[1], obj, props)
+
+            results = salesforce.create(sObject)
+            for result in results:
+                if result['success']:
+                    logger.info("Successfully created new %s %s for order %s in Salesforce" % \
+                                    (sObject[0]['type'], result['id'], order.order_id))
+                else:
+                    for error in result['errors']:
+                        logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
+                                         (sObject[0]['type'], order.order_id, error['message']))
+                
+        else:
+            # Loop over the items mapping customer and item to same SFObject
+            # I will have multiple SF Objects
+
+            # first create the customer obejct in SF
+            obj = dict(type=customerSObject)
+
+            # I kind of think it's a hack to pass None for the item
+            # the method expects it, but in this case will not use
+            # it since I'm passing the customer field map.
+            _mapOrderFields(order, obj, props)
+
+            results = salesforce.create(obj)
+            if results[0]['success']:
+                logger.info("Successfully created new %s %s for order %s in Salesforce" % \
+                                (obj['type'], results[0]['id'], order.order_id))
+
+                obj['id'] = results[0]['id']
+
                 # Loop over cart items creating an sObject for each
+                sObjects = []
                 for item in order.shopping_cart.items():
-                    obj = dict(type=customerSObject)
-                    sObject.append(obj)
+                    itemObj = dict(type=itemSObject)
+                    sObjects.append(itemObj)
 
-                    _mapOrderFields(order, obj, props)
-                    _mapItemFields(item[1], obj, props)
+                    _mapItemFields(item[1], itemObj, props, obj['id'])
 
-                results = salesforce.create(sObject)
+                results = salesforce.create(sObjects)
                 for result in results:
                     if result['success']:
-                        logger.info("Successfully created new %s %s for order %s in Salesforce" % \
-                                        (sObject[0]['type'], result['id'], order.order_id))
+                        logger.info("Successfully created new %s %s in Salesforce" % \
+                                        (sObjects[0]['type'], result['id']))
                     else:
                         for error in result['errors']:
                             logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
-                                             (sObject[0]['type'], order.order_id, error['message']))
-                
+                                             (sObjects[0]['type'], order.order_id, error['message']))
+
             else:
-                # Loop over the items mapping customer and item to same SFObject
-                # I will have multiple SF Objects
-
-                # first create the customer obejct in SF
-                obj = dict(type=customerSObject)
-
-                # I kind of think it's a hack to pass None for the item
-                # the method expects it, but in this case will not use
-                # it since I'm passing the customer field map.
-                _mapOrderFields(order, obj, props)
-
-                results = salesforce.create(obj)
-                if results[0]['success']:
-                    logger.info("Successfully created new %s %s for order %s in Salesforce" % \
-                                    (obj['type'], results[0]['id'], order.order_id))
-
-                    obj['id'] = results[0]['id']
-
-                    # Loop over cart items creating an sObject for each
-                    sObjects = []
-                    for item in order.shopping_cart.items():
-                        itemObj = dict(type=itemSObject)
-                        sObjects.append(itemObj)
-
-                        _mapItemFields(item[1], itemObj, props, obj['id'])
-
-                    results = salesforce.create(sObjects)
-                    for result in results:
-                        if result['success']:
-                            logger.info("Successfully created new %s %s in Salesforce" % \
-                                            (sObjects[0]['type'], result['id']))
-                        else:
-                            for error in result['errors']:
-                                logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
-                                                 (sObjects[0]['type'], order.order_id, error['message']))
-
-                else:
-                    for error in results['errors']:
-                        logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
-                                         (obj['type'], order.order_id, error['message']))
+                for error in results['errors']:
+                    logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
+                                     (obj['type'], order.order_id, error['message']))
 
 
 def _mapOrderFields(order, sfObject, props):
@@ -125,7 +133,7 @@ def _mapOrderFields(order, sfObject, props):
     
     if props.gpsor_last_name:
         fullName = order.contact_information.name
-        lastName = fullName.split(' ', 1)[0]
+        lastName = fullName.split(' ', 1)[1]
 
         sfObject[props.gpsor_last_name] = lastName
 
@@ -248,23 +256,22 @@ def _mapOrderFields(order, sfObject, props):
     if props.gpsor_cc_last_4:
         sfObject[props.gpsor_cc_last_4] = order.user_payment_info_last4
 
-# Since we only map some content items, the shipping information may not be accurate
-#    if props.gpsor_shipping_service:
-#        sfObject[props.gpsor_shipping_service] = getShippingService(order)
+    if props.gpsor_shipping_service:
+        sfObject[props.gpsor_shipping_service] = getShippingService(order)
 
-#    if props.gpsor_shipping_method:
-#        sfObject[props.gpsor_shipping_method] = getShippingMethod(order)
+    if props.gpsor_shipping_method:
+        sfObject[props.gpsor_shipping_method] = getShippingMethod(order)
 
-#    if props.gpsor_shipping_weight:
-#        sfObject[props.gpsor_shipping_weight] = getShipmentWeight(order)
+    if props.gpsor_shipping_weight:
+        sfObject[props.gpsor_shipping_weight] = getShipmentWeight(order)
 
-#    if props.gpsor_shipping_cost:
-#        sfObject[props.gpsor_shipping_cost] = 
+    if props.gpsor_shipping_cost:
+        sfObject[props.gpsor_shipping_cost] = order.shipping_price
 
 def _mapItemFields(item, sfObject, props, parentSFObjectId=None):
 
-#    if parentSFObjectId and props.gpsor_parent_object_id:
-#        sfObject[] = parentSFObjectId
+    if parentSFObjectId and props.gpsor_parent_sf_object_id:
+        sfObject[props.gpsor_parent_sf_object_id] = parentSFObjectId
 
     if props.gpsor_item_quantity:
         sfObject[props.gpsor_item_quantity] = item.quantity
@@ -311,3 +318,39 @@ def _mapItemFields(item, sfObject, props, parentSFObjectId=None):
             value = annotation["getpaid.discount.code.discount"]
             sfObject[props.gpsor_discount_total] = value
 
+
+def getShippingService(order):
+    if not hasattr(order,"shipping_service"):
+        return None
+    infos = order.shipping_service
+    if infos:
+        return infos
+
+def getShippingMethod(order):
+    # check the traversable wrrapper
+    if not IShippableOrder.providedBy( order ):
+        return None
+    
+    service = zope.component.queryUtility( IShippingRateService,
+                                           order.shipping_service )
+    
+    # play nice if the a shipping method is removed from the store
+    if not service: 
+        return None
+        
+    return service.getMethodName( order.shipping_method )
+    
+def getShipmentWeight(order):
+    """
+    Lets return the weight in lbs for the moment
+    """
+    # check the traversable wrrapper
+    if not IShippableOrder.providedBy( order ):
+        return None
+
+    totalShipmentWeight = 0
+    for eachProduct in order.shopping_cart.values():
+        if IShippableLineItem.providedBy( eachProduct ):
+            weightValue = eachProduct.weight * eachProduct.quantity
+            totalShipmentWeight += weightValue
+    return totalShipmentWeight

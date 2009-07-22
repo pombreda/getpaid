@@ -29,7 +29,12 @@ class IGetPaidSalesforceOrderRecorderTypes(Interface):
                                                        required=True)
 
     gpsor_salesforce_item_object = schema.TextLine(title=u"Salesforce Item Object", 
-                                                       description=u"This object will hold the order items. It is optionally. If blank, the above object will be used, with a new SF record created for each item", 
+                                                       description=u"This object will hold the order items. It is optional. If blank, the above object will be used, with a new SF record created for each item", 
+                                                       default=None, 
+                                                       required=False)
+
+    gpsor_parent_sf_object_id = schema.TextLine(title=u"Parent Object Id", 
+                                                       description=u"This will hold the id for the related parent salesforce object. This field mapping will be ignored if no object is provided for the items. (see Salesforce Item Object above)", 
                                                        default=None, 
                                                        required=False)
 
@@ -94,7 +99,7 @@ class IGetPaidSalesforceOrderRecorderTypes(Interface):
                                                   default=None, 
                                                   required=False)
     
-    gpsor_billing_address_zip = schema.TextLine(title=u"billing_address_zip", 
+    gpsor_billing_address_zip = schema.TextLine(title=u"Billing Address Zip", 
                                                 description=u"", 
                                                 default=None, 
                                                 required=False)
@@ -266,6 +271,13 @@ class GetPaidSalesforceOrderRecorderCPAdapter(SchemaAdapterBase):
     def get_gpsor_salesforce_item_object(self):
         return self.gpsor_props.gpsor_salesforce_item_object
     gpsor_salesforce_item_object = property(get_gpsor_salesforce_item_object, set_gpsor_salesforce_item_object)
+
+    def set_gpsor_parent_sf_object_id(self, value):
+        self.gpsor_props.gpsor_parent_sf_object_id = value
+
+    def get_gpsor_parent_sf_object_id(self):
+        return self.gpsor_props.gpsor_parent_sf_object_id
+    gpsor_parent_sf_object_id = property(get_gpsor_parent_sf_object_id, set_gpsor_parent_sf_object_id)
 
     def set_gpsor_first_name(self, value):
         self.gpsor_props.gpsor_first_name = value
