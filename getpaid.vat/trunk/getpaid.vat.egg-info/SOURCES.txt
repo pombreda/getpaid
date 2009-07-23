@@ -1,0 +1,11 @@
+setup.cfg
+setup.py
+getpaid/__init__.py
+getpaid.vat.egg-info/PKG-INFO
+getpaid.vat.egg-info/SOURCES.txt
+getpaid.vat.egg-info/dependency_links.txt
+getpaid.vat.egg-info/entry_points.txt
+getpaid.vat.egg-info/top_level.txt
+getpaid.vat.egg-info/zip-safe
+getpaid/vat/__init__.py
+getpaid/vat/tax.py
