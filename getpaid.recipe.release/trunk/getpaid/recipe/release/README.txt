@@ -34,6 +34,7 @@ Available packages:
 * getpaid.report
 * getpaid.warehouse
 * getpaid.SalesforcePloneFormGenAdapter
+* getpaid.SalesforceOrderRecorder
 
 What to add in your buildout
 ============================

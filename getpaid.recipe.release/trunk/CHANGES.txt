@@ -1,8 +1,18 @@
 =======
 CHANGES
 =======
-1.6 (unreleased)
+1.7 (unreleased)
 ----------------
+
+1.6 (2009-07-23)
+----------------
+* update Products.PloneGetPaid [larubbio]
+* update getpaid.authorizedotnet [larubbio]
+* update getpaid.SalesforcePloneFormGenAdapter [larubbio]
+* add getpaid.SalesforceOrderRecorder [larubbio]
+* update getpaid.payflowpro [larubbio]
+* update getpaid.formgen [larubbio]
+* update simplejson to 2.0.9 [larubbio]
 
 1.5 (2009-07-10)
 ----------------
