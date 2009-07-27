@@ -1,40 +1,17 @@
-=================
-Pre import
-=================
     >>> from Products.CMFCore.utils import getToolByName
 
-Check Plone Root
----------------------
-    >>> app.objectIds()
-    ['Control_Panel', 'plone', 'acl_users', 'temp_folder', 'browser_id_manager', 'session_data_manager']
-    >>> app.session_data_manager
-    <SessionDataManager at /session_data_manager>
-
 Setting up and logging in
--------------------------
-
-We use zope.testbrowser to simulate browser interaction in order to show
-the main flow of pages. This is not a true functional test, because we also
-inspect and modify the internal state of the ZODB, but it is a useful way of
-making sure we test the full end-to-end process of creating and modifying
-content.
-
     >>> from Products.Five.testbrowser import Browser
     >>> browser = Browser()
     >>> portal_url = self.portal.absolute_url()
     >>> portal_url
     'http://nohost/plone'
 
-The following is useful when writing and debugging testbrowser tests. It lets
-us see error messages properly.
-
+For debugging
     >>> browser.handleErrors = True
     >>> self.portal.error_log._ignored_exceptions = ()
 
-We then turn off the various portlets, because they sometimes duplicate links
-and text (e.g. the navtree, the recent recent items listing) that we wish to
-test for in our own views. Having no portlets makes things easier.
-
+Turn off portlets
     >>> from zope.component import getUtility, getMultiAdapter
     >>> from plone.portlets.interfaces import IPortletManager
     >>> from plone.portlets.interfaces import IPortletAssignmentMapping
@@ -49,9 +26,7 @@ test for in our own views. Having no portlets makes things easier.
     >>> for name in right_assignable.keys():
     ...     del right_assignable[name]
 
-Finally, we need to log in as the portal owner, i.e. an administrator user. We
-do this from the login page.
-
+Log in as the portal owner. We do this from the login page.
     >>> browser.open(portal_url)
     >>> from Products.PloneTestCase.setup import portal_owner, default_password
     >>> browser.open(portal_url + '/login_form?came_from=' + portal_url)
@@ -62,7 +37,6 @@ do this from the login page.
     ... except:
     ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
     ...     import pdb; pdb.set_trace()
-
 
     >>> browser.open(portal_url)
 
@@ -101,11 +75,16 @@ unambiguous value::
     >>> browser.getLink('Content Types').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Options').click()
-    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Verkkomaksut payment interface']
+    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Verkkomaksut Processor']
     >>> browser.getControl(name = 'form.allow_anonymous_checkout.used').value = 'on'
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Processor Settings').click()
+    >>> 'Verkkomaksut Processor' in browser.contents
+    True
+    >>> browser.getControl(name="active-payment-processors:list").value = ['Testing Processor', 'Verkkomaksut Processor']
+    >>> browser.getControl(name="submit").click()
+    >>> browser.open("http://nohost/plone/@@verkkomaksut_payment_settings_page")
     >>> fields_name = ['Merchant ID', 'Merchant Authentication Code']
     >>> for field in fields_name:
     ...     field in browser.contents 
@@ -177,5 +156,13 @@ Now go to the next form.
     ... except:
     ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
     ...     import pdb; pdb.set_trace()
+
+    >>> 'Verkkomaksut' in browser.contents
+    True
+    >>> browser.getControl(name="form.payment_processor").value = ['Verkkomaksut Processor']
+    >>> browser.getControl(name="form.actions.continue").click()
+
+    >>> open('/tmp/test-output.html', 'w').write(browser.contents)
+
     >>> "Card Holder Name" in browser.contents
     False
