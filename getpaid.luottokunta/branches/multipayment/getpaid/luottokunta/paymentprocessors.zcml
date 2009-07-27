@@ -18,13 +18,43 @@
     />
 
 <!-- Register payment processor specific user interface parts -->
+<!--
   <paymentprocessors:registerProcessor
     name="Luottokunta Processor"
     i18n_name="Luottokunta"
+    settings_view="luottokunta_payment_settings_page"
     selection_view="luottokunta_payment_button"
     review_pay_view="luottokunta_payment_pay_page"
     thank_you_view="luottokunta_payment_thank_you_page"
+    />
+-->
+  <paymentprocessors:registerProcessor
+    name="Luottokunta Processor"
+    i18n_name="Luottokunta"
     settings_view="luottokunta_payment_settings_page"
+    selection_view="luottokunta_payment_button"
+    review_pay_view="luottokunta_payment_pay_page"
+    />
+
+  <browser:page
+    for="getpaid.core.interfaces.IStore"
+    name="luottokunta_payment_settings_page"
+    class=".browser.admin.PaymentProcessor"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="getpaid.core.interfaces.IStore"
+    name="luottokunta_payment_button"
+    class=".browser.button.LuottokuntaPaymentButton"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="getpaid.core.interfaces.IStore"
+    name="luottokunta_payment_pay_page"
+    permission="zope2.View"
+    class=".browser.checkout.LuottokuntaCheckoutReviewAndPay"
     />
 
 </configure>

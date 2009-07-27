@@ -39,7 +39,7 @@ class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
         processor_name = manage_options.payment_processor
-        if processor_name == u'Luottokunta HTML form interface':
+        if processor_name == u'Luottokunta Processor':
             return True
         else:
             return False
