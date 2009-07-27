@@ -1,13 +1,15 @@
 from zope.interface import implements
 from zope.component import adapts
 from Products.CMFCore.interfaces import ISiteRoot
+from getpaid.core.interfaces import IStore
 from getpaid.core.interfaces import keys
 from getpaid.luottokunta.interfaces import ILuottokuntaProcessor, ILuottokuntaOptions
 
 class LuottokuntaProcessor( object ):
 
     implements(ILuottokuntaProcessor)
-    adapts(ISiteRoot)
+#    adapts(ISiteRoot)
+    adapts(IStore)
 
     options_interface = ILuottokuntaOptions
 
