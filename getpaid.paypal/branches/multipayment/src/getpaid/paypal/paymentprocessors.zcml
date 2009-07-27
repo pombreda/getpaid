@@ -1,0 +1,30 @@
+<!-- paymentprocessors.zcml for getpaid.paypal -->
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="getpaid.paypal">
+
+  <include package="getpaid.paymentprocessors" />
+
+<!-- Register logic class dealing with the actual payment -->
+  <adapter
+    for="getpaid.core.interfaces.IStore"
+    provides="getpaid.core.interfaces.IPaymentProcessor"
+    factory=".paypal.PaypalStandardProcessor"
+    name="PayPal Standard"
+    />
+
+<!-- Register payment processor specific user interface parts -->
+  <paymentprocessors:registerProcessor
+    name="Paypal Website Payments Standard"
+    i18n_name="PayPal Standard"
+    selection_view="paypal_payment_button"
+    review_pay_view="paypal_payment_pay_page"
+    thank_you_view="paypal_payment_thank_you_page"
+    settings_view="paypal_payment_settings_page"
+    />
+
+</configure>
