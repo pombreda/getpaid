@@ -5,7 +5,7 @@
     i18n_domain="getpaid.verkkomaksut">
 
   <adapter
-    name="Verkkomaksut payment interface"
+    name="Verkkomaksut Processor"
     factory=".verkkomaksut.VerkkomaksutProcessor" />
 
   <adapter
