@@ -21,10 +21,26 @@
   <paymentprocessors:registerProcessor
     name="Paypal Website Payments Standard"
     i18n_name="PayPal Standard"
+    settings_view="paypal_payment_settings_page"
     selection_view="paypal_payment_button"
     review_pay_view="paypal_payment_pay_page"
     thank_you_view="paypal_payment_thank_you_page"
-    settings_view="paypal_payment_settings_page"
     />
+
+  <browser:page
+    for="getpaid.core.interfaces.IStore"
+    name="paypal_payment_settings_page"
+    class=".browser.admin.PaymentProcessor"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="getpaid.core.interfaces.IStore"
+    name="paypal_payment_button"
+    class=".browser.button.PayPalPaymentButton"
+    permission="zope2.View"
+    />
+
+
 
 </configure>
