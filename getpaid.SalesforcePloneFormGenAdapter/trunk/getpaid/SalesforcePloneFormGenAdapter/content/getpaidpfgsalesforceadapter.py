@@ -505,7 +505,7 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
         # Order Date
         fixedRows.append(FixedRow(keyColumn="form_field",
                                   initialData={"form_field" : "Creation Date", 
-                                               "field_path" : "created_date",
+                                               "field_path" : "creation_date",
                                                "sf_field" : ""}))
         # Total Price
         fixedRows.append(FixedRow(keyColumn="form_field",
