@@ -146,3 +146,12 @@ Now go to the next form.
 
     >>> 'PayPal Standard' in browser.contents
     True
+
+    >>> browser.getControl(name="form.payment_processor").value = ['Paypal Website Payments Standard']
+    >>> try:
+    ...     browser.getControl(name="form.actions.continue").click()
+    ... except:
+    ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
+
+    >>> open('/tmp/test-output.html', 'w').write(browser.contents)
