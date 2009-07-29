@@ -3,6 +3,9 @@ CHANGES
 =======
 1.7 (unreleased)
 ----------------
+* update Products.PloneGetPaid [larubbio]
+* update getpaid.SalesforcePloneFormGenAdapter [larubbio]
+* update getpaid.formgen [larubbio]
 
 1.6 (2009-07-23)
 ----------------
