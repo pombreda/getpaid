@@ -33,7 +33,7 @@
 	  -->
     <paymentprocessors:registerProcessor
        name="Testing Processor"
-	   i18n_name="Test Payment"
+	   i18n_name="Testing Processor"
        selection_view="null_payment_button"
        review_pay_view="null_payment_review_pay_page"
        thank_you_view="null_payment_thank_you_page"
