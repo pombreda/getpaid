@@ -2,17 +2,12 @@ from Products.PloneGetPaid.browser.checkout import CheckoutReviewAndPay
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, INamedOrderUtility
-
-from Acquisition import aq_inner
-
+#from Acquisition import aq_inner
 from getpaid.luottokunta import LuottokuntaMessageFactory as _
 from getpaid.luottokunta.interfaces import ILuottokuntaOptions, ILuottokuntaOrderInfo
-
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter, getUtility
-
 import datetime
-
 from getpaid.core.interfaces import IOrderManager, IShoppingCartUtility
 from getpaid.luottokunta.config import ERROR_CODES
 

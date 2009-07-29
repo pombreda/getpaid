@@ -263,11 +263,6 @@ Now go to the next form.
 
 Now input authentication mac and next order id.
 
-#    >>> browser.open(portal_url)
-#    >>> browser.getLink('Site Setup').click()
-#    >>> browser.getLink('GetPaid').click()
-#    >>> browser.getLink('Payment Processor Settings').click()
-
     >>> browser.open("http://nohost/plone/@@luottokunta_payment_settings_page")
 
     >>> browser.getControl(name="form.authentication_mac").value = 'abcdef'
