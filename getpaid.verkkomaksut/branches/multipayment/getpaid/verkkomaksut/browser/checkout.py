@@ -38,7 +38,7 @@ class VerkkomaksutCheckoutReviewAndPay(CheckoutReviewAndPay):
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
         processor_name = manage_options.payment_processor
-        if processor_name == u'Verkkomaksut payment interface':
+        if processor_name == u'Verkkomaksut Processor':
             return True
         else:
             return False
