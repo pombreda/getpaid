@@ -5,13 +5,13 @@ Adapter LuottokuntaProcessor
     True
     >>> from getpaid.luottokunta.luottokunta import LuottokuntaProcessor
     >>> from zope.component import provideAdapter
-    >>> from Products.CMFCore.interfaces import ISiteRoot
+    >>> from getpaid.core.interfaces import IStore
     >>> provideAdapter(LuottokuntaProcessor, provides=ILuottokuntaProcessor)
     >>> from zope.interface import implements
     >>> class Mock(object):
     ...     def __init__(self, **kwargs):
     ...        for k, v in kwargs.items(): setattr(self, k, v)
-    ...     implements(ISiteRoot)
+    ...     implements(IStore)
     >>> portal = Mock()
     >>> context = Mock(portal_url=Mock(getPortalObject=lambda: portal))
     >>> luottokunta_processor = ILuottokuntaProcessor(context)

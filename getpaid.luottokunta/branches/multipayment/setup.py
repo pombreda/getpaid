@@ -1,7 +1,10 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.1.3'
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
+version = read('currency', 'converter', 'version.txt')[:-1]
 
 long_description = (
                         open("README.txt").read() + "\n" +
