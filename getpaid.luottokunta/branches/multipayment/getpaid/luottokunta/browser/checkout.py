@@ -2,7 +2,6 @@ from Products.PloneGetPaid.browser.checkout import CheckoutReviewAndPay
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, INamedOrderUtility
-#from Acquisition import aq_inner
 from getpaid.luottokunta import LuottokuntaMessageFactory as _
 from getpaid.luottokunta.interfaces import ILuottokuntaOptions, ILuottokuntaOrderInfo
 from Products.Five.browser import BrowserView
@@ -19,10 +18,19 @@ class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
     def update( self ):
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
+#        processor_name = manage_options.payment_processor
         order_manager = getUtility(IOrderManager)
         order = self.createOrder()
-        order.processor_id = processor_name
+#        order.processor_id = processor_name
+        properties = getToolByName(siteroot, 'portal_properties')
+        try:
+            processors = properties.payment_processor_properties.enabled_processors
+            processor = u'Luottokunta Processor'
+            if processor in processors:
+                order.processor_id = processor
+        except AttributeError:
+            processor_name = manage_options.payment_processor
+            order.processor_id = processor_name
         order.finance_workflow.fireTransition( "create" )
         order_manager.store(order)
         super( CheckoutReviewAndPay, self).update()
@@ -33,11 +41,25 @@ class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
         """
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
-        if processor_name == u'Luottokunta Processor':
-            return True
-        else:
-            return False
+#        processor_name = manage_options.payment_processor
+#        if processor_name == u'Luottokunta Processor':
+#            return True
+#        else:
+#            return False
+        properties = getToolByName(siteroot, 'portal_properties')
+        processor = u'Luottokunta Processor'
+        try:
+            processors = properties.payment_processor_properties.enabled_processors
+            if processor in processors:
+                return True
+            else:
+                return False
+        except AttributeError:
+            processor_name = manage_options.payment_processor
+            if processor_name == processor:
+                return True
+            else:
+                return False
 
     def years(self):
         results = [_(u'Year')]

@@ -75,7 +75,9 @@ unambiguous value::
     >>> browser.getLink('Content Types').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Options').click()
-    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Luottokunta Processor']
+
+#    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Luottokunta Processor']
+
     >>> browser.getControl(name = 'form.allow_anonymous_checkout.used').value = 'on'
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
