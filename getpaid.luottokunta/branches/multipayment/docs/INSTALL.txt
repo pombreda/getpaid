@@ -6,22 +6,18 @@ recipe to manage your project, just do this:
 
 * Add ``getpaid.luottokunta`` to the list of eggs to install, e.g.:
 
-    [buildout]
-
-    eggs =
-
-        getpaid.luottokunta
+    |   [buildout]
+    |   ...
+    |   eggs =
+    |       getpaid.luottokunta
 
 * Tell the plone.recipe.zope2instance recipe to install a ZCML slug:
 
-    [instance]
-    recipe = plone.recipe.zope2instance
-
-    zcml =
-
-        getpaid.luottokunta
-
-        getpaid.luottokunta-overrides
+    |   [instance]
+    |   ...
+    |   zcml =
+    |       getpaid.luottokunta
+    |       getpaid.luottokunta-overrides # Comment out this if getpaid.paymentprocessors is installed.
 
 * Re-run buildout, e.g. with:
 

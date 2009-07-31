@@ -4,7 +4,7 @@ import os
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = read('currency', 'converter', 'version.txt')[:-1]
+version = read('getpaid', 'luottokunta', 'version.txt')[:-1]
 
 long_description = (
                         open("README.txt").read() + "\n" +
@@ -25,7 +25,7 @@ setup(name='getpaid.luottokunta',
         ],
       keywords='',
       author='Taito Horiuchi',
-      author_email='taito.horiuchi[at]abita.fi',
+      author_email='taito.horiuchi@gmail.com',
       url='http://pypi.python.org/pypi/getpaid.luottokunta',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
