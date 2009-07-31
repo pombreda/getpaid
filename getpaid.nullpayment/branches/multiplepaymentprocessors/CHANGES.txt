@@ -2,6 +2,10 @@
 CHANGES
 =======
 
+0.4.0 (2009-07-29)
+------------------
+This version is for multiprocessor which uses getpaid.paymentprocessors package.
+* Component lookup error of makePayment method in checkout.py fixed. [taito]
 
 0.3.1 (2008-11-24)
 ------------------
