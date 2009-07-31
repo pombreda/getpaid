@@ -3,17 +3,15 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Acquisition import aq_inner
 from Products.Five.browser import BrowserView
 from AccessControl import getSecurityManager
-
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, INamedOrderUtility
-from getpaid.core import interfaces
+#from getpaid.core import interfaces
 from Products.PloneGetPaid.browser.checkout import CheckoutReviewAndPay
-from getpaid.verkkomaksut import VerkkomaksutMessageFactory as _
-
-from zope.interface import implements
-from zope.component import adapts, getUtility, getMultiAdapter
-from Products.CMFCore.interfaces import ISiteRoot
-from getpaid.core.interfaces import keys, IOrderManager, IShoppingCartUtility
-from getpaid.verkkomaksut.interfaces import IVerkkomaksutProcessor, IVerkkomaksutOptions, IVerkkomaksutOrderInfo
+#from getpaid.verkkomaksut import VerkkomaksutMessageFactory as _
+#from zope.interface import implements
+from zope.component import getUtility, getMultiAdapter#, adapts
+#from Products.CMFCore.interfaces import ISiteRoot
+from getpaid.core.interfaces import IOrderManager, IShoppingCartUtility#, keys
+from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions, IVerkkomaksutOrderInfo#,IVerkkomaksutProcessor
 
 class VerkkomaksutCheckoutReviewAndPay(CheckoutReviewAndPay):
 
@@ -23,10 +21,17 @@ class VerkkomaksutCheckoutReviewAndPay(CheckoutReviewAndPay):
     def update( self ):
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
         order_manager = getUtility(IOrderManager)
         order = self.createOrder()
-        order.processor_id = processor_name
+        properties = getToolByName(siteroot, 'portal_properties')
+        try:
+            processors = properties.payment_processor_properties.enabled_processors
+            processor = u'Verkkomaksut Processor'
+            if processor in processors:
+                order.processor_id = processor
+        except AttributeError:
+            processor_name = manage_options.payment_processor
+            order.processor_id = processor_name
         order.finance_workflow.fireTransition( "create" )
         order_manager.store(order)
         super( CheckoutReviewAndPay, self).update()
@@ -37,11 +42,20 @@ class VerkkomaksutCheckoutReviewAndPay(CheckoutReviewAndPay):
         """
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
-        if processor_name == u'Verkkomaksut Processor':
-            return True
-        else:
-            return False
+        properties = getToolByName(siteroot, 'portal_properties')
+        processor = u'Verkkomaksut Processor'
+        try:
+            processors = properties.payment_processor_properties.enabled_processors
+            if processor in processors:
+                return True
+            else:
+                return False
+        except AttributeError:
+            processor_name = manage_options.payment_processor
+            if processor_name == processor:
+                return True
+            else:
+                return False
 
     def verkkomaksut_options(self):
         context= aq_inner(self.context)
@@ -83,16 +97,3 @@ class VerkkomaksutThankYou(BrowserView):
             order.finance_workflow.fireTransition("charge-charging")
             getUtility(IShoppingCartUtility).destroy( self.context )
             return self.template()
-
-#class VerkkomaksutCancelledDeclinedView(BrowserView):
-
-#    template = ZopeTwoPageTemplateFile("templates/checkout-cancelled-declined.pt")
-
-#    def __call__(self):
-#        order_manager = getUtility(IOrderManager)
-#        form = self.request.form
-#        order_id = form.get('order_id')
-#        order = order_manager.get(order_id)
-#        order.finance_workflow.fireTransition("reviewing-declined")
-
-#        return self.template()

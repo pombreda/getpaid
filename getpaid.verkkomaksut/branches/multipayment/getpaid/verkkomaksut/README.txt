@@ -75,7 +75,9 @@ unambiguous value::
     >>> browser.getLink('Content Types').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Options').click()
-    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Verkkomaksut Processor']
+
+#    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Verkkomaksut Processor']
+
     >>> browser.getControl(name = 'form.allow_anonymous_checkout.used').value = 'on'
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()
@@ -160,7 +162,13 @@ Now go to the next form.
     >>> 'Verkkomaksut' in browser.contents
     True
     >>> browser.getControl(name="form.payment_processor").value = ['Verkkomaksut Processor']
-    >>> browser.getControl(name="form.actions.continue").click()
+    >>> try:
+    ...     browser.getControl(name="form.actions.continue").click()
+    ... except:
+    ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
+    ...     import pdb; pdb.set_trace()
+
+#    >>> browser.getControl(name="form.actions.continue").click()
 
     >>> open('/tmp/test-output.html', 'w').write(browser.contents)
 
