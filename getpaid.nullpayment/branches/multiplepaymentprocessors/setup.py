@@ -14,7 +14,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = read('currency', 'converter', 'version.txt')[:-1]
+version = read('src', 'getpaid', 'nullpayment', 'version.txt')[:-1]
 
 setup(
     name='getpaid.nullpayment',
