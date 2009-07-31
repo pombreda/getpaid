@@ -40,7 +40,6 @@ Log in as the portal owner. We do this from the login page.
 
     >>> browser.open(portal_url)
 
-=============================================================================================
 First install PloneGetPaid.
     >>> installer = getToolByName(portal, 'portal_quickinstaller')
     >>> installer.isProductAvailable('PloneGetPaid')
@@ -75,7 +74,9 @@ unambiguous value::
     >>> browser.getLink('Content Types').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Options').click()
-    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Paypal Website Payments Standard']
+
+#    >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Paypal Website Payments Standard']
+
     >>> browser.getControl(name = 'form.allow_anonymous_checkout.used').value = 'on'
     >>> browser.getControl('Apply').click()
     >>> browser.getLink('GetPaid').click()

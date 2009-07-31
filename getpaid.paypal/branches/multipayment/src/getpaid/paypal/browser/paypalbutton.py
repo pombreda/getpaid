@@ -1,15 +1,13 @@
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+#from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
-
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from getpaid.core.interfaces import IShoppingCartUtility, IOrderManager
 from getpaid.core.order import Order
 from getpaid.core import payment
-
 from cPickle import loads, dumps
 from AccessControl import getSecurityManager
-
+from Products.CMFCore.utils import getToolByName
 from getpaid.paypal.paypal import PaypalStandardProcessor
 
 class PaypalButtonView(BrowserView):
@@ -35,8 +33,17 @@ class PaypalButtonView(BrowserView):
         order.finance_workflow.fireTransition('create')
         
         # register the payment processor name to make the workflow handlers happy
-        order.processor_id = manage_options.payment_processor
-        
+#        order.processor_id = manage_options.payment_processor
+        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
+        properties = getToolByName(siteroot, 'portal_properties')
+        try:
+            processors = properties.payment_processor_properties.enabled_processors
+            processor = u'Paypal Website Payments Standard'
+            if processor in processors:
+                order.processor_id = processor
+        except AttributeError:
+            order.processor_id = manage_options.payment_processor
+
         # FIXME: registering an empty contact information list for now - need to populate this from user
         # if possible
         order.contact_information = payment.ContactInformation()

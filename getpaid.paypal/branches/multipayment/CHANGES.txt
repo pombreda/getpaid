@@ -2,6 +2,10 @@
 CHANGES
 =======
 
+For multipayment (2009-07-29)
+-----------------------------
+- PayPalCheckoutReviewAndPay class added for multi payment processors.
+
 0.4.3 (2009-05-15)
 ------------------
 
