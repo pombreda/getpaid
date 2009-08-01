@@ -2,17 +2,11 @@ from Products.PloneGetPaid.browser.checkout import CheckoutReviewAndPay
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, INamedOrderUtility
-
-from Acquisition import aq_inner
-
 from getpaid.luottokunta import LuottokuntaMessageFactory as _
 from getpaid.luottokunta.interfaces import ILuottokuntaOptions, ILuottokuntaOrderInfo
-
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter, getUtility
-
 import datetime
-
 from getpaid.core.interfaces import IOrderManager, IShoppingCartUtility
 from getpaid.luottokunta.config import ERROR_CODES
 
@@ -24,10 +18,17 @@ class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
     def update( self ):
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
         order_manager = getUtility(IOrderManager)
         order = self.createOrder()
-        order.processor_id = processor_name
+        properties = getToolByName(siteroot, 'portal_properties')
+        try:
+            processors = properties.payment_processor_properties.enabled_processors
+            processor = u'Luottokunta Processor'
+            if processor in processors:
+                order.processor_id = processor
+        except AttributeError:
+            processor_name = manage_options.payment_processor
+            order.processor_id = processor_name
         order.finance_workflow.fireTransition( "create" )
         order_manager.store(order)
         super( CheckoutReviewAndPay, self).update()
@@ -38,11 +39,20 @@ class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
         """
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         manage_options = IGetPaidManagementOptions(siteroot)
-        processor_name = manage_options.payment_processor
-        if processor_name == u'Luottokunta HTML form interface':
-            return True
-        else:
-            return False
+        properties = getToolByName(siteroot, 'portal_properties')
+        processor = u'Luottokunta Processor'
+        try:
+            processors = properties.payment_processor_properties.enabled_processors
+            if processor in processors:
+                return True
+            else:
+                return False
+        except AttributeError:
+            processor_name = manage_options.payment_processor
+            if processor_name == processor:
+                return True
+            else:
+                return False
 
     def years(self):
         results = [_(u'Year')]
@@ -108,6 +118,7 @@ class LuottokuntaCancelledDeclinedView(BrowserView):
         form = self.request.form
         error_code = form.get('LKSRC', None)
         self.error_message = ERROR_CODES.get(error_code)
+        self.luottokunta_order_error = False
         if self.error_message:
             self.error_title = self.error_message[0]
             self.error_description = self.error_message[1]
@@ -118,7 +129,7 @@ class LuottokuntaCancelledDeclinedView(BrowserView):
                     options.next_order_id = options.next_order_id + 1
                     self.luottokunta_order_error = True
 
-        form = self.request.form
+#        form = self.request.form
         order_id = form.get('getpaid_order_id', None)
         order_number = _(u'Order Number') + ': ' + order_id
         luottokunta_order_id = form.get('luottokunta_order_id', None)

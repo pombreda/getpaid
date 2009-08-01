@@ -15,8 +15,6 @@
      permission="zope2.View"
      />
 
-
-
   <browser:page
      for="*"
      class=".checkout.LuottokuntaCancelledDeclinedView"

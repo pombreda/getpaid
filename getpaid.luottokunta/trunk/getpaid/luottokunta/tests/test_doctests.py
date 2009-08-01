@@ -49,20 +49,6 @@ def test_suite():
             setUp=testing.setUp, tearDown=testing.tearDown,
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
 
-        #doctestunit.DocTestSuite(
-        #    module='getpaid.luottokunta.mymodule',
-        #    setUp=testing.setUp, tearDown=testing.tearDown),
-
-
-        # Integration tests that use PloneTestCase
-        #ztc.ZopeDocFileSuite(
-        #    'README.txt', package='getpaid.luottokunta',
-        #    test_class=TestCase),
-
-        #ztc.FunctionalDocFileSuite(
-        #    'browser.txt', package='getpaid.luottokunta',
-        #    test_class=TestCase),
-
         ztc.FunctionalDocFileSuite(
             'README.txt', package='getpaid.luottokunta',
             test_class=TestCase,
