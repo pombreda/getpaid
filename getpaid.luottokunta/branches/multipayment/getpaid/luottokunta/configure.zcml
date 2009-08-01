@@ -15,9 +15,6 @@
   <include zcml:condition="installed getpaid.paymentprocessors"
            file="paymentprocessors.zcml" />
 
-  <include zcml:condition="not-installed getpaid.paymentprocessors"
-           package=".browser" file="overrides.zcml" />
-
   <adapter
     name="Luottokunta Processor"
     factory=".luottokunta.LuottokuntaProcessor" />
