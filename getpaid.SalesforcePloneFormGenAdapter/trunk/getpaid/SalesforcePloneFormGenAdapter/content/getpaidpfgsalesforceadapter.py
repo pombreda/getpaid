@@ -542,7 +542,7 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
 
         fixedRows.append(FixedRow(keyColumn="form_field",
                                   initialData={"form_field" : "Shipping Cost", 
-                                               "field_path" : "shipping_price",
+                                               "field_path" : "getShippingCost",
                                                "sf_field" : ""}))
 
         return fixedRows
