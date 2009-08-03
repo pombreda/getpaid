@@ -4,6 +4,9 @@ CHANGES
 
 1.8 (unreleased)
 ----------------
+* update getpaid.formgen to 0.2.9
+* update getpaid.SalesforcePloneFormGenAdapter to 1.4
+* update getpaid.SalesforceOrderRecorder to 0.3
 
 1.7 (2009-07-28)
 ----------------
