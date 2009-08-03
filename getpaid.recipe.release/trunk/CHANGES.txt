@@ -2,7 +2,10 @@
 CHANGES
 =======
 
-1.8 (unreleased)
+1.9 (unreleased)
+----------------
+
+1.8 (2009-08-03)
 ----------------
 * update getpaid.formgen to 0.2.9
 * update getpaid.SalesforcePloneFormGenAdapter to 1.4
