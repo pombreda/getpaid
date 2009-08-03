@@ -26,12 +26,17 @@ def handleOrderWorkflowTransition( order, event ):
     # Only save the order if it has moved into the charged state
     # and the order was placed through PloneFormGen and the adapter is enabled
     if order.finance_state == event.destination and event.destination == workflow_states.order.finance.CHARGED:
+
         try:
             executeAdapter(order)
+        except ConflictError:
+            raise
         except Exception, e:
-            # I catch everything since any uncaught exception here 
+            # I catch everything since any uncaught exception here
             # will prevent the order from moving to charged
             logger.error("Exception saving order %s to salesforce: %s" % (order.order_id, e))
+        except:
+            logger.error("Unknown Exception saving order %s to salesforce" % (order.order_id))
 
 
 def executeAdapter(order):
@@ -129,31 +134,39 @@ def _mapOrderFields(order, sfObject, props):
         fullName = order.contact_information.name
         firstName = fullName.split(' ', 1)[0]
 
-        sfObject[props.gpsor_first_name] = firstName
+        if firstName is not None:
+            sfObject[props.gpsor_first_name] = firstName
     
     if props.gpsor_last_name:
         fullName = order.contact_information.name
         lastName = fullName.split(' ', 1)[1]
 
-        sfObject[props.gpsor_last_name] = lastName
+        if lastName is not None:
+            sfObject[props.gpsor_last_name] = lastName
 
     if props.gpsor_phone:
-        sfObject[props.gpsor_phone] = order.contact_information.phone_number
+        if order.contact_information.phone_number is not None:
+            sfObject[props.gpsor_phone] = order.contact_information.phone_number
             
     if props.gpsor_email:
-        sfObject[props.gpsor_email] = order.contact_information.email
+        if order.contact_information.email is not None:
+            sfObject[props.gpsor_email] = order.contact_information.email
 
     if props.gpsor_contact_allowed:
-        sfObject[props.gpsor_contact_allowed] = order.contact_information.marketing_preference
+        if order.contact_information.marketing_preference is not None:
+            sfObject[props.gpsor_contact_allowed] = order.contact_information.marketing_preference
 
     if props.gpsor_email_format_pref:
-        sfObject[props.gpsor_email_format_pref] = order.contact_information.email_html_format
+        if order.contact_information.email_html_format is not None:
+            sfObject[props.gpsor_email_format_pref] = order.contact_information.email_html_format
 
     if props.gpsor_billing_address_name:
-        sfObject[props.gpsor_billing_address_name] = order.billing_address.bill_name
+        if order.billing_address.bill_name is not None:
+            sfObject[props.gpsor_billing_address_name] = order.billing_address.bill_name
 
     if props.gpsor_billing_address_org:
-        sfObject[props.gpsor_billing_address_org] = order.billing_address.bill_organization
+        if order.billing_address.bill_organization is not None:
+            sfObject[props.gpsor_billing_address_org] = order.billing_address.bill_organization
 
     if props.gpsor_billing_address_street:
         line_1 = order.billing_address.bill_first_line
@@ -164,19 +177,24 @@ def _mapOrderFields(order, sfObject, props):
         else:
             value = "\n".join((line_1, line_2))
 
-        sfObject[props.gpsor_billing_address_street] = value
+        if value is not None:
+            sfObject[props.gpsor_billing_address_street] = value
 
     if props.gpsor_billing_address_city:
-        sfObject[props.gpsor_billing_address_city] = order.billing_address.bill_city
+        if order.billing_address.bill_city is not None:
+            sfObject[props.gpsor_billing_address_city] = order.billing_address.bill_city
 
     if props.gpsor_billing_address_country:
-        sfObject[props.gpsor_billing_address_country] = order.billing_address.bill_country
+        if order.billing_address.bill_country is not None:
+            sfObject[props.gpsor_billing_address_country] = order.billing_address.bill_country
 
     if props.gpsor_billing_address_state:
-        sfObject[props.gpsor_billing_address_state] = order.billing_address.bill_state
+        if order.billing_address.bill_state is not None:
+            sfObject[props.gpsor_billing_address_state] = order.billing_address.bill_state
 
     if props.gpsor_billing_address_zip:
-        sfObject[props.gpsor_billing_address_zip] = order.billing_address.bill_postal_code
+        if order.billing_address.bill_postal_code is not None:
+            sfObject[props.gpsor_billing_address_zip] = order.billing_address.bill_postal_code
 
     if props.gpsor_shipping_address_name:
         if order.shipping_address.ship_same_billing:
@@ -184,7 +202,8 @@ def _mapOrderFields(order, sfObject, props):
         else:
             value = order.shipping_address.ship_name
 
-        sfObject[props.gpsor_shipping_address_name] = value
+        if value is not None:
+            sfObject[props.gpsor_shipping_address_name] = value
 
     if props.gpsor_shipping_address_org:
         if order.shipping_address.ship_same_billing:
@@ -192,7 +211,8 @@ def _mapOrderFields(order, sfObject, props):
         else:
             value = order.shipping_address.ship_organization
 
-        sfObject[props.gpsor_shipping_address_org] = value
+        if value is not None:
+            sfObject[props.gpsor_shipping_address_org] = value
 
     if props.gpsor_shipping_address_street:
         if order.shipping_address.ship_same_billing:
@@ -207,7 +227,8 @@ def _mapOrderFields(order, sfObject, props):
         else:
             value = "\n".join((line_1, line_2))
 
-        sfObject[props.gpsor_shipping_address_street] = value
+        if value is not None:
+            sfObject[props.gpsor_shipping_address_street] = value
 
     if props.gpsor_shipping_address_city:
         if order.shipping_address.ship_same_billing:
@@ -215,7 +236,8 @@ def _mapOrderFields(order, sfObject, props):
         else:
             value = order.shipping_address.ship_city
 
-        sfObject[props.gpsor_shipping_address_city] = value
+        if value is not None:
+            sfObject[props.gpsor_shipping_address_city] = value
 
     if props.gpsor_shipping_address_country:
         if order.shipping_address.ship_same_billing:
@@ -223,7 +245,8 @@ def _mapOrderFields(order, sfObject, props):
         else:
             value = order.shipping_address.ship_country
 
-        sfObject[props.gpsor_shipping_address_country] = value
+        if value is not None:
+            sfObject[props.gpsor_shipping_address_country] = value
 
     if props.gpsor_shipping_address_state:
         if order.shipping_address.ship_same_billing:
@@ -231,7 +254,8 @@ def _mapOrderFields(order, sfObject, props):
         else:
             value = order.shipping_address.ship_state
 
-        sfObject[props.gpsor_shipping_address_state] = value
+        if value is not None:
+            sfObject[props.gpsor_shipping_address_state] = value
 
     if props.gpsor_shipping_address_zip:
         if order.shipping_address.ship_same_billing:
@@ -239,34 +263,43 @@ def _mapOrderFields(order, sfObject, props):
         else:
             value = order.shipping_address.ship_postal_code
 
-        sfObject[props.gpsor_shipping_address_zip] = value
+        if value is not None:
+            sfObject[props.gpsor_shipping_address_zip] = value
 
     if props.gpsor_order_id:
-        sfObject[props.gpsor_order_id] = order.order_id
+        if order.order_id is not None:
+                    sfObject[props.gpsor_order_id] = order.order_id
 
 #    if props.gpsor_creation_date:
 #        sfObject[props.gpsor_creation_date] = 
 
     if props.gpsor_order_total:
-        sfObject[props.gpsor_order_total] = order.getTotalPrice()
+        if order.getTotalPrice() is not None:
+            sfObject[props.gpsor_order_total] = order.getTotalPrice()
 
     if props.gpsor_transaction_id:
-        sfObject[props.gpsor_transaction_id] = order.processor_order_id
+        if order.processor_order_id is not None:
+            sfObject[props.gpsor_transaction_id] = order.processor_order_id
 
     if props.gpsor_cc_last_4:
-        sfObject[props.gpsor_cc_last_4] = order.user_payment_info_last4
+        if order.user_payment_info_last4 is not None:
+            sfObject[props.gpsor_cc_last_4] = order.user_payment_info_last4
 
     if props.gpsor_shipping_service:
-        sfObject[props.gpsor_shipping_service] = getShippingService(order)
+        if getShippingService(order) is not None:
+            sfObject[props.gpsor_shipping_service] = getShippingService(order)
 
     if props.gpsor_shipping_method:
-        sfObject[props.gpsor_shipping_method] = getShippingMethod(order)
+        if getShippingMethod(order) is not None:
+            sfObject[props.gpsor_shipping_method] = getShippingMethod(order)
 
     if props.gpsor_shipping_weight:
-        sfObject[props.gpsor_shipping_weight] = getShipmentWeight(order)
+        if getShipmentWeight(order) is not None:
+            sfObject[props.gpsor_shipping_weight] = getShipmentWeight(order)
 
     if props.gpsor_shipping_cost:
-        sfObject[props.gpsor_shipping_cost] = order.shipping_price
+        if order.getShippingCost() is not None:
+            sfObject[props.gpsor_shipping_cost] = order.getShippingCost()
 
 def _mapItemFields(item, sfObject, props, parentSFObjectId=None):
 
@@ -274,49 +307,64 @@ def _mapItemFields(item, sfObject, props, parentSFObjectId=None):
         sfObject[props.gpsor_parent_sf_object_id] = parentSFObjectId
 
     if props.gpsor_item_quantity:
-        sfObject[props.gpsor_item_quantity] = item.quantity
+        if item.quantity is not None:
+            sfObject[props.gpsor_item_quantity] = item.quantity
 
     if props.gpsor_item_id:
-        sfObject[props.gpsor_item_id] = order.shopping_cart.items.item_id
+        if order.shopping_cart.items.item_id is not None:
+            sfObject[props.gpsor_item_id] = order.shopping_cart.items.item_id
 
     if props.gpsor_item_name:
-        sfObject[props.gpsor_item_name] = item.name
+        if item.name is not None:
+            sfObject[props.gpsor_item_name] = item.name
 
     if props.gpsor_product_code:
-        sfObject[props.gpsor_product_code] = item.product_code
+        if item.product_code is not None:
+            sfObject[props.gpsor_product_code] = item.product_code
 
     if props.gpsor_product_sku:
-        sfObject[props.gpsor_product_sku] = item.sku
+        if item.sku is not None:
+            sfObject[props.gpsor_product_sku] = item.sku
 
     if props.gpsor_item_cost:
-        sfObject[props.gpsor_item_cost] = item.cost
+        if item.cost is not None:
+            sfObject[props.gpsor_item_cost] = item.cost
 
     if props.gpsor_total_item_cost:
-        sfObject[props.gpsor_total_item_cost] = item.cost * item.quantity
+        totalCost = item.cost * item.quantity
+        if totalCost is not None:
+            sfObject[props.gpsor_total_item_cost] = totalCost
 
     if props.gpsor_item_desc:
-        sfObject[props.gpsor_item_desc] = item.description
+        if item.description is not None:
+            sfObject[props.gpsor_item_desc] = item.description
 
     if props.gpsor_discount_code:
         value = ""
         annotation = IAnnotations(item[1])
         if "getpaid.discount.code" in annotation:
             value = annotation["getpaid.discount.code"]
-            sfObject[props.gpsor_discount_code] = value
+
+            if value is not None:
+                sfObject[props.gpsor_discount_code] = value
 
     if props.gpsor_discount_title:
         value = ""
         annotation = IAnnotations(item[1])
         if "getpaid.discount.code.title" in annotation:
             value = annotation["getpaid.discount.code.title"]
-            sfObject[props.gpsor_discount_title] = value
+
+            if value is not None:
+                sfObject[props.gpsor_discount_title] = value
 
     if props.gpsor_discount_total:
         value = ""
         annotation = IAnnotations(item[1])
         if "getpaid.discount.code.discount" in annotation:
             value = annotation["getpaid.discount.code.discount"]
-            sfObject[props.gpsor_discount_total] = value
+
+            if value is not None:
+                sfObject[props.gpsor_discount_total] = value
 
 
 def getShippingService(order):
