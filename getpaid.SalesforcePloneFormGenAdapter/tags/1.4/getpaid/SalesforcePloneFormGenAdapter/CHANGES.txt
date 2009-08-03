@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-1.4 (unreleased)
+1.4 (2009-08-03)
 ----------------
  - Improve exception handling
  - Fix a mapping error (getShippingPrice -> shipping_cost)
