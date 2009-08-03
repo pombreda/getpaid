@@ -647,11 +647,17 @@ def handleOrderWorkflowTransition( order, event ):
 
                 try:
                     executeAdapter(order, data, salesforce)
+                except ConflictError:
+                    raise
                 except Exception, e:
-                    # I catch everything since any uncaught exception here 
+                    # I catch everything since any uncaught exception here
                     # will prevent the order from moving to charged
                     logger.error("Exception saving order %s to salesforce: %s" % (order.order_id, e))
                     logger.info('Data: %s' % data)
+                except:
+                    logger.error("Unknown Exception saving order %s to salesforce" % (order.order_id))
+                    logger.info('Data: %s' % data)
+
 
 def executeAdapter(order, data, salesforce):
     sfObject = data['SFObjectForCustomer']
