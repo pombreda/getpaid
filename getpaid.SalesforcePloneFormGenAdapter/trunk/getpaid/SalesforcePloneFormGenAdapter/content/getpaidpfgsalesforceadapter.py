@@ -15,6 +15,7 @@ from Acquisition import aq_parent
 from zope.interface import classImplements
 from DateTime import DateTime
 from ZPublisher.HTTPRequest import FileUpload
+from ZODB.POSException import ConflictError
 try:
     # 3.0+
     from zope.contenttype import guess_content_type
@@ -542,7 +543,7 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
 
         fixedRows.append(FixedRow(keyColumn="form_field",
                                   initialData={"form_field" : "Shipping Cost", 
-                                               "field_path" : "getShippingCost",
+                                               "field_path" : "shipping_cost",
                                                "sf_field" : ""}))
 
         return fixedRows
