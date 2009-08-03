@@ -17,6 +17,8 @@ from getpaid.SalesforceOrderRecorder import SalesforceOrderRecorderMessageFactor
 from getpaid.core.interfaces import workflow_states, IShoppingCartUtility, IShippableOrder, IShippingRateService, IShippableLineItem
 from zope.app.component.hooks import getSite
 
+from ZODB.POSException import ConflictError
+
 logger = logging.getLogger("SalesforceOrderRecorder")
 
 def handleOrderWorkflowTransition( order, event ):
@@ -298,8 +300,8 @@ def _mapOrderFields(order, sfObject, props):
             sfObject[props.gpsor_shipping_weight] = getShipmentWeight(order)
 
     if props.gpsor_shipping_cost:
-        if order.getShippingCost() is not None:
-            sfObject[props.gpsor_shipping_cost] = order.getShippingCost()
+        if order.shipping_cost is not None:
+            sfObject[props.gpsor_shipping_cost] = order.shipping_cost
 
 def _mapItemFields(item, sfObject, props, parentSFObjectId=None):
 

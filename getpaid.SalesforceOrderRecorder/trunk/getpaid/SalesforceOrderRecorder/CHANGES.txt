@@ -1,5 +1,7 @@
 0.3 (unreleased)
 ----------------
+ * Fix shipping cost field nameing error
+ * Also fix an import
 
 0.2 (2009-08-03)
 ----------------
