@@ -32,8 +32,6 @@ class PaypalButtonView(BrowserView):
         new_order_id = order_manager.newOrderId()
         order = Order()
         
-        order.finance_workflow.fireTransition('create')
-        
         # register the payment processor name to make the workflow handlers happy
         order.processor_id = manage_options.payment_processor
         
@@ -48,6 +46,9 @@ class PaypalButtonView(BrowserView):
         # make cart safe for persistence by using pickling
         order.shopping_cart = loads(dumps(cart))
         order.user_id = getSecurityManager().getUser().getId()
+
+        order.finance_workflow.fireTransition('create')
+        
         order_manager.store(order)
 
         # have to wait for the order to be created and the cart added for this to work
