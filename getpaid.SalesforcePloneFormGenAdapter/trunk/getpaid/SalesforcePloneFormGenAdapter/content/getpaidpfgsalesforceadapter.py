@@ -517,7 +517,7 @@ class GetPaidPFGSalesforceAdapter(SalesforcePFGAdapter):
         # Transaction Id
         fixedRows.append(FixedRow(keyColumn="form_field",
                                   initialData={"form_field" : "Transaction Id", 
-                                               "field_path" : "processor_order_id",
+                                               "field_path" : "user_payment_info_trans_id",
                                                "sf_field" : ""}))
         # Credit Card Last 4
         fixedRows.append(FixedRow(keyColumn="form_field",
