@@ -78,7 +78,7 @@ class PayFlowPro( object ):
                                                                           city=ba.bill_city,
                                                                           state=ba.bill_state,
                                                                           zip=ba.bill_postal_code)])
-        order.processor_order_id = responses[0].pnref
+        order.user_payment_info_trans_id = responses[0].pnref
 
         annotation = IAnnotations(order)
         annotation[GetPaidInterfaces.keys.processor_txn_id] = responses[0].pnref
