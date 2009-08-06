@@ -281,7 +281,7 @@ def _mapOrderFields(order, sfObject, props):
 
     if props.gpsor_transaction_id:
         if order.processor_order_id is not None:
-            sfObject[props.gpsor_transaction_id] = order.processor_order_id
+            sfObject[props.gpsor_transaction_id] = order.user_payment_info_trans_id
 
     if props.gpsor_cc_last_4:
         if order.user_payment_info_last4 is not None:
