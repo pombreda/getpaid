@@ -40,11 +40,18 @@
     class=".browser.button.PayPalPaymentButton"
     permission="zope2.View"
     />
-
+<!--
   <browser:page
      for="getpaid.core.interfaces.IStore"
      name="paypal_payment_pay_page"
      class=".browser.checkout.PayPalCheckoutReviewAndPay"
+     permission="zope2.View"
+     />
+-->
+  <browser:page
+     for="getpaid.core.interfaces.IStore"
+     name="paypal_payment_pay_page"
+     class=".browser.pay.CheckoutReviewAndPay"
      permission="zope2.View"
      />
 
