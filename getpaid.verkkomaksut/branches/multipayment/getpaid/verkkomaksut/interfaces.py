@@ -14,7 +14,7 @@ class IVerkkomaksutOptions(IPaymentProcessorOptions):
     Verkkomaksut Options
     """
 
-    merchant_id = schema.ASCIILine( 
+    verkkomaksut_merchant_id = schema.ASCIILine( 
                         title = _(u"Merchant ID"),
                         description = _("Input merchant ID provided by Verkkomaksut."),
                         required=True,

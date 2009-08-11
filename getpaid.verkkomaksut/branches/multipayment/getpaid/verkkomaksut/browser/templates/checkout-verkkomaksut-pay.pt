@@ -95,7 +95,7 @@
         tal:define="options view/verkkomaksut_options;
                     order_info view/order_info">
     <input name="MERCHANT_ID" id="MERCHANT_ID" type="hidden" value="123466"
-           tal:attributes="value options/merchant_id">
+           tal:attributes="value options/verkkomaksut_merchant_id">
     <input name="AMOUNT" id="AMOUNT" type="hidden" value="99.90"
            tal:attributes="value order_info/AMOUNT">
     <input name="ORDER_NUMBER" id="ORDER_NUMBER" type="hidden" value="123456"

@@ -34,7 +34,7 @@ class VerkkomaksutOrderInfo(object):
             customer_id = 'anonymous'
         verkkomaksut_price = '%.2f' %(context.getTotalPrice())
         options = IVerkkomaksutOptions(site)
-        merchant_id = options.merchant_id
+        verkkomaksut_merchant_id = options.verkkomaksut_merchant_id
         base_url = site.absolute_url()
 #        context.finance_workflow.fireTransition( "create" )
 #        state = context.finance_state
@@ -48,7 +48,7 @@ class VerkkomaksutOrderInfo(object):
 
         m = md5.new()
         m.update(options.merchant_authentication_code)
-        m.update('&' + merchant_id)
+        m.update('&' + verkkomaksut_merchant_id)
         m.update('&' + verkkomaksut_price)
         m.update('&' + order_id)
         m.update('&&' + customer_id)
@@ -60,7 +60,7 @@ class VerkkomaksutOrderInfo(object):
         auth_code = m.hexdigest()
         AUTH_CODE = auth_code.upper()
         order_info = {
-                        "MERCHANT_ID" : merchant_id,
+                        "MERCHANT_ID" : verkkomaksut_merchant_id,
                         "AMOUNT" : verkkomaksut_price,
                         "ORDER_NUMBER" : order_id,
                         "ORDER_DESCRIPTION" : customer_id,
