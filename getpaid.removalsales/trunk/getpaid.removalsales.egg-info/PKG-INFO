@@ -1,0 +1,25 @@
+Metadata-Version: 1.0
+Name: getpaid.removalsales
+Version: 1.0dev-r3449
+Summary: Removal Sales Payment Processor
+Home-page: http://svn.plone.org/svn/plone/plone.app.example
+Author: Twinapex Ltd.
+Author-email: ilja.everila@twinapex.com
+License: GPL
+Description: Introduction
+        ============
+        
+        Removal Sales Payment Processor for removing items from stock through sales, leaving records
+        
+        Changelog
+        =========
+        
+        1.0 (xxxx-xx-xx)
+        ----------------
+        
+        * Initial release
+        
+Platform: UNKNOWN
+Classifier: Framework :: Plone
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

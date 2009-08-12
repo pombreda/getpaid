@@ -1,0 +1,73 @@
+
+<configure xmlns="http://namespaces.zope.org/zope"
+	xmlns:five="http://namespaces.zope.org/five"
+	xmlns:i18n="http://namespaces.zope.org/i18n"
+	xmlns:paymentprocessors="http://namespaces.plonegetpaid.com/paymentprocessors"
+	xmlns:browser="http://namespaces.zope.org/browser"
+	i18n:domain="getpaid.removalsalespayment"
+	>
+
+	<!-- Depend on this package - enable new paymentprocessor directives -->
+	<include package="getpaid.paymentprocessors" />
+
+	<!-- Register payment processor "removalsalespayment"
+
+	For explanation of attributes, please see
+	getpaid.paymentprocessors.directives.IRegisterPaymentProcessorDirective
+	interface.
+
+	name must match one in getpaid.core.interfaces.IPaymentProcessor adapter declaration.
+	-->
+
+	<paymentprocessors:registerProcessor
+		name="Removalsales Processor"
+		i18n_name="Removalsales Processor"
+		selection_view="removalsales_payment_button"
+		review_pay_view="removalsales_payment_review_pay_page"
+		thank_you_view="removalsales_payment_thank_you_page"
+		settings_view="removalsales_payment_settings_page"
+		/>
+
+	<!-- This BrowserView is rendered on the payment method selection screen.
+
+	Special BasePaymentMethodButton browser view base class is used to here to
+	enable checkout wizard specific context information in template.
+	-->
+
+	<browser:page
+		for="getpaid.core.interfaces.IStore"
+		name="removalsales_payment_button"
+		class=".browser.button.RemovalsalesPaymentButton"
+		permission="zope2.View"
+		template="browser/templates/button.pt"
+		/>
+
+	<!-- This BrowserView is rendered after the payment has been completed -->
+	<browser:page
+		for="getpaid.core.interfaces.IStore"
+		name="removalsales_payment_thank_you_page"
+		permission="zope2.View"
+		template="browser/templates/thank_you.pt"
+		/>
+
+	<!-- This form is rendered on admin screen and it allows you to tune payment processor settings -->
+	<browser:page
+		for="getpaid.core.interfaces.IStore"
+		name="removalsales_payment_settings_page"
+		class=".browser.admin.PaymentProcessor"
+		permission="cmf.ManagePortal"
+		/>
+
+	<!--
+
+	Payment processor specific review and pay page.
+
+	-->
+	<browser:page
+		for="getpaid.core.interfaces.IStore"
+		name="removalsales_payment_review_pay_page"
+		permission="zope2.View"
+		class=".browser.pay.CheckoutReviewAndPay"
+		/>
+
+</configure>

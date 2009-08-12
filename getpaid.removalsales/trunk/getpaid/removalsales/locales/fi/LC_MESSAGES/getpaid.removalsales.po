@@ -1,0 +1,46 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# Finnish translations for PACKAGE package.
+# Ilja Everilä <saarni@etacarinae>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-08-04 11:15+0000\n"
+"PO-Revision-Date: 2009-08-04 13:56+0300\n"
+"Last-Translator: Ilja Everilä <saarni@etacarinae>\n"
+"Language-Team: Finnish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Code: fi\n"
+"Language-Name: Finnish\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: getpaid.removalsales\n"
+
+#: ./browser/pay.py:24
+msgid "Back"
+msgstr "Paluu"
+
+#: ./browser/pay.py:18
+msgid "Cancel"
+msgstr "Peruuta"
+
+#: ./browser/pay.py:28
+msgid "Make Removal"
+msgstr "Suorita poisto"
+
+#. Default: "Removal Sales"
+#: ./browser/templates/button.pt:7
+msgid "Removal Sales"
+msgstr "Poistomyynti"
+
+#. Default: "This is removal sales payment. No monetary transactions are performed."
+#: ./browser/templates/pay.pt:84
+msgid "This is removal sales payment. No monetary transactions are performed."
+msgstr "Tämä on poistomyynti. Mitään maksua ei suoriteta."
+
+#. Default: "This payment method is used for removing items from store leaving a sales record. No monetary transactions are performed."
+#: ./browser/templates/button.pt:10
+msgid "This payment method is used for removing items from store leaving a sales record. No monetary transactions are performed."
+msgstr "Poistomyyntiä käytetään tuotteiden poistoon varastosta jättäen merkintä tapahtumasta. Mitään maksua ei suoriteta."
+

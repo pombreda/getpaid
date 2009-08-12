@@ -1,0 +1,46 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-08-04 11:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: getpaid.removalsales\n"
+
+#: ./browser/pay.py:24
+msgid "Back"
+msgstr ""
+
+#: ./browser/pay.py:18
+msgid "Cancel"
+msgstr ""
+
+#: ./browser/pay.py:28
+msgid "Make Removal"
+msgstr ""
+
+#. Default: "Removal Sales"
+#: ./browser/templates/button.pt:7
+msgid "Removal Sales"
+msgstr ""
+
+#. Default: "This is removal sales payment. No monetary transactions are performed."
+#: ./browser/templates/pay.pt:84
+msgid "This is removal sales payment. No monetary transactions are performed."
+msgstr ""
+
+#. Default: "This payment method is used for removing items from store leaving a sales record. No monetary transactions are performed."
+#: ./browser/templates/button.pt:10
+msgid "This payment method is used for removing items from store leaving a sales record. No monetary transactions are performed."
+msgstr ""
+

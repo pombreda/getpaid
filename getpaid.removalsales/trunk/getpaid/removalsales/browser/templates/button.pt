@@ -1,0 +1,14 @@
+<tr i18n:domain="getpaid.removalsales" tal:define="processor view/getProcessor">
+	<td >
+		<input name="form.payment_processor" type="radio" tal:attributes="value processor/name">
+	</td>
+
+	<td>
+		<b i18n:translate="">Removal Sales</b>
+	</td>
+
+	<td class="description" i18n:translate="">
+		This payment method is used for removing items from store leaving a sales record. No monetary transactions are performed.
+	</td>
+</tr>
+
