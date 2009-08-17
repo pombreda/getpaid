@@ -19,8 +19,9 @@ class TestCase(ptc.FunctionalTestCase):
         @classmethod
         def setUp(cls):
             fiveconfigure.debug_mode = True
-            zcml.load_config('configure.zcml',
-                             getpaid.removalsales)
+#            zcml.load_config('configure.zcml',
+#                             getpaid.removalsales)
+            ztc.installPackage(getpaid.removalsales)
             fiveconfigure.debug_mode = False
 
         @classmethod

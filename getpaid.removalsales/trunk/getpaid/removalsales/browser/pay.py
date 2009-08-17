@@ -7,6 +7,7 @@ from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from AccessControl import getSecurityManager
 from Products.PloneGetPaid.browser import checkout as base
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from getpaid.removalsales.interfaces import IRemovalsalesOptions
 from getpaid.removalsales import _
 
 class CheckoutReviewAndPay(base.CheckoutReviewAndPay):
@@ -67,9 +68,12 @@ class CheckoutReviewAndPay(base.CheckoutReviewAndPay):
         # kill the cart after we create the order
         getUtility( IShoppingCartUtility ).destroy( self.context )
 
-        # fulfill the order - this will subtract it from warehouses
-        order.fulfillment_workflow.fireTransition('process-order')
-        order.fulfillment_workflow.fireTransition('deliver-processing-order')
+        options = IRemovalsalesOptions(siteroot)
+        
+        if options.removalsalesMarkAsDelivered:
+            # fulfill the order - this will subtract it from warehouses
+            order.fulfillment_workflow.fireTransition('process-order')
+            order.fulfillment_workflow.fireTransition('deliver-processing-order')
 
         self._next_url = self.getNextURL( order )
 

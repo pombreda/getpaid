@@ -1,5 +1,6 @@
 from zope.interface import implements
 from zope.component import adapts
+from Products.CMFCore.utils import getToolByName
 
 from getpaid.core.interfaces import IStore
 from getpaid.core.interfaces import keys
@@ -17,8 +18,13 @@ class RemovalsalesProcessor(object):
         self.context = context
 
     def capture(self, order, price):
-        # Release sales have no monetary transactions, hence they're always successful
-        return keys.results_success
+        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
+        options = IRemovalsalesOptions(siteroot)
+        if options.removalsalesAuthorize:
+            # Release sales have no monetary transactions, hence they're always successful
+            return keys.results_success
+        else:
+            return keys.results_async
 
     def authorize(self, order, payment):
         pass

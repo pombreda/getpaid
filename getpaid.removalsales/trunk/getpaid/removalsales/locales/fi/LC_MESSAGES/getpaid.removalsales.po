@@ -3,10 +3,10 @@
 # Ilja Everilä <saarni@etacarinae>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-08-04 11:15+0000\n"
+"Project-Id-Version: getpaid.removalsales 1.0\n"
+"POT-Creation-Date: 2009-08-17 10:16+0000\n"
 "PO-Revision-Date: 2009-08-04 13:56+0300\n"
-"Last-Translator: Ilja Everilä <saarni@etacarinae>\n"
+"Last-Translator: Ilja Everilä <ilja.everila@twinapex.com>\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,17 +17,33 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: getpaid.removalsales\n"
 
-#: ./browser/pay.py:24
+#: ./interfaces.py:18
+msgid "Authorize Sale"
+msgstr "Vahvista kauppa"
+
+#: ./interfaces.py:19
+msgid "Authorize sale on completion."
+msgstr "Vahvista kauppa suorituksen yhteydessä"
+
+#: ./browser/pay.py:25
 msgid "Back"
 msgstr "Paluu"
 
-#: ./browser/pay.py:18
+#: ./browser/pay.py:19
 msgid "Cancel"
 msgstr "Peruuta"
 
-#: ./browser/pay.py:28
+#: ./browser/pay.py:29
 msgid "Make Removal"
 msgstr "Suorita poisto"
+
+#: ./interfaces.py:25
+msgid "Mark As Delivered"
+msgstr "Merkitse toimitetuksi"
+
+#: ./interfaces.py:26
+msgid "Mark sales as delivered on completion."
+msgstr "Merkitse kauppa toimitetuksi suorituksen yhteydessä."
 
 #. Default: "Removal Sales"
 #: ./browser/templates/button.pt:7

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-08-04 11:15+0000\n"
+"POT-Creation-Date: 2009-08-17 10:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,32 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: getpaid.removalsales\n"
 
-#: ./browser/pay.py:24
+#: ./interfaces.py:18
+msgid "Authorize Sale"
+msgstr ""
+
+#: ./interfaces.py:19
+msgid "Authorize sale on completion."
+msgstr ""
+
+#: ./browser/pay.py:25
 msgid "Back"
 msgstr ""
 
-#: ./browser/pay.py:18
+#: ./browser/pay.py:19
 msgid "Cancel"
 msgstr ""
 
-#: ./browser/pay.py:28
+#: ./browser/pay.py:29
 msgid "Make Removal"
+msgstr ""
+
+#: ./interfaces.py:25
+msgid "Mark As Delivered"
+msgstr ""
+
+#: ./interfaces.py:26
+msgid "Mark sales as delivered on completion."
 msgstr ""
 
 #. Default: "Removal Sales"
