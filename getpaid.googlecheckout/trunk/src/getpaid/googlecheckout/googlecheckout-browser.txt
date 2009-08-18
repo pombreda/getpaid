@@ -76,7 +76,7 @@ Checkout process
 Visit the home page and add to the cart:
 
     >>> browser.getLink('Home').click()
-    >>> browser.getLink('Add to Cart').click()
+    >>> browser.getControl('Add to Cart').click()
 
 Which renders the populated cart for the visitor with a Google
 Checkout button:
