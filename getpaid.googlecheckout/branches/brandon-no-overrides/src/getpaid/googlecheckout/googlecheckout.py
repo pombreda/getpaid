@@ -61,6 +61,9 @@ class GoogleCheckoutProcessor(object):
         self.context = context
         self._controller = None
 
+    def checkout_link(self):
+        return u'<b>[Google Checkout Button]</b>'
+
     def getController( self ):
         if self._controller is None:
             self._controller = IGoogleCheckoutController(self.context)
