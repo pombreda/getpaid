@@ -31,10 +31,8 @@ from zope import schema
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid.googlecheckout')
 
-class IGoogleCheckoutProcessor( interfaces.IPaymentProcessor ):
-    """
-    Google Checkout Processor
-    """
+class IGoogleCheckoutWizard(interfaces.ICheckoutWizard):
+    """Google Checkout Wizard."""
 
 class IGoogleCheckoutOptions( interfaces.IPaymentProcessorOptions ):
     """

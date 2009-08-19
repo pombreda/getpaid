@@ -31,7 +31,7 @@ from gchecky import gxml
 
 from getpaid.core.interfaces  import IShoppingCartUtility
 from getpaid.googlecheckout.interfaces import IGoogleCheckoutOptions
-from getpaid.googlecheckout.interfaces import IGoogleCheckoutProcessor
+from getpaid.googlecheckout.interfaces import IGoogleCheckoutWizard
 from getpaid.googlecheckout.interfaces import IGoogleCheckoutController
 from getpaid.googlecheckout.interfaces import IGoogleCheckoutShipping
 
@@ -51,9 +51,9 @@ def gcart_item(entry, options):
         )
 
 
-class GoogleCheckoutProcessor(object):
+class GoogleCheckoutWizard(object):
 
-    implements(IGoogleCheckoutProcessor)
+    implements(IGoogleCheckoutWizard)
 
     options_interface = IGoogleCheckoutOptions
 

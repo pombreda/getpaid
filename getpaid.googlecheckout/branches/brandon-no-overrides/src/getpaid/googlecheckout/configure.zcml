@@ -14,9 +14,9 @@
 
    <adapter
       for="Products.CMFCore.interfaces.ISiteRoot"
-      provides="getpaid.core.interfaces.IPaymentProcessor"
-      name="Google Checkout"
-      factory=".googlecheckout.GoogleCheckoutProcessor" />
+      provides="getpaid.core.interfaces.ICheckoutWizard"
+      name="Off-site Google Checkout"
+      factory=".googlecheckout.GoogleCheckoutWizard" />
 
    <adapter
       for="Products.CMFCore.interfaces.ISiteRoot"
