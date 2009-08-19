@@ -2,9 +2,6 @@
  CHANGES
 =========
 
-0.5 (unreleased)
-----------------
-
 0.4 (unreleased)
 ----------------
  * Grab the processor id from the correct variable
