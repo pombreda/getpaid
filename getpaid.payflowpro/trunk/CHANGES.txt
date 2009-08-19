@@ -2,8 +2,12 @@
 CHANGES
 =======
 
-1.1 (unreleased)
+1.2 (unreleased)
 ----------------
+
+1.1 (2009-08-19)
+----------------
+- Store the processor id returned by payflowpro
 
 1.0 (2009-07-22)
 ----------------
