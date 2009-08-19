@@ -2,9 +2,6 @@
 CHANGES
 =======
 
-1.2 (unreleased)
-----------------
-
 1.1 (2009-08-19)
 ----------------
 - Store the processor id returned by payflowpro
