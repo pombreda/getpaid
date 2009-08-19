@@ -2,9 +2,6 @@
 CHANGES
 =======
 
-2.0 (unreleased)
-----------------
-
 1.9 (unreleased)
 ----------------
 - update getpaid.paypal to 0.4.4
