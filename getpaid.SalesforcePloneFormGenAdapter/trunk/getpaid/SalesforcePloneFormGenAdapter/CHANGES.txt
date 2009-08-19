@@ -2,8 +2,12 @@
 CHANGES
 =======
 
-1.5 (unreleased)
+1.6 (unreleased)
 ----------------
+
+1.5 (2009-08-19)
+----------------
+ - Grab the processor transaction id from the correct field
 
 1.4 (2009-08-03)
 ----------------
