@@ -6,7 +6,7 @@ def read(*rnames):
 
 setup(
     name='getpaid.payflowpro',
-    version='1.1dev',
+    version='1.2dev',
     license = 'ZPL2.1',
     author='Rob LaRubbio',
     author_email='rob@onenw.org',
