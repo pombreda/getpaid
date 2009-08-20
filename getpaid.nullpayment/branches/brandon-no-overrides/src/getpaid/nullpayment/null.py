@@ -48,9 +48,6 @@ class NullPaymentAdapter( object ):
         self.context = context
         self.settings = INullPaymentOptions( self.context )
         
-    def checkout_link(self):
-        return u'<b>[ Null Payment Processor Button ]</b>'
-
     def authorize( self, order, payment ):
         if self.settings.allow_authorization == u'allow_authorization':
             annotation = IAnnotations( order )
