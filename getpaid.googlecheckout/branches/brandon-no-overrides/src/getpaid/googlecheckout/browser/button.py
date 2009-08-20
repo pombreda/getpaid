@@ -21,6 +21,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+from Products.Five.browser import BrowserView
+from Products.CMFCore.utils import getToolByName
 from getpaid.googlecheckout.interfaces import IGoogleCheckoutOptions
 
 SANDBOX_URL = 'http://sandbox.google.com/checkout/buttons/checkout.gif?merchant_id=%s&w=160&h=43&style=white&variant=text&loc=%s'
@@ -38,3 +40,9 @@ def checkout_button_url(portal):
     else:
         loc = 'en_US'
     return url % (options.merchant_id, loc)
+
+
+class View(BrowserView):
+    def googleCheckoutButtonUrl(self):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        return checkout_button_url(portal)

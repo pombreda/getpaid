@@ -22,7 +22,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 from Products.Five.browser import BrowserView
-from getpaid.core.interfaces import IPaymentProcessor
+from getpaid.core.interfaces import ICheckoutWizard
 from getpaid.core.interfaces import IShoppingCartUtility
 from zope.component import getAdapter
 from zope.component import getUtility
@@ -31,8 +31,8 @@ from zope.component import getUtility
 class Checkout(BrowserView):
 
     def __call__(self):
-        processor = getAdapter(self.context, IPaymentProcessor,
-                               'Google Checkout')
+        processor = getAdapter(self.context, ICheckoutWizard,
+                               'Off-site Google Checkout')
         cart_utility = getUtility(IShoppingCartUtility)
         cart = cart_utility.get(self.context)
         analytics_data = self.request.form.get('analyticsdata', None)
