@@ -4,6 +4,13 @@
 
   <browser:page
      for="*"
+     template="templates/checkout-button.pt"
+     name="getpaid-google-checkout-button"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
      name="google-checkout"
      class=".checkout.Checkout"
      permission="zope2.View"
