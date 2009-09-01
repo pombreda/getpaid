@@ -90,7 +90,6 @@ class CouponCode(base.ATCTContent):
     schema = CouponCodeSchema
 
     def getPloneContentTypes(self):
-        import pdb; pdb.set_trace( )
         ptool = getToolByName(self, 'portal_types')
         types = ptool.listTypeInfo()
         types_list = []
@@ -102,7 +101,6 @@ class CouponCode(base.ATCTContent):
             title = item.title
             if title:
                 types_list.append((item.id, title))
-        import pdb; pdb.set_trace( )
         types_list.sort(lambda x, y: cmp(x[1].lower(), y[1].lower()))  
         return DisplayList(((types_list)))
 

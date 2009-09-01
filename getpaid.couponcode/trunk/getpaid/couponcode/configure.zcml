@@ -22,4 +22,15 @@
   
   <!-- -*- extra stuff goes here -*- -->
 
+  <subscriber
+      for="getpaid.couponcode.interfaces.ICouponCode
+           zope.app.event.interfaces.IObjectModifiedEvent"
+         handler="getpaid.couponcode.subscribers.makeCouponCodeBuyable"
+      />
+  <subscriber
+      for="getpaid.couponcode.interfaces.ICouponCode
+           zope.app.container.interfaces.IObjectAddedEvent"
+         handler="getpaid.couponcode.subscribers.makeCouponCodeBuyable"
+      />
+      
 </configure>
