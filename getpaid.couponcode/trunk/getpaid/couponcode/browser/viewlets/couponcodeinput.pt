@@ -8,8 +8,6 @@
      <tal:block tal:replace='structure string:</script>'></tal:block>
      <script>
        function setitup(){
-           alert("Setting it up");
-           alert($('#couponcode-value'));
            var valinput = $("#couponcode-value").val();
             $.ajax({
               type: "POST",
