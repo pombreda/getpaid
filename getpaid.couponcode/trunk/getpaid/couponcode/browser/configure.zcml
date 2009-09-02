@@ -14,4 +14,12 @@
         template="viewlets/couponcodeinput.pt"
         />
 
+  <browser:page
+     for="*"
+     name="couponcode_validation"
+     class=".validatecouponcode.ValidateCouponCode"
+     permission="zope2.View"
+     attribute="validate_couponcode"
+     />
+
 </configure>

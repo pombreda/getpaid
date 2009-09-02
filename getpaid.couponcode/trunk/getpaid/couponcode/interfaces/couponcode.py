@@ -10,3 +10,6 @@ class ICouponCode(Interface):
     """CouponCode"""
     
     # -*- schema definition goes here -*-
+
+class IValidateCouponCode(Interface):
+    """ Validate CouponCode """

@@ -1,4 +1,25 @@
 <div id="couponcodeinput">
-   <input type="text" id="couponcode" />
-   <input type="button" id="couponcode-apply" value="Apply Coupon" />
+   Coupon Code: 
+    <input type="text" id="couponcode-value" />
+     <a id="couponcode-apply" class="button context"
+        onClick="setitup()">Apply Coupon</a>
+     <tal:block tal:replace='structure string:<script type="text/javascript" charset="utf-8">'></tal:block>
+       var serverURL = '<span tal:replace='here/portal_url/absolute_url'>portal_url</span>';
+     <tal:block tal:replace='structure string:</script>'></tal:block>
+     <script>
+       function setitup(){
+           alert("Setting it up");
+           alert($('#couponcode-value'));
+           var valinput = $("#couponcode-value").val();
+            $.ajax({
+              type: "POST",
+              url: serverURL + "/@@couponcode_validation/validate_couponcode",
+              data: "couponcode=" + encodeURIComponent(valinput),
+              success: function(msg){
+                $(".portalMessage").hide();
+                $("#couponcode-value").before(msg);
+              }
+            });
+       }
+     </script>
 </div>
