@@ -3,8 +3,15 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="getpaid.couponcode">
 
-  <!--<include package="plone.app.contentmenu" /> #jessilfp-->
+  <!--<include package="plone.app.contentmenu" />-->
 
   <!-- -*- extra stuff goes here -*- -->
+  <browser:viewletManager
+        name="getpaid.couponcode-input"
+        provides="..interfaces.ICouponCodeInput"
+        permission="zope2.View"
+        class=".viewlets.viewletmanager.CouponCodeInputManager"
+        template="viewlets/couponcodeinput.pt"
+        />
 
 </configure>
