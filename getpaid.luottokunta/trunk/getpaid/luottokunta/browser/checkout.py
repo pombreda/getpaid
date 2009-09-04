@@ -1,3 +1,4 @@
+from AccessControl import getSecurityManager
 from Products.PloneGetPaid.browser.checkout import CheckoutReviewAndPay
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName

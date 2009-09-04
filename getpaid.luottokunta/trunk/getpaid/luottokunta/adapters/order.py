@@ -4,7 +4,6 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 import md5
 from zope.app.component.hooks import getSite
-
 from getpaid.core.order import Order
 
 ### For implements.
@@ -32,6 +31,8 @@ class LuottokuntaOrderInfo(object):
             customer_id = member_id + getpaid_order_id
         else:
             customer_id = 'Anonymous' + getpaid_order_id
+        ## Because Luottokunta allows only 12 characters for customer_id...
+        customer_id = customer_id[:12]
         price = context.getTotalPrice()
         luottokunta_price = '%.0f' %(price * 100)
         options = ILuottokuntaOptions(site)
