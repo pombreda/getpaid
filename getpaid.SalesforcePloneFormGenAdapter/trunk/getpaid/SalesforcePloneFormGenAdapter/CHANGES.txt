@@ -5,6 +5,9 @@ CHANGES
 1.6 (unreleased)
 ----------------
 
+ - Fix max beatbox dependency version.
+   [davisagli]
+
 1.5 (2009-08-19)
 ----------------
  - Grab the processor transaction id from the correct field
