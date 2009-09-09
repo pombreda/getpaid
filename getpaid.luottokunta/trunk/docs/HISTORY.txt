@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.2.2 (2009-08-07)
+------------------
+* Bug fixed when luottokunta authentication declined.
+
 0.2.1 (2009-08-01)
 ------------------
 * Fixes done for payment processor without getpaid.paymentprocessors installed.

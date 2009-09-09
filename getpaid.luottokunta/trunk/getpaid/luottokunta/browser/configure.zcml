@@ -17,8 +17,15 @@
 
   <browser:page
      for="*"
-     class=".checkout.LuottokuntaCancelledDeclinedView"
-     name="luottokunta-cancelled-declined"
+     class=".checkout.LuottokuntaDeclinedView"
+     name="luottokunta-declined"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     for="*"
+     class=".checkout.LuottokuntaCancelledView"
+     name="luottokunta-cancelled"
      permission="zope2.View"
      />
 

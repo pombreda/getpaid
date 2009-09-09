@@ -124,6 +124,8 @@
                tal:attributes="value order_info/success_url" />
         <input type="hidden" name="Failure_Url" id="Failure_Url"
                tal:attributes="value order_info/failure_url" />
+        <input type="hidden" name="Cancel_Url" id="Cancel_Url"
+               tal:attributes="value order_info/cancel_url" />
         <input type="hidden" name="Authentication_Mac" id="Authentication_Mac"
                tal:attributes="value order_info/authentication_mac"
                tal:condition="order_info/authentication_mac" />

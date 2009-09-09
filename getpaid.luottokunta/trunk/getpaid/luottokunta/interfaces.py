@@ -1,8 +1,6 @@
 from zope import schema
 from zope.interface import Interface
-
 from getpaid.core.interfaces import IPaymentProcessor,IPaymentProcessorOptions
-
 from getpaid.luottokunta import LuottokuntaMessageFactory as _
 
 class ILuottokuntaProcessor(IPaymentProcessor):
@@ -57,11 +55,11 @@ class ILuottokuntaOptions(IPaymentProcessorOptions):
                         required=False,
                         )
 
-    allow_amex = schema.Bool(
-                        title = _(u"American Express"),
-                        description = _(u"If you allow AMEX as an payment method, check this option. Remember to read usage of AMEX located in Luottokunta's administaration page."),
-                        required=False,
-                        )
+#    allow_amex = schema.Bool(
+#                        title = _(u"American Express"),
+#                        description = _(u"If you allow AMEX as an payment method, check this option. Remember to read usage of AMEX located in Luottokunta's administaration page."),
+#                        required=False,
+#                        )
 
     use_incremental_order_id = schema.Bool(
                         title = _(u"Use Incremenatal Order Number"),
@@ -85,3 +83,7 @@ class ILuottokuntaOrderInfo(Interface):
 class ILuottokuntaLanguage(Interface):
     def __call__():
         """Returns Language variable."""
+
+class IDecimalPrice(Interface):
+    def __call__():
+        """Returns decimal price."""
