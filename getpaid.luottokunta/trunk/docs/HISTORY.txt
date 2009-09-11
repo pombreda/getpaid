@@ -1,5 +1,8 @@
 Changelog
 =========
+0.3.3 (2009-09-11)
+------------------
+* Fixed bug when query string does not hold order id in thanks page.
 
 0.3.2 (2009-09-09)
 ------------------
