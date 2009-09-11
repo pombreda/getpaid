@@ -80,10 +80,10 @@ class LuottokuntaThankYou(BrowserView):
                     )
         order_manager = getUtility(IOrderManager)
         form = self.request.form
-        order_id = form.get('getpaid_order_id')
+        order_id = form.get('getpaid_order_id', None)
         order = order_manager.get(order_id)
         luottokunta_order_id = form.get('luottokunta_order_id')
-        if order.finance_workflow.state().getState() == "CHARGED":
+        if order is not None and order.finance_workflow.state().getState() == "CHARGED":
             self.finance_state = "CHARGED"
             getUtility(IShoppingCartUtility).destroy( self.context )
             return self.template()

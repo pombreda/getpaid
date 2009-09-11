@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.3.2 (2009-09-09)
+------------------
+* Fixed rounding of total price.
+* Declined and canceled templates are now separated.
+* Tested with Card_Details_Transmit value = "0"
+* Tested with Plone-3.3.
+
 0.2.2 (2009-08-07)
 ------------------
 * Bug fixed when luottokunta authentication declined.
