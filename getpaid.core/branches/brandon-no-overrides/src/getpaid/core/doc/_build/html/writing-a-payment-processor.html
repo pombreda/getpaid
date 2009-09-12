@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing a Payment Processor for GetPaid &mdash; getpaid.core v0.7 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.7',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="getpaid.core v0.7 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to getpaid.core’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to getpaid.core’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">getpaid.core v0.7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Writing a Payment Processor for GetPaid</a><ul>
+<li><a class="reference external" href="#on-site-and-off-site-processing">On-site and off-site processing</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Welcome to getpaid.core&#8217;s documentation!</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/writing-a-payment-processor.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="writing-a-payment-processor-for-getpaid">
+<h1>Writing a Payment Processor for GetPaid<a class="headerlink" href="#writing-a-payment-processor-for-getpaid" title="Permalink to this headline">¶</a></h1>
+<p>Welcome, developers!</p>
+<p>This document is intended to be a comprehensive guide to writing payment
+processors for the GetPaid e-commerce framework.  At the moment, it is a
+mere draft. Actually, it is worse than a mere draft: it is actually
+simply a proposal, describing interfaces which are not yet even written.</p>
+<p>Why do I write about fictions?  Because I, Brandon Rhodes, am looking to
+clean up and improve how payment processors are written in GetPaid, and
+this guide to a fictitious development process is the best way I know to
+get everyone to think through my ideas about how payment processor
+integration should work.</p>
+<p>So, sit down, grab a cup of coffee, and imagine with me what it might
+soon be like to write a GetPaid payment processor.</p>
+<div class="section" id="on-site-and-off-site-processing">
+<h2>On-site and off-site processing<a class="headerlink" href="#on-site-and-off-site-processing" title="Permalink to this headline">¶</a></h2>
+<p>The first thing we need to establish is the difference between the two
+kinds of payment processor that GetPaid can use.</p>
+<p>The essential distinction is whether the user&#8217;s web browser ever gets
+redirected away from your GetPaid-powered web site and to the web site
+of the payment company you are using.</p>
+<ul class="simple">
+<li>If the user never leaves your web site, and their web browser never
+sends a GET or POST to the payment processing system you are using,
+then you are doing “on-site” payment processing: GetPaid is powering
+the entire user experience.  The form that contains the user&#8217;s credit
+cart number will POST to GetPaid&#8217;s checkout form, and the actual
+process of contacting the merchant processing system to charge their
+card happens behind the scenes from the user&#8217;s point of view.</li>
+<li>If the user <em>does</em> leave your site, such that the user&#8217;s browser POSTs
+a form to the payment processor&#8217;s web site, or is redirected there to
+finish entering their credit card information, then you are doing
+“off-site” payment processing.  This is true even if the user does not
+know that they were sent off-site because their POST was immediately
+followed by a redirect back to your own site: as long as the credit
+card number POSTs to some other web site, you are dealing with an
+“off-site” solution.</li>
+</ul>
+<p>This distinction is crucial, because there are many restrictions these
+days placed upon web sites that are going to handle credit card data.
+An off-site payment processing system that receives the credit card
+number for you without ever letting your site see it, like PayPal or
+Google Checkout, is a very popular way for site administrators to wipe
+their hands of the whole affair and put somebody else on the hook for
+handling sensitive financial data.</p>
+<p>The distinction is also crucial for you, the GetPaid developer, because
+it determines whether you are going to have to interact with the GetPaid
+user interface.  While running an on-site payment processor will place a
+high security burden on your web servers, they are relatively easy to
+write: you just have to write three functions, <tt class="xref docutils literal"><span class="pre">authorize()</span></tt>,
+<tt class="xref docutils literal"><span class="pre">capture()</span></tt>, and <tt class="xref docutils literal"><span class="pre">refund()</span></tt>, with which GetPaid can create
+and finalize a charge against a customer&#8217;s credit card.  Off-site
+payment processors, on the other hand, have to step into the normal
+GetPaid checkout process at some point and subvert it so that the user&#8217;s
+browser is sent elsewhere.  This makes them more complicated than their
+on-site brethren, but, as you will see from the instructions below, we
+have tried to make them, too, as easy for you to write as possible.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to getpaid.core’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">getpaid.core v0.7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, ifPeople.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>
