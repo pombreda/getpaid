@@ -81,7 +81,8 @@ processor class definition will look something like this::
 
     class GoogleCheckout(object):
         implements(IOnSitePaymentProcessor)
-        name = u'Google Checkout'
+        name = 'google-checkout'
+        title = u'Google Checkout'
         ...
 
 First, notice that the payment processor is not burdened with the need
@@ -98,10 +99,18 @@ GetPaid payment processor interfaces:
 * :class:`IOnSitePaymentProcessor` for on-site payment.
 * :class:`IOffSitePaymentProcessor` for off-site payment.
 
-Third and finally, each payment processor needs to provide a ``name``
+Third, a payment processor needs to declare a ``name`` that can be used
+in URLs and in other places where a brief string is needed to identify a
+given payment processor.  The ``name`` should consist only of lower-case
+letters and dashes.
+
+Fourth and finally, each payment processor needs to provide a ``title``
 for use in the GetPaid admin interface.  When a store owner is setting
 up GetPaid, they are given a menu of available payment processors to
-choose from.  The string you provide as ``name`` will be the choice by
+choose from.  The string you provide as ``title`` will be the choice by
 which the store owner can choose your payment processor.
+
+Payment Processor Customization
+-------------------------------
 
 
