@@ -18,7 +18,7 @@ integration should work.
 So, sit down, grab a cup of coffee, and imagine with me what it might
 soon be like to write a GetPaid payment processor.
 
-On-site and off-site processing
+On-site and Off-site Processing
 -------------------------------
 
 The first thing we need to establish is the difference between the two
@@ -55,13 +55,53 @@ handling sensitive financial data.
 
 The distinction is also crucial for you, the GetPaid developer, because
 it determines whether you are going to have to interact with the GetPaid
-user interface.  While running an on-site payment processor will place a
-high security burden on your web servers, they are relatively easy to
-write: you just have to write three functions, :func:`authorize()`,
-:func:`capture()`, and :func:`refund()`, with which GetPaid can create
-and finalize a charge against a customer's credit card.  Off-site
-payment processors, on the other hand, have to step into the normal
-GetPaid checkout process at some point and subvert it so that the user's
-browser is sent elsewhere.  This makes them more complicated than their
-on-site brethren, but, as you will see from the instructions below, we
-have tried to make them, too, as easy for you to write as possible.
+user interface — all of those forms and buttons that are presented to
+the user.  While running an on-site payment processor places a high
+security burden on your web servers, they are at least relatively easy
+payment processors to write: you just have to make three functions,
+:func:`authorize()`, :func:`capture()`, and :func:`refund()`, with which
+GetPaid can create and finalize a charge against a customer's credit
+card.  Off-site payment processors, on the other hand, have to step into
+the GetPaid checkout process at some point and subvert it so that the
+user's browser is sent elsewhere.
+
+Payment Processor Basics
+------------------------
+
+Whether you are writing an on-site or off-site payment processor, you
+will need to create a Python class that tells GetPaid everything about
+interfacing with your payment processor.  The first information that
+GetPaid will need is what kind of payment processor you are writing, and
+what the processor should be called in the menu from which the store
+owner selects which payment processor to use.  The top of your payment
+processor class definition will look something like this::
+
+    from zope.interface import implements
+    from getpaid.core.interfaces import IOnSitePaymentProcessor
+
+    class GoogleCheckout(object):
+        implements(IOnSitePaymentProcessor)
+        name = u'Google Checkout'
+        ...
+
+First, notice that the payment processor is not burdened with the need
+to inherit from any particular class; here, in fact, we see a payment
+processor inheriting from the completely generic ``object`` class.  Of
+course, if another class has functionality that you want to inherit and
+specialize, then by all means inherit from it.  But GetPaid cares only
+about how your class behaves, not how it is implemented, so just inherit
+from ``object`` unless you know you need a more specific parent class.
+
+Second, every payment processor needs to implement one of the two basic
+GetPaid payment processor interfaces:
+
+* :class:`IOnSitePaymentProcessor` for on-site payment.
+* :class:`IOffSitePaymentProcessor` for off-site payment.
+
+Third and finally, each payment processor needs to provide a ``name``
+for use in the GetPaid admin interface.  When a store owner is setting
+up GetPaid, they are given a menu of available payment processors to
+choose from.  The string you provide as ``name`` will be the choice by
+which the store owner can choose your payment processor.
+
+

@@ -40,7 +40,8 @@
             <h3><a href="index.html">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="">Writing a Payment Processor for GetPaid</a><ul>
-<li><a class="reference external" href="#on-site-and-off-site-processing">On-site and off-site processing</a></li>
+<li><a class="reference external" href="#on-site-and-off-site-processing">On-site and Off-site Processing</a></li>
+<li><a class="reference external" href="#payment-processor-basics">Payment Processor Basics</a></li>
 </ul>
 </li>
 </ul>
@@ -89,7 +90,7 @@ integration should work.</p>
 <p>So, sit down, grab a cup of coffee, and imagine with me what it might
 soon be like to write a GetPaid payment processor.</p>
 <div class="section" id="on-site-and-off-site-processing">
-<h2>On-site and off-site processing<a class="headerlink" href="#on-site-and-off-site-processing" title="Permalink to this headline">¶</a></h2>
+<h2>On-site and Off-site Processing<a class="headerlink" href="#on-site-and-off-site-processing" title="Permalink to this headline">¶</a></h2>
 <p>The first thing we need to establish is the difference between the two
 kinds of payment processor that GetPaid can use.</p>
 <p>The essential distinction is whether the user&#8217;s web browser ever gets
@@ -121,16 +122,52 @@ their hands of the whole affair and put somebody else on the hook for
 handling sensitive financial data.</p>
 <p>The distinction is also crucial for you, the GetPaid developer, because
 it determines whether you are going to have to interact with the GetPaid
-user interface.  While running an on-site payment processor will place a
-high security burden on your web servers, they are relatively easy to
-write: you just have to write three functions, <tt class="xref docutils literal"><span class="pre">authorize()</span></tt>,
-<tt class="xref docutils literal"><span class="pre">capture()</span></tt>, and <tt class="xref docutils literal"><span class="pre">refund()</span></tt>, with which GetPaid can create
-and finalize a charge against a customer&#8217;s credit card.  Off-site
-payment processors, on the other hand, have to step into the normal
-GetPaid checkout process at some point and subvert it so that the user&#8217;s
-browser is sent elsewhere.  This makes them more complicated than their
-on-site brethren, but, as you will see from the instructions below, we
-have tried to make them, too, as easy for you to write as possible.</p>
+user interface&nbsp;— all of those forms and buttons that are presented to
+the user.  While running an on-site payment processor places a high
+security burden on your web servers, they are at least relatively easy
+payment processors to write: you just have to make three functions,
+<tt class="xref docutils literal"><span class="pre">authorize()</span></tt>, <tt class="xref docutils literal"><span class="pre">capture()</span></tt>, and <tt class="xref docutils literal"><span class="pre">refund()</span></tt>, with which
+GetPaid can create and finalize a charge against a customer&#8217;s credit
+card.  Off-site payment processors, on the other hand, have to step into
+the GetPaid checkout process at some point and subvert it so that the
+user&#8217;s browser is sent elsewhere.</p>
+</div>
+<div class="section" id="payment-processor-basics">
+<h2>Payment Processor Basics<a class="headerlink" href="#payment-processor-basics" title="Permalink to this headline">¶</a></h2>
+<p>Whether you are writing an on-site or off-site payment processor, you
+will need to create a Python class that tells GetPaid everything about
+interfacing with your payment processor.  The first information that
+GetPaid will need is what kind of payment processor you are writing, and
+what the processor should be called in the menu from which the store
+owner selects which payment processor to use.  The top of your payment
+processor class definition will look something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implements</span>
+<span class="kn">from</span> <span class="nn">getpaid.core.interfaces</span> <span class="kn">import</span> <span class="n">IOnSitePaymentProcessor</span>
+
+<span class="k">class</span> <span class="nc">GoogleCheckout</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IOnSitePaymentProcessor</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">u&#39;Google Checkout&#39;</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>First, notice that the payment processor is not burdened with the need
+to inherit from any particular class; here, in fact, we see a payment
+processor inheriting from the completely generic <tt class="docutils literal"><span class="pre">object</span></tt> class.  Of
+course, if another class has functionality that you want to inherit and
+specialize, then by all means inherit from it.  But GetPaid cares only
+about how your class behaves, not how it is implemented, so just inherit
+from <tt class="docutils literal"><span class="pre">object</span></tt> unless you know you need a more specific parent class.</p>
+<p>Second, every payment processor needs to implement one of the two basic
+GetPaid payment processor interfaces:</p>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">IOnSitePaymentProcessor</span></tt> for on-site payment.</li>
+<li><tt class="xref docutils literal"><span class="pre">IOffSitePaymentProcessor</span></tt> for off-site payment.</li>
+</ul>
+<p>Third and finally, each payment processor needs to provide a <tt class="docutils literal"><span class="pre">name</span></tt>
+for use in the GetPaid admin interface.  When a store owner is setting
+up GetPaid, they are given a menu of available payment processors to
+choose from.  The string you provide as <tt class="docutils literal"><span class="pre">name</span></tt> will be the choice by
+which the store owner can choose your payment processor.</p>
 </div>
 </div>
 
