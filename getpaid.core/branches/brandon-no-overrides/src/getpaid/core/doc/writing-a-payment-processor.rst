@@ -79,10 +79,10 @@ processor class definition will look something like this::
     from zope.interface import implements
     from getpaid.core.interfaces import IOnSitePaymentProcessor
 
-    class GoogleCheckout(object):
+    class ChargeIt(object):
         implements(IOnSitePaymentProcessor)
-        name = 'google-checkout'
-        title = u'Google Checkout'
+        name = 'charge-it'
+        title = _(u'ChargeIt checkout')
         ...
 
 First, notice that the payment processor is not burdened with the need
@@ -107,10 +107,67 @@ letters and dashes.
 Fourth and finally, each payment processor needs to provide a ``title``
 for use in the GetPaid admin interface.  When a store owner is setting
 up GetPaid, they are given a menu of available payment processors to
-choose from.  The string you provide as ``title`` will be the choice by
-which the store owner can choose your payment processor.
+choose from.  The string you provide as ``title`` will be the name of
+the choice that the store owner can click to select your payment
+processor.
 
-Payment Processor Customization
--------------------------------
+Payment Processor Options
+-------------------------
+
+Next, each payment processor needs to define the configuration options
+that the store owner will need to provide for the payment processor to
+operate.  The resulting form might look something like this::
+
+             Charge-It Options
+
+    Merchant account:  __________________
+    Merchant password: __________________
+
+    Processing mode:  ☑ Sandbox
+                      ☐ Production
+
+Be sure, by the way, to include an option that lets the store owner
+choose between “sandbox mode” and “production mode”.  When the former is
+selected, your package should still make real API calls to the payment
+service, but credit card processing should not actually take place; this
+lets store owners test and develop their site but without making actual
+purchases.  Look through the payment service's documentation for how
+this feature can be selected with their particular API, and then make
+sure you give the option to store owners.
+
+To define your processor options, simply create a Zope schema.  For the
+sample form shown above, you might write::
+
+    from getpaid.core.interfaces import IPaymentProcessorOptions
+
+    class IChargeItOptions(IPaymentProcessorOptions):
+        """Charge-It checkout configuration options."""
+
+        account = schema.ASCIILine(title=_(u"Merchant account"))
+        password = schema.ASCIILine(title=_(u"Merchant password"))
+        mode = schema.Choice(
+            title = _(u"Processing mode"),
+            values = (_(u"Sandbox"), _(u"Production")),
+            )
+
+To designate this interface as your configuration schema, simply
+reference it from your payment processor with a class variable named
+``options_schema``.  This expands the sample payment processor
+definition cited above so that it reads::
+
+    class ChargeIt(object):
+        implements(IOnSitePaymentProcessor)
+        name = 'charge-it'
+        title = u'ChargeIt checkout'
+        options_schema = IChargeItOptions
+        ...
+
+Once you have created your options schema and referenced it from your
+payment processor class, you are done!  GetPaid will automatically
+provide the store owner with a form for configuring your payment
+processor, and save the values they enter.  Later, when a customer is
+checking out, any of your routines that get called will be passed a
+``config`` object, already adapted to your schema, whose attributes
+contain the values specified by the site owner.
 
 
