@@ -45,13 +45,13 @@ of the payment company you are using.
   card number POSTs to some other web site, you are dealing with an
   “off-site” solution.
 
-This distinction is crucial, because there are many restrictions these
-days placed upon web sites that are going to handle credit card data.
-An off-site payment processing system that receives the credit card
-number for you without ever letting your site see it, like PayPal or
-Google Checkout, is a very popular way for site administrators to wipe
-their hands of the whole affair and put somebody else on the hook for
-handling sensitive financial data.
+This distinction is crucial, because there are many restrictions and
+liabilities these days for web servers that are going to handle credit
+card data.  An off-site payment processing system that receives the
+credit card number for you without ever letting your site see it, like
+PayPal or Google Checkout, is a very popular way for site administrators
+to wash their hands of the whole affair and put somebody else on the
+hook for handling sensitive financial data.
 
 The distinction is also crucial for you, the GetPaid developer, because
 it determines whether you are going to have to interact with the GetPaid
@@ -76,40 +76,37 @@ what the processor should be called in the menu from which the store
 owner selects which payment processor to use.  The top of your payment
 processor class definition will look something like this::
 
-    from zope.interface import implements
-    from getpaid.core.interfaces import IOnSitePaymentProcessor
+    from getpaid.core.processors import OnSitePaymentProcessor
 
-    class ChargeIt(object):
-        implements(IOnSitePaymentProcessor)
+    from zope.i18nmessageid import MessageFactory
+    _ = MessageFactory('getpaid.chargeit')
+
+    class ChargeIt(OnSitePaymentProcessor):
         name = 'charge-it'
         title = _(u'ChargeIt checkout')
         ...
 
-First, notice that the payment processor is not burdened with the need
-to inherit from any particular class; here, in fact, we see a payment
-processor inheriting from the completely generic ``object`` class.  Of
-course, if another class has functionality that you want to inherit and
-specialize, then by all means inherit from it.  But GetPaid cares only
-about how your class behaves, not how it is implemented, so just inherit
-from ``object`` unless you know you need a more specific parent class.
+First, notice that the payment processor inherits from an appropriate
+base class imported from :mod:`getpaid.core.processors`:
 
-Second, every payment processor needs to implement one of the two basic
-GetPaid payment processor interfaces:
+* :class:`OnSitePaymentProcessor` for on-site payment.
+* :class:`OffSitePaymentProcessor` for off-site payment.
 
-* :class:`IOnSitePaymentProcessor` for on-site payment.
-* :class:`IOffSitePaymentProcessor` for off-site payment.
+While this is not strictly necessary, it sets up several small features
+that your class will need that you would otherwise have to add yourself.
+Look up the definitions of each class in :mod:`getpaid.core` if you are
+curious to see what these are.
 
-Third, a payment processor needs to declare a ``name`` that can be used
+Second, a payment processor needs to declare a ``name`` that can be used
 in URLs and in other places where a brief string is needed to identify a
 given payment processor.  The ``name`` should consist only of lower-case
 letters and dashes.
 
-Fourth and finally, each payment processor needs to provide a ``title``
-for use in the GetPaid admin interface.  When a store owner is setting
-up GetPaid, they are given a menu of available payment processors to
-choose from.  The string you provide as ``title`` will be the name of
-the choice that the store owner can click to select your payment
-processor.
+Finally, each payment processor needs to provide a ``title`` for use in
+the GetPaid admin interface.  When a store owner is setting up GetPaid,
+they are given a menu of available payment processors to choose from.
+The string you provide as ``title`` will be the name of the choice that
+the store owner can click to select your payment processor.
 
 Payment Processor Options
 -------------------------
@@ -140,6 +137,9 @@ sample form shown above, you might write::
 
     from getpaid.core.interfaces import IPaymentProcessorOptions
 
+    from zope.i18nmessageid import MessageFactory
+    _ = MessageFactory('getpaid.chargeit')
+
     class IChargeItOptions(IPaymentProcessorOptions):
         """Charge-It checkout configuration options."""
 
@@ -155,8 +155,7 @@ reference it from your payment processor with a class variable named
 ``options_schema``.  This expands the sample payment processor
 definition cited above so that it reads::
 
-    class ChargeIt(object):
-        implements(IOnSitePaymentProcessor)
+    class ChargeIt(OnSitePaymentProcessor):
         name = 'charge-it'
         title = u'ChargeIt checkout'
         options_schema = IChargeItOptions
@@ -170,4 +169,54 @@ checking out, any of your routines that get called will be passed a
 ``config`` object, already adapted to your schema, whose attributes
 contain the values specified by the site owner.
 
+Using ZCML to declare your processor
+------------------------------------
 
+The last feature that all payment processors have in common is that they
+need a ZCML declaration that makes them available to GetPaid through the
+Zope Component Framework.  This file needs a single declaration that
+makes your payment processor available as a utility for GetPaid.  To be
+a good world citizen, you might also think about throwing in a
+translations declaration as well while you're at it:
+
+.. code-block:: xml
+
+    <configure xmlns="http://namespaces.zope.org/zope"
+               xmlns:i18n="http://namespaces.zope.org/i18n">
+
+      <i18n:registerTranslations directory="locales" />
+
+      <utility
+        provides="getpaid.core.interfaces.IOnSitePaymentProcessor"
+        factory=".processor.ChargeIt" />
+
+    </configure>
+
+This file should always be named :file:`configure.zcml` and be located
+in the base directory of your package.  If, for example, you are writing
+the package ``getpaid.chargeit``, then the ZCML file would be located
+at::
+
+    getpaid/chargeit/configure.zcml
+
+This ZCML file will be scanned when your package is loaded as part of a
+web site's configuration, and will be how GetPaid discovers your payment
+processor and puts it on the list of available processors in the site's
+admin interface in the first place.
+
+Writing the rest of your payment processor
+------------------------------------------
+
+Once you have taken the steps above, you will have a skeleton payment
+processor that does everything it needs to except, of course, process
+payments.
+
+Since on-site and off-site payment processors are so different, I have
+written two completely separate chapters on how to construct them.  At
+this point, follow the appropriate link to find out more about the kind
+of payment processor you are trying to construct.  Read carefully, ask
+questions on the mailing list, and point out areas where the
+documentation can be improved.  Thanks, and good luck!
+
+* :doc:`on-site-payment-processors`
+* :doc:`off-site-payment-processors`

@@ -19,4 +19,6 @@ explains how to write a payment processor.  Enjoy!
 .. toctree::
    :maxdepth: 2
 
-   writing-a-payment-processor.rst
+   writing-a-payment-processor
+   on-site-payment-processors
+   off-site-payment-processors
