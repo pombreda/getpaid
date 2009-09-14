@@ -5,6 +5,9 @@
 0.5 (unreleased)
 ----------------
 
+ * Removed max beatbox version restriction.
+   [davisagli]
+
 0.4 (unreleased)
 ----------------
  * Grab the processor id from the correct variable
