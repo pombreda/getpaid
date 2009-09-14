@@ -5,6 +5,9 @@
 0.5 (unreleased)
 ----------------
 
+ * Fix the user_payment_info_trans_id mapping, for real this time.
+   [davisagli]
+
  * Removed max beatbox version restriction.
    [davisagli]
 

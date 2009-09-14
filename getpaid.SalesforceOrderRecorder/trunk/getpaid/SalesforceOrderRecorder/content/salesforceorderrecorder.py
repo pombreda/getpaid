@@ -280,7 +280,7 @@ def _mapOrderFields(order, sfObject, props):
             sfObject[props.gpsor_order_total] = order.getTotalPrice()
 
     if props.gpsor_transaction_id:
-        if order.processor_order_id is not None:
+        if getattr(order, 'user_payment_info_trans_id') is not None:
             sfObject[props.gpsor_transaction_id] = order.user_payment_info_trans_id
 
     if props.gpsor_cc_last_4:
