@@ -104,8 +104,8 @@ soon be like to write a GetPaid payment processor.</p>
 <p>The first thing we need to establish is the difference between the two
 kinds of payment processor that GetPaid can use.</p>
 <p>The essential distinction is whether the user&#8217;s web browser ever gets
-redirected away from your GetPaid-powered web site and to the web site
-of the payment company you are using.</p>
+redirected away from your GetPaid-powered web site and on to the web
+site of the payment company you are using.</p>
 <ul class="simple">
 <li>If the user never leaves your web site, and their web browser never
 sends a GET or POST to the payment processing system you are using,
@@ -114,22 +114,22 @@ the entire user experience.  The form that contains the user&#8217;s credit
 cart number will POST to GetPaid&#8217;s checkout form, and the actual
 process of contacting the merchant processing system to charge their
 card happens behind the scenes from the user&#8217;s point of view.</li>
-<li>If the user <em>does</em> leave your site, such that the user&#8217;s browser POSTs
-a form to the payment processor&#8217;s web site, or is redirected there to
-finish entering their credit card information, then you are doing
-“off-site” payment processing.  This is true even if the user does not
-know that they were sent off-site because their POST was immediately
-followed by a redirect back to your own site: as long as the credit
-card number POSTs to some other web site, you are dealing with an
-“off-site” solution.</li>
+<li>If the user <em>does</em> leave your site, such that the user&#8217;s browser GETs
+a page or POSTs a form to the payment processor&#8217;s web site, or is
+redirected there to finish entering their credit card information,
+then you are doing “off-site” payment processing.  This is true even
+if the user does not know that they are sent off-site because their
+POST is immediately followed by a redirect back to your own site: as
+long as the credit card number POSTs to some other web site, you are
+dealing with an “off-site” payment processor.</li>
 </ul>
 <p>This distinction is crucial, because there are many restrictions and
 liabilities these days for web servers that are going to handle credit
 card data.  An off-site payment processing system that receives the
-credit card number for you without ever letting your site see it, like
-PayPal or Google Checkout, is a very popular way for site administrators
-to wash their hands of the whole affair and put somebody else on the
-hook for handling sensitive financial data.</p>
+credit card number on your behalf without ever letting your server see
+it, like PayPal or Google Checkout, is a very popular way for site
+administrators to wash their hands of the whole affair and put somebody
+else on the hook for handling sensitive financial data.</p>
 <p>The distinction is also crucial for you, the GetPaid developer, because
 it determines whether you are going to have to interact with the GetPaid
 user interface&nbsp;— all of those forms and buttons that are presented to
@@ -140,15 +140,16 @@ payment processors to write: you just have to make three functions,
 GetPaid can create and finalize a charge against a customer&#8217;s credit
 card.  Off-site payment processors, on the other hand, have to step into
 the GetPaid checkout process at some point and subvert it so that the
-user&#8217;s browser is sent elsewhere.</p>
+user&#8217;s browser is sent elsewhere&nbsp;— a more complicated arrangement that
+can involve redirects, special forms, and writing entire HTML views.</p>
 </div>
 <div class="section" id="payment-processor-basics">
 <h2>Payment Processor Basics<a class="headerlink" href="#payment-processor-basics" title="Permalink to this headline">¶</a></h2>
 <p>Whether you are writing an on-site or off-site payment processor, you
 will need to create a Python class that tells GetPaid everything about
 interfacing with your payment processor.  The first information that
-GetPaid will need is what kind of payment processor you are writing, and
-what the processor should be called in the menu from which the store
+GetPaid will need is which kind of payment processor you are writing,
+and what the processor should be called in the menu from which the store
 owner selects which payment processor to use.  The top of your payment
 processor class definition will look something like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">getpaid.core.processors</span> <span class="kn">import</span> <span class="n">OnSitePaymentProcessor</span>
@@ -180,12 +181,12 @@ letters and dashes.</p>
 the GetPaid admin interface.  When a store owner is setting up GetPaid,
 they are given a menu of available payment processors to choose from.
 The string you provide as <tt class="docutils literal"><span class="pre">title</span></tt> will be the name of the choice that
-the store owner can click to select your payment processor.</p>
+the store owner can select to use your particular payment processor.</p>
 </div>
 <div class="section" id="payment-processor-options">
 <h2>Payment Processor Options<a class="headerlink" href="#payment-processor-options" title="Permalink to this headline">¶</a></h2>
 <p>Next, each payment processor needs to define the configuration options
-that the store owner will need to provide for the payment processor to
+that the store owner will need to specify for the payment processor to
 operate.  The resulting form might look something like this:</p>
 <div class="highlight-python"><pre>         Charge-It Options
 
@@ -227,7 +228,7 @@ reference it from your payment processor with a class variable named
 definition cited above so that it reads:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ChargeIt</span><span class="p">(</span><span class="n">OnSitePaymentProcessor</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;charge-it&#39;</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="s">u&#39;ChargeIt checkout&#39;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;ChargeIt checkout&#39;</span><span class="p">)</span>
     <span class="n">options_schema</span> <span class="o">=</span> <span class="n">IChargeItOptions</span>
     <span class="o">...</span>
 </pre></div>

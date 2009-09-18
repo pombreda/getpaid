@@ -41,7 +41,11 @@
             <ul>
 <li><a class="reference external" href="">Off-site Payment Processors</a><ul>
 <li><a class="reference external" href="#your-payment-processor-class">Your payment processor class</a></li>
-<li><a class="reference external" href="#defining-your-view">Defining your view</a></li>
+<li><a class="reference external" href="#how-your-processor-class-is-used">How your processor class is used</a></li>
+<li><a class="reference external" href="#writing-views">Writing views</a></li>
+<li><a class="reference external" href="#sending-the-customer-off-site">Sending the customer off-site</a></li>
+<li><a class="reference external" href="#setting-up-the-welcome-back-views">Setting up the welcome-back views</a></li>
+<li><a class="reference external" href="#creating-and-resolving-an-order">Creating and resolving an Order</a></li>
 </ul>
 </li>
 </ul>
@@ -79,53 +83,55 @@
 <h1>Off-site Payment Processors<a class="headerlink" href="#off-site-payment-processors" title="Permalink to this headline">¶</a></h1>
 <p>By definition, an off-site payment processor redirects the user&#8217;s web
 browser off-site at some point during the GetPaid checkout process.
-There are two reasons why doing so is a bit complicated.</p>
+Writing support for an off-site solution can be a bit complicated,
+because you have think through every GET and POST that will be involved
+along the way as the user is sent off-site and then returns.  But if you
+simply tackle the issues one at a time, you should find the process of
+writing your payment processor quite manageable.</p>
+<p>There are several steps involved in writing an off-site payment
+processor, so here they are, in a simple list.  Use this list as an
+overview to help orient you as you read through this document, and also
+as a checklist to make sure you have covered everything when you think
+your payment processor package is nearing completion.</p>
 <ol class="arabic simple">
-<li>There are several points in the checkout process at which payment
-processors might want to redirect users off to their own sites.  For
-example, the Authorize.Net SIM protocol is designed to accept a POST
-from the final payment screen of a checkout process, meaning that it
-would need to take place after GetPaid has already accepted your
-mailing address and offered any pages of shipping options that were
-applicable.  Google Checkout, on the other hand, handles shipping
-options itself, and therefore wants the user redirected the moment
-they finish playing with their shopping cart and hit the “Checkout”
-button.</li>
-<li>Off-site payment processors need to override the page from which the
-user will be redirected off-site, so that they can craft and insert a
-form which will POST exactly the right information to the payment
-service to get the transaction processed.  Whether they provide an
-entire form or just a simple button, they need the power to render an
-HTML view and return its contents for inclusion on a checkout page.</li>
+<li>Provide a view that, through means of an HTML form, will direct the
+user off-site.  This view will either be an alternative to the normal
+GetPaid “Checkout” button, and thus skip the entire GetPaid checkout
+experience, or it will be a form that sits on the last of the GetPaid
+checkout screens in place of GetPaid&#8217;s normal credit-card form.
+Either way, your view will determine exactly how the user&#8217;s browser
+is directed away from GetPaid at the crucial moment.</li>
+<li>Provide a “Welcome back” experience for users returning when they
+have completed their order using the off-site processor.  This might
+be a single page that says either “Welcome back” or “Sorry you were
+declined” depending upon information encoded in the URL or form when
+the user returns from off-site, or it might be two pages with
+different URLs.</li>
+<li>Make sure that a GetPaid <tt class="xref docutils literal"><span class="pre">Order</span></tt> object gets created and
+marked as successfully &#8220;authorized&#8221; if the user completes the
+off-site process and their credit card is authorized for payment.</li>
+<li>If the off-site payment processor supports it, you should provide
+methods with which the GetPaid store owner can either capture the
+authorized funds once they are ready to send the buyer goods, or can
+refund the customer instead.</li>
 </ol>
-<p>Of course, there is one task for which every payment processor is
-responsible: establishing a web page on the site to which the user can
-be redirected when the off-site processing service is done with them.
-This not only presents the result of the transaction to the user and
-then allows them to navigate back to other parts of the store, but it
-also gives GetPaid a chance to mark the transaction as complete and
-empty the user&#8217;s shopping cart so that they can start filling it again.</p>
-<p>Fancy off-site payment processing systems often support a callback
-mechanism with which they can signal your site when a user finishes
-checking out, so that you find out that they did so whether or not their
-browser actually makes it back to your site.  GetPaid also lets you
-provide a page for this purpose, as we will see below.</p>
-<p>So, let&#8217;s get started!</p>
+<p>If any of these steps sound complicated, then, well, there&#8217;s the chance
+that they are&nbsp;— depending, largely, on how complicated the payment
+processing site is that you are trying to tie GetPaid into.  But we have
+tried to make your GetPaid development experience as happy as possible,
+as you will see in the following sections, where we will tackle each of
+the above goals and show you how to implement their solutions.</p>
 <div class="section" id="your-payment-processor-class">
 <h2>Your payment processor class<a class="headerlink" href="#your-payment-processor-class" title="Permalink to this headline">¶</a></h2>
-<p>In the <a class="reference external" href="writing-a-payment-processor.html"><em>Writing a Payment Processor for GetPaid</em></a> chapter, we started to
-construct a sample payment processor class.  Now we will learn how to
-finish it.</p>
-<p>Your payment processor should specify at which step in the checkout
-process it needs to be inserted, and also provide a view that can render
-the HTML that needs to be inserted there.</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">step_name</span> <span class="pre">=</span> <span class="pre">'checkout_button'</span></tt></dt>
-<dd>This indicates ...</dd>
-<dt><tt class="docutils literal"><span class="pre">step_name</span> <span class="pre">=</span> <span class="pre">'review_pay_form'</span></tt></dt>
-<dd>This says that ...</dd>
-</dl>
+<p>As discussed in the <a class="reference external" href="writing-a-payment-processor.html"><em>Writing a Payment Processor for GetPaid</em></a> introduction, the
+core of your payment processor code will be a class that inherits from
+the base class for off-site payment processors.  The only strict
+requirement beyond the basics we have already covered is that it must
+tell GetPaid which views to render to replace either the shopping cart
+check-out button or the review-and-pay credit-card form.  The result, at
+its simplest, looks something like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">getpaid.core.processors</span> <span class="kn">import</span> <span class="n">OffSitePaymentProcessor</span>
+<span class="kn">from</span> <span class="nn">getpaid.chargeit.interfaces</span> <span class="kn">import</span> <span class="n">IChargeItOptions</span>
 
 <span class="kn">from</span> <span class="nn">zope.i18nmessageid</span> <span class="kn">import</span> <span class="n">MessageFactory</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">MessageFactory</span><span class="p">(</span><span class="s">&#39;getpaid.chargeit&#39;</span><span class="p">)</span>
@@ -135,21 +141,277 @@ the HTML that needs to be inserted there.</p>
     <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;ChargeIt checkout&#39;</span><span class="p">)</span>
     <span class="n">options_schema</span> <span class="o">=</span> <span class="n">IChargeItOptions</span>
 
-    <span class="n">step_name</span> <span class="o">=</span> <span class="s">&#39;checkout_button&#39;</span>
-    <span class="n">view_name</span> <span class="o">=</span> <span class="s">&#39;getpaid.chargeit.button_view&#39;</span>
+    <span class="n">checkout_button</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">payment_form</span> <span class="o">=</span> <span class="s">&#39;pay_form&#39;</span>
 </pre></div>
 </div>
+<p>Here, the views names (in the next section we will start discussing the
+actual creation of the views themselves) have been specified using
+simple class attributes, and in many cases this is all you will need.</p>
+<p>The <tt class="docutils literal"><span class="pre">checkout_button</span></tt> attribute, if not <tt class="xref docutils literal"><span class="pre">None</span></tt>, should name the view
+that will replace the GetPaid checkout button at the bottom of each
+shopping cart view (both the cart portlet, and the main cart page).
+Similarly, the <tt class="docutils literal"><span class="pre">payment_form</span></tt> attribute names the view that should be
+rendered to supply the bottom pane of the last page of GetPaid&#8217;s
+checkout process.  Typically, you will only supply a name for one of
+these attributes, and leave the other <tt class="xref docutils literal"><span class="pre">None</span></tt>.</p>
+<p>Of course, just because this bare minimum is sufficient does not mean
+that your particular processor class needs to be this simple.  You will,
+in particular, find that the class is an excellent place to put logic
+that you want shared conveniently among your views.  But before we
+explore this idea, we should look at exactly how your payment processor
+class is used in GetPaid.</p>
 </div>
-<div class="section" id="defining-your-view">
-<h2>Defining your view<a class="headerlink" href="#defining-your-view" title="Permalink to this headline">¶</a></h2>
-<p>Of course, having named the view that will be rendered to generate your
-special check-out button or form, you now need to provide it.  Just as
-you normally would in a Zope project, create the named view using ...</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">Products.Five</span> <span class="kn">import</span> <span class="n">BrowserView</span>
-<span class="k">class</span> <span class="nc">CheckoutButtonView</span><span class="p">(</span><span class="n">BrowserView</span><span class="p">):</span>
-    <span class="k">pass</span>  <span class="c"># will automatically use &quot;checkoutbutton.pt&quot;</span>
+<div class="section" id="how-your-processor-class-is-used">
+<h2>How your processor class is used<a class="headerlink" href="#how-your-processor-class-is-used" title="Permalink to this headline">¶</a></h2>
+<p>You should be aware of the fact that GetPaid always asks questions of a
+fully-fledged <em>instance</em> of your class, and never of the bare class
+itself.  In other words, if faced with the class shown in the previous
+section, GetPaid would determine the name of the checkout view by doing
+something roughly equivalent to this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">payment_processor</span> <span class="o">=</span> <span class="n">ChargeIt</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">shopping_cart</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+<span class="n">checkout_view</span> <span class="o">=</span> <span class="n">payment_processor</span><span class="o">.</span><span class="n">checkout_button</span>
 </pre></div>
 </div>
+<p>The three arguments used to instantiate your class are simply stored in
+attributes of the same name by the initialize method that you inherit
+from <tt class="docutils literal"><span class="pre">OffSitePaymentProcessor</span></tt>, so you can access them easily.  The
+three values are:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">options</span></tt></dt>
+<dd>An object that implements the <tt class="docutils literal"><span class="pre">options_schema</span></tt> that your class
+names, whose attributes are the values that the store owner has set
+through the GetPaid admin interface.</dd>
+<dt><tt class="docutils literal"><span class="pre">shopping_cart</span></tt> <tt class="docutils literal"><span class="pre">order</span></tt></dt>
+<dd>(These two objects will be documented elsewhere, and links to those
+sections of the documentation added here in a while.)</dd>
+</dl>
+<p>Because GetPaid asks for the <tt class="docutils literal"><span class="pre">checkout_button</span></tt> and <tt class="docutils literal"><span class="pre">payment_form</span></tt>
+attributes of an instance of your class, and not simply of the class
+object itself, you have the option of generating the answer dynamically
+through code like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ChargeIt</span><span class="p">(</span><span class="n">OffSitePaymentProcessor</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">payment_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">inEuropeanUnion</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">&#39;euro-form&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">&#39;world-form&#39;</span>
+</pre></div>
+</div>
+<p>The likelihood of needing this flexibility is small.  After all, you
+could just supply one view whose outer level was a big “if” statement as
+easily as you could provide two separate views like this with a switch
+to decide between them.  But the ability is there if you ever need it.</p>
+</div>
+<div class="section" id="writing-views">
+<h2>Writing views<a class="headerlink" href="#writing-views" title="Permalink to this headline">¶</a></h2>
+<p>Since an off-site payment processor diverts the user away from the
+natural course of an on-site GetPaid checkout, it is going to have to
+render some HTML&nbsp;— you will have to write at least a modest link
+pointing off-site, and quite possibly a complete form.  In addition, you
+are going to have to prepare landing pages to which the user will return
+when they are done checking out, and you might also create URLs with
+which the off-site processor can provide updates to GetPaid as the buyer
+process through their checkout process.</p>
+<p>The views you create will fall into two genres.  First, you will create
+HTML “snippets” that are designed to be seen by the user, and that will
+be inserted into the theme of the larger web site of which GetPaid is a
+part.  Checkout buttons, review-pay forms, and welcome-back pages all
+fall into this category.  Second, you may also design complete web pages
+over which you have full control&nbsp;— and which will often be in machine
+formats like XML or JSON&nbsp;— for the consumption of the off-site payment
+service.</p>
+<p>With what technology should you create your views?  There are several
+technologies for constructing them in the Zope world today.  We
+recommend using <a class="reference external" href="http://codespeak.net/z3/five/">Five</a>, which is advanced enough to be sleek and modern,
+but established enough to be fairly widespread and something that other
+developers will understand.</p>
+<p>There is a nice, compact tutorial on <a class="reference external" href="http://plone.org/documentation/how-to/creating-a-minimalistic-zope-3-view">Creating a minimalistic Zope 3
+View</a> at <a class="reference external" href="http://plone.org/">http://plone.org/</a> that you should consult for details.  But
+the basic idea is that your Five-powered view will consist of three
+things: a page template file containing HTML; a “view” class that pulls
+together the data that the HTML needs; and, finally, a ZCML declaration
+telling GetPaid that your class and template go together.  To see how
+these three files work together to support a view, see the examples in
+the sections that follow.</p>
+</div>
+<div class="section" id="sending-the-customer-off-site">
+<h2>Sending the customer off-site<a class="headerlink" href="#sending-the-customer-off-site" title="Permalink to this headline">¶</a></h2>
+<p>The first view you will probably write is the checkout button or payment
+form that sends the user off-site.  Here is a very modest example of
+what it might look like:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!-- getpaid/chargeit/templates/pay_form.pt --&gt;</span>
+
+<span class="c">&lt;!-- In a template, &quot;view&quot; is an instance of your</span>
+<span class="c">     view class, and &quot;context&quot; is an instance of</span>
+<span class="c">     your payment processor class. --&gt;</span>
+
+<span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">tal:attributes=</span><span class="s">&quot;href view/offsite_url&quot;</span>
+     <span class="na">href=</span><span class="s">&quot;http://url.goes.here/&quot;</span><span class="nt">&gt;</span>
+     Check out using
+     <span class="nt">&lt;span</span> <span class="na">tal:replace=</span><span class="s">&quot;context/title&quot;</span><span class="nt">&gt;</span>
+       ChargeIt
+     <span class="nt">&lt;/span&gt;</span>
+   <span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -- getpaid/chargeit/views.py --</span>
+
+<span class="kn">from</span> <span class="nn">Products.Five</span> <span class="kn">import</span> <span class="n">BrowserView</span>
+<span class="k">class</span> <span class="nc">PayForm</span><span class="p">(</span><span class="n">BrowserView</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">offsite_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">for_real</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">&#39;http://express.chargeit.com/&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">&#39;http://sandbox.chargeit.com/&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- getpaid/chargeit/configure.zcml --&gt;</span>
+
+<span class="nt">&lt;configure</span>
+  <span class="na">xmlns=</span><span class="s">&quot;http://namespaces.zope.org/zope&quot;</span>
+  <span class="na">xmlns:browser=</span><span class="s">&quot;http://namespaces.zope.org/browser&quot;</span><span class="nt">&gt;</span>
+
+  ...
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;ChargeIt&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;pay_form&quot;</span>
+    <span class="na">class=</span><span class="s">&quot;.views.PayForm&quot;</span>
+    <span class="na">template=</span><span class="s">&quot;pay_form.pt&quot;</span>
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span>
+    <span class="nt">/&gt;</span>
+
+  ...
+
+<span class="nt">&lt;/configure&gt;</span>
+</pre></div>
+</div>
+<p>The view that sends your user off-site should, as in this example,
+declare that it is a are view <tt class="docutils literal"><span class="pre">for=</span></tt> your own payment processor class.
+This gives the view an interesting property: it will have no URL!
+Because your payment processor itself has no URL in a GetPaid-powered
+site, the user cannot add (in this example) <tt class="docutils literal"><span class="pre">/pay_form</span></tt> to the end of
+that URL and activate the view.  This limitation is deliberate: users
+should <em>not</em> be able to run your view logic unless GetPaid is already
+rendering a checkout page that the view belongs on.</p>
+<p>The key features that make the above example a fully working view for
+sending the user off-site are simply that:</p>
+<ol class="arabic simple">
+<li>The <em>name</em> of the view matches the name that GetPaid will receive
+when it asks your payment processor instance for the value of its
+<tt class="docutils literal"><span class="pre">checkout_button</span></tt> or <tt class="docutils literal"><span class="pre">payment_form</span></tt> attribute.</li>
+<li>The <em>context</em> for which the view is declared (<tt class="docutils literal"><span class="pre">for=</span></tt>) is your
+payment processor class itself.</li>
+</ol>
+<p>There are a few other things going on in the above code which we should
+note, in case you are new to writing Zope&nbsp;3 views.</p>
+<p>First, note that instead of hard-coding the payment processor name
+(“ChargeIt”) in the view, we ask it for its <tt class="docutils literal"><span class="pre">title</span></tt> instead.  This
+gives the store owner the chance to provide a translation suitable to
+their locale, since the title in the class&#8217;s definition is wrapped with
+a standard Zope <tt class="docutils literal"><span class="pre">_()</span></tt> translation wrapper.  You should try to provide
+this convenience for every customer-facing phrase that your view
+generates.</p>
+<p>Also, note that when GetPaid wants one of your views rendered, it
+instantiates a copy of your payment processor and provides it with
+objects that become the attributes <tt class="docutils literal"><span class="pre">options</span></tt>, <tt class="docutils literal"><span class="pre">shopping_cart</span></tt>, and
+<tt class="docutils literal"><span class="pre">order</span></tt>.  This means that all three of these things are available
+inside of your view class&#8217;s methods, where you can get to them with
+expressions like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">options</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">shopping_cart</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">order</span>
+</pre></div>
+</div>
+<p>They are also available inside the view itself, through TAL expressions
+like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">context</span><span class="o">/</span><span class="n">options</span>
+<span class="n">context</span><span class="o">/</span><span class="n">shopping_cart</span>
+<span class="n">context</span><span class="o">/</span><span class="n">order</span>
+</pre></div>
+</div>
+<p>The example above makes use of this by accessing the payment processor
+<tt class="docutils literal"><span class="pre">options</span></tt> to determine whether users should be sent off-site to the
+service&#8217;s testing “sandbox”, or to the real production service that
+actually takes money from real credit cards.</p>
+<p>Since order management is an important topic, we will talk more about it
+below, in its own section.  But we should probably repeat here that the
+third of the three values above&nbsp;— the <tt class="docutils literal"><span class="pre">order``&nbsp;—</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">``None</span></tt> if
+your view is a <tt class="docutils literal"><span class="pre">checkout_button</span></tt>, since at that point the checkout
+process has not actually started, but for a <tt class="docutils literal"><span class="pre">payment_form</span></tt> will be an
+<tt class="docutils literal"><span class="pre">Order</span></tt> object holding information about the buyer, their address, and
+their shipping preferences that was collected through the preceding
+steps of the GetPaid checkout process.</p>
+<p>The example view given above is overly simple, of course, because it
+makes no effort to transmit to the off-site processor either your store
+owner&#8217;s identity as a merchant, or the contents of the shopping cart, or
+even the total payment that is due to complete the transaction.  That is
+why your view will probably be a form with several hidden fields rather
+than a simple link like this.  But, however complex it becomes, your
+view work because it has the same basic features as the small view shown
+above.</p>
+</div>
+<div class="section" id="setting-up-the-welcome-back-views">
+<h2>Setting up the welcome-back views<a class="headerlink" href="#setting-up-the-welcome-back-views" title="Permalink to this headline">¶</a></h2>
+<p>The second category of view you will have to provide are the screens
+that welcome the user back when they are done checking out on the
+off-site service. ...</p>
+<p>/Plone
+/Plone/store
+/Plone/checkout/callback
+/Plone/</p>
+<p>How are GetPaid URLs constructed?  Every GetPaid installation involves
+the creation of a “store”, which has a URL beneath which all of the
+GetPaid web pages will live.  For example, consider a Plone site whose
+root has been marked as an <tt class="xref docutils literal"><span class="pre">IStore</span></tt>.  If the site has the URL:</p>
+<div class="highlight-python"><pre>http://store.example.com/</pre>
+</div>
+<p>then its GetPaid views will live URLs like:</p>
+<div class="highlight-python"><pre>http://store.example.com/checkout
+http://store.example.com/thank-you
+http://store.example.com/declined</pre>
+</div>
+<p>If, on the other hand, the web site owner has chosen to install the
+GetPaid <tt class="xref docutils literal"><span class="pre">IStore</span></tt> a bit deeper in their site, then it would be at
+the level beneath that URL that the GetPaid views were available.</p>
+<p>store will live at some URL
+store_views?
+no, normal views registered to IStore</p>
+<p>what is your URL?
+store = zope.component.getUtility(IStore)
+store_url = store.absolute_url()</p>
+<p>drat, when does order get created?</p>
+<p>&nbsp;— as best they can;
+off-site processors will</p>
+<p>establishing a URL on the site to which the
+user can be redirected when the off-site processing service is done with
+them.  This not only presents the result of the transaction to the user
+and then allows them to navigate back to other parts of the store, but
+it also gives GetPaid a chance to mark the transaction as complete and
+empty the user&#8217;s shopping cart so that they can start filling it again.</p>
+<p>Fancy off-site payment processing systems often support a callback
+mechanism with which they can signal your site when a user finishes
+checking out, so that you find out that they did so whether or not their
+browser actually makes it back to your site.  GetPaid also lets you
+provide a page for this purpose, as we will see below.</p>
+<p>So, let&#8217;s get started!</p>
+</div>
+<div class="section" id="creating-and-resolving-an-order">
+<h2>Creating and resolving an Order<a class="headerlink" href="#creating-and-resolving-an-order" title="Permalink to this headline">¶</a></h2>
+<p>An off-site processor packages must do their best to make sure
+that a GetPaid <tt class="xref docutils literal"><span class="pre">Order</span></tt> object is created for every off-site
+transaction that takes place, and that the order is moved into the
+<tt class="xref docutils literal"><span class="pre">CHARGED</span></tt> or <tt class="xref docutils literal"><span class="pre">PAYMENT_DECLINED</span></tt> state.  This logic can
+either be invoked by the “Welcome back” pages already mentioned, or by a
+special page that receives a direct POST notification from the payment
+processing service.  For more details, see the section on <a class="reference internal" href="#creating-and-resolving-an-order">Creating and
+resolving an Order</a> below.</p>
 </div>
 </div>
 
