@@ -25,6 +25,17 @@ You'll need:
 
 ==To Get Started==
 
+=== New fashioned way ===
+
+This checkout method is possible for Plone 3.2.x and later which are purely Python egg 
+based Plone distributions.
+
+  # Make a normal Plone 3.x install using [http://plone.org/documentation/tutorial/buildout/creating-a-buildout-for-your-project/ paster plone3_buildout] command
+  # Modify the resulting buildout.cfg as described in [http://getpaid.googlecode.com/svn/getpaid.buildout/trunk/getpaid.trunk.cfg getpaid.trunk.cfg] instructions
+  # Run commands described in [http://getpaid.googlecode.com/svn/getpaid.buildout/trunk/getpaid.trunk.cfg getpaid.trunk.cfg]
+
+=== Old fashioned way ===
+
 Checkout the getpaid.buildout infrastructure. The code for both Plone 2.5 and 3.0 buildouts can be obtained together, so only one place to check out from. Make sure you check it out to a location outside of any existing Zope instances.
 
 {{{
