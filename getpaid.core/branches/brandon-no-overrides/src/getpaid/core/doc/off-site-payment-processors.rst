@@ -147,9 +147,9 @@ natural course of an on-site GetPaid checkout, it is going to have to
 render some HTML — you will have to write at least a modest link
 pointing off-site, and quite possibly a complete form.  In addition, you
 are going to have to prepare landing pages to which the user will return
-when they are done checking out, and may also create URLs with which the
-off-site processor can provide updates to GetPaid as the buyer process
-through their checkout process.
+when they are done checking out, and you might also create URLs with
+which the off-site processor can provide updates to GetPaid as the buyer
+process through their checkout process.
 
 The views you create will fall into two genres.  First, you will create
 HTML “snippets” that are designed to be seen by the user, and that will
@@ -160,45 +160,44 @@ over which you have full control — and which will often be in machine
 formats like XML or JSON — for the consumption of the off-site payment
 service.
 
-Customer-facing views
----------------------
-
-If you have done much programming in Plone, you might be surprised by
-some of the properties of the view that you write to provide the HTML
-“snippets” that will lead the user off-site and to your payment
-processing service.  For one thing, they will typically be declared as
-views of a class — your payment processor class — instead of being
-“generic” views designed to render every object of a given interface.
-
-Since your payment processor does not have a URL in a GetPaid-powered
-site, there is no URL that a user can construct that will force your
-views to display.  This is deliberate; users have no business attempting
-to run your view code outside of a context in which GetPaid has taken
-deliberate steps to display it.
-
-How should you create your views?  There are several technologies for
-constructing them in the Zope world today.  We recommend using Five_,
-which is advanced enough to be sleek and modern, but established enough
-to be fairly widespread and something that other developers will
-understand.
+With what technology should you create your views?  There are several
+technologies for constructing them in the Zope world today.  We
+recommend using Five_, which is advanced enough to be sleek and modern,
+but established enough to be fairly widespread and something that other
+developers will understand.
 
 There is a nice, compact tutorial on `Creating a minimalistic Zope 3
-View`_ at http://plone.org/ that you should consult for details.  Here,
-we will mention that your Five-powered view will consist of three
-pieces: a page template file with the HTML, a “view” class that puts
-together the data that the HTML needs, and, finally, a ZCML declaration
-telling GetPaid everything about it.  We should go ahead and give an
-example ZCML declaration here, since that is what pulls everything
-together where GetPaid can find it:
+View`_ at http://plone.org/ that you should consult for details.  But
+the basic idea is that your Five-powered view will consist of three
+things: a page template file containing HTML; a “view” class that pulls
+together the data that the HTML needs; and, finally, a ZCML declaration
+telling GetPaid that your class and template go together.  To see how
+these three files work together to support a view, see the examples in
+the sections that follow.
+
+Sending the customer off-site
+-----------------------------
+
+The first view you will probably write is the checkout button or payment
+form that sends the user off-site.  Here is a very modest example of
+what it might look like:
 
 .. code-block:: html
 
     <!-- getpaid/chargeit/templates/pay_form.pt -->
 
+    <!-- In a template, "view" is an instance of your
+         view class, and "context" is an instance of
+         your payment processor class. -->
+
     <div>
-      <a tal:attributes="href offsite_url"
-         href="http://express.chargeit.com/"
-         >Check out</a>
+      <a tal:attributes="href view/offsite_url"
+         href="http://url.goes.here/">
+         Check out using
+         <span tal:replace="context/title">
+           ChargeIt
+         </span>
+       </a>
     </div>
 
 ::
@@ -209,7 +208,7 @@ together where GetPaid can find it:
     class PayForm(BrowserView):
         @property
         def offsite_url(self):
-            if self.context.options.production is True:
+            if self.context.options.for_real is True:
                 return 'http://express.chargeit.com/'
             else:
                 return 'http://sandbox.chargeit.com/'
@@ -236,23 +235,42 @@ together where GetPaid can find it:
 
     </configure>
 
-The browser page, as usual, links a page template together with a view
-class.  But, do you see the key features?  They are what will make this
-view work with GetPaid:
+The view that sends your user off-site should, as in this example,
+declare that it is a are view ``for=`` your own payment processor class.
+This gives the view an interesting property: it will have no URL!
+Because your payment processor itself has no URL in a GetPaid-powered
+site, the user cannot add (in this example) ``/pay_form`` to the end of
+that URL and activate the view.  This limitation is deliberate: users
+should *not* be able to run your view logic unless GetPaid is already
+rendering a checkout page that the view belongs on.
 
-1. The *name* of the view matches the same name that GetPaid will
-   receive when it asks your class instance for the value of its
+The key features that make the above example a fully working view for
+sending the user off-site are simply that:
+
+1. The *name* of the view matches the name that GetPaid will receive
+   when it asks your payment processor instance for the value of its
    ``checkout_button`` or ``payment_form`` attribute.
 
 2. The *context* for which the view is declared (``for=``) is your
    payment processor class itself.
 
-Remember that when GetPaid wants one of your views rendered, and
-instantiates a copy of your payment processor, it provides it with
+There are a few other things going on in the above code which we should
+note, in case you are new to writing Zope 3 views.
+
+First, note that instead of hard-coding the payment processor name
+(“ChargeIt”) in the view, we ask it for its ``title`` instead.  This
+gives the store owner the chance to provide a translation suitable to
+their locale, since the title in the class's definition is wrapped with
+a standard Zope ``_()`` translation wrapper.  You should try to provide
+this convenience for every customer-facing phrase that your view
+generates.
+
+Also, note that when GetPaid wants one of your views rendered, it
+instantiates a copy of your payment processor and provides it with
 objects that become the attributes ``options``, ``shopping_cart``, and
-``order``.  This means that all three of these are available inside of
-your view class's methods, where you can get to them with expressions
-like::
+``order``.  This means that all three of these things are available
+inside of your view class's methods, where you can get to them with
+expressions like::
 
     self.context.options
     self.context.shopping_cart
@@ -266,61 +284,40 @@ like::
     context/order
 
 The example above makes use of this by accessing the payment processor
-options to determine whether users should be sent off-site to the
+``options`` to determine whether users should be sent off-site to the
 service's testing “sandbox”, or to the real production service that
 actually takes money from real credit cards.
 
-The above example is silly, of course, because it makes no effort to
-transmit either your store owner's identity as a merchant, nor the
-contents of the shopping cart, nor even the total payment that is due to
-complete the transaction.  That is why your view will probably be a form
-with several hidden fields rather than a simple link like this.  But,
-however complex it becomes, your view will be found by GetPaid and will
-work because it has the same links to the payment processor as in the
-example given above.
+Since order management is an important topic, we will talk more about it
+below, in its own section.  But we should probably repeat here that the
+third of the three values above — the ``order`` — will be ``None`` if
+your view is a ``checkout_button``, since at that point the checkout
+process has not actually started, but for a ``payment_form`` will be an
+``Order`` object holding information about the buyer, their address, and
+their shipping preferences that was collected through the preceding
+steps of the GetPaid checkout process.
 
-Setting up your checkout view
------------------------------
+The example view given above is overly simple, of course, because it
+makes no effort to transmit to the off-site processor either your store
+owner's identity as a merchant, or the contents of the shopping cart, or
+even the total payment that is due to complete the transaction.  That is
+why your view will probably be a form with several hidden fields rather
+than a simple link like this.  But, however complex it becomes, your
+view work because it has the same basic features as the small view shown
+above.
 
-As its first step toward supporting an off-site payment processor, your
-package must arrange to interrupt the normal GetPaid checkout wizard and
-send the user off-site to finish checking out instead.
+Setting up the welcome-back views
+---------------------------------
 
-There are two places where GetPaid is currently configured to be
-interrupted; your payment processor can use either.
+The second category of view you will have to provide are the screens
+that welcome the user back when they are done checking out on the
+off-site service. ...
 
-1. If your off-site processor wants to be in charge of the entire
-   check-out process, then you will want to override the checkout button
-   itself that normally carries the user from the GetPaid shopping cart
-   to the first page of the checkout wizard.
-
-2. If the off-site processor is more modest, and wants GetPaid to do the
-   work of collecting the user's address and shipping data so that only
-   the actual credit-card verification step is left, then you will just
-   want to take control of the bottom half of the “review-and-pay”
-   screen.  Instead of letting GetPaid put its normal credit-card form
-   there, you will want to either display a form of your own that POSTs
-   directly to the off-site processor, or a button that sends the user,
-   along with all of the shipping and address information that has
-   already been collected, to the off-site processor's web site.
-
-In order to discover
-
-1 needs to name view
-2 needs to get its URL in other views
-3 the view needs to get called when its URL is called
 
 /Plone
 /Plone/store
 /Plone/checkout/callback
 /Plone/
-
-``checkout_button = 'view_name'``
-  This indicates ...
-
-``payment_form = 'view_name'``
-  This says that ...
-
 
 
 How are GetPaid URLs constructed?  Every GetPaid installation involves
@@ -355,9 +352,6 @@ store = zope.component.getUtility(IStore)
 store_url = store.absolute_url()
 
 
-Welcoming the user back
------------------------
-
 drat, when does order get created?
 
  — as best they can;
@@ -378,7 +372,10 @@ provide a page for this purpose, as we will see below.
 
 So, let's get started!
 
-And, second, off-site processor packages must do their best to make sure
+Creating and resolving an Order
+-------------------------------
+
+An off-site processor packages must do their best to make sure
 that a GetPaid :class:`Order` object is created for every off-site
 transaction that takes place, and that the order is moved into the
 :const:`CHARGED` or :const:`PAYMENT_DECLINED` state.  This logic can
@@ -386,23 +383,6 @@ either be invoked by the “Welcome back” pages already mentioned, or by a
 special page that receives a direct POST notification from the payment
 processing service.  For more details, see the section on `Creating and
 resolving an Order`_ below.
-
-Your payment processor class
-----------------------------
-
-In the :doc:`writing-a-payment-processor` chapter, we started to
-construct a sample payment processor class.  Now we will learn how to
-finish it.
-
-
-
-Your payment processor should specify at which step in the checkout
-process it needs to be inserted, and also provide a view that can render
-the HTML that needs to be inserted there.
-
-
-Creating and resolving an Order
--------------------------------
 
 .. _Creating a minimalistic Zope 3 View: http://plone.org/documentation/how-to/creating-a-minimalistic-zope-3-view
 .. _Five: http://codespeak.net/z3/five/

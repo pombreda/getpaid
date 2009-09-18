@@ -158,7 +158,7 @@ definition cited above so that it reads::
 
     class ChargeIt(OnSitePaymentProcessor):
         name = 'charge-it'
-        title = u'ChargeIt checkout'
+        title = _(u'ChargeIt checkout')
         options_schema = IChargeItOptions
         ...
 
