@@ -30,7 +30,7 @@ schemata.finalizeATCTSchema(
 )
 
 class VariantProduct(folder.ATFolder):
-    """Description of the Example Type"""
+    """ Buyable product with title and price variants and multiple images """
     implements(IVariantProduct)
 
     meta_type = "VariantProduct"
@@ -38,7 +38,7 @@ class VariantProduct(folder.ATFolder):
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
-    
+
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
 
 atapi.registerType(VariantProduct, PROJECTNAME)
