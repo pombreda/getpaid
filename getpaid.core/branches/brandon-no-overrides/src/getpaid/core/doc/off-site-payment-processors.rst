@@ -73,7 +73,7 @@ its simplest, looks something like this::
         options_schema = IChargeItOptions
 
         checkout_button = None
-        review_pay_form = 'getpaid.chargeit.review_pay'
+        payment_form = 'pay_form'
 
 Here, the views names (in the next section we will start discussing the
 actual creation of the views themselves) have been specified using
@@ -82,8 +82,8 @@ simple class attributes, and in many cases this is all you will need.
 The ``checkout_button`` attribute, if not ``None``, should name the view
 that will replace the GetPaid checkout button at the bottom of each
 shopping cart view (both the cart portlet, and the main cart page).
-Similarly, the ``review_pay_form`` attribute names the view that should
-be rendered to supply the bottom pane of the last page of GetPaid's
+Similarly, the ``payment_form`` attribute names the view that should be
+rendered to supply the bottom pane of the last page of GetPaid's
 checkout process.  Typically, you will only supply a name for one of
 these attributes, and leave the other ``None``.
 
@@ -120,7 +120,7 @@ three values are:
   (These two objects will be documented elsewhere, and links to those
   sections of the documentation added here in a while.)
 
-Because GetPaid asks for the ``checkout_button`` and ``review_pay_form``
+Because GetPaid asks for the ``checkout_button`` and ``payment_form``
 attributes of an instance of your class, and not simply of the class
 object itself, you have the option of generating the answer dynamically
 through code like this::
@@ -128,11 +128,11 @@ through code like this::
     class ChargeIt(OffSitePaymentProcessor):
         ...
         @property
-        def review_pay_form(self):
+        def payment_form(self):
             if self.options.inEuropeanUnion:
-                return 'getpaid.chargeit.euro-review-pay'
+                return 'euro-form'
             else:
-                return 'getpaid.chargeit.world-review-pay'
+                return 'world-form'
 
 The likelihood of needing this flexibility is small.  After all, you
 could just supply one view whose outer level was a big “if” statement as
@@ -142,17 +142,142 @@ to decide between them.  But the ability is there if you ever need it.
 Writing views
 -------------
 
+Since an off-site payment processor diverts the user away from the
+natural course of an on-site GetPaid checkout, it is going to have to
+render some HTML — you will have to write at least a modest link
+pointing off-site, and quite possibly a complete form.  In addition, you
+are going to have to prepare landing pages to which the user will return
+when they are done checking out, and may also create URLs with which the
+off-site processor can provide updates to GetPaid as the buyer process
+through their checkout process.
 
-store will live at some URL
-store_views?
-no, normal views registered to IStore
+The views you create will fall into two genres.  First, you will create
+HTML “snippets” that are designed to be seen by the user, and that will
+be inserted into the theme of the larger web site of which GetPaid is a
+part.  Checkout buttons, review-pay forms, and welcome-back pages all
+fall into this category.  Second, you may also design complete web pages
+over which you have full control — and which will often be in machine
+formats like XML or JSON — for the consumption of the off-site payment
+service.
 
+Customer-facing views
+---------------------
 
+If you have done much programming in Plone, you might be surprised by
+some of the properties of the view that you write to provide the HTML
+“snippets” that will lead the user off-site and to your payment
+processing service.  For one thing, they will typically be declared as
+views of a class — your payment processor class — instead of being
+“generic” views designed to render every object of a given interface.
 
+Since your payment processor does not have a URL in a GetPaid-powered
+site, there is no URL that a user can construct that will force your
+views to display.  This is deliberate; users have no business attempting
+to run your view code outside of a context in which GetPaid has taken
+deliberate steps to display it.
 
-what is your URL?
-store = zope.component.getUtility(IStore)
-store_url = store.absolute_url()
+How should you create your views?  There are several technologies for
+constructing them in the Zope world today.  We recommend using Five_,
+which is advanced enough to be sleek and modern, but established enough
+to be fairly widespread and something that other developers will
+understand.
+
+There is a nice, compact tutorial on `Creating a minimalistic Zope 3
+View`_ at http://plone.org/ that you should consult for details.  Here,
+we will mention that your Five-powered view will consist of three
+pieces: a page template file with the HTML, a “view” class that puts
+together the data that the HTML needs, and, finally, a ZCML declaration
+telling GetPaid everything about it.  We should go ahead and give an
+example ZCML declaration here, since that is what pulls everything
+together where GetPaid can find it:
+
+.. code-block:: html
+
+    <!-- getpaid/chargeit/templates/pay_form.pt -->
+
+    <div>
+      <a tal:attributes="href offsite_url"
+         href="http://express.chargeit.com/"
+         >Check out</a>
+    </div>
+
+::
+
+    # -- getpaid/chargeit/views.py --
+
+    from Products.Five import BrowserView
+    class PayForm(BrowserView):
+        @property
+        def offsite_url(self):
+            if self.context.options.production is True:
+                return 'http://express.chargeit.com/'
+            else:
+                return 'http://sandbox.chargeit.com/'
+
+.. code-block:: xml
+
+    <!-- getpaid/chargeit/configure.zcml -->
+
+    <configure
+      xmlns="http://namespaces.zope.org/zope"
+      xmlns:browser="http://namespaces.zope.org/browser">
+
+      ...
+
+      <browser:page
+        for="ChargeIt"
+        name="pay_form"
+        class=".views.PayForm"
+        template="pay_form.pt"
+        permission="zope2.View"
+        />
+
+      ...
+
+    </configure>
+
+The browser page, as usual, links a page template together with a view
+class.  But, do you see the key features?  They are what will make this
+view work with GetPaid:
+
+1. The *name* of the view matches the same name that GetPaid will
+   receive when it asks your class instance for the value of its
+   ``checkout_button`` or ``payment_form`` attribute.
+
+2. The *context* for which the view is declared (``for=``) is your
+   payment processor class itself.
+
+Remember that when GetPaid wants one of your views rendered, and
+instantiates a copy of your payment processor, it provides it with
+objects that become the attributes ``options``, ``shopping_cart``, and
+``order``.  This means that all three of these are available inside of
+your view class's methods, where you can get to them with expressions
+like::
+
+    self.context.options
+    self.context.shopping_cart
+    self.context.order
+
+They are also available inside the view itself, through TAL expressions
+like::
+
+    context/options
+    context/shopping_cart
+    context/order
+
+The example above makes use of this by accessing the payment processor
+options to determine whether users should be sent off-site to the
+service's testing “sandbox”, or to the real production service that
+actually takes money from real credit cards.
+
+The above example is silly, of course, because it makes no effort to
+transmit either your store owner's identity as a merchant, nor the
+contents of the shopping cart, nor even the total payment that is due to
+complete the transaction.  That is why your view will probably be a form
+with several hidden fields rather than a simple link like this.  But,
+however complex it becomes, your view will be found by GetPaid and will
+work because it has the same links to the payment processor as in the
+example given above.
 
 Setting up your checkout view
 -----------------------------
@@ -193,30 +318,41 @@ In order to discover
 ``checkout_button = 'view_name'``
   This indicates ...
 
-``review_pay_form = 'view_name'``
+``payment_form = 'view_name'``
   This says that ...
 
 
-First, it is complicated because there are several points in the
-checkout process at which payment processors might want to redirect
-users off to their own sites.  For example, the Authorize.Net SIM
-protocol is designed to accept a POST from the final payment screen of a
-checkout process, meaning that it would need to take place after GetPaid
-has already accepted your mailing address and offered any pages of
-shipping options that were applicable.  Google Checkout, on the other
-hand, handles shipping options itself, and therefore wants the user
-redirected the moment they finish playing with their shopping cart and
-hit the “Checkout” button.
 
-Off-site payment processors need to override the page from which the
-user will be redirected off-site, so that they can craft and insert a
-form which will POST exactly the right information to the payment
-service to get the transaction processed.  Whether they provide an
-entire form or just a simple button, they need the power to render an
-HTML view and return its contents for inclusion on a checkout page.
+How are GetPaid URLs constructed?  Every GetPaid installation involves
+the creation of a “store”, which has a URL beneath which all of the
+GetPaid web pages will live.  For example, consider a Plone site whose
+root has been marked as an :class:`IStore`.  If the site has the URL::
 
-There are two other tasks for which every off-site payment processor is
-responsible.
+    http://store.example.com/
+
+then its GetPaid views will live URLs like::
+
+    http://store.example.com/checkout
+    http://store.example.com/thank-you
+    http://store.example.com/declined
+
+If, on the other hand, the web site owner has chosen to install the
+GetPaid :class:`IStore` a bit deeper in their site, then it would be at
+the level beneath that URL that the GetPaid views were available.
+
+
+
+
+store will live at some URL
+store_views?
+no, normal views registered to IStore
+
+
+
+
+what is your URL?
+store = zope.component.getUtility(IStore)
+store_url = store.absolute_url()
 
 
 Welcoming the user back
@@ -227,7 +363,7 @@ drat, when does order get created?
  — as best they can;
 off-site processors will
 
-  : establishing a URL on the site to which the
+establishing a URL on the site to which the
 user can be redirected when the off-site processing service is done with
 them.  This not only presents the result of the transaction to the user
 and then allows them to navigate back to other parts of the store, but
@@ -265,24 +401,9 @@ process it needs to be inserted, and also provide a view that can render
 the HTML that needs to be inserted there.
 
 
-Defining your view
-------------------
-
-Of course, having named the view that will be rendered to generate your
-special check-out button or form, you now need to provide it.  Just as
-you normally would in a Zope project, create the named view using ...
-
-..
-   def __init__(self, cart, options)
-
-
-::
-
-    from Products.Five import BrowserView
-    class CheckoutButtonView(BrowserView):
-        pass  # will automatically use "checkoutbutton.pt"
-
-
-
 Creating and resolving an Order
 -------------------------------
+
+.. _Creating a minimalistic Zope 3 View: http://plone.org/documentation/how-to/creating-a-minimalistic-zope-3-view
+.. _Five: http://codespeak.net/z3/five/
+
