@@ -94,22 +94,60 @@ that you want shared conveniently among your views.  But before we
 explore this idea, we should look at exactly how your payment processor
 class is used in GetPaid.
 
-How your process class is used
-------------------------------
+How your processor class is used
+--------------------------------
 
+You should be aware of the fact that GetPaid always asks questions of a
+fully-fledged *instance* of your class, and never of the bare class
+itself.  In other words, if faced with the class shown in the previous
+section, GetPaid would determine the name of the checkout view by doing
+something roughly equivalent to this::
 
+    payment_processor = ChargeIt(options, shopping_cart, order)
+    checkout_view = payment_processor.checkout_button
 
-how class used?
-an instance!
-what args are given to the instance?
+The three arguments used to instantiate your class are simply stored in
+attributes of the same name by the initialize method that you inherit
+from ``OffSitePaymentProcessor``, so you can access them easily.  The
+three values are:
+
+``options``
+  An object that implements the ``options_schema`` that your class
+  names, whose attributes are the values that the store owner has set
+  through the GetPaid admin interface.
+
+``shopping_cart`` ``order``
+  (These two objects will be documented elsewhere, and links to those
+  sections of the documentation added here in a while.)
+
+Because GetPaid asks for the ``checkout_button`` and ``review_pay_form``
+attributes of an instance of your class, and not simply of the class
+object itself, you have the option of generating the answer dynamically
+through code like this::
+
+    class ChargeIt(OffSitePaymentProcessor):
+        ...
+        @property
+        def review_pay_form(self):
+            if self.options.inEuropeanUnion:
+                return 'getpaid.chargeit.euro-review-pay'
+            else:
+                return 'getpaid.chargeit.world-review-pay'
+
+The likelihood of needing this flexibility is small.  After all, you
+could just supply one view whose outer level was a big “if” statement as
+easily as you could provide two separate views like this with a switch
+to decide between them.  But the ability is there if you ever need it.
+
+Writing views
+-------------
+
 
 store will live at some URL
 store_views?
 no, normal views registered to IStore
 
 
-Writing views
--------------
 
 
 what is your URL?
@@ -244,14 +282,6 @@ you normally would in a Zope project, create the named view using ...
     class CheckoutButtonView(BrowserView):
         pass  # will automatically use "checkoutbutton.pt"
 
-
-::
-
-    class ChargeIt(OffSitePaymentProcessor):
-        ...
-        @property
-        def review_pay_form(self):
-            = 'getpaid.chargeit.review_pay'
 
 
 Creating and resolving an Order
