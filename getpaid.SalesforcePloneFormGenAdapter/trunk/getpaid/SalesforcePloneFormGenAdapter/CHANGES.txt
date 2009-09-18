@@ -5,6 +5,9 @@ CHANGES
 1.6 (unreleased)
 ----------------
 
+ - Fix bug in error handling if Salesforce object creation for order fails.
+   [davisagli]
+
  - Fix max beatbox dependency version.
    [davisagli]
 

@@ -12,22 +12,11 @@ import logging
 # Zope imports
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_parent
+import zope.component
 from zope.interface import classImplements
-from DateTime import DateTime
-from ZPublisher.HTTPRequest import FileUpload
 from ZODB.POSException import ConflictError
-try:
-    # 3.0+
-    from zope.contenttype import guess_content_type
-except ImportError:
-    # 2.5
-    from zope.app.content_types import guess_content_type
-
-# CMFCore
-from Products.CMFCore.Expression import getExprContext
 
 # Plone imports
-from Products.CMFPlone.utils import safe_hasattr
 from Products.Archetypes.public import StringField, SelectionWidget, \
     DisplayList, Schema, ManagedSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
@@ -41,22 +30,16 @@ from Products.DataGridField.SelectColumn import SelectColumn
 from Products.DataGridField.FixedColumn import FixedColumn
 from Products.DataGridField.DataGridField import FixedRow
 
-# Interfaces
-from Products.PloneFormGen.interfaces import IPloneFormGenField
-
 # PloneFormGen imports
 from Products.PloneFormGen.content.actionAdapter import \
     FormActionAdapter, FormAdapterSchema
 
 # Local imports
-from getpaid.SalesforcePloneFormGenAdapter.config import PROJECTNAME, REQUIRED_MARKER, SF_ADAPTER_TYPES
+from getpaid.SalesforcePloneFormGenAdapter.config import PROJECTNAME
 from getpaid.SalesforcePloneFormGenAdapter import SalesforcePloneFormGenAdapterMessageFactory as _
-from getpaid.SalesforcePloneFormGenAdapter import HAS_PLONE25, HAS_PLONE30
+from getpaid.SalesforcePloneFormGenAdapter import HAS_PLONE30
 
 from Products.salesforcepfgadapter.content.salesforcepfgadapter import SalesforcePFGAdapter
-
-if HAS_PLONE25:
-    import zope.i18n
 
 # Get Paid events
 from getpaid.core.interfaces import workflow_states, IShoppingCartUtility, IShippableOrder, IShippingRateService, IShippableLineItem
@@ -726,7 +709,7 @@ def executeAdapter(order, data, salesforce):
                                          (sObjects[0]['type'], order.order_id, error['message']))
 
         else:
-            for error in results['errors']:
+            for error in results[0]['errors']:
                 logger.error('Failed to create new %s for order %s in Salesforce: %s' % \
                                  (obj['type'], order.order_id, error['message']))
 
