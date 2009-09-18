@@ -10,3 +10,9 @@ Varians product allows you to have buayable GetPaid products with following prop
 * Multiple images for each product (not bound to variants)
 
 
+Developer notes
+===============
+
+Making all content type items buyable automatically::
+
+-

@@ -11,6 +11,9 @@ from getpaid.variantsproduct import variantsproductMessageFactory as _
 from getpaid.variantsproduct.interfaces import IVariantProduct
 from getpaid.variantsproduct.config import PROJECTNAME
 
+import getpaid.core.interfaces
+import Products.PloneGetPaid.interfaces
+
 VariantProductSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
@@ -30,8 +33,9 @@ schemata.finalizeATCTSchema(
 )
 
 class VariantProduct(folder.ATFolder):
-    """ Buyable product with title and price variants and multiple images """
-    implements(IVariantProduct)
+    """ Buyable physical good with variants of title and price and multiple images """
+    implements(IVariantProduct,
+              Products.PloneGetPaid.interfaces.IShippableMarker)
 
     meta_type = "VariantProduct"
     schema = VariantProductSchema
