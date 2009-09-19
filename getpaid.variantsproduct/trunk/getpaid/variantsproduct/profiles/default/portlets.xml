@@ -5,4 +5,11 @@
   -->
 <portlets>
   <!-- -*- extra stuff goes here -*- -->
+
+   <portlet
+     addview="getpaid.variantsproduct.portlets.VariantProductShopper"
+     title="Variant product shopper"
+     description=""
+   />
+
 </portlets>
