@@ -5,9 +5,22 @@
     xmlns:grok="http://namespaces.zope.org/grok"
     >
 
+  <!-- Product images for MultiImageProduct -->
   <adapter for=".multiimageproduct.MultiImageProduct"
            provides="getpaid.variantsproduct.interfaces.multiimageproduct.IProductImageProvider"
 		   factory=".images.FolderishProductImageProvider" />
+
+  <!-- Product images for VariantProduct -->
+  <adapter for=".variantproduct.VariantProduct"
+           provides="getpaid.variantsproduct.interfaces.multiimageproduct.IProductImageProvider"
+		   factory=".images.FolderishProductImageProvider" />
+
+  <!-- Variant line item generation for VariantProduct -->
+  <adapter for="getpaid.core.interfaces.IShoppingCart
+  				.variantproduct.VariantProduct"
+           provides="getpaid.variantsproduct.interfaces.IVariationItemFactory"
+		   factory=".items.VariationItemFactory" />
+
 
   <!-- -*- extra stuff goes here -*- -->
   <class class=".multiimageproduct.MultiImageProduct">

@@ -9,6 +9,9 @@ from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from getpaid.variantsproduct import variantsproductMessageFactory as _
+from getpaid.variantsproduct.interfaces import IVariantBuyMarker
+
+from Products.PloneGetPaid.browser.portlets import base as getpaidbase
 
 class IVariantProductShopper(IPortletDataProvider):
     """A portlet
@@ -56,13 +59,15 @@ class Assignment(base.Assignment):
         return "Variant product shopper"
 
 
-class Renderer(base.Renderer):
+class Renderer(getpaidbase.GetPaidRenderer):
     """Portlet renderer.
 
     This is registered in configure.zcml. The referenced page template is
     rendered, and the implicit variable 'view' will refer to an instance
     of this class. Other methods can be added and referenced in the template.
     """
+
+    marker = IVariantBuyMarker
 
     render = ViewPageTemplateFile('variantproductshopper.pt')
 

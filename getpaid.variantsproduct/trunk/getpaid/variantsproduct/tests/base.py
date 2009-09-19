@@ -6,6 +6,8 @@ happens at module level, which makes it faster to run each test, but
 slows down test runner startup.
 """
 
+from zope import component
+
 from Products.Five import zcml
 from Products.Five import fiveconfigure
 
@@ -13,6 +15,8 @@ from Testing import ZopeTestCase as ztc
 
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
+
+import getpaid.core.interfaces
 
 # When ZopeTestCase configures Zope, it will *not* auto-load products
 # in Products/. Instead, we have to use a statement such as:
@@ -50,6 +54,7 @@ def setup_product():
     # We may also need to load dependencies, e.g.:
     #   ztc.installPackage('borg.localrole')
 
+    ztc.installProduct('PloneGetPaid')
     ztc.installPackage('getpaid.variantsproduct')
 
 # The order here is important: We first call the (deferred) function
@@ -57,25 +62,67 @@ def setup_product():
 # PloneTestCase set up this product on installation.
 
 setup_product()
-ptc.setupPloneSite(products=['getpaid.variantsproduct'])
+ptc.setupPloneSite(products=["Products.PloneGetPaid", 'getpaid.variantsproduct'])
 
-class TestCase(ptc.PloneTestCase):
+
+from Products.PloneGetPaid.tests.base import PloneGetPaidTestCase, PloneGetPaidFunctionalTestCase
+
+class TestCase(PloneGetPaidTestCase):
     """We use this base class for all the tests in this package. If
     necessary, we can put common utility or setup code in here. This
     applies to unit test cases.
     """
 
-    def create_variant(self):
-        pass
+    def afterSetUp(self):
+        PloneGetPaidTestCase.afterSetUp(self)
 
-class FunctionalTestCase(ptc.FunctionalTestCase):
+    def create_cart(self):
+        cart = component.getUtility(getpaid.core.interfaces.IShoppingCartUtility).get(self.portal, create=True)
+        return cart
+
+class FunctionalTestCase(PloneGetPaidFunctionalTestCase):
     """We use this class for functional integration tests that use
     doctest syntax. Again, we can put basic common utility or setup
     code in here.
     """
 
     def afterSetUp(self):
+
+        PloneGetPaidFunctionalTestCase.afterSetUp(self)
+
         roles = ('Member', 'Contributor')
         self.portal.portal_membership.addMember('contributor',
                                                 'secret',
                                                 roles, [])
+
+        from Products.Five.testbrowser import Browser
+
+        self.browser = Browser()
+        self.browser.open(self.portal.absolute_url())
+
+        self.browser.handleErrors = False
+        self.portal.error_log._ignored_exceptions = ()
+
+        def raising(self, info):
+            import traceback
+            traceback.print_tb(info[2])
+            print info[1]
+
+        from Products.SiteErrorLog.SiteErrorLog import SiteErrorLog
+        SiteErrorLog.raising = raising
+
+        from Products.PloneTestCase.setup import portal_owner, default_password
+
+         # Go admin
+        self.browser.open(self.portal.absolute_url() + "/login_form")
+        self.browser.getControl(name='__ac_name').value = portal_owner
+        self.browser.getControl(name='__ac_password').value = default_password
+        self.browser.getControl(name='submit').click()
+
+
+
+# Sample text used to fill in variant information for the test products
+VARIANTS_TEXT="""t-shirt-s; T-Shirt (S); 20.00
+t-shirt-m; T-Shirt (M); 30.00
+t-shirt-xl; T-Shirt (XL); 40.00
+"""

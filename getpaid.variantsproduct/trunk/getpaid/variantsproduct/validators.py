@@ -29,9 +29,14 @@ class VariationTextValidator(object):
 
         for line in lines:
 
+            if line == "":
+                continue
+
+            line = line.decode("utf-8")
+
             try:
                 Variation.decode(line)
-            except ValidationError, e:
+            except ValidatorError, e:
                 return e.message + " " + " Line is:" + line
 
         return True

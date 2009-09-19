@@ -1,6 +1,6 @@
 """
 
-    Default shoppaple goods schemas.
+    Archetypes schematas for shoppaple goods.
 
 """
 

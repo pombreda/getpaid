@@ -16,7 +16,9 @@ from getpaid.variantsproduct.content import goodsschema
 import getpaid.core.interfaces
 import Products.PloneGetPaid.interfaces
 
-MultiImageProductSchema = folder.ATFolderSchema.copy() + goodsschema.priceSchema.copy() + goodsschema.productDescriptionSchema.copy()
+MultiImageProductSchema = folder.ATFolderSchema.copy() + goodsschema.priceSchema.copy() + \
+                          goodsschema.productDescriptionSchema.copy() + \
+                          goodsschema.shippableSchema.copy()
 
 # Set storage on fields copied from ATFolderSchema, making sure
 # they work well with the python bridge properties.
@@ -34,7 +36,7 @@ schemata.finalizeATCTSchema(
 class MultiImageProduct(folder.ATFolder):
     """Buyable product with multiple images"""
     implements(IMultiImageProduct,
-               Products.PloneGetPaid.interfaces.IBuyableMarker
+               Products.PloneGetPaid.interfaces.IShippableMarker
                )
 
     meta_type = "MultiImageProduct"

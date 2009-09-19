@@ -9,10 +9,13 @@ from plone.portlets.interfaces import IPortletRenderer
 from plone.app.portlets.storage import PortletAssignmentMapping
 
 from getpaid.variantsproduct.portlets import variantproductshopper
-from getpaid.variantsproduct.portlets.tests.base_variantproductshopper import TestCase
+from getpaid.variantsproduct.tests.base import TestCase
 
 
 class TestPortlet(TestCase):
+    """
+    Test variant product buy portlet basic functionality.
+    """
 
     def afterSetUp(self):
         self.setRoles(('Manager',))

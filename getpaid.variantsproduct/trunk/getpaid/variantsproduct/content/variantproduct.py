@@ -18,6 +18,8 @@ from getpaid.variantsproduct.content import multiimageproduct
 import getpaid.core.interfaces
 import Products.PloneGetPaid.interfaces
 
+from getpaid.variantsproduct.variation import Variation
+
 from getpaid.variantsproduct.content import goodsschema
 
 VariantProductSchema = folder.ATFolderSchema.copy()+ goodsschema.shippableSchema.copy() + atapi.Schema((
@@ -30,7 +32,7 @@ VariantProductSchema = folder.ATFolderSchema.copy()+ goodsschema.shippableSchema
         validators = (VariationTextValidator,),
         widget=atapi.LinesWidget(
             label=_(u"Variations"),
-            description=_(u"Variations, one per, line."),
+            description=_(u"Variations, one per, line. Line contains the following data separated by ; character: SKU; title; price"),
         ),
     ),
 
@@ -65,6 +67,39 @@ class VariantProduct(folder.ATFolder):
 
     weight = atapi.ATFieldProperty('weight')
 
+    dimensions = atapi.ATFieldProperty('dimensions')
+
+    def getProductVariations(self):
+        """ Convert human input of variations one per line to Variation objects
+
+        @return: Iterable of Variation objects available for this product
+        """
+        lines = self.getVariations()
+        if lines == None:
+            return None
+
+        else:
+            result = []
+
+            for line in self.getVariations():
+
+                line = line.strip()
+                if line == "":
+                    # Ignore empty lines
+                    continue
+
+                line = line.decode("utf-8")
+                result.append(Variation.decode(line))
+
+            return result
+
+    def getProductVariationBySKU(self, sku):
+        variations = self.getProductVariations()
+        for variation in variations:
+            if variation.sku == sku:
+                return variation
+
+        raise RuntimeError("No product variation by SKU:" + sku)
 
 
 atapi.registerType(VariantProduct, PROJECTNAME)
