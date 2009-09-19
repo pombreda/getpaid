@@ -27,7 +27,7 @@ class BuyPortletFunctionalTestCase(FunctionalTestCase):
         self.browser.open(self.portal.product.absolute_url() )
 
         # Check that shippable portlet is visible
-        browser.getControl("sku").value = "t-shirt-s"
+        browser.getControl("product_code").value = "t-shirt-s"
         browser.getLink('Add to Cart').click()
 
 

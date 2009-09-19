@@ -25,7 +25,7 @@ class Variation(object):
     These objects are created by Archetypes accessors.
     """
 
-    sku = FieldProperty(IVariation["sku"])
+    product_code = FieldProperty(IVariation["product_code"])
     title = FieldProperty(IVariation["title"])
     price = FieldProperty(IVariation["price"])
 
@@ -50,10 +50,10 @@ class Variation(object):
         variation = Variation()
 
         try:
-            variation.sku = parts[0].strip()
+            variation.product_code = parts[0].strip()
         except Exception, e:
             # Raised by zope.schema.FieldProperty
-            raise ValidatorError(u"sku is not good value:" + str(e))
+            raise ValidatorError(u"product_code is not good value:" + str(e))
 
         try:
             variation.title = parts[1].strip()

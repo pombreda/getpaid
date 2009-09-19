@@ -21,6 +21,11 @@
            provides="getpaid.variantsproduct.interfaces.IVariationItemFactory"
 		   factory=".items.VariationItemFactory" />
 
+  <!-- Shippable adapters -->
+  <adapter for=".multiimageproduct.MultiImageProduct"
+           provides="getpaid.core.interfaces.IShippableContent"
+		   factory=".shippable.shippableAdapter" />
+
 
   <!-- -*- extra stuff goes here -*- -->
   <class class=".multiimageproduct.MultiImageProduct">

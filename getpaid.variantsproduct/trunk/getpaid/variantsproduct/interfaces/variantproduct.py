@@ -33,7 +33,7 @@ class IVariantProduct(IMultiImageProduct):
         @return: List of IVariation objects
         """
 
-    def getProductVariationBySKU(sku):
+    def getProductVariationByProductCode(product_code):
         """
 
 
@@ -51,7 +51,7 @@ class IVariation(Interface):
     """ Define information we need to know about one varation.
     """
 
-    sku = zope.schema.TextLine(title=u"Id", description=u"Unique id for this variant used in internal data structures", required=True)
+    product_code = zope.schema.TextLine(title=u"Product code", description=u"Unique id for this variant used in internal data structures", required=True)
 
     title = zope.schema.TextLine(title=u"Title", description=u"Human readable name of this product", required=True)
 

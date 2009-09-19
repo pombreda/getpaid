@@ -32,7 +32,7 @@ VariantProductSchema = folder.ATFolderSchema.copy()+ goodsschema.shippableSchema
         validators = (VariationTextValidator,),
         widget=atapi.LinesWidget(
             label=_(u"Variations"),
-            description=_(u"Variations, one per, line. Line contains the following data separated by ; character: SKU; title; price"),
+            description=_(u"Variations, one per, line. Line contains the following data separated by ; character: product_code; title; price"),
         ),
     ),
 
@@ -93,13 +93,13 @@ class VariantProduct(folder.ATFolder):
 
             return result
 
-    def getProductVariationBySKU(self, sku):
+    def getProductVariationByProductCode(self, product_code):
         variations = self.getProductVariations()
         for variation in variations:
-            if variation.sku == sku:
+            if variation.product_code == product_code:
                 return variation
 
-        raise RuntimeError("No product variation by SKU:" + sku)
+        raise RuntimeError("No product variation by product_code:" + product_code)
 
 
 atapi.registerType(VariantProduct, PROJECTNAME)

@@ -22,7 +22,7 @@ WEIGHT_VOCABULARY.add(u"lbs", "Pounds")
 #: Schema for products which have simple price
 priceSchema = atapi.Schema((
 
-    atapi.FixedPointField(
+    atapi.FloatField(
         'price',
         storage=atapi.AnnotationStorage(),
         widget=atapi.DecimalWidget(
@@ -38,10 +38,10 @@ priceSchema = atapi.Schema((
 productDescriptionSchema = atapi.Schema((
 
     atapi.StringField(
-        'sku',
+        'product_code',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Stock keeping unit"),
+            label=_(u"Product code"),
             description=_(u"Inventory id for this product"),
         ),
     ),
@@ -87,6 +87,7 @@ shippableSchema = atapi.Schema((
         "weight_unit",
         storage=atapi.AnnotationStorage(),
         vocabulary = WEIGHT_VOCABULARY,
+        default=u"kg",
         widget=atapi.SelectionWidget(
             label=_(u"Weight unit"),
             description=_(u"Weight of the item for shipping"),

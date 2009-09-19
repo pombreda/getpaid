@@ -20,7 +20,7 @@ class VariationItemFactory(object):
     """ Create shopping cart listings for variation items.
 
     NOTE: Normal LineItems are placed to cart by their Archetypes UID.
-    We use value item stock keeping unit (SKU).
+    We use variation product code..
     I don't know whether this cause problems.
 
     See Products.PloneGetPaid.content module for inspiration.
@@ -32,7 +32,19 @@ class VariationItemFactory(object):
         self.cart = cart
         self.context = context
 
-    def create(self, sku, quantity = 1):
+    def checkIncrementCart( self, product_code, quantity=1):
+        """
+        Check if we have the item already in the cart and increment the cart count.
+        """
+        item_id = product_code
+        if item_id in self.cart:
+            self.cart[ item_id ].quantity += quantity
+
+            return True
+
+        return False
+
+    def create(self, product_code, quantity = 1):
         """
         @return getpaid.core.item.PayableLineItem
         """
@@ -59,18 +71,22 @@ class VariationItemFactory(object):
                     return s
 
 
-        variation = self.context.getProductVariationBySKU(sku)
+        variation = self.context.getProductVariationByProductCode(product_code)
 
         # copy over information regarding the item
         nitem.name = getUnicodeString( variation.title )
         nitem.description = getUnicodeString( self.context.Description() )
         nitem.cost = variation.price
 
-        nitem.product_code = variation.sku
+        nitem.product_code = variation.product_code
         nitem.quantity = quantity
 
-        # We place items to cart by their SKU,
+        # We place items to cart by their product_code,
         # *not* Archetypes ID
-        self.cart[variation.sku] = nitem
+
+        if self.checkIncrementCart(variation.product_code, quantity):
+            return
+        else:
+            self.cart[variation.product_code] = nitem
 
         return nitem

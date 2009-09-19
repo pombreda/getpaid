@@ -45,10 +45,16 @@ class MultiImageProduct(folder.ATFolder):
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
 
+    # getpaid.core.interfaces.IShippableContent compatible accessors
+
+    price = atapi.ATFieldProperty('price')
+
+    weight = atapi.ATFieldProperty('weight')
+
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
     text = atapi.ATFieldProperty('text')
 
-    price = atapi.ATFieldProperty('price')
+    product_code = atapi.ATFieldProperty('product_code')
 
 
 atapi.registerType(MultiImageProduct, PROJECTNAME)

@@ -11,7 +11,7 @@ class ParseVariantDataTestCase(TestCase):
         line = u"tshirtxl; T-Shirt (XL); 30.00"
         variation = Variation.decode(line)
 
-        self.assertEqual(variation.sku, "tshirtxl")
+        self.assertEqual(variation.product_code, "tshirtxl")
         self.assertEqual(variation.title, "T-Shirt (XL)")
         self.assertEqual(variation.price, 30.00)
 

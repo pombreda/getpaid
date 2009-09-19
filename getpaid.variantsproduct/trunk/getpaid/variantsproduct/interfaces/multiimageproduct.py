@@ -10,8 +10,6 @@ class IMultiImageProduct(Interface):
     """Buyable product with multiple images"""
 
 
-
-
 class IProductImageProvider(Interface):
 
     def getImages(self):
