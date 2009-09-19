@@ -1,11 +1,25 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
-    i18n_domain="getpaid.variantsproduct">
+    i18n_domain="getpaid.variantsproduct"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    >
 
-  <!-- configure your content components here -->
-  
+  <adapter for=".multiimageproduct.MultiImageProduct"
+           provides="getpaid.variantsproduct.interfaces.multiimageproduct.IProductImageProvider"
+		   factory=".images.FolderishProductImageProvider" />
+
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".multiimageproduct.MultiImageProduct">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IMultiImageProduct"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IMultiImageProduct"
+        />
+  </class>
   <class class=".variantproduct.VariantProduct">
     <require
         permission="zope2.View"

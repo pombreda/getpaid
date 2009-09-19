@@ -1,0 +1,19 @@
+from zope import schema
+from zope.interface import Interface
+
+from zope.app.container.constraints import contains
+from zope.app.container.constraints import containers
+
+from getpaid.variantsproduct import variantsproductMessageFactory as _
+
+class IMultiImageProduct(Interface):
+    """Buyable product with multiple images"""
+
+
+class IProductImageProvider(Interface):
+
+    def getImages(self):
+        """ Get Images associated with the product.
+
+        @return: iterable of Image objects
+        """

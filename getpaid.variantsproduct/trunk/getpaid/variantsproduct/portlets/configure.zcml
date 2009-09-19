@@ -9,4 +9,16 @@
 
 	<!-- -*- extra stuff goes here -*- -->
 
+  <plone:portlet
+      name="getpaid.variantsproduct.portlets.VariantProductShopper"
+      interface=".variantproductshopper.IVariantProductShopper"
+      assignment=".variantproductshopper.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".variantproductshopper.Renderer"
+      addview=".variantproductshopper.AddForm"
+      editview=".variantproductshopper.EditForm"
+      />
+
+
 </configure>

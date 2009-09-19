@@ -1,3 +1,6 @@
 # -*- extra stuff goes here -*-
-from variantproduct import IVariantProduct
+from multiimageproduct import *
+
+from variantproduct import *
+
 

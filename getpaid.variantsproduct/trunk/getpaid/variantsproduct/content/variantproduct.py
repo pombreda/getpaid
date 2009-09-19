@@ -7,16 +7,32 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 
+
 from getpaid.variantsproduct import variantsproductMessageFactory as _
 from getpaid.variantsproduct.interfaces import IVariantProduct
 from getpaid.variantsproduct.config import PROJECTNAME
 
+from getpaid.variantsproduct.validators import VariationTextValidator
+
+from getpaid.variantsproduct.content import multiimageproduct
 import getpaid.core.interfaces
 import Products.PloneGetPaid.interfaces
 
-VariantProductSchema = folder.ATFolderSchema.copy() + atapi.Schema((
+from getpaid.variantsproduct.content import goodsschema
+
+VariantProductSchema = folder.ATFolderSchema.copy()+ goodsschema.shippableSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
+
+    atapi.LinesField(
+        'variations',
+        storage=atapi.AnnotationStorage(),
+        validators = (VariationTextValidator,),
+        widget=atapi.LinesWidget(
+            label=_(u"Variations"),
+            description=_(u"Variations, one per, line."),
+        ),
+    ),
 
 ))
 
@@ -34,8 +50,7 @@ schemata.finalizeATCTSchema(
 
 class VariantProduct(folder.ATFolder):
     """ Buyable physical good with variants of title and price and multiple images """
-    implements(IVariantProduct,
-              Products.PloneGetPaid.interfaces.IShippableMarker)
+    implements(IVariantProduct)
 
     meta_type = "VariantProduct"
     schema = VariantProductSchema
@@ -44,5 +59,12 @@ class VariantProduct(folder.ATFolder):
     description = atapi.ATFieldProperty('description')
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
+    variations = atapi.ATFieldProperty('variations')
+
+    price = atapi.ATFieldProperty('price')
+
+    weight = atapi.ATFieldProperty('weight')
+
+
 
 atapi.registerType(VariantProduct, PROJECTNAME)

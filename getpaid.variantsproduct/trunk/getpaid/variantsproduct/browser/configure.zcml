@@ -7,4 +7,14 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      for="*"
+      name="productimagepreviews_view"
+      class=".productimagepreviewsview.ProductImagePreviewsView"
+      template="productimagepreviewsview.pt"
+      allowed_interface=".productimagepreviewsview.IProductImagePreviewsView"
+      permission="zope.Public"
+      />
+
+
 </configure>
