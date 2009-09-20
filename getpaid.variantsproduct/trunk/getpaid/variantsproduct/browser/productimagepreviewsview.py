@@ -5,14 +5,23 @@ from Products.CMFCore.utils import getToolByName
 
 from getpaid.variantsproduct import variantsproductMessageFactory as _
 
+from getpaid.variantsproduct.interfaces import IProductImageProvider
 
 class IProductImagePreviewsView(Interface):
     """
     ProductImagePreviews view interface
     """
 
-    def test():
-        """ test method"""
+    def images():
+        """ @return: List of product images as tuples:
+
+                * Name
+
+                * Image SRC URL
+
+                * Link target URL
+
+        """
 
 
 class ProductImagePreviewsView(BrowserView):
@@ -33,10 +42,13 @@ class ProductImagePreviewsView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
-    def test(self):
+    def images(self):
         """
-        test method
         """
-        dummy = _(u'a dummy string')
+        return self._images
 
-        return {'dummy': dummy}
+    def __call__(self):
+        self.image_provider = IProductImageProvider(self.context)
+        self._images = self.image_provider.getImages()
+
+        return self.index()

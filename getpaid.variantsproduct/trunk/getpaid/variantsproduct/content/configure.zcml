@@ -41,6 +41,8 @@
 
  	<implements interface="getpaid.variantsproduct.interfaces.IBuyableMarker" />
 
+ 	<implements interface="Products.PloneGetPaid.interfaces.IPayableMarker" />
+
     <require
         permission="zope2.View"
         interface="..interfaces.IMultiImageProduct"
@@ -54,6 +56,8 @@
   <class class=".variantproduct.VariantProduct">
 
 	<implements interface="getpaid.variantsproduct.interfaces.IBuyableMarker" />
+
+	<implements interface="Products.PloneGetPaid.interfaces.IPayableMarker" />
 
     <require
         permission="zope2.View"

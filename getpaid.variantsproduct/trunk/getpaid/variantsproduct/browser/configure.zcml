@@ -9,6 +9,48 @@
 
   <browser:page
       for="*"
+      name="product_listing"
+      class=".productlistingview.ProductListingView"
+      template="productlistingview.pt"
+      allowed_interface=".productlistingview.IProductListingView"
+      permission="zope2.View"
+      />
+
+
+  <browser:page
+      for="*"
+      name="variantsproduct_view"
+      class=".variantsproductview.VariantsProductView"
+      template="variantsproductview.pt"
+      allowed_interface=".variantsproductview.IVariantsProductView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="product_view"
+      class=".productview.ProductView"
+      template="productview.pt"
+      allowed_interface=".productview.IProductView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="getpaid-cart-add-variant"
+      class=".cart.AddVariantView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="getpaid-cart-add-simple"
+      class=".cart.AddProductView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
       name="productimagepreviews_view"
       class=".productimagepreviewsview.ProductImagePreviewsView"
       template="productimagepreviewsview.pt"
@@ -16,5 +58,12 @@
       permission="zope.Public"
       />
 
+  <browser:menuItem
+        for="Products.ATContentTypes.interface.folder.IATFolder"
+        menu="plone_displayviews"
+        title="Product listing"
+        action="@@product_listing"
+        description="List folder contents as product summary view"
+        />
 
 </configure>

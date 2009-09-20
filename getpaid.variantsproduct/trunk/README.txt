@@ -21,6 +21,9 @@ Two new content types are created
 
 	* Different buy portlet: one with pick variation option
 
+Custom shopping portlet is provided for enhanced shopping experience
+and to support product variation choices.
+
 Installation
 ============
 
@@ -28,9 +31,8 @@ Installation
 
 # Run add-on product installer
 
-Developer notes
-===============
 
-Making all content type items buyable automatically::
+TODO
+====
 
--
+* Dimension support

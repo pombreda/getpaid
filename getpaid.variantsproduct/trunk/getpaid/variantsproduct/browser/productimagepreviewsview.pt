@@ -1,15 +1,14 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      lang="en"
-      metal:use-macro="here/main_template/macros/master"
-      i18n:domain="getpaid.variantsproduct">
-<body>
-    <div metal:fill-slot="main">
-        <tal:main-macro metal:define-macro="main"
-                        tal:define="testview view/test">
-
-            <span tal:content="testview/dummy">test</span>
-
-        </tal:main-macro>
+<tal:images tal:repeat="image view/images">
+    <div class="photoAlbumEntry">
+        <a tal:define="id python:int(b_start)+int(repeat['image'].number()-1)"
+           tal:attributes="href string:${image/absolute_url}/view;
+                           title image/Description">
+            <span class="photoAlbumEntryWrapper">
+            <img src="" alt="" tal:replace="structure python:image.tag(scale='thumb', title=image.Description())" />
+            </span>
+		    <span class="photoAlbumEntryTitle" tal:content="image/title">
+		       Title
+		    </span>
+        </a>
     </div>
-</body>
-</html>
+</tal:images>
