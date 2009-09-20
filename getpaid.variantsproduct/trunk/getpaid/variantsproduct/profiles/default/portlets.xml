@@ -12,4 +12,9 @@
      description=""
    />
 
+
+ <assignment name="variant-product-shopper" category="context" key="/"
+    manager="plone.rightcolumn"
+    type="getpaid.variantsproduct.portlets.VariantProductShopper"/>
+
 </portlets>

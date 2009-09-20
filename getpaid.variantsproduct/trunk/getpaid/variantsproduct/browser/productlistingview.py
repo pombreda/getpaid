@@ -5,6 +5,7 @@ from Products.CMFCore.utils import getToolByName
 
 from getpaid.variantsproduct import variantsproductMessageFactory as _
 
+from getpaid.variantsproduct.interfaces import IProductImageProvider
 
 class IProductListingView(Interface):
     """
@@ -22,18 +23,27 @@ class ProductListingView(BrowserView):
         self.context = context
         self.request = request
 
-    @property
-    def portal_catalog(self):
-        return getToolByName(self.context, 'portal_catalog')
 
-    @property
-    def portal(self):
-        return getToolByName(self.context, 'portal_url').getPortalObject()
+    def has_image(self, catalog_brain):
+        """ Check whether the iterated item is product like and supports multiple images
 
-    def test(self):
+        @return: True or False
         """
-        test method
-        """
-        dummy = _(u'a dummy string')
 
-        return {'dummy': dummy}
+        # TODO: I don't think metadata supports interface checks...
+        if catalog_brain["portal_type"] in ["MultiImageProduct", "VariantProduct"]:
+            return True
+
+        return False
+
+    def get_image_tag(self, item):
+
+        object = item.getObject()
+
+        if IProductImageProvider.providedBy(object):
+            image = object.getMainImage()
+            return image.tag()
+
+        return None
+
+

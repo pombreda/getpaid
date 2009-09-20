@@ -11,6 +11,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from getpaid.variantsproduct import variantsproductMessageFactory as _
 from getpaid.variantsproduct.interfaces import IBuyableMarker, IVariantProduct
 
+from getpaid.variantsproduct.currency import format_currency
+
 from Products.PloneGetPaid.browser.portlets import base as getpaidbase
 
 
@@ -22,6 +24,11 @@ class IVariantProductShopper(IPortletDataProvider):
     data that is being rendered and the portlet assignment itself are the
     same.
     """
+
+    cart_add_form_url = schema.TextLine()
+
+
+
 
 class Assignment(base.Assignment):
     """Portlet assignment.
@@ -40,7 +47,7 @@ class Assignment(base.Assignment):
         """This property is used to give the title of the portlet in the
         "manage portlets" screen.
         """
-        return "Variant product shopper"
+        return u"Buy portlet"
 
 
 class Renderer(getpaidbase.GetPaidRenderer):
@@ -55,27 +62,29 @@ class Renderer(getpaidbase.GetPaidRenderer):
 
     render = ViewPageTemplateFile('variantproductshopper.pt')
 
-    @property
     def variations(self):
         return self.context.getProductVariations()
 
-    @property
     def has_variations(self):
         """
         @return: Does this product support varations
         """
         return IVariantProduct.providedBy(self.context)
 
-    @property
     def cart_add_form_url(self):
         """
         @return: URL for form posts addindg this item to cart
         """
-        return self.context.getAddFormURL()
+        return self.context.getCartAddFormURL()
 
-    @property
+    def price(self):
+        return self.format_price(self.context.price)
+
+    def format_price(self, value):
+        return format_currency(value)
+
     def is_visible(self):
-        """ Should this
+        """ Is the context object marked to be buyable using this portlet
         """
         return IBuyableMarker.providedBy(self.cotext)
 

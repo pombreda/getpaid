@@ -30,9 +30,10 @@ VariantProductSchema = folder.ATFolderSchema.copy()+ goodsschema.shippableSchema
         'variations',
         storage=atapi.AnnotationStorage(),
         validators = (VariationTextValidator("Sane variations description"),),
+        default = ["myitemcode; My Item; 0.00"],
         widget=atapi.LinesWidget(
             label=_(u"Variations"),
-            description=_(u"Variations, one per, line. Line contains the following data separated by ; character: product_code; title; price"),
+            description=_(u"Variations, one per, line. Line contains the following data separated by ; character: product_code; title; price. Use dot as decimal separator."),
         ),
     ),
 

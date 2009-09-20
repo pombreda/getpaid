@@ -22,6 +22,15 @@
                tal:condition="field"
                tal:content="field"
                />
+
+			<tal:no-variations condition="not:view/has_variations">
+	            <p tal:define="field view/price"
+	               tal:condition="field"
+	               i18n:domain="plonegetpaid"
+	     	       i18n:translate="text_price">
+	                 Price: <span tal:content="field" i18n:name="value_price" />
+	            </p>
+			</tal:no-variations>
           </div>
         </dd>
 
@@ -32,11 +41,10 @@
 
                 <select name="product_code"
                         id="product-code"
-                        tal:define="variations context/getProductVariations"
-                        tal:conditoin="view/has_variations"
+                        tal:condition="view/has_variations"
                         >
                     <option value="#"
-                            tal:repeat="variation variations"
+                            tal:repeat="variation view/variations"
                             tal:attributes="value variation/product_code"
                             tal:content="variation/line_format"
                             i18n:translate=""

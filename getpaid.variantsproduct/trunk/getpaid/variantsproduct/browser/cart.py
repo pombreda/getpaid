@@ -45,7 +45,7 @@ class BaseShoppingAddView(ShoppingCart):
 
         # Notify user that the shopping cart has been updated
         messages = IStatusMessage(self.request)
-        messages.addStatusMessage(u"Added product to the shopping cart:" + item.title, type="info")
+        messages.addStatusMessage(u"%d %s items in the shopping cart " % (item.quantity, item.name), type="info")
 
     def isContextAddable( self ):
         return IBuyableMarker.providedBy(self.context)
@@ -58,14 +58,14 @@ class BaseShoppingAddView(ShoppingCart):
         self.request.response.redirect(self.context.absolute_url())
 
 
-class AddVariantView(ShoppingCart):
-
+class AddVariantView(BaseShoppingAddView):
+    """ Add items with variations to cart """
 
     def addToCart( self ):
         """ Add item to the cart based on HTTP POST request
         """
         # GEt line item creator
-        item_factory = component.getMultiAdapter( (self.cart, self.context), IVariationItemFactory )
+        item_factory = component.getMultiAdapter( (self.cart, self.context), IVariationItemFactory)
 
         # Decode HTTP POST input
         qty = int(self.request.get('quantity', 1))
@@ -74,22 +74,16 @@ class AddVariantView(ShoppingCart):
         # Update the cart
         item = item_factory.create(product_code, quantity=qty)
 
+        if not item:
+            # Item already exist in the cart and was not created
+            item = self.cart[product_code]
+
         self.notifyUser(item)
 
 
 
-class AddProductView(ShoppingCart):
-    """
-    GetPaid view to process form request to add item variation to the cart.
-
-    Add variation items to the cart.
-
-    HTTP request parameters:
-
-        * quantity
-
-        * add_item
-
+class AddProductView(BaseShoppingAddView):
+    """ Add items without variations to cart.
     """
 
 
@@ -104,6 +98,10 @@ class AddProductView(ShoppingCart):
 
         # Update the cart
         item = item_factory.create(quantity=qty)
+
+        if not item:
+            # Item already exist in the cart and was not created
+            item = self.cart[self.context.UID()]
 
         self.notifyUser(item)
 

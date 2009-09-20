@@ -16,6 +16,7 @@ from zope.schema.fieldproperty import FieldProperty
 from Products.validation.exceptions import ValidatorError
 
 from getpaid.variantsproduct.interfaces import IVariation
+from getpaid.variantsproduct.currency import format_currency
 
 class Variation(object):
     """
@@ -33,7 +34,10 @@ class Variation(object):
         """
         @return: Describe this variation as one line string, human readable
         """
-        return "%s (%2.2f)" % (self.title, self.price)
+
+        value = format_currency(self.price)
+
+        return u"%s (%s)" % (self.title, value)
 
     @staticmethod
     def decode(line):

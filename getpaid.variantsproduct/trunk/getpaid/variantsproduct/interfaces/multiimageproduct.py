@@ -12,8 +12,15 @@ class IMultiImageProduct(Interface):
 
 class IProductImageProvider(Interface):
 
-    def getImages(self):
+    def getImages():
         """ Get Images associated with the product.
 
         @return: iterable of Image objects
         """
+
+    def getMainImage():
+       """ Get the preferred image used in the folder listings.
+
+        @return: Image object or None
+        """
+

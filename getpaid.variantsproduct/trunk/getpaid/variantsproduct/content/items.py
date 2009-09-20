@@ -13,6 +13,7 @@ import zope.interface
 from zope import component
 from zope.app.intid.interfaces import IIntIds
 
+import getpaid.core.item
 from getpaid.core import interfaces, item
 from getpaid.variantsproduct.interfaces import IVariationItemFactory
 
@@ -40,22 +41,21 @@ class VariationItemFactory(object):
         if item_id in self.cart:
             self.cart[ item_id ].quantity += quantity
 
-            return True
+            return self.cart[ item_id ]
 
-        return False
+        return None
 
     def create(self, product_code, quantity = 1):
         """
         @return getpaid.core.item.PayableLineItem
         """
 
-        nitem = item.PayableLineItem()
+        nitem = getpaid.core.item.PayableLineItem()
         nitem.item_id = self.context.UID() # archetypes uid
 
         # we use intids to reference content that we can dereference cleanly
         # without access to context.
         nitem.uid = component.getUtility( IIntIds ).register(self.context)
-
 
         def getUnicodeString( s ):
             """Try to convert a string to unicode from utf-8, as this is what Archetypes uses"""
@@ -84,9 +84,8 @@ class VariationItemFactory(object):
         # We place items to cart by their product_code,
         # *not* Archetypes ID
 
-        if self.checkIncrementCart(variation.product_code, quantity):
-            return
-        else:
-            self.cart[variation.product_code] = nitem
+        item = self.checkIncrementCart(variation.product_code, quantity)
 
-        return nitem
+        if not item:
+            self.cart[variation.product_code] = nitem
+            return nitem

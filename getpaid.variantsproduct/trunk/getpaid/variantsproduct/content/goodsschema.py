@@ -25,6 +25,7 @@ priceSchema = atapi.Schema((
     atapi.FloatField(
         'price',
         storage=atapi.AnnotationStorage(),
+        default=0,
         widget=atapi.DecimalWidget(
             label=_(u"Price"),
             description=_(u"Item price in the shop currency unit"),
