@@ -24,7 +24,7 @@
                />
 
 			<tal:no-variations condition="not:view/has_variations">
-	            <p tal:define="field view/price"
+	            <p tal:define="field view/product_price"
 	               tal:condition="field"
 	               i18n:domain="plonegetpaid"
 	     	       i18n:translate="text_price">

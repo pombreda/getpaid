@@ -2,7 +2,7 @@
 <object name="VariantProduct"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="getpaid.variantsproduct" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">Shippable good with multiple variations</property>
+  <property name="title" i18n:translate="">Shippable good w/variations</property>
   <property name="description"
     i18n:translate="">Shippable good with multipe variations and images</property>
   <property name="content_meta_type">VariantProduct</property>

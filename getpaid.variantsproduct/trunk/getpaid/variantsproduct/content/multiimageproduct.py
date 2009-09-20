@@ -16,7 +16,8 @@ from getpaid.variantsproduct.content import goodsschema
 import getpaid.core.interfaces
 import Products.PloneGetPaid.interfaces
 
-MultiImageProductSchema = folder.ATFolderSchema.copy() + goodsschema.priceSchema.copy() + \
+MultiImageProductSchema = folder.ATFolderSchema.copy() + \
+                          goodsschema.priceSchema.copy() + \
                           goodsschema.productDescriptionSchema.copy() + \
                           goodsschema.shippableSchema.copy()
 

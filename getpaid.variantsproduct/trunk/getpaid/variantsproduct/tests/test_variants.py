@@ -55,8 +55,9 @@ class GetProductVariantsTestCase(TestCase):
 
         self.portal.invokeFactory("VariantProduct", "product")
 
+        # By default we have 1 sample variation
         variants = self.portal.product.getProductVariations()
-        self.assertEqual(len(variants), 0)
+        self.assertEqual(len(variants), 1)
 
         self.portal.product.setVariations([])
         variants = self.portal.product.getProductVariations()

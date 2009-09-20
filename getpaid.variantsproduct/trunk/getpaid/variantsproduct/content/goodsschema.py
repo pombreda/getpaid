@@ -36,14 +36,16 @@ priceSchema = atapi.Schema((
 
 ))
 
+
 productDescriptionSchema = atapi.Schema((
 
     atapi.StringField(
         'product_code',
+        required=True,
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
             label=_(u"Product code"),
-            description=_(u"Inventory id for this product"),
+            description=_(u"Inventory id for this product. All products must have unique id for billing purposes."),
         ),
     ),
 

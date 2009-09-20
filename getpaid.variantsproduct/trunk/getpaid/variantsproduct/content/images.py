@@ -34,3 +34,11 @@ class FolderishProductImageProvider(object):
 
         images = self.context.listFolderContents(contentFilter={"portal_type" : "Image"})
         return images
+
+    def getMainImage(self):
+
+        images = self.getImages()
+        if len(images) >= 1:
+            return self.getImages()[0]
+        else:
+            return None

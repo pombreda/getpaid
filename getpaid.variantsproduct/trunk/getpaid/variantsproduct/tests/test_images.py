@@ -21,6 +21,9 @@ class ProductImagesTestCase(TestCase):
         # Not yet any uploaded images
         self.assertEqual(len(images), 0)
 
+        main_image = image_provider.getMainImage()
+        self.assertEqual(main_image, None)
+
     def test_get_images_one_image(self):
 
         self.loginAsPortalOwner()
@@ -35,6 +38,9 @@ class ProductImagesTestCase(TestCase):
 
         # Not yet any uploaded images
         self.assertEqual(len(images), 1)
+
+        main_image = image_provider.getMainImage()
+        self.assertNotEqual(main_image, None)
 
 def test_suite():
     from unittest import TestSuite, makeSuite

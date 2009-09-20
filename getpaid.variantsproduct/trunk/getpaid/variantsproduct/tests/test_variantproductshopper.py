@@ -43,20 +43,15 @@ class TestPortlet(TestCase):
         self.assertEquals(len(mapping), 1)
         self.failUnless(isinstance(mapping.values()[0], variantproductshopper.Assignment))
 
-    # NOTE: This test can be removed if the portlet has no edit form
-    def test_invoke_edit_view(self):
-        mapping = PortletAssignmentMapping()
-        request = self.folder.REQUEST
-
-        mapping['foo'] = variantproductshopper.Assignment()
-        editview = getMultiAdapter((mapping['foo'], request), name='edit')
-        self.failUnless(isinstance(editview, variantproductshopper.EditForm))
 
     def test_obtain_renderer(self):
+
+
+        self.portal.invokeFactory("MultiImageProduct", "product")
         context = self.folder
         request = self.folder.REQUEST
         view = self.folder.restrictedTraverse('@@plone')
-        manager = getUtility(IPortletManager, name='plone.rightcolumn', context=self.portal)
+        manager = getUtility(IPortletManager, name='plone.rightcolumn', context=self.portal.product)
 
         # TODO: Pass any keywoard arguments to the Assignment constructor
         assignment = variantproductshopper.Assignment()
@@ -69,6 +64,8 @@ class TestRenderer(TestCase):
 
     def afterSetUp(self):
         self.setRoles(('Manager',))
+        self.portal.invokeFactory("MultiImageProduct", "product")
+
 
     def renderer(self, context=None, request=None, view=None, manager=None, assignment=None):
         context = context or self.folder
@@ -82,7 +79,7 @@ class TestRenderer(TestCase):
 
     def test_render(self):
         # TODO: Pass any keywoard arguments to the Assignment constructor
-        r = self.renderer(context=self.portal, assignment=variantproductshopper.Assignment())
+        r = self.renderer(context=self.portal.product, assignment=variantproductshopper.Assignment())
         r = r.__of__(self.folder)
         r.update()
         output = r.render()

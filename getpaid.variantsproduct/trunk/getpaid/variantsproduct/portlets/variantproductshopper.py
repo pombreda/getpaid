@@ -77,7 +77,8 @@ class Renderer(getpaidbase.GetPaidRenderer):
         """
         return self.context.getCartAddFormURL()
 
-    def price(self):
+    def product_price(self):
+        context = self.context.aq_inner
         return self.format_price(self.context.price)
 
     def format_price(self, value):
