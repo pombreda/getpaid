@@ -21,9 +21,6 @@ __docformat__ = "epytext"
 __license__ = "GPL"
 __copyright__ = "2009 Twinapex Research"
 
-class IVariantBuyMarker(Interface):
-    """ Marker interface controlling whether variant specific buying portlet is shown next to the content """
-
 class IVariantProduct(IMultiImageProduct):
     """ Marker interface used to identify VariantProduct content """
 

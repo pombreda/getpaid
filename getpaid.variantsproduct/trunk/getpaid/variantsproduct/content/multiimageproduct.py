@@ -35,9 +35,7 @@ schemata.finalizeATCTSchema(
 
 class MultiImageProduct(folder.ATFolder):
     """Buyable product with multiple images"""
-    implements(IMultiImageProduct,
-               Products.PloneGetPaid.interfaces.IShippableMarker
-               )
+    implements(IMultiImageProduct)
 
     meta_type = "MultiImageProduct"
     schema = MultiImageProductSchema
@@ -55,6 +53,9 @@ class MultiImageProduct(folder.ATFolder):
     text = atapi.ATFieldProperty('text')
 
     product_code = atapi.ATFieldProperty('product_code')
+
+    def getCartAddFormURL(self):
+         return self.absolute_url() + "/@@getpaid-cart-add-simple"
 
 
 atapi.registerType(MultiImageProduct, PROJECTNAME)

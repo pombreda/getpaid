@@ -29,6 +29,12 @@ class Variation(object):
     title = FieldProperty(IVariation["title"])
     price = FieldProperty(IVariation["price"])
 
+    def line_format(self):
+        """
+        @return: Describe this variation as one line string, human readable
+        """
+        return "%s (%2.2f)" % (self.title, self.price)
+
     @staticmethod
     def decode(line):
         """ Try to decode line of text of variation human-input.

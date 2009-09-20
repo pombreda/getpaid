@@ -21,14 +21,26 @@
            provides="getpaid.variantsproduct.interfaces.IVariationItemFactory"
 		   factory=".items.VariationItemFactory" />
 
+  <!-- Line item generation for multi image product -->
+  <adapter for="getpaid.core.interfaces.IShoppingCart
+  				.multiimageproduct.MultiImageProduct"
+           provides="getpaid.core.interfaces.ILineItemFactory"
+		   factory="Products.PloneGetPaid.content.LineItemFactory" />
+
+
   <!-- Shippable adapters -->
   <adapter for=".multiimageproduct.MultiImageProduct"
            provides="getpaid.core.interfaces.IShippableContent"
 		   factory=".shippable.shippableAdapter" />
 
 
+
+
   <!-- -*- extra stuff goes here -*- -->
   <class class=".multiimageproduct.MultiImageProduct">
+
+ 	<implements interface="getpaid.variantsproduct.interfaces.IBuyableMarker" />
+
     <require
         permission="zope2.View"
         interface="..interfaces.IMultiImageProduct"
@@ -38,11 +50,16 @@
         set_schema="..interfaces.IMultiImageProduct"
         />
   </class>
+
   <class class=".variantproduct.VariantProduct">
+
+	<implements interface="getpaid.variantsproduct.interfaces.IBuyableMarker" />
+
     <require
         permission="zope2.View"
         interface="..interfaces.IVariantProduct"
         />
+
     <require
         permission="cmf.ModifyPortalContent"
         set_schema="..interfaces.IVariantProduct"

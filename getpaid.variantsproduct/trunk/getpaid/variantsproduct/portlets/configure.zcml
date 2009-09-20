@@ -17,7 +17,6 @@
       edit_permission="cmf.ManagePortal"
       renderer=".variantproductshopper.Renderer"
       addview=".variantproductshopper.AddForm"
-      editview=".variantproductshopper.EditForm"
       />
 
 

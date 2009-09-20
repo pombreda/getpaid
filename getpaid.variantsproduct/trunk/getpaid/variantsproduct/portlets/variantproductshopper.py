@@ -9,9 +9,11 @@ from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from getpaid.variantsproduct import variantsproductMessageFactory as _
-from getpaid.variantsproduct.interfaces import IVariantBuyMarker
+from getpaid.variantsproduct.interfaces import IBuyableMarker, IVariantProduct
 
 from Products.PloneGetPaid.browser.portlets import base as getpaidbase
+
+
 
 class IVariantProductShopper(IPortletDataProvider):
     """A portlet
@@ -21,16 +23,6 @@ class IVariantProductShopper(IPortletDataProvider):
     same.
     """
 
-    # TODO: Add any zope.schema fields here to capture portlet configuration
-    # information. Alternatively, if there are no settings, leave this as an
-    # empty interface - see also notes around the add form and edit form
-    # below.
-
-    # some_field = schema.TextLine(title=_(u"Some field"),
-    #                              description=_(u"A field to use"),
-    #                              required=True)
-
-
 class Assignment(base.Assignment):
     """Portlet assignment.
 
@@ -39,14 +31,6 @@ class Assignment(base.Assignment):
     """
 
     implements(IVariantProductShopper)
-
-    # TODO: Set default values for the configurable parameters here
-
-    # some_field = u""
-
-    # TODO: Add keyword parameters for configurable parameters here
-    # def __init__(self, some_field=u"):
-    #    self.some_field = some_field
 
     def __init__(self):
         pass
@@ -67,10 +51,33 @@ class Renderer(getpaidbase.GetPaidRenderer):
     of this class. Other methods can be added and referenced in the template.
     """
 
-    marker = IVariantBuyMarker
+    marker = IBuyableMarker
 
     render = ViewPageTemplateFile('variantproductshopper.pt')
 
+    @property
+    def variations(self):
+        return self.context.getProductVariations()
+
+    @property
+    def has_variations(self):
+        """
+        @return: Does this product support varations
+        """
+        return IVariantProduct.providedBy(self.context)
+
+    @property
+    def cart_add_form_url(self):
+        """
+        @return: URL for form posts addindg this item to cart
+        """
+        return self.context.getAddFormURL()
+
+    @property
+    def is_visible(self):
+        """ Should this
+        """
+        return IBuyableMarker.providedBy(self.cotext)
 
 # NOTE: If this portlet does not have any configurable parameters, you can
 # inherit from NullAddForm and remove the form_fields variable.

@@ -3,4 +3,6 @@ from multiimageproduct import *
 
 from variantproduct import *
 
+from product import *
+
 

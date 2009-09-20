@@ -23,12 +23,20 @@ class VariationTextValidator(object):
     #zope.interface.implements(IValidator)
     __implements__ = IValidator
 
-    def __call__(self, value):
+    def __init__(self, name, *args, **kw):
+        self.name = name
+        self.title = kw.get('title', name)
+        self.description = kw.get('description', '')
 
-        lines = value.split("\n")
 
-        for line in lines:
+    def __call__(self, value, *args, **kwargs):
 
+
+        for line in value:
+
+            line = line.strip()
+
+            #print "Validating line:" + line
             if line == "":
                 continue
 
@@ -37,6 +45,6 @@ class VariationTextValidator(object):
             try:
                 Variation.decode(line)
             except ValidatorError, e:
-                return e.message + " " + " Line is:" + line
-
+                return unicode(e) + u" Line is:" + line
+        #print "All ok"
         return True

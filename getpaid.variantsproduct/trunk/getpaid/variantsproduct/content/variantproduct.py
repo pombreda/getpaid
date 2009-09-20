@@ -29,7 +29,7 @@ VariantProductSchema = folder.ATFolderSchema.copy()+ goodsschema.shippableSchema
     atapi.LinesField(
         'variations',
         storage=atapi.AnnotationStorage(),
-        validators = (VariationTextValidator,),
+        validators = (VariationTextValidator("Sane variations description"),),
         widget=atapi.LinesWidget(
             label=_(u"Variations"),
             description=_(u"Variations, one per, line. Line contains the following data separated by ; character: product_code; title; price"),
@@ -100,6 +100,9 @@ class VariantProduct(folder.ATFolder):
                 return variation
 
         raise RuntimeError("No product variation by product_code:" + product_code)
+
+    def getCartAddFormURL(self):
+        return self.absolute_url() + "/@@getpaid-cart-add-variant"
 
 
 atapi.registerType(VariantProduct, PROJECTNAME)

@@ -3,14 +3,15 @@
       i18n:domain="plonegetpaid">
 
 <body>
-<div metal:define-macro="portlet" tal:condition="view/isPayable">
+
+<div metal:define-macro="portlet" condition="view/available">
 
     <dl class="portlet" id="portlet-cart">
 
         <dt class="portletHeader">
             <span class="portletTopLeft"></span>
         <span class="portletTopMiddle"
-              i18n:translate="text_product_details">Product Details</span>
+              i18n:translate="text_product_details">Buy product</span>
             <span class="portletTopRight"></span>
         </dt>
 
@@ -21,23 +22,27 @@
                tal:condition="field"
                tal:content="field"
                />
-
-            <p tal:define="field context/Description"
-               tal:condition="field">
-               <i tal:content="field" />
-            </p>
-
           </div>
         </dd>
 
         <dd class="portletFooter">
-            <form tal:attributes= "action string:${context/absolute_url}/@@getpaid-cart-add-variant"
+            <form tal:attributes= "action view/cart_add_form_url"
                   method="post">
               <input type="hidden" name="add_item" value="True" />
 
-              <select>
-
-              </select>
+                <select name="product_code"
+                        id="product-code"
+                        tal:define="variations context/getProductVariations"
+                        tal:conditoin="view/has_variations"
+                        >
+                    <option value="#"
+                            tal:repeat="variation variations"
+                            tal:attributes="value variation/product_code"
+                            tal:content="variation/line_format"
+                            i18n:translate=""
+                            >
+                    </option>
+                </select>
 
               <input type="text" size="1" name="quantity" value="1" />
               <input type="submit"
