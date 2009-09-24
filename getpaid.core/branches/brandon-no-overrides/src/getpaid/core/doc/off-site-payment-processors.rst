@@ -308,45 +308,94 @@ will probably be a form with several hidden fields, rather than a simple
 link like this.  But, however complex it becomes, your view will work
 because it has the same basic features as the small view shown above.
 
+GetPaid URLs
+------------
+
+In the next few sections of this document, we are going to talk about
+views that have real URLs on the GetPaid-powered web site.  Before
+examining them, we should look at how GetPaid URLs are constructed.
+
+At the center of the GetPaid customer experience is a “Store”.  The
+store is, from the point of view of the site owner, the module that they
+have added to their web site to make GetPaid available for their users.
+From the point of view of you, the developer, the store is first and
+foremost the base object off of which all GetPaid URLs are hung.
+
+Let's consider an example web site that lives at::
+
+    http://example.com/
+
+Depending on which web framework has been used to build the site, the
+store might be located one of two places.  If the site is powered by
+Plone or another Zope-based framework that supports adapter-based
+views, then the GetPaid installation process will probably mark the site
+root itself as the :class:`IStore` and GetPaid URLs will look like::
+
+    http://example.com/cart
+    http://example.com/checkout
+    http://example.com/chargeit-thank-you
+    http://example.com/chargeit-declined
+
+But most other web frameworks do not make it easy to mix in lots of
+views down at the site root; indeed, they would consider this a design
+flaw, because of the chance that two add-on products would have views of
+the same name.  So, under most other frameworks, the GetPaid install
+process involves choosing a URL for the store that lives one level (or
+more) below the site root, like::
+
+    http://example.com/shop
+
+The store owner is free to choose a name that fits with the logic of
+their site design, like ``shop`` or ``store`` or ``buy`` or, if they are
+brand-loyal, maybe even ``getpaid``.  In any case, in these other web
+frameworks, GetPaid views will appear beneath the store URL instead of
+up at the site root, like this::
+
+    http://example.com/shop/cart
+    http://example.com/shop/checkout
+    http://example.com/shop/chargeit-thank-you
+    http://example.com/shop/chargeit-declined
+
+How, when writing view code, can you compute these URLs for yourself?
+You might need them, especially if you have to inform the off-site
+payment service of one of your view's URL.  The answer is that the store
+object is always available as a utility, and can always — regardless of
+what web framework you are running under — report its URL if you call
+its :meth:`~IStore.absolute_url()` method.  The checkout wizard's URL,
+for example, can be computed with::
+
+    import zope.component
+
+    store = zope.component.getUtility(IStore)
+    store_url = store.absolute_url()
+    checkout_url = store_url.rstrip('/') + '/checkout'
+
+As suggested by the example URLs given above, the URLs available beneath
+the GetPaid :class:`IStore` are a mix: some of them are views that come
+packaged with GetPaid, while others are provided by your payment
+processor and any other payment processors that are installed.
+
+To prevent collisions among these view names, we strongly suggest that
+you start all of your view names with the name of your payment processor
+module, as we did with the fictitious ``chargeit-`` views shown in the
+URL list above.
+
 Setting up the welcome-back views
 ---------------------------------
 
-The second category of view you will have to provide are the screens
-that welcome the user back when they are done checking out on the
-off-site service.  These views will actually need to live at a URL,
-because the payment processor is going to 
+The second kind of views you will have to provide (the first, you will
+recall, is the HTML that sends the customer off-site) are the screens
+that welcome the user back when they are done checking out through the
+off-site service.  These views will need an actual URL, so that the
+user's web browser can load them.
 
-
-/Plone
-/Plone/store
-/Plone/checkout/callback
-/Plone/
-
-
-How are GetPaid URLs constructed?  Every GetPaid installation involves
-the creation of a “store”, which has a URL beneath which all of the
-GetPaid web pages will live.  For example, consider a Plone site whose
-root has been marked as an :class:`IStore`.  If the site has the URL::
-
-    http://store.example.com/
-
-then its GetPaid views will live URLs like::
-
-    http://store.example.com/checkout
-    http://store.example.com/thank-you
-    http://store.example.com/declined
-
-If, on the other hand, the web site owner has chosen to install the
-GetPaid :class:`IStore` a bit deeper in their site, then it would be at
-the level beneath that URL that the GetPaid views were available.
-
-
-
-
-store will live at some URL
-store_views?
-no, normal views registered to IStore
-
+If the off-site processor provides its own “Authorization successful”
+and “Payment declined” screens, and only forwards the user back once the
+whole shopping experience is complete, then you will probably provide
+only a single landing page for the user's return.  But if the off-site
+payment service simply redirects the user back with some sort of a code
+indicating whether payment succeeded, then you will need to provide a
+view (or several views) that let the user know what happened.
 
 
 
