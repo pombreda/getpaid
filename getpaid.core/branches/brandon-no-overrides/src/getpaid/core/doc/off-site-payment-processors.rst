@@ -2,7 +2,7 @@
 Off-site Payment Processors
 ===========================
 
-By definition, an off-site payment processor redirects the user's web
+By definition, an “off-site payment processor” redirects the user's web
 browser off-site at some point during the GetPaid checkout process.
 Writing support for an off-site solution can be a bit complicated,
 because you have think through every GET and POST that will be involved
@@ -12,9 +12,9 @@ writing your payment processor quite manageable.
 
 There are several steps involved in writing an off-site payment
 processor, so here they are, in a simple list.  Use this list as an
-overview to help orient you as you read through this document, and also
-as a checklist to make sure you have covered everything when you think
-your payment processor package is nearing completion.
+overview to keep you oriented you as you read through this document, and
+also as a checklist to make sure you have covered everything when you
+think your payment processor package is nearing completion.
 
 1. Provide a view that, through means of an HTML form, will direct the
    user off-site.  This view will either be an alternative to the normal
@@ -38,12 +38,14 @@ your payment processor package is nearing completion.
 4. If the off-site payment processor supports it, you should provide
    methods with which the GetPaid store owner can either capture the
    authorized funds once they are ready to send the buyer goods, or can
-   refund the customer instead.
+   refund the customer instead.  (Some off-site processors might only
+   support these actions on their own web site, in which case the store
+   owner will have to log in there to manage their orders.)
 
 If any of these steps sound complicated, then, well, there's the chance
 that they are — depending, largely, on how complicated the payment
 processing site is that you are trying to tie GetPaid into.  But we have
-tried to make your GetPaid development experience as happy as possible,
+tried to make your GetPaid development experience as easy as possible,
 as you will see in the following sections, where we will tackle each of
 the above goals and show you how to implement their solutions.
 
@@ -57,7 +59,7 @@ As discussed in the :doc:`writing-a-payment-processor` introduction, the
 core of your payment processor code will be a class that inherits from
 the base class for off-site payment processors.  The only strict
 requirement beyond the basics we have already covered is that it must
-tell GetPaid which views to render to replace either the shopping cart
+tell GetPaid which view to render to replace either the shopping cart
 check-out button or the review-and-pay credit-card form.  The result, at
 its simplest, looks something like this::
 
@@ -81,7 +83,8 @@ simple class attributes, and in many cases this is all you will need.
 
 The ``checkout_button`` attribute, if not ``None``, should name the view
 that will replace the GetPaid checkout button at the bottom of each
-shopping cart view (both the cart portlet, and the main cart page).
+shopping cart view.  (Specifically, it will be placed at the bottom of
+both the cart portlet in the sidebar, and on the main cart web page).
 Similarly, the ``payment_form`` attribute names the view that should be
 rendered to supply the bottom pane of the last page of GetPaid's
 checkout process.  Typically, you will only supply a name for one of
@@ -106,10 +109,10 @@ something roughly equivalent to this::
     payment_processor = ChargeIt(options, shopping_cart, order)
     checkout_view = payment_processor.checkout_button
 
-The three arguments used to instantiate your class are simply stored in
-attributes of the same name by the initialize method that you inherit
-from ``OffSitePaymentProcessor``, so you can access them easily.  The
-three values are:
+The three arguments used to instantiate your class are each simply
+stored in an attribute of the same name by the ``__init__()`` method
+that you inherit from ``OffSitePaymentProcessor``, so you can access
+them easily.  The three values are:
 
 ``options``
   An object that implements the ``options_schema`` that your class
@@ -123,7 +126,7 @@ three values are:
 Because GetPaid asks for the ``checkout_button`` and ``payment_form``
 attributes of an instance of your class, and not simply of the class
 object itself, you have the option of generating the answer dynamically
-through code like this::
+by using a property::
 
     class ChargeIt(OffSitePaymentProcessor):
         ...
@@ -134,10 +137,10 @@ through code like this::
             else:
                 return 'world-form'
 
-The likelihood of needing this flexibility is small.  After all, you
-could just supply one view whose outer level was a big “if” statement as
-easily as you could provide two separate views like this with a switch
-to decide between them.  But the ability is there if you ever need it.
+The likelihood of needing this flexibility is small.  After all, you can
+create a single view whose outer level is a big “if” statement as easily
+as you could provide two separate views, like this, with a switch to
+decide between them.  But the ability is there if you ever need it.
 
 Writing views
 -------------
@@ -147,18 +150,18 @@ natural course of an on-site GetPaid checkout, it is going to have to
 render some HTML — you will have to write at least a modest link
 pointing off-site, and quite possibly a complete form.  In addition, you
 are going to have to prepare landing pages to which the user will return
-when they are done checking out, and you might also create URLs with
+when they are done checking out, and you might also create URLs through
 which the off-site processor can provide updates to GetPaid as the buyer
-process through their checkout process.
+steps through their checkout process.
 
 The views you create will fall into two genres.  First, you will create
-HTML “snippets” that are designed to be seen by the user, and that will
-be inserted into the theme of the larger web site of which GetPaid is a
-part.  Checkout buttons, review-pay forms, and welcome-back pages all
-fall into this category.  Second, you may also design complete web pages
-over which you have full control — and which will often be in machine
-formats like XML or JSON — for the consumption of the off-site payment
-service.
+the HTML “snippets”, discussed in the previous two sections, that are
+designed to be seen by the user and will be inserted into the theme of
+the larger web site of which GetPaid is a part.  Checkout buttons,
+review-pay forms, and welcome-back pages all fall into this category.
+Second, you may also design complete web pages over which you have full
+control — and which will often be in machine formats like XML or JSON —
+for consumption by the off-site payment service.
 
 With what technology should you create your views?  There are several
 technologies for constructing them in the Zope world today.  We
@@ -236,7 +239,7 @@ what it might look like:
     </configure>
 
 The view that sends your user off-site should, as in this example,
-declare that it is a are view ``for=`` your own payment processor class.
+declare that it is a view ``for=`` your own payment processor class.
 This gives the view an interesting property: it will have no URL!
 Because your payment processor itself has no URL in a GetPaid-powered
 site, the user cannot add (in this example) ``/pay_form`` to the end of
@@ -244,12 +247,12 @@ that URL and activate the view.  This limitation is deliberate: users
 should *not* be able to run your view logic unless GetPaid is already
 rendering a checkout page that the view belongs on.
 
-The key features that make the above example a fully working view for
+The key features that make the above example a fully-working view for
 sending the user off-site are simply that:
 
 1. The *name* of the view matches the name that GetPaid will receive
    when it asks your payment processor instance for the value of its
-   ``checkout_button`` or ``payment_form`` attribute.
+   ``checkout_button`` or ``payment_form``.
 
 2. The *context* for which the view is declared (``for=``) is your
    payment processor class itself.
@@ -289,29 +292,29 @@ service's testing “sandbox”, or to the real production service that
 actually takes money from real credit cards.
 
 Since order management is an important topic, we will talk more about it
-below, in its own section.  But we should probably repeat here that the
-third of the three values above — the ``order`` — will be ``None`` if
+below, in its own section.  But we should at least note here that the
+third of the three values above — the ``order`` — will be ``None`` if
 your view is a ``checkout_button``, since at that point the checkout
-process has not actually started, but for a ``payment_form`` will be an
-``Order`` object holding information about the buyer, their address, and
-their shipping preferences that was collected through the preceding
-steps of the GetPaid checkout process.
+process has not actually started; but for a ``payment_form`` will be an
+``Order`` object holding all of the information about the buyer, their
+address, and their shipping preferences that was collected through the
+preceding steps of the GetPaid checkout process.
 
 The example view given above is overly simple, of course, because it
-makes no effort to transmit to the off-site processor either your store
-owner's identity as a merchant, or the contents of the shopping cart, or
-even the total payment that is due to complete the transaction.  That is
-why your view will probably be a form with several hidden fields rather
-than a simple link like this.  But, however complex it becomes, your
-view work because it has the same basic features as the small view shown
-above.
+makes no effort to transmit to the off-site processor the store owner's
+merchant ID, the contents of the shopping cart, or even the total
+payment that is due to complete the transaction.  That is why your view
+will probably be a form with several hidden fields, rather than a simple
+link like this.  But, however complex it becomes, your view will work
+because it has the same basic features as the small view shown above.
 
 Setting up the welcome-back views
 ---------------------------------
 
 The second category of view you will have to provide are the screens
 that welcome the user back when they are done checking out on the
-off-site service. ...
+off-site service.  These views will actually need to live at a URL,
+because the payment processor is going to 
 
 
 /Plone
