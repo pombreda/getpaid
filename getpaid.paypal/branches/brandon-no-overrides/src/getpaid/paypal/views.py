@@ -1,5 +1,4 @@
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
@@ -12,14 +11,14 @@ from AccessControl import getSecurityManager
 
 from getpaid.paypal.paypal import PaypalStandardProcessor
 
-class PaypalButtonView(BrowserView):
+class PayPalCheckoutButton(BrowserView):
     """page for paypal button
     """
-    
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-    
+    cart = []
+
+    def button_gif(self):
+        return u"http://images.paypal.com/images/x-click-but1.gif"
+
     def getButton(self):
         button = PaypalStandardProcessor(self.context)
         cart_util = getUtility(IShoppingCartUtility)
@@ -61,4 +60,3 @@ class PaypalButtonView(BrowserView):
         cart_util.destroy(self.context)
 
         return html
-        

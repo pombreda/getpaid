@@ -20,6 +20,8 @@ class PaypalStandardProcessor(OffsitePaymentProcessor):
     title = u'PayPal Checkout'
     options_interface = IPaypalStandardOptions
 
+    checkout_button = 'paypal-checkout-button'
+
     def cart_post_button( self, order ):
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
         options = IPaypalStandardOptions( siteroot )
