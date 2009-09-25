@@ -289,6 +289,18 @@ class IPayableAuditLog( Interface ):
 #################################
 # Stuff to Process Payments
 
+class IPaymentSituation(Interface):
+    """The circumstances in which a payment processor is invoked.
+
+    When an off-site payment processor is instantiated, it needs to be
+    given the checkout situation as it currently stands.  This is
+    accomplished by creating a "payment situation" object and using it
+    as the context which the payment processor adapts.
+
+    """
+    options = Attribute("options selected by admin for this payment processor")
+    order = Attribute("state of the order from this user")
+
 class IOffsitePaymentProcessor(Interface):
     """A payment processor that asks for credit cards on their own site."""
 
