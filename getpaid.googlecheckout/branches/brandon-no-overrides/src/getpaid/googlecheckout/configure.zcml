@@ -12,11 +12,10 @@
       provides=".interfaces.IGoogleCheckoutOptions"
       factory=".GoogleCheckoutOptions" />
 
-   <adapter
-      for="Products.CMFCore.interfaces.ISiteRoot"
-      provides="getpaid.core.interfaces.ICheckoutWizard"
-      name="Off-site Google Checkout"
-      factory=".googlecheckout.GoogleCheckoutWizard" />
+   <utility
+      provides="getpaid.core.interfaces.IOffsitePaymentProcessor"
+      factory=".googlecheckout.GoogleCheckoutProcessor"
+      name="googlecheckout" />
 
    <adapter
       for="Products.CMFCore.interfaces.ISiteRoot"

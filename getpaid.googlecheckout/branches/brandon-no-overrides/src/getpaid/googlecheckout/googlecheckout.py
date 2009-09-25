@@ -23,15 +23,14 @@
 
 """
 """
-from zope.interface import implements
 from zope.component import getUtility
 
 from gchecky import model as gmodel
 from gchecky import gxml
 
 from getpaid.core.interfaces  import IShoppingCartUtility
+from getpaid.core.processors  import OffsitePaymentProcessor
 from getpaid.googlecheckout.interfaces import IGoogleCheckoutOptions
-from getpaid.googlecheckout.interfaces import IGoogleCheckoutWizard
 from getpaid.googlecheckout.interfaces import IGoogleCheckoutController
 from getpaid.googlecheckout.interfaces import IGoogleCheckoutShipping
 
@@ -51,16 +50,11 @@ def gcart_item(entry, options):
         )
 
 
-class GoogleCheckoutWizard(object):
-
-    implements(IGoogleCheckoutWizard)
-
+class GoogleCheckoutProcessor(OffsitePaymentProcessor):
+    name = 'google-checkout'
+    title = u'Google Checkout'
     options_interface = IGoogleCheckoutOptions
     checkout_button_view_name = 'getpaid-google-checkout-button'
-
-    def __init__( self, context ):
-        self.context = context
-        self._controller = None
 
     def getController( self ):
         if self._controller is None:

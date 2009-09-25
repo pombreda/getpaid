@@ -22,7 +22,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 from Products.Five.browser import BrowserView
-from getpaid.core.interfaces import ICheckoutWizard
+#from getpaid.core.interfaces import ICheckoutWizard
 from getpaid.core.interfaces import IShoppingCartUtility
 from zope.component import getAdapter
 from zope.component import getUtility
