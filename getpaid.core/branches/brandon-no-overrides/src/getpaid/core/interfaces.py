@@ -289,38 +289,6 @@ class IPayableAuditLog( Interface ):
 #################################
 # Stuff to Process Payments
 
-class ICheckoutWizard(Interface):
-    """A web interface for finalizing an order and paying.
-
-    A checkout wizard typically demands and receives shipping, tax, and
-    credit-card information from the user.  After asking for a final
-    confirmation, the wizard then charges their credit card and
-    schedules their order to be fulfilled (which might mean that they
-    are shipped some products, or are emailed a registration key, or
-    something like that).
-
-    Some checkout wizards operate by providing a series of pages for the
-    user to visit directly on the Plone web site, while other payment
-    processors are completely off-site.  An example of an off-site
-    processor is Google Checkout, which asks the user for both for their
-    shipping and credit-card information itself, so the Plone site will
-    not have to ask those questions.
-
-    But whatever user interface a checkout wizard might support for the
-    customer, it needs to provide one essential service to the Plone
-    site itself that is using it: the wizard must be able to provide a
-    View that renders its "Checkout" button (which can be a link or form
-    or anything else HTML) so that the button can be placed at the
-    bottom of things like shopping cart widgets and views.  The link, if
-    clicked, should send the user to the first page of the checkout
-    process, and should arrange, somehow, to supply the checkout wizard
-    with enough information that it will be able to see the user's
-    shopping cart and current total.
-
-    """
-    def checkout_button_view():
-        """Return a view which, when rendered, shows a Checkout button."""
-
 class IOffsitePaymentProcessor(Interface):
     """A payment processor that asks for credit cards on their own site."""
 
