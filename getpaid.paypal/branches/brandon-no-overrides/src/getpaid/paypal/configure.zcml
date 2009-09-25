@@ -11,9 +11,10 @@
       provides=".interfaces.IPaypalStandardOptions"
       factory=".PaypalStandardOptions" />
 
-   <utility
+   <adapter
+      for="getpaid.core.interfaces.IPaymentSituation"
       provides="getpaid.core.interfaces.IOffsitePaymentProcessor"
-      factory=".paypal.PaypalStandardProcessor"
-      name="paypal" />
+      name="paypal"
+      factory=".paypal.PaypalStandardProcessor" />
 
 </configure>
