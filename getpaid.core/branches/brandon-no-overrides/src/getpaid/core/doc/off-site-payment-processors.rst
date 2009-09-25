@@ -63,13 +63,13 @@ tell GetPaid which view to render to replace either the shopping cart
 check-out button or the review-and-pay credit-card form.  The result, at
 its simplest, looks something like this::
 
-    from getpaid.core.processors import OffSitePaymentProcessor
+    from getpaid.core.processors import OffsitePaymentProcessor
     from getpaid.chargeit.interfaces import IChargeItOptions
 
     from zope.i18nmessageid import MessageFactory
     _ = MessageFactory('getpaid.chargeit')
 
-    class ChargeIt(OffSitePaymentProcessor):
+    class ChargeIt(OffsitePaymentProcessor):
         name = 'charge-it'
         title = _(u'ChargeIt checkout')
         options_schema = IChargeItOptions
@@ -111,7 +111,7 @@ something roughly equivalent to this::
 
 The three arguments used to instantiate your class are each simply
 stored in an attribute of the same name by the ``__init__()`` method
-that you inherit from ``OffSitePaymentProcessor``, so you can access
+that you inherit from ``OffsitePaymentProcessor``, so you can access
 them easily.  The three values are:
 
 ``options``
@@ -128,7 +128,7 @@ attributes of an instance of your class, and not simply of the class
 object itself, you have the option of generating the answer dynamically
 by using a property::
 
-    class ChargeIt(OffSitePaymentProcessor):
+    class ChargeIt(OffsitePaymentProcessor):
         ...
         @property
         def payment_form(self):
@@ -228,7 +228,7 @@ what it might look like:
 
       <browser:page
         for="ChargeIt"
-        name="pay_form"
+        name="pay-form"
         class=".views.PayForm"
         template="pay_form.pt"
         permission="zope2.View"
@@ -398,31 +398,61 @@ indicating whether payment succeeded, then you will need to provide a
 view (or several views) that let the user know what happened.
 
 
+.. code-block:: html
 
-what is your URL?
-store = zope.component.getUtility(IStore)
-store_url = store.absolute_url()
+    <!-- getpaid/chargeit/templates/landing.pt -->
 
+    <div>
+      <p tal:condition="view/is_success">
+        Thank you for your order!<br/>
+        <a tal:attributes="href view/store_url">Click here</a>
+        to continue shopping.
+      </p>
+      <p tal:condition="view/is_failure">
+        Your attempt to check out was not successful.<br/>
+        <a tal:attributes="href view/cart_url">Click here</a>
+        to return to your shopping cart.
+      </p>
+      <p tal:condition="view/is_error">
+        Please <a tal:attributes="href view/store_url">return to
+        our front page</a>.
+      </p>
+    </div>
 
-drat, when does order get created?
+::
 
- — as best they can;
-off-site processors will
+    # -- getpaid/chargeit/views.py --
 
-establishing a URL on the site to which the
-user can be redirected when the off-site processing service is done with
-them.  This not only presents the result of the transaction to the user
-and then allows them to navigate back to other parts of the store, but
-it also gives GetPaid a chance to mark the transaction as complete and
-empty the user's shopping cart so that they can start filling it again.
+    from Products.Five import BrowserView
+    class PayForm(BrowserView):
+        @property
+        def offsite_url(self):
+            if self.context.options.for_real is True:
+                return 'http://express.chargeit.com/'
+            else:
+                return 'http://sandbox.chargeit.com/'
 
-Fancy off-site payment processing systems often support a callback
-mechanism with which they can signal your site when a user finishes
-checking out, so that you find out that they did so whether or not their
-browser actually makes it back to your site.  GetPaid also lets you
-provide a page for this purpose, as we will see below.
+.. code-block:: xml
 
-So, let's get started!
+    <!-- getpaid/chargeit/configure.zcml -->
+
+    <configure
+      xmlns="http://namespaces.zope.org/zope"
+      xmlns:browser="http://namespaces.zope.org/browser">
+
+      ...
+
+      <browser:page
+        for="ChargeIt"
+        name="chargeit-landing"
+        class=".views.Landing"
+        template="landing.pt"
+        permission="zope2.View"
+        />
+
+      ...
+
+    </configure>
 
 Creating and resolving an Order
 -------------------------------
