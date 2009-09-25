@@ -13,6 +13,7 @@
 
    <utility
       provides="getpaid.core.interfaces.IOffsitePaymentProcessor"
-      factory=".paypal.PaypalStandardProcessor" />
+      factory=".paypal.PaypalStandardProcessor"
+      name="paypal" />
 
 </configure>
