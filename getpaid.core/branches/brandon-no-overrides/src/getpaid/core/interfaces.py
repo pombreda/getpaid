@@ -321,6 +321,8 @@ class ICheckoutWizard(Interface):
     def checkout_button_view():
         """Return a view which, when rendered, shows a Checkout button."""
 
+class IOffsitePaymentProcessor(Interface):
+    """A payment processor that asks for credit cards on their own site."""
 
 class IPaymentProcessor(Interface):
     """A service that can verify and charge credit cards.
