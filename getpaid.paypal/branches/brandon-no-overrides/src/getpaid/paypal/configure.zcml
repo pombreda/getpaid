@@ -11,10 +11,8 @@
       provides=".interfaces.IPaypalStandardOptions"
       factory=".PaypalStandardOptions" />
 
-   <adapter
-      for="Products.CMFCore.interfaces.ISiteRoot"
-      provides="getpaid.core.interfaces.IPaymentProcessor"
-      name="Paypal Website Payments Standard"
+   <utility
+      provides="getpaid.core.interfaces.IOffsitePaymentProcessor"
       factory=".paypal.PaypalStandardProcessor" />
-     
+
 </configure>

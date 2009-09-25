@@ -3,27 +3,22 @@
 import urllib
 
 from Products.CMFCore.utils import getToolByName
-from zope import component
-from zope import interface
-
-from interfaces import IPaypalStandardOptions, IPaypalStandardProcessor
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
-from getpaid.core import interfaces as GetPaidInterfaces
+from getpaid.core import interfaces
+from getpaid.core.processors import OffsitePaymentProcessor
+from getpaid.paypal.interfaces import IPaypalStandardOptions
+
 
 _sites = {
     "Sandbox": "www.sandbox.paypal.com",
     "Production": "www.paypal.com",
     }
 
-class PaypalStandardProcessor( object ):
-   
-    interface.implements( IPaypalStandardProcessor )
-
+class PaypalStandardProcessor(OffsitePaymentProcessor):
+    name = 'charge-it'
+    title = u'PayPal Checkout'
     options_interface = IPaypalStandardOptions
-
-    def __init__( self, context ):
-        self.context = context
 
     def cart_post_button( self, order ):
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()
@@ -80,7 +75,7 @@ class PaypalStandardProcessor( object ):
     
     def capture(self, order, price):
         # always returns async - just here to make the processor happy
-        return GetPaidInterfaces.keys.results_async
+        return interfaces.keys.results_async
 
     def authorize( self, order, payment ):
         pass
