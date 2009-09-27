@@ -1,6 +1,6 @@
 <form method="post"
       class="googlecheckout"
-      tal:attributes="action string:${context/portal_url}/google-checkout">
+      tal:attributes="action string:${context/store_url}/google-checkout">
   <input type="hidden" name="analyticsdata" value="" />
   <input type="image"
          id="cart-google-checkout"

@@ -54,7 +54,8 @@ class GoogleCheckoutProcessor(OffsitePaymentProcessor):
     name = 'google-checkout'
     title = u'Google Checkout'
     options_interface = IGoogleCheckoutOptions
-    checkout_button_view_name = 'getpaid-google-checkout-button'
+
+    checkout_button = 'google-checkout-button'
 
     def getController( self ):
         if self._controller is None:

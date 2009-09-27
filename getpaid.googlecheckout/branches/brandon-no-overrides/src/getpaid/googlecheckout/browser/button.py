@@ -22,15 +22,12 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
-from getpaid.googlecheckout.interfaces import IGoogleCheckoutOptions
 
 SANDBOX_URL = 'http://sandbox.google.com/checkout/buttons/checkout.gif?merchant_id=%s&w=160&h=43&style=white&variant=text&loc=%s'
 PRODUCTION_URL = 'http://checkout.google.com/buttons/checkout.gif?merchant_id=%s&w=160&h=43&style=white&variant=text&loc=%s'
 
 
-def checkout_button_url(portal):
-    options = IGoogleCheckoutOptions(portal)
+def checkout_button_url(options):
     if options.server_url == 'Production':
         url = PRODUCTION_URL
     else:
@@ -44,5 +41,4 @@ def checkout_button_url(portal):
 
 class View(BrowserView):
     def googleCheckoutButtonUrl(self):
-        portal = getToolByName(self.context, 'portal_url').getPortalObject()
-        return checkout_button_url(portal)
+        return checkout_button_url(self.context.options)
