@@ -13,10 +13,12 @@ from zope.interface import implements, Interface
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from getpaid.atshop import atshopMessageFactory as _
-
 from getpaid.atshop.price import get_price_text
+
+
 
 class IProductView(Interface):
     """
@@ -25,12 +27,17 @@ class IProductView(Interface):
 
     def image_browser():
         """
-        @return: ProductImagePreviewsView instance for this product.
+        @return: ProductImagePreviewsView instance for this product to render the product images.
         """
 
     def price():
         """
         @return: Human readable price or price summary
+        """
+
+    def extra():
+        """
+        @return: HTML code to be rendered before image browser or None
         """
 
 class ProductView(BrowserView):
@@ -39,23 +46,18 @@ class ProductView(BrowserView):
     """
     implements(IProductView)
 
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
+    extra = None
 
-    @property
-    def portal_catalog(self):
-        return getToolByName(self.context, 'portal_catalog')
-
-    @property
-    def portal(self):
-        return getToolByName(self.context, 'portal_url').getPortalObject()
+    index = ViewPageTemplateFile("productview.pt")
 
     def price(self):
         return get_price_text(self.context)
 
     def image_browser(self):
-        browser = self.unrestrictedTraverse("@@productimagepreviews_view")
-        return browser
+        browser = self.context.unrestrictedTraverse("@@product_image_previews")
+        return browser()
+
+    def __call__(self):
+        return self.index()
 
 

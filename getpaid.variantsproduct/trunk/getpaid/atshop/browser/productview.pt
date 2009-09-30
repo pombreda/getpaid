@@ -4,12 +4,30 @@
       i18n:domain="getpaid.atshop">
 <body>
     <div metal:fill-slot="main">
-        <tal:main-macro metal:define-macro="main"
-                        tal:define="testview view/test">
+        <tal:main-macro metal:define-macro="main">
 
-            <span tal:content="testview/dummy">test</span>
+			<div class="product-data">
+				<h1 tal:content="context/Title" />
 
-        </tal:main-macro>
+				<span class="price" tal:content="view/price" />
+
+				<p class="description" tal:content="context/Description" />
+
+				<div class="body-text">
+				 	<tal:inject tal:replace="structure context/text" />
+				</div>
+
+				<tal:extra condition="view/extra">
+					<div tal:replace="structure view/extra" />
+				</tal:extra>
+
+			</div>
+
+			<div tal:replace="structure view/image_browser" />
+
+			<div class="visualClear"><!-- --></div>
+
+		</tal:main-macro>
     </div>
 </body>
 </html>

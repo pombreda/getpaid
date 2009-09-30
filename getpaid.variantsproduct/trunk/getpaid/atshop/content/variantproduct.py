@@ -25,6 +25,15 @@ from getpaid.atshop.content import goodsschema
 VariantProductSchema = folder.ATFolderSchema.copy()+ goodsschema.shippableSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
+    atapi.TextField(
+        'text',
+        storage=atapi.AnnotationStorage(),
+        default="",
+        widget=atapi.RichWidget(
+            label=_(u"Product text"),
+            description=_(u"Long text describing the product"),
+        ),
+    ),
 
     atapi.LinesField(
         'variations',
@@ -60,6 +69,8 @@ class VariantProduct(folder.ATFolder):
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
+
+    text = atapi.ATFieldProperty('text')
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
     variations = atapi.ATFieldProperty('variations')

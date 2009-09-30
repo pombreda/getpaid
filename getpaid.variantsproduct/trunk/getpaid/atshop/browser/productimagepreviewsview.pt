@@ -1,6 +1,6 @@
 <tal:images tal:repeat="image view/images">
     <div class="photoAlbumEntry">
-        <a tal:define="id python:int(b_start)+int(repeat['image'].number()-1)"
+        <a tal:define="id python:int(repeat['image'].number()-1)"
            tal:attributes="href string:${image/absolute_url}/view;
                            title image/Description">
             <span class="photoAlbumEntryWrapper">
@@ -11,4 +11,5 @@
 		    </span>
         </a>
     </div>
+
 </tal:images>

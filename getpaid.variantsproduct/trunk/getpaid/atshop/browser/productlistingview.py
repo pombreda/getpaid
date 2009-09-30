@@ -36,6 +36,8 @@ class ProductListingView(BrowserView):
     """
     implements(IProductListingView)
 
+    extra = None
+
     def __init__(self, context, request):
         self.context = context
         self.request = request

@@ -13,8 +13,6 @@ class ListingTestCase(FunctionalTestCase):
 
         self.portal.invokeFactory("Folder", "folder")
 
-        self.portal.folder.setLayout("product_listing")
-
         for i in range(0, count):
 
             id = "product" + str(i)
@@ -37,23 +35,27 @@ class ListingTestCase(FunctionalTestCase):
                 product.setProduct_code("foobar")
 
     def render(self, product):
-        """ Check that listing page renders without exceptions """
+        """ Check that page renders without exceptions """
 
         browser = self.browser
         browser.open(product.absolute_url())
 
         self.assertTrue("Foobar" in browser.contents)
-        self.assertTrue("10.00" in broser.contents)
+
+    def test_without_image(self):
+        """ Render product listing with one image on an item """
+        self.setupProducts(1)
+        self.render(self.portal.folder.product0)
 
     def test_with_image(self):
         """ Render product listing with one image on an item """
         self.setupProducts(1)
-        self.folder.product0.invokeFactory("Image", "testimage")
-        self.render(self.folder.product0)
+        self.portal.folder.product0.invokeFactory("Image", "testimage")
+        self.render(self.portal.folder.product0)
 
     def test_variant(self):
-        self.setupProducts(2)
-        self.render(self.folder.product2)
+        self.setupProducts(3)
+        self.render(self.portal.folder.product2)
 
 def test_suite():
     from unittest import TestSuite, makeSuite

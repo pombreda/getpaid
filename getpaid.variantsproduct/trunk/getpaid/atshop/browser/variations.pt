@@ -1,0 +1,31 @@
+<tal:comment replace="nothing">
+	<!-- Print variations of the current context item whichi is VariantProduct -->
+</tal:comment>
+
+
+<div class="variations-section">
+
+	<h2 i18n:translate="available_variations">
+		Available variations
+	</h2>
+
+	<table class="listing">
+		<thead>
+			<tr>
+				<th i18n:translate="title">Title</th>
+				<th i18n:translate="title">Price</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tal:items repeat="variation view/variations">
+				<tr>
+					<td tal:content="variation/title" />
+					<td tal:content="variation/price" />
+				</tr>
+			</tal:items>
+		</tbody>
+	</table>
+
+</div>
+

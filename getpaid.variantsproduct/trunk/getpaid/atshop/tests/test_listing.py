@@ -76,7 +76,7 @@ class ListingTestCase(FunctionalTestCase):
     def test_with_image(self):
         """ Render product listing with one image on an item """
         self.setupProducts(1)
-        self.folder.product0.invokeFactory("Image", "testimage")
+        self.portal.folder.product0.invokeFactory("Image", "testimage")
         self.render()
 
 
