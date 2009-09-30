@@ -19,10 +19,10 @@
 
   <browser:page
       for="*"
-      name="atshop_view"
-      class=".atshopview.VariantsProductView"
-      template="atshopview.pt"
-      allowed_interface=".atshopview.IVariantsProductView"
+      name="variant_view"
+      class=".variantproductview.VariantProductView"
+      template="variantproductview.pt"
+      allowed_interface=".variantproductview.IVariantProductView"
       permission="zope2.View"
       />
 

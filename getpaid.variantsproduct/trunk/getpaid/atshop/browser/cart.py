@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+
+    Browser pages used in cart functionality.
+
+"""
+
+__author__ = "Mikko Ohtamaa <mikko.ohtamaa@twinapex.com> http://www.twinapex.com"
+__docformat__ = "epytext"
+__license__ = "GPL"
+__copyright__ = "2009 Twinapex Research"
+
+
 import os
 from urllib import urlencode
 

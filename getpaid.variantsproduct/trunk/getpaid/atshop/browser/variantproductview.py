@@ -18,7 +18,7 @@ from getpaid.atshop import atshopMessageFactory as _
 
 from productview import ProductView
 
-class IVariantsProductView(Interface):
+class IVariantProductView(Interface):
     """
     Template exposes for variant product view.
     """
@@ -27,11 +27,11 @@ class IVariantsProductView(Interface):
         """ List of Variation objects """
 
 
-class VariantsProductView(ProductView):
+class VariantProductView(ProductView):
     """
     VariantsProduct browser view
     """
-    implements(IVariantsProductView)
+    implements(IVariantProductView)
 
     def __init__(self, context, request):
         self.context = context
