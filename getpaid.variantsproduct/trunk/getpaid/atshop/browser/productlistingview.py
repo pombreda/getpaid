@@ -19,7 +19,10 @@ from Products.ATContentTypes.interface import IATTopic
 
 from getpaid.atshop import atshopMessageFactory as _
 
-from getpaid.atshop.interfaces import IProductImageProvider
+from getpaid.atshop.interfaces import IProductImageProvider, IMultiImageProduct, IVariantProduct
+
+from getpaid.atshop.currency import format_currency
+from getpaid.atshop.price import get_price_text
 
 class IProductListingView(Interface):
     """
@@ -50,9 +53,10 @@ class ProductListingView(BrowserView):
 
         return False
 
-    def get_image_tag(self, item):
+    def get_price_text(self, object):
+        return get_price_text(object)
 
-        object = item.getObject()
+    def get_image_tag(self, object):
 
         if IProductImageProvider.providedBy(object):
             image = object.getMainImage()

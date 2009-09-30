@@ -9,6 +9,16 @@
 
   <browser:page
       for="*"
+      name="multiimageproduct_view"
+      class=".multiimageproductview.MultiImageProductView"
+      template="multiimageproductview.pt"
+      allowed_interface=".multiimageproductview.IMultiImageProductView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
+      for="*"
       name="product_listing"
       class=".productlistingview.ProductListingView"
       template="productlistingview.pt"
@@ -19,7 +29,7 @@
 
   <browser:page
       for="*"
-      name="variant_view"
+      name="variantproduct_view"
       class=".variantproductview.VariantProductView"
       template="variantproductview.pt"
       allowed_interface=".variantproductview.IVariantProductView"

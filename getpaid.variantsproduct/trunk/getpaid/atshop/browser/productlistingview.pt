@@ -24,74 +24,76 @@
 
 		        <div tal:replace="structure provider:plone.abovecontentbody" />
 
-		        <tal:listing define="batch view/contents">
+				<div class="product-list">
+			        <tal:listing define="batch view/contents">
 
-		            <tal:block tal:repeat="item batch">
-		                <div class="tileItem visualIEFloatFix vevent"
-		                     tal:define="item_url item/getURL|item/absolute_url;
-		                                       item_id item/getId|item/id;
-		                                       item_title_or_id item/pretty_title_or_id;
-		                                       item_description item/Description;
-		                                       item_type item/portal_type;
-		                                       item_type_title item/Type;
-		                                       item_type_class python: 'contenttype-' + normalizeString(item_type);
-		                                       item_modified item/ModificationDate;
-		                                       item_created item/CreationDate;
-		                                       item_wf_state        item/review_state|python: wtool.getInfoFor(item, 'review_state', '');
-		                                       item_wf_state_class python:'state-' + normalizeString(item_wf_state);
-		                                       item_creator item/Creator;
-		                                       item_start item/start/ISO|item/StartDate|nothing;
-		                                       item_end item/end/ISO|item/EndDate|nothing;
-		                                   "
-		                     tal:attributes="class string:tileItem visualIEFloatFix vevent ${item_type_class}">
+			            <tal:block tal:repeat="item batch">
+			                <div class="tileItem visualIEFloatFix vevent"
+			                     tal:define="item_url item/getURL|item/absolute_url;
+			                                       item_id item/getId|item/id;
+			                                       item_title_or_id item/pretty_title_or_id;
+			                                       item_description item/Description;
+			                                       item_type item/portal_type;
+			                                       item_type_title item/Type;
+			                                       item_type_class python: 'contenttype-' + normalizeString(item_type);
+			                                       item_modified item/ModificationDate;
+			                                       item_created item/CreationDate;
+			                                       item_wf_state        item/review_state|python: wtool.getInfoFor(item, 'review_state', '');
+			                                       item_wf_state_class python:'state-' + normalizeString(item_wf_state);
+			                                       item_creator item/Creator;
+			                                       item_start item/start/ISO|item/StartDate|nothing;
+			                                       item_end item/end/ISO|item/EndDate|nothing;
+												   item_obj item/getObject
+			                                   "
+			                     tal:attributes="class string:tileItem visualIEFloatFix vevent ${item_type_class}">
 
-		                    <a href="#"
-		                       tal:attributes="href item_url">
+			                    <a href="#"
+			                       tal:attributes="href item_url">
 
-								<img tal:replace="structure python:view.get_image_tag(item)" />
-		                    </a>
-
-
-		                    <h2 class="tileHeadline"
-		                        metal:define-macro="listitem">
-
-		                        <a href="#"
-		                           class="summary url"
-		                           tal:attributes="href item_url"
-		                           tal:content="item_title_or_id">
-		                            Item Title
-		                        </a>
-
-								<span class="price" tal:content="item/price" />
-		                    </h2>
+									<img tal:replace="structure python:view.get_image_tag(item_obj)" />
+			                    </a>
 
 
-		                    <p class="tileBody">
-		                        <span tal:omit-tag="" tal:condition="not:item_description">
-		                            &nbsp;
-		                        </span>
-		                        <span class="description" tal:content="item_description">
-		                            description
-		                        </span>
-		                    </p>
+			                    <h2 class="tileHeadline"
+			                        metal:define-macro="listitem">
 
-		                    <p class="tileFooter">
-		                        <a href=""
-		                           tal:attributes="href item_url"
-		                           i18n:translate="read_more">
-		                        Read More&hellip;
-		                        </a>
-		                    </p>
+			                        <a href="#"
+			                           class="summary url"
+			                           tal:attributes="href item_url"
+			                           tal:content="item_title_or_id">
+			                            Item Title
+			                        </a>
 
-		                    <div class="visualClear"><!-- --></div>
+									<span class="price" tal:content="python:view.get_price_text(item_obj)" />
 
-		                </div>
-		            </tal:block>
 
-		            <!-- Navigation -->
-		            <div metal:use-macro="here/batch_macros/macros/navigation" />
+								</h2>
 
-		        </tal:listing>
+
+			                    <p class="tileBody">
+			                        <span class="description" tal:content="item_description">
+			                            description
+			                        </span>
+			                    </p>
+
+			                    <p class="tileFooter">
+			                        <a href=""
+			                           tal:attributes="href item_url"
+			                           i18n:translate="read_more">
+			                        Read More&hellip;
+			                        </a>
+			                    </p>
+
+			                    <div class="visualClear"><!-- --></div>
+
+			                </div>
+			            </tal:block>
+
+			            <!-- Navigation -->
+			            <div metal:use-macro="here/batch_macros/macros/navigation" />
+
+			        </tal:listing>
+				</div>
 
 		        <div tal:replace="structure provider:plone.belowcontentbody" />
 

@@ -16,6 +16,7 @@ from Products.CMFCore.utils import getToolByName
 
 from getpaid.atshop import atshopMessageFactory as _
 
+from getpaid.atshop.price import get_price_text
 
 class IProductView(Interface):
     """
@@ -27,9 +28,14 @@ class IProductView(Interface):
         @return: ProductImagePreviewsView instance for this product.
         """
 
+    def price():
+        """
+        @return: Human readable price or price summary
+        """
+
 class ProductView(BrowserView):
     """
-    Product browser view
+    Abstract base class to render product views.
     """
     implements(IProductView)
 
@@ -45,6 +51,8 @@ class ProductView(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
+    def price(self):
+        return get_price_text(self.context)
 
     def image_browser(self):
         browser = self.unrestrictedTraverse("@@productimagepreviews_view")
