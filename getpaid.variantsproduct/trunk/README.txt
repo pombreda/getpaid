@@ -27,7 +27,7 @@ and to support product variation choices.
 Installation
 ============
 
-# Include *gegpaid.variantsproduct* Python egg in your buildout
+# Include *gegpaid.atshop* Python egg in your buildout
 
 # Run add-on product installer
 

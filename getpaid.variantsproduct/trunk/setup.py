@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the tool of getpaid.variantsproduct
+This module contains the tool of getpaid.atshop
 """
 import os
 from setuptools import setup, find_packages
@@ -21,7 +21,7 @@ long_description = (
     'Detailed Documentation\n'
     '**********************\n'
     + '\n' +
-    read('getpaid', 'variantsproduct', 'README.txt')
+    read('getpaid', 'atshop', 'README.txt')
     + '\n' +
     'Contributors\n'
     '************\n'
@@ -34,7 +34,7 @@ long_description = (
 
 tests_require=['zope.testing']
 
-setup(name='getpaid.variantsproduct',
+setup(name='getpaid.atshop',
       version=version,
       description="",
       long_description=long_description,
@@ -58,7 +58,7 @@ setup(name='getpaid.variantsproduct',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
-      test_suite = 'getpaid.variantsproduct.tests.test_docs.test_suite',
+      test_suite = 'getpaid.atshop.tests.test_docs.test_suite',
       entry_points="""
       # -*- entry_points -*-
       [distutils.setup_keywords]
