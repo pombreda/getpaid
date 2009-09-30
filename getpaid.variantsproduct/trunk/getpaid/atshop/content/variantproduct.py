@@ -105,5 +105,13 @@ class VariantProduct(folder.ATFolder):
     def getCartAddFormURL(self):
         return self.absolute_url() + "/@@getpaid-cart-add-variant"
 
+    def getCheapestPrice(self):
+        variations = self.getProductVariations()
+
+        if len(variations) == 0:
+            return None
+
+        prices = [ var.price for var in variations ]
+        return min(prices)
 
 atapi.registerType(VariantProduct, PROJECTNAME)

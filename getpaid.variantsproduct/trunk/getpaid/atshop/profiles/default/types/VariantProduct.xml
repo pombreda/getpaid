@@ -6,16 +6,17 @@
   <property name="description"
     i18n:translate="">Shippable good with multipe variations and images</property>
   <property name="content_meta_type">VariantProduct</property>
-  <property name="content_icon">folder_icon.gif</property>
+  <property name="content_icon">++resource++getpaid.atshop/dollar.png</property>
   <property name="product">getpaid.atshop</property>
   <property name="factory">addVariantProduct</property>
   <property name="immediate_view">atct_edit</property>
   <property name="global_allow">True</property>
   <property name="filter_content_types">True</property>
   <property name="allow_discussion">False</property>
-  <property name="default_view">base_view</property>
+  <property name="default_view">variantproduct_view</property>
   <property name="view_methods">
     <element value="base_view" />
+    <element value="variantproduct_view" />
   </property>
   <property name="allowed_content_types">
     <element value="Image"/>

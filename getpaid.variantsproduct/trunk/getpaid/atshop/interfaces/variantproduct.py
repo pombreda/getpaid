@@ -35,6 +35,12 @@ class IVariantProduct(IMultiImageProduct):
 
 
         """
+
+    def getCheapestPrice():
+        """
+        @return: Floating point, cheapeast price of the variations
+        """
+
 class IVariationItemFactory(Interface):
     """ Create shopping cart items from IVariantProduct instance.
     """

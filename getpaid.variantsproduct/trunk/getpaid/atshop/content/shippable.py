@@ -14,7 +14,7 @@ __docformat__ = "epytext"
 __license__ = "GPL"
 __copyright__ = "2009 Twinapex Research"
 
-def shippableAdapter(object ):
+def shippableAdapter(object):
     """
     Shippable content adapter which reads price, value, etc. directly from AT object.
 
