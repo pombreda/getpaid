@@ -1,0 +1,67 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="plonegetpaid">
+
+<body>
+
+<div metal:define-macro="portlet" condition="view/available">
+
+    <dl class="portlet" id="portlet-cart">
+
+        <dt class="portletHeader">
+            <span class="portletTopLeft"></span>
+        <span class="portletTopMiddle"
+              i18n:translate="text_product_details">Buy product</span>
+            <span class="portletTopRight"></span>
+        </dt>
+
+        <dd class="portletItem odd">
+          <div>
+
+            <p tal:define="field context/Title"
+               tal:condition="field"
+               tal:content="field"
+               />
+
+			<tal:no-variations condition="not:view/has_variations">
+	            <p tal:define="field view/product_price"
+	               tal:condition="field"
+	               i18n:domain="plonegetpaid"
+	     	       i18n:translate="text_price">
+	                 Price: <span tal:content="field" i18n:name="value_price" />
+	            </p>
+			</tal:no-variations>
+          </div>
+        </dd>
+
+        <dd class="portletFooter">
+            <form tal:attributes= "action view/cart_add_form_url"
+                  method="post">
+              <input type="hidden" name="add_item" value="True" />
+
+                <select name="product_code"
+                        id="product-code"
+                        tal:condition="view/has_variations"
+                        >
+                    <option value="#"
+                            tal:repeat="variation view/variations"
+                            tal:attributes="value variation/product_code"
+                            tal:content="variation/line_format"
+                            i18n:translate=""
+                            >
+                    </option>
+                </select>
+
+              <input type="text" size="1" name="quantity" value="1" />
+              <input type="submit"
+                     i18n:attributes="value label_add_to_cart"
+                     value="Add to Cart" />
+            </form>
+            <span class="portletBottomLeft"></span>
+            <span class="portletBottomRight"></span>
+        </dd>
+    </dl>
+
+</div>
+</body>
+</html>
