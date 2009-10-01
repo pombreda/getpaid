@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<object name="portal_javascripts">
+
+    <javascript
+        id="++resource++getpaid.atshop/atshop.js"
+        cacheable="True" compression="safe" cookable="True"
+        enabled="True" expression=""  inline="False" insert-after="toc.js"/>
+
+</object>

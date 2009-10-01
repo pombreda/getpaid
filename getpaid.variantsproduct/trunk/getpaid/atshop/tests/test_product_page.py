@@ -57,6 +57,14 @@ class ListingTestCase(FunctionalTestCase):
         self.setupProducts(3)
         self.render(self.portal.folder.product2)
 
+    def test_price_not_set(self):
+        """ Test that rendering success though price might contain invalid value """
+        self.setupProducts(0)
+        self.portal.folder.invokeFactory("MultiImageProduct", "product0")
+        # don't set price
+        self.portal.folder.product0.setTitle("Foobar")
+        self.render(self.portal.folder.product0)
+
 def test_suite():
     from unittest import TestSuite, makeSuite
     suite = TestSuite()
