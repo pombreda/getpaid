@@ -2,6 +2,39 @@
  * Styles for getpaid.atshop
  */
 
-.product-list .price {
-	float: right;
+.product-list h2 {
+	margin: 0;
+	padding: 0;
 }
+
+.product-list img {
+	float: left;
+	margin-right: 1em;
+}
+
+.product-list .right-column {
+	float: left;
+	width: 500px;
+}
+
+.product-images .photoAlbumEntry {
+	height: 200px;
+}
+
+.product-images a.edit-link {
+	display: block;
+	position: relative;
+	top: -20px;
+	margin: 0;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
+	height: 1em;
+}
+
+.documentFirstHeading .price,
+.product-list .price {
+	color: #888;
+}
+

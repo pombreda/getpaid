@@ -53,36 +53,36 @@
 									<img tal:replace="structure python:view.get_image_tag(item_obj)" />
 			                    </a>
 
+								<div class="right-column">
+				                    <h2 class="tileHeadline"
+				                        metal:define-macro="listitem">
 
-			                    <h2 class="tileHeadline"
-			                        metal:define-macro="listitem">
+				                        <a href="#"
+				                           class="summary url"
+				                           tal:attributes="href item_url"
+				                           tal:content="item_title_or_id">
+				                            Item Title
+				                        </a>
 
-			                        <a href="#"
-			                           class="summary url"
-			                           tal:attributes="href item_url"
-			                           tal:content="item_title_or_id">
-			                            Item Title
-			                        </a>
+										[<span class="price" tal:content="python:view.get_price_text(item_obj)" />]
 
-									<span class="price" tal:content="python:view.get_price_text(item_obj)" />
-
-
-								</h2>
+									</h2>
 
 
-			                    <p class="tileBody">
-			                        <span class="description" tal:content="item_description">
-			                            description
-			                        </span>
-			                    </p>
+				                    <p class="tileBody">
+				                        <span class="description" tal:content="item_description">
+				                            description
+				                        </span>
+				                    </p>
 
-			                    <p class="tileFooter">
-			                        <a href=""
-			                           tal:attributes="href item_url"
-			                           i18n:translate="read_more">
-			                        Read More&hellip;
-			                        </a>
-			                    </p>
+				                    <p class="tileFooter">
+				                        <a href=""
+				                           tal:attributes="href item_url; title item_title_or_id"
+				                           i18n:translate="read_more">
+				                        Read More about <span class="name" tal:content="item_title_or_id" />&hellip;
+				                        </a>
+				                    </p>
+								</div>
 
 			                    <div class="visualClear"><!-- --></div>
 

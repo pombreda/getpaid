@@ -1,7 +1,8 @@
 <div class="product-images" i18n:domain="getpaid.atshop">
 	<tal:images tal:repeat="image view/images">
 	    <div class="photoAlbumEntry">
-	        <a tal:define="id python:int(repeat['image'].number()-1)"
+	        <a class="image-opener"
+			   tal:define="id python:int(repeat['image'].number()-1)"
 	           tal:attributes="href string:#product-image-${repeat/image/number};
 	                           title image/Description">
 	            <span class="photoAlbumEntryWrapper">
@@ -12,10 +13,15 @@
 			    </span>
 	        </a>
 
-			<a tal:condition="python:view.canEditImage(image)" i18n:translate="edit_image">
+			<a class="edit-link"
+			   tal:condition="python:view.canEditImage(image)"
+			   tal:attributes="href string:${image/absolute_url}/edit"
+			   i18n:translate="edit_image">
 				Edit
 			</a>
 	    </div>
+
+
 
         <div tal:attributes="id string:product-image-${repeat/image/number}">
         	<img tal:replace="structure python:image.tag(scale='large', css_class='product-image')" src="" alt="" />

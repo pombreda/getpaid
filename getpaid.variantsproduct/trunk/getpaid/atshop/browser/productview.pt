@@ -16,11 +16,14 @@
         <tal:main-macro metal:define-macro="main">
 
 			<div class="product-data">
-				<h1 tal:content="context/Title" />
 
-				<span class="price" tal:content="view/price" />
 
-				<p class="description" tal:content="context/Description" />
+				<h1 class="documentFirstHeading">
+					<span class="name" tal:content="context/Title" />
+					[<span class="price" tal:content="view/price" />]
+				</h1>
+
+				<p class="documentDescription" tal:content="context/Description" />
 
 				<div class="body-text">
 				 	<tal:inject tal:replace="structure context/text" />

@@ -60,9 +60,14 @@ class ProductListingView(BrowserView):
 
     def get_image_tag(self, object):
 
-        if IProductImageProvider.providedBy(object):
-            image = object.getMainImage()
-            return image.tag()
+        # Get adapter which allows us to retrieve the product image list
+        image_provider = IProductImageProvider(object)
+
+        if image_provider:
+            # Get the default image
+            image = image_provider.getMainImage()
+            if image:
+                return image.tag(scale='thumb', alt=object.Title())
 
         return None
 

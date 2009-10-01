@@ -26,7 +26,12 @@ def get_price_text(object):
     @return: string or None if price is not available
     """
 
-    if IMultiImageProduct.providedBy(object):
+    if IVariantProduct.providedBy(object):
+        price = object.getCheapestPrice()
+
+        if price is not None:
+            return _(u"Starting from " ) + format_currency(price)
+    elif IMultiImageProduct.providedBy(object):
         try:
             price = object.price
         except KeyError:
@@ -35,11 +40,6 @@ def get_price_text(object):
             return None
 
         return format_currency(price)
-    elif IVariantProduct.providedBy(object):
-        price = object.getCheapestPrice()
-
-        if price is not None:
-            return _("Starting from " ) + format_currency(price)
     else:
         return None
 

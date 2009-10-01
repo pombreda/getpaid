@@ -52,8 +52,14 @@
                     </option>
                 </select>
 
-              <input type="text" size="1" name="quantity" value="1" />
-              <input type="submit"
+			  <div class="ask-quantity">
+				  <label for="quantity" i18n:translate="how_many">
+					How many
+				  </label>
+	              <input type="text" size="1" name="quantity" value="1" />
+              </div>
+
+			  <input type="submit"
                      i18n:attributes="value label_add_to_cart"
                      value="Add to Cart" />
             </form>

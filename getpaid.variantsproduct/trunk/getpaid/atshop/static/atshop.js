@@ -12,5 +12,5 @@ atshop = {};
  * on the product page.
  */
 atshop.setupProductImagePreviews = function() {
-	jq('.product-images a').fancyZoom({closeOnClick: true})
+	jq('.product-images a.image-opener').fancyZoom({closeOnClick: true})
 }

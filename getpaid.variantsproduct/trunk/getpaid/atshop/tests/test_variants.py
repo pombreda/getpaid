@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
+
 from base import TestCase, VARIANTS_TEXT
 
 from getpaid.atshop.variation import Variation
 
 from Products.validation.exceptions import ValidatorError
+
+from getpaid.atshop.price import get_price_text
 
 class ParseVariantDataTestCase(TestCase):
     """ Test parsing of variant input text """
@@ -35,6 +39,8 @@ class ParseVariantDataTestCase(TestCase):
         except ValidatorError:
             pass
 
+
+
 class GetProductVariantsTestCase(TestCase):
     """ Test getting variant data out of AT object """
 
@@ -47,6 +53,33 @@ class GetProductVariantsTestCase(TestCase):
         self.portal.product.setVariations(VARIANTS_TEXT)
         variants = self.portal.product.getProductVariations()
         self.assertEqual(len(variants), 3)
+
+    def test_get_cheapest_price_one_variation(self):
+
+        self.loginAsPortalOwner()
+
+        self.portal.invokeFactory("VariantProduct", "product")
+
+        line = u"tshirtxl; T-Shirt (XL); 1.00"
+        self.portal.product.setVariations(line)
+        price = self.portal.product.getCheapestPrice()
+        self.assertEqual(price, 1.00)
+
+        text = get_price_text(self.portal.product)
+        self.assertEqual(text, u"Starting from 1.00 €")
+
+    def test_get_cheapest_price_two_variations(self):
+
+        self.loginAsPortalOwner()
+
+        self.portal.invokeFactory("VariantProduct", "product")
+
+        self.portal.product.setVariations(VARIANTS_TEXT)
+        price = self.portal.product.getCheapestPrice()
+        self.assertEqual(price, 20.00)
+
+        text = get_price_text(self.portal.product)
+        self.assertEqual(text, u"Starting from 20.00 €")
 
     def test_get_variants_not_set(self):
         """ Check that we don't get error if variants field has not yet been set """
