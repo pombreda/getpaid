@@ -2,6 +2,10 @@
 <rolemap>
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
+    <permission name="getpaid.atshop: Add ProductImage" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
     <permission name="getpaid.atshop: Add MultiImageProduct" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />

@@ -3,8 +3,18 @@
 <object name="portal_javascripts">
 
     <javascript
+        id="++resource++collective.fancyzoomview.javascript/FancyZoom.js"
+        cacheable="True" compression="safe" cookable="True"
+        enabled="True" expression=""  inline="False" insert-before="toc.js"/>
+
+    <javascript
+        id="++resource++collective.fancyzoomview.javascript/FancyZoomHTML.js"
+        cacheable="True" compression="safe" cookable="True"
+        enabled="True" expression=""  inline="False" insert-before="toc.js"/>
+
+    <javascript
         id="++resource++getpaid.atshop/atshop.js"
         cacheable="True" compression="safe" cookable="True"
-        enabled="True" expression=""  inline="False" insert-after="toc.js"/>
+        enabled="True" expression=""  inline="False" insert-before="toc.js"/>
 
 </object>

@@ -1,1 +1,1 @@
-Nothing here! See README.txt at the package root.
+Nothing here! See README.txt at the egg root.

@@ -9,6 +9,8 @@
   <!-- Include configuration for dependencies listed in setup.py -->
   <includeDependencies package="." />
 
+  <include package="collective.fancyzoomview" />
+
   <grok:grok package="." />
 
   <five:registerPackage package="." initialize=".initialize" />

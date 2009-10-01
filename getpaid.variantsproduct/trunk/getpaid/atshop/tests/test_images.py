@@ -31,7 +31,7 @@ class ProductImagesTestCase(TestCase):
         self.portal.invokeFactory("MultiImageProduct", "product")
 
         product = self.portal.product
-        product.invokeFactory("Image", "testimage")
+        product.invokeFactory("ProductImage", "testimage")
         image_provider = IProductImageProvider(product)
 
         images = image_provider.getImages()

@@ -27,19 +27,24 @@ and to support product variation choices.
 Installation
 ============
 
-# Include *gegpaid.atshop* Python egg in your buildout
+#. Include *gegpaid.atshop* Python egg in your buildout
 
-# Run add-on product installer
+#. Run add-on product installer
 
+**WARNING**: Product ships with dependency to FancyZoom Javascript
+library which is a non-free product.
+`Read more about FancyZoom licensing terms <http://www.cabel.name/2008/02/fancyzoom-10.html>`_.
 
 TODO
 ====
 
 * Dimension field formal support for content items
 
-* Currenct is hardcoded in currency.py - GetPaid doesn't have UI to set the portal currency though UI
+* Currency is hardcoded in currency.py - GetPaid doesn't have UI to set the portal currency though UI
 
 * Price format is hardcoded
+
+* Replace Fancyzoom with a free library
 
 Author
 ======

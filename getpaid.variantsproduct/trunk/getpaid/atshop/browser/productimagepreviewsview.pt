@@ -1,4 +1,4 @@
-<div class="product-images">
+<div class="product-images" i18n:domain="getpaid.atshop">
 	<tal:images tal:repeat="image view/images">
 	    <div class="photoAlbumEntry">
 	        <a tal:define="id python:int(repeat['image'].number()-1)"
@@ -11,6 +11,10 @@
 			       Title
 			    </span>
 	        </a>
+
+			<a tal:condition="python:view.canEditImage(image)" i18n:translate="edit_image">
+				Edit
+			</a>
 	    </div>
 
         <div tal:attributes="id string:product-image-${repeat/image/number}">
