@@ -29,7 +29,7 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
 
     atapi.FixedPointField(
-        'amount',
+        'couponAmount',
         storage=atapi.AnnotationStorage(),
         widget=atapi.DecimalWidget(
             label=_(u"Amount to remove from the cart"),
@@ -41,7 +41,7 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
 
     atapi.DateTimeField(
-        'effectiveDate',
+        'couponEffectiveDate',
         storage=atapi.AnnotationStorage(),
         widget=atapi.CalendarWidget(
             label=_(u"Effective Date"),
@@ -52,7 +52,7 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
 
     atapi.DateTimeField(
-        'expirationDate',
+        'couponExpirationDate',
         storage=atapi.AnnotationStorage(),
         widget=atapi.CalendarWidget(
             label=_(u"Expiration Date"),
@@ -62,7 +62,7 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     ),
 
     atapi.LinesField(
-        'requiredItemTypes',
+        'couponRequiredItemTypes',
         storage=atapi.AnnotationStorage(),
         vocabulary = 'getPloneContentTypes',
         widget=atapi.MultiSelectionWidget(

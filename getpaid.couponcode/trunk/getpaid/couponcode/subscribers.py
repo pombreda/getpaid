@@ -8,6 +8,6 @@ def makeCouponCodeBuyable(couponcode_obj, event):
     if not IBuyableMarker.providedBy(couponcode_obj):
         mark(couponcode_obj, IBuyableMarker)
     adapted = IBuyableContent(couponcode_obj)
-    price = float('-' + couponcode_obj.getAmount())
+    price = float('-' + couponcode_obj.getCouponAmount())
     adapted.setProperty('price', price)
 
