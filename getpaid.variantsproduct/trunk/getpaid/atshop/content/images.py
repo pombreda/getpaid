@@ -32,11 +32,11 @@ class FolderishProductImageProvider(object):
         Perform folder listing and filter image content from it.
         """
 
-        images = self.context.listFolderContents(contentFilter={"portal_type" : "Image"})
+        images = self.context.listFolderContents(contentFilter={"portal_type" : "ProductImage"})
         return images
 
     def getMainImage(self):
-
+        """ Get the default preview image for the product """
         images = self.getImages()
         if len(images) >= 1:
             return self.getImages()[0]

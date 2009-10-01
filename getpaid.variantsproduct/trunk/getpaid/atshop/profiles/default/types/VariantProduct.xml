@@ -19,7 +19,7 @@
     <element value="variantproduct_view" />
   </property>
   <property name="allowed_content_types">
-    <element value="Image"/>
+    <element value="ProductImage"/>
   </property>
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="edit" to="atct_edit" />

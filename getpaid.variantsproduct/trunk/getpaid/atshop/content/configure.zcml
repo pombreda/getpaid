@@ -37,6 +37,16 @@
 
 
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".productimage.ProductImage">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IProductImage"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IProductImage"
+        />
+  </class>
   <class class=".multiimageproduct.MultiImageProduct">
 
  	<implements interface="getpaid.atshop.interfaces.IBuyableMarker" />

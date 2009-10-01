@@ -45,7 +45,7 @@ productDescriptionSchema = atapi.Schema((
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
             label=_(u"Product code"),
-            description=_(u"Inventory id for this product. All products must have unique id for billing purposes."),
+            description=_(u"Inventory id for this product. All products must have unique id for billing purposes. Do not change this after publishing, or the existing orders having item with this code will cease to function."),
         ),
     ),
 
