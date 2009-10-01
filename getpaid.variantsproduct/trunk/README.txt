@@ -35,7 +35,11 @@ Installation
 TODO
 ====
 
-* Dimension support
+* Dimension field formal support for content items
+
+* Currenct is hardcoded in currency.py - GetPaid doesn't have UI to set the portal currency though UI
+
+* Price format is hardcoded
 
 Author
 ======

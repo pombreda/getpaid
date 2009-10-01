@@ -36,14 +36,18 @@ class ListingTestCase(FunctionalTestCase):
                 product.setPrice(10.00)
                 product.setProduct_code("foobar")
 
-    def render(self):
+            product.reindexObject()
+
+    def render(self, check_price=None):
         """ Check that listing page renders without exceptions """
 
         browser = self.browser
         browser.open(self.portal.folder.absolute_url() )
 
-        self.assertTrue("Foobar" in browser.contents)
-        self.assertTrue("10.00" in broser.contents)
+        self.assertTrue("Foobar" in browser.contents, "Got page:" + browser.contents)
+
+        if check_price:
+            self.assertTrue(check_price in browser.contents)
 
     def test_folder_has_product_listing_layout(self):
         """ Check that product_listing layout is available for folders
@@ -61,23 +65,27 @@ class ListingTestCase(FunctionalTestCase):
     def test_zero(self):
         """ Test list rendering with 0 items """
         self.setupProducts(0)
-        self.render()
+
+        # Check no exceptions when rendering the page
+        browser = self.browser
+        browser.open(self.portal.folder.absolute_url() )
 
     def test_one(self):
         """ Test list rendering with 1 items """
         self.setupProducts(1)
-        self.render()
+        self.assertEqual(len(self.portal.folder.contentItems()), 1)
+        self.render(check_price="10.00")
 
     def test_many(self):
         """ Test list rendering with 2 items """
         self.setupProducts(2)
-        self.render()
+        self.render(check_price="10.00")
 
     def test_with_image(self):
         """ Render product listing with one image on an item """
         self.setupProducts(1)
         self.portal.folder.product0.invokeFactory("Image", "testimage")
-        self.render()
+        self.render(check_price="10.00")
 
 
 def test_suite():
