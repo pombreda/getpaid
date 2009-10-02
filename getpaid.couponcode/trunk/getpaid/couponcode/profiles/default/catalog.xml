@@ -16,7 +16,7 @@
   <indexed_attr value="getCouponRequiredItemTypes"/>
  </index>
  
- <column value="getCouponCouponCode"/>
+ <column value="getCouponCode"/>
  <column value="getCouponAmount"/>
  <column value="getCouponEffectiveDate"/>
  <column value="getCouponExpirationDate"/>

@@ -14,8 +14,12 @@
               url: serverURL + "/@@couponcode_validation/validate_couponcode",
               data: "couponcode=" + encodeURIComponent(valinput),
               success: function(msg){
-                $(".portalMessage").hide();
-                $("#couponcode-value").before(msg);
+                if (msg.indexOf('http://') === 0){
+                    window.location='http://localhost:51051/wrj/coupon-code-test/@@getpaid-cart-add?add_item=True'
+                } else {
+                    $(".portalMessage").hide();
+                    $("#couponcode-value").before(msg);
+                }
               }
             });
        }
