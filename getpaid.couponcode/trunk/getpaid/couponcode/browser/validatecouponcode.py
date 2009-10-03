@@ -7,6 +7,7 @@ from getpaid.couponcode.interfaces import IValidateCouponCode
 from getpaid.core.interfaces import IShoppingCartUtility
 from zope.component import getUtility
 
+
 class ValidateCouponCode(BrowserView):
     """a view class that creates a new CustomHSVocabularyTerm in an ATVocabularyManager vocabulary.
     """
@@ -15,38 +16,41 @@ class ValidateCouponCode(BrowserView):
     
     def validate_couponcode(self, couponcode):
         """ ensures that coupon:
-               * is not expired, 
-               * effective date has already passed, 
+               * has not yet been applied
+               * is able to be used if multiple coupons already applied
+               * is not expired
+               * effective date has already passed
                * has required items in cart
-            if valid, adds coupon to cart
+            if valid, adds coupon to cart, otherwise alerts user
         """
-        valid = False
-        status = "error"
         message = ""
         if couponcode:
-            # get coupon
             pc = getToolByName(self.context, 'portal_catalog')
             res = pc(portal_type="CouponCode", 
                      getCouponCode=couponcode, 
                      review_state='published')
             if len(res) > 0:
                 coupon = res[0]
-                import pdb; pdb.set_trace( )
-                if self.couponAlreadyExists(couponcode):
-                    message = "Coupon already applied."
-                if self.checkCouponExpired(coupon):
-                    message = "It has already expired."
-                if not self.checkCouponEffective(coupon):
-                    message = "It is not yet effective."
-                eligible_items = self.checkRequiredItemsInCart(coupon)
-                if not eligible_items:
-                    message = "At least one of the following must be in the cart: " + str(coupon.getCouponRequiredItemTypes)
+                while True:
+                    if self.couponAlreadyExists(couponcode):
+                        message = "Coupon(s) already applied."
+                        break;
+                    if self.checkCouponExpired(coupon):
+                        message = "Coupon has already expired."
+                        break;
+                    if not self.checkCouponEffective(coupon):
+                        message = "Coupon is not yet effective."
+                        break;
+                    if not self.checkRequiredItemsInCart(coupon):
+                        message = "Cart must contain each of the following items  "
+                        message += str(coupon.getCouponRequiredItemTypes)
+                    break;
             else:
-                message = "Coupon does not exist"
+                message = "Coupon is not currently available or does not exist."
         else:
             message = "Please input a coupon code."
         if message:
-            return """<div class="portalMessage %s">This coupon is not valid: %s</div>""" % (status, message)
+            return """<div class="portalMessage error">Coupon Invalid: %s</div>""" % (message)
         else:
             return coupon.getObject().absolute_url()
     
@@ -68,32 +72,40 @@ class ValidateCouponCode(BrowserView):
         
     def checkRequiredItemsInCart(self, coupon):
         ''' returns False is the required items are not in the cart '''
-        required_types = coupon.getCouponRequiredItemTypes
-        still_required = set(required_types)
+        required_types = set(coupon.getCouponRequiredItemTypes)
         if len(required_types) == 0:
             return True
         cart = getUtility(IShoppingCartUtility).get(self.context) or {}
         cart_items = cart.values()
-        eligible_items = []
         for item in cart_items:
             ref_obj = item.resolve()
             if ref_obj:
                 ref_type = ref_obj.portal_type
                 if ref_type in required_types:
-                    still_required.discard(ref_obj.portal_type)
-                    eligible_items.append(item)
-        if len(still_required) == 0:
-            return eligible_items
+                    required_types.discard(ref_obj.portal_type)
+        if len(required_types) == 0:
+            return True
         return False
 
     def couponAlreadyExists(self, couponcode):
-        ''' returns True if coupon already exists '''
+        ''' returns True if this coupon already been applied 
+            or multiple coupons have already been applied and the
+            allowMultipleCoupons property is set to False
+        '''
         cart = getUtility(IShoppingCartUtility).get(self.context) or {}
+        pprops = getToolByName(self, 'portal_properties')
         cart_items = cart.values()
         for item in cart_items:
             ref_obj = item.resolve()
-            if ref_obj:
-                if ref_obj.portal_type == "CouponCode" and ref_obj.getCouponCode() == couponcode:
+            if ref_obj and \
+               ref_obj.portal_type == "CouponCode":
+               if pprops is not None:
+                   cc_props = getattr(pprops, 'couponcode_properties', None)
+                   if cc_props and \
+                      cc_props.hasProperty('allowMultipleCoupons') and \
+                      cc_props.getProperty('allowMultipleCoupons') == False:
+                       return True
+               if ref_obj.getCouponCode() == couponcode:
                     return True
         return False
 
