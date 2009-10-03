@@ -58,7 +58,7 @@ class ValidateCouponCode(BrowserView):
         ''' returns True if coupon is expired '''
         now = DateTime()
         expiration_date = coupon.getCouponExpirationDate
-        if not expiration_date or now < expiration_date:
+        if not expiration_date or now < expiration_date or now.Date() == expiration_date.Date(): 
             return False
         return True
         
@@ -66,7 +66,7 @@ class ValidateCouponCode(BrowserView):
         ''' returns False if coupon is not yet effective '''
         now = DateTime()
         effective_date = coupon.getCouponEffectiveDate
-        if not effective_date or now > effective_date:
+        if not effective_date or now > effective_date or now.Date() == effective_date.Date():
             return True
         return False
         
