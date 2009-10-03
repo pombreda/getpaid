@@ -34,9 +34,9 @@ long_description = (
 
 tests_require=['zope.testing']
 
-setup(name='getpaid.variantsproduct',
+setup(name='getpaid.atshop',
       version=version,
-      description="",
+      description="Out-of-the-box shopping content types for PloneGetPaid",
       long_description=long_description,
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
