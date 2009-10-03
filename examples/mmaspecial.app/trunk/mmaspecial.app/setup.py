@@ -34,7 +34,7 @@ long_description = (
 
 tests_require=['zope.testing']
 
-setup(name='mmaspecial',
+setup(name='mmaspecial.app',
       version=version,
       description="",
       long_description=long_description,
