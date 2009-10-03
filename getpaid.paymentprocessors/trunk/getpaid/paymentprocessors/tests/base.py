@@ -17,7 +17,9 @@ from Products.PloneTestCase.layer import onsetup
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneGetPaid.tests.base import PloneGetPaidTestCase
 
-from getpaid.paymentprocessors.registry import paymentProcessorRegistry@onsetup
+from getpaid.paymentprocessors.registry import paymentProcessorRegistry
+
+@onsetup
 def setup_package():
     fiveconfigure.debug_mode = True
     import getpaid.paymentprocessors
