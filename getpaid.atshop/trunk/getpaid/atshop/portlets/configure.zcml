@@ -10,6 +10,18 @@
 	<!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="getpaid.atshop.portlets.ShoppingCartPortlet"
+      interface=".shoppingcartportlet.IShoppingCartPortlet"
+      assignment=".shoppingcartportlet.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".shoppingcartportlet.Renderer"
+      addview=".shoppingcartportlet.AddForm"
+      editview=".shoppingcartportlet.EditForm"
+      />
+
+
+  <plone:portlet
       name="getpaid.atshop.portlets.VariantProductShopper"
       interface=".variantproductshopper.IVariantProductShopper"
       assignment=".variantproductshopper.Assignment"
