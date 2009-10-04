@@ -1,8 +1,155 @@
 <?xml version="1.0"?>
-<!-- This file is used to register new types of portlets. It can also
-     be used to register completely new column types. See CMFPlone's version
-     of this file for more information.
-  -->
 <portlets>
-  <!-- -*- extra stuff goes here -*- -->
+ <portletmanager name="plone.leftcolumn"
+    type="plone.app.portlets.interfaces.ILeftColumn"/>
+ <portletmanager name="plone.rightcolumn"
+    type="plone.app.portlets.interfaces.IRightColumn"/>
+ <portletmanager name="plone.dashboard3"
+    type="plone.app.portlets.interfaces.IDashboard"/>
+ <portletmanager name="plone.dashboard2"
+    type="plone.app.portlets.interfaces.IDashboard"/>
+ <portletmanager name="plone.dashboard4"
+    type="plone.app.portlets.interfaces.IDashboard"/>
+ <portletmanager name="plone.dashboard1"
+    type="plone.app.portlets.interfaces.IDashboard"/>
+ <portlet title="Cart portlet" addview="getpaid.cart"
+    description="A portlet that shows the shopping cart"/>
+ <portlet title="Login" addview="portlets.Login"
+    description="A portlet which can render a log-in box">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+ </portlet>
+ <portlet title="Collection portlet"
+    addview="plone.portlet.collection.Collection"
+    description="A portlet which displays the results of a collection query"/>
+ <portlet title="Review list" addview="portlets.Review"
+    description="A portlet which can render a listing on the review queue.">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+  <for interface="plone.app.portlets.interfaces.IDashboard"/>
+ </portlet>
+ <portlet title="RSS Feed" addview="portlets.rss"
+    description="A portlet which can receive and render an RSS feed.">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+  <for interface="plone.app.portlets.interfaces.IDashboard"/>
+ </portlet>
+ <portlet title="Variant product shopper"
+    addview="getpaid.atshop.portlets.VariantProductShopper" description=""/>
+ <portlet title="Static text portlet" addview="plone.portlet.static.Static"
+    description="A portlet which can display static HTML text"/>
+ <portlet title="Navigation (for Sections)"
+    addview="mmaspecial.SectionNavigation"
+    description="Portlet that provides links to content item siblings"/>
+ <portlet title="Premium portlet" addview="getpaid.premium"
+    description="A portlet that handles premium items"/>
+ <portlet title="Recent items" addview="portlets.Recent"
+    description="A portlet which can render a listing of recently changed items.">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+  <for interface="plone.app.portlets.interfaces.IDashboard"/>
+ </portlet>
+ <portlet title="Buyable portlet" addview="getpaid.buyable"
+    description="A portlet that handles buyable items"/>
+ <portlet title="Navigation" addview="portlets.Navigation"
+    description="A portlet which can render a navigation tree">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+ </portlet>
+ <portlet title="Donatable portlet" addview="getpaid.donatable"
+    description="A portlet that handles donatable items"/>
+ <portlet title="News" addview="portlets.News"
+    description="A portlet which can render a listing of recent news">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+  <for interface="plone.app.portlets.interfaces.IDashboard"/>
+ </portlet>
+ <portlet title="Static text portlet (grey)"
+    addview="mmaspecial.GreyStaticPortlet"
+    description="Portlet with light grey background"/>
+ <portlet title="Search" addview="portlets.Search"
+    description="A portlet which shows a search box.">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+  <for interface="plone.app.portlets.interfaces.IDashboard"/>
+ </portlet>
+ <portlet title="Classic portlet" addview="portlets.Classic"
+    description="A portlet which can render a classic template-based portlet">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+  <for interface="plone.app.portlets.interfaces.IDashboard"/>
+ </portlet>
+ <portlet title="Variable Amount Donatable portlet"
+    addview="getpaid.variableamountdonatable"
+    description="A portlet that handles donatable items"/>
+ <portlet title="Calendar portlet" addview="portlets.Calendar"
+    description="A portlet which can render a calendar.">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+  <for interface="plone.app.portlets.interfaces.IDashboard"/>
+ </portlet>
+ <portlet title="Language" addview="portlets.Language"
+    description="Language selection portlet">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+ </portlet>
+ <portlet title="Events" addview="portlets.Events"
+    description="A portlet which can render a listing of recent events">
+  <for interface="plone.app.portlets.interfaces.IColumn"/>
+  <for interface="plone.app.portlets.interfaces.IDashboard"/>
+ </portlet>
+ <portlet title="Shippable portlet" addview="getpaid.shippable"
+    description="A portlet that handles shippable items"/>
+ <assignment name="navigation" category="context" key="/"
+    manager="plone.leftcolumn" type="portlets.Navigation">
+  <property name="topLevel">1</property>
+  <property name="currentFolderOnly">False</property>
+  <property name="name"></property>
+  <property name="includeTop">False</property>
+  <property name="bottomLevel">0</property>
+  <property name="root"/>
+ </assignment>
+ <assignment name="review" category="context" key="/"
+    manager="plone.rightcolumn" type="portlets.Review"/>
+ <assignment name="variant-product-shopper" category="context" key="/"
+    manager="plone.rightcolumn"
+    type="getpaid.atshop.portlets.VariantProductShopper"/>
+ <blacklist category="user" location="/" manager="plone.dashboard2"
+    status="acquire"/>
+ <blacklist category="group" location="/" manager="plone.dashboard2"
+    status="acquire"/>
+ <blacklist category="content_type" location="/" manager="plone.dashboard2"
+    status="acquire"/>
+ <blacklist category="context" location="/" manager="plone.dashboard2"
+    status="acquire"/>
+ <blacklist category="user" location="/" manager="plone.dashboard3"
+    status="acquire"/>
+ <blacklist category="group" location="/" manager="plone.dashboard3"
+    status="acquire"/>
+ <blacklist category="content_type" location="/" manager="plone.dashboard3"
+    status="acquire"/>
+ <blacklist category="context" location="/" manager="plone.dashboard3"
+    status="acquire"/>
+ <blacklist category="user" location="/" manager="plone.dashboard1"
+    status="acquire"/>
+ <blacklist category="group" location="/" manager="plone.dashboard1"
+    status="acquire"/>
+ <blacklist category="content_type" location="/" manager="plone.dashboard1"
+    status="acquire"/>
+ <blacklist category="context" location="/" manager="plone.dashboard1"
+    status="acquire"/>
+ <blacklist category="user" location="/" manager="plone.dashboard4"
+    status="acquire"/>
+ <blacklist category="group" location="/" manager="plone.dashboard4"
+    status="acquire"/>
+ <blacklist category="content_type" location="/" manager="plone.dashboard4"
+    status="acquire"/>
+ <blacklist category="context" location="/" manager="plone.dashboard4"
+    status="acquire"/>
+ <blacklist category="user" location="/" manager="plone.leftcolumn"
+    status="acquire"/>
+ <blacklist category="group" location="/" manager="plone.leftcolumn"
+    status="acquire"/>
+ <blacklist category="content_type" location="/" manager="plone.leftcolumn"
+    status="acquire"/>
+ <blacklist category="context" location="/" manager="plone.leftcolumn"
+    status="acquire"/>
+ <blacklist category="user" location="/" manager="plone.rightcolumn"
+    status="acquire"/>
+ <blacklist category="group" location="/" manager="plone.rightcolumn"
+    status="acquire"/>
+ <blacklist category="content_type" location="/" manager="plone.rightcolumn"
+    status="acquire"/>
+ <blacklist category="context" location="/" manager="plone.rightcolumn"
+    status="show"/>
 </portlets>
