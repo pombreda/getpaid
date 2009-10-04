@@ -61,6 +61,11 @@ Author
 
 * `Other open source Plone products by Twinapex <http://www.twinapex.com/for-developers/open-source/for-plone>`_
 
+Thirty party contributions
+==========================
+
+* `Shopping cart icon <http://www.bartelme.at/journal/archive/shopping_cart_icon>`_
+
 
 
 

@@ -1,13 +1,13 @@
 <span class="cart-status">
-	<img alt="" tal:attributes="src string:${context/portal_url}/++resource++getpaid.atshop/cart-icon.png" />
-	
+	<img alt="" tal:attributes="src string:${context/portal_url}/++resource++getpaid.atshop/Shoppingcart_16x16.png" />
+
 	<span class="cart-summary-text" tal:content="view/summary_text" />
-	
+
 	<a class="cart-manage" tal:condition="not:view/empty" href="" tal:attributes="href string:${context/portal_url}/@@getpaid-cart"
 	   i18n:translate="label_manage_cart">
 	  Manage Cart
 	</a>
-	
+
 	<a class="cart-checkout" tal:condition="not:view/empty" href="" tal:attributes="href string:${context/portal_url}/@@getpaid-checkout-wizard"
 	   i18n:translate="heading_checkout">
 	  Checkout
