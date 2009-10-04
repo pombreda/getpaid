@@ -9,6 +9,16 @@
 
   <browser:page
       for="*"
+      name="cart-status"
+      class=".cartstatusview.CartStatusView"
+      template="cartstatusview.pt"
+      allowed_interface=".cartstatusview.ICartStatusView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
+      for="*"
       name="multiimageproduct_view"
       class=".multiimageproductview.MultiImageProductView"
       allowed_interface=".multiimageproductview.IMultiImageProductView"

@@ -25,10 +25,6 @@ class IVariantProductShopper(IPortletDataProvider):
     same.
     """
 
-    cart_add_form_url = schema.TextLine()
-
-
-
 
 class Assignment(base.Assignment):
     """Portlet assignment.
