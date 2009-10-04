@@ -64,7 +64,7 @@
 				                            Item Title
 				                        </a>
 
-										[<span class="price" tal:content="python:view.get_price_text(item_obj)" />]
+										[<span class="price"> <tal:formatted tal:replace="structure python:view.get_price_text(item_obj)" /></span>]
 
 									</h2>
 
