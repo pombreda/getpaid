@@ -23,34 +23,24 @@ class ValidateCouponCode(BrowserView):
                * has required items in cart
             if valid, adds coupon to cart, otherwise alerts user
         """
-        message = ""
+        valid = False
         if couponcode:
             pc = getToolByName(self.context, 'portal_catalog')
             res = pc(portal_type="CouponCode", 
                      getCouponCode=couponcode, 
                      review_state='published')
+            message = "The code isn’t valid given the items in your cart or it has expired."
             if len(res) > 0:
                 coupon = res[0]
-                while True:
-                    if self.couponAlreadyExists(couponcode):
-                        message = "Coupon(s) already applied."
-                        break;
-                    if self.checkCouponExpired(coupon):
-                        message = "Coupon has already expired."
-                        break;
-                    if not self.checkCouponEffective(coupon):
-                        message = "Coupon is not yet effective."
-                        break;
-                    if not self.checkRequiredItemsInCart(coupon):
-                        message = "Cart must contain each of the following items  "
-                        message += str(coupon.getCouponRequiredItemTypes)
-                    break;
-            else:
-                message = "Coupon is not currently available or does not exist."
+                if not self.couponAlreadyExists(couponcode) and \
+                   not self.checkCouponExpired(coupon) and \
+                   self.checkCouponEffective(coupon) and \
+                   self.checkRequiredItemsInCart(coupon):
+                     valid = True
         else:
             message = "Please input a coupon code."
-        if message:
-            return """<div class="portalMessage error">Coupon Invalid: %s</div>""" % (message)
+        if not valid:
+            return """<div class="portalMessage error">%s</div>""" % (message)
         else:
             return coupon.getObject().absolute_url()
     
