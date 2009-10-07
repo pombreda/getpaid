@@ -105,7 +105,7 @@ class ValidateCouponCode(BrowserView):
                       cc_props.hasProperty('allowMultipleCoupons') and \
                       cc_props.getProperty('allowMultipleCoupons') == False:
                        return True
-               if ref_obj.getCouponCode() == couponcode:
+               if ref_obj.getCouponCode().lower() == couponcode.lower():
                     return True
         return False
 

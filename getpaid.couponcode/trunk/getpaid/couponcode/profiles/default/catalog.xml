@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
- <index name="getCouponCode" meta_type="FieldIndex">
+ <index name="getCouponCode" meta_type="ZCTextIndex">
   <indexed_attr value="getCouponCode"/>
  </index>
  <index name="getCouponAmount" meta_type="FieldIndex">
