@@ -2,6 +2,8 @@
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
  <index name="getCouponCode" meta_type="ZCTextIndex">
   <indexed_attr value="getCouponCode"/>
+  <extra name="index_type" value="Cosine Measure"/>
+  <extra name="lexicon_id" value="plaintext_lexicon"/>
  </index>
  <index name="getCouponAmount" meta_type="FieldIndex">
   <indexed_attr value="getCouponAmount"/>
