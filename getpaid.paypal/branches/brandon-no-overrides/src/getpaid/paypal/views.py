@@ -14,9 +14,6 @@ from getpaid.paypal.paypal import PaypalStandardProcessor
 class PayPalCheckoutButton(BrowserView):
     """page for paypal button
     """
-    def button_gif(self):
-        return u"http://images.paypal.com/images/x-click-but1.gif"
-
     def action_url(self):
         return 'https://%s/cgi-bin/webscr' % self.context.server_url
 

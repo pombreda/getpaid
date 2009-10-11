@@ -22,5 +22,5 @@
   <input type="image" src="http://images.paypal.com/images/x-click-but1.gif"
          name="submit"
          alt="Make payments with PayPal - it's fast, free and secure!"
-         tal:attributes="src view/button_gif" />
+         tal:attributes="src view/image_url" />
 </form>
