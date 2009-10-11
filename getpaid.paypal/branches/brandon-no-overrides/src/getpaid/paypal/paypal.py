@@ -10,7 +10,7 @@ from getpaid.core.processors import OffsitePaymentProcessor
 from getpaid.paypal.interfaces import IPaypalStandardOptions
 
 
-_sites = {
+_paypal_hosts = _sites = {
     "Sandbox": "www.sandbox.paypal.com",
     "Production": "www.paypal.com",
     }
@@ -21,6 +21,10 @@ class PaypalStandardProcessor(OffsitePaymentProcessor):
     options_interface = IPaypalStandardOptions
 
     checkout_button = 'paypal-checkout-button'
+
+    @property
+    def server_url(self):
+        return _paypal_hosts[self.options.server_url]
 
     def cart_post_button( self, order ):
         siteroot = getToolByName(self.context, "portal_url").getPortalObject()

@@ -1,24 +1,25 @@
 <form style="display:inline;"
-      action="https://%(site)s/cgi-bin/webscr"
+      action="https://www.sandbox.paypal.com/cgi-bin/webscr"
+      tal:attributes="action view/action_url"
       method="post"
       id="paypal-button">
   <input type="hidden" name="cmd" value="_cart" />
   <input type="hidden" name="upload" value="1" />
-  <input type="hidden" name="business" value="%(merchant_id)s" />
-  <input type="hidden" name="currency_code" value="%(currency)s" />
+  <input type="hidden" name="business" value="merchant_id"
+         tal:attributes="value context/options/merchant_id" />
+  <input type="hidden" name="currency_code" value="USD"
+         tal:attributes="value context/options/currency" />
   <input type="hidden" name="return" value="%(return_url)s" />
   <input type="hidden" name="cbt" value="Return to %(store_name)s" />
   <input type="hidden" name="rm" value="2" />
   <input type="hidden" name="notify_url" value="%(IPN_url)s" />
   <input type="hidden" name="invoice" value="%(order_id)s" />
   <input type="hidden" name="no_note" value="1" />
-  <!-- tal:loop tal:repeat="item in view/cart"
-    <input type="hidden" name="item_name_%(idx)s" value="%(item_name)s" />
-    <input type="hidden" name="item_number_%(idx)s" value="%(item_number)s" />
-    <input type="hidden" name="amount_%(idx)s" value="%(amount)s" />
-    <input type="hidden" name="quantity_%(idx)s" value="%(quantity)s" />
-  /tal:loop -->
-  <input type="image" src="http://%(site)s/en_US/i/btn/x-click-but01.gif"
+  <tal:loop tal:repeat="item view/cart_fields">
+    <input type="hidden" name="name" value="value"
+           tal:attributes="name python:item[0];value python:item[1]" />
+  </tal:loop>
+  <input type="image" src="http://images.paypal.com/images/x-click-but1.gif"
          name="submit"
          alt="Make payments with PayPal - it's fast, free and secure!"
          tal:attributes="src view/button_gif" />

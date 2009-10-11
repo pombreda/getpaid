@@ -14,10 +14,26 @@ from getpaid.paypal.paypal import PaypalStandardProcessor
 class PayPalCheckoutButton(BrowserView):
     """page for paypal button
     """
-    cart = []
-
     def button_gif(self):
         return u"http://images.paypal.com/images/x-click-but1.gif"
+
+    def action_url(self):
+        return 'https://%s/cgi-bin/webscr' % self.context.server_url
+
+    def image_url(self):
+        return ('https://%s/en_US/i/btn/x-click-but01.gif'
+                % self.context.server_url)
+
+    def cart_fields(self):
+        """Return shopping cart contents as fields for PayPal form."""
+        fields = []
+        for n, item in enumerate(self.context.cart.values()):
+            n = n + 1  # start list with 1 rather than 0
+            fields.append(('item_name_%d' % n, item.name))
+            fields.append(('item_number_%d' % n, item.product_code))
+            fields.append(('amount_%d' % n, item.cost))
+            fields.append(('quantity_%d' % n, item.quantity))
+        return fields
 
     def getButton(self):
         button = PaypalStandardProcessor(self.context)
