@@ -21,6 +21,22 @@ class PayPalCheckoutButton(BrowserView):
         return ('https://%s/en_US/i/btn/x-click-but01.gif'
                 % self.context.server_url)
 
+    def return_url(self):
+        return self.context.store_url + '/@@getpaid-thank-you'
+
+    def ipn_url(self):
+        return self.context.store_url + '/@@getpaid-paypal-ipnreactor'
+
+    def order_id(self):
+        return 'PUT ORDER ID HERE'
+
+    def cbt_label(self):
+        name = self.context.store_name
+        if name:
+            return u'Return to %s' % self.context.store_name
+        else:
+            return u'Return to the store'
+
     def cart_fields(self):
         """Return shopping cart contents as fields for PayPal form."""
         fields = []
@@ -33,6 +49,13 @@ class PayPalCheckoutButton(BrowserView):
         return fields
 
     def getButton(self):
+        """Junk code that Brandon has to remove soon.
+
+        Before removing it, I want to keep it around as one possible
+        pattern (but more likely an anti-pattern) for how order
+        management might happen with these off-site buttons.
+
+        """
         button = PaypalStandardProcessor(self.context)
         cart_util = getUtility(IShoppingCartUtility)
         cart = cart_util.get(self.context, create=True)
