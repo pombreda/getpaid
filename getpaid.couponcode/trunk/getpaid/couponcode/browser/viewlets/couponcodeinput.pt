@@ -1,4 +1,4 @@
-<div id="couponcodeinput">
+<div id="couponcodeinput" style="display:none">
    Coupon Code: 
     <input type="text" id="couponcode-value" />
      <a id="couponcode-apply" class="button context"
@@ -25,3 +25,6 @@
        }
      </script>
 </div>
+<script type="text/javascript">
+$('#couponcodeinput').show();
+</script>
