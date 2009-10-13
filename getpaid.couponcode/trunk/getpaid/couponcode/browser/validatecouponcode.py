@@ -26,9 +26,8 @@ class ValidateCouponCode(BrowserView):
         valid = False
         if couponcode:
             pc = getToolByName(self.context, 'portal_catalog')
-            res = pc(portal_type="CouponCode", 
-                     getCouponCode=couponcode, 
-                     review_state='published')
+            res = pc.unrestrictedSearchResults(portal_type="CouponCode", 
+                     getCouponCode=couponcode,)
             message = "The code isn’t valid given the items in your cart or it has expired."
             if len(res) > 0:
                 coupon = res[0]
