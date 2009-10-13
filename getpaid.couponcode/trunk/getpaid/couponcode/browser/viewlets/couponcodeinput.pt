@@ -1,3 +1,4 @@
+<div id="require_js">In order to apply a coupon you must have JavaScript turned on.</div>
 <div id="couponcodeinput" style="display:none">
    Coupon Code: 
     <input type="text" id="couponcode-value" />
@@ -27,6 +28,7 @@
 </div>
 <script type="text/javascript">
 $('#couponcodeinput').show();
+$('#require_js').hide();
 if ($.browser.mozilla){
     $("#couponcode-value").keypress(checkForEnter);
 } else {
