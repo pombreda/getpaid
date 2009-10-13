@@ -1,0 +1,43 @@
+<div id="require_js">In order to apply a coupon you must have JavaScript turned on.</div>
+<div id="couponcodeinput" style="display:none">
+   Coupon Code: 
+    <input type="text" id="couponcode-value" />
+     <a id="couponcode-apply" class="button context"
+        onClick="setitup()">Apply Coupon</a>
+     <tal:block tal:replace='structure string:<script type="text/javascript" charset="utf-8">'></tal:block>
+       var serverURL = '<span tal:replace='here/portal_url/absolute_url'>portal_url</span>';
+     <tal:block tal:replace='structure string:</script>'></tal:block>
+     <script>
+       function setitup(){
+           var valinput = $("#couponcode-value").val();
+            $.ajax({
+              type: "POST",
+              url: serverURL + "/@@couponcode_validation/validate_couponcode",
+              data: "couponcode=" + encodeURIComponent(valinput),
+              success: function(msg){
+                if (msg.indexOf('http://') === 0){
+                    window.location= msg + '/@@getpaid-cart-add?add_item=True'
+                } else {
+                    $(".portalMessage").hide();
+                    $("#couponcode-value").before(msg);
+                }
+              }
+            });
+       }
+     </script>
+</div>
+<script type="text/javascript">
+$('#couponcodeinput').show();
+$('#require_js').hide();
+if ($.browser.mozilla){
+    $("#couponcode-value").keypress(checkForEnter);
+} else {
+    $("#couponcode-value").keydown(checkForEnter);
+}
+function checkForEnter (event) {
+    if ((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)){
+        event.preventDefault();
+        setitup();
+    }
+}
+</script>

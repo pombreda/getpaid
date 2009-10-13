@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+ <index name="getCouponCode" meta_type="ZCTextIndex">
+  <indexed_attr value="getCouponCode"/>
+  <extra name="index_type" value="Cosine Measure"/>
+  <extra name="lexicon_id" value="plaintext_lexicon"/>
+ </index>
+ <index name="getCouponAmount" meta_type="FieldIndex">
+  <indexed_attr value="getCouponAmount"/>
+ </index>
+ <index name="getCouponEffectiveDate" meta_type="DateIndex">
+  <indexed_attr value="getCouponEffectiveDate"/>
+ </index>
+ <index name="getCouponExpirationDate" meta_type="DateIndex">
+  <indexed_attr value="getCouponExpirationDate"/>
+ </index>
+ <index name="getCouponRequiredItemTypes" meta_type="FieldIndex">
+  <indexed_attr value="getCouponRequiredItemTypes"/>
+ </index>
+ 
+ <column value="getCouponCode"/>
+ <column value="getCouponAmount"/>
+ <column value="getCouponEffectiveDate"/>
+ <column value="getCouponExpirationDate"/>
+ <column value="getCouponRequiredItemTypes"/>
+ 
+</object>

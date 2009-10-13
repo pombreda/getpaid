@@ -1,0 +1,36 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="getpaid.couponcode">
+  
+  <include package="Products.GenericSetup" file="meta.zcml" /> <!-- #jessica -->
+
+  <five:registerPackage package="." initialize=".initialize" />
+  <!-- Include the sub-packages that use their own configure.zcml files. -->
+  <include package=".browser" />
+  <include package=".content" />
+  
+  <!-- Register the installation GenericSetup extension profile -->
+  <genericsetup:registerProfile
+      name="default"
+      title="getpaid.couponcode"
+      directory="profiles/default"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  
+  <!-- -*- extra stuff goes here -*- -->
+
+  <subscriber
+      for="getpaid.couponcode.interfaces.ICouponCode
+           zope.app.event.interfaces.IObjectModifiedEvent"
+         handler="getpaid.couponcode.subscribers.makeCouponCodeBuyable"
+      />
+  <subscriber
+      for="getpaid.couponcode.interfaces.ICouponCode
+           zope.app.container.interfaces.IObjectAddedEvent"
+         handler="getpaid.couponcode.subscribers.makeCouponCodeBuyable"
+      />
+      
+</configure>
