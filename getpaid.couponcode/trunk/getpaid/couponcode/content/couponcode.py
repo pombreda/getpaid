@@ -8,6 +8,7 @@ from Products.Archetypes.utils import DisplayList
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
 from Products.CMFCore.utils import getToolByName
+from Products.PloneGetPaid import interfaces
 
 from getpaid.couponcode import couponcodeMessageFactory as _
 from getpaid.couponcode.interfaces import ICouponCode
@@ -66,7 +67,7 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     atapi.LinesField(
         'couponRequiredItemTypes',
         storage=atapi.AnnotationStorage(),
-        vocabulary = 'getPloneContentTypes',
+        vocabulary = 'getBuyableContentTypes',
         widget=atapi.MultiSelectionWidget(
             label=_(u"Required Item Types"),
             description=_(u"What type of item(s) are required to be in the cart for this coupon to be valid? If nothing is selected, it is assumed the discount can apply to anything on the site."),
@@ -91,19 +92,15 @@ class CouponCode(base.ATCTContent):
     meta_type = "CouponCode"
     schema = CouponCodeSchema
 
-    def getPloneContentTypes(self):
-        ptool = getToolByName(self, 'portal_types')
-        types = ptool.listTypeInfo()
-        types_list = []
-        properties = getToolByName(self, 'portal_properties')
-        types_not_searched = set( properties.site_properties.types_not_searched )
-        for item in types:
-            if item.id in types_not_searched:
-                continue
-            title = item.title
-            if title:
-                types_list.append((item.id, title))
-        types_list.sort(lambda x, y: cmp(x[1].lower(), y[1].lower()))  
-        return DisplayList(((types_list)))
+    def getBuyableContentTypes(self):
+        portal = getToolByName(self, 'portal_url').getPortalObject()
+        ptool = getToolByName(portal, 'portal_types')
+        options = interfaces.IGetPaidManagementOptions(portal)
+        buyable_types = options.buyable_types
+        shippable_types = options.shippable_types
+        buyable_list = [(i, i) for i in buyable_types] + \
+                       [(i, i) for i in shippable_types \
+                               if i not in buyable_types]
+        return DisplayList(((buyable_list)))
 
 atapi.registerType(CouponCode, PROJECTNAME)
