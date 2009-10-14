@@ -72,6 +72,7 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_(u"Required Item Types"),
             description=_(u"What type of item(s) are required to be in the cart for this coupon to be valid? If nothing is selected, it is assumed the discount can apply to anything on the site."),
         ),
+        required = True,
     ),
 
 
