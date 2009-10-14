@@ -82,6 +82,7 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
 CouponCodeSchema['title'].storage = atapi.AnnotationStorage()
 CouponCodeSchema['description'].storage = atapi.AnnotationStorage()
+CouponCodeSchema['relatedItems'].widget.visible = False
 
 schemata.finalizeATCTSchema(CouponCodeSchema, moveDiscussion=False)
 
