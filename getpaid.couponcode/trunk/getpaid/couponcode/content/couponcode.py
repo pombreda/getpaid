@@ -24,6 +24,7 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         widget=atapi.StringWidget(
             label=_(u"Coupon Code"),
             description=_(u""),
+            visible={'view':'hidden','edit':'visible'}
         ),
         required=True,
     ),
@@ -49,7 +50,6 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u"If not entered, the creation date will be used."),
         ),
         validators=('isValidDate'),
-        with_time = False,
     ),
 
 
@@ -61,7 +61,6 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u"If not entered, it will be assumed the coupon never expires."),
         ),
         validators=('isValidDate'),
-        with_time = False,
     ),
 
     atapi.LinesField(
