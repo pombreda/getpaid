@@ -69,9 +69,11 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         vocabulary = 'getBuyableContentTypes',
         widget=atapi.MultiSelectionWidget(
             label=_(u"Required Item Types"),
-            description=_(u"What type of item(s) are required to be in the cart for this coupon to be valid? If nothing is selected, it is assumed the discount can apply to anything on the site."),
+            description=_(u"What type of item(s) are required to be in the cart for this coupon to be valid? If nothing is selected, it is assumed the discount can apply to anything on the site.\nNOTE: Currently Ecards are the only available type."),
         ),
+        default = ['Ecard',],
         required = True,
+        mode='r',
     ),
 
 
@@ -82,6 +84,8 @@ CouponCodeSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
 CouponCodeSchema['title'].storage = atapi.AnnotationStorage()
 CouponCodeSchema['description'].storage = atapi.AnnotationStorage()
+CouponCodeSchema['description'].widget.description = 'A short summary of the \
+           coupon.  NOTE: Coupons can currently only be used on Ecards.'
 CouponCodeSchema['relatedItems'].widget.visible = False
 
 schemata.finalizeATCTSchema(CouponCodeSchema, moveDiscussion=False)
@@ -102,6 +106,9 @@ class CouponCode(base.ATCTContent):
         buyable_list = [(i, i) for i in buyable_types] + \
                        [(i, i) for i in shippable_types \
                                if i not in buyable_types]
+        # returning only ecards for now 
+        # not all of catalog items are working correctly with the coupon
+        buyable_list = [('Ecard', 'Ecard'),]
         return DisplayList(((buyable_list)))
 
 atapi.registerType(CouponCode, PROJECTNAME)
