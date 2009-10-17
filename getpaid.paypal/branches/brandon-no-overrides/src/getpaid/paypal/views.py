@@ -9,7 +9,7 @@ from getpaid.core import payment
 from cPickle import loads, dumps
 from AccessControl import getSecurityManager
 
-from getpaid.paypal.paypal import PaypalStandardProcessor
+from getpaid.paypal.paypal import PayPalStandardProcessor
 
 class PayPalCheckoutButton(BrowserView):
     """page for paypal button
@@ -56,7 +56,7 @@ class PayPalCheckoutButton(BrowserView):
         management might happen with these off-site buttons.
 
         """
-        button = PaypalStandardProcessor(self.context)
+        button = PayPalStandardProcessor(self.context)
         cart_util = getUtility(IShoppingCartUtility)
         cart = cart_util.get(self.context, create=True)
         site = self.context.portal_url.getPortalObject()

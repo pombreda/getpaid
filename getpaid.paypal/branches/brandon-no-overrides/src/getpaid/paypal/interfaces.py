@@ -14,21 +14,21 @@ def _vocabulary(*terms):
                              for token, title in terms])
 
 
-class IPaypalStandardProcessor( interfaces.IPaymentProcessor ):
+class IPayPalStandardProcessor( interfaces.IPaymentProcessor ):
     """
-    Paypal Standard Processor
+    PayPal Standard Processor
     """
 
-class IPaypalStandardOptions( interfaces.IPaymentProcessorOptions ):
+class IPayPalStandardOptions( interfaces.IPaymentProcessorOptions ):
     """
-    Paypal Standard Options
+    PayPal Standard Options
     """
     server_url = schema.Choice(
-        title = _(u"Paypal Website Payments Server"),
+        title = _(u"PayPal Website Payments Server"),
         values = ( "Sandbox", "Production" ),
         )
 
-    merchant_id = schema.ASCIILine( title = _(u"Paypal Id"))
+    merchant_id = schema.ASCIILine( title = _(u"PayPal Id"))
 
     currency = schema.Choice(
         title = _(u"Currency"),

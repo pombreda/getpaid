@@ -6,5 +6,5 @@ import interfaces
 
 PaypalStandardOptions = PersistentOptions.wire("PaypalStandardOptions",
                                                "getpaid.paypal",
-                                               interfaces.IPaypalStandardOptions )
+                                               interfaces.IPayPalStandardOptions )
 

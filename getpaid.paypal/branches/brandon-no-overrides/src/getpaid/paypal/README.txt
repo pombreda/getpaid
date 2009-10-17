@@ -1,7 +1,14 @@
-You will need to set this as your payment processor in the getpaid admin
-interface (Payment Options)
+PayPal Payment Processor
+========================
 
-Last step is to enter your paypal account info in Payment Processor
-Settings.
+This payment processor implements the "Third-party shopping carts"
+option of the PayPal "Website Payments Standard" mechanism, as described
+here:
+
+   https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_howto_html_cart_upload
+
+You will need to set PayPal as your payment processor in the getpaid
+admin interface (Payment Options), and enter your PayPal account
+information on Payment Processor Settings page.
 
 Enjoy!

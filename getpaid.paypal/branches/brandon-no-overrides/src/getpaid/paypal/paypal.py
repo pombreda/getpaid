@@ -2,7 +2,7 @@
 """
 
 from getpaid.core.processors import OffsitePaymentProcessor
-from getpaid.paypal.interfaces import IPaypalStandardOptions
+from getpaid.paypal.interfaces import IPayPalStandardOptions
 
 
 _paypal_hosts = _sites = {
@@ -10,10 +10,10 @@ _paypal_hosts = _sites = {
     "Production": "www.paypal.com",
     }
 
-class PaypalStandardProcessor(OffsitePaymentProcessor):
+class PayPalStandardProcessor(OffsitePaymentProcessor):
     name = 'charge-it'
     title = u'PayPal Checkout'
-    options_interface = IPaypalStandardOptions
+    options_interface = IPayPalStandardOptions
 
     checkout_button = 'paypal-checkout-button'
 
