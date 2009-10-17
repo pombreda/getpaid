@@ -9,17 +9,17 @@
 
    <adapter
       for="Products.CMFCore.interfaces.ISiteRoot"
-      provides=".interfaces.IPaypalStandardOptions"
-      factory=".PaypalStandardOptions" />
+      provides=".interfaces.IPayPalStandardOptions"
+      factory=".PayPalStandardOptions" />
 
    <adapter
-      for="getpaid.core.interfaces.IPaymentSituation"
+      for="getpaid.core.interfaces.IShoppingCart"
       provides="getpaid.core.interfaces.IOffsitePaymentProcessor"
       name="paypal"
-      factory=".paypal.PaypalStandardProcessor" />
+      factory=".paypal.PayPalStandardProcessor" />
 
    <browser:page
-      for=".paypal.PaypalStandardProcessor"
+      for=".paypal.PayPalStandardProcessor"
       name="paypal-checkout-button"
       class=".views.PayPalCheckoutButton"
       template="templates/paypal-checkout-button.pt"
@@ -29,7 +29,7 @@
    <browser:page
       for="*"
       name="paypal-thank-you"
-      class="getpaid.paypal.browser.getpaidthankyou.GetpaidPaypalThankyouView"
+      class="getpaid.paypal.browser.getpaidthankyou.GetpaidPayPalThankyouView"
       template="templates/paypalthankyou.pt"
       permission="zope2.View"
       />

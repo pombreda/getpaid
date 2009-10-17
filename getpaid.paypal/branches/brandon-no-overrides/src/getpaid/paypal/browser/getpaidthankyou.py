@@ -1,7 +1,7 @@
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 
-class GetpaidPaypalThankyouView(BrowserView):
+class GetpaidPayPalThankyouView(BrowserView):
     """Class for overriding getpaid-thank-you view for paypal purchases
     """
     

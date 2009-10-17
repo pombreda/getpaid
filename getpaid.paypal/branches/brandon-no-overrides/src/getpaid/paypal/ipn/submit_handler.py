@@ -9,7 +9,7 @@ from zope.component import getUtility
 
 from getpaid.core.interfaces import IOrderManager
 
-from getpaid.paypal.interfaces import IPaypalStandardOptions
+from getpaid.paypal.interfaces import IPayPalStandardOptions
 from getpaid.paypal.paypal import _sites
 
 from notification import Notification
@@ -70,7 +70,7 @@ class IPNListener(BrowserView):
 
 
     def verify(self):
-        options = IPaypalStandardOptions( self.portal )
+        options = IPayPalStandardOptions( self.portal )
         # get ready to POST back form variables
         
         form = self.request.form
