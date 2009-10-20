@@ -22,19 +22,10 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 from zope.interface import implements
-from getpaid.core.interfaces import IPaymentSituation, IOffsitePaymentProcessor
-
-class PaymentSituation(object):
-    """Payment processor options, and the current order, bundled together."""
-    implements(IPaymentSituation)
-
-    def __init__(self, options, order):
-        self.options = options
-        self.order = order
+from getpaid.core.interfaces import IOffsitePaymentProcessor
 
 class OffsitePaymentProcessor(object):
     implements(IOffsitePaymentProcessor)
 
-    def __init__(self, situation):
-        self.options = situation.options
-        self.order = situation.order
+    def __init__(self, cart):
+        self.cart = cart
