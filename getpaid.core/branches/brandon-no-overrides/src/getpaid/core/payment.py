@@ -103,12 +103,6 @@ class DefaultFinanceProcessorIntegration( object ):
                 raise AttributeError("can't get store, TODO - please switch processors settings to utility adapters")
             context = getToolByName( ob, 'portal_url').getPortalObject()
 
-        if component.getAdapter( self.order.shopping_cart,
-                                 interfaces.IOffsitePaymentProcessor,
-                                 self.order.processor_id ):
-            # Offsite Processors are always async?
-            return 
-
         processor = component.getAdapter( context,
                                           interfaces.IPaymentProcessor,
                                           self.order.processor_id )
