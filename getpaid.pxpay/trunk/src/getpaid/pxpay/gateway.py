@@ -1,4 +1,6 @@
 import logging
+from os.path import join, dirname
+
 from zc import ssl
 from zope.component import adapts
 from zope.interface import implements
@@ -23,6 +25,7 @@ class PXPayWebInterfaceGateway( object ):
     def __init__(self, context):
         self.context = context
         self.server_type = context.PxPayServerType
+        self.certs_file = join(dirname(__file__), 'certs.pem')
 
     def set_offline_testmode(self, value, data={}):
         self.offline_testmode = value
@@ -41,7 +44,7 @@ class PXPayWebInterfaceGateway( object ):
         server_name = server.get('host')
         server_path = server.get('path')
         try:
-            conn = ssl.HTTPSConnection(server_name, timeout)
+            conn = ssl.HTTPSConnection(server_name, timeout, cert_file=self.certs_file)
 
             # setup the HEADERS
             conn.putrequest('POST', server_path)
