@@ -1,6 +1,0 @@
-<configure xmlns="http://namespaces.zope.org/zope">
-
-  <!-- Taxes -->
-  <utility factory=".tax.TaxUtility" />
-
-</configure>
