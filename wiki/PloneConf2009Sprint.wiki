@@ -18,5 +18,5 @@ We will start by getting everyone set up with a GetPaid buildout (see DevGetting
 
 Add your name, irc nick and email address here.  
   * David Glyn-Jones OpenNetworks
-  * 
+  * Hannes Calitz, hannesc, hannes@opennetworks.co.za/hannesc@gmail.com
   * 
