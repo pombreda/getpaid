@@ -2,6 +2,13 @@
 CHANGES
 =======
 
+
+0.4 (2009-10-30)
+----------------
+
+* add an explicit certs.pem and add known CAs that paymentexpress are
+  using.
+
 0.3 (2008-12-31)
 ----------------
 
