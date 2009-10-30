@@ -19,4 +19,7 @@ class PayPalStandardProcessor(OffsitePaymentProcessor):
 
     @property
     def server_url(self):
-        return _paypal_hosts[self.options.server_url]
+        url = self.options.server_url
+        if url not in _paypal_hosts:
+            url = 'Sandbox'
+        return _paypal_hosts[url]
