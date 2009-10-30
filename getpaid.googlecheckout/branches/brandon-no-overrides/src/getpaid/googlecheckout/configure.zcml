@@ -13,7 +13,7 @@
       factory=".GoogleCheckoutOptions" />
 
    <adapter
-      for="getpaid.core.interfaces.IPaymentSituation"
+      for="getpaid.core.interfaces.IShoppingCart"
       provides="getpaid.core.interfaces.IOffsitePaymentProcessor"
       name="googlecheckout"
       factory=".googlecheckout.GoogleCheckoutProcessor" />
