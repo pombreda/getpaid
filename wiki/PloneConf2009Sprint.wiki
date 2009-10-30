@@ -3,7 +3,15 @@
 
 = Introduction =
 
- ....
+We will start by getting everyone set up with a GetPaid buildout (see DevGettingStarted) and get familiar with GetPaid (good place to start is the [http://plone.org/products/getpaid/documentation/tutorial/setting-up-getpaid setup manual] and the [http://plone.org/products/getpaid/documentation/tutorial/to-use-getpaid  how to use overview manual], or see the README). 
+
+== Potential Topics ==
+
+  * Upgrade payment processor interfaces as per new branch by Brandon Rhodes
+    * See examples in nmi processor and authorize.net offsite and documentation in sphinx
+  * Update documentation (manual for set up and how to use GetPaid)
+  * Pick issues in the issue tracker to focus on: http://code.google.com/p/getpaid/issues/list
+    * Issue 209, test and try to isolate way to reproduce. Brainstorm ideas for moving cart out of session for anonymous user. 
 
 
 = Participants =
