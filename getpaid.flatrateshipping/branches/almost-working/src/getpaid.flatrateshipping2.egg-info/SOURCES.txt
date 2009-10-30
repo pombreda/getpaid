@@ -1,0 +1,20 @@
+README.txt
+setup.py
+src/getpaid/__init__.py
+src/getpaid.flatrateshipping2.egg-info/PKG-INFO
+src/getpaid.flatrateshipping2.egg-info/SOURCES.txt
+src/getpaid.flatrateshipping2.egg-info/dependency_links.txt
+src/getpaid.flatrateshipping2.egg-info/namespace_packages.txt
+src/getpaid.flatrateshipping2.egg-info/not-zip-safe
+src/getpaid.flatrateshipping2.egg-info/requires.txt
+src/getpaid.flatrateshipping2.egg-info/top_level.txt
+src/getpaid/flatrateshipping2/__init__.py
+src/getpaid/flatrateshipping2/flatrate (copy).py
+src/getpaid/flatrateshipping2/flatrate.py
+src/getpaid/flatrateshipping2/interfaces.py
+src/getpaid/flatrateshipping2/plugin.py
+src/getpaid/flatrateshipping2/rates (copy).py
+src/getpaid/flatrateshipping2/rates.py
+src/getpaid/flatrateshipping2/tests.py
+src/getpaid/flatrateshipping2/browser/__init__.py
+src/getpaid/flatrateshipping2/browser/admin.py
