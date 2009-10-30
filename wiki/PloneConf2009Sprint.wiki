@@ -13,6 +13,7 @@ We will start by getting everyone set up with a GetPaid buildout (see DevGetting
   * Add "component" and other meta data on issues in tracker (what part of system is it about, how critical is it, what level difficulty is it)
   * Pick issues in the issue tracker to focus on: http://code.google.com/p/getpaid/issues/list
     * Issue 209, test and try to isolate way to reproduce. Brainstorm ideas for moving cart out of session for anonymous user. 
+    * Issue 276, improving installation experience
   
 
 
