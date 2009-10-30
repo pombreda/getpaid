@@ -9,6 +9,6 @@
 = Participants =
 
 Add your name, irc nick and email address here.  
-  * 
+  * David Glyn-Jones OpenNetworks
   * 
   * 
