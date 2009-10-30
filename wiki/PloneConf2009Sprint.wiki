@@ -7,8 +7,11 @@ We will start by getting everyone set up with a GetPaid buildout (see DevGetting
 
 == Potential Topics ==
 
+  * Ways to make it simplier to install a basic shop 
+  * Simple Flat Rate Shipping Module
+  * Change Currency in Settings
   * Upgrade payment processor interfaces as per new branch by Brandon Rhodes
-    * See examples in nmi processor and authorize.net offsite and documentation in sphinx
+  * See examples in nmi processor and authorize.net offsite and documentation in sphinx
   * Update documentation (manual for set up and how to use GetPaid)
   * Add "component" and other meta data on issues in tracker (what part of system is it about, how critical is it, what level difficulty is it)
   * Pick issues in the issue tracker to focus on: http://code.google.com/p/getpaid/issues/list
@@ -24,6 +27,7 @@ Add your name, irc nick and email address here.
   * Hannes Calitz, hannesc, hannes@opennetworks.co.za/hannesc@gmail.com
   * Silvio, silviot@gmail.com
   * Davide Moro
+  * Marton Schimcsig
 
 == Interested ==
   * Taito
