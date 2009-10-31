@@ -74,14 +74,16 @@
     factory=".payment.CreditCardTypeEnumerator"
     />
 
-  <vocabulary
+  <utility
+    provides="zope.schema.interfaces.IVocabularyFactory"
     name="getpaid.core.credit_card_types"
-    factory=".vocabularies.CreditCardTypes"
+    component=".vocabularies.CreditCardTypes"
     />
 
-  <vocabulary
+  <utility
+    provides="zope.schema.interfaces.IVocabularyFactory"
     name="getpaid.core.accepted_credit_card_types"
-    factory=".vocabularies.AcceptedCreditCardTypes"
+    component=".vocabularies.AcceptedCreditCardTypes"
     />
 
   <!-- Reports -->
