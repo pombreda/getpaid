@@ -7,7 +7,7 @@ We will start by getting everyone set up with a GetPaid buildout (see DevGetting
 
 == Potential Topics ==
 
-  * Ways to make it simplier to install a basic shop 
+  * Discuss - ways to make it simplier to install a basic shop 
   * Simple Flat Rate Shipping Module
   * Change Currency in Settings
   * Upgrade payment processor interfaces as per new branch by Brandon Rhodes
@@ -23,13 +23,14 @@ We will start by getting everyone set up with a GetPaid buildout (see DevGetting
 = Participants =
 
 Add your name, irc nick and email address here.  
-  * David Glyn-Jones OpenNetworks
+  * David Glyn-Jones david@opennetworks.co.za
   * Hannes Calitz, hannesc, hannes@opennetworks.co.za/hannesc@gmail.com
   * Silvio, silviot@gmail.com
   * Davide Moro, davide.moro@redomino.com
   * Marton Schimcsig, marton.schimcsig@gmail.com
+  * Taito Horiuchi
+  * Mikko
+  * Lee
 
 == Interested ==
-  * Taito
   * Timo
-  * Mikko
