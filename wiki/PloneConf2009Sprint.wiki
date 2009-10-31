@@ -31,7 +31,7 @@ Add your name, irc nick and email address here.
   * Taito Horiuchi
   * Mikko Ohtamaa
   * Lee Joramo
-  * Ester Levinrad
+  * Ester Levinrad, ester@opennetworks.co.za
   * Carsten Senger senger@rehfisch.de 
 
 == Interested ==
