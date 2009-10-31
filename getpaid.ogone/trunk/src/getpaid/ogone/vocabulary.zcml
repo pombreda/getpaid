@@ -1,14 +1,16 @@
 <configure xmlns="http://namespaces.zope.org/zope"
 xmlns:five="http://namespaces.zope.org/five">
 
-  <vocabulary
+  <utility
+    provides="zope.schema.interfaces.IVocabularyFactory"
     name="getpaid.ogone.server_urls"
-    factory=".vocabulary.serverUrlsChoices"
+    component=".vocabulary.serverUrlsChoices"
     />
 
-  <vocabulary
+  <utility
+    provides="zope.schema.interfaces.IVocabularyFactory"
     name="getpaid.ogone.currencies"
-    factory=".vocabulary.currencyChoices"
+    component=".vocabulary.currencyChoices"
     />
 
 </configure>
