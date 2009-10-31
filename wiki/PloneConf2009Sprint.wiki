@@ -30,7 +30,7 @@ Add your name, irc nick and email address here.
   * Marton Schimcsig, marton.schimcsig@gmail.com
   * Taito Horiuchi
   * Mikko Ohtamaa
-  * Lee
+  * Lee Joramo 
 
 == Interested ==
   * Timo
