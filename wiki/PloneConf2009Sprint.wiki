@@ -29,7 +29,7 @@ Add your name, irc nick and email address here.
   * Davide Moro, davide.moro@redomino.com
   * Marton Schimcsig, marton.schimcsig@gmail.com
   * Taito Horiuchi
-  * Mikko
+  * Mikko Ohtamaa
   * Lee
 
 == Interested ==
