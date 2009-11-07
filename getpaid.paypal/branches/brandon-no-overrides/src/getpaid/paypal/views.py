@@ -28,7 +28,8 @@ class PayPalCheckoutButton(BrowserView):
         return self.context.store_url + '/@@getpaid-paypal-ipnreactor'
 
     def order_id(self):
-        return 'PUT ORDER ID HERE'
+        order_manager = getUtility(IOrderManager)
+        return order_manager.newOrderId()
 
     def cbt_label(self):
         name = self.context.store_name
