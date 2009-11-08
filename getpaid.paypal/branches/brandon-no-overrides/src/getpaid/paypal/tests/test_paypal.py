@@ -71,11 +71,8 @@ class PayPalFunctionalTest(PloneGetPaidFunctionalTestCase):
         self.failUnless('Contains <span>1</span> Items' in browser.contents)
 
         self.failUnless('paypal' in browser.contents)
-        # A real XML parser would be better IMO, but we use re not to add a dependency
         paypal_form = self.get_paypal_form(browser.contents)
-        re.findall("<form[^>]*paypal[^>]*>.*?</form>", browser.contents,
-                   re.MULTILINE|re.DOTALL)[0]
-        order_id = self.get_order_id(paypal_form)
+        order_id = self.get_field_value(paypal_form, 'invoice')
         # Now we place another order as another user and check 
         # that the order_id is  different
         another_browser = Browser()
@@ -85,13 +82,20 @@ class PayPalFunctionalTest(PloneGetPaidFunctionalTestCase):
         another_browser.getControl('Add to Cart').click()
         another_browser.getControl('Continue Shopping').click()
         other_paypal_form = self.get_paypal_form(another_browser.contents)
-        other_order_id = self.get_order_id(other_paypal_form)
+        other_order_id = self.get_field_value(other_paypal_form, 'invoice')
         self.failIfEqual(order_id, other_order_id)
+        # the price of th first element is in the amount_1 field
+        price = float(self.get_field_value(other_paypal_form, 'amount_1'))
+        self.failUnlessAlmostEqual(price, 12.5)
+
     def get_paypal_form(self, htmlpage):
+        "returns the first PayPal form in the proided htmlpage using the re module"
+        # A real XML parser would be better IMO, but we use re not to add a dependency
         return re.findall("<form[^>]*paypal[^>]*>.*?</form>", htmlpage,
                           re.MULTILINE|re.DOTALL)[0]
-    def get_order_id(self, htmlform):
-        return re.findall('<input [^>]*name="invoice"[^>]*value="([^"]*)"',
+    def get_field_value(self, htmlform, fieldname):
+        "Returns the value of the 'fieldname' input tag using regular expressions"
+        return re.findall('<input [^>]*name="' + fieldname + '"[^>]*value="([^"]*)"',
                           htmlform)[0]
 
 
