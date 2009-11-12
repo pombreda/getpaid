@@ -1,0 +1,88 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-11-12 19:41+0000\n"
+"PO-Revision-Date: 2009-11-13 03:46+0800\n"
+"Last-Translator: adam tang <yuejun.tang@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: zh\n"
+"Language-Name: Chinese\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+#: ../profiles/default/portlets.xml
+msgid "BuyXGetXfreeable portlet"
+msgstr "买就送面板"
+
+#: ../browser/interfaces.py:48
+msgid "Discount Code"
+msgstr "折扣代码"
+
+#: ../browser/interfaces.py:8
+msgid "Discount Title"
+msgstr "折扣标题"
+
+#: ../profiles/default/actions.xml
+msgid "Discountable"
+msgstr "折扣"
+
+#: ../profiles/default/portlets.xml
+msgid "Discountable portlet"
+msgstr "折扣面板"
+
+#: ../browser/interfaces.py:12
+msgid "Dollars Off"
+msgstr "现金折扣"
+
+#: ../profiles/default/actions.xml
+msgid "Make this Discountable with Code"
+msgstr "设置折扣代码"
+
+#: ../profiles/default/actions.xml
+msgid "Make this Not Discountable with Code"
+msgstr "取消代码折扣"
+
+#: ../profiles/default/actions.xml
+msgid "Make this Not a Buy X Get X Free Product"
+msgstr "取消买就送活动"
+
+#: ../profiles/default/actions.xml
+msgid "Make this Not a Discountable Product"
+msgstr "取消折扣"
+
+#: ../profiles/default/actions.xml
+msgid "Make this a Buy X Get X Free Product"
+msgstr "设置买就送活动"
+
+#: ../profiles/default/actions.xml
+msgid "Make this a Discountable Product"
+msgstr "设置商品折扣"
+
+#: ../browser/interfaces.py:33
+msgid "Number of free items"
+msgstr "免费赠送的产品数"
+
+#: ../browser/interfaces.py:30
+msgid "Number of items to buy"
+msgstr "需购买的产品数"
+
+#: ../browser/interfaces.py:12
+msgid "Percentage Off"
+msgstr "百分比折扣"
+
+#: ../browser/interfaces.py:51
+msgid "Price after Discount"
+msgstr "折扣后价格"
+
+#: ../browser/interfaces.py:11
+msgid "Type of Discount"
+msgstr "折扣类型"
+
+#: ../browser/interfaces.py:15
+msgid "Value of the discount"
+msgstr "折扣价格"
+

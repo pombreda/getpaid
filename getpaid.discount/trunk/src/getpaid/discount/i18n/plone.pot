@@ -1,0 +1,91 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-11-12 19:41+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+#: ../profiles/default/portlets.xml
+msgid "BuyXGetXfreeable portlet"
+msgstr ""
+
+#: ../browser/interfaces.py:48
+msgid "Discount Code"
+msgstr ""
+
+#: ../browser/interfaces.py:8
+msgid "Discount Title"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Discountable"
+msgstr ""
+
+#: ../profiles/default/portlets.xml
+msgid "Discountable portlet"
+msgstr ""
+
+#: ../browser/interfaces.py:12
+msgid "Dollars Off"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Make this Discountable with Code"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Make this Not Discountable with Code"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Make this Not a Buy X Get X Free Product"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Make this Not a Discountable Product"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Make this a Buy X Get X Free Product"
+msgstr ""
+
+#: ../profiles/default/actions.xml
+msgid "Make this a Discountable Product"
+msgstr ""
+
+#: ../browser/interfaces.py:33
+msgid "Number of free items"
+msgstr ""
+
+#: ../browser/interfaces.py:30
+msgid "Number of items to buy"
+msgstr ""
+
+#: ../browser/interfaces.py:12
+msgid "Percentage Off"
+msgstr ""
+
+#: ../browser/interfaces.py:51
+msgid "Price after Discount"
+msgstr ""
+
+#: ../browser/interfaces.py:11
+msgid "Type of Discount"
+msgstr ""
+
+#: ../browser/interfaces.py:15
+msgid "Value of the discount"
+msgstr ""
+
