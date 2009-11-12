@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-11-12 17:12+0000\n"
+"POT-Creation-Date: 2009-11-12 19:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,30 @@ msgstr ""
 
 #: ../browser/interfaces.py:12
 msgid "Dollars Off"
+msgstr ""
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this Discountable with Code"
+msgstr ""
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this Not Discountable with Code"
+msgstr ""
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this Not a Buy X Get X Free Product"
+msgstr ""
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this Not a Discountable Product"
+msgstr ""
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this a Buy X Get X Free Product"
+msgstr ""
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this a Discountable Product"
 msgstr ""
 
 #: ../browser/interfaces.py:33

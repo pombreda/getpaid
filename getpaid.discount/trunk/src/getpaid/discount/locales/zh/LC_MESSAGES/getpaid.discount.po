@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-11-12 17:12+0000\n"
-"PO-Revision-Date: 2009-11-13 01:17+0800\n"
+"POT-Creation-Date: 2009-11-12 19:03+0000\n"
+"PO-Revision-Date: 2009-11-13 03:07+0800\n"
 "Last-Translator: adam tang <yuejun.tang@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,30 @@ msgstr "折扣标题"
 #: ../browser/interfaces.py:12
 msgid "Dollars Off"
 msgstr "现金折扣"
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this Discountable with Code"
+msgstr "设置折扣代码"
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this Not Discountable with Code"
+msgstr "取消代码折扣"
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this Not a Buy X Get X Free Product"
+msgstr "取消买就送活动"
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this Not a Discountable Product"
+msgstr "取消折扣"
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this a Buy X Get X Free Product"
+msgstr "设置买就送活动"
+
+#: ../profiles/default/actionicons.xml
+msgid "Make this a Discountable Product"
+msgstr "设置商品折扣"
 
 #: ../browser/interfaces.py:33
 msgid "Number of free items"
