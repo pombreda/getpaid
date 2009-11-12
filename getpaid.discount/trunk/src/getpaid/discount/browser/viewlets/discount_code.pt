@@ -22,9 +22,9 @@
 </script>
 
   <div id="dcEntry" class="cart-discount-code-entry">
-    <span id="dcLabel">Discount Codes:</span>
+    <span id="dcLabel" i18n:translate="dcLabel">Discount Codes:</span>
     <input id="dcInput" class="textType" type="text" size="10" name="discount_code"/>
     <a id="dcButton" href="javascript:submitDiscountCode();" class="button context">Enter</a>
-    <div id="dcHelp" class="formHelp">You must click enter to activate the discount before checking out.</div>
+    <div id="dcHelp" class="formHelp" i18n:translate="dcHelp">You must click enter to activate the discount before checking out.</div>
   </div>
 </form>

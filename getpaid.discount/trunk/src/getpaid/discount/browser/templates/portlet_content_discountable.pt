@@ -1,6 +1,6 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      i18n:domain="plonegetpaid">
+      i18n:domain="getpaid.discount">
 
 <body>
 <div metal:define-macro="portlet" tal:condition="view/isDiscountable">
