@@ -1,12 +1,14 @@
-<portlets>
+<portlets i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <portlet
       addview="getpaid.discount.discountable"
       title="Discountable portlet"
+      i18n:attributes="title"
       description="A portlet that handles discountable items"
       />
   <portlet
       addview="getpaid.discount.buyxgetxfreeable"
       title="BuyXGetXfreeable portlet"
+      i18n:attributes="title"
       description="A portlet that handles buyxgetxfreeable items"
       />
 </portlets>

@@ -1,8 +1,9 @@
-<object name="portal_actions" meta_type="Plone Actions Tool">
+<object name="portal_actions" meta_type="Plone Actions Tool" i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
     <action-provider name="portal_actions">
       <action title="Make this a Discountable Product" 
                 action_id="make_discountable" 
-                category="object_buttons" 
+                category="object_buttons"
+                i18n:attributes="title" 
                 condition_expr="python:path('object/@@discount_content_control').isPossibleDiscountable()" 
                 url_expr="string:$object_url/@@activate-discountable" 
                 visible="True">
@@ -12,7 +13,8 @@
     <action-provider name="portal_actions">
       <action title="Make this Not a Discountable Product" 
                 action_id="make_not_discountable" 
-                category="object_buttons" 
+                category="object_buttons"
+                i18n:attributes="title"  
                 condition_expr="python:path('object/@@discount_content_control').isDiscountable()" 
                 url_expr="string:$object_url/@@deactivate-discountable" 
                 visible="True">
@@ -20,6 +22,7 @@
         </action>
       <action title="Make this a Buy X Get X Free Product" 
                 action_id="make_buyxgetxfreeable" 
+                i18n:attributes="title" 
                 category="object_buttons" 
                 condition_expr="python:path('object/@@discount_content_control').isPossibleDiscountable()" 
                 url_expr="string:$object_url/@@activate-buyxgetxfreeable" 
@@ -28,6 +31,7 @@
         </action>
       <action title="Make this Not a Buy X Get X Free Product" 
                 action_id="make_not_buyxgetxfreeable" 
+                i18n:attributes="title" 
                 category="object_buttons" 
                 condition_expr="python:path('object/@@discount_content_control').isBuyXGetXfreeable()" 
                 url_expr="string:$object_url/@@deactivate-buyxgetxfreeable" 
@@ -36,6 +40,7 @@
         </action>
       <action title="Make this Discountable with Code" 
                 action_id="make_code_discountable" 
+                i18n:attributes="title" 
                 category="object_buttons" 
                 condition_expr="python:path('object/@@discount_content_control').isPossibleDiscountable()" 
                 url_expr="string:$object_url/@@activate-codediscountable" 
@@ -44,6 +49,7 @@
         </action>
       <action title="Make this Not Discountable with Code" 
                 action_id="make_not_code_discountable" 
+                i18n:attributes="title" 
                 category="object_buttons" 
                 condition_expr="python:path('object/@@discount_content_control').isCodeDiscountable()" 
                 url_expr="string:$object_url/@@deactivate-codediscountable" 
@@ -52,6 +58,7 @@
         </action>
         <action title="Discountable" 
                 action_id="discountable" 
+                i18n:attributes="title" 
                 category="object" 
                 condition_expr="python:path('object/@@discount_content_control').isDiscountable()" 
                 url_expr="string:${object_url}/@@edit-discount" 
@@ -60,6 +67,7 @@
         </action>
         <action title="Discountable" 
                 action_id="buyxgetxfreeable" 
+                i18n:attributes="title" 
                 category="object" 
                 condition_expr="python:path('object/@@discount_content_control').isBuyXGetXfreeable()" 
                 url_expr="string:${object_url}/@@edit-buyxgetxfree" 
@@ -68,6 +76,7 @@
         </action>
         <action title="Discountable" 
                 action_id="codediscountable" 
+                i18n:attributes="title" 
                 category="object" 
                 condition_expr="python:path('object/@@discount_content_control').isCodeDiscountable()" 
                 url_expr="string:${object_url}/@@edit-codediscountable" 

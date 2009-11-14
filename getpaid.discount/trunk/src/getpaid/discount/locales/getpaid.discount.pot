@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-11-12 19:03+0000\n"
+"POT-Creation-Date: 2009-11-14 20:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,10 @@ msgstr ""
 
 #: ../browser/interfaces.py:12
 msgid "Dollars Off"
+msgstr ""
+
+#: ../browser/viewlets/discount_code.pt:31
+msgid "Enter"
 msgstr ""
 
 #: ../profiles/default/actionicons.xml
@@ -75,6 +79,16 @@ msgstr ""
 
 #: ../browser/interfaces.py:15
 msgid "Value of the discount"
+msgstr ""
+
+#. Default: "You must click enter to activate the discount before checking out."
+#: ../browser/viewlets/discount_code.pt:32
+msgid "dcHelp"
+msgstr ""
+
+#. Default: "Discount Codes:"
+#: ../browser/viewlets/discount_code.pt:29
+msgid "dcLabel"
 msgstr ""
 
 #. Default: "Add to Cart"
