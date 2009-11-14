@@ -25,6 +25,8 @@
 order utility implementation
 """
 import datetime, random
+import md5, socket
+import time
 
 from persistent import Persistent
 from persistent.list import PersistentList
@@ -60,15 +62,15 @@ except ImportError:
     getSecurityManager = None
 
 class workflow_state( object ):
-    
+
     def __init__(self, workflow_name ):
         self.workflow_name = workflow_name
         self.__doc__ = "workflow state %s"%workflow_name
 
     def __get__(self, obj, objtype=None):
         if obj is None:
-            return self         
-        return component.getAdapter( obj, IWorkflowState, self.workflow_name).getState()            
+            return self
+        return component.getAdapter( obj, IWorkflowState, self.workflow_name).getState()
 
     def __set__(self, obj, value):
         return component.getAdapter( obj, IWorkflowState, self.workflow_name).setState( value )
@@ -92,9 +94,38 @@ class Order( Persistent, cart.CartItemTotals ):
     user_payment_info_trans_id = None
     name_on_card = None
     bill_phone_number = None
+    shared_secret = None
 
     def __init__( self ):
         self.creation_date = datetime.datetime.now()
+        self.shared_secret = self.generateSharedSecret()
+
+    def generateSharedSecret(self):
+        """Returns a string that is random and unguessable, or at
+        least as close as possible.
+
+        miohtama: Copy-pasted this from PasswordResetTool
+
+        This is used by 'requestReset' to generate the auth
+        string. Override if you wish different format.
+
+        This implementation ignores userid and simply generates a
+        UUID. That parameter is for convenience of extenders, and
+        will be passed properly in the default implementation."""
+
+        # this is the informal UUID algorithm of
+        # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/213761
+        # by Carl Free Jr
+        t = long( time.time() * 1000 )
+        r = long( random.random()*100000000000000000L )
+        try:
+            a = socket.gethostbyname( socket.gethostname() )
+        except:
+            # if we can't get a network address, just imagine one
+            a = random.random()*100000000000000000L
+        data = str(t)+' '+str(r)+' '+str(a)#+' '+str(args)
+        data = md5.md5(data).hexdigest()
+        return str(data)
 
     def getOrderId( self ):
         return self._order_id
@@ -135,13 +166,13 @@ class Order( Persistent, cart.CartItemTotals ):
 class OrderManager( Persistent ):
 
     implements( interfaces.IOrderManager )
-    
+
     def __init__( self ):
         self.storage = OrderStorage()
 
     def store( self, order ):
         self.storage[ order.order_id ] = order
-    
+
     def query( self, **kw ):
         return query.search( **kw )
 
@@ -165,21 +196,21 @@ class OrderManager( Persistent ):
 
     def __contains__( self, order_id ):
         return order_id in self.storage
-        
+
     def isValid( self, order_id ):
         try:
             int( order_id )
             return True
         except TypeError, ValueError:
             return False
-            
+
     #################################
     # junk for z2.9 / f 1.4
     def manage_fixupOwnershipAfterAdd(self, *args):
         return
 
     def manage_setLocalRoles( self, *args ):
-        return 
+        return
 
 
 class OrderQuery( object ):
@@ -191,7 +222,7 @@ class OrderQuery( object ):
 
     from getpaid.core.order import query
     from datetime import timedelta
-    
+
     # find orders from the last week
     results = query.search( creation_date = timedelta(7) )
 
@@ -201,21 +232,22 @@ class OrderQuery( object ):
     def search( data=None, **kw ):
         """ take a dictionary of key, value pairs, and based on available queries/indexes
         construct query and return results """
-        
+
         results = None
         if data is None:
             data = kw
         elif data and kw:
             data.update( kw )
-            
+
         for term in [ 'finance_state',
                       'fulfillment_state',
                       'user_id',
-                      'creation_date' ]:
+                      'creation_date',
+                      'shared_secret' ]:
             term_value = data.get( term )
             if term_value is None:
                 continue
-            
+
             term_results = getattr( query, term )( term_value )
             if term_results is None: # short circuit .. default and intersection
                 return []
@@ -229,13 +261,13 @@ class OrderQuery( object ):
 
         if 'no_sort' in kw:
             return results
-        
+
         # reverse sort on creation date
         return query.sort( results, 'creation_date', reverse=True )
-    
+
     @staticmethod
     def generate( results ):
-        """ used to actualize results from ifsets to 
+        """ used to actualize results from ifsets to
         """
         manager = component.getUtility( interfaces.IOrderManager )
         return ResultSet( results, manager.storage )
@@ -251,7 +283,7 @@ class OrderQuery( object ):
     @staticmethod
     def merge( *results  ):
         return reduce( intersection, [res for res in results if res is not None] )
-    
+
     @staticmethod
     def latest( delta = None ):
         """ query by creation date, pass in either a delta to be used from the current time
@@ -269,26 +301,26 @@ class OrderQuery( object ):
         return manager.storage.apply( { 'creation_date': value } )
 
     creation_date = latest
-    
+
     @staticmethod
     def finance_state( value ):
         manager = component.getUtility( interfaces.IOrderManager )
         return manager.storage.apply( { 'finance_state':( value, value ) } )
-    
+
     @staticmethod
     def fulfillment_state( value ):
         manager = component.getUtility( interfaces.IOrderManager )
-        return manager.storage.apply( {'fulfillment_state':( value, value ) } )        
+        return manager.storage.apply( {'fulfillment_state':( value, value ) } )
 
     @staticmethod
     def products( *products ):
         manager = component.getUtility( interfaces.IOrderManager )
         return manager.storage.apply( {'products':products } )
-    
+
     @staticmethod
     def user_id( value ):
         manager = component.getUtility( interfaces.IOrderManager )
-        return manager.storage.apply( {'user_id':( value, value ) } )                
+        return manager.storage.apply( {'user_id':( value, value ) } )
 
 query = OrderQuery
 
@@ -316,9 +348,9 @@ class OrderStorage( BTreeContainer ):
             'processor_order_id' : FieldIndex(),
             'finance_state'   : FieldIndex(),
             'fulfillment_state' : FieldIndex(),
-            'creation_date' : FieldIndex() 
+            'creation_date' : FieldIndex()
             } )
-        
+
     def query( self, **args ):
         results = self.apply( args )
         return ResultSet( results, self )
@@ -346,7 +378,7 @@ class OrderStorage( BTreeContainer ):
             _, result = weightedIntersection(result, r)
 
         return result
-    
+
     def __setitem__( self, key, object):
         super( OrderStorage, self ).__setitem__( key, object )
         self.index( object )
@@ -361,7 +393,7 @@ class OrderStorage( BTreeContainer ):
     def reindex( self, object ):
         self.unindex( object.order_id )
         self.index( object )
-            
+
     def index( self, object ):
         doc_id = int( object.order_id )
         for attr, index in self.indexes.items():
@@ -375,7 +407,7 @@ class OrderStorage( BTreeContainer ):
     def unindex( self, order_id ):
         for index in self.indexes.values():
             index.unindex_doc( int( order_id ) )
-        
+
     def __delitem__( self, key ):
         super( OrderStorage, self).__delitem__( key )
         doc_id = int( key )
@@ -394,7 +426,7 @@ class OrderWorkflowRecord( Persistent ):
     new_state = FP( I['new_state'] )
     previous_state = FP( I['previous_state'] )
     change_kind = FP(I['change_kind'])
-    
+
     def __init__( self, **kw ):
         names = interfaces.IOrderWorkflowEntry.names()
         for k,v in kw.items():
@@ -448,7 +480,7 @@ def recordOrderWorkflow( order, event ):
         data['change_kind'] = _(u'Finance')
     else:
         data['change_kind'] = _(u'Fulfillment')
-        
+
     audit_log = interfaces.IOrderWorkflowLog( event.object )
     audit_log.add( OrderWorkflowRecord( **data ) )
 
@@ -463,6 +495,6 @@ def startOrderFulfillmentWorkflow( order, event ):
     order.fulfillment_workflow.fireTransition('create')
     for item in order.shopping_cart.values():
         item.fulfillment_workflow.fireTransition('create')
-        
 
- 
+
+

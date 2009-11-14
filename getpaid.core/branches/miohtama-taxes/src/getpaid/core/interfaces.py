@@ -35,10 +35,10 @@ except ImportError:
 
 try:
     from zope.component.interfaces import ObjectEvent
-except ImportError: 
+except ImportError:
     # BBB for Zope 2.9
-    from zope.app.event.objectevent import ObjectEvent    
-    
+    from zope.app.event.objectevent import ObjectEvent
+
 from zope.app.container.interfaces import IContainer
 from zope.schema.interfaces import ITextLine
 from zope.schema.vocabulary import SimpleVocabulary
@@ -65,12 +65,12 @@ class IPersistentOptions( Interface ):
 
 class IStoreSettings( IPersistentOptions ):
     """ minimum configuration schema for a store, pgp product has examples of many more.
-    
+
     TODO: there some duplication here between PGP interfaces for store configuration and the ones here.
     the ones here are for usage without plone... ie z3 unit tests, and z3 stores. ideally the ones
     in pgp would be derived from these.. which needs parallel work to fix up translations.
     """
-    
+
     shipping_method = schema.Choice( title = _(u"Shipping Method"),
                                     description = _(u"Select a method to calculate shipping charges for orders in your store."),
                                      required = True,
@@ -83,13 +83,13 @@ class IStoreSettings( IPersistentOptions ):
     contact_name = schema.TextLine( title = _(u"Contact Name"),
                                     required = False,
                                     default = u"" )
-                                    
+
 
     contact_email = schema.TextLine( title = _(u"Contact Email"),
                                   required = False,
                                   default = u""
                                 )
-                                
+
     contact_company = schema.TextLine( title = _(u"Contact Company"),
                               required = False,
                               default = u""
@@ -99,7 +99,7 @@ class IStoreSettings( IPersistentOptions ):
                                        required = False,
                                        default = u""
                                      )
-                                
+
     contact_address2 = schema.TextLine( title = _(u"Contact Address2"),
                                         required = False,
                                         default = u""
@@ -148,31 +148,31 @@ class IPluginManager( Interface ):
     """
     a lifecycle manager for a single plugin
     """
-    
+
     title = schema.TextLine(title=_(u"Title"))
-    description = schema.TextLine(title=_(u"Description"))  
-    
+    description = schema.TextLine(title=_(u"Description"))
+
     def install( ):
         """install the plugin"""
-        
+
     def uninstall( remove_data=False ):
-        """ 
+        """
         uninstall the plugin, if remove data is true, the plugin
         should remove its persistent state.
         """
-        
+
     def status():
         """ return true if installed, else false """
 
 class IStoreInstalledEvent( IObjectEvent ):
     """ object event for store installation, and plugin installation """
-    
+
 class StoreInstalled( ObjectEvent ):
     implements( IStoreInstalledEvent )
-    
+
 class IStoreUninstallEvent( IObjectEvent ):
     """ object event for store uninstallation, and plugin removal """
-    
+
 class StoreUninstalled( ObjectEvent ):
     implements( IStoreUninstallEvent )
 
@@ -204,13 +204,13 @@ class IPayable( Interface ):
     a context and the request, to allow for pricing / display customization on a user
     basis.
     """
-    
+
     made_payable_by = schema.TextLine(
         title = _(u"Made Payable By"),
         readonly = True,
         required = False
         )
-    
+
     product_code = schema.TextLine( title = _(u"Product Code"),
                         description=_(u"An organization's unique product identifier (not required since shopping cart uses content UID internally)"),
                         required=False
@@ -241,7 +241,7 @@ class ISubscription( IPayable ):
 class IBuyableContent( IPayable ):
     """ Purchasable Content Delivered Virtually
     """
-    
+
 class IPremiumContent( IPayable ):
     """ Premium Content for Subscriptions
     """
@@ -259,14 +259,14 @@ class IShippableContent( IPayable ):
     """
     dimensions = schema.TextLine( title = _(u"Dimensions"))
     sku = schema.TextLine( title = _(u"Product SKU"))
-    
-    # default unit is country of origin specific... 
+
+    # default unit is country of origin specific...
     weight = schema.Float( title = _(u"Shipping Weight"),
                            constraint=weightValidator,
                            description = _(u"Enter a weight, only two decimal places are supported. The unit is specified in the field below."))
-                           
+
     weight_unit = schema.Choice( title=_(u"Weight Unit"), values=[ UNIT_POUNDS, UNIT_KILOGRAMS ],description = _(u"Please select the unit in which you specified the shipment weight.") )
-    
+
     def getShipWeight( self ):
         """ Shipping Weight
         """
@@ -278,7 +278,7 @@ class IPayableCreationEvent( IObjectEvent ):
     """ sent out when a payable is created
     """
 
-    payable = Attribute("object implementing payable interface")    
+    payable = Attribute("object implementing payable interface")
     payable_interface = Attribute("payable interface the object implements")
 
 class IPayableAuditLog( Interface ):
@@ -299,7 +299,7 @@ class IPaymentProcessor(Interface):
     made, how to connect to an actual credit-card processing API and
     charge the credit card for the correct amount.
 
-    """ 
+    """
     def authorize(order, payment_information):
         """Authorize payment on an order."""
 
@@ -313,7 +313,7 @@ class IPaymentProcessor(Interface):
 class IRecurringPaymentProcessor( IPaymentProcessor ):
     """ a payment processor that can handle recurring line items
     """
-    
+
 class IPaymentProcessorOptions( Interface ):
     """ Options for a Processor
 
@@ -328,11 +328,11 @@ class IWorkflowPaymentProcessorIntegration( Interface ):
         """
         process a workflow event
         """
-    
+
 #################################
 # Info needed for payment processing
 
-    
+
 class ILineItem( Interface ):
     """
     An Item in a Cart
@@ -349,7 +349,7 @@ class ILineItemFactory( Interface ):
     """ encapsulation of creating and adding a line item to a line item container
     from a payable. sort of like an adding view
     """
-    
+
     def create( payable ):
         """
         create a payable from a line item
@@ -362,7 +362,7 @@ class ILineItemContainer( IContainer ):
 class ILineContainerTotals( Interface ):
     # interface for getting prices for a collection of items (aka an order),
     # mostly encapsulation, of other components
-    
+
     def getTotalPrice( ):
         """
         return the total price of all line items in the container
@@ -382,7 +382,7 @@ class ILineContainerTotals( Interface ):
         """
         get the price of all the items in the contaners
         """
-    
+
 class IPayableLineItem( ILineItem ):
     """
     A line item linked to a payable
@@ -402,16 +402,16 @@ class IShippableLineItem( ILineItem ):
     weight = schema.Float( title = _(u'Weight of Packaged Item'),
                            required = True,
                            )
-    #um_weight = 
+    #um_weight =
     #um_distance = ""
     length = schema.Float( title=_(u"Length"))
     height = schema.Float( title=_(u"Height"))
-    width = schema.Float( title=_(u"Width"))    
-        
+    width = schema.Float( title=_(u"Width"))
+
 class IRecurringLineItem( IPayableLineItem ):
 
     period = schema.Int( title = _(u"Period as a timedelta"))
-    
+
 
 class IGiftCertificate( ILineItem ):
     """ A Gift Certificate
@@ -447,14 +447,87 @@ class IShoppingCartUtility( Interface ):
         """
 
 class IShoppingCart( ILineItemContainer ):
-    """ A Shopping Cart 
+    """ A Shopping Cart
     """
     def size( ):
         """
         Count the number of items in the cart (*not* the number of line
         items)
         """
-        
+
+#################################
+#
+# Price helpers
+#
+
+class IPriceValueAdjuster(Interface):
+    """ Helper utility to format user visible prices and calculate taxes.
+
+    Note: This is not context sensitive - if you need to use
+    session context inside the methods do zope.app.components.hooks.getSite()
+    call to get the access to the portal.
+    """
+
+    def getTaxFreePrice(raw_price, item):
+        """ Gets the user visible price of the item in the invoice before adding the text.
+
+        Tax can be
+
+        * Included in the prices (Scandinavia) - this will subtract VAT from the price
+
+        * Added on the top of the prices duing checkout (US) - this will add VAT to the price
+
+        Tax can also depent on the shipping destination. For example in EU
+        tax applies to orders inside the member states, but not for worldwide orders.
+
+        @param raw_price: Price as a floating point number, as stored for the item
+
+        @param item: Item hint, optional Implementation specific, can be e.g. Line Item.
+                None if information is not avaialble or not interesting.
+
+        @return: Price you should display in the invoice listing, before taxes applied
+        """
+
+    def getShopPrice(raw_price, item):
+        """ Gets the user visible price of the item.
+
+        This can be
+
+        - Tax free price
+
+        - VAT included price.
+
+        @param raw_price: Price as a floating point number, as stored for the item
+
+        @param item: Item hint, optional Implementation specific, can be e.g. Line Item.
+                None if information is not avaialble or not interesting.
+
+        @return: float: Price you should display to the user when he/she is buying it
+        """
+
+    def getTax(raw_price, item):
+        """ Get the tax amount.
+
+        Note that amount might be item specific, like different tax
+        for books and food. Thus we provide item parameter, which
+        can be used to resolve the item category.
+
+        @param raw_price: Price as a floating point number, as stored for the item.
+
+        @param item: Item hint, optional Implementation specific, can be e.g. Line Item.
+                None if information is not avaialble or not interesting.
+
+        @return: float: Price you should display to the user when he/she is buying it.
+                 The return value should be rounded to the user visible decimal digits,
+                 usually two.
+        """
+
+
+
+
+
+
+
 #################################
 # Shipping
 
@@ -531,13 +604,13 @@ class ITaxUtility( Interface ):
 	 	""" return a list dictionaries of each ITax inside that applies to
 	 		the order
 		"""
-        
+
 
 #################################
 # Payment Information Details
 class IAbstractAddress( Interface ):
     """ base/common interface for all addresses"""
-    
+
 class IAddress( IAbstractAddress ):
     """ a physical address
     """
@@ -545,7 +618,7 @@ class IAddress( IAbstractAddress ):
     second_line = schema.TextLine( title = _(u"Address 2"), required=False )
     city = schema.TextLine( title = _(u"City") )
     country = schema.Choice( title = _(u"Country"),
-                               vocabulary = "getpaid.countries")    
+                               vocabulary = "getpaid.countries")
     state = schema.Choice( title = _(u"State"),
                              vocabulary="getpaid.states")
     postal_code = schema.TextLine( title = _(u"Zip/Postal Code"))
@@ -566,7 +639,7 @@ class IShippingAddress( IAbstractAddress ):
     ship_postal_code = schema.TextLine( title = _(u"Zip/Postal Code"), required=False)
 
 class IBillingAddress( IAbstractAddress ):
-    """ where to bill 
+    """ where to bill
     """
     bill_name = schema.TextLine( title = _(u"Full Name"))
     bill_organization = schema.TextLine( title = _(u"Organization/Company"), required=False)
@@ -579,14 +652,14 @@ class IBillingAddress( IAbstractAddress ):
                                   vocabulary="getpaid.states" )
     bill_postal_code = schema.TextLine( title = _(u"Zip/Postal Code"))
 
-MarketingPreferenceVocabulary = SimpleVocabulary( 
-                                   map(SimpleVocabulary.createTerm, 
+MarketingPreferenceVocabulary = SimpleVocabulary(
+                                   map(SimpleVocabulary.createTerm,
                                        ( (True, "Yes", _(u"Yes")), (False, "No", _(u"No") ) )
                                        )
                                 )
-                                
-EmailFormatPreferenceVocabulary = SimpleVocabulary( 
-                                   map( lambda x: SimpleVocabulary.createTerm(*x), 
+
+EmailFormatPreferenceVocabulary = SimpleVocabulary(
+                                   map( lambda x: SimpleVocabulary.createTerm(*x),
                                        ( (True, "Yes", _(u"HTML")), (False, "No", _(u"Plain Text") ) )
                                        )
                                   )
@@ -594,30 +667,30 @@ EmailFormatPreferenceVocabulary = SimpleVocabulary(
 
 class IUserContactInformation( Interface ):
     """docstring for IUserContactInformation"""
-    
+
     name = schema.TextLine( title = _(u"Your Name"))
-    
+
     phone_number = PhoneNumber( title = _(u"Phone Number"),
                                 description = _(u"Only digits allowed - e.g. 3334445555 and not 333-444-5555 "))
-                                
-    email = schema.TextLine( 
+
+    email = schema.TextLine(
                         title=_(u"Email"),
                         description = _(u"Contact Information"),
                         constraint = emailValidator
                         )
-        
+
     marketing_preference = schema.Bool(
-                                        title=_(u"Can we contact you with offers?"), 
+                                        title=_(u"Can we contact you with offers?"),
                                         required=False,
-                                        ) 
-    
-    email_html_format = schema.Choice( 
-                                        title=_(u"Email Format"), 
+                                        )
+
+    email_html_format = schema.Choice(
+                                        title=_(u"Email Format"),
                                         description=_(u"Would you prefer to receive rich html emails or only plain text"),
                                         vocabulary = EmailFormatPreferenceVocabulary
                                         )
 
-                                
+
 class IUserPaymentInformation( Interface ):
     """ A User's payment information to be optionally collected by the
     payment processor view.
@@ -647,7 +720,7 @@ class IUserPaymentInformation( Interface ):
 #################################
 #
 class IProductCatalog( Interface ):
-    
+
     def query( **kw ):
         """ query products """
     def __setitem__( product_id, product ):
@@ -695,28 +768,32 @@ class IOrder( Interface ):
     processor_order_id = schema.ASCIILine( title = _(u"Processor Order Id") )
     processor_id = schema.ASCIILine( readonly=True )
 
+    shared_secret = schema.ASCIILine(title = _(u"Shared secret"),
+                                     description = _(u"Generated random id. Who know this id can access order data, recipient and invoice without logging into the site. This can be also used as in id in situations where a running counter would be a security risk."),
+                                     readonly=True )
+
 # Various Order Classification Markers..
 
 class IShippableOrder( IOrder ):
     """ marker interface for orders which need shipping """
-    
+
     shipping_service = schema.ASCIILine( title = _(u"Shipping Service"))
     shipping_method = schema.ASCIILine( title = _(u"Shipping Method") )
     shipping_price = schema.ASCIILine( title = _(u"Shipping Price") )
 
     shipments = schema.Object( IShipmentContainer )
-    
+
 
 class IOriginRouter( Interface ):
-    
+
     def getOrigin( ):
         """
         determine the origin shipping point for an order..
-        
+
         return an IContactInfo and IAddress object to serve as the origin
         of the order for any fufillment process (shipping, processing).
-        """    
-        
+        """
+
 class IRecurringOrder( IOrder ):
     """ marker interface for orders containing recurring line items """
 
@@ -728,15 +805,15 @@ class IDonationOrder( IOrder ):
 
 class IOrderSetReport( Interface ):
     """ store adapters that can serialize a set of orders into a report"""
-    
+
     title = schema.TextLine()
     mime_type = schema.ASCIILine()
 
     def __call__( orders ):
-        """ 
+        """
         return a rendered report string from the given ordrs
         """
-    
+
 class IOrderWorkflowLog( Interface ):
     """ an event log based history of an order's workflow
     """
@@ -753,7 +830,7 @@ class IOrderWorkflowEntry( Interface ):
     """
     changed_by = schema.ASCIILine( title = _(u"Changed By"), readonly = True )
     change_date = schema.Date( title = _(u"Change Date"), readonly = True)
-    change_kind = schema.TextLine( title=_(u"Change Kind"), readonly=True) 
+    change_kind = schema.TextLine( title=_(u"Change Kind"), readonly=True)
     comment = schema.ASCIILine( title = _(u"Comment"), readonly = True, required=False )
     new_state = schema.ASCIILine( title = _(u"New State"), readonly = True)
     previous_state = schema.ASCIILine( title = _(u"Previous State"), readonly = True )
@@ -763,7 +840,7 @@ class IOrderWorkflowEntry( Interface ):
 
 class IPhoneNumber(ITextLine):
     """A Text line field that handles phone number input."""
-    
+
 classImplements(PhoneNumber,IPhoneNumber)
 
 
@@ -786,24 +863,24 @@ class keys:
 
     # how much of the order have we charged
     capture_amount= 'getpaid.capture_amount'
-    
+
     # processor specific txn id for an order
     processor_txn_id = 'getpaid.processor.uid'
-    
+
     # name of processor adapter
     processor_name = 'getpaid.processor.name'
 
     # sucessful call to a processor
     results_success = 1
     results_async = 2
-    
+
 class workflow_states:
 
     class order:
         # order workflows are executed in parallel
 
         class finance:
-            # name of parallel workflow            
+            # name of parallel workflow
             name = "order.finance"
 
             REVIEWING = 'REVIEWING'
@@ -814,10 +891,10 @@ class workflow_states:
             PAYMENT_DECLINED = 'PAYMENT_DECLINED'
             CANCELLED = 'CANCELLED'
             CANCELLED_BY_PROCESSOR = 'CANCELLED_BY_PROCESSOR'
-            
+
         class fulfillment:
             # name of parallel workflow
-            name = "order.fulfillment"            
+            name = "order.fulfillment"
 
             NEW = 'NEW'
             PROCESSING = 'PROCESSING'
@@ -825,10 +902,10 @@ class workflow_states:
             WILL_NOT_DELIVER = 'WILL_NOT_DELIVER'
 
     class shippable_order:
-          
+
         class fulfillment:
             # name of parallel workflow
-            name = "order.fulfillment"            
+            name = "order.fulfillment"
 
             NEW = 'NEW'
             PROCESSING = 'PROCESSING'
@@ -837,7 +914,7 @@ class workflow_states:
             WILL_NOT_DELIVER = 'WILL_NOT_DELIVER'
 
 
-            
+
     class item:
         NEW = 'NEW'
         PROCESSING = 'PROCESSING'
@@ -857,4 +934,4 @@ class workflow_states:
         SHIPPED = 'SHIPPED'
         SHIPPABLE = 'SHIPPABLE'
         CHARGED = 'CHARGED'
-            
+
