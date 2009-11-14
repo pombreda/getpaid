@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing a Payment Processor for GetPaid &mdash; getpaid.core v0.7 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.7',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="getpaid.core v0.7 documentation" href="index.html" />
+    <link rel="next" title="On-site Payment Processors" href="on-site-payment-processors.html" />
+    <link rel="prev" title="Welcome to getpaid.core’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="on-site-payment-processors.html" title="On-site Payment Processors"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to getpaid.core’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">getpaid.core v0.7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Writing a Payment Processor for GetPaid</a><ul>
+<li><a class="reference external" href="#on-site-and-off-site-processing">On-site and Off-site Processing</a></li>
+<li><a class="reference external" href="#payment-processor-basics">Payment Processor Basics</a></li>
+<li><a class="reference external" href="#payment-processor-options">Payment Processor Options</a></li>
+<li><a class="reference external" href="#using-zcml-to-declare-your-processor">Using ZCML to declare your processor</a></li>
+<li><a class="reference external" href="#writing-the-rest-of-your-payment-processor">Writing the rest of your payment processor</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Welcome to getpaid.core&#8217;s documentation!</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="on-site-payment-processors.html"
+                                  title="next chapter">On-site Payment Processors</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/writing-a-payment-processor.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="writing-a-payment-processor-for-getpaid">
+<h1>Writing a Payment Processor for GetPaid<a class="headerlink" href="#writing-a-payment-processor-for-getpaid" title="Permalink to this headline">¶</a></h1>
+<p>Welcome, developers!</p>
+<p>This document is intended to be a comprehensive guide to writing payment
+processors for the GetPaid e-commerce framework.  At the moment, it is a
+mere draft. Actually, it is worse than a mere draft: it is actually
+simply a proposal, describing interfaces which are not yet even written.</p>
+<p>Why do I write about fictions?  Because I, Brandon Rhodes, am looking to
+clean up and improve how payment processors are written in GetPaid, and
+this guide to a fictitious development process is the best way I know to
+get everyone to think through my ideas about how payment processor
+integration should work.</p>
+<p>So, sit down, grab a cup of coffee, and imagine with me what it might
+soon be like to write a GetPaid payment processor.</p>
+<div class="section" id="on-site-and-off-site-processing">
+<h2>On-site and Off-site Processing<a class="headerlink" href="#on-site-and-off-site-processing" title="Permalink to this headline">¶</a></h2>
+<p>The first thing we need to establish is the difference between the two
+kinds of payment processor that GetPaid can use.</p>
+<p>The essential distinction is whether the user&#8217;s web browser ever gets
+redirected away from your GetPaid-powered web site and on to the web
+site of the payment company you are using.</p>
+<ul class="simple">
+<li>If the user never leaves your web site, and their web browser never
+sends a GET or POST to the payment processing system you are using,
+then you are doing “on-site” payment processing: GetPaid is powering
+the entire user experience.  The form that contains the user&#8217;s credit
+cart number will POST to GetPaid&#8217;s checkout form, and the actual
+process of contacting the merchant processing system to charge their
+card happens behind the scenes from the user&#8217;s point of view.</li>
+<li>If the user <em>does</em> leave your site, such that the user&#8217;s browser GETs
+a page or POSTs a form to the payment processor&#8217;s web site, or is
+redirected there to finish entering their credit card information,
+then you are doing “off-site” payment processing.  This is true even
+if the user does not know that they are sent off-site because their
+POST is immediately followed by a redirect back to your own site: as
+long as the credit card number POSTs to some other web site, you are
+dealing with an “off-site” payment processor.</li>
+</ul>
+<p>This distinction is crucial, because there are many restrictions and
+liabilities these days for web servers that are going to handle credit
+card data.  An off-site payment processing system that receives the
+credit card number on your behalf without ever letting your server see
+it, like PayPal or Google Checkout, is a very popular way for site
+administrators to wash their hands of the whole affair and put somebody
+else on the hook for handling sensitive financial data.</p>
+<p>The distinction is also crucial for you, the GetPaid developer, because
+it determines whether you are going to have to interact with the GetPaid
+user interface&nbsp;— all of those forms and buttons that are presented to
+the user.  While running an on-site payment processor places a high
+security burden on your web servers, they are at least relatively easy
+payment processors to write: you just have to make three functions,
+<tt class="xref docutils literal"><span class="pre">authorize()</span></tt>, <tt class="xref docutils literal"><span class="pre">capture()</span></tt>, and <tt class="xref docutils literal"><span class="pre">refund()</span></tt>, with which
+GetPaid can create and finalize a charge against a customer&#8217;s credit
+card.  Off-site payment processors, on the other hand, have to step into
+the GetPaid checkout process at some point and subvert it so that the
+user&#8217;s browser is sent elsewhere&nbsp;— a more complicated arrangement that
+can involve redirects, special forms, and writing entire HTML views.</p>
+</div>
+<div class="section" id="payment-processor-basics">
+<h2>Payment Processor Basics<a class="headerlink" href="#payment-processor-basics" title="Permalink to this headline">¶</a></h2>
+<p>Whether you are writing an on-site or off-site payment processor, you
+will need to create a Python class that tells GetPaid everything about
+interfacing with your payment processor.  The first information that
+GetPaid will need is which kind of payment processor you are writing,
+and what the processor should be called in the menu from which the store
+owner selects which payment processor to use.  The top of your payment
+processor class definition will look something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">getpaid.core.processors</span> <span class="kn">import</span> <span class="n">OnSitePaymentProcessor</span>
+
+<span class="kn">from</span> <span class="nn">zope.i18nmessageid</span> <span class="kn">import</span> <span class="n">MessageFactory</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">MessageFactory</span><span class="p">(</span><span class="s">&#39;getpaid.chargeit&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ChargeIt</span><span class="p">(</span><span class="n">OnSitePaymentProcessor</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;charge-it&#39;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;ChargeIt checkout&#39;</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>First, notice that the payment processor inherits from an appropriate
+base class imported from <tt class="xref docutils literal"><span class="pre">getpaid.core.processors</span></tt>:</p>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">OnSitePaymentProcessor</span></tt> for on-site payment.</li>
+<li><tt class="xref docutils literal"><span class="pre">OffSitePaymentProcessor</span></tt> for off-site payment.</li>
+</ul>
+<p>While this is not strictly necessary, it sets up several small features
+that your class will need that you would otherwise have to add yourself.
+Look up the definitions of each class in <tt class="xref docutils literal"><span class="pre">getpaid.core</span></tt> if you are
+curious to see what these are.</p>
+<p>Second, a payment processor needs to declare a <tt class="docutils literal"><span class="pre">name</span></tt> that can be used
+in URLs and in other places where a brief string is needed to identify a
+given payment processor.  The <tt class="docutils literal"><span class="pre">name</span></tt> should consist only of lower-case
+letters and dashes.</p>
+<p>Finally, each payment processor needs to provide a <tt class="docutils literal"><span class="pre">title</span></tt> for use in
+the GetPaid admin interface.  When a store owner is setting up GetPaid,
+they are given a menu of available payment processors to choose from.
+The string you provide as <tt class="docutils literal"><span class="pre">title</span></tt> will be the name of the choice that
+the store owner can select to use your particular payment processor.</p>
+</div>
+<div class="section" id="payment-processor-options">
+<h2>Payment Processor Options<a class="headerlink" href="#payment-processor-options" title="Permalink to this headline">¶</a></h2>
+<p>Next, each payment processor needs to define the configuration options
+that the store owner will need to specify for the payment processor to
+operate.  The resulting form might look something like this:</p>
+<div class="highlight-python"><pre>         Charge-It Options
+
+Merchant account:  __________________
+Merchant password: __________________
+
+Processing mode:  ☑ Sandbox
+                  ☐ Production</pre>
+</div>
+<p>Be sure, by the way, to include an option that lets the store owner
+choose between “sandbox mode” and “production mode”.  When the former is
+selected, your package should still make real API calls to the payment
+service, but credit card processing should not actually take place; this
+lets store owners test and develop their site but without making actual
+purchases.  Look through the payment service&#8217;s documentation for how
+this feature can be selected with their particular API, and then make
+sure you give the option to store owners.</p>
+<p>To define your processor options, simply create a Zope schema.  For the
+sample form shown above, you might write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">getpaid.core.interfaces</span> <span class="kn">import</span> <span class="n">IPaymentProcessorOptions</span>
+
+<span class="kn">from</span> <span class="nn">zope.i18nmessageid</span> <span class="kn">import</span> <span class="n">MessageFactory</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">MessageFactory</span><span class="p">(</span><span class="s">&#39;getpaid.chargeit&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">IChargeItOptions</span><span class="p">(</span><span class="n">IPaymentProcessorOptions</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Charge-It checkout configuration options.&quot;&quot;&quot;</span>
+
+    <span class="n">account</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">ASCIILine</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">u&quot;Merchant account&quot;</span><span class="p">))</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">ASCIILine</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s">u&quot;Merchant password&quot;</span><span class="p">))</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">Choice</span><span class="p">(</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;Processing mode&quot;</span><span class="p">),</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">u&quot;Sandbox&quot;</span><span class="p">),</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;Production&quot;</span><span class="p">)),</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>To designate this interface as your configuration schema, simply
+reference it from your payment processor with a class variable named
+<tt class="docutils literal"><span class="pre">options_schema</span></tt>.  This expands the sample payment processor
+definition cited above so that it reads:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ChargeIt</span><span class="p">(</span><span class="n">OnSitePaymentProcessor</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;charge-it&#39;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;ChargeIt checkout&#39;</span><span class="p">)</span>
+    <span class="n">options_schema</span> <span class="o">=</span> <span class="n">IChargeItOptions</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Once you have created your options schema and referenced it from your
+payment processor class, you are done!  GetPaid will automatically
+provide the store owner with a form for configuring your payment
+processor, and save the values they enter.  Later, when a customer is
+checking out, any of your routines that get called will be passed a
+<tt class="docutils literal"><span class="pre">config</span></tt> object, already adapted to your schema, whose attributes
+contain the values specified by the site owner.</p>
+</div>
+<div class="section" id="using-zcml-to-declare-your-processor">
+<h2>Using ZCML to declare your processor<a class="headerlink" href="#using-zcml-to-declare-your-processor" title="Permalink to this headline">¶</a></h2>
+<p>The last feature that all payment processors have in common is that they
+need a ZCML declaration that makes them available to GetPaid through the
+Zope Component Framework.  This file needs a single declaration that
+makes your payment processor available as a utility for GetPaid.  To be
+a good world citizen, you might also think about throwing in a
+translations declaration as well while you&#8217;re at it:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;configure</span> <span class="na">xmlns=</span><span class="s">&quot;http://namespaces.zope.org/zope&quot;</span>
+           <span class="na">xmlns:i18n=</span><span class="s">&quot;http://namespaces.zope.org/i18n&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;i18n:registerTranslations</span> <span class="na">directory=</span><span class="s">&quot;locales&quot;</span> <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;utility</span>
+    <span class="na">provides=</span><span class="s">&quot;getpaid.core.interfaces.IOnSitePaymentProcessor&quot;</span>
+    <span class="na">factory=</span><span class="s">&quot;.processor.ChargeIt&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/configure&gt;</span>
+</pre></div>
+</div>
+<p>This file should always be named <tt class="docutils literal"><span class="pre">configure.zcml</span></tt> and be located
+in the base directory of your package.  If, for example, you are writing
+the package <tt class="docutils literal"><span class="pre">getpaid.chargeit</span></tt>, then the ZCML file would be located
+at:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">getpaid</span><span class="o">/</span><span class="n">chargeit</span><span class="o">/</span><span class="n">configure</span><span class="o">.</span><span class="n">zcml</span>
+</pre></div>
+</div>
+<p>This ZCML file will be scanned when your package is loaded as part of a
+web site&#8217;s configuration, and will be how GetPaid discovers your payment
+processor and puts it on the list of available processors in the site&#8217;s
+admin interface in the first place.</p>
+</div>
+<div class="section" id="writing-the-rest-of-your-payment-processor">
+<h2>Writing the rest of your payment processor<a class="headerlink" href="#writing-the-rest-of-your-payment-processor" title="Permalink to this headline">¶</a></h2>
+<p>Once you have taken the steps above, you will have a skeleton payment
+processor that does everything it needs to except, of course, process
+payments.</p>
+<p>Since on-site and off-site payment processors are so different, I have
+written two completely separate chapters on how to construct them.  At
+this point, follow the appropriate link to find out more about the kind
+of payment processor you are trying to construct.  Read carefully, ask
+questions on the mailing list, and point out areas where the
+documentation can be improved.  Thanks, and good luck!</p>
+<ul class="simple">
+<li><a class="reference external" href="on-site-payment-processors.html"><em>On-site Payment Processors</em></a></li>
+<li><a class="reference external" href="off-site-payment-processors.html"><em>Off-site Payment Processors</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="on-site-payment-processors.html" title="On-site Payment Processors"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to getpaid.core’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">getpaid.core v0.7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, ifPeople.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>
