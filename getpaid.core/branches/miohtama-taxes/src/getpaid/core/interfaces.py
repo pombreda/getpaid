@@ -497,6 +497,9 @@ class IPriceValueAdjuster(Interface):
 
         - VAT included price.
 
+        For example, in Scandinavian countries consumer taxes must be included
+        in the store prices the consumer sees.
+
         @param raw_price: Price as a floating point number, as stored for the item
 
         @param item: Item hint, optional Implementation specific, can be e.g. Line Item.
@@ -523,8 +526,34 @@ class IPriceValueAdjuster(Interface):
         """
 
 
+    def getTaxedPrice(raw_price, item):
+        """ Get the price, taxes included.
 
+        Note that amount might be item specific, like different tax
+        for books and food. Thus we provide item parameter, which
+        can be used to resolve the item category.
 
+        @param raw_price: Price as a floating point number, as stored for the item.
+
+        @param item: Item hint, optional Implementation specific, can be e.g. Line Item.
+                None if information is not available or not interesting.
+
+        @return: float: Price with tax included.
+                 The return value should be rounded to the user visible decimal digits,
+                 usually two.
+        """
+
+class ITaxBaseProvider(Interface):
+    """
+    Adapter which can be used to provide tax base/tax calculator for content items and line items.
+
+    This is used by IPriceAdjuster to have different tax bases on items.
+    """
+
+    def getTaxPercent():
+        """
+        @return: Tax percent as floating point, 100% based
+        """
 
 
 

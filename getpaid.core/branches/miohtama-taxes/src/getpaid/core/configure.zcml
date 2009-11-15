@@ -17,7 +17,7 @@
      for=".interfaces.IOrder
 	  hurry.workflow.interfaces.IWorkflowTransitionEvent"
      />
-     
+
   <!-- Reindex Orders on workflow changes -->
   <subscriber
      for=".interfaces.IOrder
@@ -51,21 +51,21 @@
      provides=".interfaces.IOrderWorkflowLog"
      factory=".order.OrderWorkflowLog"
      />
-     
-     
+
+
   <!-- Misc -->
 
   <adapter
-     for=".interfaces.IShoppingCart"
+     for=".interfaces.IShoppingCart .interfaces.IPriceValueAdjuster"
      provides=".interfaces.ILineContainerTotals"
      factory=".cart.CartItemTotals"
      />
-     
+
 
   <adapter
      name="default"
      factory=".router.OriginRouter"
-     />     
+     />
 
   <!-- Credit card types -->
   <adapter

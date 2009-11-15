@@ -49,14 +49,14 @@ class ShoppingCart( OrderedContainer ):
     implements( interfaces.IShoppingCart, IAttributeAnnotatable )
 
     last_item = None
-    
+
     def size( self ):
         return sum(i.quantity for i in self.values())
 
     def __setitem__( self, key, value ):
         super(ShoppingCart, self).__setitem__( key, value)
         self.last_item = key
-        
+
     def __delitem__( self, key ):
         if not key in self:
             return
@@ -70,38 +70,96 @@ class ShoppingCart( OrderedContainer ):
 class CartItemTotals( object ):
 
     implements( interfaces.ILineContainerTotals )
-    
-    def __init__( self, context ):
+
+    def __init__( self, context, price_adjuster ):
         self.shopping_cart = context
+
+        # _v_ for volatile
+        self._v_price_adjuster = price_adjuster
+
+    @property
+    def price_adjuster(self):
+        """
+        Make sure that reference to price_adjuster is not stored in to the database.
+        """
+        if self._v_price_adjuster is None:
+            self.doHack()
+
+        return self._v_price_adjuster
+
+    def doHack(self):
+        """
+        TODO XXX
+
+        GetPaid order has been hardwired to have getTotals(). It is
+        called without any context in many different places.
+        Since we have no site context available, we cannot
+        do things like managing taxes properly there.
+
+        This hack is a solution to get a proper context for the order.
+        However, all order code should be rewritten so that it uses
+        external adapters with site context to extract price data from the order.
+
+        ORDER MUST NOT MIX-IN WITH CartItemTotals INSTEAD IT SHOULD USE
+        ADAPTER WITH SITE CONTEXT.
+        """
+
+        if self._v_price_adjuster is None:
+            from zope.app.component.hooks import getSite
+            site = getSite()
+            assert site != None, "WELL IT DIDN'T WORK DID IT? NOW GO AND REWRITE GETPAID CORE"
+
+            self._v_price_adjuster = interfaces.IPriceValueAdjuster(site)
+
 
     def getTotalPrice( self ):
         if not self.shopping_cart:
             return 0
-        
+
         total = 0
         total += float(self.getSubTotalPrice())
         total += float(self.getShippingCost())
-        for tax in self.getTaxCost():
-            total += tax['value']
-        
-        return float( str( total ) )            
+        total += self.getSalesTaxCost()
+
+        return float( str( total ) )
+
+    def getItemPrices(self):
+        """
+
+        @return: Iterable of tuples (item, tax free price)
+        """
+
+        for item in self.shopping_cart.values():
+            d = decimal.Decimal ( str(item.cost ) ) * item.quantity
+            price = float(d)
+            tax_free_price = self.price_adjuster.getTaxFreePrice(price, item)
+            yield (item, tax_free_price)
 
     def getSubTotalPrice( self ):
+
         if not self.shopping_cart:
             return 0
         total = 0
-        for item in self.shopping_cart.values():
-            d = decimal.Decimal ( str(item.cost ) ) * item.quantity
-            total += d        
+        for item, price in self.getItemPrices():
+            total += price
+
         return total
-        
+
     def getShippingCost( self ):
         if not interfaces.IShippableOrder.providedBy( self ):
             return 0
         return decimal.Decimal( str( self.shipping_cost ) )
 
-    def getTaxCost( self ):
-        """ get the list of dictionaries containing the tax info """
-        tax_utility = component.getUtility( interfaces.ITaxUtility )
-        return tax_utility.getTaxes( self )
+    def getSalesTaxCost( self ):
+        """ Return sales tax for the item. """
+        total = 0
+        for item, price in self.getItemPrices():
+            tax = self.price_adjuster.getTax(price, item)
+            total += tax
+        return total
 
+    def getTaxtCost(self):
+        """
+        Get sum of all taxes. Backwards compatibility method.
+        """
+        return self.getSalesTaxCost()
