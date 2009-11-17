@@ -3,15 +3,15 @@
 
   <adapter
      for="getpaid.core.interfaces.IStore"
-     provides=".interfaces.IAuthorizeNetOptions"
-     factory=".AuthorizeNetOptions"
+     provides=".interfaces.IVirtualMerchantOptions"
+     factory=".VirtualMerchantOptions"
      />
 
   <adapter
      for="getpaid.core.interfaces.IStore"
      provides="getpaid.core.interfaces.IPaymentProcessor"
-     factory=".authorizenet.AuthorizeNetAdapter"
-     name="Authorize.Net"
+     factory=".authorizenet.VirtualMerchantAdapter"
+     name="Virtual Merchant"
      />
 
 </configure>

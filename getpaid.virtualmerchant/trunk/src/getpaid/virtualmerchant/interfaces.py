@@ -27,16 +27,16 @@
 from zope import schema, interface
 from getpaid.core import interfaces
 
-class IAuthorizeNetOrder( interface.Interface ):
+class IVirtualMerchantOrder( interface.Interface ):
     """ in future use annotation for processor specific options """
 
 
-class IAuthorizeNetOptions(interfaces.IPaymentProcessorOptions):
+class IVirtualMerchantOptions(interfaces.IPaymentProcessorOptions):
     """
-    Authorize.Net options
+    Virtual Merchant options
     """
     server_url = schema.Choice(
-        title=u"Authorize.net Server URL",        
+        title=u"Virtual Merchant Server URL",        
         values=("Test",
                 "Production")
         )

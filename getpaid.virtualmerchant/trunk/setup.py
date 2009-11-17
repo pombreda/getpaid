@@ -14,13 +14,13 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.3.4dev'
+version = '0.1'
 
 setup(
     name='getpaid.virtualmerchant',
     version=version,
     license = 'ZPL2.1',
-    description='GetPaid authorize.net payment processor functionality',
+    description='GetPaid Virtual Merchant payment processor functionality',
     long_description = (
         read('README.txt')
         + '\n' +
@@ -54,11 +54,9 @@ setup(
     include_package_data=True,
     install_requires = [ 'getpaid.core',
                          'setuptools',
-                         'zc.virtualmerchant',
                          'zope.interface',
                          'zope.component',
-                         'zope.app.annotation',
-                         'M2Crypto'
+                         'zope.app.annotation'
                          ],
     zip_safe = False,
     )

@@ -36,7 +36,7 @@ from zope.app.annotation.interfaces import IAnnotations
 from zc.virtualmerchant.processing import CcProcessor
 from getpaid.core import interfaces
 
-from interfaces import IAuthorizeNetOptions
+from interfaces import IVirtualMerchantOptions
 
 from datetime import date
 
@@ -47,10 +47,10 @@ LAST_FOUR = "getpaid.virtualmerchant.cc_last_four"
 
 APPROVAL_KEY = "getpaid.virtualmerchant.approval_code"
 
-class AuthorizeNetAdapter(object):
+class VirtualMerchantAdapter(object):
     interface.implements( interfaces.IPaymentProcessor )
 
-    options_interface = IAuthorizeNetOptions
+    options_interface = IVirtualMerchantOptions
 
     _sites = dict(
         Production = "secure.authorize.net:443",
@@ -167,7 +167,7 @@ class AuthorizeNetAdapter(object):
     
     @property
     def processor( self ):
-        options = IAuthorizeNetOptions(self.context)
+        options = IVirtualMerchantOptions(self.context)
         server = self._sites.get(options.server_url)
         cc = CcProcessor(server=server,
                          login=options.merchant_id,

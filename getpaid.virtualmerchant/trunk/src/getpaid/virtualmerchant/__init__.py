@@ -29,7 +29,7 @@ import interfaces
 from getpaid.core.options import PersistentOptions
 
 
-AuthorizeNetOptions = PersistentOptions.wire(
-                           "AuthorizeNetOptions",
+VirtualMerchantOptions = PersistentOptions.wire(
+                           "VirtualMerchantOptions",
                            "getpaid.virtualmerchant",
-                           interfaces.IAuthorizeNetOptions)
+                           interfaces.IVirtualMerchantOptions)
