@@ -31,5 +31,5 @@ from getpaid.core.options import PersistentOptions
 
 AuthorizeNetOptions = PersistentOptions.wire(
                            "AuthorizeNetOptions",
-                           "getpaid.authorizedotnet",
+                           "getpaid.virtualmerchant",
                            interfaces.IAuthorizeNetOptions)

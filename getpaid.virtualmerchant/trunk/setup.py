@@ -17,7 +17,7 @@ def read(*rnames):
 version = '0.3.4dev'
 
 setup(
-    name='getpaid.authorizedotnet',
+    name='getpaid.virtualmerchant',
     version=version,
     license = 'ZPL2.1',
     description='GetPaid authorize.net payment processor functionality',
@@ -29,7 +29,7 @@ setup(
         'Detailed Documentation\n'
         '**********************\n'
         + '\n' +
-        read('src', 'getpaid', 'authorizedotnet', 'README.txt')
+        read('src', 'getpaid', 'virtualmerchant', 'README.txt')
         + '\n' +
         'Download\n'
         '**********************\n'
@@ -54,7 +54,7 @@ setup(
     include_package_data=True,
     install_requires = [ 'getpaid.core',
                          'setuptools',
-                         'zc.authorizedotnet',
+                         'zc.virtualmerchant',
                          'zope.interface',
                          'zope.component',
                          'zope.app.annotation',

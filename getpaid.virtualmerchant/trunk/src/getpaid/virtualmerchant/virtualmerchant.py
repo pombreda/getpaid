@@ -33,7 +33,7 @@ from zope import interface
 from zope.component import getUtility, getAdapter
 from zope.app.annotation.interfaces import IAnnotations
 
-from zc.authorizedotnet.processing import CcProcessor
+from zc.virtualmerchant.processing import CcProcessor
 from getpaid.core import interfaces
 
 from interfaces import IAuthorizeNetOptions
@@ -43,9 +43,9 @@ from datetime import date
 SUCCESS = 'approved'
 
 # needed for refunds
-LAST_FOUR = "getpaid.authorizedotnet.cc_last_four"
+LAST_FOUR = "getpaid.virtualmerchant.cc_last_four"
 
-APPROVAL_KEY = "getpaid.authorizedotnet.approval_code"
+APPROVAL_KEY = "getpaid.virtualmerchant.approval_code"
 
 class AuthorizeNetAdapter(object):
     interface.implements( interfaces.IPaymentProcessor )
