@@ -56,7 +56,8 @@ setup(
                          'setuptools',
                          'zope.interface',
                          'zope.component',
-                         'zope.app.annotation'
+                         'zope.app.annotation',
+                         'elementtree'
                          ],
     zip_safe = False,
     )

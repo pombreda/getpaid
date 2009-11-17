@@ -35,11 +35,6 @@ class IVirtualMerchantOptions(interfaces.IPaymentProcessorOptions):
     """
     Virtual Merchant options
     """
-    server_url = schema.Choice(
-        title=u"Virtual Merchant Server URL",        
-        values=("Test",
-                "Production")
-        )
-    merchant_id = schema.ASCIILine( title=u"API Login Id" )
-    merchant_key = schema.ASCIILine( title=u"Transaction Key" )
+    merchant_id = schema.ASCIILine( title=u"Merchant ID" )
+    merchant_pin = schema.ASCIILine( title=u"Merchant PIN" )
         

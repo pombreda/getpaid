@@ -33,12 +33,13 @@ from zope import interface
 from zope.component import getUtility, getAdapter
 from zope.app.annotation.interfaces import IAnnotations
 
-from zc.virtualmerchant.processing import CcProcessor
 from getpaid.core import interfaces
 
 from interfaces import IVirtualMerchantOptions
 
+from elementtree.ElementTree import Element, SubElement, tostring
 from datetime import date
+from logging import getLogger
 
 SUCCESS = 'approved'
 
@@ -47,26 +48,31 @@ LAST_FOUR = "getpaid.virtualmerchant.cc_last_four"
 
 APPROVAL_KEY = "getpaid.virtualmerchant.approval_code"
 
+vmlog = getLogger('getpaid.virtualmerchant')
+
 class VirtualMerchantAdapter(object):
     interface.implements( interfaces.IPaymentProcessor )
 
     options_interface = IVirtualMerchantOptions
 
-    _sites = dict(
-        Production = "secure.authorize.net:443",
-        Test = "test.authorize.net:443"
-        )
+    _site = "https://www.myvirtualmerchant.com/VirtualMerchant/processxml.do"
 
     def __init__(self, context):
         self.context = context
 
     def authorize(self, order, payment):
 
+        merchantid = IVirtualMerchantOptions(self.context).merchant_id
+        if merchantid == '':
+            vmlog.error('No Merchant ID has been set in GetPaid, please set one.')
+        merchantpin = IVirtualMerchantOptions(self.context).merchant_pin
+        if merchantpin == '':
+            vmlog.error('No Merchant PIN has been set in GetPaid, please set one.')
         billing = order.billing_address
         amount = order.getTotalPrice()
         contact = order.contact_information
         order_id = order.getOrderId()
-        contact_fields = 'Contact Name: ' + contact.name + ';  Contact Phone: ' + contact.phone_number  + ';  Contact Email: ' + contact.email
+        firstname = contact.name.split()[0] 
 
         expiration_date = ''
         if hasattr(payment.cc_expiration, 'strftime'):
@@ -84,22 +90,31 @@ class VirtualMerchantAdapter(object):
             expiration_date = _date.strftime('%m%y')
             
         options = dict(
-            amount = str(amount),
-            card_num = payment.credit_card,
-            last_name = payment.name_on_card,
-            phone     = payment.bill_phone_number,
-            exp_date = expiration_date,
-            address = billing.bill_first_line,
-            city = billing.bill_city,
-            state = billing.bill_state,
-            zip = billing.bill_postal_code,
-            invoice_num = order_id,
-            description = contact_fields
+            ssl_merchant_id = merchantid,
+            ssl_user_id = merchantid,
+            ssl_pin = merchantpin,
+            ssl_transaction_type = 'ccsale',         
+            ssl_card_number = payment.credit_card,
+            ssl_exp_date = expiration_date,
+            ssl_amount = str(amount),
+            ssl_sales_tax = '0.00',
+            ssl_cvv2cvc2_indicator = '1',
+            ssl_cvv2cvc2 = '321',
+            ssl_invoice_number = order_id,
+            ssl_customer_code = '',
+            ssl_first_name = firstname,
+            ssl_last_name = payment.name_on_card,
+            ssl_avs_address = billing.bill_first_line,
+            ssl_city = billing.bill_city,
+            ssl_state = billing.bill_state,
+            ssl_avs_zip = billing.bill_postal_code,
+            ssl_phone = payment.bill_phone_number,
+            ssl_email = contact.email
             )
-
-
-        result = self.processor.authorize( **options )
         
+        xml = self.createXML( options )
+        result = self._site+'?xmldata='+tostring(xml)
+
         # result.response may be
         # - approved
         # - error
@@ -123,6 +138,15 @@ class VirtualMerchantAdapter(object):
 
         return result.response_reason
 
+
+    def createXML( self, options ):
+        "Create the xml to be sent to Virtual Merchant"
+        xml = Element('txn')
+        for key, value in options.items():
+            subelement = SubElement(xml, key)
+            subelement.text = value
+        return xml
+    
     def capture( self, order, amount ):
 
         annotations = IAnnotations( order )
@@ -166,10 +190,6 @@ class VirtualMerchantAdapter(object):
         return result.response_reason
     
     @property
-    def processor( self ):
-        options = IVirtualMerchantOptions(self.context)
-        server = self._sites.get(options.server_url)
-        cc = CcProcessor(server=server,
-                         login=options.merchant_id,
-                         key=options.merchant_key)
-        return cc
+    def processor( self, xml):
+        server = self._site
+        return server
