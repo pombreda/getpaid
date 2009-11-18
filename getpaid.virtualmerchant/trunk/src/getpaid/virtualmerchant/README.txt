@@ -73,14 +73,4 @@ The processor can generate XML to be sent to the Virtual Merchant site.
     >>> xml = processor.createXML( options )
     >>> from elementtree.ElementTree import tostring
     >>> tostring(xml)
-    '<txn><ssl_invoice_number>1234</ssl_invoice_number><ssl_email>johnny@bgoode.com</ssl_email><ssl_user_id>V6NJ3A</ssl_user_id><ssl_amount>2.34</ssl_amount><ssl_transaction_type>ccsale</ssl_transaction_type><ssl_cvv2cvc2>321</ssl_cvv2cvc2><ssl_sales_tax>0.00</ssl_sales_tax><ssl_last_name>BGoode</ssl_last_name><ssl_merchant_id>123456</ssl_merchant_id><ssl_avs_address>123 My Wonderful Street</ssl_avs_address><ssl_cvv2cvc2_indicator>1</ssl_cvv2cvc2_indicator><ssl_state>Tennesee</ssl_state><ssl_card_number>1111111111111111</ssl_card_number><ssl_first_name>Johnny</ssl_first_name><ssl_avs_zip>1234</ssl_avs_zip><ssl_pin>123456</ssl_pin><ssl_city>Bluesville</ssl_city><ssl_customer_code /><ssl_phone>111-1111-1111</ssl_phone><ssl_exp_date>1210</ssl_exp_date></txn>'
-
-Capturing/Charging an Order
---------------------------
-
-Refunding an Order
-------------------
-
-
-Voiding an Order
-----------------
+    '<txn><ssl_invoice_number>1234</ssl_invoice_number><ssl_email>johnny@bgoode.com</ssl_email><ssl_user_id>V6NJ3A</ssl_user_id><ssl_amount>2.34</ssl_amount><ssl_transaction_type>ccsale</ssl_transaction_type><ssl_cvv2cvc2>321</ssl_cvv2cvc2><ssl_sales_tax>0.00</ssl_sales_tax><ssl_last_name>BGoode</ssl_last_name><ssl_merchant_id>123456</ssl_merchant_id><ssl_avs_address>123 My Wonderful Street</ssl_avs_address><ssl_cvv2cvc2_indicator>1</ssl_cvv2cvc2_indicator><ssl_state>Tennesee</ssl_state><ssl_card_number>1111111111111111</ssl_card_number><ssl_first_name>Johnny</ssl_first_name><ssl_avs_zip>1234</ssl_avs_zip><ssl_pin>123456</ssl_pin><ssl_city>Bluesville</ssl_city><ssl_customer_code /><ssl_phone>111-1111-1111</ssl_phone><ssl_exp_date>1210</ssl_exp_date></txn>'    
