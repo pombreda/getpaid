@@ -1,4 +1,3 @@
-getpaid.vat.wpr
 setup.cfg
 setup.py
 getpaid/__init__.py
