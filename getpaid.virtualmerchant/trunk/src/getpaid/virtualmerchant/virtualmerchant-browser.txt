@@ -80,8 +80,8 @@ account:
 
     >>> from getpaid.virtualmerchant.interfaces import IVirtualMerchantOptions
     >>> options = IVirtualMerchantOptions(self.portal)
-    >>> options.merchant_id = '123456'
-    >>> options.merchant_pin = 'AZ1234'
+    >>> options.merchant_id = '1234'
+    >>> options.merchant_pin = '1234'
     >>> options.merchant_user_id = 'Merchandise'
 
 
@@ -147,221 +147,23 @@ And enter our credit card details.
     >>> anon_browser.getControl(name='form.credit_card_type').value = ['Visa']
     >>> anon_browser.getControl(name='form.credit_card').value = '4111111111111111'
     >>> anon_browser.getControl('Make Payment').click()
-    >>> open('/tmp/test-output.html','w').write(anon_browser.contents)
+    
+And 'bingo' our order is processed successfully!
 
-
-Now test the IPN when the subscriber comes back from PayPal.
-We'll also manually set the day so we can more accurately
-test the reminder emails and member expiry.
-
-    <<< self.setToday(2009,5,25)
-    <<< ipnurl = self.ipnresponse + config.LASTORDERID
-    <<< anon_browser.open(portal_url+'/@@getpaid-paypal-ipnreactor?'+ipnurl)
-    <<< subscribemember_browser.open(portal_url+'/@@getpaid-order/'+config.LASTORDERID)
-    <<< print subscribemember_browser.contents
+    >>> print anon_browser.contents
     <BLANKLINE>
-    ...
-      <tbody>                                                                                                                                                   
-      <tr class="odd">                                                                                                                                          
-        <td>                                                                                                                                                    
-          1                                                                                                                                                     
-        </td>                                                                                                                                                   
-        <td>                                                                                                                                                    
-          1                                                                                                                                                     
-        </td>                                                                                                                                                   
-        <td>                                                                                                                                                    
-          <a href="http://nohost/plone/portal_memberdata/bsmith">Individual Level 1 - $30</a>                                                                 
-        </td>                                                                                                                                                   
-        <td>                                                                                                                                                    
-          30.00                                                                                                                                                 
-        </td>                                                                                                                                                   
-        <td>                                                                                                                                                    
-          30.00                                                                                                                                                 
-        </td>                                                                                                                                                   
-        <td>                                                                                                                                                    
-          None                                                                                                                                                  
-        </td>                                                                                                                                                   
-      </tr>                                                                                                                                                     
-      </tbody>                                                                                                                                                  
-    ...
-    <<< print subscribemember_browser.contents
-    <BLANKLINE>
-    ...
-            <li>                                                                                                                                        
-                <span> Finance Status </span> -                                                                                                         
-                <span>CHARGED</span>                                                                                                                    
-            </li>
-    ...
-
-Lets confirm that the getpaid portlet and tab no longer display.
-
-    <<< subscribemember_browser.getLink('Preferences').click()
-    <<< subscribemember_browser.getLink('Personal Preferences').click()
-    <<< not 'edit-payable' in subscribemember_browser.contents
-    True
-    
-    <<< not 'portlet-cart' in subscribemember_browser.contents
-    True
-    
-Also, confirm that the join date was set.
-
-    <<< from DateTime import DateTime
-    <<< today = DateTime() + 365
-    <<< today = today.Date()
-    <<< expirydate = self.portal.portal_memberdata.bsmith.getMemberExpiryDate().Date()
-    <<< expirydate == today
-    True
-
-Now lets see if we can see the member's profile.
-
-    <<< anon_browser.open(portal_url)
-    <<< anon_browser.getControl(name="SearchableText").value = 'bob smith'
-    <<< anon_browser.getControl('Search', index=1).click()
-    <<< print anon_browser.contents
-    <BLANKLINE>
-    ...
-                <dt>                                                                                                                                            
-                    <span class="visualIcon contenttype-individual">                                                                                            
-                        <a href="http://nohost/plone/portal_memberdata/bsmith/?searchterm=bob smith"                                                            
-                           class="state-public visualIconPadding">Bob Smith</a>                                                                                 
-                    </span>                                                                                                                                     
-                   <span class="discreet" title="Relevance">                                                                                                    
-                        [100%]                                                                                                                                  
-                   </span>                                                                                                                                      
-    ...
-
-    <<< anon_browser.open(portal_url+'/portal_memberdata/bsmith')
-    <<< print anon_browser.contents
-    <BLANKLINE>
-    ...
-            <table class="vertical listing">                                                                                                                                   
-                <tr>                                                                                                                                                           
-                    <th>User name</th>                                                                                                                                         
-                    <td>bsmith</td>                                                                                                                                            
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>Name</th>                                                                                                                                              
-                    <td>Bob Smith</td>                                                                                                                                         
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>School, Organization or Individual</th>                                                                                                                
-                    <td>My Company</td>                                                                                                                                        
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>Address</th>                                                                                                                                           
-                    <td>1 Happy Street, Happyville</td>                                                                                                                        
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>City</th>                                                                                                                                              
-                    <td>My City</td>                                                                                                                                           
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>State</th>                                                                                                                                             
-                    <td>My State</td>                                                                                                                                          
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>Zip</th>                                                                                                                                               
-                    <td>1234</td>                                                                                                                                              
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>Phone</th>                                                                                                                                             
-                    <td></td>                                                                                                                                                  
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>Email</th>                                                                                                                                             
-                    <td>bob@email.com</td>                                                                                                                                     
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>Subscription Type</th>                                                                                                                                 
-                    <td>Individual Level 1 - $30</td>                                                                                                                        
-                </tr>                                                                                                                                                          
-                <tr>                                                                                                                                                           
-                    <th>Membership Expiry Date</th>                                                                                                                            
-                    <td>2010-05-25</td>                                                                                                                                        
-                </tr>                                                                                                                                                          
-            </table>                                                                                                                                                           
-    ...
-
-Lets just see if we can register an 'Organization' member.
-
-    <<< subscribemember_browser.open(portal_url+'/logout')
-    <<< 'You are now logged out' in subscribemember_browser.contents
-    True
-    
-    <<< subscribemember_browser.open(portal_url+'/join_form?type_name=Organization')
-    <<< subscribemember_browser.getControl(name="id").value = 'myorg'
-    <<< subscribemember_browser.getControl('E-mail').value = 'myorg@email.com'
-    <<< subscribemember_browser.getControl(name="password").value = 'secret'
-    <<< subscribemember_browser.getControl(name="confirm_password").value = 'secret'    
-    <<< subscribemember_browser.getControl("Last Name").value = 'Manager'
-    <<< subscribemember_browser.getControl("First Name").value = 'Mr'
-    <<< subscribemember_browser.getControl(name='memberTitle').displayValue = ['Mr']
-    <<< subscribemember_browser.getControl('School, Organization or Individual').value = 'My Company'
-    <<< subscribemember_browser.getControl('Address').value = '2 Happy Street, Happyville'
-    <<< subscribemember_browser.getControl('City').value = 'My Other City'
-    <<< subscribemember_browser.getControl('State').value = 'My Other State'
-    <<< subscribemember_browser.getControl('Zip').value = '1234'
-    <<< subscribemember_browser.getControl(name='memberType').displayOptions
-    ['Organizational Level 1 - $80', 'Organizational Level 2 - $120', 'Organizational Level 3 - $160', 'Organizational Level 4 - $200', 'Organizational Level 5 - $240', 'Organizational Level 6 - $280']
-    
-    <<< subscribemember_browser.getControl(name='memberType').displayValue = ['Organizational Level 1 - $80']
-    <<< subscribemember_browser.getControl(name="listservmember").value = '1' 
-    <<< subscribemember_browser.getControl('Register').click()
-
-Check to ensure the PayPal payment button is displayed.
-
-    <<< '<input type="hidden" name="item_name_1" value="Organizational Level 1 - $80" />' in subscribemember_browser.contents
-    True
-
-    <<< '<input type="hidden" name="item_number_1" value="7" />' in subscribemember_browser.contents
-    True
-
-    <<< '<input type="hidden" name="amount_1" value="80.0" />' in subscribemember_browser.contents
-    True
-
-    <<< '<input type="hidden" name="quantity_1" value="1" />' in subscribemember_browser.contents
-    True
-
-    <<< invoicetag = '<input type="hidden" name="invoice" value="%s" />' % config.LASTORDERID
-    <<< invoicetag in subscribemember_browser.contents
-    True
-    
-    <<< '<input type="hidden" name="currency_code" value="USD" />' in subscribemember_browser.contents
-    True
-    
-Check that the getpaid portlet and tab display.
-
-    <<< subscribemember_browser.getLink('Preferences').click()
-    <<< subscribemember_browser.getLink('Personal Preferences').click()
-    <<< print subscribemember_browser.contents
-    <BLANKLINE>                                                                                                                                                                
-    ...
-    <BLANKLINE>                                                                                                                                                                
-        <dl class="portlet" id="portlet-cart">                                                                                                                                 
-    <BLANKLINE>                                                                                                                                                                
-            <dt class="portletHeader">                                                                                                                                         
-                <span class="portletTopLeft"></span>                                                                                                                           
-            <span class="portletTopMiddle">Product Details</span>                                                                                                              
-                <span class="portletTopRight"></span>                                                                                                                          
-            </dt>                                                                                                                                                              
-    <BLANKLINE>                                                                                                                                                                
-            <dd class="portletItem odd">                                                                                                                                       
-              <div>                                                                                                                                                            
-    <BLANKLINE>                                                                                                                                                                
-                <p>Mr Manager</p>                                                                                                                                              
-    <BLANKLINE>                                                                                                                                                                
-    <BLANKLINE>                                                                                                                                                                
-    <BLANKLINE>                                                                                                                                                                
-                <p>                                                                                                                                                            
-                     Price: $ <span>80.00</span>                                                                                                                               
-                </p>                                                                                                                                                                                                                                                                                                                         
-    ...
-
-    <<< print subscribemember_browser.contents
-    <BLANKLINE>                                                                                                                                                                
-    ...                                                                                                                                         
-                  <li id="contentview-ibuyablemarker_edit-payable"                                                                                                             
-                      class="plain">                                                                                                                                           
-                    <a href="http://nohost/plone/portal_memberdata/myorg/edit-payable">Payable</a>                                                                            
-                  </li>                                                                                                                                                        
+    ...                                                                                                                                                 
+        <h3> Thank you for your order </h3>                                                                                                                     
+    <BLANKLINE>                                                                                                                                                 
+    <BLANKLINE>                                                                                                                                                 
+        <div>                                                                                                                                                   
+            <div>                                                                                                                                               
+                <span>                                                                                                                                          
+                    Your finance state is                                                                                                                       
+                </span>                                                                                                                                         
+                CHARGED                                                                                                                                         
+            </div>                                                                                                                                              
+            <div>                                                                                                                                               
+                <span>                                                                                                                                          
+                    Your order id is                                                                                                                            
     ...

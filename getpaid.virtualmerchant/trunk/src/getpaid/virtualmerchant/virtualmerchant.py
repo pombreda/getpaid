@@ -60,7 +60,43 @@ class VirtualMerchantAdapter(object):
     def __init__(self, context):
         self.context = context
 
-    def authorize(self, order, payment):        
+    def authorize(self, order, payment):
+        xml = self.createXML(order, payment)
+        xmlresponse = self.process(xml)
+        
+        if not xmlresponse.find('ssl_result') is None:
+            log.info('Received a response from the Virtual Merchant site')
+            if xmlresponse.find('ssl_result').text == '0':
+                log.info('Transaction was approved')
+                annotation = IAnnotations( order )
+                annotation[ interfaces.keys.processor_txn_id ] = xmlresponse.find('ssl_txn_id').text
+                annotation[ LAST_FOUR ] = payment.credit_card[-4:]
+                annotation[ APPROVAL_KEY ] = xmlresponse.find('ssl_approval_code').text
+                order.user_payment_info_trans_id = xmlresponse.find('ssl_txn_id').text
+                return interfaces.keys.results_success
+            else:
+                log.error("Transaction wasn't successful")
+                return xmlresponse.find('ssl_result_message').text
+        
+        error = xmlresponse.find('errorMessage').text
+        log.error("There was an error: %s" % error)
+        return error
+
+    def capture(self, order, amount):
+        annotations = IAnnotations(order)
+        trans_id = annotations[interfaces.keys.processor_txn_id]
+        if annotations.has_key(APPROVAL_KEY):
+            annotation = IAnnotations( order )
+            if annotation.get( interfaces.keys.capture_amount ) is None:
+                annotation[ interfaces.keys.capture_amount ] = amount
+            else:
+                annotation[ interfaces.keys.capture_amount ] += amount            
+            return interfaces.keys.results_success
+
+        return result.response_reason
+
+    def createXML(self, order, payment):
+        """Create the xml to be sent to Virtual Merchant"""
         merchantid = IVirtualMerchantOptions(self.context).merchant_id
         if merchantid == '':
             log.error('No Merchant ID has been set in GetPaid, please set one.')
@@ -130,8 +166,20 @@ class VirtualMerchantAdapter(object):
         # This ensures test credit card numbers return APPROVED
         if config.TESTING:
             options['ssl_test_mode'] = 'TRUE'
-        
-        xml = self.createXML( options )
+
+        xml = Element('txn')
+        for key, value in options.items():
+            subelement = SubElement(xml, key)
+            subelement.text = value
+        return xml
+    
+    def refund(self, order, amount):
+        return "Not implemented"
+    
+    def process(self, xml):
+        """Initiate an SSL connection and return the
+        xmlresponse
+        """
         conn = ssl.HTTPSConnection(self._site)
 
         # setup the HEADERS
@@ -144,34 +192,4 @@ class VirtualMerchantAdapter(object):
         result = conn.getresponse().read()
         xmlresponse = fromstring(result)
         
-        if not xmlresponse.find('ssl_result') is None:
-            log.info('Received a response from the Virtual Merchant site')
-            if xmlresponse.find('ssl_result').text == '0':
-                log.info('Transaction was approved')
-                annotation = IAnnotations( order )
-                annotation[ interfaces.keys.processor_txn_id ] = xmlresponse.find('ssl_txn_id').text
-                annotation[ LAST_FOUR ] = payment.credit_card[-4:]
-                annotation[ APPROVAL_KEY ] = xmlresponse.find('ssl_approval_code').text
-                order.user_payment_info_trans_id = xmlresponse.find('ssl_txn_id').text
-                return interfaces.keys.results_success
-            else:
-                log.error("Transaction wasn't successful")
-                return xmlresponse.find('ssl_result_message').text
-        
-        error = xmlresponse.find('errorMessage').text
-        log.error("There was an error: %s" % error)
-        return error
-
-    def createXML( self, options ):
-        "Create the xml to be sent to Virtual Merchant"
-        xml = Element('txn')
-        for key, value in options.items():
-            subelement = SubElement(xml, key)
-            subelement.text = value
-        return xml
-    
-    def capture( self, order, amount ):
-        pass
-    
-    def refund( self, order, amount ):
-        pass
+        return xmlresponse        

@@ -35,7 +35,7 @@ class IVirtualMerchantOptions(interfaces.IPaymentProcessorOptions):
     """
     Virtual Merchant options
     """
-    merchant_id = schema.ASCIILine( title=u"Merchant ID" )
-    merchant_pin = schema.ASCIILine( title=u"Merchant PIN" )
-    merchant_user_id = schema.ASCIILine( title=u"User ID" )
+    merchant_id = schema.ASCIILine( title=u"Merchant ID", required=True )
+    merchant_pin = schema.ASCIILine( title=u"Merchant PIN", required=True )
+    merchant_user_id = schema.ASCIILine( title=u"User ID", description=u"If you do not supply a User ID, your Merchant ID will be used.", required=False )
         

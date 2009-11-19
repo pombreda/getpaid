@@ -68,12 +68,6 @@ class VirtualMerchantFunctionalTestCase(PloneGetPaidFunctionalTestCase):
 def test_suite():
     return unittest.TestSuite([
         ZopeTestCase.ZopeDocFileSuite(
-            'README.txt',
-            package='getpaid.virtualmerchant',
-            test_class=VirtualMerchantFunctionalTestCase,
-            optionflags=OPTIONFLAGS,
-            ),
-        ZopeTestCase.ZopeDocFileSuite(
             'virtualmerchant-browser.txt',
             package='getpaid.virtualmerchant',
             test_class=VirtualMerchantFunctionalTestCase,
