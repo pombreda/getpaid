@@ -24,8 +24,8 @@
 import unittest
 from Testing import ZopeTestCase
 from zope.testing import doctest
+from getpaid.virtualmerchant import config
 from Products.PloneGetPaid.tests.base import PloneGetPaidFunctionalTestCase
-#from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
 from Products.Five import fiveconfigure
 from Products.Five import zcml
@@ -61,6 +61,7 @@ class VirtualMerchantFunctionalTestCase(PloneGetPaidFunctionalTestCase):
 
     def afterSetUp(self):
         super(VirtualMerchantFunctionalTestCase, self).afterSetUp()
+        config.TESTING = True
         self.portal.portal_quickinstaller.installProduct('PloneGetPaid')
 
 

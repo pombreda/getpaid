@@ -37,4 +37,5 @@ class IVirtualMerchantOptions(interfaces.IPaymentProcessorOptions):
     """
     merchant_id = schema.ASCIILine( title=u"Merchant ID" )
     merchant_pin = schema.ASCIILine( title=u"Merchant PIN" )
+    merchant_user_id = schema.ASCIILine( title=u"User ID" )
         

@@ -48,13 +48,15 @@ Testing the setup aspects of GetPaid. Setting required settings.
     >>> manager_browser.getLink('GetPaid').click()
     >>> manager_browser.getLink('Site Profile').click()
     >>> manager_browser.getControl('Contact Email').value = 'info@plonegetpaid.com'
-    >>> manager_browser.getControl( name="form.store_name").value = 'Fake Company'
+    >>> manager_browser.getControl( name="form.store_name").value = 'AMIGOS Store'
     >>> manager_browser.getControl('Apply').click()
     >>> manager_browser.getLink('GetPaid').click()
     >>> manager_browser.getLink('Content Types').click()
     >>> from getpaid.virtualmerchant.tests.utils import setSelectWidget
     >>> setSelectWidget(manager_browser, 'form.buyable_types', ['Page'])
     >>> manager_browser.getControl('Apply').click()
+    >>> manager_browser.getLink('GetPaid').click()
+    >>> manager_browser.getLink('Payment Processor Settings').click()
 
 Make the site front page buyable so that we have something to add to
 the shopping cart for testing:
@@ -73,13 +75,14 @@ Setting the Payment Processor settings.
     >>> getpaidoptions.accepted_credit_cards = [u'Visa']
     >>> getpaidoptions.allow_anonymous_checkout = True    
 
-Provide the processor with details about the PayPal merchant
+Provide the processor with details about the Virtual Merchant merchant
 account:
 
     >>> from getpaid.virtualmerchant.interfaces import IVirtualMerchantOptions
     >>> options = IVirtualMerchantOptions(self.portal)
     >>> options.merchant_id = '123456'
-    >>> options.merchant_pin = 'V6NJ3A'
+    >>> options.merchant_pin = 'AZ1234'
+    >>> options.merchant_user_id = 'Merchandise'
 
 
 Testing the Checkout Process
@@ -145,7 +148,6 @@ And enter our credit card details.
     >>> anon_browser.getControl(name='form.credit_card').value = '4111111111111111'
     >>> anon_browser.getControl('Make Payment').click()
     >>> open('/tmp/test-output.html','w').write(anon_browser.contents)
-
 
 
 Now test the IPN when the subscriber comes back from PayPal.

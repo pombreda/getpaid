@@ -32,16 +32,17 @@ $Id: $
 from zope import interface
 from zope.component import getUtility, getAdapter
 from zope.app.annotation.interfaces import IAnnotations
-from zc import ssl
 
 from getpaid.core import interfaces
-
-from interfaces import IVirtualMerchantOptions
-
 from elementtree.ElementTree import Element, SubElement, tostring, fromstring
 from datetime import date
 from logging import getLogger
 from urllib import quote
+from zc import ssl
+from Products.PloneGetPaid.interfaces import IGetPaidManagementPaymentOptions
+
+from interfaces import IVirtualMerchantOptions
+from getpaid.virtualmerchant import config
 
 LAST_FOUR = "getpaid.virtualmerchant.cc_last_four"
 APPROVAL_KEY = "getpaid.virtualmerchant.approval_code"
@@ -59,14 +60,16 @@ class VirtualMerchantAdapter(object):
     def __init__(self, context):
         self.context = context
 
-    def authorize(self, order, payment):
-        
+    def authorize(self, order, payment):        
         merchantid = IVirtualMerchantOptions(self.context).merchant_id
         if merchantid == '':
             log.error('No Merchant ID has been set in GetPaid, please set one.')
         merchantpin = IVirtualMerchantOptions(self.context).merchant_pin
         if merchantpin == '':
             log.error('No Merchant PIN has been set in GetPaid, please set one.')
+        userid = IVirtualMerchantOptions(self.context).merchant_user_id
+        if userid == '':
+            userid = merchantid
         billing = order.billing_address
         amount = order.getTotalPrice()
         contact = order.contact_information
@@ -93,9 +96,15 @@ class VirtualMerchantAdapter(object):
                          int(yearMonthDay[2]))
             expiration_date = _date.strftime('%m%y')
             
+        getpaidoptions = IGetPaidManagementPaymentOptions(self.context)
+        if getpaidoptions.store_name:
+            storename = getpaidoptions.store_name
+        else:
+            storename = ''
+
         options = dict(
             ssl_merchant_id = merchantid,
-            ssl_user_id = merchantid,
+            ssl_user_id = userid,
             ssl_pin = merchantpin,
             ssl_transaction_type = 'ccsale',         
             ssl_card_number = payment.credit_card,
@@ -105,7 +114,8 @@ class VirtualMerchantAdapter(object):
             ssl_cvv2cvc2_indicator = '1',
             ssl_cvv2cvc2 = payment.cc_cvc,
             ssl_invoice_number = order_id,
-            ssl_customer_code = '',
+            credit = 'Credit to '+storename,
+            ssl_credit_card_type = payment.credit_card_type,
             ssl_first_name = firstname,
             ssl_last_name = lastname,
             ssl_avs_address = billing.bill_first_line,
@@ -117,6 +127,9 @@ class VirtualMerchantAdapter(object):
             )
         if billing.bill_second_line:
             options['ssl_address2'] = billing.bill_second_line
+        # This ensures test credit card numbers return APPROVED
+        if config.TESTING:
+            options['ssl_test_mode'] = 'TRUE'
         
         xml = self.createXML( options )
         conn = ssl.HTTPSConnection(self._site)
@@ -128,12 +141,13 @@ class VirtualMerchantAdapter(object):
         conn.endheaders()
 
         log.info('Getting the response from the Virtual Merchant site')
-        result = conn.getresponse()
+        result = conn.getresponse().read()
+        xmlresponse = fromstring(result)
         
-        xmlresponse = fromstring(result.read())
-        
-        if xmlresponse.find('ssl_result'):
+        if not xmlresponse.find('ssl_result') is None:
+            log.info('Received a response from the Virtual Merchant site')
             if xmlresponse.find('ssl_result').text == '0':
+                log.info('Transaction was approved')
                 annotation = IAnnotations( order )
                 annotation[ interfaces.keys.processor_txn_id ] = xmlresponse.find('ssl_txn_id').text
                 annotation[ LAST_FOUR ] = payment.credit_card[-4:]
@@ -141,9 +155,11 @@ class VirtualMerchantAdapter(object):
                 order.user_payment_info_trans_id = xmlresponse.find('ssl_txn_id').text
                 return interfaces.keys.results_success
             else:
+                log.error("Transaction wasn't successful")
                 return xmlresponse.find('ssl_result_message').text
         
         error = xmlresponse.find('errorMessage').text
+        log.error("There was an error: %s" % error)
         return error
 
     def createXML( self, options ):
