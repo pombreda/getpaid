@@ -1,0 +1,365 @@
+Introduction
+============
+
+This is a full-blown functional test. The emphasis here is on testing what
+the user may input and see, and the system is largely tested as a black box.
+We use PloneTestCase to set up this test as well, so we have a full Plone site
+to play with. We *can* inspect the state of the portal, e.g. using 
+self.portal and self.folder, but it is often frowned upon since you are not
+treating the system as a black box. Also, if you, for example, log in or set
+roles using calls like self.setRoles(), these are not reflected in the test
+browser, which runs as a separate session.
+
+Being a doctest, we can tell a story here.
+
+First, we must perform some setup. We use the browser that is shipped
+with Five, as this provides proper Zope 2 integration. Most of the 
+documentation, though, is in the underlying zope.testbrower package.
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> portal_url = self.portal.absolute_url()
+    >>> from Products.PloneTestCase.setup import portal_owner, default_password
+
+The following is useful when writing and debugging testbrowser tests. It lets
+us see all error messages in the error_log.
+
+    >>> self.portal.error_log._ignored_exceptions = ()
+
+We open a browser as Anonymous,
+
+    >>> anon_browser = Browser()
+    >>> anon_browser.handleErrors = False
+
+We open a browser as a user with the 'Manager' role.
+
+    >>> manager_browser = Browser()
+    >>> manager_browser.handleErrors = False
+    >>> manager_browser.open(portal_url+'/login_form')
+    >>> manager_browser.getControl(name='__ac_name').value = portal_owner
+    >>> manager_browser.getControl(name='__ac_password').value = default_password
+    >>> manager_browser.getControl(name='submit').click()
+    >>> "You are now logged in" in manager_browser.contents
+    True
+
+Setup PloneGetPaid for our tests.
+Testing the setup aspects of GetPaid. Setting required settings. 
+
+    >>> manager_browser.getLink('Site Setup').click()
+    >>> manager_browser.getLink('GetPaid').click()
+    >>> manager_browser.getLink('Site Profile').click()
+    >>> manager_browser.getControl('Contact Email').value = 'info@plonegetpaid.com'
+    >>> manager_browser.getControl( name="form.store_name").value = 'Fake Company'
+    >>> manager_browser.getControl('Apply').click()
+    >>> manager_browser.getLink('GetPaid').click()
+    >>> manager_browser.getLink('Content Types').click()
+    >>> from getpaid.virtualmerchant.tests.utils import setSelectWidget
+    >>> setSelectWidget(manager_browser, 'form.buyable_types', ['Page'])
+    >>> manager_browser.getControl('Apply').click()
+
+Make the site front page buyable so that we have something to add to
+the shopping cart for testing:
+
+    >>> manager_browser.getLink('Home').click()
+    >>> manager_browser.getLink('Make Buyable').click()
+    >>> manager_browser.getControl(name='form.product_code').value = '1234-ADSF'
+    >>> manager_browser.getControl(name='form.price').value = '10.00'
+    >>> manager_browser.getControl('Activate').click()
+    
+Setting the Payment Processor settings.
+
+    >>> from Products.PloneGetPaid.interfaces import IGetPaidManagementPaymentOptions
+    >>> getpaidoptions = IGetPaidManagementPaymentOptions(self.portal)
+    >>> getpaidoptions.payment_processor = 'Virtual Merchant'
+    >>> getpaidoptions.accepted_credit_cards = [u'Visa']
+    >>> getpaidoptions.allow_anonymous_checkout = True    
+
+Provide the processor with details about the PayPal merchant
+account:
+
+    >>> from getpaid.virtualmerchant.interfaces import IVirtualMerchantOptions
+    >>> options = IVirtualMerchantOptions(self.portal)
+    >>> options.merchant_id = '123456'
+    >>> options.merchant_pin = 'V6NJ3A'
+
+
+Testing the Checkout Process
+============================
+
+Visit the home page and add to the cart:
+
+    >>> anon_browser.open(portal_url)
+    >>> from getpaid.virtualmerchant.tests.utils import getAddToCartControlOrLink
+    >>> getAddToCartControlOrLink(anon_browser).click()
+
+Which renders the populated cart for the visitor:
+
+    >>> print anon_browser.contents
+    <BLANKLINE>
+    ...
+        <dl class="portlet" id="portlet-cart">                                                                                                                                
+    <BLANKLINE>                                                                                                                                                               
+            <dt class="portletHeader">                                                                                                                                        
+                <span class="portletTopLeft"></span>                                                                                                                          
+            <span class="portletTopMiddle">Product Details</span>                                                                                                             
+                <span class="portletTopRight"></span>                                                                                                                         
+            </dt>                                                                                                                                                             
+    <BLANKLINE>                                                                                                                                                               
+            <dd class="portletItem odd">                                                                                                                                      
+              <div>                                                                                                                                                           
+    <BLANKLINE>                                                                                                                                                               
+                <p>Welcome to Plone</p>                                                                                                                                       
+    <BLANKLINE>                                                                                                                                                               
+                <p>                                                                                                                                                           
+                   <i>Congratulations! You have successfully installed Plone.</i>                                                                                             
+                </p>                                                                                                                                                          
+    <BLANKLINE>                                                                                                                                                               
+                <p>                                                                                                                                                           
+                     Price: $ <span>10.00</span>                                                                                                                              
+                </p>                                                                                                                                                          
+    <BLANKLINE>                                                                                                                                                               
+              </div>                                                                                                                                                          
+            </dd>                                                                                                                                                             
+    ...
+    
+Now lets checkout.
+
+    >>> anon_browser.getControl('Checkout').click()
+    >>> anon_browser.getControl(name='form.name').value = 'Bob Smith'
+    >>> anon_browser.getControl(name='form.phone_number').value = '3334445555'
+    >>> anon_browser.getControl(name='form.email').value = 'bob@smith.com'
+    >>> anon_browser.getControl(name='form.bill_name').value = 'Bob Smith'
+    >>> anon_browser.getControl(name='form.bill_first_line').value = '1 My Fancy Street, Coolville'
+    >>> anon_browser.getControl(name='form.bill_city').value = 'Funk City'
+    >>> anon_browser.getControl(name='form.bill_state').value = ['US-VA']
+    >>> anon_browser.getControl(name='form.bill_postal_code').value = '1234'
+    >>> anon_browser.getControl('Continue').click()
+
+And enter our credit card details.
+
+    >>> anon_browser.getControl(name='form.name_on_card').value = 'Bob J Smith'
+    >>> anon_browser.getControl(name='form.bill_phone_number').value = '3334445555'
+    >>> anon_browser.getControl(name='form.cc_expiration_month').value = ['12']
+    >>> anon_browser.getControl(name='form.cc_expiration_year').value = ['2015']
+    >>> anon_browser.getControl(name='form.cc_cvc').value = '321'
+    >>> anon_browser.getControl(name='form.credit_card_type').value = ['Visa']
+    >>> anon_browser.getControl(name='form.credit_card').value = '4111111111111111'
+    >>> anon_browser.getControl('Make Payment').click()
+    >>> open('/tmp/test-output.html','w').write(anon_browser.contents)
+
+
+
+Now test the IPN when the subscriber comes back from PayPal.
+We'll also manually set the day so we can more accurately
+test the reminder emails and member expiry.
+
+    <<< self.setToday(2009,5,25)
+    <<< ipnurl = self.ipnresponse + config.LASTORDERID
+    <<< anon_browser.open(portal_url+'/@@getpaid-paypal-ipnreactor?'+ipnurl)
+    <<< subscribemember_browser.open(portal_url+'/@@getpaid-order/'+config.LASTORDERID)
+    <<< print subscribemember_browser.contents
+    <BLANKLINE>
+    ...
+      <tbody>                                                                                                                                                   
+      <tr class="odd">                                                                                                                                          
+        <td>                                                                                                                                                    
+          1                                                                                                                                                     
+        </td>                                                                                                                                                   
+        <td>                                                                                                                                                    
+          1                                                                                                                                                     
+        </td>                                                                                                                                                   
+        <td>                                                                                                                                                    
+          <a href="http://nohost/plone/portal_memberdata/bsmith">Individual Level 1 - $30</a>                                                                 
+        </td>                                                                                                                                                   
+        <td>                                                                                                                                                    
+          30.00                                                                                                                                                 
+        </td>                                                                                                                                                   
+        <td>                                                                                                                                                    
+          30.00                                                                                                                                                 
+        </td>                                                                                                                                                   
+        <td>                                                                                                                                                    
+          None                                                                                                                                                  
+        </td>                                                                                                                                                   
+      </tr>                                                                                                                                                     
+      </tbody>                                                                                                                                                  
+    ...
+    <<< print subscribemember_browser.contents
+    <BLANKLINE>
+    ...
+            <li>                                                                                                                                        
+                <span> Finance Status </span> -                                                                                                         
+                <span>CHARGED</span>                                                                                                                    
+            </li>
+    ...
+
+Lets confirm that the getpaid portlet and tab no longer display.
+
+    <<< subscribemember_browser.getLink('Preferences').click()
+    <<< subscribemember_browser.getLink('Personal Preferences').click()
+    <<< not 'edit-payable' in subscribemember_browser.contents
+    True
+    
+    <<< not 'portlet-cart' in subscribemember_browser.contents
+    True
+    
+Also, confirm that the join date was set.
+
+    <<< from DateTime import DateTime
+    <<< today = DateTime() + 365
+    <<< today = today.Date()
+    <<< expirydate = self.portal.portal_memberdata.bsmith.getMemberExpiryDate().Date()
+    <<< expirydate == today
+    True
+
+Now lets see if we can see the member's profile.
+
+    <<< anon_browser.open(portal_url)
+    <<< anon_browser.getControl(name="SearchableText").value = 'bob smith'
+    <<< anon_browser.getControl('Search', index=1).click()
+    <<< print anon_browser.contents
+    <BLANKLINE>
+    ...
+                <dt>                                                                                                                                            
+                    <span class="visualIcon contenttype-individual">                                                                                            
+                        <a href="http://nohost/plone/portal_memberdata/bsmith/?searchterm=bob smith"                                                            
+                           class="state-public visualIconPadding">Bob Smith</a>                                                                                 
+                    </span>                                                                                                                                     
+                   <span class="discreet" title="Relevance">                                                                                                    
+                        [100%]                                                                                                                                  
+                   </span>                                                                                                                                      
+    ...
+
+    <<< anon_browser.open(portal_url+'/portal_memberdata/bsmith')
+    <<< print anon_browser.contents
+    <BLANKLINE>
+    ...
+            <table class="vertical listing">                                                                                                                                   
+                <tr>                                                                                                                                                           
+                    <th>User name</th>                                                                                                                                         
+                    <td>bsmith</td>                                                                                                                                            
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>Name</th>                                                                                                                                              
+                    <td>Bob Smith</td>                                                                                                                                         
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>School, Organization or Individual</th>                                                                                                                
+                    <td>My Company</td>                                                                                                                                        
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>Address</th>                                                                                                                                           
+                    <td>1 Happy Street, Happyville</td>                                                                                                                        
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>City</th>                                                                                                                                              
+                    <td>My City</td>                                                                                                                                           
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>State</th>                                                                                                                                             
+                    <td>My State</td>                                                                                                                                          
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>Zip</th>                                                                                                                                               
+                    <td>1234</td>                                                                                                                                              
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>Phone</th>                                                                                                                                             
+                    <td></td>                                                                                                                                                  
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>Email</th>                                                                                                                                             
+                    <td>bob@email.com</td>                                                                                                                                     
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>Subscription Type</th>                                                                                                                                 
+                    <td>Individual Level 1 - $30</td>                                                                                                                        
+                </tr>                                                                                                                                                          
+                <tr>                                                                                                                                                           
+                    <th>Membership Expiry Date</th>                                                                                                                            
+                    <td>2010-05-25</td>                                                                                                                                        
+                </tr>                                                                                                                                                          
+            </table>                                                                                                                                                           
+    ...
+
+Lets just see if we can register an 'Organization' member.
+
+    <<< subscribemember_browser.open(portal_url+'/logout')
+    <<< 'You are now logged out' in subscribemember_browser.contents
+    True
+    
+    <<< subscribemember_browser.open(portal_url+'/join_form?type_name=Organization')
+    <<< subscribemember_browser.getControl(name="id").value = 'myorg'
+    <<< subscribemember_browser.getControl('E-mail').value = 'myorg@email.com'
+    <<< subscribemember_browser.getControl(name="password").value = 'secret'
+    <<< subscribemember_browser.getControl(name="confirm_password").value = 'secret'    
+    <<< subscribemember_browser.getControl("Last Name").value = 'Manager'
+    <<< subscribemember_browser.getControl("First Name").value = 'Mr'
+    <<< subscribemember_browser.getControl(name='memberTitle').displayValue = ['Mr']
+    <<< subscribemember_browser.getControl('School, Organization or Individual').value = 'My Company'
+    <<< subscribemember_browser.getControl('Address').value = '2 Happy Street, Happyville'
+    <<< subscribemember_browser.getControl('City').value = 'My Other City'
+    <<< subscribemember_browser.getControl('State').value = 'My Other State'
+    <<< subscribemember_browser.getControl('Zip').value = '1234'
+    <<< subscribemember_browser.getControl(name='memberType').displayOptions
+    ['Organizational Level 1 - $80', 'Organizational Level 2 - $120', 'Organizational Level 3 - $160', 'Organizational Level 4 - $200', 'Organizational Level 5 - $240', 'Organizational Level 6 - $280']
+    
+    <<< subscribemember_browser.getControl(name='memberType').displayValue = ['Organizational Level 1 - $80']
+    <<< subscribemember_browser.getControl(name="listservmember").value = '1' 
+    <<< subscribemember_browser.getControl('Register').click()
+
+Check to ensure the PayPal payment button is displayed.
+
+    <<< '<input type="hidden" name="item_name_1" value="Organizational Level 1 - $80" />' in subscribemember_browser.contents
+    True
+
+    <<< '<input type="hidden" name="item_number_1" value="7" />' in subscribemember_browser.contents
+    True
+
+    <<< '<input type="hidden" name="amount_1" value="80.0" />' in subscribemember_browser.contents
+    True
+
+    <<< '<input type="hidden" name="quantity_1" value="1" />' in subscribemember_browser.contents
+    True
+
+    <<< invoicetag = '<input type="hidden" name="invoice" value="%s" />' % config.LASTORDERID
+    <<< invoicetag in subscribemember_browser.contents
+    True
+    
+    <<< '<input type="hidden" name="currency_code" value="USD" />' in subscribemember_browser.contents
+    True
+    
+Check that the getpaid portlet and tab display.
+
+    <<< subscribemember_browser.getLink('Preferences').click()
+    <<< subscribemember_browser.getLink('Personal Preferences').click()
+    <<< print subscribemember_browser.contents
+    <BLANKLINE>                                                                                                                                                                
+    ...
+    <BLANKLINE>                                                                                                                                                                
+        <dl class="portlet" id="portlet-cart">                                                                                                                                 
+    <BLANKLINE>                                                                                                                                                                
+            <dt class="portletHeader">                                                                                                                                         
+                <span class="portletTopLeft"></span>                                                                                                                           
+            <span class="portletTopMiddle">Product Details</span>                                                                                                              
+                <span class="portletTopRight"></span>                                                                                                                          
+            </dt>                                                                                                                                                              
+    <BLANKLINE>                                                                                                                                                                
+            <dd class="portletItem odd">                                                                                                                                       
+              <div>                                                                                                                                                            
+    <BLANKLINE>                                                                                                                                                                
+                <p>Mr Manager</p>                                                                                                                                              
+    <BLANKLINE>                                                                                                                                                                
+    <BLANKLINE>                                                                                                                                                                
+    <BLANKLINE>                                                                                                                                                                
+                <p>                                                                                                                                                            
+                     Price: $ <span>80.00</span>                                                                                                                               
+                </p>                                                                                                                                                                                                                                                                                                                         
+    ...
+
+    <<< print subscribemember_browser.contents
+    <BLANKLINE>                                                                                                                                                                
+    ...                                                                                                                                         
+                  <li id="contentview-ibuyablemarker_edit-payable"                                                                                                             
+                      class="plain">                                                                                                                                           
+                    <a href="http://nohost/plone/portal_memberdata/myorg/edit-payable">Payable</a>                                                                            
+                  </li>                                                                                                                                                        
+    ...

@@ -37,18 +37,15 @@ from getpaid.core import interfaces
 
 from interfaces import IVirtualMerchantOptions
 
-from elementtree.ElementTree import Element, SubElement, tostring
+from elementtree.ElementTree import Element, SubElement, tostring, fromstring
 from datetime import date
 from logging import getLogger
+import urllib2
 
-SUCCESS = 'approved'
-
-# needed for refunds
 LAST_FOUR = "getpaid.virtualmerchant.cc_last_four"
-
 APPROVAL_KEY = "getpaid.virtualmerchant.approval_code"
 
-vmlog = getLogger('getpaid.virtualmerchant')
+log = getLogger('getpaid.virtualmerchant')
 
 class VirtualMerchantAdapter(object):
     interface.implements( interfaces.IPaymentProcessor )
@@ -61,18 +58,22 @@ class VirtualMerchantAdapter(object):
         self.context = context
 
     def authorize(self, order, payment):
-
         merchantid = IVirtualMerchantOptions(self.context).merchant_id
         if merchantid == '':
-            vmlog.error('No Merchant ID has been set in GetPaid, please set one.')
+            log.error('No Merchant ID has been set in GetPaid, please set one.')
         merchantpin = IVirtualMerchantOptions(self.context).merchant_pin
         if merchantpin == '':
-            vmlog.error('No Merchant PIN has been set in GetPaid, please set one.')
+            log.error('No Merchant PIN has been set in GetPaid, please set one.')
         billing = order.billing_address
         amount = order.getTotalPrice()
         contact = order.contact_information
         order_id = order.getOrderId()
-        firstname = contact.name.split()[0] 
+        names = payment.name_on_card.split()
+        firstname = names[0]
+        if len(names) > 1:
+            lastname = names[-1]
+        else:
+            lastname = ''
 
         expiration_date = ''
         if hasattr(payment.cc_expiration, 'strftime'):
@@ -99,11 +100,11 @@ class VirtualMerchantAdapter(object):
             ssl_amount = str(amount),
             ssl_sales_tax = '0.00',
             ssl_cvv2cvc2_indicator = '1',
-            ssl_cvv2cvc2 = '321',
+            ssl_cvv2cvc2 = payment.cc_cvc,
             ssl_invoice_number = order_id,
             ssl_customer_code = '',
             ssl_first_name = firstname,
-            ssl_last_name = payment.name_on_card,
+            ssl_last_name = lastname,
             ssl_avs_address = billing.bill_first_line,
             ssl_city = billing.bill_city,
             ssl_state = billing.bill_state,
@@ -111,32 +112,27 @@ class VirtualMerchantAdapter(object):
             ssl_phone = payment.bill_phone_number,
             ssl_email = contact.email
             )
+        if billing.bill_second_line:
+            options['ssl_address2'] = billing.bill_second_line
         
         xml = self.createXML( options )
-        result = self._site+'?xmldata='+tostring(xml)
-
-        # result.response may be
-        # - approved
-        # - error
-        # - declined
-        # - held for review
-        #
-        # Other result fields:
-        #   result.response_reason
-        #   result.approval_code
-        #   result.trans_id
-
-        if result.response == SUCCESS:
-            annotation = IAnnotations( order )
-            annotation[ interfaces.keys.processor_txn_id ] = result.trans_id
-            annotation[ LAST_FOUR ] = payment.credit_card[-4:]
-            annotation[ APPROVAL_KEY ] = result.approval_code
-
-            order.user_payment_info_trans_id = result.trans_id
-
-            return interfaces.keys.results_success
-
-        return result.response_reason
+        url = self._site+'?xmldata='+tostring(xml)
+        result = urllib2.urlopen(url)
+        xmlresponse = fromstring(result.read())
+        import pdb;pdb.set_trace()
+        
+        if xmlresponse.find('ssl_result'):
+            if xmlresponse.find('ssl_result').text == '0':
+                annotation = IAnnotations( order )
+                annotation[ interfaces.keys.processor_txn_id ] = xmlresponse.find('ssl_txn_id').text
+                annotation[ LAST_FOUR ] = payment.credit_card[-4:]
+                annotation[ APPROVAL_KEY ] = xmlresponse.find('ssl_approval_code').text
+                order.user_payment_info_trans_id = xmlresponse.find('ssl_txn_id').text
+                return interfaces.keys.results_success
+            else:
+                return xmlresponse.find('ssl_result_message').text
+        
+        return xmlresponse.find('errorMessage').text
 
 
     def createXML( self, options ):

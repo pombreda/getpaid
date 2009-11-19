@@ -72,10 +72,10 @@ def test_suite():
             test_class=VirtualMerchantFunctionalTestCase,
             optionflags=OPTIONFLAGS,
             ),
-        #ZopeTestCase.ZopeDocFileSuite(
-        #    'virtualmerchant-browser.txt',
-        #    package='getpaid.virtualmerchant',
-        #    test_class=VirtualMerchantFunctionalTestCase,
-        #    optionflags=OPTIONFLAGS,
-        #    ),
+        ZopeTestCase.ZopeDocFileSuite(
+            'virtualmerchant-browser.txt',
+            package='getpaid.virtualmerchant',
+            test_class=VirtualMerchantFunctionalTestCase,
+            optionflags=OPTIONFLAGS,
+            ),
         ])
