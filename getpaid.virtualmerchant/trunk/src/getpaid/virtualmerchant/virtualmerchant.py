@@ -60,6 +60,7 @@ class VirtualMerchantAdapter(object):
         self.context = context
 
     def authorize(self, order, payment):
+        
         merchantid = IVirtualMerchantOptions(self.context).merchant_id
         if merchantid == '':
             log.error('No Merchant ID has been set in GetPaid, please set one.')
@@ -142,9 +143,8 @@ class VirtualMerchantAdapter(object):
             else:
                 return xmlresponse.find('ssl_result_message').text
         
-        error = xmlresponse.find('errorMessage').text)
+        error = xmlresponse.find('errorMessage').text
         return error
-
 
     def createXML( self, options ):
         "Create the xml to be sent to Virtual Merchant"
@@ -155,48 +155,7 @@ class VirtualMerchantAdapter(object):
         return xml
     
     def capture( self, order, amount ):
-
-        annotations = IAnnotations( order )
-        trans_id = annotations[ interfaces.keys.processor_txn_id ]
-        approval_code = annotations[ APPROVAL_KEY ]
-        
-        result = self.processor.captureAuthorized(
-            amount = str(amount),
-            trans_id = trans_id,
-            approval_code = approval_code,
-            )
-
-        if result.response == SUCCESS:
-            annotation = IAnnotations( order )
-            if annotation.get( interfaces.keys.capture_amount ) is None:
-                annotation[ interfaces.keys.capture_amount ] = amount
-            else:
-                annotation[ interfaces.keys.capture_amount ] += amount            
-            return interfaces.keys.results_success
-
-        return result.response_reason
+        pass
     
     def refund( self, order, amount ):
-
-        annotations = IAnnotations( order )
-        trans_id = annotations[ interfaces.keys.processor_txn_id ]
-        last_four = annotations[ LAST_FOUR ]
-        
-        result = self.processor.credit(
-            amount = str( amount ),
-            trans_id = trans_id,
-            card_num = last_four
-            )
-        
-        if result.response == SUCCESS:
-            annotation = IAnnotations( order )
-            if annotation.get( interfaces.keys.capture_amount ) is not None:
-                annotation[ interfaces.keys.capture_amount ] -= amount                        
-            return interfaces.keys.results_success
-        
-        return result.response_reason
-    
-    @property
-    def processor( self, xml):
-        server = self._site
-        return server
+        pass
