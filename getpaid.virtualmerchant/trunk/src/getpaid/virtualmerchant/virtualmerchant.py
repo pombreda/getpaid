@@ -32,6 +32,7 @@ $Id: $
 from zope import interface
 from zope.component import getUtility, getAdapter
 from zope.app.annotation.interfaces import IAnnotations
+from zc import ssl
 
 from getpaid.core import interfaces
 
@@ -52,7 +53,8 @@ class VirtualMerchantAdapter(object):
 
     options_interface = IVirtualMerchantOptions
 
-    _site = "https://www.myvirtualmerchant.com/VirtualMerchant/processxml.do"
+    _site = "www.myvirtualmerchant.com"
+    _path = "/VirtualMerchant/processxml.do"
 
     def __init__(self, context):
         self.context = context
@@ -116,8 +118,20 @@ class VirtualMerchantAdapter(object):
             options['ssl_address2'] = billing.bill_second_line
         
         xml = self.createXML( options )
-        url = self._site+'?xmldata='+tostring(xml)
-        result = urllib2.urlopen(url)
+        message = '?xmldata='+tostring(xml)
+        conn = ssl.HTTPSConnection(self._site)
+
+        # setup the HEADERS
+        conn.putrequest('POST', self._path)
+        conn.putheader('Content-Type', 'application/x-www-form-urlencoded')
+        conn.putheader('Content-Length', len(message))
+        conn.endheaders()
+
+        log.info("About to send: %s" % message)
+        conn.send(message)
+        result = conn.getresponse()
+        
+        #result = urllib2.urlopen(url)
         xmlresponse = fromstring(result.read())
         import pdb;pdb.set_trace()
         
@@ -132,7 +146,8 @@ class VirtualMerchantAdapter(object):
             else:
                 return xmlresponse.find('ssl_result_message').text
         
-        return xmlresponse.find('errorMessage').text
+        error = xmlresponse.find('errorMessage').text
+        return error
 
 
     def createXML( self, options ):
