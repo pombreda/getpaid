@@ -41,7 +41,7 @@ from interfaces import IVirtualMerchantOptions
 from elementtree.ElementTree import Element, SubElement, tostring, fromstring
 from datetime import date
 from logging import getLogger
-import urllib2
+from urllib import quote
 
 LAST_FOUR = "getpaid.virtualmerchant.cc_last_four"
 APPROVAL_KEY = "getpaid.virtualmerchant.approval_code"
@@ -118,22 +118,18 @@ class VirtualMerchantAdapter(object):
             options['ssl_address2'] = billing.bill_second_line
         
         xml = self.createXML( options )
-        message = '?xmldata='+tostring(xml)
         conn = ssl.HTTPSConnection(self._site)
 
         # setup the HEADERS
-        conn.putrequest('POST', self._path)
-        conn.putheader('Content-Type', 'application/x-www-form-urlencoded')
-        conn.putheader('Content-Length', len(message))
+        log.info('Setting up request headers')
+        conn.putrequest('GET', self._path+'?xmldata='+quote(tostring(xml)))
+        conn.putheader('Content-Type', 'text/xml')
         conn.endheaders()
 
-        log.info("About to send: %s" % message)
-        conn.send(message)
+        log.info('Getting the response from the Virtual Merchant site')
         result = conn.getresponse()
         
-        #result = urllib2.urlopen(url)
         xmlresponse = fromstring(result.read())
-        import pdb;pdb.set_trace()
         
         if xmlresponse.find('ssl_result'):
             if xmlresponse.find('ssl_result').text == '0':
@@ -146,7 +142,7 @@ class VirtualMerchantAdapter(object):
             else:
                 return xmlresponse.find('ssl_result_message').text
         
-        error = xmlresponse.find('errorMessage').text
+        error = xmlresponse.find('errorMessage').text)
         return error
 
 
