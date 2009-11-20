@@ -1,14 +1,11 @@
 #labels Featured,Phase-Design
 #about cash on delivery
 
-= how to developer a cash on delivery processor =
+= how to developer a "cash on delivery" payment processor =
 
-Add your content here.
+
 
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Are there any relative deveoper docs for payment processor?
