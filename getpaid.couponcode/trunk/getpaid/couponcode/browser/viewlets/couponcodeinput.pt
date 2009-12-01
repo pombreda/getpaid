@@ -15,7 +15,7 @@
               url: serverURL + "/@@couponcode_validation/validate_couponcode",
               data: "couponcode=" + encodeURIComponent(valinput),
               success: function(msg){
-                if (msg.indexOf('http://') === 0){
+                if (msg.indexOf('http') === 0){
                     window.location= msg + '/@@getpaid-cart-add?add_item=True'
                 } else {
                     $(".portalMessage").hide();
