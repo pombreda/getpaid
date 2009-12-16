@@ -5,6 +5,10 @@
 0.5 (unreleased)
 ----------------
 
+ * Make sure the finance workflow transition handler only tries to execute for
+   sites with this product installed.
+   [davisagli]
+
  * Fix the user_payment_info_trans_id mapping, for real this time.
    [davisagli]
 

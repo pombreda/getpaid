@@ -43,7 +43,10 @@ def handleOrderWorkflowTransition( order, event ):
 
 def executeAdapter(order):
     portal_properties = getToolByName(getSite(), 'portal_properties')
-    props = getattr(portal_properties, 'getpaidsalesforceorderrecorder')
+    props = getattr(portal_properties, 'getpaidsalesforceorderrecorder', None)
+    if props is None:
+        # don't execute for sites without the product installed
+        return
     refCat = getToolByName( getSite(), 'reference_catalog')
     salesforce = getToolByName(getSite(), 'portal_salesforcebaseconnector')
 
