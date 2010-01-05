@@ -3,6 +3,7 @@ import logging
 import elementtree.ElementTree as etree
 
 from zope import interface, schema, component
+from zope.component import getUtility
 from zope.app.container.contained import Contained
 from persistent import Persistent
 from zope.app.interface import queryType, providedBy
@@ -10,7 +11,7 @@ from zope.app.interface import queryType, providedBy
 from Products.CMFCore.utils import getToolByName
 
 from getpaid.core.interfaces import IShippableLineItem, IStoreSettings, IShippingMethodRate, IOriginRouter,IStore
-from getpaid.flatrateshipping2.interfaces import IFlatRateService, IFlatRateSettings
+from getpaid.flatrateshipping2.interfaces import IFlatRateService, IFlatRateSettings, FlatRateAdapter
 from getpaid.flatrateshipping2.flatrate import FlatRateShippingAdapter
 
 
@@ -54,7 +55,7 @@ class MyShippingRateService ( Persistent, Contained ):
             context = getToolByName( ob, 'portal_url').getPortalObject()
 
 
-        FRSA = FlatRateShippingAdapter(context)
+        FRSA = getUtility(FlatRateAdapter)
         
         temp_settings = IFlatRateSettings(context)
         option = temp_settings.flatrate_option
@@ -67,7 +68,7 @@ class MyShippingRateService ( Persistent, Contained ):
         shipment.service_code = "01"
         shipment.service = "flat-rate"
         shipment.currency = "ZAR"
-        shipment.cost = FRSA.getCost(order, option, flatrate, perc, maxi) # 
+        shipment.cost = FRSA.getCost(order) # 
 
         shipments.append( shipment ) 
         my_response = MyResponse()

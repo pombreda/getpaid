@@ -25,10 +25,14 @@
 $Id: null.py 1143 2007-12-31 02:16:19Z kapilt $
 """
 
-from zope import interface
+from zope import interface, component
 from getpaid.core import interfaces, options
-from interfaces import IFlatRateSettings, IFlatRateService
-from getpaid.core.interfaces import IShippableLineItem
+
+from getpaid.flatrateshipping2.interfaces import IFlatRateSettings, IFlatRateService
+from getpaid.flatrateshipping2 import interfaces as frinterfaces
+from getpaid.flatrateshipping2.interfaces import _
+
+from getpaid.core.interfaces import IShippableLineItem, IStore
 
 FlatRateSettings = options.PersistentOptions.wire(
     "FlatRateSettings",
@@ -38,22 +42,33 @@ FlatRateSettings = options.PersistentOptions.wire(
 
 class FlatRateShippingAdapter( object ):
 
-    #interface.implements( IFlatRateService, IFlatRateSettings )
-    #options_interface = IFlatRateSettings
+    interface.implements( IFlatRateService, IFlatRateSettings )
+    options_interface = IFlatRateSettings
 
-    def __init__( self, context ):
-        self.context = context
+    def __init__( context ):
+        context = context
         
-    def getCost( self, order, option, flatrate, perc, maxi ):
-        settings = IFlatRateSettings( self.context )
-        if(option != "Percentage"):
-            return flatrate
-        else: # we're calculating the percentage
-            items = filter( IShippableLineItem.providedBy, order.shopping_cart.values() )
-            cost = 0
-            for item in items:
-                cost += item.cost
-            shipcost = cost * (perc / 100)
-            if shipcost > maxi:
-                shipcost = maxi
-            return shipcost
+    def getCost( self, order ):
+        context = component.queryUtility( IStore )
+        if context is None:
+            from Products.CMFCore.utils import getToolByName
+            ob = None
+            for i in order.shopping_cart.values():
+                if IShippableLineItem.providedBy( i ):
+                    ob = i.resolve()
+            if ob is None:
+                raise AttributeError("can't get store, TODO - please switch processors settings to utility adapters")
+            context = getToolByName( ob, 'portal_url').getPortalObject()
+            
+        settings = self.options_interface(context)
+        if(settings.flatrate_option != "Percentage"):
+            return settings.flatrate_flatrate
+        #else: # we're calculating the percentage
+            #items = filter( IShippableLineItem.providedBy, order.shopping_cart.values() )
+            #cost = 0
+            #for item in items:
+                #cost += item.cost
+            #shipcost = cost * (perc / 100)
+            #if shipcost > maxi:
+                #shipcost = maxi
+            #return shipcost

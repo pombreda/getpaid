@@ -27,6 +27,9 @@
      handler=".plugin.storeInstalled"
      />
 
-
+  <!-- Utilities -->
+  <utility
+    provides=".interfaces.FlatRateAdapter"
+    factory=".flatrate.FlatRateShippingAdapter"/>
 
 </configure>

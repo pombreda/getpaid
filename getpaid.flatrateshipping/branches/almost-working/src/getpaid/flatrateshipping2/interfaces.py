@@ -5,7 +5,7 @@ $Id: $
 from zope import schema, interface
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from getpaid.core import interfaces, options
-from getpaid.core.interfaces import IShippingRateService, IShippingMethodSettings
+from getpaid.core.interfaces import IShippingRateService, IShippingMethodSettings, IShippingMethod
 from getpaid.core.interfaces import IShippableLineItem
 
 from zope.i18nmessageid import MessageFactory
@@ -36,7 +36,7 @@ class IFlatRateService( IShippingRateService ):
         a url that can be used to track the shipment
         """
         
-class IFlatRateSettings( interface.Interface ):
+class IFlatRateSettings( IShippingMethodSettings ):
     """
     Flate Rate Shipping Service Options
     """
@@ -69,3 +69,6 @@ class IFlatRateSettings( interface.Interface ):
         default = 10.0,
         required=True,
         )
+    
+class FlatRateAdapter( IShippingMethod ):
+    """ """
