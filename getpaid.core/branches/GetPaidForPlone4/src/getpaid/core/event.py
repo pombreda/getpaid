@@ -26,7 +26,13 @@ $Id$
 """
 
 from zope.interface import implements
-from zope.app.event.objectevent import ObjectEvent
+
+try:
+    # For Plone-3 and above.
+    from zope.component.interfaces import ObjectEvent
+except ImportError:
+    from zope.app.event.objectevent import ObjectEvent
+
 from zope.event import notify
 
 import interfaces
