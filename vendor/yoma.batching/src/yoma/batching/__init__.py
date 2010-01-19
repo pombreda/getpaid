@@ -11,7 +11,11 @@ $Id$
 import sys
 from StringIO import StringIO
 
-from zope.app.traversing.browser import AbsoluteURL
+try:
+    # For Plone-3 and above.
+    from zope.traversing.browser import AbsoluteURL
+except ImportError:
+    from zope.app.traversing.browser import AbsoluteURL
 from zope.i18nmessageid import MessageFactory
 
 _=MessageFactory('yoma')
