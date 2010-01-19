@@ -1,8 +1,11 @@
 """
 $Id$
 """
-
-from zope.app.annotation.interfaces import IAnnotations
+try:
+    # For Plone-3 and above.
+    from zope.annotation.interfaces import IAnnotations
+except ImportError:
+    from zope.app.annotation.interfaces import IAnnotations
 from zope.interface import implements
 from persistent.dict import PersistentDict
 

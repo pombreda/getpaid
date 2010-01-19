@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ore.viewlet",
-    version="0.2",
+    version="0.2.1",
     install_requires=['setuptools', 'zc.table >= 0.5'],
     dependency_links=['http://download.zope.org/distribution/',],
     packages=find_packages('src', exclude=["*.tests", "*.ftests"]),
