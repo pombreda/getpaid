@@ -2,17 +2,21 @@
 CHANGES
 =======
 
-2.0 (unreleased)
+2.1 (unreleased)
 ----------------
 
-1.9 (unreleased)
+2.0 (2010-01-21)
 ----------------
-- update getpaid.paypal to 0.4.4
-- update getpaid.payflowpro to 1.1
-- update getpaid.authorizedotnet to 0.3.3
-- update getpaid.SalesforceOrderRecorder to 0.4
-- update getpaid.SalesforcePloneFormGenAdapter to 1.5
-- update getpaid.formgen to 0.3
+* update Products.PloneGetPaid to 0.8.6 [larubbio]
+
+1.9 (2009-08-19)
+----------------
+* update getpaid.paypal to 0.4.4
+* update getpaid.payflowpro to 1.1
+* update getpaid.authorizedotnet to 0.3.3
+* update getpaid.SalesforceOrderRecorder to 0.4
+* update getpaid.SalesforcePloneFormGenAdapter to 1.5
+* update getpaid.formgen to 0.3
 
 1.8 (2009-08-03)
 ----------------
