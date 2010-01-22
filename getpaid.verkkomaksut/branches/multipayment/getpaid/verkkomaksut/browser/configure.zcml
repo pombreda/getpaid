@@ -19,12 +19,4 @@
      permission="zope2.View"
      />
 
-<!--  <browser:page-->
-<!--     for="*"-->
-<!--     name="verkkomaksut-notify"-->
-<!--     class=".checkout.VerkkomaksutNotify"-->
-<!--     permission="zope2.View"-->
-<!--     attribute="verkkomaksut_notify"-->
-<!--     />-->
-
 </configure>
