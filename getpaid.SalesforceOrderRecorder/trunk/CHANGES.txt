@@ -1,8 +1,7 @@
-=========
- CHANGES
+Changelog
 =========
 
-0.5 (unreleased)
+0.5 (2010-01-26)
 ----------------
 
  * Make sure the finance workflow transition handler only tries to execute for
