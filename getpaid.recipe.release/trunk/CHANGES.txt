@@ -5,6 +5,9 @@ CHANGES
 2.1 (unreleased)
 ----------------
 
+* update getpaid.SalesforceOrderRecorder to 0.5
+* update getpaid.SalesforcePloneFormGenAdapter to 1.6
+
 2.0 (2010-01-21)
 ----------------
 * update Products.PloneGetPaid to 0.8.6 [larubbio]
