@@ -1,6 +1,9 @@
 Changelog
 =========
 
+0.6 (unreleased)
+----------------
+
 0.5 (2010-01-26)
 ----------------
 
@@ -14,8 +17,8 @@ Changelog
  * Removed max beatbox version restriction.
    [davisagli]
 
-0.4 (unreleased)
-----------------
+0.4
+---
  * Grab the processor id from the correct variable
 
 0.3 (2009-08-03)
