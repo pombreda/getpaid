@@ -3,11 +3,11 @@
 = Brandon's Changes =
 
 
-svn log -r 2895:HEAD https://getpaid.googlecode.com/svn/Products.PloneGetPaid/branches/brandon-no-overrides
+svn diff -r 2895:HEAD https://getpaid.googlecode.com/svn/Products.PloneGetPaid/branches/brandon-no-overrides
 
-svn log -r 2895:HEAD https://getpaid.googlecode.com/svn/getpaid.core/branches/brandon-no-overrides
+svn diff -r 2895:HEAD https://getpaid.googlecode.com/svn/getpaid.core/branches/brandon-no-overrides
 
-svn log -r 2895:HEAD https://getpaid.googlecode.com/svn/getpaid.googlecheckout/branches/brandon-no-overrides
+svn diff -r 2895:HEAD https://getpaid.googlecode.com/svn/getpaid.googlecheckout/branches/brandon-no-overrides
 
-svn log -r 2895:HEAD 
+svn diff -r 2895:HEAD 
 https://getpaid.googlecode.com/svn/getpaid.nullpayment/branches/brandon-no-overrides
