@@ -2,6 +2,7 @@
 
 = Brandon's Changes =
 
+Here are the raw commands to see what Brandon changed in each module in the process of creating his branch.
 
 svn diff -r 2895:HEAD https://getpaid.googlecode.com/svn/Products.PloneGetPaid/branches/brandon-no-overrides
 
@@ -11,3 +12,10 @@ svn diff -r 2895:HEAD https://getpaid.googlecode.com/svn/getpaid.googlecheckout/
 
 svn diff -r 2895:HEAD 
 https://getpaid.googlecode.com/svn/getpaid.nullpayment/branches/brandon-no-overrides
+
+=h= Kapil's Diffs =h=
+
+Kapil used bzr to check out the branches from Subversion and generate some diffs to see what each branch had done to Products.PloneGetPaid.
+
+http://kapilt.com/files/brandon-no-overrides.txt
+http://kapilt.com/files/multipaymentprocessors.txt
