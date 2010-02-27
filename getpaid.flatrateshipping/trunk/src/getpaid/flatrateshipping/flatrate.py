@@ -53,7 +53,7 @@ class FlatRateShippingAdapter( object ):
             items = filter( IShippableLineItem.providedBy, order.shopping_cart.values() )
             cost = 0
             for item in items:
-                cost += item.cost
+                cost += item.cost * item.quantity
             shipcost = cost * (settings.flatrate_percentage / 100)
             if shipcost > settings.flatrate_max:
                 shipcost = settings.flatrate_max
