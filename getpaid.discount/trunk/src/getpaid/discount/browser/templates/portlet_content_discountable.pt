@@ -38,11 +38,10 @@
             <p tal:define="price python:'$%.2f' % view.getPrice(context);
                            discount python:view.hasNormalDiscount(context);
                            price_class python:discount and 'discounted' or '';"
-               tal:condition="price"
-               i18n:translate="text_price">
-                 Price: <span tal:content="price" 
-                              tal:attributes="class price_class"
-                              i18n:name="value_price" />
+               tal:condition="price">
+               <span i18n:translate="text_price">Price: </span>
+                  <span tal:content="price" 
+                        tal:attributes="class price_class"/>
                 <span tal:condition="discount" 
                       tal:content="discount" 
                       tal:attributes="class string:discount"/>
