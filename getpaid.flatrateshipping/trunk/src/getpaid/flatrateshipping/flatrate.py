@@ -47,7 +47,7 @@ class FlatRateShippingAdapter( object ):
         
     def getCost( self, order ):
         settings = self.settings
-        if(settings.flatrate_option == "Percentage"):
+        if(settings.flatrate_option == "Flat Rate"):
             return self.settings.flat_rate
         else: # we're calculating the percentage
             items = filter( IShippableLineItem.providedBy, order.shopping_cart.values() )
