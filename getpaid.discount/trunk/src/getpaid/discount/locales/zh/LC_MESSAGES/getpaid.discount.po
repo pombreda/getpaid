@@ -9,10 +9,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: zh\n"
+"Language-Name: Chinese\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
+"Domain: getpaid.discount\n"
 
 #: ./browser/interfaces.py:48
 msgid "Discount Code"
@@ -97,7 +97,6 @@ msgstr "加到购物车"
 #. Default: "Price:"
 #: ./browser/templates/portlet_content_buyxgetxfreeable.pt:39
 #: ./browser/templates/portlet_content_discountable.pt:42
-#, fuzzy
 msgid "text_price"
 msgstr "价格"
 
