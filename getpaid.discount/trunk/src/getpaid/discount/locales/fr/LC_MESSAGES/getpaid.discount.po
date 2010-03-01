@@ -1,10 +1,12 @@
+# translation of getpaid.discount.po to FR-fr
+# spirulinea <danielle@spirulinea.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: plone-fr\n"
-"POT-Creation-Date: 2010-02-28 00:55+0000\n"
-"PO-Revision-Date: 2010-02-27 21:25+0700\n"
+"Project-Id-Version: getpaid.discount\n"
+"POT-Creation-Date: 2010-03-01 16:39+0000\n"
+"PO-Revision-Date: 2010-03-01 21:25+0700\n"
 "Last-Translator: spirulinea <danielle@spirulinea.com>\n"
-"Language-Team: FR-fr <spirulinea <danielle@spirulinea.com>>\n"
+"Language-Team: FR-fr <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,13 +16,26 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: getpaid.discount\n"
 
+#: ./browser/portlets/portlets30.py:83
+msgid "BuyXGetXFreeable"
+msgstr "réduction sur lots"
+
+#: ./profiles/default/actions.xml
+msgid "Code Discountable"
+msgstr "Réduction par coupon"
+
 #: ./browser/interfaces.py:48
 msgid "Discount Code"
 msgstr "Code du coupon de réduction "
 
 #: ./browser/interfaces.py:8
 msgid "Discount Title"
-msgstr "Intitulé de la reduction "
+msgstr "Intitulé de la réduction "
+
+#: ./browser/portlets/portlets30.py:58
+#: ./profiles/default/actions.xml
+msgid "Discountable"
+msgstr "Réduction simple"
 
 #: ./browser/interfaces.py:12
 msgid "Dollars Off"
@@ -28,29 +43,35 @@ msgstr "Euros de réduction "
 
 #: ./browser/viewlets/discount_code.pt:31
 msgid "Enter"
-msgstr ""
+msgstr "Activer"
 
 #: ./profiles/default/actionicons.xml
+#: ./profiles/default/actions.xml
 msgid "Make this Discountable with Code"
 msgstr "Appliquer une réduction par coupons"
 
 #: ./profiles/default/actionicons.xml
+#: ./profiles/default/actions.xml
 msgid "Make this Not Discountable with Code"
 msgstr "Supprimer la réduction par coupon "
 
 #: ./profiles/default/actionicons.xml
+#: ./profiles/default/actions.xml
 msgid "Make this Not a Buy X Get X Free Product"
 msgstr "Proposer un achat en lot "
 
 #: ./profiles/default/actionicons.xml
+#: ./profiles/default/actions.xml
 msgid "Make this Not a Discountable Product"
 msgstr "Supprimer les réductions"
 
 #: ./profiles/default/actionicons.xml
+#: ./profiles/default/actions.xml
 msgid "Make this a Buy X Get X Free Product"
 msgstr "Proposer un lot à prix réduit"
 
 #: ./profiles/default/actionicons.xml
+#: ./profiles/default/actions.xml
 msgid "Make this a Discountable Product"
 msgstr "Offrir une réduction"
 
@@ -78,21 +99,106 @@ msgstr "Nature de la réduction"
 msgid "Value of the discount"
 msgstr "Montant de la réduction "
 
+#. Default: "activate_buyxgetxfreeable"
+#: ./profiles/default/actions.xml
+msgid "activate_buyxgetxfreeable"
+msgstr "activer l'achat par lot"
+
+#. Default: "activate_codediscountable"
+#: ./profiles/default/actions.xml
+msgid "activate_codediscountable"
+msgstr "activer une réduction par coupon"
+
+#. Default: "activate_discountable"
+#: ./profiles/default/actions.xml
+msgid "activate_discountable"
+msgstr ""
+
 #. Default: "You must click enter to activate the discount before checking out."
 #: ./browser/viewlets/discount_code.pt:32
 msgid "dcHelp"
-msgstr ""
+msgstr "Valider votre coupon avant de procéder à l'achat"
 
 #. Default: "Discount Codes:"
 #: ./browser/viewlets/discount_code.pt:29
 msgid "dcLabel"
+msgstr "code du coupon"
+
+#. Default: "deactivate_buyxgetxfreeable"
+#: ./profiles/default/actions.xml
+msgid "deactivate_buyxgetxfreeable"
 msgstr ""
+
+#. Default: "deactivate_discountable"
+#: ./profiles/default/actions.xml
+msgid "deactivate_discountable"
+msgstr ""
+
+#. Default: "deactivate-codediscountable"
+#: ./profiles/default/actions.xml
+msgid "desactivate_codediscountable"
+msgstr ""
+
+#. Default: "A portlet that handles buyxgetxfreeable items"
+#: ./profiles/default/portlets.xml
+msgid "description_buyxgetxfreeable_portlet"
+msgstr "un portlet qui gère les réductions par lots"
+
+#. Default: "A portlet that handles discountable items"
+#: ./profiles/default/portlets.xml
+msgid "description_discountable_portlet"
+msgstr "un portlet qui gère les réductions simples"
+
+#. Default: "${discounted_value_off}( ${discount_value} off )"
+#: ./browser/portlets25.py:45
+msgid "details_discount_off"
+msgstr "${discounted_value_off}( ${discount_value} de réduction"
+
+#. Default: "${discounted_value_percentage}(${discount_value}% off)"
+#: ./browser/portlets25.py:49
+msgid "details_discount_percentage"
+msgstr "${discounted_value_percentage}( soit ${discount_value}% de réduction)"
+
+#. Default: "${discount_title} on ${ref_obj_title} off"
+#: ./browser/viewlets/viewlets.py:67
+msgid "discount_title_ref_obj_title"
+msgstr "${discount_title} sur ${ref_obj_title} "
+
+#. Default: "edit_buyxgetxfreeable"
+#: ./profiles/default/actions.xml
+msgid "edit_buyxgetxfreeable"
+msgstr ""
+
+#. Default: "edit_codediscountable"
+#: ./profiles/default/actions.xml
+msgid "edit_codediscountable"
+msgstr "editer la réduction"
+
+#. Default: "edit_discountable"
+#: ./profiles/default/actions.xml
+msgid "edit_discountable"
+msgstr ""
+
+#. Default: "${number_res} free additional item(s)"
+#: ./browser/viewlets/viewlets.py:78
+msgid "free_additional_items_number"
+msgstr "Nombre d'article(s) gratuit(s)"
+
+#. Default: "${discount_title} on ${ref_obj_title}"
+#: ./browser/viewlets/viewlets.py:80
+msgid "free_additional_items_title"
+msgstr "${discount_title} sur ${ref_obj_title}"
 
 #. Default: "Add to Cart"
 #: ./browser/templates/portlet_content_buyxgetxfreeable.pt:50
 #: ./browser/templates/portlet_content_discountable.pt:54
 msgid "label_add_to_cart"
 msgstr "Ajouter au panier"
+
+#. Default: "Order ${number_to_buy} get ${number_free} additional free (${number_total})"
+#: ./browser/portlets25.py:66
+msgid "orderx_getyfree"
+msgstr " ${number_total} pour le prix de  ${number_to_buy} additional"
 
 #. Default: "Price:"
 #: ./browser/templates/portlet_content_buyxgetxfreeable.pt:39
@@ -105,4 +211,34 @@ msgstr "Prix"
 #: ./browser/templates/portlet_content_discountable.pt:20
 msgid "text_product_details"
 msgstr "Promotion"
+
+#. Default: "BuyXGetXfreeable portlet"
+#: ./profiles/default/portlets.xml
+msgid "title_buyxgetxfreeable_portlet"
+msgstr ""
+
+#. Default: "Discountable portlet"
+#: ./profiles/default/portlets.xml
+msgid "title_discountable_portlet"
+msgstr ""
+
+#. Default: "Total of ${discount_value_X} off"
+#: ./browser/viewlets/viewlets.py:61
+msgid "total_discount_off"
+msgstr "${discount_value_X} en moins"
+
+#. Default: "Total of ${discount_value_percentage} off"
+#: ./browser/viewlets/viewlets.py:65
+msgid "total_discount_percentage"
+msgstr "une économie de ${discount_value_percentage}"
+
+#. Default: "Total of ${discount_value} off"
+#: ./browser/viewlets/viewlets.py:91
+msgid "total_percentage_off"
+msgstr "moins ${discount_value}"
+
+#. Default: "${discount_title} on ${ref_obj_title} off"
+#: ./browser/viewlets/viewlets.py:93
+msgid "total_percentage_off_title"
+msgstr "${discount_title} sur ${ref_obj_title}"
 
