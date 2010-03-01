@@ -1,86 +1,86 @@
-<object name="portal_actions" meta_type="Plone Actions Tool" i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+<object name="portal_actions" meta_type="Plone Actions Tool" i18n:domain="getpaid.discount" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
     <action-provider name="portal_actions">
       <action title="Make this a Discountable Product" 
-                action_id="make_discountable" 
+                action_id="activate_discountable" 
                 category="object_buttons"
-                i18n:attributes="title" 
                 condition_expr="python:path('object/@@discount_content_control').isPossibleDiscountable()" 
                 url_expr="string:$object_url/@@activate-discountable" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id activate_discountable">
             <permission>Modify portal content</permission>
         </action>
     </action-provider>
     <action-provider name="portal_actions">
       <action title="Make this Not a Discountable Product" 
-                action_id="make_not_discountable" 
+                action_id="deactivate_discountable" 
                 category="object_buttons"
-                i18n:attributes="title"  
                 condition_expr="python:path('object/@@discount_content_control').isDiscountable()" 
                 url_expr="string:$object_url/@@deactivate-discountable" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id deactivate_discountable">
             <permission>Modify portal content</permission>
         </action>
       <action title="Make this a Buy X Get X Free Product" 
-                action_id="make_buyxgetxfreeable" 
-                i18n:attributes="title" 
+                action_id="activate_buyxgetxfreeable" 
                 category="object_buttons" 
                 condition_expr="python:path('object/@@discount_content_control').isPossibleDiscountable()" 
                 url_expr="string:$object_url/@@activate-buyxgetxfreeable" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id activate_buyxgetxfreeable">
             <permission>Modify portal content</permission>
         </action>
       <action title="Make this Not a Buy X Get X Free Product" 
-                action_id="make_not_buyxgetxfreeable" 
-                i18n:attributes="title" 
+                action_id="deactivate_buyxgetxfreeable" 
                 category="object_buttons" 
                 condition_expr="python:path('object/@@discount_content_control').isBuyXGetXfreeable()" 
                 url_expr="string:$object_url/@@deactivate-buyxgetxfreeable" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id deactivate_buyxgetxfreeable">
             <permission>Modify portal content</permission>
         </action>
       <action title="Make this Discountable with Code" 
-                action_id="make_code_discountable" 
-                i18n:attributes="title" 
+                action_id="activate_codediscountable" 
                 category="object_buttons" 
                 condition_expr="python:path('object/@@discount_content_control').isPossibleDiscountable()" 
                 url_expr="string:$object_url/@@activate-codediscountable" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id activate_codediscountable">
             <permission>Modify portal content</permission>
         </action>
       <action title="Make this Not Discountable with Code" 
-                action_id="make_not_code_discountable" 
-                i18n:attributes="title" 
+                action_id="deactivate-codediscountable"
                 category="object_buttons" 
                 condition_expr="python:path('object/@@discount_content_control').isCodeDiscountable()" 
                 url_expr="string:$object_url/@@deactivate-codediscountable" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id desactivate_codediscountable">
             <permission>Modify portal content</permission>
         </action>
         <action title="Discountable" 
-                action_id="discountable" 
-                i18n:attributes="title" 
+                action_id="edit_discountable"
                 category="object" 
                 condition_expr="python:path('object/@@discount_content_control').isDiscountable()" 
                 url_expr="string:${object_url}/@@edit-discount" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id edit_discountable">
             <permission>Modify portal content</permission>
         </action>
         <action title="Discountable" 
-                action_id="buyxgetxfreeable" 
-                i18n:attributes="title" 
+                action_id="edit_buyxgetxfreeable"
                 category="object" 
                 condition_expr="python:path('object/@@discount_content_control').isBuyXGetXfreeable()" 
                 url_expr="string:${object_url}/@@edit-buyxgetxfree" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id edit_buyxgetxfreeable">
             <permission>Modify portal content</permission>
         </action>
-        <action title="Discountable" 
-                action_id="codediscountable" 
-                i18n:attributes="title" 
+        <action title="Code Discountable" 
+                action_id="edit_codediscountable"
                 category="object" 
                 condition_expr="python:path('object/@@discount_content_control').isCodeDiscountable()" 
                 url_expr="string:${object_url}/@@edit-codediscountable" 
-                visible="True">
+                visible="True"
+                i18n:attributes="title; action_id edit_codediscountable">
             <permission>Modify portal content</permission>
         </action>
     </action-provider>
