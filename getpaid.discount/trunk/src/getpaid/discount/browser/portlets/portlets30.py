@@ -1,3 +1,5 @@
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.discount')
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from getpaid.discount.browser.interfaces import IDiscountableMarker
@@ -53,7 +55,7 @@ class DiscountableAssignment(base.Assignment):
     def title(self):
         """Title shown in @@manage-portlets.
         """
-        return u"Discountable"
+        return _(u"Discountable")
 
 
 class DiscountableAddForm(base.NullAddForm):
@@ -78,7 +80,7 @@ class BuyXGetXfreeableAssignment(base.Assignment):
     def title(self):
         """Title shown in @@manage-portlets.
         """
-        return u"BuyXGetXFreeable"
+        return _(u"BuyXGetXFreeable")
 
 
 class BuyXGetXfreeableAddForm(base.NullAddForm):
