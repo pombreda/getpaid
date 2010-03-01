@@ -1,3 +1,6 @@
+from zope.i18n import translate
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.discount')
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 
@@ -54,12 +57,16 @@ class DiscountListingViewlet(ViewletBase):
                         discount_title = adapter_obj.getDiscountTitle()
                         discount_type = adapter_obj.getDiscountType()
                         if discount_type != 'Dollars Off':
-                            description = '%0.0f' % discount_value + "% off"
+
+                            msgid = _(u"total_discount_off", default= u"Total of ${discount_value_X} off", mapping={ u"discount_value_X" : discount_value* payable_quantity})
+                            description = translate(msgid, domain='getpaid.discount',context=self.request)
+
                         else:
-                            description = 'Total of $%0.0f off' % (discount_value * payable_quantity)
-                        res = {'title': "%s on %s" % (discount_title, ref_obj.Title()), 
-                               'description': description
-                              }
+                            msgid = _(u"total_discount_percentage", default= u"Total of ${discount_value_percentage} off", mapping={ u"discount_value_percentage" : discount_value* payable_quantity})
+                            description = translate(msgid, domain='getpaid.discount',context=self.request)
+                        msgid = _(u"discount_title_ref_obj_title", default= u"${discount_title} on ${ref_obj_title} off", mapping={ u"discount_title" : discount_title,u"ref_obj_title":ref_obj.Title()})
+                        title = translate(msgid, domain='getpaid.discount',context=self.request)  
+                        res = {'title': title, 'description': description}
                         results.append(res)
                 elif IBuyXGetXFreeableMarker.providedBy(ref_obj):
                     adapter_obj = IBuyXGetXFreeable(ref_obj)
@@ -68,8 +75,11 @@ class DiscountListingViewlet(ViewletBase):
                     if number_to_buy != 0 and number_free != 0:
                         discount_title = adapter_obj.getDiscountTitle()
                         number_res = int(payable_quantity / number_to_buy * number_free)
-                        description = str(number_res) + " free additional item(s)"
-                        res = {'title': "%s on %s" % (discount_title, ref_obj.Title()), 
+                        msgid = _(u"free_additional_items_number", default=u"${number_res} free additional item(s)", mapping={ u"number_res":str(number_res)})
+                        description = translate(msgid, domain='getpaid.discount',context=self.request)
+                        msgid = _(u"free_additional_items_title", default= u"${discount_title} on ${ref_obj_title}", mapping={u"discount_title":discount_title,u"ref_obj_title":ref_obj.Title()})
+  
+                        res = {'title': translate(msgid, domain='getpaid.discount',context=self.request), 
                            'description': description
                           }
                     results.append(res)
@@ -78,8 +88,11 @@ class DiscountListingViewlet(ViewletBase):
                     discount_title = annotation["getpaid.discount.code.title"]
                     discount_value = annotation["getpaid.discount.code.discount"]
                     if discount_value != 0.0:
-                        description = 'Total of $%0.0f off' % (discount_value)
-                        res = {'title': "%s on %s" % (discount_title, ref_obj.Title()), 
+                        msgid = _(u"total_percentage_off", default= u"Total of ${discount_value} off", mapping={ u"discount_value" : discount_value})
+                        description = translate(msgid, domain='getpaid.discount', context=self.request)
+                        msgid = _(u"total_percentage_off_title", default= u"${discount_title} on ${ref_obj_title} off", mapping={ u"discount_title" : discount_title,u"ref_obj_title":ref_obj.Title()})
+                        title = translate(msgid, domain='getpaid.discount',context=self.request)
+                        res = {'title': title, 
                                'description': description
                               }
                         results.append(res)
