@@ -1,7 +1,6 @@
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid.discount')
-from zope.component import getMultiAdapter
 from zope.component import getUtility
 
 from zope import component
@@ -58,9 +57,10 @@ class DiscountListingViewlet(ViewletBase):
                         discount_type = adapter_obj.getDiscountType()
                         if discount_type != 'Dollars Off':
 
-                            msgid = _(u"total_discount_off", default= u"Total of ${discount_value_X} off", mapping={ u"discount_value_X" : discount_value* payable_quantity})
+                            msgid = _(u"total_discount_off", default= u"${discount_value_X}", mapping={ u"discount_value_X" : discount_value* payable_quantity})
                             description = translate(msgid, domain='getpaid.discount',context=self.request)
-
+                            # total value of the discount would be a better word
+                                                                                
                         else:
                             msgid = _(u"total_discount_percentage", default= u"Total of ${discount_value_percentage} off", mapping={ u"discount_value_percentage" : discount_value* payable_quantity})
                             description = translate(msgid, domain='getpaid.discount',context=self.request)
