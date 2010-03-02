@@ -1,3 +1,6 @@
+from zope.i18n import translate
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.discount')
 from Products.Five.browser import BrowserView
 
 from getpaid.discount.browser.interfaces import IDiscountableMarker
@@ -38,9 +41,15 @@ class BaseDiscountPortlet(object):
             if discount_value != 0.0:
                 discount_type = adapter_obj.getDiscountType()
                 if discount_type == 'Dollars Off':
-                    result = "$%0.2f ($%0.2f off)" % (price - discount_value, discount_value)
+                    
+                    msgid = _(u"details_discount_off", default= u"${discounted_value_off}( ${discount_value} off )", mapping={ u"discounted_value" : price - discount_value, u"discount_value": discount_value})
+                    result = translate(msgid, domain='getpaid.discount',context=self.request)
+                    #result = "$%0.2f ($%0.2f off)" % (price - discount_value, discount_value)
                 else:
-                    result = "$%0.2f (%0.0f%s off)" % (price - price*discount_value/100, discount_value, '%')
+                    msgid = _(u"details_discount_percentage", default= u"${discounted_value_percentage}(${discount_value}% off)", mapping={ u"discounted_value_percentage" : price - price*discount_value/100, u"discount_value": discount_value})
+                    result = translate(msgid, domain='getpaid.discount',context=self.request)
+                    
+                    #result = "$%0.2f (%0.0f%s off)" % (price - price*discount_value/100, discount_value, '%')
         return result
 
     def hasBuyXGetXFreeDiscount(self, item):
@@ -53,7 +62,10 @@ class BaseDiscountPortlet(object):
             number_to_buy = adapter_obj.getNumberToBuy()
             number_free = adapter_obj.getNumberFree()
             if number_to_buy != 0 and number_free != 0:
-                result = "Order %d get %d additional free" % (number_to_buy, number_free)
+                #result = "Order %d get %d additional free" % (number_to_buy, number_free)
+                msgid = _(u"orderx_getyfree", default= u"Order ${number_to_buy} get ${number_free} additional free (${number_total})", mapping={ u"number_to_buy" : number_to_buy, u"number_free": number_free, u"number_total": number_free + number_to_buy})
+                result = translate(msgid, domain='getpaid.discount',context=self.request)
+                
         return result
     
 
