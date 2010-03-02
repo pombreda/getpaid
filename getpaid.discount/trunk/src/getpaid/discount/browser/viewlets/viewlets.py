@@ -62,9 +62,9 @@ class DiscountListingViewlet(ViewletBase):
                             # total value of the discount would be a better word
                                                                                 
                         else:
-                            msgid = _(u"total_discount_percentage", default= u"Total of ${discount_value_percentage} off", mapping={ u"discount_value_percentage" : discount_value* payable_quantity})
+                            msgid = _(u"total_discount_percentage", default= u"Total of ${discount_value_percentage}", mapping={ u"discount_value_percentage" : discount_value* payable_quantity})
                             description = translate(msgid, domain='getpaid.discount',context=self.request)
-                        msgid = _(u"discount_title_ref_obj_title", default= u"${discount_title} on ${ref_obj_title} off", mapping={ u"discount_title" : discount_title,u"ref_obj_title":ref_obj.Title()})
+                        msgid = _(u"discount_title_ref_obj_title", default= u"${discount_title} on ${ref_obj_title}", mapping={ u"discount_title" : discount_title,u"ref_obj_title":ref_obj.Title()})
                         title = translate(msgid, domain='getpaid.discount',context=self.request)  
                         res = {'title': title, 'description': description}
                         results.append(res)
