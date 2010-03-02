@@ -1,12 +1,13 @@
 <br />
-<tal:def define="discounts view/getDiscounts">
+<tal:def define="discounts view/getDiscounts"
+ i18n:domain="getpaid.discount">
    <table class="listing" tal:condition="discounts">
      <tr>
-       <th>
-         Discount
+       <th i18n:translate="discount_title_item_title">
+        Description of the discount
        </th>
-       <th>
-         Description
+       <th i18n:translate="discount_value_itemS_title">
+         Total value of the reduction
        </th>
       </tr>
       <tal:rep repeat="discount discounts">
