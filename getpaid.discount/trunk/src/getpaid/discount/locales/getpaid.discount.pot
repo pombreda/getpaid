@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-03-01 16:39+0000\n"
+"POT-Creation-Date: 2010-03-02 14:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,9 +160,19 @@ msgstr ""
 msgid "details_discount_percentage"
 msgstr ""
 
-#. Default: "${discount_title} on ${ref_obj_title} off"
+#. Default: "Description of the discount"
+#: ./browser/viewlets/discount_listing.pt:6
+msgid "discount_title_item_title"
+msgstr ""
+
+#. Default: "${discount_title} on ${ref_obj_title}"
 #: ./browser/viewlets/viewlets.py:67
 msgid "discount_title_ref_obj_title"
+msgstr ""
+
+#. Default: "Total value of the reduction"
+#: ./browser/viewlets/discount_listing.pt:9
+msgid "discount_value_itemS_title"
 msgstr ""
 
 #. Default: "edit_buyxgetxfreeable"
@@ -223,12 +233,12 @@ msgstr ""
 msgid "title_discountable_portlet"
 msgstr ""
 
-#. Default: "Total of ${discount_value_X} off"
-#: ./browser/viewlets/viewlets.py:61
+#. Default: "${discount_value_X}"
+#: ./browser/viewlets/viewlets.py:60
 msgid "total_discount_off"
 msgstr ""
 
-#. Default: "Total of ${discount_value_percentage} off"
+#. Default: "Total of ${discount_value_percentage}"
 #: ./browser/viewlets/viewlets.py:65
 msgid "total_discount_percentage"
 msgstr ""
