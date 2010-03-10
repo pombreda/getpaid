@@ -31,7 +31,11 @@ from persistent import Persistent
 from zope.interface import implements
 from zope import component
 
-from zope.app.container.interfaces import ILocation
+try:
+    from zope.location.interfaces import ILocation
+except ImportError:
+    # BBB for Zope 2.10
+    from zope.app.container.interfaces import ILocation
 try:
     from zope.annotation.interfaces import IAttributeAnnotatable
 except ImportError:
