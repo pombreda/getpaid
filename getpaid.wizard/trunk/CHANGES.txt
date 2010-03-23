@@ -6,6 +6,7 @@ CHANGES
 0.4 (unreleased)
 ----------------
 
+* Import processInputs from a more appropriate location.
 
 0.3 (2008-08-29)
 ----------------

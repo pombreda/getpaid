@@ -5,9 +5,7 @@ except ImportError:
     #plone2.5 compatibility
     from zope.app.publisher.interfaces.browser import IBrowserView
 from zope.formlib import form
-from Products.Five.formlib import formbase 
-
-from getpaid.core import interfaces as coreinterfaces
+from Products.Five.browser.decode import processInputs
 
 import interfaces
 
@@ -108,7 +106,7 @@ class DataManager( object ):
         fields = form.Fields()
         for step in self.controller.getTraversedFormSteps():
             # call processInputs to convert request.form to unicode
-            formbase.processInputs( step.request )
+            processInputs( step.request )
             # Five only convert request.form to unicode, but (some) formlib widgets use request
             # so we need to get unicode values from request.form and copy them to request
             for key in step.request.form.keys():
@@ -305,6 +303,4 @@ class ListViewController( ViewControllerBase ):
         step_name = self.getCurrentStepName()
         idx = self.steps.index( step_name )
         return [ self.getStep( step_name ) for step_name \
-                 in self.steps[ : self.steps.index( step_name ) + 1 ] ]
-
-        
+                 in self.steps[ : idx + 1 ] ]
