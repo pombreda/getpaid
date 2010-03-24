@@ -29,11 +29,7 @@ from zope import interface
 from getpaid.core import interfaces, options
 from interfaces import INullPaymentOptions
 
-try:
-    # For Plone-3 and above.
-    from zope.annotation.interfaces import IAnnotations
-except ImportError:
-    from zope.app.annotation.interfaces import IAnnotations
+from zope.annotation.interfaces import IAnnotations
 
 NullPaymentOptions = options.PersistentOptions.wire(
     "NullPaymentOptions",
