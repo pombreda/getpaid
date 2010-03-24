@@ -26,29 +26,21 @@
 
 __docformat__ = "reStructuredText"
 
-import doctest
 import unittest
-from zope.testing.doctestunit import DocFileSuite
 from zope.app.testing import placelesssetup, ztapi
 
-try:
-    from zope.annotation import interfaces as annotation_interfaces
-    from zope.annotation import attribute
-except ImportError:
-    # BBB for Zope 2.9
-    from zope.app.annotation import interfaces as annotation_interfaces
-    from zope.app.annotation import attribute
+from zope.annotation import interfaces as annotation_interfaces
+from zope.annotation import attribute
 
 from hurry.workflow import interfaces
 
-import random, string, datetime
+import random, string
 
 from zope import component
 
-from getpaid.core.interfaces import IOrder, IOrderManager, IOrderWorkflowLog, workflow_states
+from getpaid.core.interfaces import IOrder, IOrderManager, IOrderWorkflowLog
 from getpaid.core import order, cart, item as line_item
 from getpaid.core.workflow import store, order as oworkflow
-from getpaid.core import payment
 
 class GetPaidTestCase( unittest.TestCase ):
     

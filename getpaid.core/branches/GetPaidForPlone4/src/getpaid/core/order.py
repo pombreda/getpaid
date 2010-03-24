@@ -42,13 +42,8 @@ from zope.schema.fieldproperty import FieldProperty
 from zope.app.container.btree import BTreeContainer
 from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
 
-try:
-    from zope.annotation.interfaces import IAttributeAnnotatable
-    from zope.annotation.interfaces import IAnnotations
-except ImportError:
-    # BBB for Zope 2.9
-    from zope.app.annotation.interfaces import IAttributeAnnotatable
-    from zope.app.annotation.interfaces import IAnnotations
+from zope.annotation.interfaces import IAttributeAnnotatable
+from zope.annotation.interfaces import IAnnotations
 
 from getpaid.core import interfaces, cart
 

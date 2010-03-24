@@ -53,7 +53,6 @@ setup(
     include_package_data=True,
     install_requires = [ 'hurry.workflow',
                          'setuptools',
-                         'zope.app.annotation',
                          'zope.index',
                          'zope.interface',
                          'zope.event',

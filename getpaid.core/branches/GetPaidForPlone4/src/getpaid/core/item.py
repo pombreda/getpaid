@@ -36,11 +36,7 @@ try:
 except ImportError:
     # BBB for Zope 2.10
     from zope.app.container.interfaces import ILocation
-try:
-    from zope.annotation.interfaces import IAttributeAnnotatable
-except ImportError:
-    # BBB for Zope 2.9
-    from zope.app.annotation.interfaces import IAttributeAnnotatable
+from zope.annotation.interfaces import IAttributeAnnotatable
 from zope.app.intid.interfaces import IIntIds
 
 from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
