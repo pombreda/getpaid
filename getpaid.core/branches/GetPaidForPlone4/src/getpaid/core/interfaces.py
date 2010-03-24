@@ -27,18 +27,8 @@ $Id$
 
 from zope.interface import Interface, Attribute, classImplements, implements
 from zope import schema
-try:
-    from zope.component.interfaces import IObjectEvent
-except ImportError:
-    # BBB for Zope 2.9
-    from zope.app.event.interfaces import IObjectEvent
-
-try:
-    from zope.component.interfaces import ObjectEvent
-except ImportError: 
-    # BBB for Zope 2.9
-    from zope.app.event.objectevent import ObjectEvent    
-    
+from zope.component.interfaces import IObjectEvent
+from zope.component.interfaces import ObjectEvent
 from zope.app.container.interfaces import IContainer
 from zope.schema.interfaces import ITextLine
 from zope.schema.vocabulary import SimpleVocabulary
@@ -615,7 +605,8 @@ class IUserContactInformation( Interface ):
     email_html_format = schema.Choice( 
                                         title=_(u"Email Format"), 
                                         description=_(u"Would you prefer to receive rich html emails or only plain text"),
-                                        vocabulary = EmailFormatPreferenceVocabulary
+                                        vocabulary = EmailFormatPreferenceVocabulary,
+                                        default = True,
                                         )
 
                                 
