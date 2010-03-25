@@ -1,0 +1,150 @@
+# Manually defined message ids
+msgid ""
+msgstr ""
+"Project-Id-Version: GetPaid VERSION\n"
+"POT-Creation-Date: 2009-05-19 06:53+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: getpaid.warehouse\n"
+
+#: ./browser/warehouse.py:57
+msgid "Add"
+msgstr ""
+
+#: ./browser/warehouse.py:91
+msgid "Add Warehouse"
+msgstr ""
+
+#: ./browser/content.py:21
+msgid "Apply"
+msgstr ""
+
+#: ./browser/fulfillment.py:169
+msgid "Backordered Items"
+msgstr ""
+
+#: ./browser/fulfillment.py:232
+msgid "Create Shipment"
+msgstr ""
+
+#: ./browser/fulfillment.py:344
+msgid "Created"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+#: ./browser/warehouse.py:165
+msgid "Edit"
+msgstr ""
+
+msgid "Fulfillment"
+msgstr ""
+
+msgid "Inventory"
+msgstr ""
+
+#: ./browser/fulfillment.py:345
+msgid "Item Count"
+msgstr ""
+
+#: ./browser/warehouse.py:49
+msgid "Name"
+msgstr ""
+
+#: ./browser/fulfillment.py:90
+msgid "Order Id"
+msgstr ""
+
+#: ./browser/fulfillment.py:222
+msgid "Order Items"
+msgstr ""
+
+#: ./browser/fulfillment.py:215
+msgid "Pallet"
+msgstr ""
+
+#: ./interfaces.py:32
+msgid "Pick Bin"
+msgstr ""
+
+#: ./browser/fulfillment.py:218
+msgid "Pickbin"
+msgstr ""
+
+#: ./browser/fulfillment.py:282
+msgid "Please Select Items to Ship"
+msgstr ""
+
+#: ./browser/content.py:18
+msgid "Product Inventory"
+msgstr ""
+
+#: ./interfaces.py:38
+msgid "Quantity Available For Sale"
+msgstr ""
+
+#: ./interfaces.py:34
+msgid "Quantity in Stock"
+msgstr ""
+
+#: ./browser/fulfillment.py:233
+msgid "Select Items to Ship, and Enter Shipping Details"
+msgstr ""
+
+#: ./browser/fulfillment.py:310
+msgid "Shipment Created"
+msgstr ""
+
+#: ./browser/fulfillment.py:349
+msgid "Shipments"
+msgstr ""
+
+#: ./browser/fulfillment.py:188
+msgid "Shipped Items"
+msgstr ""
+
+#: ./browser/fulfillment.py:346
+msgid "Tracking"
+msgstr ""
+
+#: ./interfaces.py:39
+msgid "Warehouse"
+msgstr ""
+
+#: ./browser/warehouse.py:117
+msgid "Warehouse Information"
+msgstr ""
+
+#: ./interfaces.py:17
+msgid "Warehouse Name"
+msgstr ""
+
+#: ./interfaces.py:38
+msgid "Warehouse stock minus pending orders"
+msgstr ""
+
+msgid "Warehouses"
+msgstr ""
+
+#: ./locales/empty.pt:3
+msgid "do_not_translate"
+msgstr ""
+
+#. Default: "Warehouses"
+#: ./browser/warehouse-actions.pt:3
+msgid "legend_warehouses"
+msgstr ""
+
+#: ./browser/fulfillment.py:335
+msgid "n/a"
+msgstr ""
+
