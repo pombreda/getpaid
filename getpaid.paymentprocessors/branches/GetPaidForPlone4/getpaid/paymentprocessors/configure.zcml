@@ -7,9 +7,10 @@
 
     <i18n:registerTranslations directory="locales" />
 
-    <vocabulary
+    <utility
       name="getpaid.paymentprocessors.payment_processors"
-      factory=".vocabularies.PaymentProcessors"
+      component=".vocabularies.PaymentProcessors"
+      provides="zope.schema.interfaces.IVocabularyFactory"
     />
 
 
