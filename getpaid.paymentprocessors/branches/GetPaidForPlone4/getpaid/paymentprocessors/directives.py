@@ -24,7 +24,7 @@ from zope.app.publisher.browser.viewmeta import view as zope_app_view
 from zope.app.publisher.browser.viewmeta import providesCallable, \
      _handle_menu, _handle_for
 
-from Globals import InitializeClass as initializeClass
+from App.class_init import InitializeClass as initializeClass
 
 from zope.configuration.fields import GlobalObject, GlobalInterface
 from zope.configuration.fields import MessageID
