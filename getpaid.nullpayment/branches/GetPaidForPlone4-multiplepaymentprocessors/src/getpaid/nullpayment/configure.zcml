@@ -1,6 +1,8 @@
 <configure xmlns="http://namespaces.zope.org/zope"
 	   xmlns:five="http://namespaces.zope.org/five"
-           xmlns:i18n="http://namespaces.zope.org/i18n">
+       xmlns:i18n="http://namespaces.zope.org/i18n"
+       xmlns:zcml="http://namespaces.zope.org/zcml"
+       >
 
   <i18n:registerTranslations directory="locales" />
 
@@ -16,5 +18,12 @@
      factory=".null.NullPaymentAdapter"
      name="Testing Processor"
      />
+
+  <!-- Include payment processors directives only if getpaid.paymentprocessor package is present.
+
+  	This allows backwads compatibility in GetPaid payment processor design.
+
+    -->
+  <include zcml:condition="installed getpaid.paymentprocessors" file="paymentprocessors.zcml" />
 
 </configure>

@@ -14,9 +14,11 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
+version = read('src', 'getpaid', 'nullpayment', 'version.txt')[:-1]
+
 setup(
     name='getpaid.nullpayment',
-    version='0.3.2dev',
+    version=version,
     license = 'BSD',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
