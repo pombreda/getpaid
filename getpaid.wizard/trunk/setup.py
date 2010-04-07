@@ -6,7 +6,7 @@ def read(*rnames):
 
 setup(
     name="getpaid.wizard",
-    version="0.4",
+    version="0.5dev",
     install_requires=['setuptools',
                       'getpaid.core',], 
     dependency_links=['http://download.zope.org/distribution/',],
