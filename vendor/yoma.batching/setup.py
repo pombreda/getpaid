@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="yoma.batching",
-    version="0.2.2",
+    version="0.2.2-getpaid",
     packages=find_packages('src'),
     package_dir= {'':'src'},
     namespace_packages=['yoma'],
