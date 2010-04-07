@@ -28,7 +28,8 @@ $Id$
 from zope import interface
 from getpaid.core import interfaces, options
 from interfaces import INullPaymentOptions
-from zope.app.annotation.interfaces import IAnnotations
+
+from zope.annotation.interfaces import IAnnotations
 
 NullPaymentOptions = options.PersistentOptions.wire(
     "NullPaymentOptions",

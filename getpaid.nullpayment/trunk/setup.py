@@ -49,7 +49,6 @@ setup(
     include_package_data=True,
     install_requires = ['setuptools',
                         'getpaid.core',
-                        'zope.app.annotation',
                        ],
     zip_safe = False,
     )
