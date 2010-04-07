@@ -1,7 +1,7 @@
 """
 $Id$
 
-Copyright (c) 2007 - 2008 ifPeople, Kapil Thangavelu, and Contributors
+Copyright (c) 2007 - 2010 ifPeople, Kapil Thangavelu, and Contributors
 All rights reserved. Refer to LICENSE.txt for details of distribution and use.
 
 Distutils setup
@@ -14,7 +14,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.8.0dev'
+version = '0.8.0'
 
 setup(
     name='getpaid.core',
