@@ -2,8 +2,12 @@
 CHANGES
 =======
 
-0.7.6 (unreleased)
+0.8.0 (unreleased)
 ------------------
+
+- Adjusted imports to add support for Zope 2.12, and remove support for
+  Zope 2.9.
+  [davisagli]
 
 0.7.5 (2009-07-07)
 ------------------
