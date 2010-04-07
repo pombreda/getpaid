@@ -16,7 +16,7 @@ def read(*rnames):
 
 setup(
     name='getpaid.nullpayment',
-    version='0.4.0',
+    version='0.4.1dev',
     license = 'BSD',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
