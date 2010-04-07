@@ -2,8 +2,7 @@
 CHANGES
 =======
 
-
-0.4 (unreleased)
+0.4 (2010-04-07)
 ----------------
 
 * Import processInputs from a more appropriate location.
@@ -12,5 +11,4 @@ CHANGES
 ----------------
 
 * Added general text documents to project root.
-
 
