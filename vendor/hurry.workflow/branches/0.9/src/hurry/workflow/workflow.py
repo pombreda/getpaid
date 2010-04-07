@@ -8,23 +8,12 @@ from zope.security.interfaces import NoInteraction
 from zope.security.interfaces import Unauthorized
 from zope.security.checker import CheckerPublic
 
-from zope.app import zapi
-try:
-    from zope.annotation.interfaces import IAnnotations
-except:
-    from zope.app.annotation.interfaces import IAnnotations
-    
+from zope.annotation.interfaces import IAnnotations
 from zope.app.container.contained import Contained
 
-try:
-    from zope.lifecycleevent import ObjectModifiedEvent
-except ImportError:
-    from zope.app.event.objectevent import ObjectModifiedEvent
+from zope.lifecycleevent import ObjectModifiedEvent
 
-try:    
-    from zope.component.interfaces import ObjectEvent
-except ImportError:
-    from zope.app.event.objectevent import ObjectEvent
+from zope.component.interfaces import ObjectEvent
 
 from zope import component
 from hurry.workflow import interfaces
@@ -140,7 +129,7 @@ class WorkflowState(object):
         self.context = removeSecurityProxy(context)
 
     def initialize(self):
-        wf_versions = zapi.getUtility(IWorkflowVersions)
+        wf_versions = component.getUtility(IWorkflowVersions)
         self.setId(wf_versions.createVersionId())
         
     def setState(self, state):
@@ -181,7 +170,7 @@ class WorkflowInfo(object):
         return IWorkflowState( context )
     
     def workflow( self ):
-        return zapi.queryAdapter(self.context, IWorkflow) or zapi.getUtility(IWorkflow)
+        return component.queryAdapter(self.context, IWorkflow) or component.getUtility(IWorkflow)
     
     def fireTransition(self, transition_id, comment=None, side_effect=None,
                        check_security=True):
@@ -255,7 +244,7 @@ class WorkflowInfo(object):
         
     def fireTransitionForVersions(self, state, transition_id):
         id = self.state().getId()
-        wf_versions = zapi.getUtility(IWorkflowVersions)
+        wf_versions = component.getUtility(IWorkflowVersions)
         for version in wf_versions.getVersions(state, id):
             if version is self.context:
                 continue
@@ -275,7 +264,7 @@ class WorkflowInfo(object):
                 return
             
     def hasVersion(self, state):
-        wf_versions = zapi.getUtility(IWorkflowVersions)
+        wf_versions = component.getUtility(IWorkflowVersions)
         id = self.state().getId()
         return wf_versions.hasVersion(state, id)
     
@@ -396,17 +385,17 @@ class ParallelWorkflowInfo( WorkflowInfo ):
     
     def info( self, context = None ):
         if context is None:
-            return zapi.getAdapter( self.context, IWorkflowInfo, self.name )
-        return zapi.getAdapter( context, IWorkflowInfo, self.name )        
+            return component.getAdapter( self.context, IWorkflowInfo, self.name )
+        return component.getAdapter( context, IWorkflowInfo, self.name )        
 
     def state( self, context = None ):
         if context is None:
-            return zapi.getAdapter( self.context, IWorkflowState, self.name )
-        return zapi.getAdapter( context, IWorkflowState, self.name )
+            return component.getAdapter( self.context, IWorkflowState, self.name )
+        return component.getAdapter( context, IWorkflowState, self.name )
     
     def workflow( self ):
-        return zapi.queryAdapter( self.context, IWorkflow, self.name ) \
-               or zapi.getUtility(IWorkflow, self.name )
+        return component.queryAdapter( self.context, IWorkflow, self.name ) \
+               or component.getUtility(IWorkflow, self.name )
 
         
                     

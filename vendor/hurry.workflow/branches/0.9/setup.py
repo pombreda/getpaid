@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="hurry.workflow",
-    version="0.9.1",
+    version="0.9.2-getpaid",
     packages=find_packages('src'),
     
     package_dir= {'':'src'},

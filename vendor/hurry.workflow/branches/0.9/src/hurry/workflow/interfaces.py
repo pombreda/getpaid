@@ -1,10 +1,6 @@
 from zope.interface import Interface, Attribute
 
-try:
-    from zope.component.interfaces import IObjectEvent
-except ImportError:
-    from zope.app.event.interfaces import IObjectEvent    
-
+from zope.component.interfaces import IObjectEvent
 
 MANUAL = 0
 AUTOMATIC = 1

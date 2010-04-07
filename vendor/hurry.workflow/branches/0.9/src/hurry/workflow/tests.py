@@ -3,13 +3,8 @@ import unittest
 from zope.testing import doctest
 from zope.app.testing import placelesssetup, ztapi
 
-try:
-    from zope.annotation import interfaces as annotation_interfaces
-    from zope.annotation import attribute
-except ImportError:
-    # BBB for Zope 2.9
-    from zope.app.annotation import interfaces as annotation_interfaces
-    from zope.app.annotation import attribute
+from zope.annotation import interfaces as annotation_interfaces
+from zope.annotation import attribute
 from hurry.workflow import interfaces, workflow
 
 class WorkflowVersions(workflow.WorkflowVersions):
@@ -42,7 +37,6 @@ class WorkflowVersions(workflow.WorkflowVersions):
         return bool(self.getVersions(state, id))
 
     def hasVersionId(self, id):
-        result = []
         for version in self.versions:
             state_adapter = interfaces.IWorkflowState(version)
             if state_adapter.getId() == id:
