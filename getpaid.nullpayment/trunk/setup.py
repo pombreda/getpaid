@@ -1,7 +1,7 @@
 """
 $Id$
 
-Copyright (c) 2007 - 2008 ifPeople, Kapil Thangavelu, and Contributors
+Copyright (c) 2007 - 2010 ifPeople, Kapil Thangavelu, and Contributors
 All rights reserved. Refer to LICENSE.txt for details of distribution and use.
 
 Distutils setup
@@ -16,7 +16,7 @@ def read(*rnames):
 
 setup(
     name='getpaid.nullpayment',
-    version='0.3.2dev',
+    version='0.4.0',
     license = 'BSD',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
@@ -48,7 +48,7 @@ setup(
     namespace_packages=['getpaid'],
     include_package_data=True,
     install_requires = ['setuptools',
-                        'getpaid.core',
+                        'getpaid.core>=0.8.0',
                        ],
     zip_safe = False,
     )
