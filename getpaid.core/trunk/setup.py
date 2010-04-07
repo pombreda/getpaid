@@ -14,7 +14,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.7.6dev'
+version = '0.8.0dev'
 
 setup(
     name='getpaid.core',
@@ -53,7 +53,8 @@ setup(
     include_package_data=True,
     install_requires = [ 'hurry.workflow',
                          'setuptools',
-                         'zope.app.annotation',
+                         'zope.annotation',
+                         'zope.index',
                          'zope.interface',
                          'zope.event',
                          'zope.schema',

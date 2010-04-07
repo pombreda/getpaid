@@ -48,8 +48,9 @@ Let's attach our cart to the order:
 
 and now we can ask the order, its total price:
   
-  >>> order.getSubTotalPrice()
-  Decimal("125.0")
+  >>> from decimal import Decimal
+  >>> order.getSubTotalPrice() == Decimal("125.0")
+  True
 
 [ xxx talk about products and payable line items here ??]
 
@@ -277,7 +278,9 @@ same id as an existing order, things will fail:
 
    >>> new_order = Order()
    >>> new_order.order_id = order.order_id
-   >>> order_manager.store( new_order )
-   Traceback (most recent call last):
-      ...
-   DuplicationError: ...
+   >>> try:
+   ...     order_manager.store( new_order )
+   ... except Exception, e:
+   ...     if e.__class__.__name__ in ('KeyError', 'DuplicationError'):
+   ...         print 'duplicate'
+   duplicate
