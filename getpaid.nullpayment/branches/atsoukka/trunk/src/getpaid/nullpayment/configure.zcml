@@ -1,20 +1,32 @@
 <configure xmlns="http://namespaces.zope.org/zope"
 	   xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:i18n="http://namespaces.zope.org/i18n">
 
   <i18n:registerTranslations directory="locales" />
-
+  
+  <!-- Plugin Manager -->
   <adapter
      for="getpaid.core.interfaces.IStore"
-     provides=".interfaces.INullPaymentOptions"
-     factory=".null.NullPaymentOptions"
+     provides="getpaid.core.interfaces.IPluginManager"
+     factory=".plugin.NullPaymentPlugin"
+     name="nullpayment"
      />
-
-  <adapter
-     for="getpaid.core.interfaces.IStore"
-     provides="getpaid.core.interfaces.IPaymentProcessor"
-     factory=".null.NullPaymentAdapter"
-     name="Testing Processor"
+  
+  <!-- Install at PloneGetPaid Installation (till we have a plugin mannage ui)-->
+  <subscriber
+     for="getpaid.core.interfaces.IStore                                                                           
+          getpaid.core.interfaces.IStoreInstalledEvent"
+     handler=".plugin.storeInstalled"
      />
-
+  
+  <!-- Register ISettingsPaymentManager viewlet -->
+  <browser:viewlet
+     name="nullpayment"
+     manager="Products.PloneGetPaid.interfaces.ISettingsPaymentManager"
+     class=".admin.NullPaymentOptions"
+     permission="cmf.ManagePortal"
+     weight="20"
+     />
+  
 </configure>

@@ -25,32 +25,29 @@
 $Id$
 """
 
-from zope import interface
+from zope import schema, interface
+from persistent import Persistent
+
 from getpaid.core import interfaces, options
 from interfaces import INullPaymentOptions
 
 from zope.annotation.interfaces import IAnnotations
 
-NullPaymentOptions = options.PersistentOptions.wire(
-    "NullPaymentOptions",
-    "getpaid.nullpayment",
-    INullPaymentOptions
-    )
-
 LAST_FOUR = "getpaid.null.cc_last_four"
 
-class NullPaymentAdapter( object ):
+class NullPaymentProcessor( Persistent ):
 
     interface.implements( interfaces.IPaymentProcessor )
 
-    options_interface = INullPaymentOptions
-
-    def __init__( self, context ):
-        self.context = context
-        self.settings = INullPaymentOptions( self.context )
+    def __init__( self ):
+        # initialize defaults from schema
+        for name, field in schema.getFields( INullPaymentOptions ).items():
+            field.set( self, field.query( self, field.default ) )
+        super( NullPaymentProcessor, self).__init__()
         
     def authorize( self, order, payment ):
-        if self.settings.allow_authorization == u'allow_authorization':
+        options = INullPaymentOptions( self )
+        if options.allow_authorization == u'allow_authorization':
             annotation = IAnnotations( order )
             annotation[ LAST_FOUR ] = payment.credit_card[-4:]
 
@@ -61,11 +58,13 @@ class NullPaymentAdapter( object ):
         return "Authorization Failed"
 
     def capture( self, order, amount ):
-        if self.settings.allow_capture == u'allow_capture':
+        options = INullPaymentOptions( self )
+        if options.allow_capture == u'allow_capture':
             return interfaces.keys.results_success
         return "Capture Failed"
 
     def refund( self, order, amount ):
-        if self.settings.allow_refunds == u'allow_refund':
+        options = INullPaymentOptions( self )
+        if options.allow_refunds == u'allow_refund':
             return interfaces.keys.results_success
         return "Refund Failed"
