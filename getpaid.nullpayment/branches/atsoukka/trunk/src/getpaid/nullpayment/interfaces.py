@@ -37,6 +37,17 @@ class INullPaymentOptions( interfaces.IPaymentProcessorOptions ):
     Null Payment Options
     """
 
+    accepted_credit_cards = schema.List(
+        title = _(u"Accepted Credit Cards"),
+        required = False,
+        default = [],
+        description = _(u"Credit cards accepted for payment"),
+        value_type = schema.Choice( title=u"credit_card_types",
+                                    source="getpaid.core.credit_card_types" )
+        )
+
+    use_ssl_for_checkout = schema.Bool( title=_(u"Use SSL for checkout"), default=False)
+
     allow_authorization = schema.Choice(
         title=_(u"Allow Authorizations"),
         default=u"allow_authorization",
@@ -57,6 +68,3 @@ class INullPaymentOptions( interfaces.IPaymentProcessorOptions ):
         values = (u"allow_refund",
                   u"no_refund" )
         )
-
-
-
