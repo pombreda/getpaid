@@ -2,6 +2,13 @@
 CHANGES
 =======
 
+1.8 (unreleased)
+----------------
+
+1.7 (2010-04-21)
+----------------
+ - Before sending an order to Salesforce, if there is a shippable item in the cart and the user has not either provided a shipping address or marked ship_same_biling, check that field for them
+
 1.6 (2009-10-21)
 ----------------
 
