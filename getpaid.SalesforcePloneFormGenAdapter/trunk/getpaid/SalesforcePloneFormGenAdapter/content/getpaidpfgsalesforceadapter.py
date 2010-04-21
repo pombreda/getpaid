@@ -43,6 +43,7 @@ from Products.salesforcepfgadapter.content.salesforcepfgadapter import Salesforc
 
 # Get Paid events
 from getpaid.core.interfaces import workflow_states, IShoppingCartUtility, IShippableOrder, IShippingRateService, IShippableLineItem
+from getpaid.core import interfaces
 from zope.app.component.hooks import getSite
 from zope.app.annotation.interfaces import IAnnotations
 
@@ -717,6 +718,20 @@ def _mapObject(order, item, sfObject, fieldMap, parentSFField=None):
     # Copy address into a dummy object so I can handle ship same as billing
     # it would be nice if the field names in the shipping and billing
     # structures where the same
+
+    # Putting this here is hacky, but it is cleaner then doing it in
+    # _getValueFromOrder for each field.  The correct place is in
+    # Products.PloneGetPaid/browser/checkout.py when the form is 
+    # submitted, but I'm unable to get the error case to display
+    # the same as normal form field validation
+    # so I do this check on the back end.  Basically this is put in'
+    # place to make sure either a shipping address was provided
+    # or ship_same_billing was set
+    if bool( filter(  interfaces.IShippableLineItem.providedBy, order.shopping_cart.values() ) ) and not order.shipping_address.ship_same_billing:
+        
+        # The fields we need are ship_first_line, ship_city, ship_state, ship_postal_code
+        if order.shipping_address.ship_first_line == None or order.shipping_address.ship_city == None or order.shipping_address.ship_state == u'??NV' or order.shipping_address.ship_postal_code == None:
+            order.shipping_address.ship_same_billing = True
 
     for mapping in fieldMap:
         if len(mapping['sf_field']) > 0:
