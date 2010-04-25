@@ -31,8 +31,8 @@ This checkout method is possible for Plone 3.2.x and later which are purely Pyth
 based Plone distributions.
 
   # Make a normal Plone 3.x install using [http://plone.org/documentation/tutorial/buildout/creating-a-buildout-for-your-project/ paster plone3_buildout] command
-  # Modify the resulting buildout.cfg as described in [http://getpaid.googlecode.com/svn/getpaid.buildout/trunk/getpaid.trunk.cfg getpaid.trunk.cfg] instructions
-  # Run commands described in [http://getpaid.googlecode.com/svn/getpaid.buildout/trunk/getpaid.trunk.cfg getpaid.trunk.cfg]
+  # Modify the resulting buildout.cfg as described in [http://getpaid.googlecode.com/svn/getpaid.buildout/trunk/README.txt README.txt] instructions
+  # Run commands described in it
 
 === Old fashioned way ===
 
