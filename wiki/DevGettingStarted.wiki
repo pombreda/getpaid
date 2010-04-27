@@ -49,7 +49,7 @@ Make sure you use https and not http, as you will have authentication problems l
 
 For using authorize.net payment processor, uncomment zc.authorizeddotnetet and getpaid.authorizenet in buildout.cfg
 
-Run the buildout bootstrap script using a python interpreter that Zope likes (for example, `python2.4`):
+Run the buildout bootstrap script using a python interpreter that Zope likes (for example, `python2.4`, make sure that  python-pkg-resources is installed ):
 
 {{{
 cd getpaid.buildout
