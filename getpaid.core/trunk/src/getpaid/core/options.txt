@@ -18,6 +18,7 @@ Test if the annotation keys are correct.
   True
 
 Does the first storage still have its own annotation key?
+Currently this fails - migration will need to be done before committing the fix.
   
   >>> MyStorage.annotation_key == "mystorage.mykey"
   True

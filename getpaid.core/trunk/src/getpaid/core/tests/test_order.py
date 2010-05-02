@@ -118,6 +118,11 @@ def test_suite():
                      tearDown=placelesssetup.tearDown,
                      optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
                      ),    
+        DocFileSuite('../options.txt',
+                     setUp=base.coreSetUp,
+                     tearDown=placelesssetup.tearDown,
+                     optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS,
+                     ),    
         unittest.makeSuite( OrderQueryTests ),
         unittest.makeSuite( OrderLogTests ),        
         ))                          
