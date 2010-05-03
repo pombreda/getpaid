@@ -37,13 +37,14 @@ from hurry.workflow import interfaces
 import random, string
 
 from zope import component
+from zope import interface
 
 from getpaid.core.interfaces import IOrder, IOrderManager, IOrderWorkflowLog
 from getpaid.core import order, cart, item as line_item
 from getpaid.core.workflow import store, order as oworkflow
 
 class GetPaidTestCase( unittest.TestCase ):
-    
+
     def setUp( self ):
         coreSetUp( )
         super(GetPaidTestCase, self).setUp()
@@ -59,7 +60,7 @@ def createOrders( how_many=10 ):
         o.order_id = str(i)
 
         o.shopping_cart = sc = cart.ShoppingCart()
-        
+
         for i in range(0, 10):
             item = line_item.LineItem()
             item.name = "p%s"%random.choice( string.letters )
@@ -69,12 +70,42 @@ def createOrders( how_many=10 ):
             if item.item_id in sc:
                 continue
             sc[item.item_id] = item
-            
+
         o.user_id = "u%s"%random.choice( string.letters )
         #o.finance_workflow.fireTransition('create')
         #o.fulfillment_workflow.fireTransition('create')
-        
+
         manager.store( o )
+
+        yield o
+
+def createRecurringOrders( how_many=10 ):
+    """
+    Create some orders with recurring payable content...
+    """
+    manager = component.getUtility( IOrderManager )
+
+    for i in range(1, how_many):
+        o = order.Order()
+        o.order_id = str(i)
+
+        o.shopping_cart = sc = cart.ShoppingCart()
+
+        for i in range(0, 10):
+            item = line_item.RecurringPayableLineItem()
+            item.name = "p%s"%random.choice( string.letters )
+            item.quantity = random.randint(1,25)
+            item.cost = random.randint(30, 100)
+            item.item_id = "i%s"%random.choice( string.letters )
+            if item.item_id in sc:
+                continue
+            sc[item.item_id] = item
+
+        o.user_id = "u%s"%random.choice( string.letters )
+
+        manager.store( o )
+        from getpaid.core.interfaces import IRecurringOrder
+        interface.directlyProvides(o, IRecurringOrder)
 
         yield o
 
@@ -102,7 +133,7 @@ def coreSetUp( test=None ):
                      interfaces.IWorkflowInfo,
                      oworkflow.FulfillmentInfo,
                     'order.fulfillment')
-    
+
     ztapi.provideAdapter(annotation_interfaces.IAttributeAnnotatable,
                          annotation_interfaces.IAnnotations,
                          attribute.AttributeAnnotations)
@@ -110,20 +141,20 @@ def coreSetUp( test=None ):
     ztapi.provideUtility(interfaces.IWorkflow,
                          oworkflow.FulfillmentWorkflow(),
                         'order.fulfillment')
-                        
+
     ztapi.provideUtility(interfaces.IWorkflow,
                         oworkflow.FinanceWorkflow(),
                         'order.finance')
 
     ztapi.provideUtility(interfaces.IWorkflowVersions,
                          store.StoreVersions())
-    
+
     ztapi.provideUtility( IOrderManager, order.OrderManager() )
 
     ztapi.provideAdapter( IOrder, IOrderWorkflowLog, order.OrderWorkflowLog )
 
-    ztapi.subscribe( (IOrder, interfaces.IWorkflowTransitionEvent), 
-                       None, 
+    ztapi.subscribe( (IOrder, interfaces.IWorkflowTransitionEvent),
+                       None,
                        order.recordOrderWorkflow )
 
     ######################

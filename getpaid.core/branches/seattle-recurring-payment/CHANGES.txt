@@ -2,8 +2,21 @@
 CHANGES
 =======
 
-0.8.1 (unreleased)
+0.9.0 (unreleased)
 ------------------
+
+- Fix exception handling in OrderManager's isValid method.
+  [davisagli]
+
+- Add renewal_date index for orders.
+  [jpg.rcom]
+
+- Add IRecurringPaymentContent interface.
+  [jpg.rcom]
+
+- Update IRecurringLineItem to specify frequency and total_occurrences
+  attributes, instead of period.
+  [jpg.rcom]
 
 0.8.0 (2010-04-07)
 ------------------
