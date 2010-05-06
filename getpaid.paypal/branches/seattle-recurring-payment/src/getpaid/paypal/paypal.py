@@ -8,6 +8,7 @@ from zope import interface
 from zope.app.component.hooks import getSite
 
 from interfaces import IPaypalStandardOptions, IPaypalStandardProcessor
+from getpaid.core.interfaces import IRecurringLineItem
 
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions
 from getpaid.core import interfaces as GetPaidInterfaces
@@ -25,6 +26,12 @@ class PaypalOrderWrapper(object):
         self.context = context
         
     def is_recurring(self):
+        """ recurring payment orders have only 1 item and it is a recurring item
+        """
+        order_items = self.context.shopping_cart.values()
+        if len(order_items) == 1 and IRecurringLineItem.providedBy(order_items[0]):
+            return True
+            
         return False
 
 class PaypalBaseButton(object):
