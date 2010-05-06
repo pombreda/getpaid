@@ -5,6 +5,7 @@ import urllib
 from Products.CMFCore.utils import getToolByName
 from zope import component
 from zope import interface
+from zope.app.component.hooks import getSite
 
 from interfaces import IPaypalStandardOptions, IPaypalStandardProcessor
 
@@ -15,22 +16,42 @@ _sites = {
     "Sandbox": "www.sandbox.paypal.com",
     "Production": "www.paypal.com",
     }
-
-class PaypalStandardProcessor( object ):
-   
-    interface.implements( IPaypalStandardProcessor )
-
-    options_interface = IPaypalStandardOptions
-
-    def __init__( self, context ):
+    
+class PaypalOrderWrapper(object):
+    """ adapter of standard getpaid order object to add paypal functions
+    """
+    
+    def __init__(self, context):
         self.context = context
+        
+    def is_recurring(self):
+        return False
 
-    def cart_post_button( self, order ):
-        siteroot = getToolByName(self.context, "portal_url").getPortalObject()
-        options = IPaypalStandardOptions( siteroot )
-        manage_options = IGetPaidManagementOptions( siteroot )        
+class PaypalBaseButton(object):
+    
+    def __init__(self, order):
+        self.order = order
+        siteroot = getSite()
+        self.options = IPaypalStandardOptions(siteroot)
+        self.manage_options = IGetPaidManagementOptions(siteroot)
+        site_url = siteroot.absolute_url()
+        self.return_url = "%s/@@getpaid-thank-you" % site_url
+        self.ipn_url = "%s/%s" % (site_url, urllib.quote_plus("@@getpaid-paypal-ipnreactor"))
+    
+class PaypalRecurringButton(PaypalBaseButton):
+    
+    def __call__(self):
+        """ return a properly assembled button for recurring payments
+        """
+        return "<h1>Hi, I'm a recurring payment button</h1>"
+    
+class PaypalStandardButton(PaypalBaseButton):
+    
+    def __call__(self):
+        """ return a properly assembled button for one-time payments
+        """
         cartitems = []
-        idx = 1
+        # idx = 1
         _button_form = """<form style="display:inline;" action="https://%(site)s/cgi-bin/webscr" method="post" id="paypal-button">
 <input type="hidden" name="cmd" value="_cart" />
 <input type="hidden" name="upload" value="1" />
@@ -53,30 +74,45 @@ class PaypalStandardProcessor( object ):
 <input type="hidden" name="amount_%(idx)s" value="%(amount)s" />
 <input type="hidden" name="quantity_%(idx)s" value="%(quantity)s" />
 """
-        
-        for item in order.shopping_cart.values():
+        import pdb; pdb.set_trace()
+        for index, item in enumerate(self.order.shopping_cart.values()):
+            idx = index + 1
             v = _button_cart % {"idx": idx,
                                 "item_name": item.name,
                                 "item_number" : item.product_code,
                                 "amount": item.cost,
                                 "quantity": item.quantity,}
             cartitems.append(v)
-            idx += 1
-        siteURL = siteroot.absolute_url()
-        # having to do some magic with the URL passed to Paypal so their system replaies properly
-        returnURL = "%s/@@getpaid-thank-you" % siteURL
-        IPNURL = "%s/%s" % (siteURL, urllib.quote_plus("@@getpaid-paypal-ipnreactor"))
+        
         formvals = {
-            "site": _sites[options.server_url],
-            "merchant_id": options.merchant_id,
+            "site": _sites[self.options.server_url],
+            "merchant_id": self.options.merchant_id,
             "cart": ''.join(cartitems),
-            "return_url": returnURL,
-            "currency": options.currency,
-            "IPN_url" : IPNURL,
-            "order_id" : order.order_id,
-            "store_name": manage_options.store_name,
+            "return_url": self.return_url,
+            "currency": self.options.currency,
+            "IPN_url" : self.ipn_url,
+            "order_id" : self.order.order_id,
+            "store_name": self.manage_options.store_name,
             }
+            
         return _button_form % formvals
+
+class PaypalStandardProcessor( object ):
+   
+    interface.implements( IPaypalStandardProcessor )
+
+    options_interface = IPaypalStandardOptions
+
+    def __init__( self, context ):
+        self.context = context
+        
+    def cart_post_button( self, order ):
+        
+        porder = PaypalOrderWrapper(order)
+        if porder.is_recurring():
+            return PaypalRecurringButton(order)()
+        else:
+            return PaypalStandardButton(order)()
     
     def capture(self, order, price):
         # always returns async - just here to make the processor happy
