@@ -81,7 +81,7 @@ class PaypalStandardButton(PaypalBaseButton):
 <input type="hidden" name="amount_%(idx)s" value="%(amount)s" />
 <input type="hidden" name="quantity_%(idx)s" value="%(quantity)s" />
 """
-        import pdb; pdb.set_trace()
+        
         for index, item in enumerate(self.order.shopping_cart.values()):
             # last-minute sanity check for mixed recurring and non-recurring items
             if IRecurringLineItem.providedBy(item):
