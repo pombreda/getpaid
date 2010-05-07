@@ -126,6 +126,24 @@ class Order( Persistent, cart.CartItemTotals ):
     @property
     def fulfillment_workflow( self ):
         return component.getAdapter( self, IWorkflowInfo, "order.fulfillment")
+        
+    def is_recurring(self):
+        recurring = 0
+        non_recurring = 0
+        for i in self.shopping_cart.values():
+            if interfaces.IRecurringLineItem.providedBy(i):
+                recurring += 1
+            else:
+                non_recurring += 1
+
+        if recurring > 0 and non_recurring > 0:
+            raise Exception('Carts containing both recurring and non-recurring items '
+                            'are not supported.')
+        elif recurring > 1:
+            raise Exception('Carts containing multiple recurring items not supported.')
+        elif recurring == 1:
+            return True
+        return False
 
 
 class OrderManager( Persistent ):
