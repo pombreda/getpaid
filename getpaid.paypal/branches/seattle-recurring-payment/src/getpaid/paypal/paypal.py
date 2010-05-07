@@ -83,6 +83,11 @@ class PaypalStandardButton(PaypalBaseButton):
 """
         import pdb; pdb.set_trace()
         for index, item in enumerate(self.order.shopping_cart.values()):
+            # last-minute sanity check for mixed recurring and non-recurring items
+            if IRecurringLineItem.providedBy(item):
+                msg = "Shopping cart may not contain both one-time and recurring payment items"
+                raise Exception(msg)
+            
             idx = index + 1
             v = _button_cart % {"idx": idx,
                                 "item_name": item.name,
