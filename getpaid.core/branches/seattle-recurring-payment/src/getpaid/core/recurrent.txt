@@ -23,7 +23,7 @@ item:
 	>>> item.cost = 25.00
 	>>> item.quantity = 5
 	>>> item.description = "Development Talk"
-	>>> item.frequency = 1 # in months
+	>>> item.interval = 1 # in months
 	>>> item.total_occurrences = 12
 
 Line Items are stored in a line item container, such as a shopping cart
