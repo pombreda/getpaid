@@ -2,6 +2,10 @@
 CHANGES
 =======
 
+0.5 (2010-05-07)
+----------------
+
+* fixed bug with timeout setting on ssl connection string
 
 0.4 (2009-10-30)
 ----------------
