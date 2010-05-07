@@ -14,7 +14,7 @@ CHANGES
 - Add IRecurringPaymentContent interface.
   [jpg.rcom]
 
-- Update IRecurringLineItem to specify frequency and total_occurrences
+- Update IRecurringLineItem to specify interval and total_occurrences
   attributes, instead of period.
   [jpg.rcom]
 
