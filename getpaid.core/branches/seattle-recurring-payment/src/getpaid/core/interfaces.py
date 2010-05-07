@@ -264,8 +264,10 @@ class IShippableContent( IPayable ):
 class IRecurringPaymentContent( IPayable ):
     """ Recurring Payable Content
     """
-    frequency = schema.TextLine( title = _(u"Frequency"))
-    total_occurrences = schema.TextLine( title = _(u"Total Occurrences"))
+    frequency = schema.TextLine( title = _(u"Interval"),
+                                 description = _(u"Use the value 1 for monthly payments, 12 for yearly payments, 3 for quarterly payments, or any other interval you prefer.") )
+    total_occurrences = schema.TextLine( title = _(u"Total Occurrences"),
+                                         description = _(u"The subscription will end after this many payments.") )
 
 #################################
 # Events
