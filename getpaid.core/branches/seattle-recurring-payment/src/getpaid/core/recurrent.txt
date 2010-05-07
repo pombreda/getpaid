@@ -38,6 +38,25 @@ we can ask the cart how many items it has:
 	>>> cart.size()
 	5
 
+You cannot add any other items to the cart once it contains a 
+RecurringLineItem:
+
+	>>> item2 = RecurringLineItem()
+	>>> item2.item_id = "event-devtalk-2007-2"
+	>>> item2.name = "Event Registration 2"
+	>>> item2.cost = 35.00
+	>>> item2.quantity = 1
+	>>> item2.description = "Another Development Talk"
+	>>> item2.interval = 1 # in months
+	>>> item2.total_occurrences = 12
+
+Adding the second item will raise a custom exception:
+
+    >>> cart[ item2.item_id ] = item2
+    Traceback (most recent call last):
+    ...
+    InvalidCartException: This cart already has items in it. A recurring item may not be added.    
+
 Let's attach our cart to the order:
 
 	>>> order.shopping_cart = cart

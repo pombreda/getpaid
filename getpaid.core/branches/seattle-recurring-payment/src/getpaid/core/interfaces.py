@@ -36,6 +36,10 @@ from fields import PhoneNumber, CreditCardNumber, weightValidator, emailValidato
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid')
 
+#################################
+# Exceptions
+class InvalidCartException(Exception):
+    pass
 
 #################################
 # Where to Buy Stuff

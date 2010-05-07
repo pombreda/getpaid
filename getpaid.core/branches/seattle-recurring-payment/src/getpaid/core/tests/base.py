@@ -91,15 +91,14 @@ def createRecurringOrders( how_many=10 ):
 
         o.shopping_cart = sc = cart.ShoppingCart()
 
-        for i in range(0, 10):
-            item = line_item.RecurringLineItem()
-            item.name = "p%s"%random.choice( string.letters )
-            item.quantity = random.randint(1,25)
-            item.cost = random.randint(30, 100)
-            item.item_id = "i%s"%random.choice( string.letters )
-            if item.item_id in sc:
-                continue
-            sc[item.item_id] = item
+        item = line_item.RecurringLineItem()
+        item.name = "p%s"%random.choice( string.letters )
+        item.quantity = random.randint(1,25)
+        item.cost = random.randint(30, 100)
+        item.item_id = "%s"%random.choice( string.letters )
+        if item.item_id in sc:
+            continue
+        sc[item.item_id] = item
 
         o.user_id = "u%s"%random.choice( string.letters )
 

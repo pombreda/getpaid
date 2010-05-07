@@ -46,11 +46,19 @@ class ShoppingCart( OrderedContainer ):
     
     def size( self ):
         return sum(i.quantity for i in self.values())
-
+    
     def __setitem__( self, key, value ):
+        if self.size() and interfaces.IRecurringLineItem.providedBy(value):
+            msg = "This cart already has items in it. A recurring item may not be added."
+            raise interfaces.InvalidCartException(msg)
+            
+        if self.is_recurring():
+            msg = "This cart already holds a recurring payment. No other items may be added."
+            raise interfaces.InvalidCartException(msg)
+        
         super(ShoppingCart, self).__setitem__( key, value)
         self.last_item = key
-        
+    
     def __delitem__( self, key ):
         if not key in self:
             return
