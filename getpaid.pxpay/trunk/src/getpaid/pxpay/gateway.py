@@ -44,7 +44,9 @@ class PXPayWebInterfaceGateway( object ):
         server_name = server.get('host')
         server_path = server.get('path')
         try:
-            conn = ssl.HTTPSConnection(server_name, timeout, cert_file=self.certs_file)
+            conn = ssl.HTTPSConnection(server_name,
+                                       timeout=timeout,
+                                       cert_file=self.certs_file)
 
             # setup the HEADERS
             conn.putrequest('POST', server_path)
