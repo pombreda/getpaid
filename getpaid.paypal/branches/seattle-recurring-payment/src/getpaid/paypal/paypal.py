@@ -153,7 +153,7 @@ class PaypalStandardButton(PaypalBaseButton):
 
 class PaypalStandardProcessor( object ):
    
-    interface.implements( IPaypalStandardProcessor )
+    interface.implements( IPaypalStandardProcessor, GetPaidInterfaces.IRecurringPaymentProcessor )
 
     options_interface = IPaypalStandardOptions
 
