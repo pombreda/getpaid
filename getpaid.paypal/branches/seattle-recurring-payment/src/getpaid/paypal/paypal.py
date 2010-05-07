@@ -54,7 +54,7 @@ class PaypalRecurringButton(PaypalBaseButton):
         _button_form = """<form style="display:inline;" action="https://%(site)s/cgi-bin/webscr" method="post" id="paypal-button">
 <input value="_xclick-subscriptions" name="cmd" type="hidden" />
 <input name="a3" type="hidden" value="%(cost)s"/>
-<input name="p3" type="hidden" value="%(frequency)s"/>
+<input name="p3" type="hidden" value="%(interval)s"/>
 <input name="t3" type="hidden" value="%(unit)s"/>
 <input name="srt" type="hidden" value="%(total_occurrences)s"/>
 <input name="item_name" type="hidden" value="%(item_name)%" />
@@ -89,7 +89,7 @@ class PaypalRecurringButton(PaypalBaseButton):
             "cost": item.cost,
             "quantity": item.quantity,
             "unit": self.unit_token_map[item.unit],
-            "frequency": item.frequency,
+            "interval": item.interval,
             "total_occurrences": item.total_occurrences,
             }
             
