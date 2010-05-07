@@ -57,7 +57,7 @@ class PaypalRecurringButton(PaypalBaseButton):
 <input name="p3" type="hidden" value="%(interval)s"/>
 <input name="t3" type="hidden" value="%(unit)s"/>
 <input name="srt" type="hidden" value="%(total_occurrences)s"/>
-<input name="item_name" type="hidden" value="%(item_name)%" />
+<input name="item_name" type="hidden" value="%(item_name)s" />
 <input name="src" type="hidden" value="1" />
 <input name="sra" type="hidden" value="1" />
 <input type="hidden" name="upload" value="1" />
