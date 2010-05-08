@@ -4,7 +4,10 @@ from zope import component
 
 from getpaid.core.tests import base
 from getpaid.core import cart, item
-from getpaid.core.interfaces import IOrderManager, InvalidCartException
+from getpaid.core.interfaces import \
+    IOrderManager, \
+    AddRecurringItemException, \
+    RecurringCartItemAdditionException
 
 
 class CartPolicyTests(base.GetPaidTestCase):
@@ -31,7 +34,7 @@ class CartPolicyTests(base.GetPaidTestCase):
         
     def testNoAddRecurringToPopulatedCart(self):
         self.cart[self.nonrecurring.item_id] = self.nonrecurring
-        self.assertRaises(InvalidCartException, 
+        self.assertRaises(AddRecurringItemException, 
                           self.cart.__setitem__, 
                           self.recurring.item_id,
                           self.recurring)
@@ -43,7 +46,7 @@ class CartPolicyTests(base.GetPaidTestCase):
         recurring2.quantity = 1
         recurring2.cost = 25
         recurring2.item_id = "recurring2"
-        self.assertRaises(InvalidCartException, 
+        self.assertRaises(AddRecurringItemException, 
                           self.cart.__setitem__, 
                           recurring2.item_id,
                           recurring2)                          
@@ -60,7 +63,7 @@ class CartPolicyTests(base.GetPaidTestCase):
     
     def testNoAddNonRecurringToRecurringCart(self):
         self.cart[self.recurring.item_id] = self.recurring
-        self.assertRaises(InvalidCartException, 
+        self.assertRaises(RecurringCartItemAdditionException, 
                           self.cart.__setitem__, 
                           self.nonrecurring.item_id,
                           self.nonrecurring)

@@ -38,7 +38,10 @@ _ = MessageFactory('getpaid')
 
 #################################
 # Exceptions
-class InvalidCartException(Exception):
+class AddRecurringItemException(Exception):
+    pass
+
+class RecurringCartItemAdditionException(Exception):
     pass
 
 #################################

@@ -49,12 +49,12 @@ class ShoppingCart( OrderedContainer ):
     
     def __setitem__( self, key, value ):
         if self.size() and interfaces.IRecurringLineItem.providedBy(value):
-            msg = "Your shopping cart already has items in it. A recurring payment item may not be added until you check out or delete the existing items."
-            raise interfaces.InvalidCartException(msg)
+            msg = "Unable to add recurring item to cart with existing items."
+            raise interfaces.AddRecurringItemException(msg)
             
         if self.is_recurring():
-            msg = "Your shopping cart already holds a recurring payment. Please purchase the current item or delete it from your cart before adding addtional items."
-            raise interfaces.InvalidCartException(msg)
+            msg = "Unable to add new item to cart with an existing recurring item."
+            raise interfaces.RecurringCartItemAdditionException(msg)
         
         super(ShoppingCart, self).__setitem__( key, value)
         self.last_item = key
