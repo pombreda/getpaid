@@ -16,22 +16,6 @@ _sites = {
     "Production": "www.paypal.com",
     }
     
-class PaypalOrderWrapper(object):
-    """ adapter of standard getpaid order object to add paypal functions
-    """
-    
-    def __init__(self, context):
-        self.context = context
-        
-    def is_recurring(self):
-        """ recurring payment orders have only 1 item and it is a recurring item
-        """
-        order_items = self.context.shopping_cart.values()
-        if len(order_items) == 1 and IRecurringLineItem.providedBy(order_items[0]):
-            return True
-            
-        return False
-
 class PaypalBaseButton(object):
     
     def __init__(self, order):
@@ -162,8 +146,7 @@ class PaypalStandardProcessor( object ):
         
     def cart_post_button( self, order ):
         
-        porder = PaypalOrderWrapper(order)
-        if porder.is_recurring():
+        if order.shopping_cart.is_recurring():
             return PaypalRecurringButton(order)()
         else:
             return PaypalStandardButton(order)()
