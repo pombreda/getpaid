@@ -5,6 +5,17 @@ CHANGES
 0.9.0 (unreleased)
 ------------------
 
+- Prevent addition of recurring line items to a cart with non-recurring items,
+  and vice versa.
+  [jesses, alext]
+
+- Fix spelling of "Verification".
+  [cewing]
+
+- Added ``is_recurring`` method to ShoppingCart to check whether the cart
+  contains a recurring line item.
+  [davisagli]
+
 - Fix exception handling in OrderManager's isValid method.
   [davisagli]
 
