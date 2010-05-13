@@ -5,6 +5,10 @@ CHANGES
 0.4.1 (unreleased)
 ------------------
 
+* Mark the processor as one that supports recurring payments, so that it
+  can be used in tests of the UI for recurring payments.
+  [davisagli]
+
 0.4.0 (2010-04-07)
 ------------------
 

@@ -41,7 +41,7 @@ LAST_FOUR = "getpaid.null.cc_last_four"
 
 class NullPaymentAdapter( object ):
 
-    interface.implements( interfaces.IPaymentProcessor )
+    interface.implements( interfaces.IRecurringPaymentProcessor )
 
     options_interface = INullPaymentOptions
 
