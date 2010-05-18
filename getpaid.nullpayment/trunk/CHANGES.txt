@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-0.4.1 (unreleased)
+0.5.0 (2010-05-18)
 ------------------
 
 * Mark the processor as one that supports recurring payments, so that it

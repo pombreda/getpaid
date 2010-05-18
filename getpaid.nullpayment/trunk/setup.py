@@ -16,7 +16,7 @@ def read(*rnames):
 
 setup(
     name='getpaid.nullpayment',
-    version='0.4.1dev',
+    version='0.5.0',
     license = 'BSD',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
@@ -48,7 +48,7 @@ setup(
     namespace_packages=['getpaid'],
     include_package_data=True,
     install_requires = ['setuptools',
-                        'getpaid.core>=0.8.0',
+                        'getpaid.core>=0.9.0',
                        ],
     zip_safe = False,
     )
