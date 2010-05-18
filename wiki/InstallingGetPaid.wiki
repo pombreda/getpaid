@@ -1,0 +1,42 @@
+#summary Canonical set of instructions for installing the stable version of GetPaid.
+#labels Featured
+
+= Introduction =
+
+The recommended approach to installing GetPaid depends on whether you are using Plone 3 or Plone 4.
+
+= Plone 3 =
+
+For Plone 3, we recommend using the getpaid.recipe.release buildout recipe.  If you don't have a buildout-based Plone installation, use one of the Plone installers from http://plone.org/products/plone to get one.  Then make sure the following bits are included in your buildout configuration.
+
+{{{
+[buildout]
+parts = 
+    ...
+    getpaid
+
+[getpaid]
+recipe = getpaid.recipe.release==2.1
+addpackages =
+    getpaid.authorizedotnet
+
+}}}
+
+(Some of these parts may already be in your buildout configuration.)
+
+Run buildout, restart Zope/Plone, and you should be able to install PloneGetPaid via the Add/Remove Products panel in Site Setup.
+
+Note: The getpaid.recipe.release recipe has not yet been updated to include some of the recent releases of the packages that make up getpaid, so it's a bit out of date.
+
+We recommend pinning the recipe to a particular version, as shown, to make sure that you don't accidentally upgrade when a new release of the recipe comes out.
+
+The 'addpackages' setting is optional, and may include a list of add-on packages to install. Supported add-ons include: getpaid.authorizedotnet, getpaid.clickandbuy, getpaid.formgen, getpaid.googlecheckout, getpaid.ogone, getpaid.payflowpro, getpaid.paymentech, getpaid.paypal, getpaid.pxpay, getpaid.flatrateshipping, getpaid.ups, getpaid.discount, getpaid.report, getpaid.warehouse, getpaid.SalesforcePloneFormGenAdapter, getpaid.SalesforceOrderRecorder.
+
+You may also specify an optional 'eggs' setting, which is a list of getpaid dependencies that should be installed as eggs, rather than by fetching tarballs as the recipe normally does.  This is necessary if you want to pin one of the dependencies to a different version than what is specified in the recipe.  The following dependencies are included by default: ore.viewlet, getpaid.core, Products.PloneGetPaid, getpaid.wizard, getpaid.nullpayment, five.intid, hurry.workflow, simplejson, yoma.batching, zc.resourcelibrary, and zc.table.
+
+= Plone 4 =
+
+
+= Developing GetPaid =
+
+If you want to work on making improvements to GetPaid or its add-ons, we recommend following the instructions at DevGettingStarted
