@@ -46,11 +46,19 @@ class ShoppingCart( OrderedContainer ):
     
     def size( self ):
         return sum(i.quantity for i in self.values())
-
+    
     def __setitem__( self, key, value ):
+        if self.size() and interfaces.IRecurringLineItem.providedBy(value):
+            msg = "Unable to add recurring item to cart with existing items."
+            raise interfaces.AddRecurringItemException(msg)
+            
+        if self.is_recurring():
+            msg = "Unable to add new item to cart with an existing recurring item."
+            raise interfaces.RecurringCartItemAdditionException(msg)
+        
         super(ShoppingCart, self).__setitem__( key, value)
         self.last_item = key
-        
+    
     def __delitem__( self, key ):
         if not key in self:
             return
@@ -60,6 +68,25 @@ class ShoppingCart( OrderedContainer ):
                 self.last_item = self.keys()[-1]
             else:
                 self.last_item = None
+    
+    def is_recurring(self):
+        recurring = 0
+        non_recurring = 0
+        for i in self.values():
+            if interfaces.IRecurringLineItem.providedBy(i):
+                recurring += 1
+            else:
+                non_recurring += 1
+
+        if recurring > 0 and non_recurring > 0:
+            raise Exception('Carts containing both recurring and non-recurring items '
+                            'are not supported.')
+        elif recurring > 1:
+            raise Exception('Carts containing multiple recurring items not supported.')
+        elif recurring == 1:
+            return True
+        return False
+
 
 class CartItemTotals( object ):
 

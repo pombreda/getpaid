@@ -54,7 +54,7 @@ class LineItem( Persistent ):
     """
     implements( interfaces.ILineItem, IAttributeAnnotatable )
 
-    
+
     # default attribute values, item_id is required and has no default
     name = ""
     description = ""
@@ -95,7 +95,7 @@ class PayableLineItem( LineItem ):
 
     # required
     uid = None
-    
+
     def resolve( self ):
         utility = component.getUtility( IIntIds )
         return utility.queryObject( self.uid )
@@ -104,3 +104,9 @@ class PayableShippableLineItem( ShippableLineItem, PayableLineItem ):
     """
     a shippable item in a cart for a payable
     """
+
+class RecurringLineItem( PayableLineItem ):
+    """
+    an item in the cart for a recurring payable
+    """
+    implements( interfaces.IRecurringLineItem )
