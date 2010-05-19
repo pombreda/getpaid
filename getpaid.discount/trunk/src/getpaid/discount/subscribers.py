@@ -1,7 +1,6 @@
 from getpaid.discount.browser.interfaces import IDiscountable
 from getpaid.discount.browser.interfaces import IDiscountableMarker
 
-from zope.app import zapi
 
 from Products.CMFCore.utils import getToolByName
 
