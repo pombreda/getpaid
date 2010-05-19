@@ -19,7 +19,7 @@ from getpaid.discount.browser.interfaces import IBuyXGetXFreeableMarker
 from getpaid.discount.browser.interfaces import ICodeDiscountable
 from getpaid.discount.browser.interfaces import ICodeDiscountableMarker
 
-from zope.app.annotation.interfaces import IAnnotations
+from zope.annotation.interfaces import IAnnotations
 
 class DiscountListingViewlet(ViewletBase):
     render = ViewPageTemplateFile('discount_listing.pt')
