@@ -11,7 +11,7 @@
  
  <subscriber
     for="getpaid.core.interfaces.IPayableLineItem
-         zope.app.container.contained.ObjectAddedEvent"
+         zope.container.contained.ObjectAddedEvent"
     handler="getpaid.discount.subscribers.checkDiscount"/>
 
 </configure>
