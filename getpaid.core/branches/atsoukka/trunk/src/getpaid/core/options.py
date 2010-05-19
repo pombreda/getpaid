@@ -129,7 +129,7 @@ class PersistentOptions( object ):
                 fields[ field.__name__ ] = property( lambda self, field=field: self.getFieldProperty( field ),
                 lambda self, value, field_name=field.__name__: self.setProperty( field_name, value ) )
         new_class = type( name, bases, fields)
-        cls.annotation_key = key
+        new_class.annotation_key = key
         classImplements( new_class, interfaces )
         return new_class
 
