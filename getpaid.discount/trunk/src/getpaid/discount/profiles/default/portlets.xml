@@ -1,4 +1,4 @@
-<portlets i18n:domain="getpaid.discount" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+<portlets i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <portlet
       addview="getpaid.discount.discountable"
       title="Discountable portlet"
