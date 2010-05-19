@@ -2,11 +2,11 @@ from zope import component
 from zope import interface
 from zope.formlib import form
 from zope.interface import implements
-from zope.app.annotation.interfaces import IAnnotations
+from zope.annotation.interfaces import IAnnotations
 
 from zope.component import getUtility
 
-from Products.Five.formlib import formbase
+from five.formlib.formbase import EditForm
 from Products.Five.utilities import marker
 from Products.Five.browser import BrowserView
 
@@ -22,7 +22,7 @@ from Products.PloneGetPaid.interfaces import IPayableMarker
 from getpaid.core import interfaces
 from getpaid.core.interfaces import IShoppingCartUtility
 
-class DiscountForm(formbase.EditForm):
+class DiscountForm(EditForm):
     """
     """
     form_fields = form.FormFields(IDiscountable)
