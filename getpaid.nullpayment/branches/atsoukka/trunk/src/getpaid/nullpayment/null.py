@@ -37,7 +37,7 @@ LAST_FOUR = "getpaid.null.cc_last_four"
 
 class NullPaymentProcessor( Persistent ):
 
-    interface.implements( interfaces.IPaymentProcessor )
+    interface.implements( interfaces.IRecurringPaymentProcessor )
 
     def __init__( self ):
         # initialize defaults from schema
