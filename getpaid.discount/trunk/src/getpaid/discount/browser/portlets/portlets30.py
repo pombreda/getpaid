@@ -1,5 +1,6 @@
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid.discount')
+from zope.i18n import translate
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from getpaid.discount.browser.interfaces import IDiscountableMarker
@@ -55,7 +56,10 @@ class DiscountableAssignment(base.Assignment):
     def title(self):
         """Title shown in @@manage-portlets.
         """
-        return _(u"Discountable")
+        msgid = _(u"Discountable_portlet", default= u"Discountable Portlet")
+        result = translate(msgid, domain='getpaid.discount')
+
+        return result
 
 
 class DiscountableAddForm(base.NullAddForm):
