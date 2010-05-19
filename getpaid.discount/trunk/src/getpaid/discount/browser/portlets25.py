@@ -42,11 +42,11 @@ class BaseDiscountPortlet(object):
                 discount_type = adapter_obj.getDiscountType()
                 if discount_type == 'Dollars Off':
                     
-                    msgid = _(u"details_discount_off", default= u"${discounted_value_off}( ${discount_value} off )", mapping={ u"discounted_value" : price - discount_value, u"discount_value": discount_value})
+                    msgid = _(u"details_discount_off", default= u"${discounted_value}( ${discount_value} off )", mapping={ u"discounted_value" : price - discount_value, u"discount_value": discount_value})
                     result = translate(msgid, domain='getpaid.discount',context=self.request)
                     #result = "$%0.2f ($%0.2f off)" % (price - discount_value, discount_value)
                 else:
-                    msgid = _(u"details_discount_percentage", default= u"${discounted_value_percentage}(${discount_value}% off)", mapping={ u"discounted_value_percentage" : price - price*discount_value/100, u"discount_value": discount_value})
+                    msgid = _(u"details_discount_percentage", default= u"${discounted_value_percentage}(${discount_value} \%off)", mapping={ u"discounted_value_percentage" : price - price*discount_value/100, u"discount_value": discount_value})
                     result = translate(msgid, domain='getpaid.discount',context=self.request)
                     
                     #result = "$%0.2f (%0.0f%s off)" % (price - price*discount_value/100, discount_value, '%')
