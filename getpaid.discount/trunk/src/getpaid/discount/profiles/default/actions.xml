@@ -1,4 +1,4 @@
-<object name="portal_actions" meta_type="Plone Actions Tool" i18n:domain="getpaid.discount" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+<object name="portal_actions" meta_type="Plone Actions Tool"  xmlns:i18n="http://xml.zope.org/namespaces/i18n">
     <action-provider name="portal_actions">
       <action title="Make this a Discountable Product" 
                 action_id="activate_discountable" 
