@@ -4,6 +4,9 @@ from getpaid.core.interfaces import IPluginManager, IPaymentProcessor
 from getpaid.nullpayment import interfaces
 from getpaid.nullpayment import null
 
+import transaction
+
+
 class NullPaymentPlugin( object ):
 
     interface.implements( IPluginManager )
@@ -25,10 +28,16 @@ class NullPaymentPlugin( object ):
         sm.registerUtility(component=payment_processor, provided=IPaymentProcessor, name="nullpayment" )
         
     def uninstall( self ):
-        pass
+        sm = self.context.getSiteManager()
+        util = sm.queryUtility( IPaymentProcessor, name="nullpayment" )
+        if util is not None:
+            sm.unregisterUtility(util, IPaymentProcessor, name="nullpayment" )
+            del util
+            transaction.commit()
 
     def status( self ):
-        return component.queryUtility( IPaymentProcessor, name="nullpayment" ) is not None
+        sm = self.context.getSiteManager()
+        return sm.queryUtility( IPaymentProcessor, name="nullpayment" ) is not None
 
 def storeInstalled( object, event ):
     return NullPaymentPlugin( object ).install()
