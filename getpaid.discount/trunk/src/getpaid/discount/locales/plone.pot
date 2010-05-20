@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-05-19 11:56+0000\n"
+"POT-Creation-Date: 2010-05-20 03:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,24 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
+#. Default: "Activate"
+#: ./browser/discount.py:54
+msgid "Activate"
+msgstr ""
+
 #: ./browser/portlets/portlets30.py:87
 msgid "BuyXGetXFreeable"
 msgstr ""
 
-#: ./browser/interfaces.py:48
+#: ./browser/discount.py:61
+msgid "Changes saved."
+msgstr ""
+
+#: ./browser/interfaces.py:49
 msgid "Discount Code"
 msgstr ""
 
-#: ./browser/interfaces.py:8
+#: ./browser/interfaces.py:9
 msgid "Discount Title"
 msgstr ""
 
@@ -34,31 +43,60 @@ msgstr ""
 msgid "Discountable_portlet"
 msgstr ""
 
-#: ./browser/interfaces.py:12
+#: ./browser/interfaces.py:13
 msgid "Dollars Off"
 msgstr ""
 
-#: ./browser/interfaces.py:33
+#: ./profiles/default/actionicons.xml
+msgid "Make this Discountable with Code"
+msgstr ""
+
+#: ./profiles/default/actionicons.xml
+msgid "Make this Not Discountable with Code"
+msgstr ""
+
+#: ./profiles/default/actionicons.xml
+msgid "Make this Not a Buy X Get X Free Product"
+msgstr ""
+
+#: ./profiles/default/actionicons.xml
+msgid "Make this Not a Discountable Product"
+msgstr ""
+
+#: ./profiles/default/actionicons.xml
+msgid "Make this a Buy X Get X Free Product"
+msgstr ""
+
+#: ./profiles/default/actionicons.xml
+msgid "Make this a Discountable Product"
+msgstr ""
+
+#: ./browser/interfaces.py:34
 msgid "Number of free items"
 msgstr ""
 
-#: ./browser/interfaces.py:30
+#: ./browser/interfaces.py:31
 msgid "Number of items to buy"
 msgstr ""
 
-#: ./browser/interfaces.py:12
+#: ./browser/interfaces.py:13
 msgid "Percentage Off"
 msgstr ""
 
-#: ./browser/interfaces.py:51
+#: ./browser/interfaces.py:52
 msgid "Price after Discount"
 msgstr ""
 
-#: ./browser/interfaces.py:11
+#: ./browser/interfaces.py:12
 msgid "Type of Discount"
 msgstr ""
 
-#: ./browser/interfaces.py:15
+#. Default: "Update"
+#: ./browser/discount.py:43
+msgid "Update"
+msgstr ""
+
+#: ./browser/interfaces.py:16
 msgid "Value of the discount"
 msgstr ""
 
