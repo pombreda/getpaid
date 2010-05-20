@@ -44,7 +44,7 @@ class FlatRateShippingAdapter( object ):
     def __init__( self, context ):
         self.context = context
         self.settings = IFlatRateShippingSettings( self.context )
-        
+
     def getCost( self, order ):
         settings = self.settings
         if(settings.flatrate_option == "Flat Rate"):
