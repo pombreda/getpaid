@@ -12,8 +12,9 @@
 	        </span>
 	        <tal:replace tal:replace="view/getInvoice"></tal:replace>
 	    </div>
-	    
-	    <div tal:condition="not:isAnon">
+
+	    <div tal:define="isAnon context/@@plone_portal_state/anonymous"
+             tal:condition="not:isAnon">
 	      <span i18n:translate="box_order_status_url_description">You can check the status of your order
 		  <span i18n:name="status_url">
 	      <a href=""
@@ -22,7 +23,7 @@
 	      </span>
 		  </span>
 		  </div>
-	
+
 	    <div class="documentActions">
 	       <a href="javascript:this.print()" i18n:domain="plone" i18n:translate="">
 	           Print this page

@@ -1,9 +1,9 @@
-=======
-CHANGES
+Changes
 =======
 
 0.4.5 (unreleased)
 ------------------
+- plone4 compatibility (isAnon is no longer globally defined) [fRiSi]
 
 0.4.4 (2009-08-19)
 ------------------
@@ -24,20 +24,20 @@ CHANGES
   are not being recognized by the code
 * Changed the response method from Paypal to POST so you don't
   have a huge, ugly URL coming back.
-* Override /@@getpaid-thank-you so we can extract the order 
+* Override /@@getpaid-thank-you so we can extract the order
   number from the paypal POST response.
-* clean up overrides - remove unneeded override code for the 
-  cart actions viewlet, since we are overriding the entire 
+* clean up overrides - remove unneeded override code for the
+  cart actions viewlet, since we are overriding the entire
   cart wizard view.
 * fill in order data for shipping address, email, and name from
   the data returned from Paypal
 * Initial IPN functionality working with paypal sandbox - need
-  to wire it into the paypal purchase button to complete 
+  to wire it into the paypal purchase button to complete
   round-tripping
 * Add cart saving capability
 * Add capability to choose currency in shopping cart code, and
   enable round-tripping back from paypal
-* Allow TTW configuration of Paypal merchant ID and selection 
+* Allow TTW configuration of Paypal merchant ID and selection
   of sandbox or production site target
 
 0.4 (2008-10-24)

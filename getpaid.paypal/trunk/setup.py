@@ -5,7 +5,7 @@ Copyright (c) 2007 - 2008 ifPeople, Kapil Thangavelu, and Contributors
 All rights reserved. Refer to LICENSE.txt for details of distribution and use.
 
 Distutils setup
- 
+
 """
 
 import os
@@ -20,16 +20,11 @@ setup(
     license = 'ZPL2.1',
     author='Getpaid Community',
     author_email='getpaid-dev@googlegroups.com',
-    description='Get paid paypal payment processor functionality',
+    description='Getpaid paypal payment processor functionality',
     long_description = (
         read('README.txt')
         + '\n' +
         read('CHANGES.txt')
-        + '\n' +
-        'Detailed Documentation\n'
-        '**********************\n'
-        + '\n' +
-        read('src', 'getpaid', 'paypal', 'README.txt')
         + '\n' +
         'Download\n'
         '**********************\n'
