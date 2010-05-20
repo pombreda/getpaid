@@ -27,7 +27,7 @@
      class=".admin.NullPaymentOptions"
      permission="cmf.ManagePortal"
      weight="20"
-     condition="installed Products.PloenGetPaid"
+     condition="installed Products.PloneGetPaid"
      />
   
 </configure>
