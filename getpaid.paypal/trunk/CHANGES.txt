@@ -3,7 +3,7 @@ Changes
 
 0.4.5 (unreleased)
 ------------------
-- plone4 compatibility (isAnon is no longer globally defined) [fRiSi]
+- plone4 compatibility for paypalthankyou.pt (isAnon is no longer globally defined) [fRiSi]
 
 0.4.4 (2009-08-19)
 ------------------
