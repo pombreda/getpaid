@@ -1,3 +1,6 @@
+from Products.statusmessages.interfaces import IStatusMessage
+from zope.component import getMultiAdapter
+from Products.CMFPlone import PloneMessageFactory as _
 from zope import component
 from zope import interface
 from zope.formlib import form
@@ -37,24 +40,29 @@ class DiscountForm(EditForm):
 class DiscountEdit(DiscountForm):
     """
     """
-    @form.action("Update", condition=form.haveInputWidgets)
+    @form.action(_(u'Update', default=u'Update'),name=u'update', condition=form.haveInputWidgets)
     def update_discountable( self, action, data):
         self.handle_edit_action.success_handler( self, action, data )
         message = 'Changes saved.'
+#        result = translate(msgid, domain='plone',context=self.request)
         self.request.response.redirect( '%s/view?portal_status_message=%s' % (self.context.absolute_url(), message) )
 
 class DiscountCreation(DiscountForm):
     """
     """
-    
-    @form.action("Activate", condition=form.haveInputWidgets)
+
+    @form.action(_(u'Activate', default=u'Activate'),name=u'activate',condition=form.haveInputWidgets)
     def activate_discountable( self, action, data):
         #we set up the type as IDiscountable
         interface.alsoProvides(self.context, self.marker)
         self.handle_edit_action.success_handler( self, action, data )
-        message = 'Changes saved.'
-        self.request.response.redirect( '%s/view?portal_status_message=%s' % (self.context.absolute_url(), message) )
-
+#        message = 'Changes saved.'
+#        self.request.response.redirect( '%s/view?portal_status_message=%s' % (self.context.absolute_url(), message) )
+        IStatusMessage(self.request).addStatusMessage(_("Changes saved."),
+                                                      type="info")
+        url = getMultiAdapter((self.context, self.request),
+                              name='absolute_url')()
+        self.request.response.redirect(self.context.absolute_url())
 class DiscountDestruction(BrowserView):
     marker = IDiscountableMarker
     
