@@ -34,41 +34,54 @@ class VerkkomaksutOrderInfo(object):
             customer_id = 'anonymous'
         verkkomaksut_price = '%.2f' %(context.getTotalPrice())
         options = IVerkkomaksutOptions(site)
-        merchant_id = options.merchant_id
+        verkkomaksut_merchant_id = options.verkkomaksut_merchant_id
         base_url = site.absolute_url()
-#        context.finance_workflow.fireTransition( "create" )
-#        state = context.finance_state
-        success_url = base_url + '/@@verkkomaksut-thank-you?order_id=%s' %(order_id)
+#        success_url = base_url + '/@@verkkomaksut-thank-you?order_id=%s' %(order_id)
+        success_url = base_url + '/@@verkkomaksut-thank-you'
         cancel_url = base_url + '/@@verkkomaksut-cancelled-declined'
 
         language_tool = getToolByName(site, "portal_languages")
         language_bindings = language_tool.getLanguageBindings()
         language_culture = getUtility(ILanguageCulture)
         culture = language_culture(language_bindings)
+        TYPE = '4'
 
         m = md5.new()
         m.update(options.merchant_authentication_code)
-        m.update('&' + merchant_id)
+        ## For TYPE 4
+        m.update('&' + verkkomaksut_merchant_id)
         m.update('&' + verkkomaksut_price)
         m.update('&' + order_id)
         m.update('&&' + customer_id)
         m.update('&EUR')
         m.update('&' + success_url)
         m.update('&' + cancel_url)
-        m.update('&&4')
+#        m.update('&' + notify_url)
+#        m.update('&' + TYPE)
+        m.update('&&' + TYPE)
         m.update('&' + culture)
+#        ## For TYPE 4.1
+#        m.update('|' + verkkomaksut_merchant_id)
+#        m.update('|' + verkkomaksut_price)
+#        m.update('|' + order_id)
+#        m.update('||' + customer_id)
+#        m.update('|EUR')
+#        m.update('|' + success_url)
+#        m.update('|' + cancel_url)
+#        m.update('||' + TYPE)
+#        m.update('|' + culture)
         auth_code = m.hexdigest()
         AUTH_CODE = auth_code.upper()
         order_info = {
-                        "MERCHANT_ID" : merchant_id,
+                        "MERCHANT_ID" : verkkomaksut_merchant_id,
                         "AMOUNT" : verkkomaksut_price,
                         "ORDER_NUMBER" : order_id,
                         "ORDER_DESCRIPTION" : customer_id,
                         "CURRENCY" : "EUR",
                         "RETURN_ADDRESS" : success_url,
                         "CANCEL_ADDRESS" : cancel_url,
-#                        "NOTIFY_ADDRESS" : "http://www.esimerkki.fi/notify",
-                        "TYPE" : "4",
+#                        "NOTIFY_ADDRESS" : notify_url,
+                        "TYPE" : TYPE,
                         "CULTURE" : culture,
                         "AUTHCODE" : AUTH_CODE,
                         }
