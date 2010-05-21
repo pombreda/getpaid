@@ -101,6 +101,7 @@ unambiguous value::
     >>> browser.getLink('Content Types').click()
     >>> browser.getLink('GetPaid').click()
     >>> browser.getLink('Payment Options').click()
+    >>> open('/tmp/test-output.html', 'w').write(browser.contents)
     >>> browser.getControl(name = 'form.payment_processor').displayValue = ['Verkkomaksut payment interface']
     >>> browser.getControl(name = 'form.allow_anonymous_checkout.used').value = 'on'
     >>> browser.getControl('Apply').click()

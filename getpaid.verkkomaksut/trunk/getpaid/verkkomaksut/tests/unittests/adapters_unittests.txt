@@ -22,10 +22,10 @@ Adapter VerkkomaksutProcessor
     >>> len(fields)
     2
     >>> [w.__name__ for w in fields]
-    ['merchant_id', 'merchant_authentication_code']
-    >>> fields['merchant_id'].field
+    ['verkkomaksut_merchant_id', 'merchant_authentication_code']
+    >>> fields['verkkomaksut_merchant_id'].field
     <zope.schema._field.ASCIILine object at ...
-    >>> fields['merchant_id'].field.required
+    >>> fields['verkkomaksut_merchant_id'].field.required
     True
     >>> fields['merchant_authentication_code'].field
     <zope.schema._field.ASCIILine object at ...

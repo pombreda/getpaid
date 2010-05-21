@@ -1,7 +1,8 @@
 import unittest
 import doctest
 
-from zope.testing import doctestunit
+#from zope.testing import doctestunit
+from doctest import DocFileSuite
 from zope.component import testing
 from Testing import ZopeTestCase as ztc
 
@@ -39,30 +40,17 @@ def test_suite():
     return unittest.TestSuite([
 
         # Unit tests for adapters
-        doctestunit.DocFileSuite(
+        DocFileSuite(
             'tests/unittests/adapters_unittests.txt', package='getpaid.verkkomaksut',
             setUp=testing.setUp, tearDown=testing.tearDown,
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
 
         # Unit tests for utilities
-        doctestunit.DocFileSuite(
+        DocFileSuite(
             'tests/unittests/utilities_unittests.txt', package='getpaid.verkkomaksut',
             setUp=testing.setUp, tearDown=testing.tearDown,
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
 
-        #doctestunit.DocTestSuite(
-        #    module='getpaid.verkkomaksut.mymodule',
-        #    setUp=testing.setUp, tearDown=testing.tearDown),
-
-
-        # Integration tests that use PloneTestCase
-        #ztc.ZopeDocFileSuite(
-        #    'README.txt', package='getpaid.verkkomaksut',
-        #    test_class=TestCase),
-
-        #ztc.FunctionalDocFileSuite(
-        #    'browser.txt', package='getpaid.verkkomaksut',
-        #    test_class=TestCase),
 
         ztc.FunctionalDocFileSuite(
             'README.txt', package='getpaid.verkkomaksut',

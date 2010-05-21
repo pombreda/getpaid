@@ -7,7 +7,6 @@ def read(*rnames):
 version = read('getpaid', 'verkkomaksut', 'version.txt')[:-1]
 
 long_description = (
-                        open("README.txt").read() + "\n" +
                         open(os.path.join("docs", "HISTORY.txt")).read() + "\n" +
                         open(os.path.join("docs", "INSTALL.txt")).read()
     )
