@@ -4,30 +4,30 @@
            xmlns:i18n="http://namespaces.zope.org/i18n">
 
   <i18n:registerTranslations directory="locales" />
-  
+
   <!-- Plugin Manager -->
   <adapter
+     name="nullpayment"
      for="getpaid.core.interfaces.IStore"
      provides="getpaid.core.interfaces.IPluginManager"
-     factory=".plugin.NullPaymentPlugin"
-     name="nullpayment"
+     factory=".plugin.NullPaymentPluginManager"
      />
-  
-  <!-- Install at PloneGetPaid Installation (till we have a plugin mannage ui)-->
+
+  <!-- Install at IStore Installation (e.g. when PloneGetPaid is installed) -->
   <subscriber
      for="getpaid.core.interfaces.IStore                                                                           
           getpaid.core.interfaces.IStoreInstalledEvent"
      handler=".plugin.storeInstalled"
      />
-  
-  <!-- Register ISettingsPaymentManager viewlet -->
+
+  <!-- Register ISettingsPaymentManager viewlet for settings management -->
   <browser:viewlet
      name="nullpayment"
      manager="Products.PloneGetPaid.interfaces.ISettingsPaymentManager"
      class=".admin.NullPaymentOptions"
-     permission="cmf.ManagePortal"
      weight="20"
      condition="installed Products.PloneGetPaid"
+     permission="cmf.ManagePortal"
      />
-  
+
 </configure>
