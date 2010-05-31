@@ -3,7 +3,13 @@ from zope.interface import implements
 from zope.component import adapts, getUtility
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
-import md5
+try:
+    # For Plone-4
+    import hashlib
+except:
+    # For Plone-3
+    import md5
+
 from zope.app.component.hooks import getSite
 from getpaid.core.order import Order
 
@@ -62,7 +68,10 @@ class LuottokuntaOrderInfo(object):
         else:
             transaction_type = "0"
         if options.use_authentication_mac and options.authentication_mac:
-            m = md5.new()
+            try:
+                m = hashlib.md5()
+            except:
+                m = md5.new()
             m.update(merchant_number)
             m.update(order_id)
             m.update(luottokunta_price)

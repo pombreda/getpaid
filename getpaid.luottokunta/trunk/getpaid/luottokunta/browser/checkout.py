@@ -30,7 +30,7 @@ class LuottokuntaCheckoutReviewAndPay(CheckoutReviewAndPay):
         except AttributeError:
             processor_name = manage_options.payment_processor
             order.processor_id = processor_name
-        order.finance_workflow.fireTransition( "create" )
+        order.finance_workflow.fireTransition("create")
         order_manager.store(order)
         super( CheckoutReviewAndPay, self).update()
 
@@ -147,7 +147,6 @@ class LuottokuntaCancelledView(BrowserView):
                 pass
 
     def __call__(self):
-#        self.increase_order_id_by_one()
         form = self.request.form
         subject = u'Order Cancelled No.'
         self.send_mail(subject)
@@ -161,8 +160,6 @@ class LuottokuntaDeclinedView(LuottokuntaCancelledView):
     template = ZopeTwoPageTemplateFile("templates/checkout-declined.pt")
 
     def __call__(self):
-#        portal = getToolByName(self.context, "portal_url").getPortalObject()
-#        portal_url = portal.absolute_url()
         form = self.request.form
         error_code = form.get('LKSRC', None)
         self.error_message = ERROR_CODES.get(error_code)
@@ -173,35 +170,9 @@ class LuottokuntaDeclinedView(LuottokuntaCancelledView):
 
             if error_code == '301':
                 self.increase_order_id_by_one()
-#                options = ILuottokuntaOptions(portal)
-#                if options.use_incremental_order_id and options.next_order_id:
-#                    options.next_order_id = options.next_order_id + 1
                 self.luottokunta_order_error = True
-
-#        form = self.request.form
-#        order_id = form.get('getpaid_order_id', None)
-#        order_number = _(u'Order Number') + ': ' + order_id
-#        luottokunta_order_id = form.get('luottokunta_order_id', None)
-#        luottokunta_order_number = _(u'Luottokunta Order Number') + ': ' + luottokunta_order_id
-#        mailer = getToolByName(portal, 'MailHost')
-#        encoding = portal.getProperty('email_charset')
-#        send_to_address = envelope_from = portal.getProperty('email_from_address')
         subject = u'Order Declined No.'
         self.send_mail(subject)
-#        sender_from_address = "%s <%s>" %(portal.getProperty('title'), send_to_address)
-#        if order_id and luottokunta_order_id:
-#            message = u'\n'.join((
-#                        _(u'A New Order has been declined.'),
-#                        order_number,
-#                        luottokunta_order_number,
-#                        '%s/@@getpaid-order/%s' %(portal_url, order_id),
-#                        ))
-#            try:
-#                mailer.secureSend(message, send_to_address, envelope_from, subject=subject, subtype='plain', charset=encoding, debug=False, From=sender_from_address)
-#                return self.template()
-#            except:
-#                return self.template()
-#        else:
         return self.template()
 
 

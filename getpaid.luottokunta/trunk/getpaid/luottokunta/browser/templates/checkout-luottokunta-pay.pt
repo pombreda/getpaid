@@ -53,9 +53,9 @@
  	         <legend i18n:translate=""> Shopping Cart </legend>
 	         <div tal:replace="structure view/renderCart">cart</div>
              
-              <tal:cond condition="view/isPlone3">
-                <div tal:replace="structure provider:getpaid.belowcartresume" />
-              </tal:cond>
+<!--              <tal:cond condition="view/isPlone3">-->
+<!--                <div tal:replace="structure provider:getpaid.belowcartresume" />-->
+<!--              </tal:cond>-->
       
              
             <div id="save_order_template_entry" style="display: none">
@@ -101,9 +101,9 @@
 
   </form>
 
-  <tal:cond condition="view/isPlone3">
-    <div tal:replace="structure provider:getpaid.luottokunta.abovepayment" />
-  </tal:cond>
+<!--  <tal:cond condition="view/isPlone3">-->
+<!--    <div tal:replace="structure provider:getpaid.luottokunta.abovepayment" />-->
+<!--  </tal:cond>-->
 
   <form action="https://dmp2.luottokunta.fi/dmp/html_payments" method="post"
         tal:condition="view/is_luottokunta">

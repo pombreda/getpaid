@@ -1,5 +1,11 @@
 Changelog
 =========
+
+0.4.0 (2010-06-01)
+------------------
+* Added conditional imports to order.py for Plone 4 compatibility.
+* Tested with Plone-4.0b3.
+
 0.3.3 (2009-09-11)
 ------------------
 * Fixed bug when query string does not hold order id in thanks page.

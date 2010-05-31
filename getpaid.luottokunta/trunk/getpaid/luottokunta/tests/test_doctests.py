@@ -1,7 +1,8 @@
 import unittest
 import doctest
 
-from zope.testing import doctestunit
+#from zope.testing import doctestunit
+from doctest import DocFileSuite
 from zope.component import testing
 from Testing import ZopeTestCase as ztc
 
@@ -19,8 +20,11 @@ class TestCase(ptc.FunctionalTestCase):
         @classmethod
         def setUp(cls):
             fiveconfigure.debug_mode = True
-            ztc.installPackage(getpaid.luottokunta)
+            zcml.load_config('configure.zcml', getpaid.luottokunta)
+            zcml.load_config('overrides.zcml', getpaid.luottokunta)
             fiveconfigure.debug_mode = False
+            ztc.installPackage(getpaid.luottokunta)
+
 
         @classmethod
         def tearDown(cls):
@@ -38,13 +42,13 @@ def test_suite():
     return unittest.TestSuite([
 
         # Unit tests for adapters.
-        doctestunit.DocFileSuite(
+        DocFileSuite(
             'tests/unittests/adapters_unittests.txt', package='getpaid.luottokunta',
             setUp=testing.setUp, tearDown=testing.tearDown,
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),
 
         # Unit tests for utilities.
-        doctestunit.DocFileSuite(
+        DocFileSuite(
             'tests/unittests/utilities_unittests.txt', package='getpaid.luottokunta',
             setUp=testing.setUp, tearDown=testing.tearDown,
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE | doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),

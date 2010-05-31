@@ -20,9 +20,9 @@ Adapter LuottokuntaProcessor
     >>> from zope.formlib.form import Fields
     >>> fields = Fields(luottokunta_processor.options_interface)
     >>> len(fields)
-    10
+    9
     >>> [w.__name__ for w in fields]
-    ['merchant_number', 'card_details_transmit', 'transaction_type', 'use_dossier_id', 'dossier_id', 'use_authentication_mac', 'authentication_mac', 'allow_amex', 'use_incremental_order_id', 'next_order_id']
+    ['merchant_number', 'card_details_transmit', 'transaction_type', 'use_dossier_id', 'dossier_id', 'use_authentication_mac', 'authentication_mac', 'use_incremental_order_id', 'next_order_id']
     >>> fields['merchant_number'].field
     <zope.schema._field.ASCIILine object at ...
     >>> fields['merchant_number'].field.required
@@ -50,10 +50,6 @@ Adapter LuottokuntaProcessor
     >>> fields['authentication_mac'].field
     <zope.schema._field.ASCIILine object at ...
     >>> fields['authentication_mac'].field.required
-    False
-    >>> fields['allow_amex'].field
-    <zope.schema._bootstrapfields.Bool object at ...
-    >>> fields['allow_amex'].field.required
     False
     >>> fields['use_incremental_order_id'].field
     <zope.schema._bootstrapfields.Bool object at ...
