@@ -5,6 +5,9 @@ CHANGES
 0.9.1 (unreleased)
 ------------------
 
+- made tax translatable, rebuilt and synced translation files,
+  updated German translations
+  [fRiSi]
 
 0.9.0 (2010-05-18)
 ------------------
@@ -59,23 +62,23 @@ CHANGES
 ------------------
 
 * Added 2 fixes (for when you use the shipping system):
-* gave a default value to the order.shipments, because 
-  it is never set up to anything otherwise and you can't 
+* gave a default value to the order.shipments, because
+  it is never set up to anything otherwise and you can't
   access your order,
-* fixed the way we calculate the total, so that we have 
+* fixed the way we calculate the total, so that we have
   float numbers
   [lucielejard]
 
 0.7.1 (2008-11-24)
 ------------------
 
-* Persisted and added Name on Card and Card Phone Num to orders listing 
+* Persisted and added Name on Card and Card Phone Num to orders listing
   viewlet. [ctxlken]
-* Persisted processor transaction id and last-4 digits of credit card to 
+* Persisted processor transaction id and last-4 digits of credit card to
   ZODB.  Also, modified order-summary.pt to present these two fields.
   [ctxlken]
 * add: added some missing italian translations [bruno.ripa]
-* update getpaid.po and sync with all .po. add Japanese locales 
+* update getpaid.po and sync with all .po. add Japanese locales
   [cjj.ifpeople]
 * add: missing italian translations [bruno.ripa]
 

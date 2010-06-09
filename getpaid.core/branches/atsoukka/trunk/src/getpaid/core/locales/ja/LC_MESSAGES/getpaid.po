@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GetPaid VERSION\n"
-"POT-Creation-Date: 2009-04-03 20:45+0000\n"
+"POT-Creation-Date: 2010-06-04 11:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Taito Horiuchi <taito.horiuchi@abita.fi>\n"
 "Language-Team: Japanese\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: getpaid\n"
 
-#: ./interfaces.py:545
+#: ./interfaces.py:551
 msgid "Address 1"
 msgstr "町名・番地など"
 
-#: ./interfaces.py:546
+#: ./interfaces.py:552
 msgid "Address 2"
 msgstr "マンション・アパート名・部屋番号など"
 
-#: ./interfaces.py:215
+#: ./interfaces.py:212
 msgid "An organization's unique product identifier (not required since shopping cart uses content UID internally)"
 msgstr "SKUなどの商品ID"
 
@@ -31,7 +31,7 @@ msgstr "SKUなどの商品ID"
 msgid "Authorize"
 msgstr ""
 
-#: ./interfaces.py:609
+#: ./interfaces.py:617
 msgid "Can we contact you with offers?"
 msgstr "情報告知メールを送信してもよろしいですか？"
 
@@ -43,19 +43,19 @@ msgstr "キャンセル"
 msgid "Cancel Order"
 msgstr "オーダーをキャンセル"
 
-#: ./interfaces.py:625
+#: ./interfaces.py:634
 msgid "Card Holder Name"
 msgstr "氏名"
 
-#: ./interfaces.py:754
+#: ./interfaces.py:763
 msgid "Change Date"
 msgstr "変更日"
 
-#: ./interfaces.py:755
+#: ./interfaces.py:764
 msgid "Change Kind"
 msgstr "種類の変更"
 
-#: ./interfaces.py:753
+#: ./interfaces.py:762
 msgid "Changed By"
 msgstr "変更者"
 
@@ -71,104 +71,106 @@ msgstr ""
 msgid "Charged"
 msgstr ""
 
-#: ./interfaces.py:547
+#: ./interfaces.py:553
 msgid "City"
 msgstr "区・市"
 
-#: ./interfaces.py:756
+#: ./interfaces.py:765
 msgid "Comment"
 msgstr "コメント"
 
-#: ./interfaces.py:98
+#: ./interfaces.py:95
 msgid "Contact Address"
 msgstr "アドレス"
 
-#: ./interfaces.py:103
+#: ./interfaces.py:100
 msgid "Contact Address2"
 msgstr "アドレス２"
 
-#: ./interfaces.py:108
+#: ./interfaces.py:105
 msgid "Contact City"
 msgstr "区・市"
 
-#: ./interfaces.py:93
+#: ./interfaces.py:90
 msgid "Contact Company"
 msgstr "法人名"
 
-#: ./interfaces.py:113
+#: ./interfaces.py:110
 msgid "Contact Country"
 msgstr "国"
 
-#: ./interfaces.py:88
+#: ./interfaces.py:85
 msgid "Contact Email"
 msgstr "E-メール"
 
-#: ./interfaces.py:134
+#: ./interfaces.py:131
 msgid "Contact Fax"
 msgstr "ファックス"
 
-#: ./interfaces.py:604
+# msgstr "連絡先情報"
+#: ./interfaces.py:612
 msgid "Contact Information"
-#msgstr "連絡先情報"
 msgstr "半角ローマ字で記入してください。"
 
-#: ./interfaces.py:83
+#: ./interfaces.py:80
 msgid "Contact Name"
 msgstr "氏名"
 
-#: ./interfaces.py:128
+#: ./interfaces.py:125
 msgid "Contact Phone"
 msgstr "電話番号"
 
-#: ./interfaces.py:118
+#: ./interfaces.py:115
 msgid "Contact State/Province"
 msgstr "都道府県"
 
-#: ./interfaces.py:123
+#: ./interfaces.py:120
 msgid "Contact Zip/Postal Code"
 msgstr "郵便番号"
 
-#: ./interfaces.py:344
+#: ./interfaces.py:349
 msgid "Cost"
 msgstr ""
 
-#: ./interfaces.py:472
+#: ./interfaces.py:478
 msgid "Cost of Delivery"
 msgstr "送料"
 
-#: ./interfaces.py:548
+#: ./interfaces.py:554
 msgid "Country"
 msgstr "国"
 
 #: ./workflow/order.py:47
+#: ./workflow/shipment.py:86
 msgid "Create"
 msgstr "作成"
 
-#: ./interfaces.py:473
+#: ./interfaces.py:479
 msgid "Creation Date"
 msgstr "作成日"
 
-#: ./interfaces.py:638
+#: ./interfaces.py:647
 msgid "Credit Card Expiration Date"
 msgstr "有効期限"
 
-#: ./interfaces.py:635
+#: ./interfaces.py:644
 msgid "Credit Card Number"
 msgstr "クレジットカード番号"
 
-#: ./interfaces.py:632
+#: ./interfaces.py:641
 msgid "Credit Card Type"
 msgstr "タイプ"
 
-#: ./interfaces.py:641
+#. Default: "Credit Card Verification Number"
+#: ./interfaces.py:650
 msgid "Credit Card Verfication Number"
 msgstr "セキュリティコード"
 
-#: ./interfaces.py:515
+#: ./interfaces.py:521
 msgid "Currency Denomination Code"
 msgstr ""
 
-#: ./interfaces.py:686
+#: ./interfaces.py:695
 msgid "Customer Id"
 msgstr "カスタマーID"
 
@@ -180,15 +182,15 @@ msgstr "拒否されました"
 msgid "Delivered"
 msgstr "出荷完了"
 
-#: ./interfaces.py:153
+#: ./interfaces.py:150
 msgid "Description"
 msgstr ""
 
-#: ./interfaces.py:260
+#: ./interfaces.py:257
 msgid "Dimensions"
 msgstr "体積"
 
-#: ./interfaces.py:223
+#: ./interfaces.py:220
 msgid "Donation Description"
 msgstr "寄付の説明"
 
@@ -196,57 +198,61 @@ msgstr "寄付の説明"
 msgid "Electronic Delivery"
 msgstr "電子配信"
 
-#: ./interfaces.py:603
+#: ./interfaces.py:611
 msgid "Email"
 msgstr "E-メール"
 
-#: ./interfaces.py:614
+#: ./interfaces.py:622
 msgid "Email Format"
 msgstr "E-メールフォーマット"
 
-#: ./interfaces.py:266
+#: ./interfaces.py:263
 msgid "Enter a weight, only two decimal places are supported. The unit is specified in the field below."
 msgstr "重量を入力してください。単位は下記で設定してください。"
 
-#: ./interfaces.py:626
+#: ./interfaces.py:635
 msgid "Enter the full name, as it appears on the card. "
 msgstr "カードに表示されている氏名の通りローマ字で入力してください。"
 
-#: ./order.py:448
+#: ./order.py:468
 msgid "Finance"
 msgstr "ファイナンス"
 
-#: ./interfaces.py:692
+#: ./interfaces.py:701
 msgid "Finance State"
 msgstr "ファイナンス状態"
 
-#: ./interfaces.py:642
+#: ./interfaces.py:651
 msgid "For MC, Visa, and DC, this is a 3-digit number on back of the card.  For AmEx, this is a 4-digit code on front of card. "
 msgstr "マスターカード・VISAカードの場合はカード裏の3桁の番号を入力してください。アメリカン・エキスプレスの場合はカード表の4桁の番号を入力してください。"
 
-#: ./order.py:450
+#: ./order.py:470
 msgid "Fulfillment"
 msgstr ""
 
-#: ./interfaces.py:693
+#: ./interfaces.py:702
 msgid "Fulfillment State"
 msgstr ""
 
-#: ./interfaces.py:558
+#: ./interfaces.py:564
 msgid "Full Name"
 msgstr "氏名"
 
-#: ./interfaces.py:589
+#: ./interfaces.py:597
 msgid "HTML"
 msgstr ""
 
-#: ./interfaces.py:409
+#: ./interfaces.py:414
 msgid "Height"
 msgstr "高さ"
 
-#: ./interfaces.py:392
+#: ./interfaces.py:397
 msgid "Integer Id for a Product"
 msgstr "商品の整数ID"
+
+#: ./interfaces.py:274
+msgid "Interval"
+msgstr ""
 
 #: ./fields.py:36
 msgid "Invalid Credit Card Number."
@@ -256,11 +262,11 @@ msgstr "クレジットカード番号無効"
 msgid "Invalid Email"
 msgstr "E-メール無効"
 
-#: ./order.py:106
+#: ./order.py:102
 msgid "Invalid Order Id"
 msgstr "オーダーID無効"
 
-#: ./order.py:113
+#: ./order.py:109
 msgid "Invalid Transaction Id"
 msgstr "トランザクションID無効"
 
@@ -268,39 +274,47 @@ msgstr "トランザクションID無効"
 msgid "Invalid Weight"
 msgstr "重量無効"
 
-#: ./interfaces.py:408
+#: ./interfaces.py:413
 msgid "Length"
 msgstr "長さ"
 
-#: ./interfaces.py:209
+#: ./interfaces.py:206
 msgid "Made Payable By"
 msgstr "支払者"
 
-#: ./interfaces.py:342
+#: ./interfaces.py:347
 msgid "Name"
 msgstr "担当者名"
 
-#: ./interfaces.py:757
+#: ./interfaces.py:766
 msgid "New State"
 msgstr "新規状態"
 
-#: ./interfaces.py:583
+#: ./interfaces.py:591
 msgid "No"
+msgstr ""
+
+#: ./interfaces.py:275
+msgid "Number of months between payments.  Use the value 1 for monthly payments, 12 for yearly payments, 3 for quarterly payments, or any other interval."
+msgstr ""
+
+#: ./interfaces.py:420
+msgid "Occurrences"
 msgstr ""
 
 #: ./fields.py:33
 msgid "Only digit character allowed."
 msgstr "「333-444-5555」ではなく「3334445555」のように連続した半角数字で入力してください。"
 
-#: ./interfaces.py:129
+#: ./interfaces.py:126
 msgid "Only digits allowed"
 msgstr "「333-444-5555」ではなく「3334445555」のように連続した半角数字で入力してください。"
 
-#: ./interfaces.py:600
+#: ./interfaces.py:608
 msgid "Only digits allowed - e.g. 3334445555 and not 333-444-5555 "
 msgstr "「333-444-5555」ではなく「3334445555」のように連続した半角数字で入力してください。"
 
-#: ./interfaces.py:636
+#: ./interfaces.py:645
 msgid "Only digits allowed - e.g. 4444555566667777 and not 4444-5555-6666-7777 "
 msgstr "「4444-5555-6666-7777」ではなく「4444555566667777」のように連続した半角数字で入力してください。"
 
@@ -308,7 +322,7 @@ msgstr "「4444-5555-6666-7777」ではなく「4444555566667777」のように�
 msgid "Order Charged"
 msgstr "支払完了"
 
-#: ./order.py:104
+#: ./order.py:100
 msgid "Order Id already set"
 msgstr "オーダーIDはすでにセットされています。"
 
@@ -316,35 +330,39 @@ msgstr "オーダーIDはすでにセットされています。"
 msgid "Order Processed"
 msgstr ""
 
+#: ./interfaces.py:565
+msgid "Organization/Company"
+msgstr ""
+
 #: ./workflow/order.py:131
 msgid "Payment Declined"
 msgstr "支払拒否されました"
 
-#: ./interfaces.py:414
+#: ./interfaces.py:419
 msgid "Period as a timedelta"
 msgstr ""
 
-#: ./interfaces.py:599
+#: ./interfaces.py:607
 msgid "Phone Number"
 msgstr "電話番号"
 
-#: ./interfaces.py:589
+#: ./interfaces.py:597
 msgid "Plain Text"
 msgstr "プレーンテキスト"
 
-#: ./interfaces.py:545
+#: ./interfaces.py:551
 msgid "Please Enter Your Address"
 msgstr "アドレスを入力してください。"
 
-#: ./interfaces.py:268
+#: ./interfaces.py:265
 msgid "Please select the unit in which you specified the shipment weight."
 msgstr "出荷重量に使用する重量単位を選択ください。"
 
-#: ./interfaces.py:758
+#: ./interfaces.py:767
 msgid "Previous State"
 msgstr "前の状態"
 
-#: ./interfaces.py:218
+#: ./interfaces.py:215
 msgid "Price"
 msgstr "価格"
 
@@ -364,19 +382,19 @@ msgstr "プロセッサ決済完了"
 msgid "Processor Declined"
 msgstr "プロセッサ拒否しました"
 
-#: ./interfaces.py:694
+#: ./interfaces.py:703
 msgid "Processor Order Id"
 msgstr "プロセッサオーダーID"
 
-#: ./interfaces.py:214
+#: ./interfaces.py:211
 msgid "Product Code"
 msgstr "商品コード"
 
-#: ./interfaces.py:261
+#: ./interfaces.py:258
 msgid "Product SKU"
 msgstr "プロダクトSKU"
 
-#: ./interfaces.py:345
+#: ./interfaces.py:350
 msgid "Quantity"
 msgstr "数量"
 
@@ -388,87 +406,100 @@ msgstr "リファンド"
 msgid "Refund Processed"
 msgstr ""
 
-#: ./interfaces.py:557
+#: ./interfaces.py:563
 msgid "Same as billing address"
 msgstr "請求先と同じ"
 
-#: ./interfaces.py:75
+#: ./interfaces.py:72
 msgid "Select a method to calculate shipping charges for orders in your store."
 msgstr "送料計算に用いる方法を選択ください。"
 
-#: ./interfaces.py:639
+#: ./interfaces.py:648
 msgid "Select month and year"
 msgstr "年月を選択ください。"
 
-#: ./interfaces.py:470
+#: ./interfaces.py:476
 msgid "Service Code (2 Letter)"
 msgstr "サービスコード"
 
-#: ./interfaces.py:471
+#: ./interfaces.py:477
 msgid "Service Name"
 msgstr "サービス名"
 
 #: ./workflow/item.py:156
+#: ./workflow/shipment.py:125
 msgid "Ship"
 msgstr "出荷"
 
-#: ./interfaces.py:74
+#: ./interfaces.py:71
 msgid "Shipping Method"
 msgstr "出荷方法"
 
-#: ./interfaces.py:704
+#: ./interfaces.py:713
 msgid "Shipping Price"
 msgstr "送料"
 
-#: ./interfaces.py:702
+#: ./interfaces.py:711
 msgid "Shipping Service"
 msgstr "運送サービス"
 
-#: ./interfaces.py:264
+#: ./interfaces.py:261
 msgid "Shipping Weight"
 msgstr "出荷重量"
 
-#: ./interfaces.py:550
+#: ./interfaces.py:556
 msgid "State"
 msgstr "都道府県"
 
-#: ./interfaces.py:79
+#: ./interfaces.py:76
 msgid "Store/Organization Name"
 msgstr "ショップ・組織名"
 
-#: ./interfaces.py:139
+#: ./tax.py:40
+msgid "Tax"
+msgstr ""
+
+#: ./interfaces.py:136
 msgid "Tax Identification Number"
 msgstr ""
 
-#: ./interfaces.py:152
+#: ./interfaces.py:277
+msgid "The subscription will end after this many payments."
+msgstr ""
+
+#: ./interfaces.py:149
 msgid "Title"
 msgstr "タイトル"
 
-#: ./interfaces.py:469
+#: ./interfaces.py:276
+msgid "Total Occurrences"
+msgstr ""
+
+#: ./interfaces.py:475
 msgid "Tracking Number"
 msgstr "トラッキングナンバー"
 
-#: ./order.py:111
+#: ./order.py:107
 msgid "Transaction Id already set"
 msgstr "トランザクションIDはセットされています"
 
-#: ./interfaces.py:341
+#: ./interfaces.py:346
 msgid "Unique Item Id"
 msgstr "商品ID"
 
-#: ./interfaces.py:224
+#: ./interfaces.py:221
 msgid "Very brief 50 character text (that shows up in portlet)"
 msgstr "ポートレットに表示される短い説明文"
 
-#: ./interfaces.py:268
+#: ./interfaces.py:265
 msgid "Weight Unit"
 msgstr "重量単位"
 
-#: ./interfaces.py:403
+#: ./interfaces.py:408
 msgid "Weight of Packaged Item"
 msgstr "梱包された商品の重量"
 
-#: ./interfaces.py:410
+#: ./interfaces.py:415
 msgid "Width"
 msgstr "幅"
 
@@ -476,19 +507,19 @@ msgstr "幅"
 msgid "Will Not Deliver"
 msgstr ""
 
-#: ./interfaces.py:615
+#: ./interfaces.py:623
 msgid "Would you prefer to receive rich html emails or only plain text"
 msgstr "受信するメールの形式を選択してください。"
 
-#: ./interfaces.py:583
+#: ./interfaces.py:591
 msgid "Yes"
 msgstr "はい"
 
-#: ./interfaces.py:597
+#: ./interfaces.py:605
 msgid "Your Name"
 msgstr "氏名"
 
-#: ./interfaces.py:552
+#: ./interfaces.py:558
 msgid "Zip/Postal Code"
 msgstr "郵便番号"
 
@@ -496,11 +527,11 @@ msgstr "郵便番号"
 msgid "do_not_translate"
 msgstr ""
 
-#: ./interfaces.py:255
+#: ./interfaces.py:252
 msgid "kgs"
 msgstr "キログラム"
 
-#: ./interfaces.py:254
+#: ./interfaces.py:251
 msgid "lbs"
 msgstr "ポンド"
 
