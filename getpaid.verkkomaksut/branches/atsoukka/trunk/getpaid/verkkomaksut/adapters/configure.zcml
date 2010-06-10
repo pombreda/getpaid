@@ -4,15 +4,6 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="getpaid.verkkomaksut">
 
-  <adapter
-    name="Verkkomaksut payment interface"
-    factory=".verkkomaksut.VerkkomaksutProcessor" />
-
-  <adapter
-    for="Products.CMFCore.interfaces.ISiteRoot"
-    provides="getpaid.verkkomaksut.interfaces.IVerkkomaksutOptions"
-    factory=".options.VerkkomaksutOptions" />
-
   <adapter factory=".order.VerkkomaksutOrderInfo" />
 
 </configure>

@@ -1,26 +1,27 @@
-from zope.interface import implements
-from zope.component import adapts
-from Products.CMFCore.interfaces import ISiteRoot
-from getpaid.core.interfaces import keys
+from zope import schema, interface
+from persistent import Persistent
+
+from getpaid.core import interfaces
+
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutProcessor, IVerkkomaksutOptions, IVerkkomaksutOrderInfo
 
 from urllib import urlencode
-from urllib2 import urlopen, HTTPSHandler, Request
-import md5
+from urllib2 import urlopen, Request
 
-class VerkkomaksutProcessor( object ):
 
-    implements(IVerkkomaksutProcessor)
-    adapts(ISiteRoot)
+class VerkkomaksutProcessor( Persistent ):
 
-    options_interface = IVerkkomaksutOptions
+    interfaces.implements(IVerkkomaksutProcessor)
 
-    def __init__( self, context ):
-        self.context = context
+    def __init__( self ):
+        # initialize defaults from schema
+        for name, field in schema.getFields( IVerkkomaksutOptions ).items():
+            field.set( self, field.query( self, field.default ) )
+        super( VerkkomaksutProcessor, self).__init__()
 
     def capture(self, order, price):
         # always returns async - just here to make the processor happy
-        return keys.results_async
+        return interfaces.keys.results_async
 
     def authorize( self, order, payment ):
         action_url = "https://ssl.verkkomaksut.fi/payment.svm"
