@@ -46,8 +46,6 @@ class INullPaymentOptions( interfaces.IPaymentProcessorOptions ):
                                     source="getpaid.core.credit_card_types" )
         )
 
-    use_ssl_for_checkout = schema.Bool( title=_(u"Use SSL for checkout"), default=False)
-
     allow_authorization = schema.Choice(
         title=_(u"Allow Authorizations"),
         default=u"allow_authorization",
