@@ -2,7 +2,7 @@ from zope.interface import implements
 from zope.component import adapts
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
-import md5
+from hashlib import md5
 from zope.app.component.hooks import getSite
 from zope.component import getUtility
 from getpaid.core.order import Order
@@ -46,7 +46,7 @@ class VerkkomaksutOrderInfo(object):
         culture = language_culture(language_bindings)
         TYPE = '4'
 
-        m = md5.new()
+        m = md5()
         m.update(options.merchant_authentication_code)
         ## For TYPE 4
         m.update('&' + verkkomaksut_merchant_id)

@@ -8,7 +8,7 @@ from Products.PloneGetPaid.browser.checkout import CheckoutReviewAndPay
 from zope.component import getUtility, getMultiAdapter
 from getpaid.core.interfaces import IOrderManager, IShoppingCartUtility
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions, IVerkkomaksutOrderInfo
-import md5
+from hashlib import md5
 
 class VerkkomaksutCheckoutReviewAndPay(CheckoutReviewAndPay):
 
@@ -75,7 +75,7 @@ class VerkkomaksutThankYou(BrowserView):
         site = getToolByName(self.context, "portal_url").getPortalObject()
         options = IVerkkomaksutOptions(site)
         merchant_hash = options.merchant_authentication_code
-        m = md5.new()
+        m = md5()
         m.update(order_number)
         m.update('&' + timestamp)
         m.update('&' + paid_transaction_id)
