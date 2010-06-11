@@ -6,7 +6,7 @@ from AccessControl import getSecurityManager
 from Products.PloneGetPaid.interfaces import IGetPaidManagementOptions, INamedOrderUtility
 from Products.PloneGetPaid.browser.checkout import CheckoutReviewAndPay
 from zope.component import getUtility, getMultiAdapter
-from getpaid.core.interfaces import IOrderManager, IShoppingCartUtility
+from getpaid.core.interfaces import IOrderManager, IShoppingCartUtility, IPaymentProcessor
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions, IVerkkomaksutOrderInfo
 from hashlib import md5
 
@@ -27,7 +27,7 @@ class VerkkomaksutCheckoutReviewAndPay(CheckoutReviewAndPay):
             if processor in processors:
                 order.processor_id = processor
         except AttributeError:
-            processor_name = manage_options.payment_processor
+            processor_name = "verkkomaksut"
             order.processor_id = processor_name
         order.finance_workflow.fireTransition( "create" )
         order_manager.store(order)
@@ -48,15 +48,13 @@ class VerkkomaksutCheckoutReviewAndPay(CheckoutReviewAndPay):
             else:
                 return False
         except AttributeError:
-            processor_name = manage_options.payment_processor
-            if processor_name == processor:
+            if "verkkomaksut" in manage_options.payment_processors:
                 return True
             else:
                 return False
 
     def verkkomaksut_options(self):
-        context= aq_inner(self.context)
-        return IVerkkomaksutOptions(context)
+        return IVerkkomaksutOptions(getUtility(IPaymentProcessor, name="verkkomaksut"))
 
     def order_info(self):
         order = self.createOrder()
@@ -73,7 +71,7 @@ class VerkkomaksutThankYou(BrowserView):
         timestamp = form.get('TIMESTAMP') or ''
         paid_transaction_id = form.get('PAID') or ''
         site = getToolByName(self.context, "portal_url").getPortalObject()
-        options = IVerkkomaksutOptions(site)
+        options = IVerkkomaksutOptions(getUtility(IPaymentProcessor, name="verkkomaksut"))
         merchant_hash = options.merchant_authentication_code
         m = md5()
         m.update(order_number)

@@ -6,6 +6,8 @@ from hashlib import md5
 from zope.app.component.hooks import getSite
 from zope.component import getUtility
 from getpaid.core.order import Order
+from getpaid.core.interfaces import IPaymentProcessor
+
 
 ### For implements.
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutOrderInfo
@@ -33,7 +35,7 @@ class VerkkomaksutOrderInfo(object):
         else:
             customer_id = 'anonymous'
         verkkomaksut_price = '%.2f' %(context.getTotalPrice())
-        options = IVerkkomaksutOptions(site)
+        options = IVerkkomaksutOptions(getUtility(IPaymentProcessor, name="verkkomaksut"))
         verkkomaksut_merchant_id = options.verkkomaksut_merchant_id
         base_url = site.absolute_url()
 #        success_url = base_url + '/@@verkkomaksut-thank-you?order_id=%s' %(order_id)
