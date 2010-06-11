@@ -23,13 +23,13 @@
         </div>
     </div>
     
-    <tal:cond define="isPlone3 context/@@checkout-review-pay/isPlone3"
+    <tal:cond define="isPlone3 context/@@checkout-review-pay/isPlone3|nothing"
               condition="isPlone3">
         <div tal:replace="structure provider:getpaid.belowcartthankyou" />
     </tal:cond>
     
     
-    <div tal:condition="not:isAnon">
+    <div tal:condition="not:context/portal_membership/isAnonymousUser">
       <span i18n:translate="box_order_status_url_description">You can check the status of your order
         <span i18n:name="status_url">
           <a href=""
