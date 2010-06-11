@@ -11,7 +11,8 @@ from urllib2 import urlopen, Request
 
 class VerkkomaksutProcessor( Persistent ):
 
-    interfaces.implements(IVerkkomaksutProcessor)
+    interfaces.implements(IVerkkomaksutProcessor,
+                          IVerkkomaksutOptions)
 
     def __init__( self ):
         # initialize defaults from schema
