@@ -88,23 +88,7 @@ class DefaultFinanceProcessorIntegration( object ):
         if not price > 0:
             return
 
-        # ick.. get a hold of the store
-        # this is a little gross, we need some access to context, so we fetch line items
-        # till we find something that resolves to an object, and try to get the store from that
-        # 
-        context = component.queryUtility( interfaces.IStore )
-        if context is None:
-            from Products.CMFCore.utils import getToolByName
-            ob = None
-            for i in self.order.shopping_cart.values():
-                if interfaces.IPayableLineItem.providedBy( i ):
-                    ob = i.resolve()
-            if ob is None:
-                raise AttributeError("can't get store, TODO - please switch processors settings to utility adapters")
-            context = getToolByName( ob, 'portal_url').getPortalObject()
-
-        processor = component.getAdapter( context,
-                                          interfaces.IPaymentProcessor,
+        processor = component.getUtility( interfaces.IPaymentProcessor,
                                           self.order.processor_id )
 
         result = processor.capture( self.order, self.order.getTotalPrice() )
