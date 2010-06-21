@@ -30,6 +30,16 @@
      permission="cmf.ManagePortal"
      />
 
+  <!-- Register IGetPaidPaymentButtonManager viewlet for PloneGetPaid's checkout wizard -->
+  <browser:viewlet
+     name="verkkomaksut" 
+     manager="Products.PloneGetPaid.interfaces.IPaymentButtonManager"
+     class=".button.VerkkomaksutPaymentButton"
+     weight="20"
+     condition="installed Products.PloneGetPaid"
+     permission="zope2.View"
+     />
+
   <include package=".adapters" />
   <include package=".browser" />
   <include package=".utilities" />
