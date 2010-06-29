@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-0.9.1 (unreleased)
+0.9.1 (2010-06-29)
 ------------------
 
 - made tax translatable, rebuilt and synced translation files,
