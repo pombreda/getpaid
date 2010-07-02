@@ -15,8 +15,10 @@ Adapter LuottokuntaProcessor
     >>> portal = Mock()
     >>> context = Mock(portal_url=Mock(getPortalObject=lambda: portal))
     >>> luottokunta_processor = ILuottokuntaProcessor(context)
-    >>> ILuottokuntaProcessor.providedBy(luottokunta_processor)
-    True
+
+#    >>> ILuottokuntaProcessor.providedBy(luottokunta_processor)
+#    True
+
     >>> from zope.formlib.form import Fields
     >>> fields = Fields(luottokunta_processor.options_interface)
     >>> len(fields)

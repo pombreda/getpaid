@@ -20,9 +20,11 @@ class TestCase(ptc.FunctionalTestCase):
         @classmethod
         def setUp(cls):
             fiveconfigure.debug_mode = True
+            zcml.load_config('configure.zcml', Products.PloneGetPaid)
             zcml.load_config('configure.zcml', getpaid.luottokunta)
             zcml.load_config('overrides.zcml', getpaid.luottokunta)
             fiveconfigure.debug_mode = False
+            ztc.installPackage(Products.PloneGetPaid)
             ztc.installPackage(getpaid.luottokunta)
 
 

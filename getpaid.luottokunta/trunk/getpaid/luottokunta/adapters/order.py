@@ -1,6 +1,6 @@
 from decimal import Decimal
 from zope.interface import implements
-from zope.component import adapts, getUtility
+from zope.component import adapts, getMultiAdapter, getUtility
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 try:
@@ -80,7 +80,9 @@ class LuottokuntaOrderInfo(object):
             authentication_mac = m.hexdigest()
         else:
             authentication_mac = None
-        base_url = site.absolute_url()
+        context_state = getMultiAdapter((site, site.REQUEST), name=u'plone_context_state')
+        current_base_url = context_state.current_base_url()
+        base_url = current_base_url[:current_base_url.rfind('/')]
         success_url = base_url + '/@@luottokunta-thank-you?getpaid_order_id=%s&luottokunta_order_id=%s' %(getpaid_order_id, order_id)
         failure_url = base_url + '/@@luottokunta-declined?getpaid_order_id=%s&luottokunta_order_id=%s' %(getpaid_order_id, order_id)
         cancel_url = base_url + '/@@luottokunta-cancelled?getpaid_order_id=%s&luottokunta_order_id=%s' %(getpaid_order_id, order_id)

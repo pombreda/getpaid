@@ -16,8 +16,8 @@
         </a>
       </li>
       <li>
-        <a i18n:translate="" tal:attributes="href view/portal_url">
-          Go to site top.
+        <a i18n:translate="" tal:attributes="href view/top_page_url">
+          Go to top page.
         </a>
       </li>
     </ul>

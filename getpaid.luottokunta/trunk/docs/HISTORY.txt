@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.4.1 (2010-07-02)
+------------------
+* Changed base_url in LuottokuntaOrderInfo class.
+* Updated Japanese translations.
+* Tested with Plone-4.0b5.
+
 0.4.0 (2010-06-01)
 ------------------
 * Added conditional imports to order.py for Plone 4 compatibility.

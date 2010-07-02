@@ -30,7 +30,7 @@
         </a>
       </li>
       <li>
-        <a i18n:translate="" tal:attributes="href view/portal_url">
+        <a i18n:translate="" tal:attributes="href view/top_page_url">
           Go to site top.
         </a>
       </li>

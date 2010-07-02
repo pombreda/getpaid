@@ -113,10 +113,6 @@ class LuottokuntaCancelledView(BrowserView):
 
     template = ZopeTwoPageTemplateFile("templates/checkout-cancelled.pt")
 
-    def portal_url(self):
-        portal = getToolByName(self.context, "portal_url").getPortalObject()
-        return portal.absolute_url()
-
     def increase_order_id_by_one(self):
         portal = getToolByName(self.context, "portal_url").getPortalObject()
         options = ILuottokuntaOptions(portal)
@@ -142,7 +138,22 @@ class LuottokuntaCancelledView(BrowserView):
                         '%s/@@getpaid-order/%s' %(self.portal_url(), order_id),
                         ))
             try:
-                mailer.secureSend(message, send_to_address, envelope_from, subject=subject, subtype='plain', charset=encoding, debug=False, From=sender_from_address)
+                mailer.send(
+                    message,
+                    send_to_address,
+                    envelope_from,
+                    subject=subject,
+                    msg_type='text/plain',
+                    charset=encoding,
+                    )
+#                mailer.send(
+#                message,
+#                mto,
+#                mfrom,
+#                subject=subject,
+#                msg_type='text/plain',
+#                charset=encoding,
+#            )
             except:
                 pass
 
@@ -152,8 +163,17 @@ class LuottokuntaCancelledView(BrowserView):
         self.send_mail(subject)
         return self.template()
 
+    def portal_url(self):
+        portal = getToolByName(self.context, "portal_url").getPortalObject()
+        return portal.absolute_url()
+
+    def top_page_url(self):
+        context_state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
+        return context_state.object_url()
+
     def back_to_cart(self):
-        return self.portal_url() + '/@@getpaid-cart'
+        context_state = getMultiAdapter((self.context, self.request), name=u'plone_context_state')
+        return context_state.object_url() + '/@@getpaid-cart'
 
 class LuottokuntaDeclinedView(LuottokuntaCancelledView):
 

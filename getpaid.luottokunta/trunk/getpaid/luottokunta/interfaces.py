@@ -1,8 +1,9 @@
 from zope import schema
 from zope.interface import Interface
-from getpaid.core.interfaces import IPaymentProcessor,IPaymentProcessorOptions
+from getpaid.core.interfaces import IPaymentProcessor,IPaymentProcessorOptions#, IRecurringPaymentProcessor
 from getpaid.luottokunta import LuottokuntaMessageFactory as _
 
+#class ILuottokuntaProcessor(IRecurringPaymentProcessor):
 class ILuottokuntaProcessor(IPaymentProcessor):
     """
     Luottokunta Processor

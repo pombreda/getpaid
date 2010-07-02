@@ -1,14 +1,12 @@
 from zope.interface import implements
 from zope.component import adapts
-#from Products.CMFCore.interfaces import ISiteRoot
-from getpaid.core.interfaces import IStore
-from getpaid.core.interfaces import keys
+from getpaid.core.interfaces import keys, IStore, IRecurringPaymentProcessor
 from getpaid.luottokunta.interfaces import ILuottokuntaProcessor, ILuottokuntaOptions
 
 class LuottokuntaProcessor( object ):
 
-    implements(ILuottokuntaProcessor)
-#    adapts(ISiteRoot)
+#    implements(ILuottokuntaProcessor)
+    implements(IRecurringPaymentProcessor)
     adapts(IStore)
 
     options_interface = ILuottokuntaOptions
@@ -21,4 +19,7 @@ class LuottokuntaProcessor( object ):
         return keys.results_async
 
     def authorize( self, order, payment ):
+        pass
+
+    def refund( self, order, amount ):
         pass
