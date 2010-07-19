@@ -1,12 +1,23 @@
 from StringIO import StringIO
 
-from Products.PloneGetPaid.config import PLONE3 
+try:
+   from plone.app.upgrade import v40
+   HAS_PLONE30 = True
+   HAS_PLONE40 = True
+except ImportError:
+   HAS_PLONE40 = False
+   try:
+       from Products.CMFPlone.migrations import v3_0
+   except ImportError:
+       HAS_PLONE30 = False
+   else:
+       HAS_PLONE30 = True
 
 def install_plone3_portlets(self):
     """Adds the discountable portlet to the root of the site
     so that it shows up on discountable items
     """
-    if not PLONE3:
+    if not HAS_PLONE30:
         return
 
     # Do the imports here, as we only need them here and this only
@@ -45,7 +56,7 @@ def setupVarious(context):
     logger = context.getLogger("getpaid.discount-default")
     out = StringIO()
 
-    if PLONE3:
+    if HAS_PLONE30:
         print >> out, "Installing Discount Plone 3 Portlets"
         install_plone3_portlets(site)
     
