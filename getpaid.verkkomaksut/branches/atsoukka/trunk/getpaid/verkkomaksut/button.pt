@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="getpaid.verkkomaksut" tal:omit-tag="">
+  <form action="https://ssl.verkkomaksut.fi/payment.svm" method="post"
+        id="getpaid-payment-form" tal:define="order view/order">
+    <input name="MERCHANT_ID" id="MERCHANT_ID" type="hidden" value="123456"
+           tal:attributes="value order/MERCHANT_ID" />
+    <input name="AMOUNT" id="AMOUNT" type="hidden" value="9.95"
+           tal:attributes="value order/AMOUNT" />
+    <input name="ORDER_NUMBER" id="ORDER_NUMBER" type="hidden" value="123456"
+           tal:attributes="value order/ORDER_NUMBER" />
+    <input name="REFERENCE_NUMBER" id="REFERENCE_NUMBER" type="hidden" value=""
+           tal:attributes="value order/REFERENCE_NUMBER" />
+    <input name="ORDER_DESCRIPTION" id="ORDER_DESCRIPTION" type="hidden" value="Description"
+           tal:attributes="value order/ORDER_DESCRIPTION" />
+    <input name="CURRENCY" id="CURRENCY" type="hidden" value="EUR"
+           tal:attributes="value order/CURRENCY" />
+    <input name="RETURN_ADDRESS" id="RETURN_ADDRESS" type="hidden" value="http://www.esimerkki.fi/success"
+           tal:attributes="value order/RETURN_ADDRESS" />
+    <input name="CANCEL_ADDRESS" id="CANCEL_ADDRESS" type="hidden" value="http://www.esimerkki.fi/cancel"
+           tal:attributes="value order/CANCEL_ADDRESS" />
+    <input name="PENDING_ADDRESS" id="PENDING_ADDRESS" type="hidden" value="http://www.esimerkki.fi/pending"
+           tal:attributes="value order/PENDING_ADDRESS" />
+    <input name="NOTIFY_ADDRESS" type="hidden" value="http://www.esimerkki.fi/notify"
+           tal:attributes="value order/NOTIFY_ADDRESS" />
+    <input name="TYPE" id="TYPE" type="hidden" value="S1"
+           tal:attributes="value order/TYPE"/>
+    <input name="CULTURE" id="CULTURE" type="hidden" value="fi_FI"
+           tal:attributes="value order/CULTURE" />
+    <input name="PRESELECTED_METHOD" id="PRESELECTED_METHOD" type="hidden" value=""
+           tal:attributes="value order/PRESELECTED_METHOD" />
+    <input name="MODE" id="MODE" type="hidden" value=""
+           tal:attributes="value order/MODE" />
+    <input name="VISIBLE_METHODS" id="VISIBLE_METHODS" type="hidden" value=""
+           tal:attributes="value order/VISIBLE_METHODS" />
+    <input name="GROUP" id="GROUP" type="hidden" value=""
+           tal:attributes="value order/GROUP" />
+    <input name="AUTHCODE" id="AUTHCODE" type="hidden" value="C99C6F8BD4F416B49479EFFC9360FE8D"
+           tal:attributes="value order/AUTHCODE" />
+    <input name="submit" id="submit" type="submit"
+           tal:attributes="value view/title" i18n:attributes="value" />
+  </form>
+</html>

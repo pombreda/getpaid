@@ -2,40 +2,38 @@ from zope import schema
 from zope.interface import Interface
 from getpaid.core.interfaces import IPaymentProcessor,IPaymentProcessorOptions
 from getpaid.wizard.interfaces import IWizardController
-from getpaid.verkkomaksut import VerkkomaksutMessageFactory as _
+from getpaid.verkkomaksut import _
+
 
 class IVerkkomaksutProcessor(IPaymentProcessor):
     """
     Verkkomaksut Processor
     """
 
+### Options
 class IVerkkomaksutOptions(IPaymentProcessorOptions):
     """
     Verkkomaksut Options
     """
 
     verkkomaksut_merchant_id = schema.ASCIILine( 
-                        title = _(u"Merchant ID"),
-                        description = _("Input merchant ID provided by Verkkomaksut."),
-                        required=True,
-                        )
+        title = _(u"Merchant ID"),
+        description = _("Input merchant ID provided by Verkkomaksut."),
+        required = True)
 
     merchant_authentication_code = schema.ASCIILine( 
-                        title = _(u"Merchant Authentication Code"),
-                        description = _("Input marchant authentication code provided by Verkkomaksut."),
-                        required=True,
-                        )
-
-#class IVerkkomaksutWizardController(IWizardController):
-#    """
-#    """
+        title = _(u"Merchant Authentication Code"),
+        description = _("Input marchant authentication code provided by Verkkomaksut."),
+        required = True)
 
 ### Adapters
-class IVerkkomaksutOrderInfo(Interface):
-    def __call__():
-        """Returns information of order."""
+class IVerkkomaksutPayload(Interface):
+    """ Adapts order for Verkkomaksut.fi."""
+
+class IVerkkomaksutPayment(Interface):
+    """ Adapts request from Verkkomaksut.fi."""
 
 ### Utilities
 class ILanguageCulture(Interface):
     def __call__(language_bindings):
-        """Returns verkkomaksut culture."""
+        """Returns Verkkomaksut.fi culture code."""

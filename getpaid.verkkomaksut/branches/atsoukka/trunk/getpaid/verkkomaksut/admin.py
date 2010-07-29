@@ -1,24 +1,21 @@
-from zope import component
-from zope.formlib import form
+"""
+Payment Processor Options for PloneGetPaid
+"""
 
-from getpaid.core.interfaces import IPaymentProcessor
+__version__ = "$Revision$"
+# $Id$
+# $URL$
 
-from getpaid.verkkomaksut import interfaces
 
-from Products.PloneGetPaid.browser.base import EditFormViewlet
+from z3c.form import field
 
-class VerkkomaksutOptions( EditFormViewlet ):
+from Products.PloneGetPaid.browser.admin_processors import PaymentProcessorOptionsBase
 
-    form_name = u"Verkkomaksut Options"
-    form_description = u"Configuration of Verkkomaksut Processor"
-    form_fields = form.Fields( interfaces.IVerkkomaksutOptions )
-    prefix = "verkkomaksut"
+from getpaid.verkkomaksut import NAME, TITLE
+from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions
 
-    def setUpWidgets( self, ignore_request=False ):
-        self.adapters = {
-            interfaces.IVerkkomaksutOptions: component.getUtility( IPaymentProcessor, name="verkkomaksut" )
-            }
-        self.widgets = form.setUpEditWidgets(
-            self.form_fields, self.prefix, self.context, self.request,
-            adapters=self.adapters, ignore_request=ignore_request
-            )
+
+class VerkkomaksutOptions(PaymentProcessorOptionsBase):
+    prefix = NAME
+    label = TITLE
+    fields = field.Fields(IVerkkomaksutOptions)

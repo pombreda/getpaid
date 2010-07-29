@@ -1,5 +1,14 @@
-from zope.i18nmessageid import MessageFactory
-VerkkomaksutMessageFactory = MessageFactory('getpaid.verkkomaksut')
+"""
+Verkkomaksut.fi payment processor for GetPaid
+"""
 
-#def initialize(context):
-#    """Initializer called when used as a Zope 2 product."""
+__version__ = "$Revision$"
+# $Id$
+# $URL$
+
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.verkkomaksut')
+
+NAME = "getpaid.verkkomaksut" # must be <type 'str'> (!)
+TITLE = _(u"Verkkomaksut Processor")
+DESCRIPTION = _(u"An offline payment processor for Verkkomaksut.fi")
