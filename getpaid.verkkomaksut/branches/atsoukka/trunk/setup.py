@@ -19,7 +19,7 @@ setup(name='getpaid.verkkomaksut',
       url='http://pypi.python.org/pypi/getpaid.verkkomaksut',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['jyu', 'jyu.getpaid'],
+      namespace_packages=['getpaid'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
