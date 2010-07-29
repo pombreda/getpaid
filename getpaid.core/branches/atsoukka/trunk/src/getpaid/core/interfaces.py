@@ -356,9 +356,11 @@ class ILineItemFactory( Interface ):
     from a payable. sort of like an adding view
     """
 
-    def create( payable ):
+    def create( quantity ):
         """
-        create a payable from a line item
+        either create a new line item for the factory specific payable
+        with the given quantity or increment quantity, when a line item
+        with the same type has already been added to the container
         """
 
 class ILineItemContainer( IContainer ):
@@ -366,8 +368,8 @@ class ILineItemContainer( IContainer ):
     """
 
 class ILineContainerTotals( Interface ):
-    # interface for getting prices for a collection of items (aka an order),
-    # mostly encapsulation, of other components
+    # interface for getting prices for all items in a line item container
+    # (e.g. for a shopping cart); mostly encapsulation of other components
 
     def getTotalPrice( ):
         """
@@ -376,7 +378,7 @@ class ILineContainerTotals( Interface ):
 
     def getShippingCost( ):
         """
-        return total estimated shipping cost for the items in the container.
+        return total estimated shipping cost for the items in the container
         """
 
     def getTaxCost( ):
@@ -386,7 +388,7 @@ class ILineContainerTotals( Interface ):
 
     def getSubTotalPrice( ):
         """
-        get the price of all the items in the contaners
+        get the price of all the items in the container
         """
 
 class IPayableLineItem( ILineItem ):
@@ -480,15 +482,16 @@ class IShipment( ILineItemContainer ):
 
 class IShippingMethod( Interface ):
 
-    def getCost( order ):
-        """ get the shipping cost for an order...
+    def getCost( container ):
+        """ get the shipping cost for contents of a line item container
         """
 
 class IShippingRateService( Interface ):
     """ utility """
 
-    def getRates( order ):
-        """ return shipping rate options for an order.  this should return:
+    def getRates( container ):
+        """ return shipping rate options for contents of a line item container
+        (e.g. a shopping cart). This should return:
         - a list of IShippingMethodRate as 'shipments'
         - an error string as 'error'
         """
@@ -534,10 +537,10 @@ class IShippingMethodSettings( Interface ):
 
 class ITaxUtility( Interface ):
 
-    def getTaxes( order ):
-	 	""" return a list dictionaries of each ITax inside that applies to
-	 		the order
-		"""
+    def getTaxes( container ):
+        """ return a list of dictionaries of each ITax inside that applies to
+        the contents of a line item container (e.g. a shopping cart)
+        """
 
 
 #################################
