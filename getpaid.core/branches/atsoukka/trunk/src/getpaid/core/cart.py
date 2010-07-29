@@ -25,7 +25,7 @@
 $Id$
 """
 
-import decimal
+import math, decimal
 
 from zope import component
 from zope.interface import implements
@@ -96,33 +96,31 @@ class CartItemTotals( object ):
         self.shopping_cart = context
 
     def getTotalPrice( self ):
-        if not self.shopping_cart:
-            return 0
-        
-        total = 0
-        total += float(self.getSubTotalPrice())
-        total += float(self.getShippingCost())
-        for tax in self.getTaxCost():
-            total += tax['value']
-        
-        return float( str( total ) )            
+        total = decimal.Decimal()
+        if self.shopping_cart:
+            total += decimal.Decimal(str(self.getSubTotalPrice()))
+            total += decimal.Decimal(str(self.getShippingCost()))
+            for tax in self.getTaxCost():
+                total += decimal.Decimal(str(math.fabs(tax['value']))) # add always abs value
+        return float(total)
 
     def getSubTotalPrice( self ):
-        if not self.shopping_cart:
-            return 0
-        total = 0
-        for item in self.shopping_cart.values():
-            d = decimal.Decimal ( str(item.cost ) ) * item.quantity
-            total += d        
-        return total
+        total = decimal.Decimal()
+        if self.shopping_cart:
+            for item in self.shopping_cart.values():
+                total += (decimal.Decimal(str(item.cost)) * item.quantity)
+            # Remove in-price taxes from subTotalPrice (by adding negative taxes)
+            for tax in [t for t in self.getTaxCost() if t['value'] < 0]:
+                total += decimal.Decimal(str(tax['value']))
+        return float( total )
         
     def getShippingCost( self ):
-        if not interfaces.IShippableOrder.providedBy( self ):
-            return 0
-        return decimal.Decimal( str( self.shipping_cost ) )
+        total = decimal.Decimal()
+        if interfaces.IShippableOrder.providedBy( self.shopping_cart ):
+            total += decimal.Decimal(str(self.shipping_cost))
+        return float( total )
 
     def getTaxCost( self ):
         """ get the list of dictionaries containing the tax info """
-        tax_utility = component.getUtility( interfaces.ITaxUtility )
-        return tax_utility.getTaxes( self )
-
+        tax_utility = component.getUtility(interfaces.ITaxUtility)
+        return tax_utility.getTaxes( self.shopping_cart )
