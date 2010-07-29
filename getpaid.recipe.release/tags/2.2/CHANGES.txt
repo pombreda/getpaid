@@ -2,9 +2,6 @@
 CHANGES
 =======
 
-2.3 (unreleased)
-----------------
-
 2.2 (2010-07-29)
 ----------------
 * update getpaid.discount [larubbio]
