@@ -22,47 +22,41 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 """
-$Id$
+NullPaymentProcessor Options
 """
+
+__version__ = "$Revision$"
+# $Id$
+# $URL$                                                                                                            
 
 from zope import schema
 
 from getpaid.core import interfaces
 
-from zope.i18nmessageid import MessageFactory
-_ = MessageFactory('getpaid.nullpayment')
+from getpaid.nullpayment import _
 
-class INullPaymentOptions( interfaces.IPaymentProcessorOptions ):
-    """
-    Null Payment Options
-    """
+
+class INullPaymentOptions(interfaces.IPaymentProcessorOptions):
 
     accepted_credit_cards = schema.List(
-        title = _(u"Accepted Credit Cards"),
+        title    = _(u"Accepted Credit Cards"),
         required = False,
-        default = [],
+        default  = [],
         description = _(u"Credit cards accepted for payment"),
-        value_type = schema.Choice( title=u"credit_card_types",
-                                    source="getpaid.core.credit_card_types" )
-        )
-
+        value_type  = schema.Choice(title=u"credit_card_types",
+                                    source="getpaid.core.credit_card_types"))
+    
     allow_authorization = schema.Choice(
-        title=_(u"Allow Authorizations"),
-        default=u"allow_authorization",
-        values = (u"allow_authorization",
-                  u"no_authorization")
-        )
+        title   = _(u"Allow Authorizations"),
+        values  =  (u"allow_authorization", u"no_authorization"),
+        default =   u"allow_authorization")
 
     allow_capture = schema.Choice(
-        title=_(u"Allow Captures"),
-        default=u"allow_capture",
-        values = (u"allow_capture",
-                  u"no_capture" )
-        )
+        title   = _(u"Allow Captures"),
+        values  =  (u"allow_capture", u"no_capture"),
+        default =   u"allow_capture")
 
     allow_refunds = schema.Choice(
-        title=_(u"Allow Refunds"),
-        default=u"allow_refund",
-        values = (u"allow_refund",
-                  u"no_refund" )
-        )
+        title   = _(u"Allow Refunds"),
+        values  =  (u"allow_refund", u"no_refund"),
+        default =   u"allow_refund")

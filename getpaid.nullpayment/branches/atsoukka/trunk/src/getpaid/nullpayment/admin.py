@@ -1,24 +1,20 @@
-from zope import component
-from zope.formlib import form
+"""
+Payment Processor Options for PloneGetPaid
+"""
 
-from getpaid.core.interfaces import IPaymentProcessor
+__version__ = "$Revision$"
+# $Id$
+# $URL$
 
-from getpaid.nullpayment import interfaces
+from z3c.form import field
 
-from Products.PloneGetPaid.browser.base import EditFormViewlet
+from Products.PloneGetPaid.browser.admin_processors import PaymentProcessorOptionsBase
 
-class NullPaymentOptions( EditFormViewlet ):
+from getpaid.nullpayment import NAME, TITLE
+from getpaid.nullpayment.interfaces import INullPaymentOptions
 
-    form_name = u"Null Payment Options"
-    form_description = u"Configuration of Null Payment Processor"
-    form_fields = form.Fields( interfaces.INullPaymentOptions )
-    prefix = "nullpayment"
 
-    def setUpWidgets( self, ignore_request=False ):
-        self.adapters = {
-            interfaces.INullPaymentOptions: component.getUtility( IPaymentProcessor, name="nullpayment" )
-            }
-        self.widgets = form.setUpEditWidgets(
-            self.form_fields, self.prefix, self.context, self.request,
-            adapters=self.adapters, ignore_request=ignore_request
-            )
+class NullPaymentOptions(PaymentProcessorOptionsBase):
+    prefix = NAME
+    label = TITLE
+    fields = field.Fields(INullPaymentOptions)

@@ -1,13 +1,13 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-	   xmlns:five="http://namespaces.zope.org/five"
-           xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:i18n="http://namespaces.zope.org/i18n">
+           xmlns:zcml="http://namespaces.zope.org/zcml"
+           xmlns:i18n="http://namespaces.zope.org/i18n"
+           i18n_domain="getpaid.nullpayment">
 
   <i18n:registerTranslations directory="locales" />
 
   <!-- Plugin Manager -->
   <adapter
-     name="nullpayment"
+     name="getpaid.nullpayment"
      for="getpaid.core.interfaces.IStore"
      provides="getpaid.core.interfaces.IPluginManager"
      factory=".plugin.NullPaymentPluginManager"
@@ -20,14 +20,25 @@
      handler=".plugin.storeInstalled"
      />
 
-  <!-- Register ISettingsPaymentManager viewlet for settings management -->
-  <browser:viewlet
-     name="nullpayment"
-     manager="Products.PloneGetPaid.interfaces.ISettingsPaymentManager"
-     class=".admin.NullPaymentOptions"
-     weight="20"
-     condition="installed Products.PloneGetPaid"
-     permission="cmf.ManagePortal"
+  <!-- Payment Processors Options -->
+  <adapter
+     name="getpaid.nullpayment"
+     provides="z3c.form.interfaces.IGroup"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IBrowserRequest
+          Products.PloneGetPaid.browser.admin_processors.IPaymentProcessorOptions"
+     factory=".admin.NullPaymentOptions"
+     zcml:condition="installed Products.PloneGetPaid"
      />
-
+  
+  <!-- Checkout Wizard Step -->
+  <adapter
+     name="getpaid.nullpayment"
+     provides="collective.z3cform.wizard.interfaces.IStep"
+     for="zope.interface.Interface
+          zope.publisher.interfaces.browser.IBrowserRequest
+          Products.PloneGetPaid.browser.checkout_wizard.ICheckoutWizard"
+     factory="Products.PloneGetPaid.browser.checkout_wizard.Payment"
+     zcml:condition="installed Products.PloneGetPaid"
+     />
 </configure>

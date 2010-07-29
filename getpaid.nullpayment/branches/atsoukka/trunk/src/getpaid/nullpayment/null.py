@@ -22,50 +22,58 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 """
-$Id$
+NullPaymentProcessor
 """
 
-from zope import schema, interface
+__version__ = "$Revision$"
+# $Id$
+# $URL$                                                                                                            
+
+
 from persistent import Persistent
 
-from getpaid.core import interfaces, options
-from interfaces import INullPaymentOptions
-
+from zope import schema, interface
 from zope.annotation.interfaces import IAnnotations
+
+from getpaid.core import interfaces, options
+
+from getpaid.nullpayment.interfaces import INullPaymentOptions
 
 LAST_FOUR = "getpaid.null.cc_last_four"
 
-class NullPaymentProcessor( Persistent ):
 
-    interface.implements( interfaces.IRecurringPaymentProcessor,
-                          INullPaymentOptions )
+class NullPaymentProcessor(Persistent):
 
-    def __init__( self ):
+    interface.implements(interfaces.IRecurringPaymentProcessor,
+                         INullPaymentOptions)
+
+    def __init__(self):
         # initialize defaults from schema
-        for name, field in schema.getFields( INullPaymentOptions ).items():
-            field.set( self, field.query( self, field.default ) )
-        super( NullPaymentProcessor, self).__init__()
+        for name, field in schema.getFields(INullPaymentOptions).items():
+            field.set(self, field.query(self, field.default ))
+        super(NullPaymentProcessor, self).__init__()
         
-    def authorize( self, order, payment ):
-        options = INullPaymentOptions( self )
+    def authorize(self, order, payment):
+        options = INullPaymentOptions(self)
+
         if options.allow_authorization == u'allow_authorization':
-            annotation = IAnnotations( order )
-            annotation[ LAST_FOUR ] = payment.credit_card[-4:]
+            annotation = IAnnotations(order)
+            annotation[LAST_FOUR] = payment.credit_card[-4:]
 
             import random
-            order.setOrderTransId( random.randint(10,1000))
-
+            order.setOrderTransId(random.randint(10,1000))
+            
             return interfaces.keys.results_success
         return "Authorization Failed"
 
-    def capture( self, order, amount ):
-        options = INullPaymentOptions( self )
+    def capture(self, order, amount):
+        options = INullPaymentOptions(self)
         if options.allow_capture == u'allow_capture':
             return interfaces.keys.results_success
         return "Capture Failed"
 
-    def refund( self, order, amount ):
-        options = INullPaymentOptions( self )
+    def refund(self, order, amount):
+        options = INullPaymentOptions(self)
         if options.allow_refunds == u'allow_refund':
             return interfaces.keys.results_success
         return "Refund Failed"
