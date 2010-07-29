@@ -42,14 +42,34 @@ class ICodeDiscountable(Interface):
     """
     Marker interface for the CodeDiscountable items
     """
-    discount_title = schema.TextLine(title=_(u'Discount Title'),
+    discount_title_1 = schema.TextLine(title=_(u'Discount Title'),
                            required=True)
 
-    discount_code = schema.TextLine(title=_(u'Discount Code'),
+    discount_code_1 = schema.TextLine(title=_(u'Discount Code'),
                            required=True)
     
-    discounted_price = schema.Float(title=_(u'Price after Discount'),
+    discounted_price_1 = schema.Float(title=_(u'Price after Discount'),
                                   required=True,)
+
+
+    discount_title_2 = schema.TextLine(title=_(u'Second Discount Title'),
+                           required=False)
+
+    discount_code_2 = schema.TextLine(title=_(u'Second Discount Code'),
+                           required=False)
+    
+    discounted_price_2 = schema.Float(title=_(u'Price after Second Discount'),
+                                  required=False,)
+
+
+    discount_title_3 = schema.TextLine(title=_(u'Third Discount Title'),
+                           required=False)
+
+    discount_code_3 = schema.TextLine(title=_(u'Third Discount Code'),
+                           required=False)
+    
+    discounted_price_3 = schema.Float(title=_(u'Price after Third Discount'),
+                                  required=False,)
 
 
 class ICodeDiscountableMarker(Interface):

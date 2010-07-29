@@ -85,6 +85,7 @@ class DiscountListingViewlet(ViewletBase):
                     results.append(res)
                 elif ICodeDiscountableMarker.providedBy(ref_obj) \
                      and "getpaid.discount.code" in annotation:
+
                     discount_title = annotation["getpaid.discount.code.title"]
                     discount_value = annotation["getpaid.discount.code.discount"]
                     if discount_value != 0.0:

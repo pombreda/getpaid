@@ -1,4 +1,7 @@
 from Products.statusmessages.interfaces import IStatusMessage
+
+from plone.z3cform import z2
+
 from zope.component import getMultiAdapter
 from Products.CMFPlone import PloneMessageFactory as _
 from zope import component
@@ -55,7 +58,10 @@ class DiscountCreation(DiscountForm):
     def activate_discountable( self, action, data):
         #we set up the type as IDiscountable
         interface.alsoProvides(self.context, self.marker)
+
+        z2.switch_on(self) 
         self.handle_edit_action.success_handler( self, action, data )
+
 #        message = 'Changes saved.'
 #        self.request.response.redirect( '%s/view?portal_status_message=%s' % (self.context.absolute_url(), message) )
         IStatusMessage(self.request).addStatusMessage(_("Changes saved."),
@@ -63,6 +69,7 @@ class DiscountCreation(DiscountForm):
         url = getMultiAdapter((self.context, self.request),
                               name='absolute_url')()
         self.request.response.redirect(self.context.absolute_url())
+
 class DiscountDestruction(BrowserView):
     marker = IDiscountableMarker
     
@@ -189,41 +196,76 @@ class CodeDiscountableAdapter(object):
     """
     implements(ICodeDiscountable)
     
+    def _getDiscountTitle(x):
+        def func(self):
+            return self.annotations['discount_title_%s' % x]
+    
+        return func
+
+    def _setDiscountTitle(x):
+        def func(self, data):
+            self.annotations['discount_title_%s' % x] = data
+            
+        return func
+
+    def _getDiscountCode(x):
+        def func(self):
+            return self.annotations['discount_code_%s' % x]
+
+        return func
+
+    def _setDiscountCode(x):
+        def func(self, data):
+            if data:
+                data = data.strip()
+            self.annotations['discount_code_%s' % x] = data
+
+        return func
+    
+    def _getDiscountedPrice(x):
+        def func(self):
+            return self.annotations['discounted_price_%s' % x]
+
+        return func
+
+    def _setDiscountedPrice(x):
+        def func(self, data):
+            self.annotations['discounted_price_%s' % x] = data
+
+        return func
+
     def __init__(self, context):
         self.context = context
         self.annotations = IAnnotations(context)
-        discount_title = self.annotations.get('discount_title', None)
-        if discount_title is None:
-            self.annotations['discount_title'] = ''
-        discount_code = self.annotations.get('discount_code', None)
-        if discount_code is None:
-            self.annotations['discount_code'] = ''
-        discounted_price = self.annotations.get('discounted_price', None)
-        if discounted_price is None:
-            self.annotations['discounted_price'] = 0.0
-    
-    def getDiscountTitle(self):
-        return self.annotations['discount_title']
 
-    def setDiscountTitle(self, data):
-        self.annotations['discount_title'] = data
+        for f in [1,2,3]:
+            title = 'discount_title_%s' % f
+            code = 'discount_code_%s' % f
+            price = 'discounted_price_%s' % f
 
-    def getDiscountCode(self):
-        return self.annotations['discount_code']
+            setattr(self, title, self.annotations.get(title, None))
+            if getattr(self, title, None) is None:
+                self.annotations[title] = ''
 
-    def setDiscountCode(self, data):
-        code = data.strip()
-        self.annotations['discount_code'] = code
-    
-    def getDiscountedPrice(self):
-        return self.annotations['discounted_price']
+            setattr(self, code, self.annotations.get(code, None))
+            if getattr(self, code, None) is None:
+                self.annotations[code] = ''
 
-    def setDiscountedPrice(self, data):
-        self.annotations['discounted_price'] = data
-    
-    discount_title = property(fget=getDiscountTitle, fset=setDiscountTitle)
-    discount_code = property(fget=getDiscountCode, fset=setDiscountCode)
-    discounted_price = property(fget=getDiscountedPrice, fset=setDiscountedPrice)
+            setattr(self, price, self.annotations.get(price, None))
+            if getattr(self, price, None) is None:
+                self.annotations[price] = 0.0
+
+    discount_title_1 = property(fget=_getDiscountTitle(1), fset=_setDiscountTitle((1)))
+    discount_code_1 = property(fget=_getDiscountCode(1), fset=_setDiscountCode(1))
+    discounted_price_1 = property(fget=_getDiscountedPrice(1), fset=_setDiscountedPrice(1))
+
+    discount_title_2 = property(fget=_getDiscountTitle(2), fset=_setDiscountTitle(2))
+    discount_code_2 = property(fget=_getDiscountCode(2), fset=_setDiscountCode(2))
+    discounted_price_2 = property(fget=_getDiscountedPrice(2), fset=_setDiscountedPrice(2))
+
+    discount_title_3 = property(fget=_getDiscountTitle(3), fset=_setDiscountTitle(3))
+    discount_code_3 = property(fget=_getDiscountCode(3), fset=_setDiscountCode(3))
+    discounted_price_3 = property(fget=_getDiscountedPrice(3), fset=_setDiscountedPrice(3))
 
 class ApplyDiscountCode(BrowserView):
     """
@@ -245,7 +287,7 @@ class ApplyDiscountCode(BrowserView):
                 order_manager = component.getUtility(interfaces.IOrderManager)
                 self.cart = order_manager.get(order_id).shopping_cart
 
-        if code is not None and self.cart:
+        if code is not None and len(code) is not 0 and self.cart:
             
             for item in self.cart.values():
 
@@ -260,19 +302,24 @@ class ApplyDiscountCode(BrowserView):
 
                     adapter_obj = ICodeDiscountable(ref_obj)
 
-                    if code.lower() == adapter_obj.getDiscountCode().lower():
+                    for f in [1,2,3]:
+                        discount_title = 'discount_title_%s' % f
+                        discount_code = 'discount_code_%s' % f
+                        discounted_price = 'discounted_price_%s' % f
 
-                        discounted_price = adapter_obj.getDiscountedPrice()
+                        if code.lower() == getattr(adapter_obj, discount_code, '').lower():
 
-                        annotation["getpaid.discount.code"] = adapter_obj.getDiscountCode()
+                            discounted_price = getattr(adapter_obj, discounted_price)
+                        
+                            annotation["getpaid.discount.code"] = getattr(adapter_obj, discount_code)
 
-                        # Here I want to create a new IDiscountableMarker
-                        # I also want to drop the price on this payable_line    
-                        annotation["getpaid.discount.code.title"] = adapter_obj.getDiscountTitle()
-                        discount = item.cost - adapter_obj.getDiscountedPrice()
-                        item.cost = adapter_obj.getDiscountedPrice()
-                        total_discount = discount * item.quantity
-                        annotation["getpaid.discount.code.discount"] = total_discount
+                            # Here I want to create a new IDiscountableMarker
+                            # I also want to drop the price on this payable_line    
+                            annotation["getpaid.discount.code.title"] = getattr(adapter_obj, discount_title)
+                            discount = item.cost - discounted_price
+                            item.cost = discounted_price
+                            total_discount = discount * item.quantity
+                            annotation["getpaid.discount.code.discount"] = "%.2f" % (total_discount)
 
         self.request.response.redirect('@@getpaid-cart')
 
