@@ -4,8 +4,10 @@ Payment Processor Plugin Manager
 
 __version__ = "$Revision$"
 # $Id$
-# $URL$                                                                                                                                                
+# $URL$
+                                                                                                                                             
 from zope import component, interface
+
 from getpaid.core.interfaces import IPluginManager, IPaymentProcessor
 
 from getpaid.nullpayment import NAME, TITLE, DESCRIPTION
