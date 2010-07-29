@@ -2,12 +2,21 @@
 CHANGES
 =======
 
-2.3 (unreleased)
+2.2.1dev (unreleased)
 ----------------
+* update getpaid.core from 0.7.5 to 0.9.1[larubbio]
+* update Products.PloneGetPaid from 0.8.8 to 0.10.1 [larubbio]
+* update getpaid.nullpayment from 0.3.1 to 0.5 [larubbio]
+* update getpaid.wizard from 0.3 to 0.4 [larubbio]
+* update getpaid.authorizedotnet from 0.3.3 to 0.5 [larubbio]
+* update getpaid.pxpay from 0.3 to 0.5 [larubbio]
+* update getpaid.formgen from 0.3 to 0.4 [larubbio]
+* update getpaid.SalesforcePloneFormGenAdapter from 1.6 to 1.7 [larubbio]
+* update five.intid from 0.2 to 0.5 [larubbio]
 
 2.2 (2010-07-29)
 ----------------
-* update getpaid.discount [larubbio]
+* update getpaid.discount to 0.9 [larubbio]
 
 2.1 (2010-02-02)
 ----------------

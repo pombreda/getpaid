@@ -48,14 +48,14 @@ GETPAID_SOURCE = 'http://getpaid.googlecode.com/files/'
 
 GETPAID_BASE_PACKAGES = [
     PyModule('ore.viewlet', CHEESE_SOURCE + 'o/ore.viewlet/ore.viewlet-0.2.1.tar.gz', version="0.2.1"),
-    PyModule('getpaid.core', CHEESE_SOURCE + 'g/getpaid.core/getpaid.core-0.7.5.tar.gz', version="0.7.5"),
-    PyModule('Products.PloneGetPaid', CHEESE_SOURCE + 'P/Products.PloneGetPaid/Products.PloneGetPaid-0.8.8.tar.gz', version="0.8.8"),
-    PyModule('getpaid.wizard', CHEESE_SOURCE + 'g/getpaid.wizard/getpaid.wizard-0.3.tar.gz', version="0.3"),
-    PyModule('getpaid.nullpayment', CHEESE_SOURCE + 'g/getpaid.nullpayment/getpaid.nullpayment-0.3.1.tar.gz', version="0.3.1"),
+    PyModule('getpaid.core', CHEESE_SOURCE + 'g/getpaid.core/getpaid.core-0.9.1.tar.gz', version="0.9.1"),
+    PyModule('Products.PloneGetPaid', CHEESE_SOURCE + 'P/Products.PloneGetPaid/Products.PloneGetPaid-0.10.1.tar.gz', version="0.10.1"),
+    PyModule('getpaid.wizard', CHEESE_SOURCE + 'g/getpaid.wizard/getpaid.wizard-0.4.tar.gz', version="0.4"),
+    PyModule('getpaid.nullpayment', CHEESE_SOURCE + 'g/getpaid.nullpayment/getpaid.nullpayment-0.5.tar.gz', version="0.5"),
 ]
 
 GETPAID_DEPENDENCIES = [
-    PyModule('five.intid', CHEESE_SOURCE + 'f/five.intid/five.intid-0.2.0.tar.gz', version="0.3.0"),
+    PyModule('five.intid', CHEESE_SOURCE + 'f/five.intid/five.intid-0.5.0.tar.gz', version="0.5.0"),
     PyModule('hurry.workflow', GETPAID_SOURCE + 'hurry.workflow-0.9.1-getpaid.tar.gz', version="0.9.1-getpaid"),
     PyModule('simplejson', CHEESE_SOURCE + 's/simplejson/simplejson-2.0.9.tar.gz', version="2.0.9"),
     PyModule('yoma.batching', GETPAID_SOURCE + 'yoma.batching-0.2.1-getpaid.tar.gz', version="0.2.1-getpaid"),
@@ -65,13 +65,13 @@ GETPAID_DEPENDENCIES = [
 
 GETPAID_OTHER_PACKAGES = {
     # payment processors
-    'getpaid.authorizedotnet': PyModule('getpaid.authorizedotnet', CHEESE_SOURCE + 'g/getpaid.authorizedotnet/getpaid.authorizedotnet-0.3.3.tar.gz', version="0.3.3"),
+    'getpaid.authorizedotnet': PyModule('getpaid.authorizedotnet', CHEESE_SOURCE + 'g/getpaid.authorizedotnet/getpaid.authorizedotnet-0.5.tar.gz', version="0.5"),
     'getpaid.googlecheckout': PyModule('getpaid.googlecheckout', CHEESE_SOURCE + 'g/getpaid.googlecheckout/getpaid.googlecheckout-0.3.tar.gz', version="0.3"),
     'getpaid.ogone': PyModule('getpaid.ogone', CHEESE_SOURCE + 'g/getpaid.ogone/getpaid.ogone-0.3.tar.gz', version="0.3"),
     'getpaid.payflowpro': PyModule('getpaid.payflowpro', CHEESE_SOURCE + 'g/getpaid.payflowpro/getpaid.payflowpro-1.1.tar.gz', version="1.1"),
     'getpaid.paymentech': PyModule('getpaid.paymentech', CHEESE_SOURCE + 'g/getpaid.paymentech/getpaid.paymentech-0.3.tar.gz', version="0.3"),
     'getpaid.paypal': PyModule('getpaid.paypal', CHEESE_SOURCE + 'g/getpaid.paypal/getpaid.paypal-0.4.4.tar.gz', version="0.4.4"),
-    'getpaid.pxpay': PyModule('getpaid.pxpay', CHEESE_SOURCE + 'g/getpaid.pxpay/getpaid.pxpay-0.3.tar.gz', version="0.3"),
+    'getpaid.pxpay': PyModule('getpaid.pxpay', CHEESE_SOURCE + 'g/getpaid.pxpay/getpaid.pxpay-0.5.tar.gz', version="0.5"),
     'getpaid.clickandbuy': PyModule('getpaid.clickandbuy', CHEESE_SOURCE + 'g/getpaid.clickandbuy/getpaid.clickandbuy-0.1.tar.gz', version="0.1"),
     # shipping
     'getpaid.flatrateshipping': PyModule('getpaid.flatrateshipping', CHEESE_SOURCE + 'g/getpaid.flatrateshipping/getpaid.flatrateshipping-0.2.tar.gz', version="0.2"),
@@ -79,10 +79,10 @@ GETPAID_OTHER_PACKAGES = {
     # discount
     'getpaid.discount': PyModule('getpaid.discount', CHEESE_SOURCE + 'g/getpaid.discount/getpaid.discount-0.9.tar.gz', version="0.9"),
     # others
-    'getpaid.formgen': PyModule('getpaid.formgen', CHEESE_SOURCE + 'g/getpaid.formgen/getpaid.formgen-0.3.tar.gz', version="0.3"),
+    'getpaid.formgen': PyModule('getpaid.formgen', CHEESE_SOURCE + 'g/getpaid.formgen/getpaid.formgen-0.4.tar.gz', version="0.4"),
     'getpaid.report': PyModule('getpaid.report', CHEESE_SOURCE + 'g/getpaid.report/getpaid.report-0.1.1.tar.gz', version="0.1.1"),
     'getpaid.warehouse': PyModule('getpaid.warehouse', CHEESE_SOURCE + 'g/getpaid.warehouse/getpaid.warehouse-0.3.tar.gz', version="0.3"),
-    'getpaid.SalesforcePloneFormGenAdapter': PyModule('getpaid.SalesforcePloneFormGenAdapter', CHEESE_SOURCE + 'g/getpaid.SalesforcePloneFormGenAdapter/getpaid.SalesforcePloneFormGenAdapter-1.6.tar.gz', version="1.6"),
+    'getpaid.SalesforcePloneFormGenAdapter': PyModule('getpaid.SalesforcePloneFormGenAdapter', CHEESE_SOURCE + 'g/getpaid.SalesforcePloneFormGenAdapter/getpaid.SalesforcePloneFormGenAdapter-1.7.tar.gz', version="1.7"),
     'getpaid.SalesforceOrderRecorder': PyModule('getpaid.SalesforceOrderRecorder', CHEESE_SOURCE + 'g/getpaid.SalesforceOrderRecorder/getpaid.SalesforceOrderRecorder-0.5.zip', version="0.5"),
 }
 
