@@ -18,8 +18,11 @@ import time
 
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutPayload, IVerkkomaksutPayment
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions, ILanguageCulture
-from getpaid.verkkomaksut import NAME
-from getpaid.verkkomaksut import  _
+from getpaid.verkkomaksut import VerkkomaksutProcessor as plugin
+
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.verkkomaksut')
+
 
 # FIXME: Describe interface on IVerkkomaksutPayload
 
@@ -68,7 +71,7 @@ class VerkkomaksutPayload(object):
     AUTHCODE = None
 
     def __init__(self, order):
-        options = IVerkkomaksutOptions(component.getUtility(interfaces.IPaymentProcessor, name=NAME))
+        options = IVerkkomaksutOptions(component.getUtility(interfaces.IPaymentProcessor, name=plugin.NAME))
 
         site = component.getSiteManager()
         portal = getToolByName(site, "portal_url").getPortalObject()
@@ -165,7 +168,7 @@ class VerkkomaksutPayment(object):
         self.processor_order_id = request.form.get('PAID', None)
 
         # verified
-        options = IVerkkomaksutOptions(component.getUtility(interfaces.IPaymentProcessor, name=NAME))
+        options = IVerkkomaksutOptions(component.getUtility(interfaces.IPaymentProcessor, name=plugin.NAME))
 
         authcode = md5()
         authcode.update(request.form.get('ORDER_NUMBER', ""))

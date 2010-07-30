@@ -1,14 +1,26 @@
+"""
+Payment Processor Plugin interfaces
+"""
+
+__version__ = "$Revision$"
+# $Id$
+# $URL$
+
 from zope import schema
 from zope.interface import Interface
+
 from getpaid.core.interfaces import IPaymentProcessor,IPaymentProcessorOptions
 from getpaid.wizard.interfaces import IWizardController
-from getpaid.verkkomaksut import _
+
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.verkkomaksut')
 
 
 class IVerkkomaksutProcessor(IPaymentProcessor):
     """
     Verkkomaksut Processor
     """
+
 
 ### Options
 class IVerkkomaksutOptions(IPaymentProcessorOptions):

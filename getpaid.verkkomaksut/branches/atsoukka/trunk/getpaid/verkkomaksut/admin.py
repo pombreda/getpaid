@@ -11,11 +11,11 @@ from z3c.form import field
 
 from Products.PloneGetPaid.browser.admin_processors import PaymentProcessorOptionsBase
 
-from getpaid.verkkomaksut import NAME, TITLE
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions
+from getpaid.verkkomaksut import VerkkomaksutProcessor as plugin
 
 
 class VerkkomaksutOptions(PaymentProcessorOptionsBase):
-    prefix = NAME
-    label = TITLE
+    prefix = plugin.NAME
+    label = plugin.TITLE
     fields = field.Fields(IVerkkomaksutOptions)

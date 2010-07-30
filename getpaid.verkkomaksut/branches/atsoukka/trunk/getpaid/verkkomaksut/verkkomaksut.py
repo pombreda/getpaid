@@ -15,11 +15,18 @@ from getpaid.core.interfaces import workflow_states as wf
 
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutProcessor, IVerkkomaksutOptions
 
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.verkkomaksut')
+
 
 class VerkkomaksutProcessor(Persistent):
 
     interfaces.implements(IVerkkomaksutProcessor,
                           IVerkkomaksutOptions)
+
+    NAME = "getpaid.verkkomaksut" # must be <type 'str'> (!)
+    TITLE = _(u"Verkkomaksut Processor")
+    DESCRIPTION = _(u"An offline payment processor for Verkkomaksut.fi")
 
     def __init__(self):
         # initialize defaults from schema
@@ -38,15 +45,9 @@ class VerkkomaksutProcessor(Persistent):
         return _(u"Authorization failed")
 
     def capture(self, order, price):
-        # capture only with authorization through payment button
-        if order.finance_state == wf.order.finance.CHARGED:
-            # return normal "success" if charging was already done
-            return interfaces.keys.results_success
-        # I dislike the idea of returning "interfaces.keys.results_async" here,
-        # because even this is an offsite processor, this can't really do anything
-        # asynchronously here, but only through user clicking the payment button.
-        return _(u"Capture failed")
-
+        # return async, because capturing has already been done
+        return interfaces.keys.results_async
+    
     def refund(self, order, amount):
         # refund not supported
         return _(u"Refund failed")

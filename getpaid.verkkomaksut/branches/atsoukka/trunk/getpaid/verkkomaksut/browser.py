@@ -21,8 +21,10 @@ from Products.PloneGetPaid.browser.checkout_wizard import PaymentProcessorButton
 from Products.PloneGetPaid.browser.checkout_wizard import ICheckoutContinuationKey
 
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutPayload, IVerkkomaksutPayment
-from getpaid.verkkomaksut import NAME
-from getpaid.verkkomaksut import _
+from getpaid.verkkomaksut import VerkkomaksutProcessor as plugin
+
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.verkkomaksut')
 
 
 class VerkkomaksutPaymentButton(PaymentProcessorButtonBase):
@@ -44,7 +46,7 @@ class VerkkomaksutNotifyView(BrowserView):
             manager = component.getUtility(interfaces.IOrderManager)
 
             order = manager.get(payment.order_id)
-            order.processor_id = NAME
+            order.processor_id = plugin.NAME
 
             if payment.creation_date is not None:
                 order.creation_date = payment.creation_date

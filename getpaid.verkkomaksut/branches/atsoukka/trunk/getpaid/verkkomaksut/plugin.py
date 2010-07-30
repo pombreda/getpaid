@@ -9,18 +9,17 @@ __version__ = "$Revision$"
 from zope import component, interface
 from getpaid.core.interfaces import IPluginManager, IPaymentProcessor
 
-from getpaid.verkkomaksut import NAME, TITLE, DESCRIPTION
 from getpaid.verkkomaksut import interfaces
-from getpaid.verkkomaksut import verkkomaksut
+from getpaid.verkkomaksut import VerkkomaksutProcessor as plugin
 
 
 class VerkkomaksutPluginManager( object ):
     """ A simple plugin manager, which  manages plugins as local persistent object """
     interface.implements( IPluginManager )
 
-    name = NAME
-    title = TITLE
-    description = DESCRIPTION
+    name = plugin.NAME
+    title = plugin.TITLE
+    description = plugin.DESCRIPTION
 
     def __init__( self, context ):
         self.context = context
@@ -30,7 +29,7 @@ class VerkkomaksutPluginManager( object ):
         sm = self.context.getSiteManager()
         util = sm.queryUtility( IPaymentProcessor, name=self.name)
         if util is None:
-            payment_processor = verkkomaksut.VerkkomaksutProcessor()
+            payment_processor = plugin()
             sm.registerUtility(component=payment_processor, provided=IPaymentProcessor,
                                name=self.name, info=self.description )
         
