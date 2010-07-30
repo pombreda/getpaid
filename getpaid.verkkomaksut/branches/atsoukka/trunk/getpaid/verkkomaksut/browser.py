@@ -52,6 +52,9 @@ class VerkkomaksutNotifyView(BrowserView):
             if payment.processor_order_id is not None:
                 order.processor_order_id = payment.processor_order_id
 
+            if order.finance_state == None:
+                order.finance_workflow.fireTransition("create")
+
             if order.finance_state == wf.order.finance.REVIEWING:
                 order.finance_workflow.fireTransition("authorize")
 
