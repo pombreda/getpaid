@@ -25,9 +25,4 @@ __version__ = "$Revision$"
 # $Id$
 # $URL$
 
-from zope.i18nmessageid import MessageFactory
-_ = MessageFactory("getpaid.nullpayment")
-
-NAME = "getpaid.nullpayment" # must be <type 'str'> (!)
-TITLE = _(u"Testing Processor")
-DESCRIPTION = _(u"Credit card test payment")
+from getpaid.nullpayment.null import NullPaymentProcessor

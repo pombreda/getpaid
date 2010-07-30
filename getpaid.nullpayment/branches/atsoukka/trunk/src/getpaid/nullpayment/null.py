@@ -39,6 +39,9 @@ from getpaid.core import interfaces, options
 
 from getpaid.nullpayment.interfaces import INullPaymentOptions
 
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory("getpaid.nullpayment")
+
 LAST_FOUR = "getpaid.null.cc_last_four"
 
 
@@ -46,6 +49,10 @@ class NullPaymentProcessor(Persistent):
 
     interface.implements(interfaces.IRecurringPaymentProcessor,
                          INullPaymentOptions)
+
+    NAME = "getpaid.nullpayment" # must be <type 'str'> (!)
+    TITLE = _(u"Testing Processor")
+    DESCRIPTION = _(u"Credit card test payment")
 
     def __init__(self):
         # initialize defaults from schema

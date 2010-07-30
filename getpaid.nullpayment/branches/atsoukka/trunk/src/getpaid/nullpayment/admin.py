@@ -10,11 +10,11 @@ from z3c.form import field
 
 from Products.PloneGetPaid.browser.admin_processors import PaymentProcessorOptionsBase
 
-from getpaid.nullpayment import NAME, TITLE
 from getpaid.nullpayment.interfaces import INullPaymentOptions
+from getpaid.nullpayment import NullPaymentProcessor as plugin
 
 
 class NullPaymentOptions(PaymentProcessorOptionsBase):
-    prefix = NAME
-    label = TITLE
+    prefix = plugin.NAME
+    label = plugin.TITLE
     fields = field.Fields(INullPaymentOptions)

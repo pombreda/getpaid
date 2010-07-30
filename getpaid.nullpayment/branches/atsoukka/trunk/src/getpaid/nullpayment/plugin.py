@@ -10,9 +10,8 @@ from zope import component, interface
 
 from getpaid.core.interfaces import IPluginManager, IPaymentProcessor
 
-from getpaid.nullpayment import NAME, TITLE, DESCRIPTION
 from getpaid.nullpayment import interfaces
-from getpaid.nullpayment import null
+from getpaid.nullpayment import NullPaymentProcessor as plugin
 
 
 class NullPaymentPluginManager( object ):
@@ -20,9 +19,9 @@ class NullPaymentPluginManager( object ):
 
     interface.implements( IPluginManager )
 
-    name = NAME
-    title = TITLE
-    description = DESCRIPTION
+    name = plugin.NAME
+    title = plugin.TITLE
+    description = plugin.DESCRIPTION
 
     def __init__( self, context ):
         self.context = context
@@ -32,7 +31,7 @@ class NullPaymentPluginManager( object ):
         sm = self.context.getSiteManager()
         util = sm.queryUtility( IPaymentProcessor, name=self.name )
         if util is None:
-            payment_processor = null.NullPaymentProcessor()
+            payment_processor = plugin()
             sm.registerUtility(component=payment_processor, provided=IPaymentProcessor,
                                name=self.name, info=self.description)
         

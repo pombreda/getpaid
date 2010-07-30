@@ -33,7 +33,8 @@ from zope import schema
 
 from getpaid.core import interfaces
 
-from getpaid.nullpayment import _
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory("getpaid.nullpayment")
 
 
 class INullPaymentOptions(interfaces.IPaymentProcessorOptions):
