@@ -54,6 +54,15 @@ class VerkkomaksutNotifyView(BrowserView):
             if payment.processor_order_id is not None:
                 order.processor_order_id = payment.processor_order_id
 
+            if order.fulfillment_state is None:
+                order.fulfillment_workflow.fireTransition("create")
+
+            # FIXME: This should happen automatically (via subscriber)
+            # when order's "create" transition occurs...
+            for item in order.shopping_cart.values():
+                if item.fulfillment_state is None:
+                    item.fulfillment_workflow.fireTransition("create")
+
             if order.finance_state == None:
                 order.finance_workflow.fireTransition("create")
 
@@ -62,9 +71,6 @@ class VerkkomaksutNotifyView(BrowserView):
 
             if order.finance_state == wf.order.finance.CHARGING:
                 order.finance_workflow.fireTransition("charge-charging")
-
-            if order.fulfillment_state is None:
-                order.fulfillment_workflow.fireTransition("create")
 
 
 class VerkkomaksutReturnView(VerkkomaksutNotifyView):
