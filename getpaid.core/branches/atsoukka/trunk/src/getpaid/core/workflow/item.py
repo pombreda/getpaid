@@ -102,7 +102,7 @@ from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid')
 
 def VirtualDeliverable( wf, context ):
-    return not component.queryAdapter( IShippableContent, context ) is None
+    return component.queryAdapter( IShippableContent, context ) is None
 
 def create_item_workflow( ):
 
