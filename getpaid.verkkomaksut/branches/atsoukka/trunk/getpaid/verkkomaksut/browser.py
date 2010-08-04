@@ -48,8 +48,10 @@ class VerkkomaksutNotifyView(BrowserView):
             order = manager.get(payment.order_id)
             order.processor_id = plugin.NAME
 
-            if payment.creation_date is not None:
-                order.creation_date = payment.creation_date
+            ## FIXME: This appeared to be a bad idea, but still
+            ## this could be added to order as its own annotation..
+            # if payment.creation_date is not None:
+            #     order.creation_date = payment.creation_date
 
             if payment.processor_order_id is not None:
                 order.processor_order_id = payment.processor_order_id
