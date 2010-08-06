@@ -27,7 +27,7 @@ NullPaymentProcessor
 
 __version__ = "$Revision$"
 # $Id$
-# $URL$                                                                                                            
+# $URL$
 
 
 from persistent import Persistent
