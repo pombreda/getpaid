@@ -98,6 +98,7 @@ class VerkkomaksutReturnView(VerkkomaksutNotifyView):
             query = "?order_id=%s&key=%s" % (payment.order_id, key)
             self.request.response.redirect(site.absolute_url() + "/@@checkout-wizard" + query)
 
+
 class VerkkomaksutCancelledOrDeclinedView(BrowserView):
 
     def __init__(self, *args):

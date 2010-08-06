@@ -84,8 +84,10 @@ class VerkkomaksutPayload(object):
         self.ORDER_NUMBER = order.order_id
 
         # Order reference number
-        # FIXME: Requires possibility to customize with own adapter
-        self.REFERENCE_NUMBER = ""
+        if order.user_payment_info_trans_id is not None:
+            self.REFERENCE_NUMBER = order.user_payment_info_trans_id
+        else:
+            self.REFERENCE_NUMBER = ""
 
         # Order description
         # FIXME: Requires possibility to customize with own adapter
