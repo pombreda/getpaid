@@ -301,6 +301,10 @@ class IPaymentProcessor( Interface ):
     annotations.
     """
 
+    name = schema.ASCIILine(title=_(u"Name"))
+    title = schema.TextLine(title=_(u"Title"))
+    description = schema.TextLine(title=_(u"Description"))  
+
     def authorize( order, payment_information ):
         """
         authorize an order, using payment information.
