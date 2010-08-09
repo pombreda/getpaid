@@ -37,7 +37,7 @@ class PluginManagerBase(object):
 
     def uninstall(self, remove_data=True):
         """ Delete and unregister payment processor local persistent utility """
-        # This base implementation doesn't care about remove_data attribute.
+        # This base implementation doesn't care about remove_data parameter.
         # Although, there are a few options to implement this:
         # a) if processor could saved its data e.g. on plone.registry, its plugin
         #    manager may implement uninstall() to remove plone.registry data only
