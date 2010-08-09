@@ -1,51 +1,67 @@
 """
-Payment Processor Plugin manager
+Verkkomaksut.fi payment processor plugin factory
 """
 
 __version__ = "$Revision$"
 # $Id$
 # $URL$
 
-from zope import component, interface
-from getpaid.core.interfaces import IPluginManager, IPaymentProcessor
+from persistent import Persistent
 
-from getpaid.verkkomaksut import interfaces
-from getpaid.verkkomaksut import VerkkomaksutProcessor as plugin
+from zope import schema, interface
+
+from getpaid.core import interfaces
+from getpaid.core.plugin import PluginManagerBase
+
+from getpaid.core.interfaces import workflow_states as wf
+
+from getpaid.verkkomaksut.interfaces import IVerkkomaksutProcessor, IVerkkomaksutOptions
+
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('getpaid.verkkomaksut')
 
 
-class VerkkomaksutPluginManager( object ):
-    """ A simple plugin manager, which  manages plugins as local persistent object """
-    interface.implements( IPluginManager )
+class VerkkomaksutProcessor(Persistent):
 
-    name = plugin.NAME
-    title = plugin.TITLE
-    description = plugin.DESCRIPTION
+    interfaces.implements(IVerkkomaksutProcessor,
+                          IVerkkomaksutOptions)
 
-    def __init__( self, context ):
-        self.context = context
+    name = "getpaid.verkkomaksut"
+    title = _(u"Verkkomaksut Processor")
+    description = _(u"An offline payment processor for Verkkomaksut.fi")
 
-    def install( self ):
-        """ Create and register payment processor as local persistent utility """
-        sm = self.context.getSiteManager()
-        util = sm.queryUtility( IPaymentProcessor, name=self.name)
-        if util is None:
-            payment_processor = plugin()
-            sm.registerUtility(component=payment_processor, provided=IPaymentProcessor,
-                               name=self.name, info=self.description )
-        
-    def uninstall( self ):
-        """ Delete and unregister payment processor local persistent utility """
-        sm = self.context.getSiteManager()
-        util = sm.queryUtility( IPaymentProcessor, name=self.name )
-        if util is not None:
-            sm.unregisterUtility(util, IPaymentProcessor, name=self.name )
-            del util # Requires successful transaction to be effective
+    def __init__(self):
+        # initialize defaults from schema
+        for name, field in schema.getFields( IVerkkomaksutOptions ).items():
+            field.set(self, field.query( self, field.default ))
+        super(VerkkomaksutProcessor, self).__init__()
 
-    def status( self ):
-        """ Return payment processor utility registration status """
-        sm = self.context.getSiteManager()
-        return sm.queryUtility( IPaymentProcessor, name=self.name ) is not None
+    def authorize(self, order, payment):
+        # authorization only through payment button
+        if order.finance_state == wf.order.finance.CHARGED:
+            # return normal "success" if charging was already done
+            return interfaces.keys.results_success
+        # I dislike the idea of returning "interfaces.keys.results_async" here,
+        # because even this is an offsite processor, this can't really do anything
+        # asynchronously here, but only through user clicking the payment button.
+        return _(u"Authorization failed")
 
-def storeInstalled( object, event ):
-    """ Install at IStore Installation (e.g. when PloneGetPaid is installed) """
-    return VerkkomaksutPluginManager( object ).install()
+    def capture(self, order, price):
+        # return async, because capturing has already been done
+        return interfaces.keys.results_async
+    
+    def refund(self, order, amount):
+        # refund not supported
+        return _(u"Refund failed")
+
+
+class PluginManager(PluginManagerBase):
+    """ A getpaid plugin manager """
+
+    factory = VerkkomaksutProcessor
+    marker = IVerkkomaksutProcessor
+
+
+def storeInstalled(object, event):
+    """ Install on IStore Installation (e.g. when PloneGetPaid is installed) """
+    return PluginManager(object).install()

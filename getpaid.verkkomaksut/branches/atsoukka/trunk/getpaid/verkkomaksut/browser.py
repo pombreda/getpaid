@@ -21,7 +21,7 @@ from Products.PloneGetPaid.browser.checkout_wizard import PaymentProcessorButton
 from Products.PloneGetPaid.browser.checkout_wizard import ICheckoutContinuationKey
 
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutPayload, IVerkkomaksutPayment
-from getpaid.verkkomaksut import VerkkomaksutProcessor as plugin
+from getpaid.verkkomaksut import VerkkomaksutProcessor as factory
 
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid.verkkomaksut')
@@ -46,7 +46,7 @@ class VerkkomaksutNotifyView(BrowserView):
             manager = component.getUtility(interfaces.IOrderManager)
 
             order = manager.get(payment.order_id)
-            order.processor_id = plugin.NAME
+            order.processor_id = factory.name
 
             ## FIXME: This appeared to be a bad idea, but still
             ## this could be added to order as its own annotation..

@@ -6,4 +6,4 @@ __version__ = "$Revision$"
 # $Id$
 # $URL$
 
-from getpaid.verkkomaksut.verkkomaksut import VerkkomaksutProcessor
+from getpaid.verkkomaksut.plugin import VerkkomaksutProcessor

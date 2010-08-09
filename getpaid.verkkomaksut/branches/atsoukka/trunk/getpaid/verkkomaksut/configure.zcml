@@ -11,7 +11,7 @@
      name="getpaid.verkkomaksut"
      for="getpaid.core.interfaces.IStore"
      provides="getpaid.core.interfaces.IPluginManager"
-     factory=".plugin.VerkkomaksutPluginManager"
+     factory=".plugin.PluginManager"
      />
 
   <!-- Install at IStore Installation (e.g. when PloneGetPaid is installed) -->

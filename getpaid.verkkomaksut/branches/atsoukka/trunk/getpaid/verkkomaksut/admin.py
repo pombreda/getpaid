@@ -12,10 +12,10 @@ from z3c.form import field
 from Products.PloneGetPaid.browser.admin_processors import PaymentProcessorOptionsBase
 
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutOptions
-from getpaid.verkkomaksut import VerkkomaksutProcessor as plugin
+from getpaid.verkkomaksut import VerkkomaksutProcessor as factory
 
 
 class VerkkomaksutOptions(PaymentProcessorOptionsBase):
-    prefix = plugin.NAME
-    label = plugin.TITLE
+    prefix = factory.name
+    label = factory.title
     fields = field.Fields(IVerkkomaksutOptions)

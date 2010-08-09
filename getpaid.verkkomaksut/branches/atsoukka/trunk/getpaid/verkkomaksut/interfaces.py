@@ -1,5 +1,5 @@
 """
-Payment Processor Plugin interfaces
+Verkkomaksut.fi payment processor plugin interfaces
 """
 
 __version__ = "$Revision$"
@@ -16,6 +16,7 @@ from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid.verkkomaksut')
 
 
+### Plugin
 class IVerkkomaksutProcessor(IPaymentProcessor):
     """
     Verkkomaksut Processor
