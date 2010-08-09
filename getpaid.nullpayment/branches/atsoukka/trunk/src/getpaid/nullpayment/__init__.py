@@ -25,4 +25,4 @@ __version__ = "$Revision$"
 # $Id$
 # $URL$
 
-from getpaid.nullpayment.null import NullPaymentProcessor
+from getpaid.nullpayment.plugin import NullPaymentProcessor

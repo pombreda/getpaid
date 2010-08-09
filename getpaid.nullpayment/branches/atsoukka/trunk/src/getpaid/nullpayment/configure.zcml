@@ -10,7 +10,7 @@
      name="getpaid.nullpayment"
      for="getpaid.core.interfaces.IStore"
      provides="getpaid.core.interfaces.IPluginManager"
-     factory=".plugin.NullPaymentPluginManager"
+     factory=".plugin.PluginManager"
      />
 
   <!-- Install at IStore Installation (e.g. when PloneGetPaid is installed) -->

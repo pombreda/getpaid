@@ -1,53 +1,103 @@
+# Copyright (c) 2010 ifPeople, Kapil Thangavelu, and Contributors
+#
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following
+# conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+
 """
-Payment Processor Plugin Manager
+NullPaymentProcessor
 """
 
 __version__ = "$Revision$"
 # $Id$
 # $URL$
-                                                                                                                                             
-from zope import component, interface
-
-from getpaid.core.interfaces import IPluginManager, IPaymentProcessor
-
-from getpaid.nullpayment import interfaces
-from getpaid.nullpayment import NullPaymentProcessor as plugin
 
 
-class NullPaymentPluginManager( object ):
-    """ A simple plugin manager, which  manages plugins as local persistent object """
+from persistent import Persistent
 
-    interface.implements( IPluginManager )
+from zope import schema, interface
+from zope.annotation.interfaces import IAnnotations
 
-    name = plugin.NAME
-    title = plugin.TITLE
-    description = plugin.DESCRIPTION
+from getpaid.core import interfaces, options
+from getpaid.core.plugin import PluginManagerBase
 
-    def __init__( self, context ):
-        self.context = context
+from getpaid.nullpayment.interfaces import INullPaymentOptions
 
-    def install( self ):
-        """ Create and register payment processor as local persistent utility """
-        sm = self.context.getSiteManager()
-        util = sm.queryUtility( IPaymentProcessor, name=self.name )
-        if util is None:
-            payment_processor = plugin()
-            sm.registerUtility(component=payment_processor, provided=IPaymentProcessor,
-                               name=self.name, info=self.description)
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory("getpaid.nullpayment")
+
+LAST_FOUR = "getpaid.null.cc_last_four"
+
+
+class NullPaymentProcessor(Persistent):
+
+    interface.implements(interfaces.IRecurringPaymentProcessor,
+                         INullPaymentOptions)
+
+    name = "getpaid.nullpayment"
+    title = _(u"Testing Processor")
+    description = _(u"Credit card test payment")
+
+    def __init__(self):
+        # initialize defaults from schema
+        for name, field in schema.getFields(INullPaymentOptions).items():
+            field.set(self, field.query(self, field.default ))
+        super(NullPaymentProcessor, self).__init__()
         
-    def uninstall( self ):
-        """ Delete and unregister payment processor local persistent utility """
-        sm = self.context.getSiteManager()
-        util = sm.queryUtility( IPaymentProcessor, name=self.name )
-        if util is not None:
-            sm.unregisterUtility(util, IPaymentProcessor, name=self.name )
-            del util # Requires successful transaction to be effective
+    def authorize(self, order, payment):
+        options = INullPaymentOptions(self)
 
-    def status( self ):
-        """ Return payment processor utility registration status """
-        sm = self.context.getSiteManager()
-        return sm.queryUtility( IPaymentProcessor, name=self.name ) is not None
+        if options.allow_authorization == u'allow_authorization':
+            annotation = IAnnotations(order)
+            annotation[LAST_FOUR] = payment.credit_card[-4:]
 
-def storeInstalled( object, event ):
-    """ Install at IStore Installation (e.g. when PloneGetPaid is installed) """
-    return NullPaymentPluginManager( object ).install()
+            import random
+            try:
+                order.setOrderTransId(random.randint(10,1000))
+            except SyntaxError:
+                # Transaction Id already set
+                pass
+            
+            return interfaces.keys.results_success
+        return "Authorization Failed"
+
+    def capture(self, order, amount):
+        options = INullPaymentOptions(self)
+        if options.allow_capture == u'allow_capture':
+            return interfaces.keys.results_success
+        return "Capture Failed"
+
+    def refund(self, order, amount):
+        options = INullPaymentOptions(self)
+        if options.allow_refunds == u'allow_refund':
+            return interfaces.keys.results_success
+        return "Refund Failed"
+
+
+class PluginManager(PluginManagerBase):
+    """ A getpaid plugin manager """
+
+    factory = NullPaymentProcessor
+    marker = interfaces.IRecurringPaymentProcessor
+
+
+def storeInstalled(object, event):
+    """ Install on IStore Installation (e.g. when PloneGetPaid is installed) """
+    return PluginManager(object).install()
