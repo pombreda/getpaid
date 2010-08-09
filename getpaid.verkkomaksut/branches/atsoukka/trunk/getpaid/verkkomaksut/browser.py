@@ -17,7 +17,7 @@ from Products.CMFCore.utils import getToolByName
 from getpaid.core import interfaces
 from getpaid.core.interfaces import workflow_states as wf
 
-from Products.PloneGetPaid.browser.checkout_wizard import PaymentProcessorButtonBase
+from Products.PloneGetPaid.browser.checkout_wizard import CheckoutWizardViewletBase
 from Products.PloneGetPaid.browser.checkout_wizard import ICheckoutContinuationKey
 
 from getpaid.verkkomaksut.interfaces import IVerkkomaksutPayload, IVerkkomaksutPayment
@@ -27,8 +27,9 @@ from zope.i18nmessageid import MessageFactory
 _ = MessageFactory('getpaid.verkkomaksut')
 
 
-class VerkkomaksutPaymentButton(PaymentProcessorButtonBase):
+class VerkkomaksutPaymentButton(CheckoutWizardViewletBase):
     """ Checkout Wizard Payment button """
+
     render = ViewPageTemplateFile("button.pt")
     title = _("Verkkomaksut.fi")
     
