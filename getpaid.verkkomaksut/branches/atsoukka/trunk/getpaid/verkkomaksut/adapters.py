@@ -115,7 +115,7 @@ class VerkkomaksutPayload(object):
         language_bindings = language_tool.getLanguageBindings()
         self.CULTURE = component.getUtility(ILanguageCulture)(language_bindings)
 
-        # Verkkomaksut preselected payment method and service typp
+        # Verkkomaksut preselected payment method and service type
         self.PRESELECTED_METHOD = ""
         self.MODE = ""
 
