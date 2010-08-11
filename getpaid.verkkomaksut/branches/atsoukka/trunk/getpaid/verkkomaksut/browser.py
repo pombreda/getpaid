@@ -88,7 +88,7 @@ class VerkkomaksutReturnView(VerkkomaksutNotifyView):
         if not payment.verified_response:
             utils.addPortalMessage(_(u"Response from Verkkomaksut.fi couldn't be verified."),
                                    type='error')
-            self.request.response.redirect(site.absolute_url() + "/@@checkout-wizard")
+            self.request.response.redirect(site.absolute_url() + "/@@checkout")
             # raise Unauthorized(_(u"Response from Verkkomaksut.fi couldn't be verified."))
         else:
             utils.addPortalMessage(_(u"The payment was successful."))
@@ -97,7 +97,7 @@ class VerkkomaksutReturnView(VerkkomaksutNotifyView):
             order = manager.get(payment.order_id)
             key = str(ICheckoutContinuationKey(order))
             query = "?order_id=%s&key=%s" % (payment.order_id, key)
-            self.request.response.redirect(site.absolute_url() + "/@@checkout-wizard" + query)
+            self.request.response.redirect(site.absolute_url() + "/@@checkout" + query)
 
 
 class VerkkomaksutCancelledOrDeclinedView(BrowserView):
@@ -112,10 +112,10 @@ class VerkkomaksutCancelledOrDeclinedView(BrowserView):
         if not payment.verified_response:
             utils.addPortalMessage(_(u"Response from Verkkomaksut.fi couldn't be verified."),
                                    type='error')
-            self.request.response.redirect(site.absolute_url() + "/@@checkout-wizard")
+            self.request.response.redirect(site.absolute_url() + "/@@checkout")
             # raise Unauthorized(_(u"Response from Verkkomaksut.fi couldn't be verified."))
         else:
             utils.addPortalMessage(_(u"Payment was cancelled or declined by Verkkomaksut.fi."),
                                    type='error')
             query = "?order_id=%s" % (payment.order_id)
-            self.request.response.redirect(site.absolute_url() + "/@@checkout-wizard" + query)
+            self.request.response.redirect(site.absolute_url() + "/@@checkout" + query)
