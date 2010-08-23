@@ -11,11 +11,11 @@ import logging
 
 from Products.CMFCore.utils import getToolByName
 
-from getpaid.SalesforceOrderRecorder import SalesforceOrderRecorderMessageFactory as _
-
 # Get Paid events
-from getpaid.core.interfaces import workflow_states, IShoppingCartUtility, IShippableOrder, IShippingRateService, IShippableLineItem
+from getpaid.core.interfaces import workflow_states, IShippableOrder, IShippingRateService, IShippableLineItem
+from zope.annotation import IAnnotations
 from zope.app.component.hooks import getSite
+from zope.component import queryUtility
 
 from ZODB.POSException import ConflictError
 
@@ -195,7 +195,8 @@ def _mapOrderFields(order, sfObject, props):
 
     if props.gpsor_billing_address_state:
         if order.billing_address.bill_state is not None:
-            sfObject[props.gpsor_billing_address_state] = order.billing_address.bill_state
+            state = order.billing_address.bill_state.split('-')[-1]
+            sfObject[props.gpsor_billing_address_state] = state
 
     if props.gpsor_billing_address_zip:
         if order.billing_address.bill_postal_code is not None:
@@ -260,6 +261,7 @@ def _mapOrderFields(order, sfObject, props):
             value = order.shipping_address.ship_state
 
         if value is not None:
+            value = value.split('-')[-1]
             sfObject[props.gpsor_shipping_address_state] = value
 
     if props.gpsor_shipping_address_zip:
@@ -316,8 +318,8 @@ def _mapItemFields(item, sfObject, props, parentSFObjectId=None):
             sfObject[props.gpsor_item_quantity] = item.quantity
 
     if props.gpsor_item_id:
-        if order.shopping_cart.items.item_id is not None:
-            sfObject[props.gpsor_item_id] = order.shopping_cart.items.item_id
+        if item.item_id is not None:
+            sfObject[props.gpsor_item_id] = item.item_id
 
     if props.gpsor_item_name:
         if item.name is not None:
@@ -384,8 +386,8 @@ def getShippingMethod(order):
     if not IShippableOrder.providedBy( order ):
         return None
     
-    service = zope.component.queryUtility( IShippingRateService,
-                                           order.shipping_service )
+    service = queryUtility( IShippingRateService,
+                            order.shipping_service )
     
     # play nice if the a shipping method is removed from the store
     if not service: 

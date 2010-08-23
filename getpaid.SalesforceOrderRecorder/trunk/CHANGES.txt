@@ -4,6 +4,13 @@ Changelog
 0.6 (unreleased)
 ----------------
 
+ * Fix some obvious errors found by pyflakes.
+   [davisagli]
+
+ * Strip the country prefix off of the state value before writing to Salesforce
+   state fields.
+   [davisagli]
+
 0.5 (2010-01-26)
 ----------------
 
