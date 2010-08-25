@@ -1,7 +1,5 @@
 from Products.statusmessages.interfaces import IStatusMessage
 
-from plone.z3cform import z2
-
 from zope.component import getMultiAdapter
 from Products.CMFPlone import PloneMessageFactory as _
 from zope import component
@@ -12,7 +10,7 @@ from zope.annotation.interfaces import IAnnotations
 
 from zope.component import getUtility
 
-from five.formlib.formbase import EditForm
+from Products.Five.formlib.formbase import EditForm
 from Products.Five.utilities import marker
 from Products.Five.browser import BrowserView
 
@@ -59,9 +57,7 @@ class DiscountCreation(DiscountForm):
         #we set up the type as IDiscountable
         interface.alsoProvides(self.context, self.marker)
 
-        z2.switch_on(self) 
         self.handle_edit_action.success_handler( self, action, data )
-
 #        message = 'Changes saved.'
 #        self.request.response.redirect( '%s/view?portal_status_message=%s' % (self.context.absolute_url(), message) )
         IStatusMessage(self.request).addStatusMessage(_("Changes saved."),
