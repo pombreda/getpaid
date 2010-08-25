@@ -2,7 +2,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       i18n:domain="getpaid.verkkomaksut" tal:omit-tag="">
   <form action="https://ssl.verkkomaksut.fi/payment.svm" method="post"
-        id="getpaid-payment-form" tal:define="order view/order">
+        id="verkkomaksut-payment-button" tal:define="order view/order">
     <input name="MERCHANT_ID" id="MERCHANT_ID" type="hidden" value="123456"
            tal:attributes="value order/MERCHANT_ID" />
     <input name="AMOUNT" id="AMOUNT" type="hidden" value="9.95"
