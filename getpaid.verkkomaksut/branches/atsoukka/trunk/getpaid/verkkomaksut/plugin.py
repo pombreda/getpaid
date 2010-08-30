@@ -27,7 +27,7 @@ class VerkkomaksutProcessor(Persistent):
                           IVerkkomaksutOptions)
 
     name = "getpaid.verkkomaksut"
-    title = _(u"Verkkomaksut Processor")
+    title = _(u"Verkkomaksut.fi")
     description = _(u"An offline payment processor for Verkkomaksut.fi")
 
     def __init__(self):
