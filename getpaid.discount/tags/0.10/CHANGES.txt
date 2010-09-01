@@ -2,9 +2,6 @@
 CHANGES
 =======
 
-0.11 (unreleased)
------------------
-
 0.10 (2010-09-01)
 -----------------
 * Fix dependencies and stray i18n files [larubbio]
