@@ -2,8 +2,12 @@
 CHANGES
 =======
 
-0.11 (unreleased)
+0.12 (unreleased)
 -----------------
+
+0.11 (2010-09-02)
+-----------------
+* Remove dependency on five.formlib [larubbio]
 
 0.10 (2010-09-01)
 -----------------
