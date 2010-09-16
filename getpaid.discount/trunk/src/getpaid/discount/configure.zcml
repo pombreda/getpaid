@@ -10,12 +10,12 @@
  
  <include file="profiles.zcml"/>
  
- <subscriber zcml:condition="installed zope.container"
+ <subscriber zcml:condition="installed zope.container.contained"
     for="getpaid.core.interfaces.IPayableLineItem
          zope.container.contained.ObjectAddedEvent"
     handler="getpaid.discount.subscribers.checkDiscount"/>
 
- <subscriber zcml:condition="not-installed zope.container"
+ <subscriber zcml:condition="not-installed zope.container.contained"
     for="getpaid.core.interfaces.IPayableLineItem
          zope.app.container.contained.ObjectAddedEvent"
     handler="getpaid.discount.subscribers.checkDiscount"/>

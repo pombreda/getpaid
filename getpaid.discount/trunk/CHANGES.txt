@@ -5,6 +5,8 @@ CHANGES
 0.12 (unreleased)
 -----------------
 
+* Fix ZCML condition. [davisagli]
+
 0.11 (2010-09-02)
 -----------------
 * Remove dependency on five.formlib [larubbio]
