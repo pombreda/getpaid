@@ -124,3 +124,10 @@ class CartItemTotals( object ):
         """ get the list of dictionaries containing the tax info """
         tax_utility = component.getUtility(interfaces.ITaxUtility)
         return tax_utility.getTaxes( self.shopping_cart )
+
+
+class LineItemTotals(CartItemTotals):
+    """ ILineContainerTotals for a single line item """
+
+    def __init__(self, line_item):
+        self.shopping_cart = { line_item.item_id: line_item }

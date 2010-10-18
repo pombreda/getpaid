@@ -69,6 +69,11 @@
      factory=".cart.CartItemTotals"
      />
      
+  <adapter
+     for=".interfaces.ILineItem"
+     provides=".interfaces.ILineContainerTotals"
+     factory=".cart.LineItemTotals"
+     />
 
   <adapter
      name="default"
