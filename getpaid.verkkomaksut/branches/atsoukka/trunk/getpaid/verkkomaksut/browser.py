@@ -58,22 +58,27 @@ class VerkkomaksutNotifyView(BrowserView):
                 order.processor_order_id = payment.processor_order_id
 
             if order.fulfillment_state is None:
-                order.fulfillment_workflow.fireTransition("create")
+                order.fulfillment_workflow.fireTransition("create",
+                                                          _(u"Payment verified by Verkkomaksut.fi."))
 
             # FIXME: This should happen automatically (via subscriber)
             # when order's "create" transition occurs...
             for item in order.shopping_cart.values():
                 if item.fulfillment_state is None:
-                    item.fulfillment_workflow.fireTransition("create")
+                    item.fulfillment_workflow.fireTransition("create",
+                                                             _(u"Payment verified by Verkkomaksut.fi."))
 
             if order.finance_state == None:
-                order.finance_workflow.fireTransition("create")
+                order.finance_workflow.fireTransition("create",
+                                                      _(u"Payment verified by Verkkomaksut.fi."))
 
             if order.finance_state == wf.order.finance.REVIEWING:
-                order.finance_workflow.fireTransition("authorize")
+                order.finance_workflow.fireTransition("authorize",
+                                                      _(u"Payment verified by Verkkomaksut.fi."))
 
             if order.finance_state == wf.order.finance.CHARGING:
-                order.finance_workflow.fireTransition("charge-charging")
+                order.finance_workflow.fireTransition("charge-charging",
+                                                      _(u"Payment verified by Verkkomaksut.fi."))
 
 
 class VerkkomaksutReturnView(VerkkomaksutNotifyView):

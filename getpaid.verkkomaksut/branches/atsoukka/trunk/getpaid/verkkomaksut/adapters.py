@@ -52,27 +52,9 @@ class VerkkomaksutPayload(object):
 
     interface.implements(IVerkkomaksutPayload)
 
-    MERCHANT_ID = None
-    AMOUNT = None
-    ORDER_NUMBER = None
-    REFERENCE_NUMBER = None
-    ORDER_DESCRIPTION = None
-    CURRENCY = "EUR"
-    RETURN_ADDRESS  = None
-    CANCEL_ADDRESS  = None
-    PENDING_ADDRESS = None
-    NOTIFY_ADDRESS  = None
-    TYPE = "S1"
-    CULTURE = None
-    PRESELECTED_METHOD = None
-    MODE = None
-    VISIBLE_METHODS = None
-    GROUP = None
-    AUTHCODE = None
-
     def __init__(self, order):
-        options = IVerkkomaksutOptions(component.getUtility(interfaces.IPaymentProcessor, name=factory.name))
-
+        options = IVerkkomaksutOptions(component.getUtility(interfaces.IPaymentProcessor,
+                                                            name=factory.name))
         site = component.getSiteManager()
         portal = getToolByName(site, "portal_url").getPortalObject()
         
@@ -148,12 +130,6 @@ class VerkkomaksutPayload(object):
 class VerkkomaksutPayment(object):
     
     interface.implements(IVerkkomaksutPayment)
-
-    order_id = None
-    creation_date = None
-    processor_order_id = None
-
-    verified_response = None
 
     def __init__(self, request):
         # order_id
