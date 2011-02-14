@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-0.1 (unreleased)
+0.1 (2011-02-14)
 ----------------
 
-- initial release
+- initial release (used >6 months in production)

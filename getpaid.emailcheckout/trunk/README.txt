@@ -32,7 +32,11 @@ Requirements
 
 This package has been developed for and tested with
 
-* Plone 4.0b3 (older plone versions should work though)
+* Plone 4.0.X (older plone versions should work though)
 
-* Products.PloneGetPaid >= 0.10.1dev (XXX next release)
+* Products.PloneGetPaid >= 0.10.1
 
+Questions - Feedback
+====================
+
+Just drop me an email: harald (at) webmeisterei dot com
