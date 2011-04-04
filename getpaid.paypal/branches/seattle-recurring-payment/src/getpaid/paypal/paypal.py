@@ -5,6 +5,8 @@ import urllib
 from zope import interface
 from zope.app.component.hooks import getSite
 
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
 from interfaces import IPaypalStandardOptions, IPaypalStandardProcessor
 from getpaid.core.interfaces import IRecurringLineItem
 
@@ -25,10 +27,12 @@ class PaypalBaseButton(object):
         self.manage_options = IGetPaidManagementOptions(siteroot)
         site_url = siteroot.absolute_url()
         self.return_url = "%s/@@getpaid-thank-you" % site_url
-        self.ipn_url = "%s/%s" % (site_url, urllib.quote_plus("@@getpaid-paypal-ipnreactor"))
+        self.ipn_url = "%s/%s" % (site_url, 
+                        urllib.quote_plus("@@getpaid-paypal-ipnreactor"))
     
 class PaypalRecurringButton(PaypalBaseButton):
     
+    template = ViewPageTemplateFile('browser/templates/recurring.pt')
     unit_token_map = {'months':'M',}
     
     def __call__(self):
