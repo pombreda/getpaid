@@ -1,3 +1,4 @@
+from decimal import Decimal
 from persistent import Persistent
 
 from BTrees.OOBTree import OOBTree, OOTreeSet
@@ -6,7 +7,51 @@ from BTrees.OIBTree import OIBTree
 from zope.interface import implements
 from zope.component import getUtility
 
-from interfaces import ICreditRegistry
+from interfaces import ICreditRegistryCredit, ICreditRegistry, ICreditRegistryItemDecimalCash
+
+class InvalidCreditType(Exception):
+    """Wasn't provided with a credit registry credit"""
+
+
+class CreditRegistryItemDecimalCash(object):
+    """All cash is stored internally in cents, and only converted to dollars+cents for display purposes"""
+
+    implements(ICreditRegistryItemDecimalCash)
+
+    credit = 0
+    credit_name = ''
+    credit_user = ''
+
+    def __init__(self, credit=0, credit_name='', credit_user=''):
+        self.credit = credit
+        self.credit_name = credit_name
+        self.credit_user = credit_user
+
+    def __add__(self, other):
+        return CreditRegistryItemDecimalCash(credit=int(self.queryCredit()+other.queryCredit()), credit_name=self.credit_name, credit_user=self.credit_user)
+
+    def __sub__(self, other):
+        return CreditRegistryItemDecimalCash(credit=int(self.queryCredit()-other.queryCredit()), credit_name=self.credit_name, credit_user=self.credit_user)
+
+    def currentCredit(self):
+        """Print-friendly dollars+cents version"""
+        return '$%0.2f' % (self.queryCredit()/Decimal(100))
+
+    def queryCredit(self):
+        return Decimal(self.credit)
+
+    def addCredit(self, credit):
+        # Always cast to int to throw away unwanted fractions
+        self.credit += int(credit)
+
+    def useCredit(self, amount):
+        """Use the requested amount and return the value of remaining credit"""
+        if amount > self.queryCredit():
+            raise InsufficientCreditException("The amount requested to be used is greater than available credit")
+        else:
+            self.credit = self.credit - amount
+        return self.queryCredit()
+
 
 class CreditRegistry(Persistent):
     """The concrete class implementing the persistent utility for ICreditRegistry.
@@ -33,42 +78,43 @@ class CreditRegistry(Persistent):
     _default_values = None
 
     def __init__(self):
-        self._usercredit_map = OIBTree()
+        self._usercredit_map = OOBTree()
         self._inverted_creditmap = OOBTree()
         self._inverted_usermap = OOBTree()
         self._default_values = OIBTree()
 
-    def defineCredit(self, creditname, default_value=0):
-        """Define a new type of credit to track against.
-           Raises ValueError if default_value is not int-ish
-        """
-        if not self._inverted_creditmap.has_key(creditname):
-            try:
-                self._default_values[creditname] = int(default_value)
-            except ValueError, e:
-                raise ValueError("%s is an invalid value for default_value" % str(default_value))
-            else:
-                self._inverted_creditmap[creditname] = OOTreeSet()
-        return True
+    #def defineCredit(self, creditinterface, default_value=0):
+    #    """Define a new type of credit to track against.
+    #    """
+    #    if not ICreditRegistryCredit.providedBy(creditinterface):
+    #        raise InvalidCreditType("The provided interface does not define a credit registry credit type")
+    #    creditname = creditinterface.__identifier__
+    #    if not self._inverted_creditmap.has_key(creditname):
+    #        self._default_values[creditname] = default_value
+    #        self._inverted_creditmap[creditname] = OOTreeSet()
+    #    return True
 
-    def initialiseUserCredit(self, username, creditname):
+    def initialiseUserCredit(self, username, creditname, initialcredit):
         """Initialises a credit record for username against creditname.
            If the credit is already initialised, just return True.
-           Raises KeyError if defineCredit() has not ever been called for this creditname.
         """
-        self._usercredit_map.setdefault((username, creditname), self._default_values[creditname])
-        self._inverted_creditmap[creditname].insert(username)
-        self._inverted_usermap.setdefault(username, OOTreeSet()).insert(creditname)
-        return True
+        if not ICreditRegistryCredit.providedBy(initialcredit):
+            raise InvalidCreditType("The provided credit  does not define a credit registry credit type")
+        elif (username, creditname) in self._usercredit_map:
+            # Policy - set existing credit to initialcredit?
+            #        - add existing credit to initialcredit?
+            #        - do nothing?
+            return True
+        else:
+            self._usercredit_map[(username, creditname)] = initialcredit
+            self._inverted_creditmap.setdefault(creditname, OOTreeSet()).insert(username)
+            self._inverted_usermap.setdefault(username, OOTreeSet()).insert(creditname)
+            return True
 
-    def addCredit(self, username, creditname, amount, define=False):
+    def addCredit(self, username, creditname, amount):
         """Increment the count of a particular credit against a particular user
-           raises KeyError if creditname has not already been defined and define is False
+           raises KeyError if this creditname has not been initialised for this user.
         """
-        # Harmless if already initialised, raises KeyError if creditname is not known
-        if define:
-            self.defineCredit(creditname)
-        self.initialiseUserCredit(username, creditname)
         self._usercredit_map[(username, creditname)] = self._usercredit_map[(username, creditname)] + amount
 
     def useCredit(self, username, creditname, amount):

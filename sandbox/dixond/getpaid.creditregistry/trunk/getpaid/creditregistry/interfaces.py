@@ -3,7 +3,10 @@ from zope.interface import Interface
 
 from zope import schema
 
-class ICreditRegistryItem(Interface):
+class ICreditRegistryCredit(Interface):
+    """Marker for credits to be stored in the registry"""
+
+class ICreditRegistryItem(ICreditRegistryCredit):
     """An interface for any item that is purchased to gain 'credits'
     """
 
@@ -15,11 +18,22 @@ class ICreditRegistryItem(Interface):
                                  description = _(u"The name of the user that this credit should be applied to"),
                                  required = True)
 
-    credit_amount = schema.Int(title = _(u"Credit Amount"),
-                               description = _(u"The amount to increment this credit by"),
-                               required = True)
+class ICreditRegistryItemCounter(ICreditRegistryItem):
+    """An interface for an abstract credit counter"""
 
+    credit = schema.Int(title = _(u"Credit Amount"),
+                        description = _(u"The amount of credit"),
+                        required = True)
 
+class ICreditRegistryItemCash(ICreditRegistryItem):
+    """An interface for credits in cash"""
+
+    credit = schema.Int(title = _(u"Credit Amount"),
+                        description = _(u"The amount of credit"),
+                        required = True),
+
+class ICreditRegistryItemDecimalCash(ICreditRegistryItemCash):
+    """An interface for credits in cash represented by cents"""
 
 class ICreditRegistry(Interface):
     """A registry for storing and revoking integer 'credits' and associating them with a given user.
