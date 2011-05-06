@@ -267,14 +267,14 @@ Interface that their applicable for.
    >>> doc_adapters = workflow.ParallelWorkflow( wf, "doc", IWorkDocument )    
 
    >>> wdoc = WorkDocument('text')
-   >>> from zope.app import zapi
-   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowInfo, "doc").fireTransition('to_a')
-   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowState, "doc").getState()
+   >>> from zope.component import getAdapter
+   >>> getAdapter( wdoc, interfaces.IWorkflowInfo, "doc").fireTransition('to_a')
+   >>> getAdapter( wdoc, interfaces.IWorkflowState, "doc").getState()
    'a'
-   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowInfo, "invoice").fireTransition('init_invoice')
-   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowState, "invoice").getState()
+   >>> getAdapter( wdoc, interfaces.IWorkflowInfo, "invoice").fireTransition('init_invoice')
+   >>> getAdapter( wdoc, interfaces.IWorkflowState, "invoice").getState()
    'received'
-   >>> zapi.getAdapter( wdoc, interfaces.IWorkflowState, "doc").getState()
+   >>> getAdapter( wdoc, interfaces.IWorkflowState, "doc").getState()
    'a'
 
 Multi-version workflow
@@ -405,7 +405,7 @@ Let's get the workflow_versions utility which we can use to track
 versions and come up with a new unique id::
 
 
-   >>> workflow_versions = zapi.getUtility(interfaces.IWorkflowVersions)
+   >>> workflow_versions = getUtility(interfaces.IWorkflowVersions)
 
 And let's start with a document::
 
