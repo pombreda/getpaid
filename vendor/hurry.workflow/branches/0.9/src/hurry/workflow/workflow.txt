@@ -404,7 +404,7 @@ Now let's build and provide the workflow utility::
 Let's get the workflow_versions utility which we can use to track
 versions and come up with a new unique id::
 
-
+   >>> from zope.component import getUtility
    >>> workflow_versions = getUtility(interfaces.IWorkflowVersions)
 
 And let's start with a document::
