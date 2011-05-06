@@ -10,7 +10,11 @@ from persistent.dict import PersistentDict
 from zope.schema.interfaces import IContextSourceBinder, IIterableSource
 from zope.schema.vocabulary import SimpleVocabulary
 
-from Products.Five.formlib.formbase import FormBase, SubPageForm
+try:
+    from five.formlib.formbase import FormBase, SubPageForm
+except ImportError:
+    from Products.Five.formlib.formbase import FormBase, SubPageForm
+
 from Products.CMFCore.utils import getToolByName
 
 from interfaces import IViewComponent

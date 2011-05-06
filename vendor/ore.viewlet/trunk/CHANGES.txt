@@ -1,0 +1,9 @@
+Changelog
+=========
+
+0.2.3-getpaid
+-------------
+
+* Updated formlib imports to work on Zope 2.13 with five.formlib.
+  Removed compatibility with Zope 2.9.
+  [davisagli]

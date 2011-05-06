@@ -23,6 +23,7 @@ setup(
     channel, and private annotation storage on the viewlet manager, multipage/wizard
     viewlets, and formlib viewlets.
     """,
+    long_description = open('CHANGES.txt').read(),
     license='GPL',
     keywords="zope zope3",
     )

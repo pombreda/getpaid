@@ -1,18 +1,14 @@
 """
 $Id$
 """
-try:
-    # For Plone-3 and above.
-    from zope.annotation.interfaces import IAnnotations
-except ImportError:
-    from zope.app.annotation.interfaces import IAnnotations
+from zope.annotation.interfaces import IAnnotations
 from zope.interface import implements
 from persistent.dict import PersistentDict
 
 try:
-    from Products.Five.formlib.formbase import FormBase, SubPageForm
+    from five.formlib.formbase import FormBase, SubPageForm
 except ImportError:
-    from zope.formlib.form import FormBase, SubPageForm
+    from Products.Five.formlib.formbase import FormBase, SubPageForm
 
 from zope.formlib import form
 
