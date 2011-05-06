@@ -63,8 +63,8 @@ Let's attach our cart to the order:
 
 and now we can ask the order, its total price:
 
-    >>> order.getSubTotalPrice()
-    Decimal("125.0")
+    >>> order.getSubTotalPrice() == Decimal('125.0')
+    True
 
 Customer Information
 ====================
