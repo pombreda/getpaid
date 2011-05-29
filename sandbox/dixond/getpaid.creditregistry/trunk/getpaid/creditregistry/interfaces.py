@@ -18,12 +18,14 @@ class ICreditRegistryItem(ICreditRegistryCredit):
                                  description = _(u"The name of the user that this credit should be applied to"),
                                  required = True)
 
+
 class ICreditRegistryItemCounter(ICreditRegistryItem):
     """An interface for an abstract credit counter"""
 
     credit = schema.Int(title = _(u"Credit Amount"),
                         description = _(u"The amount of credit"),
                         required = True)
+
 
 class ICreditRegistryItemCash(ICreditRegistryItem):
     """An interface for credits in cash"""
@@ -32,8 +34,14 @@ class ICreditRegistryItemCash(ICreditRegistryItem):
                         description = _(u"The amount of credit"),
                         required = True),
 
+
 class ICreditRegistryItemDecimalCash(ICreditRegistryItemCash):
     """An interface for credits in cash represented by cents"""
+
+    credit = schema.Float(title = _(u"Credit Amount"),
+                          description = _(u"The amount of credit"),
+                          required = True),
+
 
 class ICreditRegistry(Interface):
     """A registry for storing and revoking integer 'credits' and associating them with a given user.
