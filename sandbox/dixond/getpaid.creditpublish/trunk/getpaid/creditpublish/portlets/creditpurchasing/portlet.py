@@ -83,8 +83,16 @@ class Renderer(base.Renderer, RequestMixin):
         return "%s.form" % self.nameprefix
 
     def current_credit(self):
+        buyable = getAdapter(self.representative_object, IBuyableContent)
+        raw_price = buyable.price
         member = self.pmt.getAuthenticatedMember()
-        return self.cr.queryCredit(member.getId(), IOneWeekPublishedCredit.__identifier__)
+        return (self.cr.queryCredit(member.getId(), IOneWeekPublishedCredit.__identifier__) / raw_price)
+
+    def cashvalue(self):
+        tax = getUtility(ITaxUtility)
+        member = self.pmt.getAuthenticatedMember()
+        cred = self.cr.queryCredit(member.getId(), IOneWeekPublishedCredit.__identifier__)
+        return '$%0.2f' float(cred + (tax.getTaxOnSum(cred))
 
     def weeks_options(self):
         return range(1, 53)
