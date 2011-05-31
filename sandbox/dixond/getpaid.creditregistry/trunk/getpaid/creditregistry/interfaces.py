@@ -30,9 +30,9 @@ class ICreditRegistryItemCounter(ICreditRegistryItem):
 class ICreditRegistryItemCash(ICreditRegistryItem):
     """An interface for credits in cash"""
 
-    credit = schema.Int(title = _(u"Credit Amount"),
-                        description = _(u"The amount of credit"),
-                        required = True),
+    credit = schema.Float(title = _(u"Credit Amount"),
+                          description = _(u"The amount of credit"),
+                          required = True)
 
 
 class ICreditRegistryItemDecimalCash(ICreditRegistryItemCash):
@@ -40,7 +40,7 @@ class ICreditRegistryItemDecimalCash(ICreditRegistryItemCash):
 
     credit = schema.Float(title = _(u"Credit Amount"),
                           description = _(u"The amount of credit"),
-                          required = True),
+                          required = True)
 
 
 class ICreditRegistry(Interface):
