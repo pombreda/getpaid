@@ -52,6 +52,7 @@ def handleOneWeekPublishedCreditPurchase(object, event):
                         cr.addCredit(credit_details.user_name,
                                      credit_details.credit_name,
                                      credit_details.credit_amount,
+                                     credit_type='cash',
                                      define=True)
                     except ConflictError, e:
                         raise

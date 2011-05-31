@@ -22,7 +22,8 @@ class OneWeekPublishedCreditRegistryAdapter(object):
 
     @property
     def credit_amount(self):
-        return self.item.quantity
+        #return self.item.quantity
+        return self.item.quantity * self.item.cost
 
     @property
     def user_name(self):
