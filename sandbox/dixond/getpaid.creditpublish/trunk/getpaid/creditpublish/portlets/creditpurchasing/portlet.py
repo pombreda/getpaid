@@ -1,5 +1,6 @@
 __author__ = """Darryl Dixon <darryl.dixon@winterhouseconsulting.com>"""
 
+from decimal import Decimal
 from zope.interface import implements
 from zope.component import getUtility, getAdapter, getMultiAdapter
 from zope.formlib import form
