@@ -11,7 +11,7 @@
                        cashvalue  view/cashvalue">
         <p class="purchaseMessage">
           <span tal:condition="not: credit">You don't have any weeks of credit currently available</span>
-          <span tal:condition="credit">You have <tal:cont content="cashvalue"> (<tal:cont content="credit" /> weeks) of credit currently available</span>
+          <span tal:condition="credit">You have <tal:cont content="cashvalue" /> (<tal:cont content="credit" /> weeks) of credit currently available</span>
         </p>
         <div class="creditPurchasingDetails"
              tal:define="pricing    view/credit_price;
