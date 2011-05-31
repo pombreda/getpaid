@@ -86,7 +86,7 @@ class Renderer(base.Renderer, RequestMixin):
         buyable = getAdapter(self.representative_object, IBuyableContent)
         raw_price = buyable.price
         member = self.pmt.getAuthenticatedMember()
-        return (self.cr.queryCredit(member.getId(), IOneWeekPublishedCredit.__identifier__) / raw_price)
+        return (self.cr.queryCredit(member.getId(), IOneWeekPublishedCredit.__identifier__) / Decimal(raw_price))
 
     def cashvalue(self):
         tax = getUtility(ITaxUtility)
