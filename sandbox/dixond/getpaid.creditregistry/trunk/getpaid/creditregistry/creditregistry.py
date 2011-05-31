@@ -23,7 +23,7 @@ class CreditRegistryItemDecimalCash(object):
     credit_user = ''
 
     def __init__(self, credit=0, credit_name='', credit_user=''):
-        self.credit = Decimal(credit)
+        self.credit = Decimal('%0.2f' % credit)
         self.credit_name = credit_name
         self.credit_user = credit_user
 
@@ -49,7 +49,7 @@ class CreditRegistryItemDecimalCash(object):
         return self.credit
 
     def addCredit(self, credit):
-        self.credit += Decimal(credit)
+        self.credit += Decimal('%0.2f' % credit)
 
     def useCredit(self, amount):
         """Use the requested amount and return the value of remaining credit"""
