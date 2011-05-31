@@ -92,7 +92,7 @@ class Renderer(base.Renderer, RequestMixin):
         tax = getUtility(ITaxUtility)
         member = self.pmt.getAuthenticatedMember()
         cred = self.cr.queryCredit(member.getId(), IOneWeekPublishedCredit.__identifier__)
-        return '$%0.2f' float(cred + (tax.getTaxOnSum(cred))
+        return '$%0.2f' float(cred + tax.getTaxOnSum(cred))
 
     def weeks_options(self):
         return range(1, 53)
