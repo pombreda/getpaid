@@ -23,26 +23,33 @@ class CreditRegistryItemDecimalCash(object):
     credit_user = ''
 
     def __init__(self, credit=0, credit_name='', credit_user=''):
-        self.credit = credit
+        self.credit = Decimal(credit)
         self.credit_name = credit_name
         self.credit_user = credit_user
 
     def __add__(self, other):
-        return CreditRegistryItemDecimalCash(credit=int(self.queryCredit()+other.queryCredit()), credit_name=self.credit_name, credit_user=self.credit_user)
+        if isinstance(other, CreditRegistryItemDecimalCash):
+            self.addCredit(other.queryCredit())
+        else:
+            self.addCredit(other)
+        return self
 
     def __sub__(self, other):
-        return CreditRegistryItemDecimalCash(credit=int(self.queryCredit()-other.queryCredit()), credit_name=self.credit_name, credit_user=self.credit_user)
+        if isinstance(other, CreditRegistryItemDecimalCash):
+            self.useCredit(other.queryCredit())
+        else:
+            self.useCredit(other)
+        return self
 
     def currentCredit(self):
         """Print-friendly dollars+cents version"""
-        return '$%0.2f' % (self.queryCredit()/Decimal(100))
+        return '$%0.2f' % (self.queryCredit())
 
     def queryCredit(self):
-        return Decimal(self.credit)
+        return self.credit
 
     def addCredit(self, credit):
-        # Always cast to int to throw away unwanted fractions
-        self.credit += int(credit)
+        self.credit += Decimal(credit)
 
     def useCredit(self, amount):
         """Use the requested amount and return the value of remaining credit"""
@@ -57,11 +64,8 @@ class CreditRegistry(Persistent):
     """The concrete class implementing the persistent utility for ICreditRegistry.
        The data structure looks like:
        # The default value for the credit when registering a new user:
-       _default_values = OIBTree()
-       _default_values['creditname'] = int
        # Now initialise a user:
        _usercredit_map = OIBTree()
-       _usercredit_map[('username', 'creditname')] = _default_values['creditname']
        _inverted_usermap = OOBTree()
        _inverted_usermap['username'] = OOTreeSet()
        _inverted_usermap['username'].insert('creditname')
@@ -72,16 +76,16 @@ class CreditRegistry(Persistent):
 
     implements(ICreditRegistry)
 
+    #TODO: wire this up a better way that doesn't involve hardcoding at this level
+    default_types = {'cash' : CreditRegistryItemDecimalCash}
     _usercredit_map = None
     _inverted_creditmap = None
     _inverted_usermap = None
-    _default_values = None
 
     def __init__(self):
         self._usercredit_map = OOBTree()
         self._inverted_creditmap = OOBTree()
         self._inverted_usermap = OOBTree()
-        self._default_values = OIBTree()
 
     #def defineCredit(self, creditinterface, default_value=0):
     #    """Define a new type of credit to track against.
@@ -90,7 +94,6 @@ class CreditRegistry(Persistent):
     #        raise InvalidCreditType("The provided interface does not define a credit registry credit type")
     #    creditname = creditinterface.__identifier__
     #    if not self._inverted_creditmap.has_key(creditname):
-    #        self._default_values[creditname] = default_value
     #        self._inverted_creditmap[creditname] = OOTreeSet()
     #    return True
 
@@ -106,15 +109,20 @@ class CreditRegistry(Persistent):
             #        - do nothing?
             return True
         else:
+            if not self._inverted_creditmap.has_key(creditname):
+                # This is the first time this credit has been allocated
+                self._inverted_creditmap[creditname] = OOTreeSet()
             self._usercredit_map[(username, creditname)] = initialcredit
             self._inverted_creditmap.setdefault(creditname, OOTreeSet()).insert(username)
             self._inverted_usermap.setdefault(username, OOTreeSet()).insert(creditname)
             return True
 
-    def addCredit(self, username, creditname, amount):
+    def addCredit(self, username, creditname, amount, credit_type='cash', define=False):
         """Increment the count of a particular credit against a particular user
            raises KeyError if this creditname has not been initialised for this user.
         """
+        if define:
+            self.initialiseUserCredit(username, creditname, self.default_types[credit_type]())
         self._usercredit_map[(username, creditname)] = self._usercredit_map[(username, creditname)] + amount
 
     def useCredit(self, username, creditname, amount):
@@ -123,7 +131,7 @@ class CreditRegistry(Persistent):
            raises ValueError if amount is greater than the credit currently available
            returns the amount of credit currently remaining if the transaction is successful
         """
-        if self._usercredit_map[(username, creditname)] >= amount:
+        if self._usercredit_map[(username, creditname)].queryCredit() >= amount:
             self._usercredit_map[(username, creditname)] = self._usercredit_map[(username, creditname)] - amount
             return self._usercredit_map[(username, creditname)]
         else:
@@ -134,4 +142,8 @@ class CreditRegistry(Persistent):
            returns integer value (0 if either username or creditname have never been seen
            before). Errors should be transparent to the caller - should *not* raise any exceptions!
         """
-        return self._usercredit_map.get((username, creditname), 0)
+        cred = self._usercredit_map.get((username, creditname), None)
+        if cred is not None:
+            return cred.queryCredit()
+        else:
+            return 0
