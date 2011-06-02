@@ -56,7 +56,7 @@ class CreditRegistryItemDecimalCash(object):
         if amount > self.queryCredit():
             raise InsufficientCreditException("The amount requested to be used is greater than available credit")
         else:
-            self.credit = self.credit - amount
+            self.credit = self.credit - Decimal('0.2f' % amount)
         return self.queryCredit()
 
 
