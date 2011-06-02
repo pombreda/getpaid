@@ -103,7 +103,11 @@ def runOneWeekPublishedCreditChecks(event):
                     # Relist it
                     obj.setExpirationDate(now + 7)
                     schema['weeksLeftPublished'].set(obj, schema['weeksLeftPublished'].get(obj) - 1)
-                    cr.useCredit(to_check.Creator, IOneWeekPublishedCredit.__identifier__, 1)
+                    br = pct(object_provides=IOneWeekPublishedCredit.__identifier__)
+                    price = 1
+                    if br:
+                        price = br[0].price
+                    cr.useCredit(to_check.Creator, IOneWeekPublishedCredit.__identifier__, price)
                     obj.reindexObject(idxs=['expires', 'getWeeksLeftPublished'])
                     # Go to the next now
                     continue

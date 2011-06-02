@@ -51,6 +51,7 @@ class OneWeekCreditPublishingViewlet(ViewletBase, RequestMixin):
         self.sitepath = '/'
         self.pmt = getToolByName(self.context, 'portal_membership')
         self.wft = getToolByName(self.context, 'portal_workflow')
+        self.cat = getToolByName(self.context, 'portal_catalog')
         self.cr = getUtility(ICreditRegistry)
 
     @property
@@ -134,7 +135,7 @@ class OneWeekCreditPublishingViewlet(ViewletBase, RequestMixin):
             schema['weeksLeftPublished'].set(self.context, weeks)
         elif self.current_credit:
             try:
-                invokeFunctionAsManager(self.request, self.wft.doActionFor, self.context, 'publish') 
+                invokeFunctionAsManager(self.request, self.wft.doActionFor, self.context, 'publish', 'paid_publish_workflow')
             except WorkflowException, e:
                 # Ok, basically this means there isn't a way to make this item 'published'.
                 # Possibly, this is because it already *is*. Because the site admin has chosen
@@ -153,7 +154,11 @@ class OneWeekCreditPublishingViewlet(ViewletBase, RequestMixin):
             schema['republishReminderSent'].set(self.context, False)
             # When initially publishing, the first week is immediately used:
             schema['weeksLeftPublished'].set(self.context, weeks-1)
-            self.cr.useCredit(self.pmt.getAuthenticatedMember().getId(), IOneWeekPublishedCredit.__identifier__, 1)
+            br = self.cat(object_provides=IOneWeekPublishedCredit.__identifier__)
+            price = 1
+            if br:
+                price = br[0].price
+            self.cr.useCredit(self.pmt.getAuthenticatedMember().getId(), IOneWeekPublishedCredit.__identifier__, price)
         else:
             return False
         self.context.reindexObject(idxs=['effective', 'expires', 'getWeeksLeftPublished', 'getRepublishReminderSent'])

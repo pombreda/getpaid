@@ -34,6 +34,7 @@ class Renderer(base.Renderer, RequestMixin):
         self.cr = getUtility(ICreditRegistry)
         self.wft = getToolByName(self.context, 'portal_workflow')
         self.pmt = getToolByName(self.context, 'portal_membership')
+        self.pct = getToolByName(self.context, 'portal_catalog')
 
     @property
     def render(self):
@@ -121,7 +122,11 @@ class Renderer(base.Renderer, RequestMixin):
             schema['republishReminderSent'].set(self.context, False)
             # When initially publishing, the first week is immediately used:
             schema['weeksLeftPublished'].set(self.context, weeks-1)
-            self.cr.useCredit(self.pmt.getAuthenticatedMember().getId(), IOneWeekPublishedCredit.__identifier__, 1)
+            br = self.pct(object_provides=IOneWeekPublishedCredit.__identifier__)
+            price = 1
+            if br:
+                price = br[0].price
+            self.cr.useCredit(self.pmt.getAuthenticatedMember().getId(), IOneWeekPublishedCredit.__identifier__, price)
         else:
             return False
         self.context.reindexObject(idxs=['effective', 'expires', 'getWeeksLeftPublished', 'getRepublishReminderSent'])
