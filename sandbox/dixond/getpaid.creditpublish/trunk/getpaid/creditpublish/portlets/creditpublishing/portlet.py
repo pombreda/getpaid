@@ -16,6 +16,7 @@ from getpaid.creditregistry.interfaces import ICreditRegistry
 from getpaid.creditpublish import creditpublishMessageFactory as _
 from getpaid.creditpublish.interfaces import IOneWeekCreditPublishedContent, IOneWeekPublishedCredit
 from getpaid.creditpublish.portlets.interfaces import ICreditPublishingPortlet
+from getpaid.creditpublish.security import invokeFunctionAsManager
 
 class Assignment(base.Assignment):
     implements(ICreditPublishingPortlet)
@@ -114,7 +115,7 @@ class Renderer(base.Renderer, RequestMixin):
             schema['republishReminderSent'].set(self.context, False)
             schema['weeksLeftPublished'].set(self.context, weeks)
         elif self.current_credit:
-            self.wft.doActionFor(self.context, 'publish') 
+            invokeFunctionAsManager(self.request, self.wft.doActionFor, self.context, 'publish', 'paid_publish_workflow')
             self.context.setEffectiveDate(DateTime())
             self.context.setExpirationDate(DateTime()+7)
             schema['republishReminderSent'].set(self.context, False)
