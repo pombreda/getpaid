@@ -77,7 +77,9 @@ class Renderer(base.Renderer, RequestMixin):
     def available(self):
         if not self.pmt.isAnonymousUser():
             if self.representative_object is not None:
-                return True
+                aurl = self.request['ACTUAL_URL']
+                if 'logged_in' not in aurl and 'logged_out' not in aurl and 'login_form' not in aurl:
+                    return True
         return False
 
     def formname(self):
