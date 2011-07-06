@@ -20,7 +20,7 @@ find-links =
 [versions]
 five.intid = 0.5.2
 getpaid.authorizedotnet = 0.5.0
-getpaid.core = 0.9.1
+getpaid.core = 0.9.2
 getpaid.discount = 0.11
 getpaid.formgen = 0.5
 getpaid.nullpayment = 0.5.0
