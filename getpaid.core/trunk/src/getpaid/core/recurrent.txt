@@ -63,6 +63,7 @@ Let's attach our cart to the order:
 
 and now we can ask the order, its total price:
 
+    >>> from decimal import Decimal
     >>> order.getSubTotalPrice() == Decimal('125.0')
     True
 

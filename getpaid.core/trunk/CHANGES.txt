@@ -5,6 +5,10 @@ CHANGES
 0.9.2 (2011-07-06)
 ------------------
 
+- Use getSite to get the store from the order workflow transition handler,
+  rather than trying to acquire it from one of the cart items.
+  [davisagli]
+
 - Remove obviously broken product and catalog modules.
   [davisagli]
 
