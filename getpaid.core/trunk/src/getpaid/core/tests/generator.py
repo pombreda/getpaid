@@ -1,7 +1,7 @@
 import random, string, sys
 
 from zope import interface
-from zope.app.intid.interfaces import IIntIds
+from zope.intid.interfaces import IIntIds
 
 from getpaid.core import cart, order, payment, item, interfaces
 

@@ -37,7 +37,7 @@ except ImportError:
     # BBB for Zope 2.10
     from zope.app.container.interfaces import ILocation
 from zope.annotation.interfaces import IAttributeAnnotatable
-from zope.app.intid.interfaces import IIntIds
+from zope.intid.interfaces import IIntIds
 
 from hurry.workflow.interfaces import IWorkflowState, IWorkflowInfo
 from getpaid.core import interfaces

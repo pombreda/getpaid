@@ -2,8 +2,14 @@
 CHANGES
 =======
 
-0.9.2 (XXXX-XX-XX)
+0.9.2 (2011-07-06)
 ------------------
+
+- Remove obviously broken product and catalog modules.
+  [davisagli]
+
+- Depend on zope.intid instead of zope.app.intid.
+  [davisagli]
 
 0.9.1 (2010-06-29)
 ------------------

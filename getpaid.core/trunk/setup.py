@@ -14,7 +14,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.9.2dev'
+version = '0.9.2'
 
 setup(
     name='getpaid.core',
@@ -56,6 +56,7 @@ setup(
                          'zope.annotation',
                          'zope.index',
                          'zope.interface',
+                         'zope.intid',
                          'zope.event',
                          'zope.schema',
                        ],
