@@ -47,7 +47,7 @@ class OgoneStandardProcessor(object):
         language = language[:2]
         return "_".join(language)
 
-    def createSHASignature(self, order):
+    def createSHASignature(self, args):
         """
         Create the basic SHA signature
         See the Ogone Advanced e-commerce documentation SHA-IN for more informations
@@ -55,10 +55,12 @@ class OgoneStandardProcessor(object):
         options = IOgoneStandardOptions(self.context)
         shaPassword = options.shain
         shaObject = sha.new()
-        shaObject.update("%s%s%s%s%s" % (order.order_id,
-                                   int(order.getTotalPrice()*100),
-                                   options.currency, options.pspid,
-                                   shaPassword))
+        keys = args.keys()
+        for key in ['RL']: # Whitelist would be cleaner but MUUCH longer
+            keys.remove(key)
+        keys.sort()
+        for key in keys:
+            shaObject.update("%s=%s%s" % (key, args[key], shaPassword))
         hexString = shaObject.hexdigest()
         return hexString.upper()
 
@@ -78,23 +80,23 @@ class OgoneStandardProcessor(object):
         orderId = order.order_id
         options = IOgoneStandardOptions(self.context)
         server_url = options.server_url
-        urlArgs = dict(pspid=options.pspid,
-                       orderID=orderId,
+        urlArgs = dict(PSPID=options.pspid,
+                       ORDERID=orderId,
                        RL='ncol-2.0',
-                       currency=options.currency,
-                       amount=ogone_price)
+                       CURRENCY=options.currency,
+                       AMOUNT=ogone_price)
         if options.use_portal_css:
             urlArgs.update(self.getColors())
-        urlArgs['language'] = self.getLanguage()
+        urlArgs['LANGUAGE'] = self.getLanguage()
         if options.cancel_url:
-            urlArgs['cancelurl'] = options.cancel_url
+            urlArgs['CANCELURL'] = options.cancel_url
         if options.accept_url:
-            urlArgs['accepturl'] = options.accept_url
+            urlArgs['ACCEPTURL'] = options.accept_url
         if options.decline_url:
-            urlArgs['declineurl'] = options.decline_url
+            urlArgs['DECLINEURL'] = options.decline_url
         if options.error_url:
-            urlArgs['exceptionurl'] = options.error_url
-        urlArgs['SHASign'] = self.createSHASignature(order)
+            urlArgs['EXCEPTIONURL'] = options.error_url
+        urlArgs['SHASIGN'] = self.createSHASignature(urlArgs)
         arguments = urllib.urlencode(urlArgs)
         url = "%s?%s" % (server_url, arguments)
         order_manager = getUtility(IOrderManager)

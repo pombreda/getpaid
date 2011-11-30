@@ -10,17 +10,11 @@ class OgoneCheckoutPayment(CheckoutReviewAndPay):
     We need to override some of the method for the checkout
     as the checkout process is different for ogone
     """
-    form_fields = []
     template = ZopeTwoPageTemplateFile("templates/checkout-review-pay.pt")
 
     def setUpWidgets( self, ignore_request=False ):
-        self.adapters = self.adapters is not None and self.adapters or {}
-
-        # display widgets for bill/ship address
-        self.widgets = form.setUpEditWidgets(
-            self.passed_fields,  self.prefix, self.context, self.request,
-            adapters=self.adapters, for_display=True, ignore_request=ignore_request
-            )
+        retval = super(OgoneCheckoutPayment, self).setUpWidgets(ignore_request)
+        return retval
 
     @form.action(u"Make Payment", name="make-payment")
     def makePayment(self, action, data):
@@ -35,7 +29,6 @@ class OgoneCheckoutPayment(CheckoutReviewAndPay):
         processor = getAdapter( self.context,
                                 IPaymentProcessor,
                                 processor_name )
-        self.extractData( data )
 
         order = self.createOrder()
         order.processor_id = processor_name
