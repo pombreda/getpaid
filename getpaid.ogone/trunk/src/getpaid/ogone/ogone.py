@@ -96,6 +96,20 @@ class OgoneStandardProcessor(object):
             urlArgs['DECLINEURL'] = options.decline_url
         if options.error_url:
             urlArgs['EXCEPTIONURL'] = options.error_url
+        if order.billing_address.bill_name:
+            urlArgs['CN'] = order.billing_address.bill_name[:35]
+        if order.contact_information.email:
+            urlArgs['EMAIL'] = order.contact_information.email[:50]
+        if order.billing_address.bill_first_line:
+            urlArgs['owneraddress'] = order.billing_address.bill_first_line[:35]
+        if order.billing_address.bill_postal_code:
+            urlArgs['ownerZIP'] = order.billing_address.bill_postal_code[:10]
+        if order.billing_address.bill_city:
+            urlArgs['ownertown']= order.billing_address.bill_city[:40]
+        if order.billing_address.bill_country:
+            urlArgs['ownercty'] = order.billing_address.bill_country[:2]
+        if order.contact_information.phone_number:
+            urlArgs['ownertelno'] = order.contact_information.phone_number[:30]
         urlArgs['SHASIGN'] = self.createSHASignature(urlArgs)
         arguments = urllib.urlencode(urlArgs)
         url = "%s?%s" % (server_url, arguments)
