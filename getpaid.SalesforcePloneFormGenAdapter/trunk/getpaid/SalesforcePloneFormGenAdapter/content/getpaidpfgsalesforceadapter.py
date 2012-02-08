@@ -788,11 +788,11 @@ def _getValueFromOrder(order, item, fieldPath):
         
         # Name is split since salesforce requires them to be
         if split_field_path[-1] == "first_name":
-            fullName = order.contact_information.name
+            fullName = order.contact_information.name.strip()
             value = fullName.split(' ', 1)[0]
 
         elif split_field_path[-1] == "last_name":
-            fullName = order.contact_information.name
+            fullName = order.contact_information.name.strip()
             names = fullName.split(' ', 1)
 
             # If the given name is a single word we'll end up using the same for
