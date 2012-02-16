@@ -25,8 +25,8 @@ class ValidatePaymentParameters(object):
         shaObject = sha.new()
         for key in keys:
             if checkdata[key] and key not in ['SHASIGN']:
-                shaObject.update(("%s=%s%s" % (key, checkdata[key],
-                                               shaPassword)))
+                shaObject.update((u"%s=%s%s" % (key, checkdata[key].decode('utf-8'),
+                                               shaPassword)).encode('utf-8'))
         hexString = shaObject.hexdigest()
         return hexString.upper()
 

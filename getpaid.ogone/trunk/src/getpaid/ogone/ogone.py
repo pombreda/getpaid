@@ -60,7 +60,7 @@ class OgoneStandardProcessor(object):
             keys.remove(key)
         keys.sort()
         for key in keys:
-            shaObject.update("%s=%s%s" % (key, args[key], shaPassword))
+            shaObject.update((u"%s=%s%s" % (key, args[key], shaPassword)).encode('utf-8'))
         hexString = shaObject.hexdigest()
         return hexString.upper()
 
@@ -101,16 +101,19 @@ class OgoneStandardProcessor(object):
         if order.contact_information.email:
             urlArgs['EMAIL'] = order.contact_information.email[:50]
         if order.billing_address.bill_first_line:
-            urlArgs['owneraddress'] = order.billing_address.bill_first_line[:35]
+            urlArgs['OWNERADDRESS'] = order.billing_address.bill_first_line[:35]
         if order.billing_address.bill_postal_code:
-            urlArgs['ownerZIP'] = order.billing_address.bill_postal_code[:10]
+            urlArgs['OWNERZIP'] = order.billing_address.bill_postal_code[:10]
         if order.billing_address.bill_city:
-            urlArgs['ownertown']= order.billing_address.bill_city[:40]
+            urlArgs['OWNERTOWN']= order.billing_address.bill_city[:40]
         if order.billing_address.bill_country:
-            urlArgs['ownercty'] = order.billing_address.bill_country[:2]
+            urlArgs['OWNERCTY'] = order.billing_address.bill_country[:2]
         if order.contact_information.phone_number:
-            urlArgs['ownertelno'] = order.contact_information.phone_number[:30]
+            urlArgs['OWNERTELNO'] = order.contact_information.phone_number[:30]
         urlArgs['SHASIGN'] = self.createSHASignature(urlArgs)
+        for key in urlArgs.keys():
+            if hasattr(urlArgs[key], 'encode'):
+                urlArgs[key] = urlArgs[key].encode('utf-8')
         arguments = urllib.urlencode(urlArgs)
         url = "%s?%s" % (server_url, arguments)
         order_manager = getUtility(IOrderManager)
